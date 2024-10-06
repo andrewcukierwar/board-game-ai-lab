@@ -2,23 +2,22 @@ from board import Board
 
 class Connect4:
     def __init__(self, board=None, current_player=None):
-        # self.board = [row.copy() for row in board] if board else [[" " for _ in range(7)] for _ in range(6)]
         self.board = Board(board) if board else Board()
         self.current_player = current_player if current_player else 0
         self.piece = 'X' if self.current_player == 0 else 'O'
 
-    def is_valid_move(self, column):
-        return 0 <= column < 7 and self.board[0][column] == " "
+    def is_valid_move(self, col):
+        return 0 <= col < self.board.width and self.board[0][col] == " "
     
     def get_valid_moves(self):
-        moves = [3, 2, 4, 1, 5, 0, 6] # range(7)
-        valid_moves = [move for move in moves if self.is_valid_move(move)]
+        cols = [3, 2, 4, 1, 5, 0, 6]
+        valid_moves = [col for col in cols if self.is_valid_move(col)]
         return valid_moves
 
-    def make_move(self, column):
+    def make_move(self, col):
         for row in range(5, -1, -1):
-            if self.board[row][column] == " ":
-                self.board[row][column] = self.piece
+            if self.board[row][col] == " ":
+                self.board[row][col] = self.piece
                 self.current_player = 1 - self.current_player
                 self.piece = 'X' if self.current_player == 0 else 'O'
                 return True

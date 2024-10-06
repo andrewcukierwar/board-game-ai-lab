@@ -1,10 +1,12 @@
 from board import Board
 from connect4 import Connect4
+import numpy as np
 
 class NegamaxAgent:
     def __init__(self, depth):
         self.depth = depth
         self.lookup = {}
+        self.window_positions = self.generate_window_positions()
         
     def __str__(self):
         return f"Negamax Agent {self.depth}"
@@ -12,45 +14,41 @@ class NegamaxAgent:
     def __repr__(self):
         return f"Negamax Agent {self.depth}"
 
-    # A simple evaluation function that computes the difference in scores
-    def evaluate_board(self, board, color):
-        windows = []
-                
-        # Check horizontal
+    def generate_window_positions(self):
+        positions = []
+        # Horizontal
         for row in range(6):
             for col in range(4):
-                window = [board[row][col + i] for i in range(4)]
-                windows.append(window)
-
-        # Check vertical
+                positions.append([(row, col + i) for i in range(4)])
+        # Vertical
         for row in range(3):
             for col in range(7):
-                window = [board[row + i][col] for i in range(4)]
-                windows.append(window)
-
-        # Check diagonals (positive slope)
+                positions.append([(row + i, col) for i in range(4)])
+        # Positive Diagonal
         for row in range(3):
             for col in range(4):
-                window = [board[row + i][col + i] for i in range(4)]
-                windows.append(window)
-
-        # Check diagonals (negative slope)
+                positions.append([(row + i, col + i) for i in range(4)])
+        # Negative Diagonal
         for row in range(3):
             for col in range(3, 7):
-                window = [board[row + i][col - i] for i in range(4)]
-                windows.append(window)        
-    
-        weights = {1: 1, 2: 3, 3: 9, 4: 81}
-        
+                positions.append([(row + i, col - i) for i in range(4)])
+        return positions
+
+    # A simple evaluation function that computes the difference in scores
+    def evaluate_board(self, board, color):
+        # board_np = np.array(board)
+        weights = {1:1, 2:3, 3:9, 4:81}
+        pieces = {'X':1, 'O':-1}
         evaluation = 0
-        for length, weight in weights.items():
-            count = {}
-            for piece in ('X','O'):
-                count[piece] = 0
-                for window in windows:
-                    if window.count(piece) == length and window.count(" ") == (4 - length):
-                        count[piece] += 1
-            evaluation += weight * (count['X'] - count['O'])
+
+        for window in self.window_positions:
+            # window_values = board_np[tuple(zip(*window))]
+            window_values = [board[row][col] for row, col in window]
+            for length, weight in weights.items():
+                for piece, val in pieces.items():
+                    # if (window_values == piece).sum() == length and (window_values == ' ').sum() == (4 - length):
+                    if window_values.count(piece) == length and window_values.count(" ") == (4 - length):
+                        evaluation += weight * val
         evaluation *= color
         
 #         print(f'{"".join(["-" for _ in range(self.depth + 1)]) + ">"} Evaluation {evaluation}')

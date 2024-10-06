@@ -9,5 +9,5 @@ class RandomAgent:
     
     def choose_move(self, game):
         valid_moves = game.get_valid_moves()
-        column = random.choice(valid_moves)
-        return column
+        col = random.choice(valid_moves)
+        return col

@@ -2,7 +2,9 @@ import numpy as np
 
 class Board(list):
     def __init__(self, board=None):
-        arr = [[cell for cell in row] for row in board] if board else [[" " for _ in range(7)] for _ in range(6)]
+        self.width = 7
+        self.height = 6
+        arr = [[cell for cell in row] for row in board] if board else [[" " for _ in range(self.width)] for _ in range(self.height)]
         super().__init__(arr)
     
     def to_string(self):
