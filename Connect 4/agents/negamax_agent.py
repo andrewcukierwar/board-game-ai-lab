@@ -1,6 +1,5 @@
 from board import Board
 from connect4 import Connect4
-import numpy as np
 
 class NegamaxAgent:
     def __init__(self, depth):
@@ -36,36 +35,31 @@ class NegamaxAgent:
 
     # A simple evaluation function that computes the difference in scores
     def evaluate_board(self, board, color):
-        # board_np = np.array(board)
         weights = {1:1, 2:3, 3:9, 4:81}
-        pieces = {'X':1, 'O':-1}
         evaluation = 0
-
         for window in self.window_positions:
-            # window_values = board_np[tuple(zip(*window))]
             window_values = [board[row][col] for row, col in window]
+            x_count = window_values.count('X')
+            o_count = window_values.count('O')
+            empty_count = window_values.count(' ')
             for length, weight in weights.items():
-                for piece, val in pieces.items():
-                    # if (window_values == piece).sum() == length and (window_values == ' ').sum() == (4 - length):
-                    if window_values.count(piece) == length and window_values.count(" ") == (4 - length):
-                        evaluation += weight * val
+                if x_count == length and empty_count == (4 - length):
+                    evaluation += weight
+                if o_count == length and empty_count == (4 - length):
+                    evaluation -= weight
         evaluation *= color
-        
-#         print(f'{"".join(["-" for _ in range(self.depth + 1)]) + ">"} Evaluation {evaluation}')
-                                
+        # print(f'{"".join(["-" for _ in range(self.depth + 1)]) + ">"} Evaluation {evaluation}')
         return evaluation
 
     def negamax(self, node, depth, alpha, beta, color):
         if depth == 0 or not node.get_valid_moves() or node.check_winner() > -1:
             return -1, self.evaluate_board(node.board, color)
-
         move_evals = {}
         for move in node.get_valid_moves():
             child_node = Connect4(node.board, node.current_player)
             child_node.make_move(move)
-#             print(f'{"".join(["-" for _ in range(self.depth - depth + 1)]) + ">"} Depth {depth}, Player {node.current_player+1}, Move {move}')
-#             display_board(child_node.board)     
-            
+            # print(f'{"".join(["-" for _ in range(self.depth - depth + 1)]) + ">"} Depth {depth}, Player {node.current_player+1}, Move {move}')
+            # display_board(child_node.board)
             eval = float('-inf')
             lookup_key = (Board(node.board), depth, color, move)
             if lookup_key in self.lookup:
@@ -75,16 +69,13 @@ class NegamaxAgent:
                 self.lookup[lookup_key] = eval
             move_evals[move] = eval
             alpha = max(alpha, eval)
-            if beta <= alpha: # Beta cut-off
+            if beta <= alpha: # beta cut-off
                 break
-                
-            if depth == self.depth:
+            if depth == self.depth: # print eval for each move
                 print(move, eval)
-                
         max_eval = max(move_evals.values())
         max_moves = [move for move, eval in move_evals.items() if eval == max_eval]
-        best_move = max_moves[0] # random.choice(max_moves) # max_moves[0]
-        
+        best_move = max_moves[0] # random.choice(max_moves)
         return best_move, max_eval
 
     def choose_move(self, node):
