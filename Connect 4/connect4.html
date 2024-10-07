@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Connect4 Game</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <style>
+    #game-board {
+      width: 420px;
+      height: 400px;
+      display: grid;
+      grid-template-columns: repeat(7, 60px);
+      margin-top: 20px;
+      border: 10px solid blue;
+      background-color: blue;
+    }
+    .cell {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .circle {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+    .circle.x {
+      background-color: red;
+    }
+    .circle.o {
+      background-color: yellow;
+    }
+    .circle.empty {
+      background-color: white;
+    }
+  </style>
+</head>
+<body>
+  <button onclick="startGame()">Start Game</button>
+  <div id="game-board"></div>
+
+  <script>
+    let currentBoard = [];
+
+    async function startGame() {
+      const response = await axios.post('http://127.0.0.1:5001/start_game');
+      currentBoard = response.data.board;
+      updateBoard(currentBoard);
+    }
+
+    function updateBoard(board) {
+      const gameBoard = document.getElementById('game-board');
+      gameBoard.innerHTML = ''; // Clear existing board
+      
+      board.forEach((row, rowIndex) => {
+        row.forEach((cell, colIndex) => {
+          const cellElement = document.createElement('div');
+          cellElement.className = 'cell';
+          const circleElement = document.createElement('div');
+          circleElement.className = 'circle';
+          if (cell === 'X') {
+            circleElement.classList.add('x');
+          } else if (cell === 'O') {
+            circleElement.classList.add('o');
+          } else {
+            circleElement.classList.add('empty');
+          }
+          cellElement.appendChild(circleElement);
+          cellElement.onclick = () => makeMove(colIndex);
+          gameBoard.appendChild(cellElement);
+        });
+      });
+    }
+
+    async function makeMove(column) {
+      try {
+        const response = await axios.post('http://127.0.0.1:5001/make_move', { column });
+        currentBoard = response.data.board;
+        updateBoard(currentBoard);
+        if (response.data.current_player === 1) {
+          botMove();
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Invalid move. Please try again.');
+      }
+    }
+
+    async function botMove() {
+      try {
+        // const response = await axios.post('http://127.0.0.1:5001/bot_move');
+        const response = await axios.post('http://127.0.0.1:5001/make_move');
+        currentBoard = response.data.board;
+        updateBoard(currentBoard);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  </script>
+</body>
+</html>
