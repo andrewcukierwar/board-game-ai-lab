@@ -7,7 +7,7 @@ app = Flask(__name__, static_folder=".")
 
 game = None
 human = Human()
-bot_agent = NegamaxAgent(depth=3)
+bot_agent = NegamaxAgent(depth=8)
 agent1 = human
 agent2 = bot_agent
 
@@ -47,23 +47,14 @@ def make_move():
 
     game.make_move(column)
 
-    # check_winner = game.check_winner()
-    # if check_winner != -1:
-    #     winner = agent1 if check_winner == 0 else agent2
-    #     return jsonify({'error': f"{winner} wins!"}), 400
-    # elif game.is_board_full():
-    #     return jsonify({'error': "It's a draw!"}), 400
+    check_winner = game.check_winner()
+    if check_winner != -1:
+        winner = 'Human' if check_winner == 0 else 'AI'
+        return jsonify({'board': game.board, 'winner': winner})
+    elif game.is_board_full():
+        return jsonify({'board': game.board, 'winner': 'Draw'})
 
-    return jsonify({'board': game.board, 'current_player': game.current_player})
-
-# @app.route('/bot_move', methods=['POST'])
-# def bot_move():
-#     if not game:
-#         return jsonify({'error': 'Game has not started.'}), 400
-
-#     column = bot_agent.choose_move(game)
-#     game.make_move(column)
-#     return jsonify({'board': game.board, 'current_player': game.current_player})
+    return jsonify({'board': game.board, 'currentPlayer': game.current_player, 'checkWinner': check_winner})
 
 # Serve the HTML frontend
 @app.route('/')
