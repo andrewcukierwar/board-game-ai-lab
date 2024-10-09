@@ -47,12 +47,38 @@
       font-size: 20px;
       font-weight: bold;
     }
+    /* Depth selection styles */
+    #depth-selection {
+      margin-bottom: 10px;
+    }
+    label {
+      margin-right: 10px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
+  <!-- Depth Selection -->
+  <div id="depth-selection">
+    <label for="depth">AI Depth:</label>
+    <select id="depth">
+      <option value="1">1 (Very Easy)</option>
+      <option value="2">2 (Easy)</option>
+      <option value="3" selected>3 (Medium)</option>
+      <option value="4">4 (Hard)</option>
+      <option value="5">5 (Very Hard)</option>
+      <option value="6">6 (Expert)</option>
+    </select>
+  </div>
+
+  <!-- Start and Restart Buttons -->
   <button onclick="startGame()">Start Game</button>
   <button onclick="restartGame()" style="display: none;" id="restart-button">Restart Game</button>
+
+  <!-- Message Display -->
   <div id="message"></div>
+
+  <!-- Game Board -->
   <div id="game-board"></div>
 
   <script>
@@ -60,8 +86,16 @@
     let gameOver = false; // Track game state
 
     async function startGame() {
+      // Get the selected depth
+      const depthSelect = document.getElementById('depth');
+      const selectedDepth = parseInt(depthSelect.value, 10);
+
+      // Optional: Disable depth selection and Start button during game
+      depthSelect.disabled = true;
+      document.querySelector('button[onclick="startGame()"]').disabled = true;
+
       try {
-        const response = await axios.post('http://127.0.0.1:5001/start_game');
+        const response = await axios.post('http://127.0.0.1:5001/start_game', { depth: selectedDepth });
         currentBoard = response.data.board;
         gameOver = false;
         document.getElementById('message').innerText = '';
@@ -70,6 +104,9 @@
       } catch (error) {
         console.error(error);
         alert('Error starting the game.');
+        // Re-enable depth selection and Start button in case of error
+        depthSelect.disabled = false;
+        document.querySelector('button[onclick="startGame()"]').disabled = false;
       }
     }
 
@@ -132,6 +169,9 @@
             alert('Game Over: ' + message);
             document.getElementById('message').innerText = message;
             document.getElementById('restart-button').style.display = 'inline-block';
+            // Re-enable depth selection and Start button
+            document.getElementById('depth').disabled = false;
+            document.querySelector('button[onclick="startGame()"]').disabled = false;
           }, 100); // 100 milliseconds delay
           return;
         }
@@ -168,6 +208,9 @@
             alert('Game Over: ' + message);
             document.getElementById('message').innerText = message;
             document.getElementById('restart-button').style.display = 'inline-block';
+            // Re-enable depth selection and Start button
+            document.getElementById('depth').disabled = false;
+            document.querySelector('button[onclick="startGame()"]').disabled = false;
           }, 100); // 100 milliseconds delay
         }
       } catch (error) {

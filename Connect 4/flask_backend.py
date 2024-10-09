@@ -7,30 +7,31 @@ app = Flask(__name__, static_folder=".")
 
 game = None
 human = Human()
-bot_agent = NegamaxAgent(depth=8)
+bot_agent = NegamaxAgent(depth=3)  # Default depth
+
 agent1 = human
 agent2 = bot_agent
 
 @app.route('/start_game', methods=['POST'])
 def start_game():
-    global game
+    global game, bot_agent, agent2
+    data = request.get_json()
+    
+    # Extract depth from request, default to 3 if not provided
+    depth = data.get('depth', 3)
+    
+    # Validate depth
+    if not isinstance(depth, int) or depth < 1 or depth > 6:
+        return jsonify({'error': 'Invalid depth. Please choose a depth between 1 and 6.'}), 400
+    
+    # Initialize a new NegamaxAgent with the specified depth
+    bot_agent = NegamaxAgent(depth=depth)
+    agent2 = bot_agent  # Update agent2 to the new bot_agent
+    
+    # Initialize the game
     game = Connect4()
-    # game.battle(human, bot_agent)
+    
     return jsonify({'message': 'Game started!', 'board': game.board})
-
-# @app.route('/make_move', methods=['POST'])
-# def battle():
-#     if not game:
-#         return jsonify({'error': 'Game has not started.'}), 400
-
-
-
-#     move = request.json.get('column')
-#     if not game.is_valid_move(move):
-#         return jsonify({'error': 'Invalid move.'}), 400
-
-#     game.make_move(move)
-#     return jsonify({'board': game.board, 'current_player': game.current_player})
 
 @app.route('/make_move', methods=['POST'])
 def make_move():
@@ -40,6 +41,8 @@ def make_move():
     column = -1
     if game.current_player == 0:
         column = request.json.get('column')
+        if column is None:
+            return jsonify({'error': 'No column provided.'}), 400
         if not game.is_valid_move(column):
             return jsonify({'error': 'Invalid move.'}), 400
     else:
@@ -54,7 +57,11 @@ def make_move():
     elif game.is_board_full():
         return jsonify({'board': game.board, 'winner': 'Draw'})
 
-    return jsonify({'board': game.board, 'currentPlayer': game.current_player, 'checkWinner': check_winner})
+    return jsonify({
+        'board': game.board,
+        'currentPlayer': game.current_player,
+        'checkWinner': check_winner
+    })
 
 # Serve the HTML frontend
 @app.route('/')
