@@ -88,14 +88,14 @@
     <div id="player1-negamax-options" class="hidden">
       <label for="player1-depth">Depth:</label>
       <select id="player1-depth">
-        <option value="1">1 (Very Easy)</option>
-        <option value="2">2 (Easy)</option>
-        <option value="3" selected>3 (Medium)</option>
-        <option value="4">4 (Hard)</option>
-        <option value="5">5 (Very Hard)</option>
-        <option value="6">6 (Expert)</option>
+        <option value="1">1</option>
+        <option value="2" selected>2 (Easy)</option>
+        <option value="3">3</option>
+        <option value="4">4 (Medium)</option>
+        <option value="5">5</option>
+        <option value="6">6 (Hard)</option>
         <option value="7">7</option>
-        <option value="8">8</option>
+        <option value="8">8 (Expert)</option>
         <option value="9">9</option>
         <option value="10">10 (Master)</option>
       </select>
@@ -117,14 +117,14 @@
     <div id="player2-negamax-options" class="hidden">
       <label for="player2-depth">Depth:</label>
       <select id="player2-depth">
-        <option value="1">1 (Very Easy)</option>
-        <option value="2">2 (Easy)</option>
-        <option value="3" selected>3 (Medium)</option>
-        <option value="4">4 (Hard)</option>
-        <option value="5">5 (Very Hard)</option>
-        <option value="6">6 (Expert)</option>
+        <option value="1">1</option>
+        <option value="2" selected>2 (Easy)</option>
+        <option value="3">3</option>
+        <option value="4">4 (Medium)</option>
+        <option value="5">5</option>
+        <option value="6">6 (Hard)</option>
         <option value="7">7</option>
-        <option value="8">8</option>
+        <option value="8">8 (Expert)</option>
         <option value="9">9</option>
         <option value="10">10 (Master)</option>
       </select>
@@ -203,6 +203,10 @@
         const response = await axios.post('http://127.0.0.1:5001/start_game', {
           player1: player1Config,
           player2: player2Config
+        }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
         });
         currentBoard = response.data.board;
         currentPlayer = response.data.currentPlayer; // Capture currentPlayer
@@ -212,13 +216,8 @@
         updateBoard(currentBoard);
 
         // **New Logic Starts Here**
-        // Check if the first player is an agent and make the move automatically
-        if (!isHumanPlayer(currentPlayer)) {
-          showLoading(); // Show loading indicator
-          console.log('WE IN HERE')
-          await botMove(currentPlayer);
-          hideLoading(); // Hide loading indicator after move
-        }
+        // Handle initial bot move if Player 1 is a bot
+        await handleBotTurns();
         // **New Logic Ends Here**
       } catch (error) {
         console.error(error);
@@ -235,7 +234,6 @@
         document.querySelector('button[onclick="startGame()"]').disabled = false;
       }
     }
-
 
     function updateBoard(board) {
       const gameBoard = document.getElementById('game-board');
@@ -263,7 +261,7 @@
           cellElement.appendChild(circleElement);
           
           // Assign click handler if game is not over and it's a human's turn
-          if (!gameOver && isHumanPlayer(currentPlayer)) { // Changed here
+          if (!gameOver && isHumanPlayer(currentPlayer)) {
             cellElement.onclick = () => makeMove(colIndex);
           }
 
@@ -294,7 +292,11 @@
       if (gameOver) return; // Prevent moves if game is over
 
       try {
-        const response = await axios.post('http://127.0.0.1:5001/make_move', { column });
+        const response = await axios.post('http://127.0.0.1:5001/make_move', { column }, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
         currentBoard = response.data.board;
         currentPlayer = response.data.currentPlayer; // Update currentPlayer
         updateBoard(currentBoard);
@@ -307,6 +309,11 @@
           } else if (response.data.winner === 'Draw') {
             message = "It's a draw!";
           }
+
+          // // Highlight winning sequence if available
+          // if (response.data.winningSequence) {
+          //   highlightWinningSequence(response.data.winningSequence);
+          // }
 
           // Delay the alert to allow DOM to update
           setTimeout(() => {
@@ -335,7 +342,12 @@
 
     async function botMove(player) {
       try {
-        const response = await axios.post('http://127.0.0.1:5001/make_move', {});
+        // Send an empty JSON object to ensure Content-Type is 'application/json'
+        const response = await axios.post('http://127.0.0.1:5001/make_move', {}, {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
         currentBoard = response.data.board;
         currentPlayer = response.data.currentPlayer; // Update currentPlayer
         updateBoard(currentBoard);
@@ -362,14 +374,30 @@
             // Re-enable agent selections and Start button
             enableAgentSelections();
           }, 100); // 100 milliseconds delay
+          return;
+        }
+
+        // After bot move, check if next player is also a bot
+        if (!isHumanPlayer(currentPlayer) && !gameOver) {
+          showLoading();
+          await botMove(currentPlayer);
+          hideLoading();
         }
       } catch (error) {
         console.error(error);
-        // Optionally, display an error message to the user
+        // Provide a more descriptive error message to the user
         alert('Error during AI move: ' + (error.response?.data?.error || 'Unknown error.'));
       }
     }
 
+    // Recursive function to handle multiple bot moves
+    async function handleBotTurns() {
+      while (!gameOver && !isHumanPlayer(currentPlayer)) {
+        showLoading(); // Show loading indicator
+        await botMove(currentPlayer);
+        hideLoading(); // Hide loading indicator after move
+      }
+    }
 
     function restartGame() {
       startGame();
@@ -397,6 +425,20 @@
 
     function hideLoading() {
       document.getElementById('loading').classList.add('hidden');
+    }
+
+    // Function to highlight the winning sequence
+    function highlightWinningSequence(sequence) {
+      sequence.forEach(([row, col]) => {
+        const cellIndex = row * 7 + col; // Assuming 7 columns
+        const cellElement = document.getElementsByClassName('cell')[cellIndex];
+        if (cellElement) {
+          const circle = cellElement.querySelector('.circle');
+          if (circle) {
+            circle.style.boxShadow = '0 0 10px 5px green';
+          }
+        }
+      });
     }
 
     // Initialize agent options based on default selections
