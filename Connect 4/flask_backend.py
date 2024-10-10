@@ -129,8 +129,12 @@ def make_move():
 
 # Serve the HTML frontend
 @app.route('/')
-def serve_frontend():
-    return send_from_directory('.', 'connect4.html')
+def serve_html():
+    return send_from_directory('frontend', 'connect4.html')
+
+@app.route('/<path:filename>')
+def serve_static(filename):
+    return send_from_directory('frontend', filename)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)
