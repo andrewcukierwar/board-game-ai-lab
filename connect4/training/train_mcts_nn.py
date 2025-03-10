@@ -20,7 +20,7 @@ def self_play_episode(agent1, agent2):
     
     # Get game result
     winner = game.check_winner()
-    print('Winner is', winner)
+    # print('Winner is', winner)
     
     # Update training examples with final result
     agent1.update_game_result(winner)
@@ -85,21 +85,21 @@ def main():
     agent1 = MCTSNNAgent(model, simulation_limit=100, temperature=1.0)
     agent2 = MCTSNNAgent(model, simulation_limit=100, temperature=1.0)
     
-    num_iterations = 10  # Number of training iterations
+    num_iterations = 100  # Number of training iterations
     games_per_iteration = 10  # Number of self-play games per iteration
     
     for iteration in tqdm(range(num_iterations), desc="Training Progress"):
-        print('Iteration', iteration)
+        # print('Iteration', iteration)
         examples = []
         
-        print('Playing games')
+        # print('Playing games')
         # Self-play phase
         for n in range(games_per_iteration):
-            print('Playing game', n, 'of iteration', iteration)
+            # print('Playing game', n, 'of iteration', iteration)
             game_examples = self_play_episode(agent1, agent2)
             examples.extend(game_examples)
         
-        print('Training')
+        # print('Training')
         # Training phase
         train_network(model, examples)
         

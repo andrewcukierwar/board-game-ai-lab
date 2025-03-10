@@ -2,11 +2,16 @@
 from agents.human import Human
 from agents.negamax_agent import NegamaxAgent
 from agents.random_agent import RandomAgent
+from agents.mcts_agent import MCTSAgent
+from agents.victor_agent import VictorAgent
 
 AGENT_TYPES = {
     'human': Human,
     'negamax': NegamaxAgent,
     'random': RandomAgent,
+    'mcts': MCTSAgent,
+    'victor': VictorAgent,
+    # 'mcts_nn': MCTSNNAgent,  # Uncomment if you want to use MCTSNNAgent
     # Add new agents here
 }
 

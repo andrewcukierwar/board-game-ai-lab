@@ -60,9 +60,9 @@ class Node:
         self.visits = 0
         self.prior_p = prior_p
         self.untried_moves = game_state.get_valid_moves()
+        self.q_value = 0.0  # Track running average of values
         # Add board hash for transposition table
         self.board_hash = self._compute_board_hash()
-        self.q_value = 0.0  # Track running average of values
         
     def _compute_board_hash(self):
         # Convert board to tuple of tuples for hashing
@@ -190,23 +190,23 @@ class MCTSNNAgent:
                     break  # No valid moves remain
 
                 # Select a child; ensure its move is still valid
-                child = self._select_child(node)
-                if child.move not in current_valid_moves:
+                child_move, child = self._select_child(node)
+                if child_move not in current_valid_moves: # child.move
                     print(game_copy.board)
                     print('Current Valid Moves:', current_valid_moves)
                     print('Current Child Nodes:', list(node.children.keys()))
-                    print('Selected Child Move:', child.move)
+                    print('Selected Child Move:', child_move)
                     # Skip this child if its move is no longer valid
                     # Optionally, remove it from the node's children to avoid reconsideration.
-                    node.children.pop(child.move, None)
+                    node.children.pop(child_move, None)
                     continue
 
                 # Attempt to make the move on the game_copy
-                if not game_copy.make_move(child.move):
-                    print('Failed Attempting Child Move:', child.move)
+                if not game_copy.make_move(child_move):
+                    print('Failed Attempting Child Move:', child_move)
                     # If make_move fails, remove the move from the valid set and try again
-                    if child.move in current_valid_moves:
-                        current_valid_moves.remove(child.move)
+                    if child_move in current_valid_moves:
+                        current_valid_moves.remove(child_move)
                     continue
 
                 node = child
@@ -234,9 +234,7 @@ class MCTSNNAgent:
                     game_next = deepcopy(game_copy)
                     game_next.make_move(move)
                     # Convert board state to numbers before hashing
-                    board_nums = [[1 if cell == 'X' else -1 if cell == 'O' else 0 
-                                 for cell in row] for row in game_next.board]
-                    board_hash = tuple(tuple(row) for row in board_nums)
+                    board_hash = tuple(tuple(1 if cell == 'X' else -1 if cell == 'O' else 0 for cell in row) for row in game_next.board)
                     
                     # Reuse existing node or create new one
                     if board_hash in self.transposition_table:
@@ -306,8 +304,8 @@ class MCTSNNAgent:
         if not node.children:
             raise ValueError("Node has no children")
         best_move, best_child = max(node.children.items(), key=lambda x: x[1].ucb1())
-        assert best_child.move == best_move, f"Move mismatch: {best_child.move} != {best_move}"
-        return best_child
+        # assert best_child.move == best_move, f"Move mismatch: {best_child.move} != {best_move}"
+        return best_move, best_child
 
     def _store_training_example(self, board: np.ndarray, policy: np.ndarray):
         """Store a training example without the final value (updated later)"""
@@ -336,26 +334,3 @@ class MCTSNNAgent:
         examples = self.training_examples
         self.training_examples = []
         return examples
-    
-    
-
-    # def train_on_examples(self, examples: List[TrainingExample]):
-    #     """Train the neural network on collected examples"""
-    #     if not examples:
-    #         return
-
-    #     # Prepare training data
-    #     # states = torch.FloatTensor([ex.board.reshape(1, 6, 7) for ex in examples])
-    #     states = torch.FloatTensor([self._reshape_board(ex.board) for ex in examples])
-    #     policies = torch.FloatTensor([ex.policy for ex in examples])
-    #     values = torch.FloatTensor([ex.value for ex in examples])
-        
-    #     # Convert values to 3-class format [win, draw, loss]
-    #     value_targets = torch.zeros((len(examples), 3))
-    #     value_targets[values == 1.0, 0] = 1.0  # win
-    #     value_targets[values == 0.0, 1] = 1.0  # draw
-    #     value_targets[values == -1.0, 2] = 1.0  # loss
-
-    #     # Train network (assuming you have an optimizer)
-    #     self.model.train()
-    #     # ... training code here ...
