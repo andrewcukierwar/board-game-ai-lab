@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, send_from_directory
 from connect4 import Connect4
-from agents.agent_factory import create_agent
-from agents.human import Human
+from games.connect4.agents.agent_factory import create_agent
+from games.connect4.agents.human import Human
 import logging
 
 app = Flask(__name__, static_folder=".")
