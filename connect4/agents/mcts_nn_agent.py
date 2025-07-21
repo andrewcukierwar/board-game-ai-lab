@@ -6,6 +6,7 @@ import math
 from copy import deepcopy
 from dataclasses import dataclass
 from typing import List, Tuple
+import os
 
 @dataclass
 class TrainingExample:
@@ -334,3 +335,28 @@ class MCTSNNAgent:
         examples = self.training_examples
         self.training_examples = []
         return examples
+
+def load_pretrained_mcts_nn_agent(model_path=None, simulation_limit=1000, temperature=0.1):
+    """
+    Loads a pre-trained Connect4Net model and returns an MCTSNNAgent.
+    If model_path is None, tries to load from 'training/connect4_model_iter_100.pt' relative to this file.
+    """
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    if model_path is None:
+        model_path = os.path.join(script_dir, '..', 'training', 'connect4_model_iter_100.pt')
+    model = Connect4Net()
+    checkpoint = torch.load(model_path, map_location=torch.device('cpu'))
+    model.load_state_dict(checkpoint['model_state_dict'])
+    model.eval()
+    return MCTSNNAgent(model, simulation_limit=simulation_limit, temperature=temperature)
+
+def test_mcts_nn_agent(game_class, model_path=None):
+    """
+    Example test function to play one move using the MCTSNNAgent and a pre-trained model.
+    game_class: a class implementing the Connect4 game interface (must have .board, .current_player, .get_valid_moves(), .make_move(), etc.)
+    """
+    agent = load_pretrained_mcts_nn_agent(model_path)
+    game = game_class()  # Assumes game_class() creates a new game
+    move = agent.choose_move(game)
+    print(f"MCTSNNAgent selects move: {move}")
+    return move

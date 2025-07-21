@@ -401,7 +401,7 @@ class VictorAgent:
             
         # Look for winning threat sequences
         threats = self._find_threats(board, player)
-        winning_sequence = self._find_winning_threat_sequence(threats, board)
+        winning_sequence = self._find_winning_threat_sequence(threats, board, player)
         if winning_sequence:
             return winning_sequence[0]
             
@@ -508,9 +508,19 @@ class VictorAgent:
                     
         return False
 
-    def _find_winning_threat_sequence(self, threats: List[Threat], board) -> Optional[List[int]]:
+    def _find_winning_threat_sequence(self, threats: List[Threat], board, player) -> Optional[List[int]]:
         """Find winning sequence of threats if it exists"""
-        # First check simple combinations as before
+        # Group threats by type
+        threat_groups = {
+            'A1': [],
+            'A2': [],
+            'B': [],
+            'C': [],
+            'D': []
+        }
+        for threat in threats:
+            threat_groups[threat.type].append(threat)
+
         # Type A threat is immediate win
         if threat_groups['A1'] or threat_groups['A2']:
             threat = (threat_groups['A1'] or threat_groups['A2'])[0]
@@ -527,8 +537,8 @@ class VictorAgent:
             return [threat.forcing_moves[0][1]]
             
         # If no immediate win, search for winning sequences
-        sequence = self._search_threat_sequence(board, self.current_player, depth=4)
-        if sequence.terminal:
+        sequence = self._search_threat_sequence(board, player, depth=4)
+        if sequence and sequence.terminal:
             return [move[1] for move in sequence.moves]  # Return columns of moves
     
         return None

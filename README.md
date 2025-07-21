@@ -1,1 +1,1 @@
-# board-games-ai-lab
+# board-game-ai-lab
