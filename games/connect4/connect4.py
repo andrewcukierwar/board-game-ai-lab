@@ -1,4 +1,4 @@
-from board import Board
+from .board import Board
 
 class Connect4:
     def __init__(self, board=None, current_player=None):

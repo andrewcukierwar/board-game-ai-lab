@@ -3,10 +3,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 import math
+import os
 from copy import deepcopy
 from dataclasses import dataclass
-from typing import List, Tuple
-import os
+from typing import List #, Tuple
 
 @dataclass
 class TrainingExample:
@@ -341,9 +341,10 @@ def load_pretrained_mcts_nn_agent(model_path=None, simulation_limit=1000, temper
     Loads a pre-trained Connect4Net model and returns an MCTSNNAgent.
     If model_path is None, tries to load from 'training/connect4_model_iter_100.pt' relative to this file.
     """
-    script_dir = os.path.dirname(os.path.abspath(__file__))
+    # script_dir = os.path.dirname(os.path.abspath(__file__))
     if model_path is None:
-        model_path = os.path.join(script_dir, '..', 'training', 'connect4_model_iter_100.pt')
+        # model_path = os.path.join(script_dir, '..', 'training', 'connect4_model_iter_100.pt')
+        model_path = 'models/connect4/connect4_model_iter_100.pt'  # Adjust path as needed
     model = Connect4Net()
     checkpoint = torch.load(model_path, map_location=torch.device('cpu'))
     model.load_state_dict(checkpoint['model_state_dict'])

@@ -1,17 +1,17 @@
 # agents/agent_factory.py
-from agents.human import Human
-from agents.negamax_agent import NegamaxAgent
-from agents.random_agent import RandomAgent
-from agents.mcts_agent import MCTSAgent
-from agents.mcts_nn_agent import MCTSNNAgent, load_pretrained_mcts_nn_agent
-from agents.victor_agent import VictorAgent
+from .human import Human
+from .negamax_agent import NegamaxAgent
+from .random_agent import RandomAgent
+from .mcts_agent import MCTSAgent
+from .mcts_nn_agent import MCTSNNAgent, load_pretrained_mcts_nn_agent
+from .victor_agent import VictorAgent
 
 AGENT_TYPES = {
     'human': Human,
     'negamax': NegamaxAgent,
     'random': RandomAgent,
     'mcts': MCTSAgent,
-    'mcts_nn': MCTSNNAgent,  # Uncomment if you want to use MCTSNNAgent
+    'mcts_nn': MCTSNNAgent,
     'victor': VictorAgent,
     # Add new agents here
 }

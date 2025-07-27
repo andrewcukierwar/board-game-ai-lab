@@ -1,8 +1,8 @@
-import numpy as np
-from typing import List, Set, Dict, Tuple, Optional
+from typing import List, Dict, Tuple, Optional #, Set
+from collections import defaultdict
 from dataclasses import dataclass
 from copy import deepcopy
-from collections import defaultdict
+import numpy as np
 
 @dataclass
 class Threat:

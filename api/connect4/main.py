@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, send_from_directory
-from connect4 import Connect4
+from games.connect4.connect4 import Connect4
 from games.connect4.agents.agent_factory import create_agent
 from games.connect4.agents.human import Human
 import logging
@@ -130,11 +130,11 @@ def make_move():
 # Serve the HTML frontend
 @app.route('/')
 def serve_html():
-    return send_from_directory('frontend', 'connect4.html')
+    return send_from_directory('../../ui/connect4', 'connect4.html')
 
 @app.route('/<path:filename>')
 def serve_static(filename):
-    return send_from_directory('frontend', filename)
+    return send_from_directory('../../ui/connect4', filename)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5001)

@@ -1,9 +1,9 @@
+from agents.mcts_nn_agent import MCTSNNAgent, Connect4Net
+from .connect4 import Connect4
+from tqdm import tqdm
 import torch
 import torch.optim as optim
-from connect4 import Connect4
-from agents.mcts_nn_agent import MCTSNNAgent, Connect4Net
 import numpy as np
-from tqdm import tqdm
 
 def self_play_episode(agent1, agent2):
     """Play one full game between two agents and collect training data"""

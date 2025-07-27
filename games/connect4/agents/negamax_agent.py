@@ -1,5 +1,5 @@
-from board import Board
-from connect4 import Connect4
+from ..board import Board
+from ..connect4 import Connect4
 
 class NegamaxAgent:
     def __init__(self, depth):

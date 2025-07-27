@@ -2,7 +2,7 @@ import math
 import random
 import numpy as np
 from copy import deepcopy
-from connect4 import Connect4
+from ..connect4 import Connect4
 
 class Node:
     def __init__(self, game_state, parent=None, move=None):
