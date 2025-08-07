@@ -36,14 +36,15 @@ jobs:
       - uses: docker/build-push-action@v5   # official Buildx action :contentReference[oaicite:1]{index=1}
         with:
           context: .
+          file: docker/api.Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache
           cache-to:   type=inline
 
-      # -- ping Render so it pulls the new image -----------------------------
-      - name: Trigger Render Deploy
-        env:
-          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
-        run: |
-          curl -fsSL -X POST "$HOOK"
+      # # -- ping Render so it pulls the new image -----------------------------
+      # - name: Trigger Render Deploy
+      #   env:
+      #     HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+      #   run: |
+      #     curl -fsSL -X POST "$HOOK"
