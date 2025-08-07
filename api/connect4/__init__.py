@@ -131,6 +131,10 @@ def make_move():
     except Exception as e:
         logger.exception("An error occurred during make_move.")
         return jsonify({'error': str(e)}), 500
+    
+@bp.route("/health")
+def health():
+    return "ok", 200
 
 # Serve the HTML frontend
 @bp.route('/')
