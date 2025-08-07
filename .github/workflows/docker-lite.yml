@@ -42,9 +42,9 @@ jobs:
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache
           cache-to:   type=inline
 
-      # # -- ping Render so it pulls the new image -----------------------------
-      # - name: Trigger Render Deploy
-      #   env:
-      #     HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
-      #   run: |
-      #     curl -fsSL -X POST "$HOOK"
+      # -- ping Render so it pulls the new image -----------------------------
+      - name: Trigger Render Deploy
+        env:
+          HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          curl -fsSL -X POST "$HOOK"
