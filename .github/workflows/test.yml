@@ -1,0 +1,47 @@
+name: Tests
+
+on:
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+      - 'docs/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      redis:
+        image: redis:7    # future-proof; not used yet
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # ---------- Python -----------------
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+
+      - name: Install back-end deps
+        run: |
+          python -m venv .venv
+          . .venv/bin/activate
+          pip install -r requirements.txt
+          pip install pytest pytest-cov flake8
+
+      - name: Run Flake8
+        run: .venv/bin/flake8 api games
+
+      - name: Run Pytest
+        run: .venv/bin/pytest -q
+
+      # ---------- Node (front-end) --------
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with: { node-version: '20' }
+
+      - name: Install UI deps & run Vite build
+        run: |
+          cd ui
+          npm ci
+          npm run build
