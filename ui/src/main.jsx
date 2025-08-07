@@ -1,9 +1,13 @@
-// ui/src/main.jsx
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Connect4Page from "./pages/Connect4.jsx";
 
-function App() {
-  return <h1>Hello from Vite + React!</h1>;
-}
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<h2>Home</h2>} />
+      <Route path="/connect4" element={<Connect4Page />} />
+    </Routes>
+  </BrowserRouter>
+);
