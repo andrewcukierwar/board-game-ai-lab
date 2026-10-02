@@ -1,8 +1,12 @@
 # Phase 2 — Public deployment
 
-Implementation and local verification are complete; public deployment and smoke testing remain pending review. No production settings, hooks or pushes were changed. The intended topology is a **Render Static Site** for React/Vite and a **Render image-backed Web Service** for Flask/Gunicorn using GHCR. Local Compose remains a separate, same-origin setup.
+Phase 2 public deployment is complete. On October 2, 2026, the user confirmed manually verified public Connect 4 gameplay, including successful frontend/backend CORS configuration. The deployed topology is a **Render Static Site** for React/Vite and a **Render image-backed Web Service** for Flask/Gunicorn using GHCR. Local Compose remains a separate, same-origin setup.
 
-Local results on October 2, 2026: **74 backend tests, 15 frontend tests, and all 8 Chromium browser tests against each of Compose, Vite development and separate-origin static/API hosting passed**. Compose startup, production/Render builds, direct `/connect4` refresh, health, Render-style port 10000/one-worker operation, and actual API restart/browser session recovery passed. An initial missing-Chromium runner failure was resolved by installing Chromium. Cold-start delay/HTML and lost-response scenarios were simulated locally; real Render cold starts and public routing still require the manual smoke checks below. Existing npm advisories were not changed.
+**Verified production URLs:** [public frontend](https://board-game-ai-lab-ui.onrender.com/), [Connect 4](https://board-game-ai-lab-ui.onrender.com/connect4), [backend API origin](https://board-game-ai-lab.onrender.com), and [API health endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/health).
+
+Phase 3A is implemented and committed at `37dc55e`; Phase 3B remains unimplemented. This documentation update does not change Render configuration or trigger deployments.
+
+Local Phase 2 results on October 2, 2026: **74 backend tests, 15 frontend tests, and all 8 Chromium browser tests against each of Compose, Vite development and separate-origin static/API hosting passed**. Compose startup, production/Render builds, direct `/connect4` refresh, health, Render-style port 10000/one-worker operation, and actual API restart/browser session recovery passed. An initial missing-Chromium runner failure was resolved by installing Chromium. Cold-start delay/HTML and lost-response scenarios were simulated locally. The reusable manual checklist below covers detailed production checks; the user’s gameplay/CORS confirmation does not assert that every individual checklist item was exercised. Existing npm advisories were not changed.
 
 ## Configuration by environment
 
@@ -12,13 +16,13 @@ Local results on October 2, 2026: **74 backend tests, 15 frontend tests, and all
 | Vite development | Empty API base; Vite proxies `/v1` to `localhost:8000`, even if `VITE_API_BASE` is set | Not needed |
 | Render Static Site | `VITE_API_BASE` is the HTTPS API origin, compiled into the bundle | API explicitly allows the actual frontend origin |
 
-`ui/.env.production` now has an empty default. The former `https://board-game-ai-lab.onrender.com` value was unused by the UI; confirm that hostname in the API's Render dashboard before using it. The Docker build explicitly sets `VITE_API_BASE=` and excludes local env files, so a developer's deployment configuration cannot redirect Compose gameplay to production.
+`ui/.env.production` now has an empty default. The former hardcoded API value was unused by the UI; the verified production API origin is now explicitly configured through the Render build’s `VITE_API_BASE`. The Docker build explicitly sets `VITE_API_BASE=` and excludes local env files, so a developer's deployment configuration cannot redirect Compose gameplay to production.
 
 Vite embeds `VITE_*` values at **build time**. Changing the API origin requires rebuilding the Static Site. Never put secrets in these variables. `npm run build:render` selects mode `render` and requires an explicit HTTPS origin; it does not load `.env.production`. `npm run build` retains a same-origin default and accepts HTTP origins for local verification. See [Vite environment documentation](https://vite.dev/guide/env-and-mode).
 
 ## Exact Render settings
 
-Replace the two hostname placeholders with the actual Render/custom-domain origins. An origin includes scheme and hostname (and port if needed), with **no trailing slash or path**.
+The values below use the verified production origins. For another deployment, substitute its actual Render/custom-domain origins. An origin includes scheme and hostname (and port if needed), with **no trailing slash or path**.
 
 ### API: Web Service → Existing Image
 
@@ -28,7 +32,7 @@ Replace the two hostname placeholders with the actual Render/custom-domain origi
 | Image platform | `linux/amd64` (explicit in GitHub Actions) |
 | Docker command override | Empty: use the image's CMD |
 | `PORT` | `10000` (Render default; image also supports another port) |
-| `CORS_ALLOWED_ORIGINS` | `https://<actual-frontend-host>` |
+| `CORS_ALLOWED_ORIGINS` | `https://board-game-ai-lab-ui.onrender.com` |
 | Health check path | `/v1/connect4/health` |
 | Instance count | **1**, no autoscaling |
 | Gunicorn | **1 worker, 4 threads**, enforced by image CMD |
@@ -45,28 +49,30 @@ See Render's [image-backed deployment](https://render.com/docs/deploying-an-imag
 | Setting | Value |
 | --- | --- |
 | Repository | `andrewcukierwar/board-game-ai-lab` |
-| Branch | `main`, after approved merge/push |
+| Branch | `main` |
 | Root directory | `ui` |
 | Build command | `npm ci && npm run build:render` |
 | Publish directory | `dist` |
 | `NODE_VERSION` | `22` (compatible with the local Docker build; use a release ≥22.12) |
-| `VITE_API_BASE` | `https://<actual-api-host>`; verify whether the existing API is `https://board-game-ai-lab.onrender.com` |
+| `VITE_API_BASE` | `https://board-game-ai-lab.onrender.com` |
 | Redirect/rewrite rule | Source `/*`, destination `/index.html`, action **Rewrite** |
 | Auto-deploy during rollout | Disable until configuration/review is complete; re-enable deliberately afterward |
 
 The rewrite serves React on direct navigation and refresh at `/connect4`; existing static assets are served normally. Nginx already provides the equivalent fallback locally. Render uses dashboard rewrite rules; no Nginx server is deployed for this Static Site. See [Render rewrites](https://render.com/docs/redirects-rewrites) and [Node version configuration](https://render.com/docs/node-version).
 
-## Approval-gated rollout steps
+## Rollout/redeployment reference
 
-1. Review the local changes on `phase2-public-deployment`. Confirm the actual API and desired frontend hostnames in Render. Public gameplay has not yet been verified.
+The initial Phase 2 rollout is complete. Retain these steps for future approved deployments; they are not pending work for this documentation update.
+
+1. Review the changes intended for deployment and confirm the API/frontend origins in Render. The current production origins and manual gameplay verification are recorded above.
 2. After approving production changes, configure the existing image-backed API with the settings above, including the exact future frontend origin. Obtain the Static Site origin by configuring that site; if its initial build deploys before CORS is ready, keep the URL unannounced until both services are verified. Configuration saves can trigger deploys.
 3. Review GHCR package visibility/access and image selection. GitHub's `GITHUB_TOKEN` builds/pushes with explicit `contents: read` and `packages: write`; `RENDER_DEPLOY_HOOK_URL` is a repository Actions secret for this API service. The workflow publishes `:main`, `:latest` and `:sha-<short-sha>`. Do not expose the hook URL or PAT.
 4. Only after approval, merge/push to `main`. **That push builds/pushes the API image and invokes the Render deploy hook.** It can also deploy the Static Site if auto-deploy is enabled. Do not separately run the workflow/hook unless a redeploy is intended.
 5. Verify the new workflow run, GHCR image digest and Render deploy events/logs. With `:main` or `:latest`, the hook pulls that tag's current image. If the service is pinned to an old SHA/digest, update its reference deliberately; an unparameterized hook will otherwise redeploy the old image. For a manual retry, use **Manual Deploy → Deploy latest reference**. Hook success means deployment was requested, not that the service is healthy.
-6. Confirm `GET https://<actual-api-host>/v1/connect4/health` returns HTTP 200 and `OK`, and Gunicorn logs show one worker. Record the image digest and deploy result.
+6. Confirm `GET https://board-game-ai-lab.onrender.com/v1/connect4/health` returns HTTP 200 and `OK`, and Gunicorn logs show one worker. Record the image digest and deploy result.
 7. Deploy the Static Site with the specified build env and rewrite rule. Confirm the build used `build:render`. Run the manual checklist below, then record actual demo URLs and public verification results in README/project plan. Re-enable frontend auto-deploy only when desired.
 
-[Run 37034008283](https://github.com/andrewcukierwar/board-game-ai-lab/actions/runs/37034008283) for `830bfdc` succeeded at image build/push and hook invocation. Read-only inspection confirmed those step outcomes. The workflow still does not run regression suites or deploy the UI; local checks precede this approved rollout. No hook was invoked during Phase 2 implementation.
+[Run 37034008283](https://github.com/andrewcukierwar/board-game-ai-lab/actions/runs/37034008283) for `830bfdc` succeeded at image build/push and hook invocation. Read-only inspection confirmed those step outcomes. The workflow still does not run regression suites or deploy the UI; local checks should precede future deployments. No hook was invoked during Phase 2 implementation.
 
 ## Network behavior and session limits
 
@@ -105,7 +111,9 @@ PLAYWRIGHT_API_URL=http://localhost:8001 npm run test:e2e
 
 Install Chromium first with `npx playwright install chromium` if needed. Stop temporary servers with Ctrl+C; Compose can remain running. Regression tests intentionally reject non-local URLs. Do not run them against production.
 
-## Production smoke-test checklist (manual)
+## Production smoke-test checklist (manual, reusable)
+
+Phase 2 public gameplay and CORS have been manually verified by the user. The boxes below are a template for future smoke-test runs, not outstanding Phase 2 completion requirements.
 
 - [ ] API health responds 200/`OK`; image digest matches the intended build; one Gunicorn worker and one instance are running.
 - [ ] Homepage loads over HTTPS; **Play Connect 4**, direct `/connect4`, and refresh at `/connect4` all work. JS/CSS assets load correctly.
@@ -115,4 +123,4 @@ Install Chromium first with `npx playwright install chromium` if needed. Stop te
 - [ ] Try a first request after the API has been idle. The wake-up message is visible and controls stay locked; if it fails, explicit retry recovers without reloading.
 - [ ] Use DevTools offline mode during a move. Reconnect and use **Refresh game**/**Retry AI move** as offered; verify the board against its revision and no duplicate human/AI move. Also test a failed start.
 - [ ] After an intentional API restart/redeploy (only when approved), an old game offers a fresh start and new games work. Check natural 30-minute expiry when feasible.
-- [ ] Check browser console and API logs for unexpected errors. Record frontend/API URLs, tested image digest, date and any failures before marking Phase 2 complete.
+- [ ] Check browser console and API logs for unexpected errors. Record frontend/API URLs, tested image digest, date and any failures for each smoke-test run.

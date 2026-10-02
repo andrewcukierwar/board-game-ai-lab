@@ -2,7 +2,11 @@
 
 Play Connect 4 against Random or depth-limited Negamax in a Flask + React/Vite application.
 
-**Status:** Phases 1 and 2 are complete; the public Connect 4 application is functioning (user-confirmed). Phase 3A adds locally tested deterministic evidence for future explanations. See [the grounding schema, Allis references and limitations](docs/allis-grounding.md) and [deployment settings](docs/deployment.md). Phase 3B's LLM integration and frontend panel remain deferred.
+**[Play the public application](https://board-game-ai-lab-ui.onrender.com/)** · **[Play Connect 4](https://board-game-ai-lab-ui.onrender.com/connect4)**
+
+Backend API origin: [https://board-game-ai-lab.onrender.com](https://board-game-ai-lab.onrender.com) · [API health endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/health).
+
+**Status:** Phases 1 and 2 are complete. The user manually verified public Connect 4 gameplay and successful frontend/backend CORS configuration on October 2, 2026. Phase 3A is implemented, locally tested and committed at `37dc55e`, providing deterministic evidence for future explanations. See [the grounding schema, Allis references and limitations](docs/allis-grounding.md) and [deployment settings](docs/deployment.md). Phase 3B's LLM integration and frontend panel remain deferred.
 
 ## Run locally with Docker
 
@@ -61,6 +65,6 @@ For Vite instead, set `PLAYWRIGHT_BASE_URL=http://localhost:5173` when running `
 - Frontend requests allow 90 seconds for cold starts and never automatically repeat a POST. Recovery reads the authoritative board before another move. Deployments/free-service spin-down lose sessions; keep one API instance and one Gunicorn worker.
 - API inference requires only `requirements-api.txt`. The optional `requirements.txt` retains dependencies for historical ML/training code. MCTS, neural MCTS, Victor and historical DQN need further work and are not advertised as playable web agents.
 - The backend records immutable session move history and can build deterministic, revision-bound evidence internally. Formal Allis rule applications are not implemented; the thesis rules are curated reference knowledge.
-- LLM explanations and Mancala web play remain later phases. No production deployment is performed by Phase 3A. Pushing to `main` invokes the API build/push/deploy-hook workflow.
+- LLM explanations and Mancala web play remain later phases. Phase 3A did not perform a production deployment. Pushing to `main` invokes the API build/push/deploy-hook workflow.
 
 See [the quickstart](docs/quickstart.md) for the API contract and manual checks, and [the project plan](project_plan.md) for project status and resume acceptance criteria.
