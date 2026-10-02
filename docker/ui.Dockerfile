@@ -6,7 +6,8 @@ WORKDIR /app
 COPY ui/package*.json ./
 RUN npm ci
 COPY ui/ ./
-RUN npm run build        # outputs to /app/dist
+# Explicitly override any env-file value: Compose must use Nginx's /v1 proxy.
+RUN VITE_API_BASE= npm run build
 
 # ---------- serve stage ----------
 FROM nginx:1.27-alpine AS runtime

@@ -5,7 +5,10 @@ import { mountConnect4 } from '../../legacy/connect4.js';
 import '../../connect4/connect4.css';
 
 export default function Connect4Page() {
-  useEffect(() => mountConnect4({ document, http: axios.create({ timeout: 15000 }) }), []);
+  useEffect(() => mountConnect4({ document, http: axios.create({
+    baseURL: import.meta.env.VITE_API_BASE,
+    timeout: 90000,
+  }) }), []);
 
   return (
     <main className="connect4-wrapper" style={{ padding: '20px' }}>
@@ -33,7 +36,7 @@ export default function Connect4Page() {
       <button id="restart-button" type="button" hidden>Start new game</button>
       <button id="retry-button" type="button" hidden>Retry AI move</button>
       <div id="message" role="status" aria-live="polite" />
-      <div id="loading" hidden>Waiting for the game server…</div>
+      <div id="loading" hidden>Waiting for the game server… The first request may take about a minute while it wakes up.</div>
       <div id="game-board" role="group" aria-label="Connect 4 board" />
     </main>
   );

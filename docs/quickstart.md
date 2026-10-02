@@ -1,4 +1,4 @@
-# Local Connect 4 quickstart
+# Connect 4 quickstart
 
 From a fresh checkout with Docker running:
 
@@ -32,4 +32,12 @@ The default store holds 128 games with a 1,800-second idle timeout. Internal Fla
 6. For natural expiration, leave a game idle for 30 minutes and then move. It should offer a fresh game. Focused tests use a controlled clock so they do not need to wait.
 7. Refresh `/connect4` directly; the page should load. Return Home and re-enter without duplicate handlers or console errors.
 
-The local Compose workflow does not establish a public Render deployment. Production API routing/CORS, frontend hosting and public verification are a separate assignment.
+## Public deployment
+
+Phase 2 configuration and local verification are implemented; public rollout is awaiting review. Follow [the deployment guide](deployment.md) for exact Render settings, GitHub/GHCR image selection, approval-gated rollout, separate-origin local verification, and the production smoke checklist.
+
+The Static Site uses root `ui`, build `npm ci && npm run build:render`, publish `dist`, `NODE_VERSION=22`, and `VITE_API_BASE=https://<actual-api-host>`. Add a **Rewrite** from `/*` to `/index.html` for direct `/connect4` navigation. The API uses the GHCR image, `PORT=10000`, health path `/v1/connect4/health`, and `CORS_ALLOWED_ORIGINS=https://<actual-frontend-host>` (no slash/path/wildcard). Keep one instance and one worker/four threads, with the image CMD and no Render command override.
+
+Docker explicitly builds with an empty API base; Vite development always uses its local proxy. Render's API origin is compiled into the browser bundle and requires rebuilding when changed. Requests allow 90 seconds for wake-up, with locked controls and explicit recovery. No move POST is automatically retried. After API restart/spin-down or expiration, start a fresh game.
+
+Do not push `main`, run the workflow or invoke its Render hook until rollout is approved. Automated gameplay tests must target local servers only.

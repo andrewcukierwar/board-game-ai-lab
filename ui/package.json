@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:render": "vite build --mode render",
     "preview": "vite preview",
     "test": "node --test tests/*.test.js",
     "test:e2e": "playwright test"

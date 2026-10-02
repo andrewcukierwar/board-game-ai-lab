@@ -2,6 +2,8 @@
 
 Play Connect 4 against Random or depth-limited Negamax in a Flask + React/Vite application.
 
+**Status:** Phase 1 is completed and manually verified. Phase 2 deployment support is implemented and locally verified; public rollout remains pending review. The production architecture is a Render Static Site calling a Render Web Service backed by the GHCR API image. See [deployment settings, manual steps and smoke tests](docs/deployment.md).
+
 ## Run locally with Docker
 
 Install Docker Desktop (or Docker Engine with the Compose plugin), start Docker, then run from the repository root:
@@ -55,7 +57,9 @@ For Vite instead, set `PLAYWRIGHT_BASE_URL=http://localhost:5173` when running `
 - The web API exposes Human, Random, and Negamax only; the UI is human-versus-AI. Negamax is capped at depth 4. Search strength is not formally benchmarked.
 - Sessions have random game IDs, per-game locks and revision checks. The server retains at most 128 sessions, with 30-minute idle expiry. Expired sessions are reclaimed on subsequent requests. At capacity it rejects new sessions; restarting your existing game replaces it without consuming another slot.
 - Games disappear on server restart. Reloading or leaving the gameplay page starts a new browser interaction; abandoned server sessions expire. Game IDs isolate games but are not authentication credentials for an account system.
+- Separate-host frontend builds use `VITE_API_BASE`; Render uses `npm run build:render` and an explicit HTTPS API origin. Docker builds and Vite development retain their local `/v1` proxies. API CORS uses an exact `CORS_ALLOWED_ORIGINS` allowlist; no wildcard is enabled by default.
+- Frontend requests allow 90 seconds for cold starts and never automatically repeat a POST. Recovery reads the authoritative board before another move. Deployments/free-service spin-down lose sessions; keep one API instance and one Gunicorn worker.
 - API inference requires only `requirements-api.txt`. The optional `requirements.txt` retains dependencies for historical ML/training code. MCTS, neural MCTS, Victor and historical DQN need further work and are not advertised as playable web agents.
-- LLM explanations, Mancala web play and public frontend deployment are later phases. No production deployment is part of this change.
+- LLM explanations and Mancala web play remain later phases. Public deployment has not been performed by this change. Pushing to `main` invokes the API build/push/deploy-hook workflow and requires rollout approval.
 
 See [the quickstart](docs/quickstart.md) for the API contract and manual checks, and [the project plan](project_plan.md) for project status and resume acceptance criteria.
