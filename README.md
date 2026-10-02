@@ -6,7 +6,7 @@ Play Connect 4 against Random or depth-limited Negamax in a Flask + React/Vite a
 
 Backend API origin: [https://board-game-ai-lab.onrender.com](https://board-game-ai-lab.onrender.com) · [API health endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/health).
 
-**Status:** Phases 1 and 2 are complete. The user manually verified public Connect 4 gameplay and successful frontend/backend CORS configuration on October 2, 2026. Phase 3A is implemented, locally tested and committed at `37dc55e`, providing deterministic evidence for future explanations. See [the grounding schema, Allis references and limitations](docs/allis-grounding.md) and [deployment settings](docs/deployment.md). Phase 3B's LLM integration and frontend panel remain deferred.
+**Status:** Phases 1 and 2 are complete. The user manually verified public Connect 4 gameplay and successful frontend/backend CORS configuration on October 2, 2026. Phase 3A is committed at `37dc55e`. Phase 3B is implemented locally, with a backend OpenAI integration and explanation panel, disabled by default and not deployed. See [explanation configuration, contract, limits and proposed manual testing](docs/llm-explanations.md), [the grounding schema and Allis references](docs/allis-grounding.md), and [deployment settings](docs/deployment.md).
 
 ## Run locally with Docker
 
@@ -46,6 +46,8 @@ npm run dev
 
 Open the Vite URL printed in the terminal. Its `/v1` proxy forwards to port 8000. Keep the API on **one worker** because session storage is process-local.
 
+The explanation panel supports **Explain AI Move / Last Move**, **Analyze Position**, and legal **What If?** simulations. To configure the backend locally, copy `.env.example` to ignored `.env`; `python-dotenv` loads it automatically. Explanations require `EXPLANATIONS_ENABLED=true` and a backend-only `OPENAI_API_KEY`. Keep explanations disabled for automated/browser tests. Use a separate OpenAI project with a spending alert and budget before any separately approved live test; [the explanation guide](docs/llm-explanations.md) documents every default and a three-call test procedure.
+
 To run real-browser regression tests against the Docker stack at port 3000:
 
 ```sh
@@ -65,6 +67,6 @@ For Vite instead, set `PLAYWRIGHT_BASE_URL=http://localhost:5173` when running `
 - Frontend requests allow 90 seconds for cold starts and never automatically repeat a POST. Recovery reads the authoritative board before another move. Deployments/free-service spin-down lose sessions; keep one API instance and one Gunicorn worker.
 - API inference requires only `requirements-api.txt`. The optional `requirements.txt` retains dependencies for historical ML/training code. MCTS, neural MCTS, Victor and historical DQN need further work and are not advertised as playable web agents.
 - The backend records immutable session move history and can build deterministic, revision-bound evidence internally. Formal Allis rule applications are not implemented; the thesis rules are curated reference knowledge.
-- LLM explanations and Mancala web play remain later phases. Phase 3A did not perform a production deployment. Pushing to `main` invokes the API build/push/deploy-hook workflow.
+- Phase 3B explanations use constrained model selections over verified facts and curated thesis concepts, with per-game/client/global limits, bounded concurrency and caching. Formal rules remain reference-only; freeform strategic reasoning is not generated. Local implementation has not made paid calls or been publicly deployed. Mancala web play remains deferred. Pushing to `main` invokes the API build/push/deploy-hook workflow.
 
 See [the quickstart](docs/quickstart.md) for the API contract and manual checks, and [the project plan](project_plan.md) for project status and resume acceptance criteria.

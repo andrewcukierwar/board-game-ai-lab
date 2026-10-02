@@ -38,6 +38,21 @@ export default function Connect4Page() {
       <div id="message" role="status" aria-live="polite" />
       <div id="loading" hidden>Waiting for the game server… The first request may take about a minute while it wakes up.</div>
       <div id="game-board" role="group" aria-label="Connect 4 board" />
+      <section id="explanation-panel" aria-label="Grounded explanations">
+        <h2>Understand the position</h2>
+        <p>Request analysis explicitly. Board facts are verified locally; Allis concepts provide strategic context. AI decision intent is unavailable.</p>
+        <label htmlFor="explanation-question">Optional question (500 characters maximum):</label>
+        <textarea id="explanation-question" maxLength={500} rows={2} />
+        <div className="explanation-controls">
+          <button id="explain-last" type="button">Explain Last Move</button>
+          <button id="analyze-position" type="button">Analyze Position</button>
+          <label htmlFor="what-if-column">Hypothetical move:</label>
+          <select id="what-if-column" />
+          <button id="what-if" type="button">What If?</button>
+        </div>
+        <p id="explanation-status" aria-live="polite" />
+        <div id="explanation-result" />
+      </section>
     </main>
   );
 }

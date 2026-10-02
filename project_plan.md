@@ -2,7 +2,7 @@
 
 **Repository:** https://github.com/andrewcukierwar/board-game-ai-lab  
 **Plan updated:** October 2, 2026  
-**Status:** Phase 1 completed and manually verified at `830bfdc`. Phase 2 — Public Deployment complete; public gameplay and frontend/backend CORS configuration manually verified by the user. Phase 3A — Deterministic Allis grounding implemented, locally verified and committed at `37dc55e` (now on `main`). Phase 3B remains unimplemented.
+**Status:** Phase 1 completed and manually verified at `830bfdc`. Phase 2 — Public Deployment complete; public gameplay and frontend/backend CORS configuration manually verified by the user. Phase 3A — Deterministic Allis grounding implemented, locally verified and committed at `37dc55e` (now on `main`). Phase 3B implemented locally on `phase3b-llm-explanations`; automated verification uses mocks, no paid calls or deployment. Awaiting review.
 **Guiding objective:** Build a polished, publicly playable AI game laboratory and make the three intended resume bullets accurate and defensible. Prefer shipping a compelling hands-on application over expanding infrastructure or running formal agent benchmarks.
 
 ## 1. Product vision
@@ -100,6 +100,14 @@ The following baseline records the initial audit; Phase 1 and Phase 2 changes ar
 - **119 backend tests, 15 frontend tests and 8 Chromium end-to-end tests passed.** Browser tests used this branch’s local API at port 8001 and production-built frontend at port 4173 with exact CORS. Default and separate-origin Vite builds passed.
 - Evidence schema, research references, applicability boundaries and regression examples: [docs/allis-grounding.md](docs/allis-grounding.md). No LLM call, explanation HTTP endpoint or frontend panel has been added.
 
+### Phase 3B local verification (awaiting review)
+
+- Implemented all three explanation modes under `/v1/connect4/explain`, using Phase 3A's detached/replay-verified evidence, constrained model selections, validated citations and explicit unknowns.
+- Backend-only `.env`/environment configuration, disabled-by-default behavior, bounded provider request/output/timeout, per-game/client/global attempts, concurrent/duplicate protection and successful-response caching are implemented.
+- Added the explanation panel within the existing React/legacy controller architecture. Gameplay remains independent of explanation loading/errors; moves, restarts and navigation cancel/clear stale explanations.
+- **188 backend tests, 25 frontend tests and 13 Chromium tests passed**, including existing complete games against Random and Negamax. Default, separate-origin and Render-mode builds passed. All explanation provider responses were mocked. Live model compatibility/quality remain unverified.
+- No pushes, deployment, Render setting changes or paid requests. Detailed contract, limits and a separately approved three-call manual-test proposal: [docs/llm-explanations.md](docs/llm-explanations.md).
+
 ## 4. Intended architecture
 
 **Local development:** Docker Compose orchestrates an API container (Python / Flask / Gunicorn / game engines / trained artifacts) and UI container (React/Vite build served by Nginx). Nginx proxies `/v1/` to the API service.
@@ -175,7 +183,7 @@ Work sequentially, but keep each phase bounded and demonstrable. Do not start a 
 
 **Exit criteria:** Each advertised AI approach has a working code path and can be challenged in the application for its supported game. The resume bullet accurately names each game/algorithm pairing.
 
-### Phase 3 — Allis-grounded LLM explanations (**3A implemented; 3B deferred**)
+### Phase 3 — Allis-grounded LLM explanations (**3A committed; 3B implemented locally, awaiting review**)
 
 **Goal:** Let users ask useful questions about an actual game, grounded in board state and available engine evidence.
 
@@ -183,7 +191,7 @@ Work sequentially, but keep each phase bounded and demonstrable. Do not start a 
 
 Record immutable session history; verify tactical facts and legal alternatives; curate the original Allis thesis; assemble a revision-bound payload separating facts, supported rule applications, observations and unknowns. No nine-rule detector is claimed until its full applicability and interaction conditions are implemented and tested. See the implementation record above.
 
-**Phase 3B — LLM integration and frontend (not started)**
+**Phase 3B — LLM integration and frontend (implemented locally, awaiting review)**
 
 - Add a backend analysis endpoint that accepts a validated game/session, board state, side to move, last move (when relevant), and a user question or a small set of presets.
 - Provide the LLM with structured context: game rules, current board, legal actions, recent moves, immediate tactical threats, and *available* agent/engine signals. Add lightweight deterministic analysis when practical.
@@ -236,8 +244,8 @@ Additional guardrails:
 - [x] Per-user game/session isolation implemented for local single-worker Connect 4.
 - [ ] Selectable advertised agents work end-to-end, with viable public-demo defaults.
 - [x] Phase 3A deterministic grounding and evidence schema implemented, locally tested and committed at `37dc55e`.
-- [ ] Phase 3B LLM analysis endpoint and frontend interface work on real game states.
-- [ ] Provider credentials remain server-side; basic cost/error safeguards in place.
+- [x] Phase 3B endpoint and frontend implemented on real local game states with mocked providers; live-model and public rollout verification pending.
+- [x] Provider credentials remain server-side; disabled-by-default functionality, request/token/time limits, per-game/client/global caps, duplicate protection and cache implemented.
 - [ ] Mancala playable via the public UI, with applicable agents.
 - [x] README, quickstart and verified public demo links updated.
 - [ ] Portfolio screenshots added.
@@ -245,11 +253,11 @@ Additional guardrails:
 
 ## 8. Current assignment and approval boundary
 
-Phase 1 and Phase 2 are complete. The user manually verified public gameplay and successful frontend/backend CORS configuration; the verified production URLs are recorded above. Phase 3A is implemented and committed at `37dc55e`. Phase 3B has not yet been implemented. The current authorized assignment is a **documentation-only deployment/status update** before Phase 3B.
+Phase 1 and Phase 2 are complete; public gameplay and CORS were manually verified by the user. Phase 3A is committed at `37dc55e`. The preceding documentation-only commit `d35b9f0` is preserved. The current assignment authorizes **local Phase 3B implementation, documentation and mocked verification** on `phase3b-llm-explanations`.
 
-Commit this documentation update locally on `phase3b-llm-explanations`. Do not change application code, dependencies, tests or Render configuration. **Do not modify Git credentials, push changes, trigger deployment hooks/workflows, or change production infrastructure.** Pushing to `main` automatically builds/pushes the API image and invokes the existing Render hook; Static Site auto-deploy may also respond to pushes.
+Phase 3B adds `POST /v1/connect4/explain`, detached hypothetical analysis, strict model selections over verified fact/curated concept IDs, trusted-text rendering and citations, backend-only configuration, per-game/client/global attempt limits, bounded concurrent requests/cache, and the existing React/legacy controller's explanation panel. See [the implementation contract, safeguards, limitations and proposed three-call manual procedure](docs/llm-explanations.md).
 
-Stop before Phase 3B. LLM/provider calls, the explanation frontend, paid APIs, retraining, neural MCTS repair, DQN recovery, Mancala and new external infrastructure are outside this assignment.
+Stop after local implementation for review. **Do not modify Git credentials, push changes, trigger deployment hooks/workflows, alter Render settings or production infrastructure, or make paid API requests.** Explanations remain disabled by default. Live model/schema/latency/quality validation and public rollout need separate authorization. MCTS, MCTS-NN, VictorAgent, DQN, Mancala, broad redesign and additional infrastructure remain outside scope.
 
 ---
 

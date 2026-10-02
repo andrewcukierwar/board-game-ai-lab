@@ -21,6 +21,7 @@ class GameSession:
     game: Connect4 = field(default_factory=Connect4)
     revision: int = 0
     history: tuple[MoveRecord, ...] = ()
+    explanation_requests: int = 0
     lock: Lock = field(default_factory=Lock)
 
 

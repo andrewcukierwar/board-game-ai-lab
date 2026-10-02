@@ -60,6 +60,17 @@ label {
 .hidden {
   display: none;
 }
+
+#explanation-panel {
+  max-width: 760px;
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px solid #ccc;
+}
+#explanation-question { display: block; width: 100%; box-sizing: border-box; margin: 8px 0; }
+.explanation-controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+#explanation-result section { margin-top: 16px; }
+#explanation-result a { overflow-wrap: anywhere; }
 /* Loading Indicator Styles */
 #loading {
   margin-top: 10px;

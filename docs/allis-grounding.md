@@ -1,6 +1,6 @@
 # Phase 3A: deterministic Connect 4 grounding
 
-This layer records moves and produces verifiable, revision-bound evidence for a future LLM integration. It does not call an LLM, choose moves, expose an explanation HTTP route, or add a frontend panel. The gameplay endpoints and their JSON response shapes are unchanged. Random and Negamax still select moves exactly as before.
+This Phase 3A layer records moves and produces verifiable, revision-bound evidence. It does not itself call an LLM or choose moves. The separate [Phase 3B service and panel](llm-explanations.md) now consume it locally. The gameplay endpoints and their JSON response shapes are unchanged. Random and Negamax still select moves exactly as before.
 
 ## Use
 
@@ -123,4 +123,4 @@ Run `python -m pytest -q` from the repository root and the existing UI tests/bui
 - Immutable snapshots, complete replay, isolation, atomic rejection/agent failure, revision mismatch, concurrency, replacement, expiry, restart and evidence captured before a concurrent later move.
 - Explicit absence of formal-rule claims even on an empty board with many superficially plausible pairs; reference-only retrieval and stable citation metadata.
 
-Phase 3B (LLM request, provider credentials, question handling and frontend panel) remains unimplemented.
+Phase 3B now adds a separate, disabled-by-default explanation endpoint and frontend panel. See [its contract, constrained composition boundary, configuration, tests and live-test proposal](llm-explanations.md). The Phase 3A evidence schema and unsupported-formal-rule boundary remain unchanged; no paid calls or public rollout were performed.

@@ -1,4 +1,4 @@
-"""Internal service boundary for future explanation requests (no HTTP route)."""
+"""Detached deterministic evidence boundary reused by explanation requests."""
 from copy import deepcopy
 
 from games.connect4.grounding import build_explanation_context

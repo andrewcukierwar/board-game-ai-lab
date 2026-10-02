@@ -137,3 +137,30 @@ def make_move():
 @bp.route('/health')
 def health():
     return 'OK', 200
+
+
+@bp.route('/explain', methods=['POST'])
+def explain():
+    from .explanations import MODES
+    data = json_object()
+    if set(data) - {'game_id', 'revision', 'mode', 'column', 'question'}:
+        raise GameError('invalid_request', 'Unknown explanation field.')
+    gid = game_id(data.get('game_id'))
+    revision = data.get('revision')
+    if type(revision) is not int or revision < 0:
+        raise GameError('invalid_revision', 'Provide the non-negative integer revision from the latest game response.')
+    mode = data.get('mode')
+    if mode not in MODES:
+        raise GameError('invalid_mode', 'Choose last_move, position, or what_if.')
+    column = data.get('column')
+    if mode == 'what_if':
+        if type(column) is not int or not 0 <= column <= 6:
+            raise GameError('invalid_move', 'Hypothetical column must be an integer from 0 to 6.')
+    elif 'column' in data:
+        raise GameError('invalid_request', 'Only what_if accepts a column.')
+    question = data.get('question', '')
+    if not isinstance(question, str) or len(question) > current_app.config['EXPLANATION_MAX_QUESTION_LENGTH']:
+        raise GameError('invalid_question', 'The question is invalid or too long.')
+    result = current_app.extensions['connect4_explanations'].explain(
+        store(), gid, revision, mode, column, question.strip(), request.remote_addr or 'unknown')
+    return jsonify(result)
