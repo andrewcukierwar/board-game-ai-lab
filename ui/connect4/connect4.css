@@ -1,24 +1,27 @@
 /* Existing styles */
 #game-board {
-  width: 420px;
-  height: 400px;
+  width: min(420px, calc(100vw - 60px));
+  aspect-ratio: 7 / 6;
   display: grid;
-  grid-template-columns: repeat(7, 60px);
+  grid-template-columns: repeat(7, 1fr);
   margin-top: 20px;
   border: 10px solid blue;
   background-color: blue;
 }
 .cell {
-  width: 60px;
-  height: 60px;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer; /* Indicate clickable cells */
 }
 .circle {
-  width: 45px;
-  height: 45px;
+  width: 75%;
+  aspect-ratio: 1;
   border-radius: 50%;
 }
 .circle.x {
@@ -31,7 +34,7 @@
   background-color: white;
 }
 /* Disable cursor when game is over */
-.cell.disabled {
+.cell:disabled {
   cursor: not-allowed;
   opacity: 0.6;
 }
@@ -64,3 +67,8 @@ label {
   font-weight: bold;
   color: green;
 }
+[hidden] { display: none !important; }
+#game-board:empty { display: none; }
+#negamax-options { margin-top: 12px; }
+#retry-button { margin-left: 10px; }
+.cell:focus-visible { outline: 3px solid black; outline-offset: -3px; }

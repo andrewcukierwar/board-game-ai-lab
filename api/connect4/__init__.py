@@ -1,149 +1,135 @@
-# api/connect4/__init__.py
-"""
-API package for Board-Game AI Lab.
-"""
+"""Connect 4 API: each mutation is locked and guarded by a board revision."""
+from copy import deepcopy
 
-from flask import Blueprint, request, jsonify, send_from_directory
+from flask import Blueprint, current_app, jsonify, request
+
+from games.connect4.agents.negamax_agent import NegamaxAgent
+from games.connect4.agents.random_agent import RandomAgent
 from games.connect4.connect4 import Connect4
-from games.connect4.agents.agent_factory import create_agent
-from games.connect4.agents.human import Human
-import logging
+from .state import GameError
 
-bp = Blueprint("connect4", __name__)
+bp = Blueprint('connect4', __name__)
+MAX_DEPTH = 4
 
-# Configure logging
-logging.basicConfig(level=logging.DEBUG)
-logger = logging.getLogger(__name__)
 
-# Initialize global game and agents
-game = None
-player1_agent = None
-player2_agent = None
+def store():
+    return current_app.extensions['connect4_games']
+
+
+def json_object():
+    data = request.get_json(silent=True)
+    if not isinstance(data, dict):
+        raise GameError('invalid_request', 'Send a JSON object with Content-Type: application/json.')
+    return data
+
+
+def game_id(value):
+    if not isinstance(value, str) or not value or len(value) > 64:
+        raise GameError('invalid_game_id', 'Provide the game_id returned when starting a game.')
+    return value
+
+
+def player_config(value):
+    if not isinstance(value, dict):
+        raise GameError('invalid_agent', 'Each player configuration must be an object.')
+    kind = value.get('type')
+    if kind not in ('human', 'random', 'negamax'):
+        raise GameError('invalid_agent', 'Supported player types are human, random, and negamax.')
+    allowed = {'type', 'depth'} if kind == 'negamax' else {'type'}
+    if set(value) - allowed:
+        raise GameError('invalid_agent', 'Only Negamax accepts a depth; no other agent settings are supported.')
+    config = {'type': kind}
+    if kind == 'negamax':
+        depth = value.get('depth', 2)
+        if type(depth) is not int or not 1 <= depth <= MAX_DEPTH:
+            raise GameError('invalid_agent', f'Negamax depth must be an integer from 1 to {MAX_DEPTH}.')
+        config['depth'] = depth
+    return config
+
+
+def snapshot(gid, session):
+    game = session.game
+    winner = game.check_winner()
+    terminal = game.is_game_over()
+    return dict(game_id=gid, revision=session.revision, board=deepcopy(game.board),
+                currentPlayer=game.current_player, players=deepcopy(session.players),
+                gameOver=terminal, legalMoves=[] if terminal else game.get_valid_moves(),
+                winner=(f'Player {winner + 1}' if winner != -1 else 'Draw' if terminal else None))
+
+
+@bp.after_request
+def no_cache(response):
+    response.headers['Cache-Control'] = 'no-store'
+    return response
+
+
+@bp.errorhandler(GameError)
+def client_error(error):
+    return jsonify(error=error.message, code=error.code), error.status
+
 
 @bp.route('/start_game', methods=['POST'])
 def start_game():
-    global game, player1_agent, player2_agent
-    data = request.get_json()
+    data = json_object()
+    if set(data) - {'player1', 'player2', 'replace_game_id'}:
+        raise GameError('invalid_request', 'Unknown start-game field.')
+    players = [player_config(data.get('player1', {'type': 'human'})),
+               player_config(data.get('player2', {'type': 'negamax', 'depth': 2}))]
+    replace_id = game_id(data['replace_game_id']) if 'replace_game_id' in data else None
+    gid, session = store().create(players, replace_id)
+    return jsonify(snapshot(gid, session)), 201
 
-    # Extract player configurations
-    player1_config = data.get('player1', {'type': 'human'})
-    player2_config = data.get('player2', {'type': 'negamax', 'depth': 2})
 
-    try:
-        player1_agent = create_agent(player1_config)
-        player2_agent = create_agent(player2_config)
-    except ValueError as ve:
-        logger.error(f"Agent creation error: {ve}")
-        return jsonify({'error': str(ve)}), 400
+@bp.route('/games/<gid>', methods=['GET'])
+def get_game(gid):
+    with store().access(game_id(gid)) as session:
+        return jsonify(snapshot(gid, session))
 
-    # Initialize the game
-    game = Connect4()
-
-    logger.info("Game started.")
-    logger.debug(f"Initial Board: {game.board}")
-    logger.debug(f"Current Player: {game.current_player}")
-
-    return jsonify({
-        'message': 'Game started!',
-        'board': game.board,
-        'currentPlayer': game.current_player  # Include currentPlayer in the response
-    })
 
 @bp.route('/make_move', methods=['POST'])
 def make_move():
-    if not game:
-        logger.error("Game has not started.")
-        return jsonify({'error': 'Game has not started.'}), 400
-
-    column = -1
-    try:
-        if game.current_player == 0:
-            # Player 1's turn
-            if isinstance(player1_agent, Human):
-                move = request.json.get('column')
-                logger.debug(f"Player 1 (Human) Move: {move}")
-                if move is None:
-                    logger.error("No column provided by Player 1 (Human).")
-                    return jsonify({'error': 'No column provided for Player 1 (Human).'}), 400
-                if not game.is_valid_move(move):
-                    logger.error(f"Invalid move by Player 1 (Human): Column {move} is full.")
-                    return jsonify({'error': 'Invalid move by Player 1 (Human).'}), 400
-                column = move
-            else:
-                # Player 1 is an agent
-                logger.debug("Player 1 (Agent) is making a move.")
-                column = player1_agent.choose_move(game)
-                logger.debug(f"Player 1 (Agent) Move: {column}")
-                if column == -1:
-                    logger.error("Player 1 (Agent) has no valid moves.")
-                    return jsonify({'error': 'No valid moves available for Player 1 (Agent).'}), 400
-
+    data = json_object()
+    if set(data) - {'game_id', 'revision', 'column'}:
+        raise GameError('invalid_request', 'Unknown move field.')
+    gid = game_id(data.get('game_id'))
+    revision = data.get('revision')
+    if type(revision) is not int or revision < 0:
+        raise GameError('invalid_revision', 'Provide the non-negative integer revision from the latest game response.')
+    if 'column' in data and (type(data['column']) is not int or not 0 <= data['column'] <= 6):
+        raise GameError('invalid_move', 'Column must be an integer from 0 to 6.')
+    with store().access(gid) as session:
+        if revision != session.revision:
+            raise GameError('stale_revision', 'The board changed. Refresh the game before moving again.', 409)
+        if session.game.is_game_over():
+            raise GameError('game_over', 'This game is finished. Start a new game.', 409)
+        config = session.players[session.game.current_player]
+        candidate = Connect4(session.game.board, session.game.current_player)
+        if config['type'] == 'human':
+            if 'column' not in data:
+                raise GameError('invalid_move', 'Choose a column from 0 to 6 for the human player.')
+            column = data['column']
+            if not candidate.is_valid_move(column):
+                raise GameError('invalid_move', 'That column is full. Choose another column.')
         else:
-            # Player 2's turn
-            if isinstance(player2_agent, Human):
-                move = request.json.get('column')
-                logger.debug(f"Player 2 (Human) Move: {move}")
-                if move is None:
-                    logger.error("No column provided by Player 2 (Human).")
-                    return jsonify({'error': 'No column provided for Player 2 (Human).'}), 400
-                if not game.is_valid_move(move):
-                    logger.error(f"Invalid move by Player 2 (Human): Column {move} is full.")
-                    return jsonify({'error': 'Invalid move by Player 2 (Human).'}), 400
-                column = move
-            else:
-                # Player 2 is an agent
-                logger.debug("Player 2 (Agent) is making a move.")
-                column = player2_agent.choose_move(game)
-                logger.debug(f"Player 2 (Agent) Move: {column}")
-                if column == -1:
-                    logger.error("Player 2 (Agent) has no valid moves.")
-                    return jsonify({'error': 'No valid moves available for Player 2 (Agent).'}), 400
+            if 'column' in data:
+                raise GameError('invalid_move', 'It is the AI turn. Request its move without a column.')
+            # A fresh bounded search avoids retaining caches across requests.
+            agent = RandomAgent() if config['type'] == 'random' else NegamaxAgent(config['depth'])
+            try:
+                # Never expose the live game to agent code.
+                column = agent.choose_move(Connect4(candidate.board, candidate.current_player))
+                if type(column) is not int or not candidate.is_valid_move(column):
+                    raise ValueError('Agent returned an illegal move')
+            except Exception:
+                current_app.logger.exception('Connect 4 agent failed')
+                raise GameError('agent_failed', 'The AI could not make a legal move. Retry or start a new game.', 503)
+        if not candidate.make_move(column):
+            raise GameError('invalid_move', 'That move could not be played. Refresh the game.', 409)
+        session.game = candidate
+        session.revision += 1
+        return jsonify(snapshot(gid, session))
 
-        # Make the move
-        game.make_move(column)
-        logger.debug(f"Move made at column {column}. Current Board: {game.board}")
 
-        # Check for winner or draw
-        check_winner = game.check_winner()
-        logger.debug(f"Check Winner Result: {check_winner}")
-        if check_winner != -1:
-            winner = 'Player 1' if check_winner == 0 else 'Player 2'
-            # winning_sequence = game.get_winning_sequence()  # Ensure this method exists
-            logger.info(f"Game Over: {winner} wins.")
-            # logger.debug(f"Winning Sequence: {winning_sequence}")
-            return jsonify({
-                'board': game.board,
-                'winner': winner,
-                # 'winningSequence': winning_sequence
-            })
-        elif game.is_board_full():
-            logger.info("Game Over: Draw.")
-            return jsonify({
-                'board': game.board,
-                'winner': 'Draw'
-            })
-
-        return jsonify({
-            'board': game.board,
-            'currentPlayer': game.current_player,
-            'checkWinner': check_winner
-        })
-    except Exception as e:
-        logger.exception("An error occurred during make_move.")
-        return jsonify({'error': str(e)}), 500
-    
 @bp.route('/health')
 def health():
     return 'OK', 200
-
-# Serve the HTML frontend
-@bp.route('/')
-def serve_html():
-    return send_from_directory('../../ui/connect4', 'connect4.html')
-
-@bp.route('/<path:filename>')
-def serve_static(filename):
-    return send_from_directory('../../ui/connect4', filename)
-
-if __name__ == '__main__':
-    bp.run(debug=True, host='0.0.0.0', port=5001)

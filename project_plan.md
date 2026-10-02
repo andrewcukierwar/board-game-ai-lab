@@ -2,7 +2,7 @@
 
 **Repository:** https://github.com/andrewcukierwar/board-game-ai-lab  
 **Plan updated:** October 2, 2026  
-**Status:** Resuming development; Phase 1 Dockerization completed locally, Phase 2 public deployment partially completed.  
+**Status:** Initial audit and local Connect 4 reliability implementation complete; awaiting user review. Public deployment remains partial.
 **Guiding objective:** Build a polished, publicly playable AI game laboratory and make the three intended resume bullets accurate and defensible. Prefer shipping a compelling hands-on application over expanding infrastructure or running formal agent benchmarks.
 
 ## 1. Product vision
@@ -39,29 +39,43 @@ The current resume language is a **target specification**, not proof that every 
 
 **Definition of done for the resume:** A new visitor can use the deployed application; a developer can reproduce it locally from the README; the advertised algorithms and explanation feature can be demonstrated in code and in the UI. Final wording should reflect what was actually shipped.
 
-## 3. Confirmed repository baseline (as inspected October 2, 2026)
+## 3. Audited baseline and current status (October 2, 2026)
 
-- Last commit on `main`: [`dd92677`](https://github.com/andrewcukierwar/board-game-ai-lab/commit/dd926773cc79cdf51a6139e06e798ce09ed568fd), **August 7, 2025** — enabled a Render deploy-hook step in the Docker-lite workflow. A current successful CI run or healthy live deployment was **not** independently verified.
+The following baseline records the initial audit; local reliability changes are recorded below.
+
+- Audited baseline on `main`: `b93f1a8`, **October 2, 2026**. [API CI run 37023754328](https://github.com/andrewcukierwar/board-game-ai-lab/actions/runs/37023754328) successfully built/pushed the API image and invoked the Render deploy hook. This verifies execution of those pipeline steps, not Render readiness, frontend deployment, or public gameplay.
 - Docker Compose defines a Flask/Gunicorn API on port `8000` and a React/Vite UI served by Nginx on local port `3000`; the original local Dockerization phase had been completed.
 - Connect 4 Flask endpoints exist under `/v1/connect4/`, including `start_game`, `make_move`, and `health` (`/v1/connect4/health`). The React page is `ui/src/pages/Connect4.jsx` and currently bridges to legacy frontend JavaScript.
 - Connect 4 source includes Random, Negamax, MCTS, MCTS + NN, and Victor agent classes, plus model checkpoint files under `models/connect4/`.
 - Mancala source includes Human, Random, Simple, Minimax, and Negamax agents, but does not yet have an equivalent integrated web-play experience.
-- The executable source tree did **not** reveal a DQN implementation; audit historical code, branches, or archives before deciding whether to recover or implement one. Do not count DQN as delivered on present evidence.
+- **Historical Connect 4 DQN recovered:** `Connect 4/DQN.ipynb` in commit `cfc2a6f` contains the same PyTorch prototype as `connect4/DQN.ipynb` inside `connect4.zip`. It includes replay memory and a target network, but lacks playable-agent integration and saved DQN weights. Alternating-player targets and legal-action masking need review before recovery. Historical tabular Q-learning also exists, including Mancala experiments; it is not DQN. DQN is not delivered in the current application.
 - No LLM-based explanation layer was identified in the current application.
-- `README.md` is effectively empty and `docs/quickstart.md` is unfinished.
-- `.github/workflows/docker-lite.yml` builds/pushes the **API** image to GHCR and triggers a Render hook; it does not deploy the React UI or establish a separate automated test workflow.
+- At the audit baseline, `README.md` was effectively empty and `docs/quickstart.md` unfinished; local setup, API contract, tests, and manual checks are now documented.
+- `.github/workflows/docker-lite.yml` builds/pushes the **API** image to GHCR and triggers a Render hook; both steps succeeded for the audited baseline. It does not deploy the React UI or run gameplay regression tests.
+- Repository cleanup is complete: `.env`, `node_modules/`, and generated build output are ignored and no longer tracked. The audit found that Compose still required an untracked `.env`, breaking a fresh checkout; that unnecessary requirement has now been removed.
+- Vite 7 requires **Node.js 20.19+ or 22.12+**, not the old quickstart’s Node ≥18. Prefer a compatible Node 22 LTS release for frontend development.
 
-### Known issues to investigate rather than assume resolved
+### Remaining issues and resolved local blockers
 
 | Area | Observation / likely consequence |
 | --- | --- |
 | Production frontend routing | The UI uses relative `/v1/connect4/...` API URLs. These work through the local Nginx proxy but need an explicit API routing/base-URL strategy when the frontend is hosted separately. |
-| Learned-model packaging | `docker/api.Dockerfile` copies `api/` and `games/`, not `models/`; `.dockerignore` excludes `*.pt`. An MCTS-NN agent loading `models/connect4/connect4_model_iter_100.pt` may fail inside the production container. |
-| Per-user game state | Flask currently stores game/agent instances in process-global variables. Multiple visitors can overwrite each other's sessions; introduce session-isolated or explicitly stateless game handling before inviting public traffic. |
-| CI/CD | Inspect GHCR permissions, the Render deploy-hook secret, image tags, Render configuration, and a full run. Enabling a hook in source is not itself evidence of successful deployment. |
-| Repo hygiene | `.env` (currently comments only) and dependency directories such as `node_modules/` were committed; update ignores and untrack generated content. Never commit real keys. |
-| Documentation | Complete setup and architectural instructions; remove stale or truncated documentation. |
-| Code quality | Check imports, legacy/React coupling, error handling, package compatibility, and missing focused tests. Avoid broad refactors unless they unblock core functionality. |
+| Learned-model packaging | Models are not packaged in the API image. The local web API/UI deliberately expose only Human, Random, and bounded Negamax (UI: human-versus-AI). Neural agents remain unavailable until their correctness and packaging are repaired. |
+| Per-user game state | Resolved locally: app-owned game-ID store, per-game locks, revision checks, 128-session capacity and 30-minute idle expiration. Single-worker operation remains required; restarts lose games. |
+| CI/CD | API image build/push and Render-hook invocation were verified for the audited baseline. Public service readiness, Render image selection and frontend deployment still need verification. This implementation was not pushed or deployed. |
+| Repo hygiene | Cleanup is complete and Compose no longer requires `.env`. Docker context excludes nested dependencies, local environments and test/build output. |
+| Documentation | Local setup, session/API behavior, tests and manual checks are documented. Public demo URLs, screenshots and final portfolio wording remain later work. |
+| Code quality | Local request validation, frontend lifecycle/recovery and focused tests are implemented. Advanced-agent/search/training defects from the audit remain deferred. |
+
+### Local reliability implementation verification
+
+- API supports Random and Negamax depth 1–4 (default 2), strict JSON/configuration/move validation, atomic board commits, terminal rejection and authoritative snapshot recovery. Neural imports/checkpoints are not required for the local API.
+- Frontend has an obvious homepage entry, one human-versus-AI flow, request locking, explicit AI retry, expired-session recovery, and restart/opponent switching. Navigating away cleans up listeners and cancels requests.
+- **55 backend tests, 9 frontend controller tests, and 5 Chromium end-to-end tests passed.** Browser checks completed games against both opponents, restarted with different opponents, checked two independent sessions, and exercised startup/AI/invalid-session recovery.
+- Vite production build passed. Compose built and started successfully from a clean source copy without `.env`, host dependencies or build output. Nginx/API health and browser gameplay were verified against the containers. An initial local Docker image-metadata timeout was overcome using an isolated client configuration; the subsequent standard-client Compose build/start also passed.
+- API runtime dependencies are separated from optional historical ML dependencies. Docker keeps one Gunicorn worker/four threads, uses Node 22 for the frontend build, and waits for API health before starting Nginx.
+- `npm` reports 13 existing dependency advisories (1 low, 1 moderate, 11 high); dependency upgrades remain outside this narrowly scoped reliability change.
+- No production deployments, paid API calls, formal benchmarks, training experiments or later-phase features were performed. User review is required before proceeding to the next assignment.
 
 ## 4. Intended architecture
 
@@ -102,7 +116,7 @@ Work sequentially, but keep each phase bounded and demonstrable. Do not start a 
 - Trace each resume claim to working code; specifically find whether DQN exists outside the current executable source (history/archives/branches) or needs implementation.
 - Run existing local builds and a manual Connect 4 game; fix only actual blockers. Add a handful of focused regression/smoke tests for game rules, API contract, and illegal/terminal moves.
 - Check whether the production model weights can be loaded from the built API image; choose an explicit checkpoint-packaging approach (and keep unnecessary training artifacts out of production).
-- Fix `.gitignore` and stop tracking generated dependencies/configuration. Provide an `.env.example` with variable names but no secrets.
+- Preserve the completed ignore/untracking cleanup. Remove the unnecessary Compose `.env` requirement; provide an environment example only when actual configuration variables are needed.
 - Document observed failures, changes made, and remaining work. Avoid rewriting the game engines or swapping frameworks merely for modernization.
 
 **Exit criteria:** Clean local startup, one complete Connect 4 game against at least one available agent, trustworthy status of each claimed AI approach, and a short prioritized blocker list.
@@ -185,13 +199,13 @@ Additional guardrails:
 
 ## 7. Practical delivery checklist
 
-- [ ] Repo audit completed and DQN status established.
-- [ ] Existing Connect 4 game works locally, including terminal/invalid-move behavior.
-- [ ] Local Docker Compose builds and permits a complete match.
+- [x] Repo audit completed and historical DQN prototype status established.
+- [x] Existing Connect 4 game works locally, including terminal/invalid-move behavior (Random/bounded Negamax).
+- [x] Local Docker Compose builds and permits a complete match.
 - [ ] Production API image includes all required inference artifacts.
 - [ ] GHCR/Render backend deploy verified with working health and gameplay endpoints.
 - [ ] React frontend deployed separately; production API routing and CORS work.
-- [ ] Per-user game/session isolation implemented.
+- [x] Per-user game/session isolation implemented for local single-worker Connect 4.
 - [ ] Selectable advertised agents work end-to-end, with viable public-demo defaults.
 - [ ] LLM analysis endpoint and frontend interface work on real game states.
 - [ ] Provider credentials remain server-side; basic cost/error safeguards in place.
@@ -201,7 +215,11 @@ Additional guardrails:
 
 ## 8. Immediate next assignment for Codex
 
-Start with **Phase A only**. Inspect the current `main` branch and compare the repository to Sections 2–3 of this plan. Determine what actually runs and what is merely present in source. Return:
+The initial read-only audit and first coding assignment are complete, pending user review. The completed assignment is **Reliable Local Connect 4 against Random and bounded Negamax**: isolated expiring game sessions with per-game locks and bounded memory, strict request/move validation, frontend restart/error recovery, a fresh-checkout Compose workflow, and focused regression tests. Keep the single-worker Flask/React/Vite architecture. No production deployment, LLM feature, DQN recovery, retraining, or Mancala integration is authorized in this assignment.
+
+Verification and implementation details are recorded in Section 3 and the README/quickstart. Do not automatically proceed to public deployment or another phase.
+
+Audit deliverables established:
 
 1. A concise implementation inventory by game/agent, explicitly investigating DQN.
 2. A reproducible local run/build result (including relevant failures).

@@ -1,321 +1,158 @@
-let currentBoard = [];
-let currentPlayer = 0; // 0 for Player 1, 1 for Player 2
-let gameOver = false; // Track game state
+// React owns the page; this small controller owns its board and request lifecycle.
+// No window globals: mounting twice or navigating away cannot retain an old game.
+export function mountConnect4({ document, http }) {
+  const el = id => document.getElementById(id);
+  const boardElement = el('game-board');
+  let game = null;
+  let busy = false;
+  let uncertain = false;
+  let retryAI = false;
+  let active = true;
+  let message = 'Choose an opponent and start a game. You play red and move first.';
+  const abort = new AbortController();
+  const options = { signal: abort.signal };
+  const listeners = [];
+  const humanTurn = () => game?.players[game.currentPlayer].type === 'human';
 
-// Function to toggle Player 1 options based on selected agent type
-function togglePlayer1Options() {
-  const player1Type = document.getElementById('player1-type').value;
-  const negamaxOptions = document.getElementById('player1-negamax-options');
-  if (player1Type === 'negamax') {
-    negamaxOptions.classList.remove('hidden');
-  } else {
-    negamaxOptions.classList.add('hidden');
-  }
-}
-
-// Function to toggle Player 2 options based on selected agent type
-function togglePlayer2Options() {
-  const player2Type = document.getElementById('player2-type').value;
-  const negamaxOptions = document.getElementById('player2-negamax-options');
-  if (player2Type === 'negamax') {
-    negamaxOptions.classList.remove('hidden');
-  } else {
-    negamaxOptions.classList.add('hidden');
-  }
-}
-
-async function startGame() {
-  // Gather Player 1 Configuration
-  const player1Type = document.getElementById('player1-type').value;
-  let player1Config = { type: player1Type };
-  if (player1Type === 'negamax') {
-    const depth = parseInt(document.getElementById('player1-depth').value, 10);
-    player1Config.depth = depth;
-  }
-
-  // Gather Player 2 Configuration
-  const player2Type = document.getElementById('player2-type').value;
-  let player2Config = { type: player2Type };
-  if (player2Type === 'negamax') {
-    const depth = parseInt(document.getElementById('player2-depth').value, 10);
-    player2Config.depth = depth;
+  function render() {
+    if (!active) return;
+    el('message').textContent = message;
+    el('loading').hidden = !busy;
+    el('opponent-type').disabled = busy;
+    el('opponent-depth').disabled = busy;
+    el('negamax-options').hidden = el('opponent-type').value !== 'negamax';
+    el('start-button').hidden = Boolean(game);
+    el('restart-button').hidden = !game;
+    el('start-button').disabled = busy;
+    el('restart-button').disabled = busy;
+    el('retry-button').hidden = !(uncertain || retryAI);
+    el('retry-button').disabled = busy;
+    el('retry-button').textContent = uncertain ? 'Refresh game' : 'Retry AI move';
+    const board = el('game-board');
+    board.replaceChildren();
+    if (!game) return;
+    board.setAttribute('aria-busy', String(busy));
+    game.board.forEach((row, rowIndex) => row.forEach((piece, column) => {
+      const cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'cell';
+      cell.disabled = busy || uncertain || game.gameOver || !humanTurn() || !game.legalMoves.includes(column);
+      cell.setAttribute('aria-label', `Column ${column + 1}, row ${rowIndex + 1}: ${piece === 'X' ? 'red' : piece === 'O' ? 'yellow' : 'empty'}`);
+      cell.dataset.column = String(column);
+      const circle = document.createElement('span');
+      circle.className = `circle ${piece === 'X' ? 'x' : piece === 'O' ? 'o' : 'empty'}`;
+      cell.appendChild(circle);
+      cell.addEventListener('click', () => move(column));
+      board.appendChild(cell);
+    }));
   }
 
-  // Optional: Disable agent selections and Start button during game
-  document.getElementById('player1-type').disabled = true;
-  document.getElementById('player2-type').disabled = true;
-  if (player1Type === 'negamax') {
-    document.getElementById('player1-depth').disabled = true;
+  function accept(data) {
+    game = data;
+    uncertain = false;
+    retryAI = false;
+    message = game.gameOver
+      ? game.winner === 'Draw' ? "It's a draw! Start a new game to play again."
+        : `${game.winner === 'Player 1' ? 'You win' : 'The AI wins'}! Start a new game to play again.`
+      : humanTurn() ? 'Your turn — choose a column.' : 'AI turn.';
   }
-  if (player2Type === 'negamax') {
-    document.getElementById('player2-depth').disabled = true;
-  }
-  // document.querySelector('button[onclick="startGame()"]').disabled = true;
-  document.getElementById('start-button').disabled = true;
 
-  try {
-    const response = await axios.post('/v1/connect4/start_game', {
-      player1: player1Config,
-      player2: player2Config
-    }, {
-      headers: {
-        'Content-Type': 'application/json'
+  async function recover(error) {
+    if (!active) return;
+    const reason = error.response?.data?.error || 'The request failed. Check your connection and try again.';
+    if (game) {
+      // A response can be lost after the server commits a move. Read the board
+      // before offering another move; never blindly replay an uncertain POST.
+      uncertain = true;
+      try {
+        const response = await http.get(`/v1/connect4/games/${game.game_id}`, options);
+        if (!active) return;
+        accept(response.data);
+        retryAI = !game.gameOver && !humanTurn();
+      } catch (refreshError) {
+        if (!active) return;
+        if (refreshError.response?.status === 404) {
+          game = null;
+          uncertain = false;
+          retryAI = false;
+          message = 'This game expired or the server restarted. Start a new game.';
+          return;
+        }
+        retryAI = false;
       }
+    }
+    message = reason + (uncertain ? ' Refresh the game before continuing.' : retryAI ? ' Retry the AI move or start a new game.' : '');
+  }
+
+  async function run(action) {
+    if (!active || busy) return;
+    busy = true;
+    render();
+    try {
+      await action();
+    } catch (error) {
+      await recover(error);
+    } finally {
+      busy = false;
+      render();
+    }
+  }
+
+  async function botMove() {
+    if (!active || !game || game.gameOver || humanTurn()) return;
+    const response = await http.post('/v1/connect4/make_move', {
+      game_id: game.game_id, revision: game.revision,
+    }, options);
+    if (active) accept(response.data);
+  }
+
+  async function start() {
+    return run(async () => {
+      const type = el('opponent-type').value;
+      const opponent = type === 'negamax' ? { type, depth: Number(el('opponent-depth').value) } : { type };
+      const body = { player1: { type: 'human' }, player2: opponent };
+      if (game) body.replace_game_id = game.game_id;
+      const response = await http.post('/v1/connect4/start_game', body, options);
+      if (active) accept(response.data);
     });
-    currentBoard = response.data.board;
-    currentPlayer = response.data.currentPlayer; // Capture currentPlayer
-    gameOver = false;
-    document.getElementById('message').innerText = '';
-    document.getElementById('restart-button').style.display = 'none';
-    updateBoard(currentBoard);
-
-    // **New Logic Starts Here**
-    // Handle initial bot move if Player 1 is a bot
-    await handleBotTurns();
-    // **New Logic Ends Here**
-  } catch (error) {
-    console.error(error);
-    alert('Error starting the game: ' + (error.response?.data?.error || 'Unknown error.'));
-    // Re-enable agent selections and Start button in case of error
-    document.getElementById('player1-type').disabled = false;
-    document.getElementById('player2-type').disabled = false;
-    if (player1Type === 'negamax') {
-      document.getElementById('player1-depth').disabled = false;
-    }
-    if (player2Type === 'negamax') {
-      document.getElementById('player2-depth').disabled = false;
-    }
-    // document.querySelector('button[onclick="startGame()"]').disabled = false;
-    document.getElementById('start-button').disabled = true;
   }
-}
 
-function updateBoard(board) {
-  const gameBoard = document.getElementById('game-board');
-  gameBoard.innerHTML = ''; // Clear existing board
-
-  board.forEach((row, rowIndex) => {
-    row.forEach((cell, colIndex) => {
-      const cellElement = document.createElement('div');
-      cellElement.className = 'cell';
-      
-      // Disable cell clicks if game is over
-      if (gameOver) {
-        cellElement.classList.add('disabled');
-      }
-
-      const circleElement = document.createElement('div');
-      circleElement.className = 'circle';
-      if (cell === 'X') {
-        circleElement.classList.add('x');
-      } else if (cell === 'O') {
-        circleElement.classList.add('o');
-      } else {
-        circleElement.classList.add('empty');
-      }
-      cellElement.appendChild(circleElement);
-      
-      // Assign click handler if game is not over and it's a human's turn
-      if (!gameOver && isHumanPlayer(currentPlayer)) {
-        cellElement.onclick = () => makeMove(colIndex);
-      }
-
-      gameBoard.appendChild(cellElement);
+  async function move(column) {
+    if (!game || game.gameOver || uncertain || !humanTurn() || !game.legalMoves.includes(column)) return;
+    return run(async () => {
+      const response = await http.post('/v1/connect4/make_move', {
+        game_id: game.game_id, revision: game.revision, column,
+      }, options);
+      if (!active) return;
+      accept(response.data);
+      render();
+      await botMove();
     });
-  });
-}
-
-// Function to determine if the current player is human
-function isHumanPlayer(player) {
-  const playerConfig = getPlayerConfig(player);
-  return playerConfig.type === 'human';
-}
-
-// Function to retrieve player configuration based on player number
-function getPlayerConfig(player) {
-  // Assuming player 0 is Player 1 and player 1 is Player 2
-  const playerType = player === 0 ? document.getElementById('player1-type').value : document.getElementById('player2-type').value;
-  let config = { type: playerType };
-  if (playerType === 'negamax') {
-    const depth = player === 0 ? parseInt(document.getElementById('player1-depth').value, 10) : parseInt(document.getElementById('player2-depth').value, 10);
-    config.depth = depth;
   }
-  return config;
-}
 
-async function makeMove(column) {
-  if (gameOver) return; // Prevent moves if game is over
-
-  try {
-    const response = await axios.post('/v1/connect4/make_move', { column }, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
+  async function retry() {
+    return run(async () => {
+      if (!game) return;
+      const response = await http.get(`/v1/connect4/games/${game.game_id}`, options);
+      if (!active) return;
+      accept(response.data);
+      await botMove();
     });
-    currentBoard = response.data.board;
-    currentPlayer = response.data.currentPlayer; // Update currentPlayer
-    updateBoard(currentBoard);
-
-    if (response.data.winner) {
-      gameOver = true;
-      let message = '';
-      if (response.data.winner.includes('Player')) {
-        message = `${response.data.winner} wins!`;
-      } else if (response.data.winner === 'Draw') {
-        message = "It's a draw!";
-      }
-
-      // // Highlight winning sequence if available
-      // if (response.data.winningSequence) {
-      //   highlightWinningSequence(response.data.winningSequence);
-      // }
-
-      // Delay the alert to allow DOM to update
-      setTimeout(() => {
-        alert('Game Over: ' + message);
-        document.getElementById('message').innerText = message;
-        document.getElementById('restart-button').style.display = 'inline-block';
-        // Re-enable agent selections and Start button
-        enableAgentSelections();
-      }, 100); // 100 milliseconds delay
-      return;
-    }
-
-    // If it's AI's turn after player's move
-    const currentPlayerAfterMove = response.data.currentPlayer;
-    const checkWinner = response.data.checkWinner;
-    if (!isHumanPlayer(currentPlayerAfterMove) && checkWinner === -1) {
-      showLoading(); // Show loading before AI makes a move
-      await botMove(currentPlayerAfterMove);
-      hideLoading(); // Hide loading after AI move
-    }
-  } catch (error) {
-    console.error(error);
-    alert('Error making move: ' + (error.response?.data?.error || 'Invalid move.'));
   }
-}
 
-async function botMove(player) {
-  try {
-    // Send an empty JSON object to ensure Content-Type is 'application/json'
-    const response = await axios.post('/v1/connect4/make_move', {}, {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    currentBoard = response.data.board;
-    currentPlayer = response.data.currentPlayer; // Update currentPlayer
-    updateBoard(currentBoard);
-
-    if (response.data.winner) {
-      gameOver = true;
-      let message = '';
-      if (response.data.winner.includes('Player')) {
-        message = `${response.data.winner} wins!`;
-      } else if (response.data.winner === 'Draw') {
-        message = "It's a draw!";
-      }
-
-      // // Highlight winning sequence if available
-      // if (response.data.winningSequence) {
-      //   highlightWinningSequence(response.data.winningSequence);
-      // }
-
-      // Delay the alert to allow DOM to update
-      setTimeout(() => {
-        alert('Game Over: ' + message);
-        document.getElementById('message').innerText = message;
-        document.getElementById('restart-button').style.display = 'inline-block';
-        // Re-enable agent selections and Start button
-        enableAgentSelections();
-      }, 100); // 100 milliseconds delay
-      return;
-    }
-
-    // After bot move, check if next player is also a bot
-    if (!isHumanPlayer(currentPlayer) && !gameOver) {
-      showLoading();
-      await botMove(currentPlayer);
-      hideLoading();
-    }
-  } catch (error) {
-    console.error(error);
-    // Provide a more descriptive error message to the user
-    alert('Error during AI move: ' + (error.response?.data?.error || 'Unknown error.'));
+  for (const [id, event, handler] of [
+    ['start-button', 'click', start], ['restart-button', 'click', start],
+    ['retry-button', 'click', retry], ['opponent-type', 'change', render],
+  ]) {
+    const node = el(id);
+    node.addEventListener(event, handler);
+    listeners.push(() => node.removeEventListener(event, handler));
   }
-}
-
-// Recursive function to handle multiple bot moves
-async function handleBotTurns() {
-  while (!gameOver && !isHumanPlayer(currentPlayer)) {
-    showLoading(); // Show loading indicator
-    await botMove(currentPlayer);
-    hideLoading(); // Hide loading indicator after move
-  }
-}
-
-function restartGame() {
-  startGame();
-  document.getElementById('restart-button').style.display = 'none';
-}
-
-function enableAgentSelections() {
-  document.getElementById('player1-type').disabled = false;
-  document.getElementById('player2-type').disabled = false;
-  const player1Type = document.getElementById('player1-type').value;
-  const player2Type = document.getElementById('player2-type').value;
-  if (player1Type === 'negamax') {
-    document.getElementById('player1-depth').disabled = false;
-  }
-  if (player2Type === 'negamax') {
-    document.getElementById('player2-depth').disabled = false;
-  }
-  // document.querySelector('button[onclick="startGame()"]').disabled = false;
-  document.getElementById('start-button').disabled = true;
-}
-
-// Loading Indicator Functions
-function showLoading() {
-  document.getElementById('loading').classList.remove('hidden');
-}
-
-function hideLoading() {
-  document.getElementById('loading').classList.add('hidden');
-}
-
-// Function to highlight the winning sequence
-function highlightWinningSequence(sequence) {
-  sequence.forEach(([row, col]) => {
-    const cellIndex = row * 7 + col; // Assuming 7 columns
-    const cellElement = document.getElementsByClassName('cell')[cellIndex];
-    if (cellElement) {
-      const circle = cellElement.querySelector('.circle');
-      if (circle) {
-        circle.style.boxShadow = '0 0 10px 5px green';
-      }
-    }
-  });
-}
-
-// Initialize agent options based on default selections
-togglePlayer1Options();
-togglePlayer2Options();
-
-// Optionally, start the game automatically on page load
-// window.onload = startGame;
-
-/* ------------------------------------------------------------------ *
-   Make legacy helpers globally visible for React                      *
-   (paste this at the BOTTOM of ui/legacy/connect4.js)                 *
- * ------------------------------------------------------------------ */
-
-if (typeof window !== "undefined") {
-  Object.assign(window, {
-    // functions you call from JSX ⬇
-    startGame,
-    restartGame,              // if you have one
-    togglePlayer1Options,
-    togglePlayer2Options,
-    makeMove,                 // any others referenced in the HTML/JSX
-  });
+  render();
+  return () => {
+    active = false;
+    abort.abort();
+    listeners.forEach(remove => remove());
+    boardElement.replaceChildren();
+  };
 }
