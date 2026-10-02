@@ -103,7 +103,7 @@ export function mountExplanations({ document, http }) {
       if (!active || requestGeneration !== generation) return;
       const data = response.data;
       if (data?.game_id !== game.game_id || data?.revision !== game.revision ||
-          data?.mode !== mode || !validExplanation(data)) {
+          data?.mode !== mode || data?.column !== (requested.column ?? null) || !validExplanation(data)) {
         throw new Error('The explanation server returned an unusable response.');
       }
       show(data.explanation);

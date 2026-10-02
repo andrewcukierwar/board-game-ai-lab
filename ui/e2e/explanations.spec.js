@@ -7,7 +7,7 @@ async function start(page) {
 }
 
 function explained(request) {
-  return { ...request, cached: false, explanation: {
+  return { ...request, column: request.column ?? null, cached: false, explanation: {
     facts: [{ id: 'position', text: 'This position was verified.', classification: 'confirmed_tactical' }],
     strategic_context: [{ title: 'Immediate tactics', classification: 'context_only', text: 'Check immediate replies.',
       limitations: ['No long-term proof.'], source: { references: [{ chapter: 3, section: '3.4', thesis_pages: [21, 24] }] } }],
@@ -93,4 +93,16 @@ test('disabled backend returns graceful explanation error while actual gameplay 
   await expect(page.locator('.circle.x')).toHaveCount(1);
   await expect(page.locator('.circle.o')).toHaveCount(1);
   await expect(page.getByRole('button', { name: 'Explain AI Move' })).toBeEnabled();
+});
+
+test('a response for another hypothetical column is rejected without affecting play', async ({ page }) => {
+  await page.route('**/v1/connect4/explain', route => route.fulfill({
+    json: { ...explained(route.request().postDataJSON()), column: 0 },
+  }));
+  await start(page);
+  await page.getByLabel('Hypothetical move:').selectOption('3');
+  await page.getByRole('button', { name: 'What If?', exact: true }).click();
+  await expect(page.locator('#explanation-status')).toContainText('could not be loaded');
+  await expect(page.locator('#explanation-result')).toBeEmpty();
+  await expect(page.locator('.cell:enabled').first()).toBeEnabled();
 });

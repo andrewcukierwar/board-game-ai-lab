@@ -1,7 +1,10 @@
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, wait
 from copy import deepcopy
 import json
-from threading import Event
+from threading import Barrier, Event, Thread
+from http.client import HTTPConnection
+from socket import socketpair
+from time import monotonic
 
 import pytest
 
@@ -383,9 +386,9 @@ class Connection:
         self.closed = True
 
 
-def provider_call(connection):
+def provider_call(connection, timeout=20):
     return OpenAIExplanationProvider(lambda *a, **kw: connection).generate(
-        api_key='test-placeholder', model='test-model', max_tokens=400, timeout=20,
+        api_key='test-placeholder', model='test-model', max_tokens=400, timeout=timeout,
         instructions=INSTRUCTIONS, evidence={'question_untrusted': 'data'}, schema={'type': 'object'})
 
 
@@ -421,3 +424,176 @@ def test_provider_invalid_timeout_refusal_and_model_unavailable(connection, code
         provider_call(connection)
     assert exc.value.code == code
     assert connection.closed
+
+
+@pytest.mark.parametrize('phase', ['headers', 'body', 'chunked'])
+def test_provider_deadline_interrupts_slow_drip_and_closes_response(phase):
+    # Actual http.client parsing over a socket pair: no DNS/TLS/provider traffic.
+    client_sock, server_sock = socketpair()
+    client_sock.settimeout(1)
+    connection = HTTPConnection('unused')
+    connection.sock = client_sock
+    stopped = Event()
+    def drip():
+        try:
+            server_sock.recv(65536)
+            prefix = b'HTTP/1.1 200 OK\r\nConnection: close\r\n'
+            if phase == 'headers':
+                server_sock.sendall(prefix + b'X-Slow: ')
+                fragment = b'x'
+            elif phase == 'body':
+                server_sock.sendall(prefix + b'Content-Length: 1000\r\n\r\n')
+                fragment = b' '
+            else:
+                server_sock.sendall(prefix + b'Transfer-Encoding: chunked\r\n\r\n')
+                fragment = b'1\r\nx\r\n'
+            finish = monotonic() + 1.2  # Fail finitely even against the old provider.
+            while monotonic() < finish and not stopped.wait(0.02):
+                server_sock.sendall(fragment)
+        except OSError:
+            pass
+        finally:
+            server_sock.close()
+    writer = Thread(target=drip, daemon=True)
+    writer.start()
+    began = monotonic()
+    try:
+        with pytest.raises(GameError) as error:
+            provider_call(connection, timeout=0.15)
+        assert error.value.code == 'explanation_timeout'
+        assert monotonic() - began < 1
+        assert client_sock.fileno() == -1  # Includes the detached HTTPResponse file.
+    finally:
+        stopped.set()
+        writer.join(2)
+        connection.close()
+    assert not writer.is_alive()
+
+
+@pytest.mark.parametrize('limit', ['EXPLANATION_GLOBAL_LIMIT', 'EXPLANATION_CLIENT_LIMIT'])
+def test_simultaneous_requests_across_new_games_reserve_quotas_atomically(app, limit):
+    app.config[limit] = 1
+    svc = service(app)
+    states = [start(app) for _ in range(8)]
+    ready = Barrier(len(states))
+    entered, release = Event(), Event()
+    real = svc.provider.generate
+    def slow(**kwargs):
+        entered.set()
+        assert release.wait(5)
+        return real(**kwargs)
+    svc.provider.generate = slow
+    def request(state, index):
+        ready.wait(5)
+        return app.test_client().post(BASE + '/explain', json={
+            'game_id': state['game_id'], 'revision': 0, 'mode': 'position'},
+            environ_overrides={'REMOTE_ADDR': str(index) if limit == 'EXPLANATION_GLOBAL_LIMIT' else 'same-client',
+                               'HTTP_X_FORWARDED_FOR': str(index)})
+    with ThreadPoolExecutor(max_workers=len(states)) as pool:
+        futures = [pool.submit(request, state, i) for i, state in enumerate(states)]
+        try:
+            assert entered.wait(5)
+            # Seven losers must finish while the accepted provider call is held.
+            completed, _ = wait(futures, timeout=1)
+            assert len(completed) == 7
+            assert all(f.result().json['code'] == 'explanation_rate_limited' for f in completed)
+            assert svc.global_count == 1
+        finally:
+            release.set()
+        assert [f.result().status_code for f in futures].count(200) == 1
+    assert len(svc.provider.calls) == 1
+    assert not svc.inflight
+    assert sum(s.explanation_requests for s in app.extensions['connect4_games']._games.values()) == 1
+
+
+def test_simultaneous_duplicates_reserve_one_attempt_and_failure_releases_permit(app, monkeypatch):
+    from api.connect4.explanations import prepare_evidence
+    app.config['EXPLANATION_GAME_LIMIT'] = 1
+    ready = Barrier(8)
+    def aligned(*args, **kwargs):
+        evidence = prepare_evidence(*args, **kwargs)
+        # Align after detached capture: isolate the paid reservation race from
+        # the existing, legitimate game_busy behavior during snapshot capture.
+        ready.wait(5)
+        return evidence
+    monkeypatch.setattr('api.connect4.explanations.prepare_evidence', aligned)
+    entered, release = Event(), Event()
+    svc = service(app)
+    calls = []
+    def slow(**kwargs):
+        calls.append(kwargs)
+        entered.set()
+        assert release.wait(5)
+        raise TimeoutError
+    svc.provider.generate = slow
+    state = start(app)
+    def request():
+        return explain(app, state)
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        futures = [pool.submit(request) for _ in range(8)]
+        try:
+            assert entered.wait(5)
+            completed, _ = wait(futures, timeout=1)
+            assert len(completed) == 7
+            assert all(f.result().json['code'] == 'explanation_busy' for f in completed)
+        finally:
+            release.set()
+        assert [f.result().status_code for f in futures].count(504) == 1
+    monkeypatch.setattr('api.connect4.explanations.prepare_evidence', prepare_evidence)
+    assert len(calls) == svc.global_count == 1
+    assert not svc.inflight and not svc.cache
+    assert explain(app, state).json['code'] == 'explanation_game_limit'
+    svc.provider = FakeProvider()
+    assert explain(app, start(app)).status_code == 200
+
+
+@pytest.mark.parametrize('mode', ['position', 'last_move', 'what_if'])
+@pytest.mark.parametrize('claim', [
+    {'summary': 'Column 8 wins; Negamax applied Claimeven.'},
+    {'supported_allis_rule_applications': ['claimeven']},
+    {'citations': [{'url': 'https://fabricated.example'}]},
+])
+def test_unsupported_model_claims_rejected_in_every_mode(app, mode, claim):
+    def invented(**kwargs):
+        return {'fact_ids': [kwargs['evidence']['confirmed_tactical_facts'][0]['id']],
+                'concept_ids': ['tactics'], **claim}
+    service(app).provider.generate = invented
+    state = move(app, start(app), 3)
+    result = explain(app, state, mode, **({'column': 2} if mode == 'what_if' else {}))
+    assert result.status_code == 502
+    assert result.json['code'] == 'invalid_explanation'
+    assert 'fabricated' not in result.get_data(as_text=True)
+    assert not service(app).inflight and not service(app).cache
+
+
+def test_cache_identity_includes_game_revision_mode_question_column_and_model(app):
+    state = start(app)
+    requests = [('position', {}), ('last_move', {}), ('position', {'question': 'why?'}),
+                ('what_if', {'column': 0}), ('what_if', {'column': 1})]
+    for mode, kwargs in requests:
+        assert explain(app, state, mode, **kwargs).json['cached'] is False
+        assert explain(app, state, mode, **kwargs).json['cached'] is True
+    assert explain(app, start(app)).json['cached'] is False
+    updated = move(app, state, 3)
+    assert explain(app, updated).json['cached'] is False
+    app.config['OPENAI_EXPLANATION_MODEL'] = 'another-test-model'
+    assert explain(app, updated).json['cached'] is False
+    assert len(service(app).provider.calls) == 8
+
+
+def test_disabled_default_and_credentials_never_enter_prompt_or_responses(monkeypatch, app):
+    monkeypatch.delenv('EXPLANATIONS_ENABLED', raising=False)
+    monkeypatch.setattr('api.app.load_dotenv', lambda *a, **kw: None)
+    disabled = create_app({'TESTING': True})
+    disabled.extensions['connect4_explanations'].provider = FakeProvider()
+    assert explain(disabled, start(disabled)).json['code'] == 'explanations_disabled'
+    assert not service(disabled).provider.calls
+    sentinel = 'review-only-secret-sentinel'
+    app.config['OPENAI_API_KEY'] = sentinel
+    state = start(app)
+    response = explain(app, state)
+    assert response.status_code == 200
+    assert sentinel not in response.get_data(as_text=True)
+    assert sentinel not in json.dumps(service(app).provider.calls[0]['evidence'])
+    assert sentinel not in service(app).provider.calls[0]['instructions']
+    assert sentinel not in json.dumps(state)

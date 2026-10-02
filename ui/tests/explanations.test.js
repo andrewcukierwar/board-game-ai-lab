@@ -7,7 +7,7 @@ const flush = () => new Promise(resolve => setImmediate(resolve));
 const state = (revision = 0, extra = {}) => ({ game_id: 'game-a', revision,
   currentPlayer: 0, players: [{ type: 'human' }, { type: 'random' }],
   legalMoves: [0, 2, 3], gameOver: false, ...extra });
-const response = (request, extra = {}) => ({ data: { ...request, cached: false, explanation: {
+const response = (request, extra = {}) => ({ data: { ...request, column: request.column ?? null, cached: false, explanation: {
   facts: [{ text: 'Verified facts', classification: 'confirmed_tactical' }],
   strategic_context: [{ title: 'Immediate tactics', text: 'General concept', classification: 'context_only',
     limitations: ['Limited horizon'], source: { references: [
@@ -131,4 +131,15 @@ test('React cleanup remains safe after the panel DOM has been removed', () => {
   const ui = setup({ post: async () => { throw new Error('unexpected request'); } });
   ui.doc.body.replaceChildren();
   assert.doesNotThrow(() => ui.panel.cleanup());
+});
+
+test('a mismatched hypothetical column never renders under the requested column', async () => {
+  const ui = setup({ post: async (url, body) => response(body, { column: 3 }) });
+  ui.panel.update(state(), false);
+  ui.el('what-if-column').value = '2';
+  ui.click('what-if'); await flush();
+  assert.equal(ui.el('explanation-result').textContent, '');
+  assert.match(ui.el('explanation-status').textContent, /could not be loaded/);
+  assert.equal(ui.el('what-if').disabled, false);
+  ui.panel.cleanup();
 });
