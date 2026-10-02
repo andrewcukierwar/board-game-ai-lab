@@ -6,6 +6,7 @@ from time import monotonic
 from uuid import uuid4
 
 from games.connect4.connect4 import Connect4
+from games.connect4.grounding.history import MoveRecord
 
 
 class GameError(Exception):
@@ -19,6 +20,7 @@ class GameSession:
     touched: float
     game: Connect4 = field(default_factory=Connect4)
     revision: int = 0
+    history: tuple[MoveRecord, ...] = ()
     lock: Lock = field(default_factory=Lock)
 
 

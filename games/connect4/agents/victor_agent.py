@@ -1,3 +1,9 @@
+"""Experimental heuristic/search agent, not Allis's VICTOR or a complete solver.
+
+The A1/A2/B/C/D labels below are local prototype labels, not the nine rules
+defined in Allis (1988), chapter 6. This agent is unavailable in the public API
+and is not a source of verified evidence for the grounding layer.
+"""
 from typing import List, Dict, Tuple, Optional #, Set
 from collections import defaultdict
 from dataclasses import dataclass
@@ -6,7 +12,7 @@ import numpy as np
 
 @dataclass
 class Threat:
-    """Represents a threat in Victor Allis's classification"""
+    """Represents a locally defined prototype threat pattern."""
     type: str  # A1, A2, B, C, D
     squares: List[Tuple[int, int]]  # Squares involved in threat
     forcing_moves: List[Tuple[int, int]]  # Moves required to execute threat
@@ -33,8 +39,8 @@ class ThreatSequence:
 
 class VictorAgent:
     """
-    Implements Victor Allis's complete solution to Connect Four,
-    including both threat-space search and proof-number search
+    Experimental threat-pattern and search prototype; correctness is unproven.
+    It does not implement Allis's nine-rule coverage/compatibility framework.
     """
     def __init__(self):
         self.transposition_table: Dict[str, bool] = {}  # Cached proven positions
@@ -42,7 +48,7 @@ class VictorAgent:
         self.move_ordering = [3, 2, 4, 1, 5, 0, 6]  # Center-based move ordering
         
     def _init_threat_patterns(self) -> Dict[str, np.ndarray]:
-        """Initialize all threat patterns from Allis's classification"""
+        """Initialize local heuristic patterns, not thesis rule definitions."""
         patterns = {}
         
         # Type A1: Direct four threat

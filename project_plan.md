@@ -2,7 +2,7 @@
 
 **Repository:** https://github.com/andrewcukierwar/board-game-ai-lab  
 **Plan updated:** October 2, 2026  
-**Status:** Phase 1 — Reliable Local Connect 4 completed and manually verified at `830bfdc`. Phase 2 — Public Deployment implemented and locally verified; public rollout and production smoke testing await review/approval.
+**Status:** Phase 1 completed and manually verified at `830bfdc`. Phase 2 — Public Deployment complete; the user confirms the public Connect 4 application is functioning. Phase 3A — Deterministic Allis grounding implemented and locally verified on `phase3-allis-grounding`, based on latest `main` (`cbf8db5`). Phase 3B remains unimplemented.
 **Guiding objective:** Build a polished, publicly playable AI game laboratory and make the three intended resume bullets accurate and defensible. Prefer shipping a compelling hands-on application over expanding infrastructure or running formal agent benchmarks.
 
 ## 1. Product vision
@@ -59,12 +59,12 @@ The following baseline records the initial audit; Phase 1 and Phase 2 changes ar
 
 | Area | Observation / likely consequence |
 | --- | --- |
-| Production frontend routing | Implemented locally: Render builds require `VITE_API_BASE` as an HTTPS API origin; Docker builds and Vite development retain their local proxies. Exact-origin API CORS and Render SPA rewrite instructions are ready; public configuration/verification are pending. |
+| Production frontend routing | Implemented locally: Render builds require `VITE_API_BASE` as an HTTPS API origin; Docker builds and Vite development retain their local proxies. Exact-origin API CORS and Render SPA routing support the functioning public application (user-confirmed Phase 2 completion). |
 | Learned-model packaging | Models are not packaged in the API image. The local web API/UI deliberately expose only Human, Random, and bounded Negamax (UI: human-versus-AI). Neural agents remain unavailable until their correctness and packaging are repaired. |
 | Per-user game state | Resolved locally: app-owned game-ID store, per-game locks, revision checks, 128-session capacity and 30-minute idle expiration. Single-worker operation remains required; restarts lose games. |
-| CI/CD | [Run 37034008283](https://github.com/andrewcukierwar/board-game-ai-lab/actions/runs/37034008283) for `830bfdc` confirms API image build/push and hook invocation. Phase 2 adds explicit package permissions, `linux/amd64`, and a bounded hook request. Public readiness, Render image selection and frontend rollout still need verification; Phase 2 changes remain unpushed. |
+| CI/CD | [Run 37034008283](https://github.com/andrewcukierwar/board-game-ai-lab/actions/runs/37034008283) for `830bfdc` confirms API image build/push and hook invocation. Phase 2 adds explicit package permissions, `linux/amd64`, and a bounded hook request. Phase 2 is now on `main` at `cbf8db5`, and the user confirms public gameplay works. No production workflow or deployment is triggered by Phase 3A work. |
 | Repo hygiene | Cleanup is complete and Compose no longer requires `.env`. Docker context excludes nested dependencies, local environments and test/build output. |
-| Documentation | Local setup, session/API behavior, tests and manual checks are documented. Public demo URLs, screenshots and final portfolio wording remain later work. |
+| Documentation | Local setup, session/API behavior, tests and manual checks are documented. Grounding schema and thesis references are documented in `docs/allis-grounding.md`; screenshots and final portfolio wording remain later work. |
 | Code quality | Local request validation, frontend lifecycle/recovery and focused tests are implemented. Advanced-agent/search/training defects from the audit remain deferred. |
 
 ### Phase 1 local reliability verification (completed)
@@ -77,7 +77,7 @@ The following baseline records the initial audit; Phase 1 and Phase 2 changes ar
 - `npm` reports 13 existing dependency advisories (1 low, 1 moderate, 11 high); dependency upgrades remain outside this narrowly scoped reliability change.
 - No production deployments, paid API calls, formal benchmarks, training experiments or later-phase features were performed. The user subsequently reviewed and manually verified Phase 1, and authorized Phase 2 implementation/local verification.
 
-### Phase 2 implementation and local verification
+### Phase 2 implementation and local verification (historical record; rollout subsequently completed)
 
 - Environment-aware API configuration is implemented: Docker builds explicitly use Nginx's `/v1/` proxy, Vite development always uses its development proxy, and Render builds require an explicit HTTPS `VITE_API_BASE`. Removed the dormant hardcoded production default and excluded developer env files from Docker contexts.
 - API CORS allows only configured exact `CORS_ALLOWED_ORIGINS`, supports JSON preflight and error responses, and defaults to no cross-origin access. Wildcard/path/invalid origins fail startup. Health remains `/v1/connect4/health` with HTTP 200/`OK`.
@@ -86,7 +86,19 @@ The following baseline records the initial audit; Phase 1 and Phase 2 changes ar
 - **74 backend tests, 15 frontend tests, and 8 Chromium end-to-end tests in each of three configurations passed** (24 browser test executions): Docker/Nginx, Vite development with a deliberately set remote API variable, and a production-built static frontend at port 4173 calling an exact-CORS API at port 8001. Tests cover complete games against both opponents, independence, switching/restart, direct navigation/refresh, slow/HTML startup, failure/expiry recovery and lost post-commit responses.
 - Compose rebuild/start and default/Render/cross-origin production builds passed. Missing Render API configuration fails the build as intended. The temporary API listened on Render-style port 10000 with one worker. Actual temporary-container restart recovery was verified in Chromium: old session reported missing, fresh start succeeded.
 - README and quickstart are updated; [docs/deployment.md](docs/deployment.md) contains exact Render settings, approval-gated manual steps and the production smoke checklist. Existing npm advisories remain outside this scope.
-- **Public exit criteria remain pending:** no Phase 2 push, production setting change, deployment hook invocation, paid API call or public smoke test was performed. Confirm real hostnames, GHCR image reference/access and Render readiness after approval.
+- The original implementation stopped before rollout. **Subsequent Phase 2 completion:** the user confirms the public Connect 4 application is functioning as of the Phase 3 assignment (October 2, 2026). This records the user’s completion report, not a claim that Phase 3A repeated the production smoke checklist.
+- **Public frontend/API URLs:** awaiting the user’s exact addresses; the repository’s old API hostname was explicitly unverified and its frontend address was a placeholder. Do not invent deployment addresses.
+
+### Phase 3A implementation and local verification
+
+- Created local `phase3-allis-grounding` from freshly fetched `origin/main` at `cbf8db5`. No credentials changed, pushes, production mutations, or deployments.
+- Added immutable per-session move records with player/agent, column, before/after board, ply/revisions, and outcome. Existing locks, atomic candidate commits, revision errors, expiration, replacement, capacity, and gameplay JSON contracts are preserved.
+- Added reusable deterministic position/move analysis, complete session-history replay, revision-bound context assembly, and deterministic retrieval of 15 curated primary-source entries (six concepts and all nine formal rules).
+- Read [Allis’s actual 1988 thesis](https://tromp.github.io/c4/connect4_thesis.pdf). References distinguish thesis pagination from 1-based PDF pages and zero-based indices. The supplied edition has no visible body-page folios.
+- Tactical evidence covers immediate wins, forced defensive responses, gravity-playable completion squares, legal alternatives and simple square creation/removal. **Formal Allis rule applications remain unsupported**: no local pattern is promoted into a rule, Zugzwang, compatibility, coverage, or long-term result proof.
+- Reviewed the experimental VictorAgent and corrected its complete-solver/Allis-classification claims without behavior changes. Negamax is not attributed Allis reasoning.
+- **119 backend tests, 15 frontend tests and 8 Chromium end-to-end tests passed.** Browser tests used this branch’s local API at port 8001 and production-built frontend at port 4173 with exact CORS. Default and separate-origin Vite builds passed.
+- Evidence schema, research references, applicability boundaries and regression examples: [docs/allis-grounding.md](docs/allis-grounding.md). No LLM call, explanation HTTP endpoint or frontend panel has been added.
 
 ## 4. Intended architecture
 
@@ -132,7 +144,7 @@ Work sequentially, but keep each phase bounded and demonstrable. Do not start a 
 
 **Exit criteria:** Clean local startup, one complete Connect 4 game against at least one available agent, trustworthy status of each claimed AI approach, and a short prioritized blocker list.
 
-### Phase 2 — Public Deployment (**implemented locally; public rollout pending approval**)
+### Phase 2 — Public Deployment (**complete; public application functioning, user-confirmed**)
 
 **Goal:** Make the existing game playable by anyone at a public URL.
 
@@ -148,7 +160,7 @@ Work sequentially, but keep each phase bounded and demonstrable. Do not start a 
 
 **Exit criteria:** The public site loads, the API is reachable, separate visitors do not share a game, and a full Connect 4 match can be completed against a selectable AI. Local `docker compose up --build` is also repeatable.
 
-### Phase C — Complete the advertised AI approaches and improve gameplay
+### Deferred — Complete the advertised AI approaches and improve gameplay
 
 **Goal:** Make the agent-selection experience substantive and align it with the first resume bullet.
 
@@ -163,11 +175,15 @@ Work sequentially, but keep each phase bounded and demonstrable. Do not start a 
 
 **Exit criteria:** Each advertised AI approach has a working code path and can be challenged in the application for its supported game. The resume bullet accurately names each game/algorithm pairing.
 
-### Phase D — LLM-powered strategy explanation (**essential resume feature**)
+### Phase 3 — Allis-grounded LLM explanations (**3A implemented; 3B deferred**)
 
 **Goal:** Let users ask useful questions about an actual game, grounded in board state and available engine evidence.
 
-**Recommended MVP**
+**Phase 3A — Deterministic grounding (implemented locally)**
+
+Record immutable session history; verify tactical facts and legal alternatives; curate the original Allis thesis; assemble a revision-bound payload separating facts, supported rule applications, observations and unknowns. No nine-rule detector is claimed until its full applicability and interaction conditions are implemented and tested. See the implementation record above.
+
+**Phase 3B — LLM integration and frontend (not started)**
 
 - Add a backend analysis endpoint that accepts a validated game/session, board state, side to move, last move (when relevant), and a user question or a small set of presets.
 - Provide the LLM with structured context: game rules, current board, legal actions, recent moves, immediate tactical threats, and *available* agent/engine signals. Add lightweight deterministic analysis when practical.
@@ -214,12 +230,13 @@ Additional guardrails:
 - [x] Existing Connect 4 game works locally, including terminal/invalid-move behavior (Random/bounded Negamax).
 - [x] Local Docker Compose builds and permits a complete match.
 - [x] API image includes required code/dependencies for public Random and bounded Negamax; no learned checkpoints are needed for these agents. Neural agents remain disabled/deferred.
-- [ ] GHCR/Render backend deploy verified with working health and gameplay endpoints.
+- [x] Public backend supports functioning Connect 4 gameplay (user-confirmed Phase 2 completion).
 - [x] Separate-origin frontend API routing and restricted CORS implemented and verified locally.
-- [ ] React frontend deployed separately; production API routing, CORS and SPA refresh verified publicly.
+- [x] Public React frontend and API are functioning (user-confirmed Phase 2 completion; historical detailed smoke checklist retained in the deployment guide).
 - [x] Per-user game/session isolation implemented for local single-worker Connect 4.
 - [ ] Selectable advertised agents work end-to-end, with viable public-demo defaults.
-- [ ] LLM analysis endpoint and frontend interface work on real game states.
+- [x] Phase 3A deterministic grounding and evidence schema implemented and locally tested.
+- [ ] Phase 3B LLM analysis endpoint and frontend interface work on real game states.
 - [ ] Provider credentials remain server-side; basic cost/error safeguards in place.
 - [ ] Mancala playable via the public UI, with applicable agents.
 - [ ] README, screenshots, quickstart, and demo link updated.
@@ -227,13 +244,11 @@ Additional guardrails:
 
 ## 8. Current assignment and approval boundary
 
-Phase 1 is complete and manually verified. The current authorized assignment is **Phase 2 — Public Deployment implementation and local verification**, preserving React/Vite, Flask/Gunicorn, GHCR and the local Docker Compose workflow.
+Phase 1 and Phase 2 are complete; the user confirms the public game is functioning. The current authorized assignment is **Phase 3A — Deterministic grounding**, preserving existing gameplay. Implementation and local verification are complete; the grounding layer is ready for independent review. The exact public frontend/API addresses still need to be recorded from the user’s confirmation.
 
-Required code/configuration and documentation are implemented. Stop after local verification and user review. **Do not push to `main`, invoke deployment hooks, run the deployment workflow, or modify production Render settings without approval.** A push to `main` automatically builds/pushes the API image and invokes the existing Render hook. Static Site auto-deploy can also respond to a push once enabled.
+Work stays on local `phase3-allis-grounding`. **Do not modify Git credentials, push changes, trigger deployment hooks/workflows, or change production infrastructure.** Pushing to `main` automatically builds/pushes the API image and invokes the existing Render hook; Static Site auto-deploy may also respond to pushes.
 
-The next work after approval is the manual rollout in [docs/deployment.md](docs/deployment.md): confirm actual hostnames, configure exact CORS and the Static Site rewrite, verify the image reference/registry access, deploy the reviewed changes, and complete the public smoke checklist. Phase 2's public exit criteria are not yet met; do not claim a publicly verified demo until then.
-
-New AI agents, DQN recovery/training, LLM functionality, Mancala integration, paid API calls and formal benchmarks remain outside this assignment.
+Stop before Phase 3B. LLM/provider calls, the explanation frontend, paid APIs, retraining, neural MCTS repair, DQN recovery, Mancala and new external infrastructure are outside this assignment.
 
 ---
 

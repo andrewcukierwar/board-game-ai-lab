@@ -6,6 +6,7 @@ from flask import Blueprint, current_app, jsonify, request
 from games.connect4.agents.negamax_agent import NegamaxAgent
 from games.connect4.agents.random_agent import RandomAgent
 from games.connect4.connect4 import Connect4
+from games.connect4.grounding.history import record_move
 from .state import GameError
 
 bp = Blueprint('connect4', __name__)
@@ -125,8 +126,11 @@ def make_move():
                 raise GameError('agent_failed', 'The AI could not make a legal move. Retry or start a new game.', 503)
         if not candidate.make_move(column):
             raise GameError('invalid_move', 'That move could not be played. Refresh the game.', 409)
-        session.game = candidate
-        session.revision += 1
+        # Prepare the immutable evidence before committing; failed requests add nothing.
+        record = record_move(session.game.board, candidate.board,
+                             session.game.current_player, config, column, session.revision)
+        history = session.history + (record,)
+        session.game, session.revision, session.history = candidate, record.revision, history
         return jsonify(snapshot(gid, session))
 
 
