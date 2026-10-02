@@ -4,7 +4,7 @@ Phase 2 public deployment is complete. On October 2, 2026, the user confirmed ma
 
 **Verified production URLs:** [public frontend](https://board-game-ai-lab-ui.onrender.com/), [Connect 4](https://board-game-ai-lab-ui.onrender.com/connect4), [backend API origin](https://board-game-ai-lab.onrender.com), and [API health endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/health).
 
-Phase 3A is implemented and committed at `37dc55e`; Phase 3B remains unimplemented. This documentation update does not change Render configuration or trigger deployments.
+Phase 3A is implemented and committed at `37dc55e`; Phase 3B is implemented and reviewed locally, disabled by default; live-provider testing and public explanation rollout remain pending. This documentation update does not change Render configuration or trigger deployments.
 
 Local Phase 2 results on October 2, 2026: **74 backend tests, 15 frontend tests, and all 8 Chromium browser tests against each of Compose, Vite development and separate-origin static/API hosting passed**. Compose startup, production/Render builds, direct `/connect4` refresh, health, Render-style port 10000/one-worker operation, and actual API restart/browser session recovery passed. An initial missing-Chromium runner failure was resolved by installing Chromium. Cold-start delay/HTML and lost-response scenarios were simulated locally. The reusable manual checklist below covers detailed production checks; the user’s gameplay/CORS confirmation does not assert that every individual checklist item was exercised. Existing npm advisories were not changed.
 

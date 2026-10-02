@@ -18,6 +18,7 @@ from .openai_provider import OpenAIExplanationProvider
 from .state import GameError
 
 MODES = ('last_move', 'position', 'what_if')
+REASONING_EFFORTS = ('none', 'low', 'medium', 'high', 'xhigh', 'max')
 INSTRUCTIONS = """Compose a beginner-friendly Connect 4 explanation by choosing the
 most relevant verified fact IDs in reading order and up to three relevant thesis
 concept IDs. Choose only supplied IDs. The backend renders their trusted text.
@@ -39,7 +40,8 @@ Return only the structured selection. Do not add free text or citations.
 def environment_config():
     defaults = {
         'EXPLANATIONS_ENABLED': False, 'OPENAI_API_KEY': '',
-        'OPENAI_EXPLANATION_MODEL': 'gpt-4o-mini',
+        'OPENAI_EXPLANATION_MODEL': 'gpt-6-luna',
+        'OPENAI_EXPLANATION_REASONING_EFFORT': 'none',
         'EXPLANATION_MAX_OUTPUT_TOKENS': 400, 'EXPLANATION_TIMEOUT_SECONDS': 20.0,
         'EXPLANATION_MAX_QUESTION_LENGTH': 500, 'EXPLANATION_GAME_LIMIT': 8,
         'EXPLANATION_CLIENT_LIMIT': 20, 'EXPLANATION_GLOBAL_LIMIT': 100,
@@ -81,6 +83,8 @@ def validate_config(config):
         raise ValueError('OPENAI_API_KEY must be a string')
     if not isinstance(config['OPENAI_EXPLANATION_MODEL'], str) or not config['OPENAI_EXPLANATION_MODEL'].strip():
         raise ValueError('OPENAI_EXPLANATION_MODEL must be nonempty')
+    if config['OPENAI_EXPLANATION_REASONING_EFFORT'] not in REASONING_EFFORTS:
+        raise ValueError('OPENAI_EXPLANATION_REASONING_EFFORT must be none, low, medium, high, xhigh or max')
 
 
 def columns(values):
@@ -255,7 +259,8 @@ class ExplanationService:
         if not config['OPENAI_API_KEY'].strip():
             raise GameError('explanation_unavailable', 'Explanations are unavailable. You can continue playing.', 503)
         key = sha256(json.dumps([gid, revision, mode, column, question,
-                                config['OPENAI_EXPLANATION_MODEL']], sort_keys=True).encode()).hexdigest()
+                                config['OPENAI_EXPLANATION_MODEL'],
+                                config['OPENAI_EXPLANATION_REASONING_EFFORT']], sort_keys=True).encode()).hexdigest()
         with self.lock:
             now = self.clock()
             for cached_key, (expiry, _) in list(self.cache.items()):
@@ -294,6 +299,7 @@ class ExplanationService:
             try:
                 selection = self.provider.generate(
                     api_key=config['OPENAI_API_KEY'], model=config['OPENAI_EXPLANATION_MODEL'],
+                    reasoning_effort=config['OPENAI_EXPLANATION_REASONING_EFFORT'],
                     max_tokens=config['EXPLANATION_MAX_OUTPUT_TOKENS'], timeout=config['EXPLANATION_TIMEOUT_SECONDS'],
                     instructions=INSTRUCTIONS, evidence=evidence, schema=output_schema(evidence))
                 explanation = render_selection(selection, evidence)

@@ -33,6 +33,8 @@ The default store holds 128 games with a 1,800-second idle timeout. Internal Fla
 6. For natural expiration, leave a game idle for 30 minutes and then move. It should offer a fresh game. Focused tests use a controlled clock so they do not need to wait.
 7. Refresh `/connect4` directly; the page should load. Return Home and re-enter without duplicate handlers or console errors.
 
+Explanation runtime settings are backend-only: `OPENAI_EXPLANATION_MODEL` defaults to `gpt-6-luna` and `OPENAI_EXPLANATION_REASONING_EFFORT` defaults to `none`. The complete configuration and limits are in [the explanation guide](llm-explanations.md).
+
 ## Public deployment
 
 Phase 2 public deployment is complete. [Play the public application](https://board-game-ai-lab-ui.onrender.com/) or [open Connect 4 directly](https://board-game-ai-lab-ui.onrender.com/connect4). The user manually verified public gameplay and successful frontend/backend CORS configuration on October 2, 2026. The [API health endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/health) is available at the verified backend origin. Phase 3A is committed at `37dc55e`; Phase 3B is implemented locally and awaiting review, with no public rollout or paid calls. Follow [the deployment guide](deployment.md) for Render settings, future rollout steps, separate-origin local verification, and the reusable production smoke checklist.

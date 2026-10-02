@@ -46,7 +46,7 @@ npm run dev
 
 Open the Vite URL printed in the terminal. Its `/v1` proxy forwards to port 8000. Keep the API on **one worker** because session storage is process-local.
 
-The explanation panel supports **Explain AI Move / Last Move**, **Analyze Position**, and legal **What If?** simulations. To configure the backend locally, copy `.env.example` to ignored `.env`; `python-dotenv` loads it automatically. Explanations require `EXPLANATIONS_ENABLED=true` and a backend-only `OPENAI_API_KEY`. Keep explanations disabled for automated/browser tests. Use a separate OpenAI project with a spending alert and budget before any separately approved live test; [the explanation guide](docs/llm-explanations.md) documents every default and a three-call test procedure.
+The explanation panel supports **Explain AI Move / Last Move**, **Analyze Position**, and legal **What If?** simulations. To configure the backend locally, copy `.env.example` to ignored `.env`; `python-dotenv` loads it automatically. Explanations require `EXPLANATIONS_ENABLED=true` and a backend-only `OPENAI_API_KEY`. The backend defaults to `OPENAI_EXPLANATION_MODEL=gpt-6-luna` and `OPENAI_EXPLANATION_REASONING_EFFORT=none`; both are configurable and stay server-side. Keep explanations disabled for automated/browser tests. Use a separate OpenAI project with a spending alert and budget before any separately approved live test; [the explanation guide](docs/llm-explanations.md) documents every default and a three-call test procedure.
 
 To run real-browser regression tests against the Docker stack at port 3000:
 

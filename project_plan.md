@@ -2,7 +2,7 @@
 
 **Repository:** https://github.com/andrewcukierwar/board-game-ai-lab  
 **Plan updated:** October 2, 2026  
-**Status:** Phase 1 completed and manually verified at `830bfdc`. Phase 2 — Public Deployment complete; public gameplay and frontend/backend CORS configuration manually verified by the user. Phase 3A — Deterministic Allis grounding implemented, locally verified and committed at `37dc55e` (now on `main`). Phase 3B implemented locally on `phase3b-llm-explanations`; automated verification uses mocks, no paid calls or deployment. Awaiting review.
+**Status:** Phase 1 completed and manually verified at `830bfdc`. Phase 2 — Public Deployment complete; public gameplay and frontend/backend CORS configuration manually verified by the user. Phase 3A — Deterministic Allis grounding implemented, locally verified and committed at `37dc55e` (now on `main`). Phase 3B implemented and reviewed locally on `phase3b-llm-explanations`; automated verification uses mocks, no paid calls or deployment. Live-provider verification pending.
 **Guiding objective:** Build a polished, publicly playable AI game laboratory and make the three intended resume bullets accurate and defensible. Prefer shipping a compelling hands-on application over expanding infrastructure or running formal agent benchmarks.
 
 ## 1. Product vision
@@ -107,6 +107,13 @@ The following baseline records the initial audit; Phase 1 and Phase 2 changes ar
 - Added the explanation panel within the existing React/legacy controller architecture. Gameplay remains independent of explanation loading/errors; moves, restarts and navigation cancel/clear stale explanations.
 - **188 backend tests, 25 frontend tests and 13 Chromium tests passed**, including existing complete games against Random and Negamax. Default, separate-origin and Render-mode builds passed. All explanation provider responses were mocked. Live model compatibility/quality remain unverified.
 - No pushes, deployment, Render setting changes or paid requests. Detailed contract, limits and a separately approved three-call manual-test proposal: [docs/llm-explanations.md](docs/llm-explanations.md).
+
+### Phase 3B final review and configuration verification
+
+- Review fixes at `cd9eb0b` preserve the provider deadline/cleanup and exact hypothetical-column response validation. The `d35b9f0` documentation commit remains in history.
+- Backend defaults are now `OPENAI_EXPLANATION_MODEL=gpt-6-luna` and `OPENAI_EXPLANATION_REASONING_EFFORT=none`, using the Responses API's nested reasoning parameter. Both remain server-side/environment-configurable; cache identity includes effort. Token/time caps and unsupported-output rejection are preserved.
+- **224 backend tests passed on macOS and Linux, 26 frontend tests and 42 Chromium executions passed**, with all provider responses mocked. Default/separate-origin/Render-mode and Docker builds passed. See [the final review record](docs/phase3b-review.md).
+- The user authorizes a local commit after passing checks. No paid calls, push, merge, deployment, credentials or Render configuration changes.
 
 ## 4. Intended architecture
 
@@ -257,7 +264,7 @@ Phase 1 and Phase 2 are complete; public gameplay and CORS were manually verifie
 
 Phase 3B adds `POST /v1/connect4/explain`, detached hypothetical analysis, strict model selections over verified fact/curated concept IDs, trusted-text rendering and citations, backend-only configuration, per-game/client/global attempt limits, bounded concurrent requests/cache, and the existing React/legacy controller's explanation panel. See [the implementation contract, safeguards, limitations and proposed three-call manual procedure](docs/llm-explanations.md).
 
-Stop after local implementation for review. **Do not modify Git credentials, push changes, trigger deployment hooks/workflows, alter Render settings or production infrastructure, or make paid API requests.** Explanations remain disabled by default. Live model/schema/latency/quality validation and public rollout need separate authorization. MCTS, MCTS-NN, VictorAgent, DQN, Mancala, broad redesign and additional infrastructure remain outside scope.
+After final review/configuration checks pass, the user authorizes a local commit only. **Do not modify Git credentials, push changes, trigger deployment hooks/workflows, alter Render settings or production infrastructure, or make paid API requests.** Explanations remain disabled by default. Live model/schema/latency/quality validation and public rollout need separate authorization. MCTS, MCTS-NN, VictorAgent, DQN, Mancala, broad redesign and additional infrastructure remain outside scope.
 
 ---
 

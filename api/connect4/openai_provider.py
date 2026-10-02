@@ -12,7 +12,7 @@ class OpenAIExplanationProvider:
     def __init__(self, connection_factory=HTTPSConnection):
         self.connection_factory = connection_factory
 
-    def generate(self, *, api_key, model, max_tokens, timeout, instructions, evidence, schema):
+    def generate(self, *, api_key, model, reasoning_effort, max_tokens, timeout, instructions, evidence, schema):
         connection = response = timer = None
         expired = Event()
         deadline = monotonic() + timeout
@@ -20,6 +20,7 @@ class OpenAIExplanationProvider:
             connection = self.connection_factory('api.openai.com', timeout=timeout)
             body = json.dumps({
                 'model': model, 'store': False, 'max_output_tokens': max_tokens,
+                'reasoning': {'effort': reasoning_effort},
                 'instructions': instructions,
                 'input': [{'role': 'user', 'content': json.dumps(evidence, ensure_ascii=True)}],
                 'text': {'format': {'type': 'json_schema', 'name': 'connect4_explanation',

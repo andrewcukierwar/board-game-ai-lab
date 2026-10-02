@@ -142,6 +142,8 @@ def test_hypothetical_full_column_and_immediate_replies(app):
     ({'mode': 'bad'}, 'invalid_mode'), ({'mode': None}, 'invalid_mode'),
     ({'question': 'x' * 501}, 'invalid_question'), ({'question': []}, 'invalid_question'),
     ({'column': 2}, 'invalid_request'), ({'extra': True}, 'invalid_request'),
+    ({'model': 'client-model'}, 'invalid_request'),
+    ({'reasoning_effort': 'high'}, 'invalid_request'),
     ({'mode': 'what_if'}, 'invalid_move'), ({'mode': 'what_if', 'column': True}, 'invalid_move'),
     ({'mode': 'what_if', 'column': 7}, 'invalid_move'), ({'mode': 'what_if', 'column': -1}, 'invalid_move'),
 ])
@@ -386,21 +388,27 @@ class Connection:
         self.closed = True
 
 
-def provider_call(connection, timeout=20):
+def provider_call(connection, timeout=20, reasoning_effort='none'):
     return OpenAIExplanationProvider(lambda *a, **kw: connection).generate(
-        api_key='test-placeholder', model='test-model', max_tokens=400, timeout=timeout,
+        api_key='test-placeholder', model='gpt-6-luna', reasoning_effort=reasoning_effort,
+        max_tokens=400, timeout=timeout,
         instructions=INSTRUCTIONS, evidence={'question_untrusted': 'data'}, schema={'type': 'object'})
 
 
-def test_provider_contract_mocked_transport():
+@pytest.mark.parametrize('reasoning_effort', ['none', 'low', 'medium', 'high', 'xhigh', 'max'])
+def test_provider_contract_mocked_transport(reasoning_effort):
     selection = {'fact_ids': ['position'], 'concept_ids': ['tactics']}
     connection = Connection(payload=json.dumps({'status': 'completed', 'output': [
+        {'type': 'reasoning', 'summary': []},
         {'type': 'message', 'content': [{'type': 'output_text', 'text': json.dumps(selection)}]}]}).encode())
-    assert provider_call(connection) == selection
+    assert provider_call(connection, reasoning_effort=reasoning_effort) == selection
     args, kwargs = connection.request_args
     body = json.loads(kwargs['body'])
     assert args == ('POST', '/v1/responses')
     assert body['store'] is False and body['max_output_tokens'] == 400
+    assert body['model'] == 'gpt-6-luna'
+    assert body['reasoning'] == {'effort': reasoning_effort}
+    assert 'reasoning_effort' not in body
     assert body['text']['format']['strict'] is True
     assert connection.closed
 
@@ -566,7 +574,7 @@ def test_unsupported_model_claims_rejected_in_every_mode(app, mode, claim):
     assert not service(app).inflight and not service(app).cache
 
 
-def test_cache_identity_includes_game_revision_mode_question_column_and_model(app):
+def test_cache_identity_includes_game_revision_mode_question_column_model_and_effort(app):
     state = start(app)
     requests = [('position', {}), ('last_move', {}), ('position', {'question': 'why?'}),
                 ('what_if', {'column': 0}), ('what_if', {'column': 1})]
@@ -578,7 +586,10 @@ def test_cache_identity_includes_game_revision_mode_question_column_and_model(ap
     assert explain(app, updated).json['cached'] is False
     app.config['OPENAI_EXPLANATION_MODEL'] = 'another-test-model'
     assert explain(app, updated).json['cached'] is False
-    assert len(service(app).provider.calls) == 8
+    app.config['OPENAI_EXPLANATION_REASONING_EFFORT'] = 'low'
+    assert explain(app, updated).json['cached'] is False
+    assert explain(app, updated).json['cached'] is True
+    assert len(service(app).provider.calls) == 9
 
 
 def test_disabled_default_and_credentials_never_enter_prompt_or_responses(monkeypatch, app):
@@ -597,3 +608,50 @@ def test_disabled_default_and_credentials_never_enter_prompt_or_responses(monkey
     assert sentinel not in json.dumps(service(app).provider.calls[0]['evidence'])
     assert sentinel not in service(app).provider.calls[0]['instructions']
     assert sentinel not in json.dumps(state)
+
+
+@pytest.mark.parametrize('effort', ['', 'minimal', 'invalid', None, True, 1, [], {}])
+def test_invalid_reasoning_effort_rejected_at_startup(effort):
+    with pytest.raises(ValueError, match='OPENAI_EXPLANATION_REASONING_EFFORT'):
+        create_app({'TESTING': True, 'OPENAI_EXPLANATION_REASONING_EFFORT': effort})
+
+
+def test_model_and_reasoning_environment_defaults_overrides_and_backend_isolation(monkeypatch):
+    monkeypatch.setattr('api.app.load_dotenv', lambda *a, **kw: None)
+    for key in ('OPENAI_EXPLANATION_MODEL', 'OPENAI_EXPLANATION_REASONING_EFFORT', 'EXPLANATIONS_ENABLED'):
+        monkeypatch.delenv(key, raising=False)
+    defaults = create_app({'TESTING': True})
+    assert defaults.config['OPENAI_EXPLANATION_MODEL'] == 'gpt-6-luna'
+    assert defaults.config['OPENAI_EXPLANATION_REASONING_EFFORT'] == 'none'
+    assert defaults.config['EXPLANATIONS_ENABLED'] is False
+    monkeypatch.setenv('OPENAI_EXPLANATION_MODEL', 'backend-model-sentinel')
+    monkeypatch.setenv('OPENAI_EXPLANATION_REASONING_EFFORT', 'high')
+    app = create_app({'TESTING': True, 'EXPLANATIONS_ENABLED': True, 'OPENAI_API_KEY': 'mock-only'})
+    service(app).provider = FakeProvider()
+    state = start(app)
+    result = explain(app, state)
+    assert result.status_code == 200
+    call = service(app).provider.calls[0]
+    assert call['model'] == 'backend-model-sentinel' and call['reasoning_effort'] == 'high'
+    assert call['max_tokens'] == 400 and call['timeout'] == 20
+    assert 'backend-model-sentinel' not in result.get_data(as_text=True)
+    for payload in (state, result.json, call['evidence']):
+        assert 'reasoning_effort' not in json.dumps(payload)
+        assert 'OPENAI_EXPLANATION_MODEL' not in json.dumps(payload)
+
+
+@pytest.mark.parametrize('mode', ['position', 'last_move', 'what_if'])
+def test_incomplete_reasoning_output_never_rendered_or_cached_and_permit_released(app, mode):
+    connection = Connection(payload=json.dumps({
+        'status': 'incomplete', 'incomplete_details': {'reason': 'max_output_tokens'},
+        'output': [{'type': 'reasoning', 'summary': []}, {'type': 'message', 'content': [
+            {'type': 'output_text', 'text': json.dumps({'fact_ids': ['move'], 'concept_ids': ['tactics']})}]}],
+    }).encode())
+    service(app).provider = OpenAIExplanationProvider(lambda *a, **kw: connection)
+    app.config['OPENAI_EXPLANATION_REASONING_EFFORT'] = 'high'
+    state = move(app, start(app), 3)
+    result = explain(app, state, mode, **({'column': 2} if mode == 'what_if' else {}))
+    assert result.status_code == 502 and result.json['code'] == 'invalid_explanation'
+    assert not service(app).inflight and not service(app).cache and connection.closed
+    assert service(app).global_count == 1
+    assert app.test_client().get(BASE + '/games/' + state['game_id']).json == state
