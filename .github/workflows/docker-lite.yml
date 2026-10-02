@@ -4,6 +4,10 @@ on:
     branches: [main]   # rebuild on every merge
   workflow_dispatch:   # manual “Run workflow” button
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
@@ -33,10 +37,11 @@ jobs:
             type=raw,value=latest
 
       # -- build and push the image ------------------------------------------
-      - uses: docker/build-push-action@v5   # official Buildx action :contentReference[oaicite:1]{index=1}
+      - uses: docker/build-push-action@v5
         with:
           context: .
           file: docker/api.Dockerfile
+          platforms: linux/amd64  # required by Render's image-backed services
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           cache-from: type=registry,ref=ghcr.io/${{ github.repository }}:cache
@@ -47,4 +52,4 @@ jobs:
         env:
           HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
         run: |
-          curl -fsSL -X POST "$HOOK"
+          curl -fsS --connect-timeout 10 --max-time 60 -X POST "$HOOK" > /dev/null

@@ -38,6 +38,28 @@ test('failed initialization re-enables Start and permits a successful retry', as
   ui.cleanup();
 });
 
+test('a cold-start HTML success response keeps initialization recoverable', async () => {
+  let calls = 0;
+  const ui = setup({ post: async () => response(++calls === 1 ? '<html>Waking up</html>' : state()) });
+  ui.click('start-button'); await flush();
+  assert.equal(ui.el('start-button').disabled, false);
+  assert.equal(ui.doc.querySelectorAll('.cell').length, 0);
+  assert.match(ui.el('message').textContent, /waking up/);
+  ui.click('start-button'); await flush();
+  assert.equal(ui.doc.querySelectorAll('.cell').length, 42);
+  ui.cleanup();
+});
+
+test('a non-JSON move response preserves the game for snapshot recovery', async () => {
+  const ui = setup({ get: async () => response(state(1)), post: async url =>
+    response(url.endsWith('start_game') ? state() : '<html>Gateway page</html>') });
+  ui.click('start-button'); await flush(); ui.column().click(); await flush();
+  assert.equal(ui.doc.querySelectorAll('.circle.x').length, 1);
+  assert.equal(ui.el('retry-button').textContent, 'Retry AI move');
+  assert.equal(ui.column().disabled, true);
+  ui.cleanup();
+});
+
 test('double click cannot issue concurrent human or AI requests', async () => {
   let release;
   const calls = [];
@@ -89,6 +111,23 @@ test('lost move response is reconciled without replaying the human move', async 
   assert.equal(humanCalls, 1); assert.equal(aiCalls, 0);
   ui.click('retry-button'); await flush();
   assert.equal(humanCalls, 1); assert.equal(aiCalls, 1);
+  ui.cleanup();
+});
+
+test('AI timeout after commit reads the new board and never repeats the AI move', async () => {
+  let aiCalls = 0;
+  const ui = setup({ get: async () => response(state(2)), post: async (url, body) => {
+    if (url.endsWith('start_game')) return response(state());
+    if ('column' in body) return response(state(1));
+    aiCalls++;
+    throw Object.assign(new Error('Timeout'), { code: 'ECONNABORTED' });
+  } });
+  ui.click('start-button'); await flush(); ui.column().click(); await flush();
+  assert.equal(aiCalls, 1);
+  assert.equal(ui.doc.querySelectorAll('.circle.x').length, 1);
+  assert.equal(ui.doc.querySelectorAll('.circle.o').length, 1);
+  assert.equal(ui.el('retry-button').hidden, true);
+  assert.equal(ui.column().disabled, false);
   ui.cleanup();
 });
 

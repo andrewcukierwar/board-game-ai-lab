@@ -2,7 +2,7 @@
 
 **Repository:** https://github.com/andrewcukierwar/board-game-ai-lab  
 **Plan updated:** October 2, 2026  
-**Status:** Initial audit and local Connect 4 reliability implementation complete; awaiting user review. Public deployment remains partial.
+**Status:** Phase 1 — Reliable Local Connect 4 completed and manually verified at `830bfdc`. Phase 2 — Public Deployment implemented and locally verified; public rollout and production smoke testing await review/approval.
 **Guiding objective:** Build a polished, publicly playable AI game laboratory and make the three intended resume bullets accurate and defensible. Prefer shipping a compelling hands-on application over expanding infrastructure or running formal agent benchmarks.
 
 ## 1. Product vision
@@ -41,7 +41,7 @@ The current resume language is a **target specification**, not proof that every 
 
 ## 3. Audited baseline and current status (October 2, 2026)
 
-The following baseline records the initial audit; local reliability changes are recorded below.
+The following baseline records the initial audit; Phase 1 and Phase 2 changes are recorded below. Phase 1 at `830bfdc` is completed and manually verified by the user.
 
 - Audited baseline on `main`: `b93f1a8`, **October 2, 2026**. [API CI run 37023754328](https://github.com/andrewcukierwar/board-game-ai-lab/actions/runs/37023754328) successfully built/pushed the API image and invoked the Render deploy hook. This verifies execution of those pipeline steps, not Render readiness, frontend deployment, or public gameplay.
 - Docker Compose defines a Flask/Gunicorn API on port `8000` and a React/Vite UI served by Nginx on local port `3000`; the original local Dockerization phase had been completed.
@@ -59,15 +59,15 @@ The following baseline records the initial audit; local reliability changes are 
 
 | Area | Observation / likely consequence |
 | --- | --- |
-| Production frontend routing | The UI uses relative `/v1/connect4/...` API URLs. These work through the local Nginx proxy but need an explicit API routing/base-URL strategy when the frontend is hosted separately. |
+| Production frontend routing | Implemented locally: Render builds require `VITE_API_BASE` as an HTTPS API origin; Docker builds and Vite development retain their local proxies. Exact-origin API CORS and Render SPA rewrite instructions are ready; public configuration/verification are pending. |
 | Learned-model packaging | Models are not packaged in the API image. The local web API/UI deliberately expose only Human, Random, and bounded Negamax (UI: human-versus-AI). Neural agents remain unavailable until their correctness and packaging are repaired. |
 | Per-user game state | Resolved locally: app-owned game-ID store, per-game locks, revision checks, 128-session capacity and 30-minute idle expiration. Single-worker operation remains required; restarts lose games. |
-| CI/CD | API image build/push and Render-hook invocation were verified for the audited baseline. Public service readiness, Render image selection and frontend deployment still need verification. This implementation was not pushed or deployed. |
+| CI/CD | [Run 37034008283](https://github.com/andrewcukierwar/board-game-ai-lab/actions/runs/37034008283) for `830bfdc` confirms API image build/push and hook invocation. Phase 2 adds explicit package permissions, `linux/amd64`, and a bounded hook request. Public readiness, Render image selection and frontend rollout still need verification; Phase 2 changes remain unpushed. |
 | Repo hygiene | Cleanup is complete and Compose no longer requires `.env`. Docker context excludes nested dependencies, local environments and test/build output. |
 | Documentation | Local setup, session/API behavior, tests and manual checks are documented. Public demo URLs, screenshots and final portfolio wording remain later work. |
 | Code quality | Local request validation, frontend lifecycle/recovery and focused tests are implemented. Advanced-agent/search/training defects from the audit remain deferred. |
 
-### Local reliability implementation verification
+### Phase 1 local reliability verification (completed)
 
 - API supports Random and Negamax depth 1–4 (default 2), strict JSON/configuration/move validation, atomic board commits, terminal rejection and authoritative snapshot recovery. Neural imports/checkpoints are not required for the local API.
 - Frontend has an obvious homepage entry, one human-versus-AI flow, request locking, explicit AI retry, expired-session recovery, and restart/opponent switching. Navigating away cleans up listeners and cancels requests.
@@ -75,7 +75,18 @@ The following baseline records the initial audit; local reliability changes are 
 - Vite production build passed. Compose built and started successfully from a clean source copy without `.env`, host dependencies or build output. Nginx/API health and browser gameplay were verified against the containers. An initial local Docker image-metadata timeout was overcome using an isolated client configuration; the subsequent standard-client Compose build/start also passed.
 - API runtime dependencies are separated from optional historical ML dependencies. Docker keeps one Gunicorn worker/four threads, uses Node 22 for the frontend build, and waits for API health before starting Nginx.
 - `npm` reports 13 existing dependency advisories (1 low, 1 moderate, 11 high); dependency upgrades remain outside this narrowly scoped reliability change.
-- No production deployments, paid API calls, formal benchmarks, training experiments or later-phase features were performed. User review is required before proceeding to the next assignment.
+- No production deployments, paid API calls, formal benchmarks, training experiments or later-phase features were performed. The user subsequently reviewed and manually verified Phase 1, and authorized Phase 2 implementation/local verification.
+
+### Phase 2 implementation and local verification
+
+- Environment-aware API configuration is implemented: Docker builds explicitly use Nginx's `/v1/` proxy, Vite development always uses its development proxy, and Render builds require an explicit HTTPS `VITE_API_BASE`. Removed the dormant hardcoded production default and excluded developer env files from Docker contexts.
+- API CORS allows only configured exact `CORS_ALLOWED_ORIGINS`, supports JSON preflight and error responses, and defaults to no cross-origin access. Wildcard/path/invalid origins fail startup. Health remains `/v1/connect4/health` with HTTP 200/`OK`.
+- API image honors Render's `PORT`, retains port 8000 locally, and enforces one Gunicorn worker/four threads. Deployment must also retain one instance. The workflow has explicit GHCR package permissions, `linux/amd64` output and a bounded hook call; no workflow or hook was triggered during this assignment.
+- Requests allow 90 seconds for cold starts, display wake-up feedback, reject HTML/non-snapshot responses safely, and retain request locking/revision reconciliation. Moves are never automatically replayed after uncertain responses.
+- **74 backend tests, 15 frontend tests, and 8 Chromium end-to-end tests in each of three configurations passed** (24 browser test executions): Docker/Nginx, Vite development with a deliberately set remote API variable, and a production-built static frontend at port 4173 calling an exact-CORS API at port 8001. Tests cover complete games against both opponents, independence, switching/restart, direct navigation/refresh, slow/HTML startup, failure/expiry recovery and lost post-commit responses.
+- Compose rebuild/start and default/Render/cross-origin production builds passed. Missing Render API configuration fails the build as intended. The temporary API listened on Render-style port 10000 with one worker. Actual temporary-container restart recovery was verified in Chromium: old session reported missing, fresh start succeeded.
+- README and quickstart are updated; [docs/deployment.md](docs/deployment.md) contains exact Render settings, approval-gated manual steps and the production smoke checklist. Existing npm advisories remain outside this scope.
+- **Public exit criteria remain pending:** no Phase 2 push, production setting change, deployment hook invocation, paid API call or public smoke test was performed. Confirm real hostnames, GHCR image reference/access and Render readiness after approval.
 
 ## 4. Intended architecture
 
@@ -100,13 +111,13 @@ Render Web Service — Flask + Gunicorn, Docker image from GHCR
 
 The frontend must use a production-compatible API base URL (or an intentional deployment proxy). Restrict production CORS to configured frontend origins. API keys and model-provider calls belong **only in the backend**, never in the browser bundle. The GitHub Actions image-build pipeline should be verified rather than assumed healthy.
 
-The prior intended **Render Static Site** settings were root directory `ui`, build command `npm ci && npm run build`, and publish directory `dist`. Verify their current compatibility before applying them.
+The **Render Static Site** settings are root directory `ui`, build command `npm ci && npm run build:render`, publish directory `dist`, `NODE_VERSION=22`, and an explicit HTTPS `VITE_API_BASE`. Configure `/*` → `/index.html` as a Rewrite. API settings: GHCR image, `PORT=10000`, `/v1/connect4/health`, exact `CORS_ALLOWED_ORIGINS`, one instance and the image CMD with one worker/four threads. See [the deployment guide](docs/deployment.md) for full settings and manual rollout steps.
 
 ## 5. Implementation phases
 
 Work sequentially, but keep each phase bounded and demonstrable. Do not start a major new feature while the preceding end-to-end vertical slice is broken.
 
-### Phase A — Focused audit and local stabilization (**next**)
+### Phase 1 — Focused audit and Reliable Local Connect 4 (**complete; manually verified**)
 
 **Goal:** Establish what works today and the smallest set of changes required to continue confidently.
 
@@ -121,7 +132,7 @@ Work sequentially, but keep each phase bounded and demonstrable. Do not start a 
 
 **Exit criteria:** Clean local startup, one complete Connect 4 game against at least one available agent, trustworthy status of each claimed AI approach, and a short prioritized blocker list.
 
-### Phase B — Finish deployment and playable Connect 4 (**highest shipping priority**)
+### Phase 2 — Public Deployment (**implemented locally; public rollout pending approval**)
 
 **Goal:** Make the existing game playable by anyone at a public URL.
 
@@ -202,9 +213,10 @@ Additional guardrails:
 - [x] Repo audit completed and historical DQN prototype status established.
 - [x] Existing Connect 4 game works locally, including terminal/invalid-move behavior (Random/bounded Negamax).
 - [x] Local Docker Compose builds and permits a complete match.
-- [ ] Production API image includes all required inference artifacts.
+- [x] API image includes required code/dependencies for public Random and bounded Negamax; no learned checkpoints are needed for these agents. Neural agents remain disabled/deferred.
 - [ ] GHCR/Render backend deploy verified with working health and gameplay endpoints.
-- [ ] React frontend deployed separately; production API routing and CORS work.
+- [x] Separate-origin frontend API routing and restricted CORS implemented and verified locally.
+- [ ] React frontend deployed separately; production API routing, CORS and SPA refresh verified publicly.
 - [x] Per-user game/session isolation implemented for local single-worker Connect 4.
 - [ ] Selectable advertised agents work end-to-end, with viable public-demo defaults.
 - [ ] LLM analysis endpoint and frontend interface work on real game states.
@@ -213,20 +225,15 @@ Additional guardrails:
 - [ ] README, screenshots, quickstart, and demo link updated.
 - [ ] Final resume wording revalidated against shipped features.
 
-## 8. Immediate next assignment for Codex
+## 8. Current assignment and approval boundary
 
-The initial read-only audit and first coding assignment are complete, pending user review. The completed assignment is **Reliable Local Connect 4 against Random and bounded Negamax**: isolated expiring game sessions with per-game locks and bounded memory, strict request/move validation, frontend restart/error recovery, a fresh-checkout Compose workflow, and focused regression tests. Keep the single-worker Flask/React/Vite architecture. No production deployment, LLM feature, DQN recovery, retraining, or Mancala integration is authorized in this assignment.
+Phase 1 is complete and manually verified. The current authorized assignment is **Phase 2 — Public Deployment implementation and local verification**, preserving React/Vite, Flask/Gunicorn, GHCR and the local Docker Compose workflow.
 
-Verification and implementation details are recorded in Section 3 and the README/quickstart. Do not automatically proceed to public deployment or another phase.
+Required code/configuration and documentation are implemented. Stop after local verification and user review. **Do not push to `main`, invoke deployment hooks, run the deployment workflow, or modify production Render settings without approval.** A push to `main` automatically builds/pushes the API image and invokes the existing Render hook. Static Site auto-deploy can also respond to a push once enabled.
 
-Audit deliverables established:
+The next work after approval is the manual rollout in [docs/deployment.md](docs/deployment.md): confirm actual hostnames, configure exact CORS and the Static Site rewrite, verify the image reference/registry access, deploy the reviewed changes, and complete the public smoke checklist. Phase 2's public exit criteria are not yet met; do not claim a publicly verified demo until then.
 
-1. A concise implementation inventory by game/agent, explicitly investigating DQN.
-2. A reproducible local run/build result (including relevant failures).
-3. The minimum prioritized blockers to reach a playable public Connect 4 deployment.
-4. A small, bounded proposed change set for Phase A and the smoke tests needed.
-
-Do not implement new game modes, LLM analysis, heavy benchmarking, a major refactor, or unrelated modernization during this initial assignment. Do not perform paid API calls or trigger deployments without explicit approval.
+New AI agents, DQN recovery/training, LLM functionality, Mancala integration, paid API calls and formal benchmarks remain outside this assignment.
 
 ---
 

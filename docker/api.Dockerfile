@@ -20,6 +20,6 @@ COPY --from=builder /opt/venv /opt/venv
 COPY api/ ./api
 COPY games/ ./games
 
-# gunicorn serves Flask on port 8000
+# One worker is required by the process-local session store. Render supplies PORT.
 EXPOSE 8000
-CMD ["gunicorn", "api.app:app", "--bind=0.0.0.0:8000", "--workers=1", "--threads=4"]
+CMD ["gunicorn", "api.app:app", "--config=python:api.gunicorn_config", "--workers=1", "--threads=4"]

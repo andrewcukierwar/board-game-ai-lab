@@ -48,6 +48,17 @@ export function mountConnect4({ document, http }) {
   }
 
   function accept(data) {
+    // A waking service/proxy can return an HTML page with HTTP 200. Keep the
+    // last valid game until a real API snapshot arrives, so recovery still works.
+    if (!data || typeof data.game_id !== 'string' || !Number.isInteger(data.revision) ||
+        !Array.isArray(data.board) || data.board.length !== 6 ||
+        !data.board.every(row => Array.isArray(row) && row.length === 7) ||
+        !Array.isArray(data.players) || data.players.length !== 2 ||
+        !data.players.every(player => player && typeof player.type === 'string') ||
+        ![0, 1].includes(data.currentPlayer) || typeof data.gameOver !== 'boolean' ||
+        !Array.isArray(data.legalMoves)) {
+      throw new Error('The game server did not return a game snapshot.');
+    }
     game = data;
     uncertain = false;
     retryAI = false;
@@ -59,7 +70,8 @@ export function mountConnect4({ document, http }) {
 
   async function recover(error) {
     if (!active) return;
-    const reason = error.response?.data?.error || 'The request failed. Check your connection and try again.';
+    const reason = error.response?.data?.error ||
+      'The game server could not be reached. It may be waking up; wait a moment and try again.';
     if (game) {
       // A response can be lost after the server commits a move. Read the board
       // before offering another move; never blindly replay an uncertain POST.
