@@ -1,5 +1,7 @@
 # Production deployment — Phase 3C preparation
 
+**Status update (October 3, 2026):** The user subsequently confirmed explanations have been enabled and manually tested publicly. Earlier statements below about pending rollout describe the original Phase 3 preparation, not current public status. Source defaults remain disabled. Phase 4A.2 MCTS integration is local, pending review/deployment; it does not change explanation settings or make paid calls. See [the MCTS handoff](phase4a2-mcts-integration.md).
+
 Phase 2 public deployment is complete. On October 2, 2026, the user confirmed manually verified public Connect 4 gameplay, including successful frontend/backend CORS configuration. The deployed topology is a **Render Static Site** for React/Vite and a **Render image-backed Web Service** for Flask/Gunicorn using GHCR. Local Compose remains a separate, same-origin setup.
 
 **Verified production URLs:** [public frontend](https://board-game-ai-lab-ui.onrender.com/), [Connect 4](https://board-game-ai-lab-ui.onrender.com/connect4), [backend API origin](https://board-game-ai-lab.onrender.com), and [API health endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/health).

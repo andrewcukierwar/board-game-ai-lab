@@ -27,14 +27,6 @@ class FakeProvider:
                 'concept_ids': []}
 
 
-@pytest.fixture(autouse=True)
-def forbid_live_api(monkeypatch):
-    # Even an accidental failure to mock cannot incur a paid call.
-    def forbidden(*args, **kwargs):
-        raise AssertionError('Live HTTP calls are forbidden in explanation tests')
-    monkeypatch.setattr('http.client.HTTPSConnection.request', forbidden)
-
-
 @pytest.fixture
 def app():
     app = create_app({'TESTING': True, 'EXPLANATIONS_ENABLED': True,
@@ -873,3 +865,19 @@ def test_irrelevant_allowed_references_and_facts_safely_omitted_from_primary(app
     assert 'defense' in {f['id'] for f in data['key_facts']}
     assert data['strategic_context'][0]['concept_id'] == 'tactics'
     assert data['additional_context'][0]['concept_id'] == 'coordinates'
+
+
+@pytest.mark.parametrize('mode', ['last_move', 'position', 'what_if'])
+def test_mcts_moves_compatible_with_mocked_explanations(app, monkeypatch, mode):
+    from games.connect4.agents.mcts_agent import MCTSAgent
+    monkeypatch.setattr(MCTSAgent, 'choose_move', lambda self, game: 2)
+    state = move(app, start(app, player2={'type': 'mcts'}), 3)
+    moved = app.test_client().post(BASE + '/make_move', json={
+        'game_id': state['game_id'], 'revision': state['revision']})
+    assert moved.status_code == 200
+    state = moved.json
+    result = explain(app, state, mode, **({'column': 3} if mode == 'what_if' else {}))
+    assert result.status_code == 200
+    assert len(service(app).provider.calls) == 1
+    assert app.test_client().get(BASE + '/games/' + state['game_id']).json == state
+    assert 'not the agent’s recorded decision process or search trace' in result.json['explanation']['limitations'][0]

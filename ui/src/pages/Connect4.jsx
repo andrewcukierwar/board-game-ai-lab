@@ -20,6 +20,7 @@ export default function Connect4Page() {
         <select id="opponent-type" defaultValue="negamax">
           <option value="random">Random</option>
           <option value="negamax">Negamax</option>
+          <option value="mcts">MCTS</option>
         </select>
         <div id="negamax-options">
           <label htmlFor="opponent-depth">Search depth:</label>
@@ -28,6 +29,14 @@ export default function Connect4Page() {
             <option value="2">2 — Default</option>
             <option value="3">3</option>
             <option value="4">4 — Deeper</option>
+          </select>
+        </div>
+        <div id="mcts-options" hidden>
+          <label htmlFor="opponent-simulations">Search simulations:</label>
+          <select id="opponent-simulations" defaultValue="100">
+            <option value="50">Quick — 50 simulations</option>
+            <option value="100">Standard — 100 simulations (default)</option>
+            <option value="250">Deeper — 250 simulations</option>
           </select>
         </div>
         <p>Opponent settings apply when you start a new game.</p>

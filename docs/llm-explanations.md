@@ -1,5 +1,7 @@
 # Phase 3B: Allis-grounded explanations
 
+**Status update (October 3, 2026):** The user subsequently confirmed explanations have been enabled and manually tested publicly. Earlier statements below about pending rollout describe the original Phase 3 preparation, not current public status. Source defaults remain disabled. Phase 4A.2 MCTS integration is local, pending review/deployment; it does not change explanation settings or make paid calls. See [the MCTS handoff](phase4a2-mcts-integration.md).
+
 Implemented locally on `phase3b-llm-explanations`; the preceding `d35b9f0` documentation commit is preserved. Nothing has been pushed or deployed. The user reports successful local GPT-6 Luna tests of both the initial feature and the revised Phase 3B.1 implementation at `45894d1`; development/Phase 3C verification uses mocks and makes no paid model calls. Random/Negamax gameplay and existing game responses are unchanged. The feature is disabled by default. See [the production profile, rollout and rollback](deployment.md) and [final readiness verification](phase3c-readiness.md).
 
 ## Files changed

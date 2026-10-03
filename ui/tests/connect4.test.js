@@ -14,8 +14,9 @@ const response = data => ({ data });
 const failure = (status, error = 'Request failed') => Object.assign(new Error(error), { response: { status, data: { error } } });
 const flush = () => new Promise(resolve => setImmediate(resolve));
 function setup(http) {
-  const dom = new JSDOM(`<select id="opponent-type"><option value="random">Random</option><option value="negamax">Negamax</option></select>
-    <select id="opponent-depth"><option value="2">2</option></select><div id="negamax-options"></div>
+  const dom = new JSDOM(`<select id="opponent-type"><option value="random">Random</option><option value="negamax">Negamax</option><option value="mcts">MCTS</option></select>
+    <select id="opponent-depth"><option value="2">2</option></select><div id="negamax-options"></div><div id="mcts-options"></div>
+    <select id="opponent-simulations"><option value="50">Quick</option><option value="100" selected>Standard</option><option value="250">Deeper</option></select>
     <button id="start-button"></button><button id="restart-button"></button><button id="retry-button"></button>
     <div id="message"></div><div id="loading"></div><div id="game-board"></div>`);
   const doc = dom.window.document;
@@ -203,3 +204,70 @@ test('navigation aborts requests and late responses cannot update an unmounted p
   release(response(state())); await flush();
   assert.equal(ui.doc.body.childNodes.length, 0);
 });
+
+function select(ui, id, value) {
+  ui.el(id).value = value;
+  ui.el(id).dispatchEvent(new ui.doc.defaultView.Event('change'));
+}
+
+for (const limit of [50, 100, 250]) {
+  test(`MCTS selector shows only its options and sends ${limit} simulations`, async () => {
+    let body;
+    const ui = setup({ post: async (url, data) => { body = data; return response(state()); } });
+    assert.equal(ui.el('mcts-options').hidden, true);
+    select(ui, 'opponent-type', 'mcts');
+    assert.equal(ui.el('mcts-options').hidden, false);
+    assert.equal(ui.el('negamax-options').hidden, true);
+    assert.equal(ui.el('opponent-simulations').value, '100');
+    select(ui, 'opponent-simulations', String(limit));
+    ui.click('start-button'); await flush();
+    assert.deepEqual(body, { player1: { type: 'human' }, player2: { type: 'mcts', simulation_limit: limit } });
+    ui.cleanup();
+  });
+}
+
+test('switching opponents applies only at restart and never leaks agent settings', async () => {
+  const bodies = [];
+  const ui = setup({ post: async (url, body) => {
+    bodies.push(body);
+    return response(state(0, { game_id: `game-${bodies.length}`, players: [body.player1, body.player2] }));
+  } });
+  for (const [index, type] of ['mcts', 'negamax', 'random', 'mcts'].entries()) {
+    select(ui, 'opponent-type', type);
+    assert.equal(bodies.length, index);
+    assert.equal(ui.el('mcts-options').hidden, type !== 'mcts');
+    assert.equal(ui.el('negamax-options').hidden, type !== 'negamax');
+    ui.click(index ? 'restart-button' : 'start-button'); await flush();
+    assert.deepEqual(bodies[index].player2, type === 'mcts' ? { type, simulation_limit: 100 }
+      : type === 'negamax' ? { type, depth: 2 } : { type });
+    if (index) assert.equal(bodies[index].replace_game_id, `game-${index}`);
+  }
+  ui.cleanup();
+});
+
+for (const committed of [false, true]) {
+  test(`MCTS failed response reconciles ${committed ? 'committed' : 'busy'} state without automatic replay`, async () => {
+    let aiCalls = 0;
+    const players = [{ type: 'human' }, { type: 'mcts', simulation_limit: 50 }];
+    const snapshot = revision => state(revision, { players });
+    const ui = setup({ get: async () => response(snapshot(committed ? 2 : 1)), post: async (url, body) => {
+      if (url.endsWith('start_game')) return response(snapshot(0));
+      if ('column' in body) return response(snapshot(1));
+      if (++aiCalls === 1) throw failure(503, committed ? 'Response lost' : 'Another MCTS search is running');
+      assert.equal(body.revision, 1);
+      return response(snapshot(2));
+    } });
+    select(ui, 'opponent-type', 'mcts');
+    ui.click('start-button'); await flush();
+    ui.column().click(); await flush();
+    assert.equal(aiCalls, 1);
+    assert.equal(ui.el('retry-button').hidden, committed);
+    assert.equal(ui.column().disabled, !committed);
+    if (!committed) {
+      ui.click('retry-button'); await flush();
+      assert.equal(aiCalls, 2);
+      assert.equal(ui.column().disabled, false);
+    }
+    ui.cleanup();
+  });
+}

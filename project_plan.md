@@ -2,7 +2,7 @@
 
 **Repository:** https://github.com/andrewcukierwar/board-game-ai-lab  
 **Plan updated:** October 3, 2026
-**Status:** Phase 1 completed at `830bfdc`; Phase 2 public gameplay/CORS verified by the user. Phase 3A deterministic grounding committed at `37dc55e`. Phase 3B and 3B.1 committed locally on `phase3b-llm-explanations` at `45894d1`; the user reports successful revised GPT-6 Luna tests. Phase 3C completes local production-readiness review, mocked verification and deployment documentation. Public explanation rollout and enablement remain pending separate approvals; the source remains disabled by default.
+**Status:** Phases 1–3 completed; the user confirms explanations are enabled and manually tested publicly. Phase 4A.1 standalone MCTS correctness completed at `c213ddf` (311 backend tests, including 71 deterministic MCTS cases). Phase 4A.2 public MCTS API/UI integration is implemented locally, pending review and deployment. Source explanation defaults remain disabled; no production settings changed during this assignment.
 **Guiding objective:** Build a polished, publicly playable AI game laboratory and make the three intended resume bullets accurate and defensible. Prefer shipping a compelling hands-on application over expanding infrastructure or running formal agent benchmarks.
 
 ## 1. Product vision
@@ -60,7 +60,7 @@ The following baseline records the initial audit; Phase 1 and Phase 2 changes ar
 | Area | Observation / likely consequence |
 | --- | --- |
 | Production frontend routing | Implemented locally: Render builds require `VITE_API_BASE` as an HTTPS API origin; Docker builds and Vite development retain their local proxies. Exact-origin API CORS and Render SPA routing support the functioning public application (user-confirmed Phase 2 completion). |
-| Learned-model packaging | Models are not packaged in the API image. The local web API/UI deliberately expose only Human, Random, and bounded Negamax (UI: human-versus-AI). Neural agents remain unavailable until their correctness and packaging are repaired. |
+| Learned-model packaging | Models are not packaged in the API image. Phase 4A.2 adds bounded MCTS to the local API/UI alongside Human, Random and bounded Negamax (UI: human-versus-AI). Neural agents remain unavailable until their correctness and packaging are repaired. |
 | Per-user game state | Resolved locally: app-owned game-ID store, per-game locks, revision checks, 128-session capacity and 30-minute idle expiration. Single-worker operation remains required; restarts lose games. |
 | CI/CD | [Run 37034008283](https://github.com/andrewcukierwar/board-game-ai-lab/actions/runs/37034008283) for `830bfdc` confirms API image build/push and hook invocation. Phase 2 adds explicit package permissions, `linux/amd64`, and a bounded hook request. Phase 2 was committed at `cbf8db5`, and the user confirms public gameplay works. The Phase 3A implementation assignment did not trigger a production workflow or deployment. |
 | Repo hygiene | Cleanup is complete and Compose no longer requires `.env`. Docker context excludes nested dependencies, local environments and test/build output. |
@@ -190,7 +190,7 @@ Work sequentially, but keep each phase bounded and demonstrable. Do not start a 
 
 **Exit criteria:** Each advertised AI approach has a working code path and can be challenged in the application for its supported game. The resume bullet accurately names each game/algorithm pairing.
 
-### Phase 3 — Allis-grounded LLM explanations (**3A/3B/3B.1 implemented; 3C rollout preparation**)
+### Phase 3 — Allis-grounded LLM explanations (**complete; public enablement/testing confirmed by user**)
 
 **Goal:** Let users ask useful questions about an actual game, grounded in board state and available engine evidence.
 
@@ -210,7 +210,7 @@ Record immutable session history; verify tactical facts and legal alternatives; 
 
 **Exit criteria:** A real user can ask why a move matters or explore a legal alternative during a live match and receive a relevant, bounded explanation rather than a static demo or generic chatbot response. This supports the third resume bullet.
 
-**Phase 3C — Production Deployment & Verification (local preparation complete; rollout pending)**
+**Phase 3C — Production Deployment & Verification (historical preparation; subsequent public testing confirmed)**
 
 - Confirm clean starting branch/commit and Phase 3A/3B/3B.1 ancestry; review tracked files/history and production images for private artifacts and credential exposure.
 - Verify the proposed profile using mocks: GPT-6 Luna/`none`, 800 output tokens, 40-second timeout, 10 attempts/process/window, 3/game, 5/network client/window, 3600-second windows, one concurrent request. Preserve implementation defaults.
@@ -218,7 +218,7 @@ Record immutable session history; verify tactical facts and legal alternatives; 
 - Verify the disabled Linux amd64 API image and frontend builds/tests. Label last-move analysis accurately as **Analyze Last AI Move**, preserving the endpoint and analysis behavior.
 - Prepare sequential disabled-image rollout, explicit separate enablement approval, bounded paid smoke testing only with its own allowance, and rollback by retained immutable image digest.
 
-**Exit criteria:** Local verification/documentation and a local commit are complete. Production completion additionally requires an approved push/merge and disabled deployment, recorded healthy-image/gameplay checks, then separately approved enablement and public verification. See [the readiness review](docs/phase3c-readiness.md) and [the rollout/rollback procedure](docs/deployment.md).
+**Exit criteria:** Local readiness verification completed; the user subsequently confirmed public explanations are enabled and manually tested. This records user confirmation, not a new production inspection; detailed deployment IDs/settings were not collected in Phase 4A.2. See [the readiness review](docs/phase3c-readiness.md) and [the rollout/rollback procedure](docs/deployment.md).
 
 ### Phase E — Mancala integration and portfolio polish
 
@@ -261,11 +261,14 @@ Additional guardrails:
 - [x] Per-user game/session isolation implemented for local single-worker Connect 4.
 - [ ] Selectable advertised agents work end-to-end, with viable public-demo defaults.
 - [x] Phase 3A deterministic grounding and evidence schema implemented, locally tested and committed at `37dc55e`.
-- [x] Phase 3B/3B.1 endpoint and frontend implemented; user reports successful revised local GPT-6 Luna testing. Automated verification uses mocks; public rollout remains pending.
+- [x] Phase 3B/3B.1 endpoint and frontend implemented; user reports successful revised local GPT-6 Luna testing. Automated verification uses mocks; subsequent public enablement and manual testing are confirmed by the user.
 - [x] Provider credentials remain server-side; disabled-by-default functionality, request/token/time limits, per-game/client/global caps, duplicate protection and cache implemented.
 - [x] Phase 3C local readiness review, proposed spending-profile verification and disabled-first deployment/rollback documentation prepared.
-- [ ] Phase 3C production image/frontend deployed with explanations disabled and public smoke results recorded.
-- [ ] Separate public enablement approved, monitored and verified with an explicit paid-call allowance.
+- [x] Public explanations enabled and manually tested, as subsequently confirmed by the user.
+- [ ] Archive exact production image/deploy IDs and operational monitoring evidence when supplied; this assignment did not inspect production.
+- [x] Phase 4A.1 standalone MCTS correctness completed at `c213ddf`.
+- [x] Phase 4A.2 MCTS integration implemented and verified locally.
+- [ ] Phase 4A.2 review, manual acceptance and approved deployment/public smoke checks.
 - [ ] Mancala playable via the public UI, with applicable agents.
 - [x] README, quickstart and verified public demo links updated.
 - [ ] Portfolio screenshots added.
@@ -273,11 +276,11 @@ Additional guardrails:
 
 ## 8. Current assignment and approval boundary
 
-Phase 1 and Phase 2 are complete; public gameplay and CORS were verified by the user. Phase 3A is committed at `37dc55e`; Phase 3B/3B.1 are present at `45894d1`. The user reports revised live GPT-6 Luna testing succeeded. The current assignment authorizes **Phase 3C local production-readiness review, confirmed-blocker fixes only, deployment documentation, a small analysis-label correction, mocked verification and a local commit** on `phase3b-llm-explanations`.
+The current assignment implements **Phase 4A.2 — Public Connect 4 MCTS integration** on local branch `phase4a2-mcts-integration`, based on freshly fetched `origin/main` at `c213ddfbe2e39ec29a5f4f013d5a49b800643e88`. The starting tree was clean. Phase 4A.1 is complete at that commit. Phases 1–3 are preserved; the user confirms explanations have been enabled and manually tested publicly.
 
-Phase 3B adds `POST /v1/connect4/explain`, detached hypothetical analysis, strict model selections over verified fact/curated concept IDs, trusted-text rendering and citations, backend-only configuration, per-game/client/global attempt limits, bounded concurrent requests/cache, and the existing React/legacy controller's explanation panel. See [the implementation contract, safeguards, limitations and proposed three-call manual procedure](docs/llm-explanations.md).
+MCTS uses UCT selection, random rollouts, reward from each node's previous-player perspective, and final visit counts, plus immediate root tactical guards. The API accepts only 50, 100 (default) or 250 simulations. One process-wide nonblocking reservation permits one synchronous MCTS search; another game receives retryable HTTP 503 `agent_busy` without board/history/revision mutation. Other agents remain unaffected. The simulation count is not a wall-clock guarantee; one instance/worker with four threads remains required, and Render Free performance still needs an approved rollout check.
 
-After final checks pass, commit locally and report the SHA. **Do not push, merge, deploy, dispatch workflows/hooks, modify Render settings, change credentials or make paid API requests.** Explanations remain disabled by default. The future production image must initially run with `EXPLANATIONS_ENABLED=false`; public enablement is a separately approved configuration change after healthy-image/gameplay verification. Provider monitoring is still required because counters reset on restart and are not a durable dollar budget. MCTS, MCTS-NN, VictorAgent, DQN, Mancala, general refactoring/redesign and additional infrastructure remain outside scope.
+See [Phase 4A.2 verification, API contract and rollout checklist](docs/phase4a2-mcts-integration.md). MCTS-NN, DQN and VictorAgent remain experimental/unavailable; Mancala and neural-model work are deferred. **Do not commit without separate approval; do not push, merge, deploy, trigger workflows, change Render settings or credentials, or make paid provider calls.** Stop after local implementation and verification.
 
 ---
 
@@ -289,4 +292,4 @@ The user completed the initial local live evaluation with GPT-6 Luna / reasoning
 
 ### Phase 3C — Readiness review (October 3, 2026)
 
-Started from clean `phase3b-llm-explanations` at `45894d1`, preserving all prior commits. The user reports the revised Phase 3B.1 feature now works with real GPT-6 Luna requests. This review uses mocks only and does not repeat live testing. The exact proposed production profile passes configuration, quota/cache/failure/window regressions; implementation defaults remain unchanged. Full verification and remaining operational limits are recorded in [docs/phase3c-readiness.md](docs/phase3c-readiness.md). [docs/deployment.md](docs/deployment.md) contains the backend checklist and sequential disabled deployment, separate enablement and rollback instructions. No implementation deployment blocker is confirmed; production service/image identity and public smoke checks must be completed during the future approved rollout.
+Started from clean `phase3b-llm-explanations` at `45894d1`, preserving all prior commits. The user reports the revised Phase 3B.1 feature now works with real GPT-6 Luna requests. This review uses mocks only and does not repeat live testing. The exact proposed production profile passes configuration, quota/cache/failure/window regressions; implementation defaults remain unchanged. Full verification and remaining operational limits are recorded in [docs/phase3c-readiness.md](docs/phase3c-readiness.md). [docs/deployment.md](docs/deployment.md) contains the backend checklist and sequential disabled deployment, separate enablement and rollback instructions. The user subsequently confirms public explanations are enabled and manually tested. The preceding procedure is a historical readiness record; exact production image identity was not re-inspected during Phase 4A.2.

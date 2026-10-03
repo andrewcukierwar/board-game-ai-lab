@@ -1,5 +1,7 @@
 # Phase 3C — Production-readiness review
 
+**Status update (October 3, 2026):** The user subsequently confirmed explanations have been enabled and manually tested publicly. Earlier statements below about pending rollout describe the original Phase 3 preparation, not current public status. Source defaults remain disabled. Phase 4A.2 MCTS integration is local, pending review/deployment; it does not change explanation settings or make paid calls. See [the MCTS handoff](phase4a2-mcts-integration.md).
+
 Reviewed October 3, 2026, starting from clean `phase3b-llm-explanations` at `45894d1`. The user reports successful real GPT-6 Luna tests of the revised Phase 3B.1 feature. This review makes **no paid provider requests**, push, merge, deployment, Render configuration change or credential change. Local disposable images/servers use empty keys or mock-only sentinels; all explanation responses in verification are mocked.
 
 ## Git, implementation and artifact review

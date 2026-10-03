@@ -69,7 +69,7 @@ explain another revision. Standalone positions use analyze_position instead.
         'supported_allis_rule_applications': [],
         'general_strategic_observations': observations,
         'unknown_or_unproven': [
-            {'topic': 'agent_intent', 'reason': 'No search trace or internal decision rationale was recorded. Negamax is not assumed to use Allis rules.'},
+            {'topic': 'agent_intent', 'reason': 'No search trace or internal decision rationale was recorded. Public agents are not assumed to use Allis rules.'},
             {'topic': 'strategic_result', 'reason': 'No long-term game-theoretic value, optimality ranking, Zugzwang control, nine-rule application, compatibility or coverage proof is computed.'},
             {'topic': 'victor_agent', 'reason': 'The experimental VictorAgent is not a complete solver and supplies no evidence to this payload.'},
         ],

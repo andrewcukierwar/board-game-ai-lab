@@ -43,7 +43,7 @@ def history(app, state):
         return session.history
 
 
-@pytest.mark.parametrize('opponent', ['human', 'random', 'negamax'])
+@pytest.mark.parametrize('opponent', ['human', 'random', 'negamax', 'mcts'])
 def test_records_real_agent_type_boards_revisions_and_outcome(app, opponent):
     initial = start(app, opponent)
     first = move(app, initial, 3).json

@@ -1,16 +1,21 @@
 """Connect 4 API: each mutation is locked and guarded by a board revision."""
 from copy import deepcopy
+from threading import BoundedSemaphore
 
 from flask import Blueprint, current_app, jsonify, request
 
 from games.connect4.agents.negamax_agent import NegamaxAgent
 from games.connect4.agents.random_agent import RandomAgent
+from games.connect4.agents.mcts_agent import MCTSAgent
 from games.connect4.connect4 import Connect4
 from games.connect4.grounding.history import record_move
 from .state import GameError
 
 bp = Blueprint('connect4', __name__)
 MAX_DEPTH = 4
+MCTS_SIMULATION_LIMITS = (50, 100, 250)
+# Shared by all app instances in this process; never wait/queue for a search.
+_mcts_reservation = BoundedSemaphore(1)
 
 
 def store():
@@ -34,17 +39,26 @@ def player_config(value):
     if not isinstance(value, dict):
         raise GameError('invalid_agent', 'Each player configuration must be an object.')
     kind = value.get('type')
-    if kind not in ('human', 'random', 'negamax'):
-        raise GameError('invalid_agent', 'Supported player types are human, random, and negamax.')
-    allowed = {'type', 'depth'} if kind == 'negamax' else {'type'}
+    if kind not in ('human', 'random', 'negamax', 'mcts'):
+        raise GameError('invalid_agent', 'Supported player types are human, random, negamax, and mcts.')
+    allowed = {'type'}
+    if kind == 'negamax':
+        allowed.add('depth')
+    elif kind == 'mcts':
+        allowed.add('simulation_limit')
     if set(value) - allowed:
-        raise GameError('invalid_agent', 'Only Negamax accepts a depth; no other agent settings are supported.')
+        raise GameError('invalid_agent', 'Only Negamax accepts depth; only MCTS accepts simulation_limit. No other agent settings are supported.')
     config = {'type': kind}
     if kind == 'negamax':
         depth = value.get('depth', 2)
         if type(depth) is not int or not 1 <= depth <= MAX_DEPTH:
             raise GameError('invalid_agent', f'Negamax depth must be an integer from 1 to {MAX_DEPTH}.')
         config['depth'] = depth
+    elif kind == 'mcts':
+        limit = value.get('simulation_limit', 100)
+        if type(limit) is not int or limit not in MCTS_SIMULATION_LIMITS:
+            raise GameError('invalid_agent', 'MCTS simulation_limit must be an integer: 50, 100, or 250.')
+        config['simulation_limit'] = limit
     return config
 
 
@@ -114,9 +128,17 @@ def make_move():
         else:
             if 'column' in data:
                 raise GameError('invalid_move', 'It is the AI turn. Request its move without a column.')
-            # A fresh bounded search avoids retaining caches across requests.
-            agent = RandomAgent() if config['type'] == 'random' else NegamaxAgent(config['depth'])
+            reserved = config['type'] == 'mcts'
+            if reserved and not _mcts_reservation.acquire(blocking=False):
+                raise GameError('agent_busy', 'Another MCTS search is running. Retry the AI move shortly.', 503)
             try:
+                # Explicit production-safe imports; fresh search state per request.
+                if config['type'] == 'mcts':
+                    agent = MCTSAgent(config['simulation_limit'])
+                elif config['type'] == 'random':
+                    agent = RandomAgent()
+                else:
+                    agent = NegamaxAgent(config['depth'])
                 # Never expose the live game to agent code.
                 column = agent.choose_move(Connect4(candidate.board, candidate.current_player))
                 if type(column) is not int or not candidate.is_valid_move(column):
@@ -124,6 +146,9 @@ def make_move():
             except Exception:
                 current_app.logger.exception('Connect 4 agent failed')
                 raise GameError('agent_failed', 'The AI could not make a legal move. Retry or start a new game.', 503)
+            finally:
+                if reserved:
+                    _mcts_reservation.release()
         if not candidate.make_move(column):
             raise GameError('invalid_move', 'That move could not be played. Refresh the game.', 409)
         # Prepare the immutable evidence before committing; failed requests add nothing.

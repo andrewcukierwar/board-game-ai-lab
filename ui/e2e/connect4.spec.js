@@ -6,6 +6,11 @@ async function start(page, opponent = 'negamax') {
   await page.goto('/');
   await page.getByRole('link', { name: 'Play Connect 4' }).click();
   await page.getByLabel('Opponent:').selectOption(opponent);
+  if (opponent === 'mcts') {
+    await expect(page.locator('#mcts-options')).toBeVisible();
+    await expect(page.locator('#negamax-options')).toBeHidden();
+    await page.getByLabel('Search simulations:').selectOption('50');
+  }
   const result = page.waitForResponse(r => r.url().endsWith('/start_game') && r.request().method() === 'POST');
   await page.getByRole('button', { name: 'Start game', exact: true }).click();
   const response = await result;
@@ -14,11 +19,12 @@ async function start(page, opponent = 'negamax') {
   return response.json();
 }
 
-for (const opponent of ['random', 'negamax']) {
+for (const opponent of ['random', 'negamax', 'mcts']) {
   test(`complete a browser game against ${opponent}, then restart with a different opponent`, async ({ page }) => {
     const pageErrors = [];
     page.on('pageerror', error => pageErrors.push(error.message));
     let state = await start(page, opponent);
+    if (opponent === 'mcts') expect(state.players[1]).toEqual({ type: 'mcts', simulation_limit: 50 });
     for (let turns = 0; turns < 42 && !state.gameOver; turns++) {
       const column = state.legalMoves[0];
       const humanResult = page.waitForResponse(r => r.url().endsWith('/make_move') && r.request().method() === 'POST' && 'column' in r.request().postDataJSON());

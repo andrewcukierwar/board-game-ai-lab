@@ -23,7 +23,9 @@ export function mountConnect4({ document, http }) {
     el('loading').hidden = !busy;
     el('opponent-type').disabled = busy;
     el('opponent-depth').disabled = busy;
+    el('opponent-simulations').disabled = busy;
     el('negamax-options').hidden = el('opponent-type').value !== 'negamax';
+    el('mcts-options').hidden = el('opponent-type').value !== 'mcts';
     el('start-button').hidden = Boolean(game);
     el('restart-button').hidden = !game;
     el('start-button').disabled = busy;
@@ -126,7 +128,9 @@ export function mountConnect4({ document, http }) {
   async function start() {
     return run(async () => {
       const type = el('opponent-type').value;
-      const opponent = type === 'negamax' ? { type, depth: Number(el('opponent-depth').value) } : { type };
+      const opponent = { type };
+      if (type === 'negamax') opponent.depth = Number(el('opponent-depth').value);
+      if (type === 'mcts') opponent.simulation_limit = Number(el('opponent-simulations').value);
       const body = { player1: { type: 'human' }, player2: opponent };
       if (game) body.replace_game_id = game.game_id;
       const response = await http.post('/v1/connect4/start_game', body, options);
