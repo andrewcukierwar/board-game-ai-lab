@@ -1,8 +1,8 @@
 # Board Game AI Lab — Project Plan
 
 **Repository:** https://github.com/andrewcukierwar/board-game-ai-lab  
-**Plan updated:** October 2, 2026  
-**Status:** Phase 1 completed and manually verified at `830bfdc`. Phase 2 — Public Deployment complete; public gameplay and frontend/backend CORS configuration manually verified by the user. Phase 3A — Deterministic Allis grounding implemented, locally verified and committed at `37dc55e` (now on `main`). Phase 3B implemented and reviewed locally on `phase3b-llm-explanations`; automated verification uses mocks, no paid calls or deployment. Live-provider verification pending.
+**Plan updated:** October 3, 2026
+**Status:** Phase 1 completed and manually verified at `830bfdc`. Phase 2 — Public Deployment complete; public gameplay and frontend/backend CORS configuration manually verified by the user. Phase 3A — Deterministic Allis grounding implemented, locally verified and committed at `37dc55e` (now on `main`). Phase 3B implemented and reviewed locally on `phase3b-llm-explanations`; automated verification uses mocks, no paid calls or deployment. Initial local three-mode live evaluation completed by the user. Phase 3B.1 improves concise explanations; revised schema verification uses mocks only.
 **Guiding objective:** Build a polished, publicly playable AI game laboratory and make the three intended resume bullets accurate and defensible. Prefer shipping a compelling hands-on application over expanding infrastructure or running formal agent benchmarks.
 
 ## 1. Product vision
@@ -190,7 +190,7 @@ Work sequentially, but keep each phase bounded and demonstrable. Do not start a 
 
 **Exit criteria:** Each advertised AI approach has a working code path and can be challenged in the application for its supported game. The resume bullet accurately names each game/algorithm pairing.
 
-### Phase 3 — Allis-grounded LLM explanations (**3A committed; 3B implemented locally, awaiting review**)
+### Phase 3 — Allis-grounded LLM explanations (**3A committed; 3B initial local live test completed; 3B.1 refinement**)
 
 **Goal:** Let users ask useful questions about an actual game, grounded in board state and available engine evidence.
 
@@ -198,7 +198,7 @@ Work sequentially, but keep each phase bounded and demonstrable. Do not start a 
 
 Record immutable session history; verify tactical facts and legal alternatives; curate the original Allis thesis; assemble a revision-bound payload separating facts, supported rule applications, observations and unknowns. No nine-rule detector is claimed until its full applicability and interaction conditions are implemented and tested. See the implementation record above.
 
-**Phase 3B — LLM integration and frontend (implemented locally, awaiting review)**
+**Phase 3B — LLM integration and frontend (initial local live test completed; Phase 3B.1 refinement)**
 
 - Add a backend analysis endpoint that accepts a validated game/session, board state, side to move, last move (when relevant), and a user question or a small set of presets.
 - Provide the LLM with structured context: game rules, current board, legal actions, recent moves, immediate tactical threats, and *available* agent/engine signals. Add lightweight deterministic analysis when practical.
@@ -251,7 +251,7 @@ Additional guardrails:
 - [x] Per-user game/session isolation implemented for local single-worker Connect 4.
 - [ ] Selectable advertised agents work end-to-end, with viable public-demo defaults.
 - [x] Phase 3A deterministic grounding and evidence schema implemented, locally tested and committed at `37dc55e`.
-- [x] Phase 3B endpoint and frontend implemented on real local game states with mocked providers; live-model and public rollout verification pending.
+- [x] Phase 3B endpoint and frontend implemented; user completed initial local live testing. Revised Phase 3B.1 schema uses mocked verification; public rollout remains pending.
 - [x] Provider credentials remain server-side; disabled-by-default functionality, request/token/time limits, per-game/client/global caps, duplicate protection and cache implemented.
 - [ ] Mancala playable via the public UI, with applicable agents.
 - [x] README, quickstart and verified public demo links updated.
@@ -260,7 +260,7 @@ Additional guardrails:
 
 ## 8. Current assignment and approval boundary
 
-Phase 1 and Phase 2 are complete; public gameplay and CORS were manually verified by the user. Phase 3A is committed at `37dc55e`. The preceding documentation-only commit `d35b9f0` is preserved. The current assignment authorizes **local Phase 3B implementation, documentation and mocked verification** on `phase3b-llm-explanations`.
+Phase 1 and Phase 2 are complete; public gameplay and CORS were manually verified by the user. Phase 3A is committed at `37dc55e`. The preceding documentation-only commit `d35b9f0` is preserved. The current assignment authorizes **local Phase 3B.1 explanation-quality refinement, documentation, mocked verification and a local commit after checks pass** on `phase3b-llm-explanations`.
 
 Phase 3B adds `POST /v1/connect4/explain`, detached hypothetical analysis, strict model selections over verified fact/curated concept IDs, trusted-text rendering and citations, backend-only configuration, per-game/client/global attempt limits, bounded concurrent requests/cache, and the existing React/legacy controller's explanation panel. See [the implementation contract, safeguards, limitations and proposed three-call manual procedure](docs/llm-explanations.md).
 
@@ -269,3 +269,7 @@ After final review/configuration checks pass, the user authorizes a local commit
 ---
 
 **Project finish line:** A prospective employer can click a link, select an AI opponent, play a real game, ask a grounded strategy question, and see concrete implementations corresponding to the project's three resume claims.
+
+### Phase 3B.1 — Explanation quality (October 3, 2026)
+
+The user completed the initial local live evaluation with GPT-6 Luna / reasoning effort `none`. All three modes worked, but the report was too verbose and the model mostly reordered templated content. Phase 3B.1 adds verified explanatory relationships, a model-selected primary paragraph, bounded relevant evidence, position-connected Allis concepts, expandable full analysis/methodology, and verified-square labels. Primary source Chapters 3–8 and original diagrams were consulted directly. Formal rule applications remain unsupported. No new paid request, production change, push, merge, training or Mancala work is authorized. See [the audit, examples, changed-file inventory and final verification](docs/phase3b1-quality.md).

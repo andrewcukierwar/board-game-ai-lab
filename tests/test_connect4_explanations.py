@@ -22,8 +22,9 @@ class FakeProvider:
 
     def generate(self, **kwargs):
         self.calls.append(deepcopy(kwargs))
-        return {'fact_ids': [f['id'] for f in kwargs['evidence']['confirmed_tactical_facts']][:12],
-                'concept_ids': ['tactics']}
+        return {'focus_id': kwargs['evidence']['verified_focuses'][0]['id'],
+                'fact_ids': [f['id'] for f in kwargs['evidence']['confirmed_tactical_facts']][:3],
+                'concept_ids': []}
 
 
 @pytest.fixture(autouse=True)
@@ -241,19 +242,20 @@ def test_injection_is_data_only_and_prompt_is_compact(app):
     assert 'board_before' not in json.dumps(evidence) and 'board_after' not in json.dumps(evidence)
     assert evidence['supported_allis_rule_applications'] == []
     assert attack not in json.dumps(result.json)
-    refs = result.json['explanation']['strategic_context'][0]['source']['references']
-    assert refs[0]['section'] == '3.4' and refs[0]['thesis_pages'] == [21, 24]
+    assert all(e['classification'] == 'context_only' for e in result.json['explanation']['strategic_context'])
     assert 'not a promise' not in text(result)  # Facts do not become long-term claims.
 
 
 def test_requested_rule_is_reference_only_with_verified_citations(app):
     def selection(**kwargs):
         assert 'claimeven' in kwargs['schema']['properties']['concept_ids']['items']['enum']
-        return {'fact_ids': ['position'], 'concept_ids': ['claimeven']}
+        return {'focus_id': kwargs['evidence']['verified_focuses'][0]['id'],
+                'fact_ids': ['position'], 'concept_ids': ['claimeven']}
     service(app).provider.generate = selection
     result = explain(app, start(app), question='Explain Claimeven here. Is it proven?')
     assert result.status_code == 200
-    entry = result.json['explanation']['strategic_context'][0]
+    assert result.json['explanation']['strategic_context'] == []
+    entry = result.json['explanation']['additional_context'][0]
     assert entry['classification'] == 'reference_only'
     assert entry['source']['references'][0]['section'] == '6.1'
     assert entry['source']['references'][0]['thesis_pages'] == [36, 37]
@@ -563,8 +565,9 @@ def test_simultaneous_duplicates_reserve_one_attempt_and_failure_releases_permit
 ])
 def test_unsupported_model_claims_rejected_in_every_mode(app, mode, claim):
     def invented(**kwargs):
-        return {'fact_ids': [kwargs['evidence']['confirmed_tactical_facts'][0]['id']],
-                'concept_ids': ['tactics'], **claim}
+        return {'focus_id': kwargs['evidence']['verified_focuses'][0]['id'],
+                'fact_ids': [kwargs['evidence']['confirmed_tactical_facts'][0]['id']],
+                'concept_ids': [], **claim}
     service(app).provider.generate = invented
     state = move(app, start(app), 3)
     result = explain(app, state, mode, **({'column': 2} if mode == 'what_if' else {}))
@@ -618,7 +621,8 @@ def test_invalid_reasoning_effort_rejected_at_startup(effort):
 
 def test_model_and_reasoning_environment_defaults_overrides_and_backend_isolation(monkeypatch):
     monkeypatch.setattr('api.app.load_dotenv', lambda *a, **kw: None)
-    for key in ('OPENAI_EXPLANATION_MODEL', 'OPENAI_EXPLANATION_REASONING_EFFORT', 'EXPLANATIONS_ENABLED'):
+    for key in ('OPENAI_EXPLANATION_MODEL', 'OPENAI_EXPLANATION_REASONING_EFFORT', 'EXPLANATIONS_ENABLED',
+                'EXPLANATION_MAX_OUTPUT_TOKENS', 'EXPLANATION_TIMEOUT_SECONDS'):
         monkeypatch.delenv(key, raising=False)
     defaults = create_app({'TESTING': True})
     assert defaults.config['OPENAI_EXPLANATION_MODEL'] == 'gpt-6-luna'
@@ -655,3 +659,132 @@ def test_incomplete_reasoning_output_never_rendered_or_cached_and_permit_release
     assert not service(app).inflight and not service(app).cache and connection.closed
     assert service(app).global_count == 1
     assert app.test_client().get(BASE + '/games/' + state['game_id']).json == state
+
+# Reachable, nonterminal reconstruction of the live revision-36 mechanism.
+# The original live game's history was not recorded. All six other columns are
+# full; b1 and b2 are empty and Player 2's line needs b2.
+REVISION_36 = [2, 5, 6, 3, 5, 5, 0, 2, 3, 2, 6, 0, 4, 4, 3, 6, 2, 2,
+               4, 3, 6, 0, 0, 2, 6, 5, 4, 3, 3, 0, 5, 4, 0, 6, 5, 4]
+
+
+def play_sequence(app, sequence):
+    state = start(app)
+    for c in sequence:
+        state = move(app, state, c)
+    return state
+
+
+@pytest.mark.parametrize('mode', ['position', 'what_if', 'last_move'])
+def test_revision36_gravity_relationship_and_citation(app, mode):
+    state = play_sequence(app, REVISION_36)
+    assert state['revision'] == 36 and state['legalMoves'] == [1]
+    if mode == 'last_move':
+        state = move(app, state, 1)
+    result = explain(app, state, mode, **({'column': 1} if mode == 'what_if' else {}))
+    assert result.status_code == 200
+    data = result.json['explanation']
+    summary = data['summary']['text']
+    assert 'b1' in summary and 'b2 accessible to Player 2' in summary
+    assert 'immediately play there to complete four in a row' in summary
+    if mode == 'position':
+        assert "Column 2 is Player 1's only available move" in summary
+    elif mode == 'what_if':
+        assert 'If Player 1 plays Column 2' in summary
+    else:
+        assert 'Player 1 played Column 2' in summary
+    assert len(summary.split()) < 65
+    assert {s['name'] for s in data['relevant_squares']} == {'b1', 'b2'}
+    assert data['summary']['evidence_paths']
+    assert set(data['summary']['fact_ids']) <= {f['id'] for f in data['facts']}
+    assert len(data['key_facts']) <= 3 < len(data['facts'])
+    concept, = data['strategic_context']
+    assert concept['concept_id'] == 'winning_square'
+    assert 'b2' in concept['connection']
+    assert concept['source']['references'][0]['section'] == '3.1'
+    assert concept['source']['references'][0]['thesis_pages'] == [16, 18]
+    assert data['supported_allis_rule_applications'] == []
+    assert app.test_client().get(BASE + '/games/' + state['game_id']).json == state
+    cached = explain(app, state, mode, **({'column': 1} if mode == 'what_if' else {}))
+    assert cached.json['cached'] is True
+    assert cached.json['explanation'] == data
+    assert len(service(app).provider.calls) == 1
+
+
+@pytest.mark.parametrize('sequence', [[], [3, 2]])
+def test_quiet_opening_does_not_show_generic_competing_threats(app, sequence):
+    result = explain(app, play_sequence(app, sequence), question='What happened before this move?')
+    data = result.json['explanation']
+    assert 'Neither player has an immediate winning move' in data['summary']['text']
+    assert data['strategic_context'] == []
+    assert data['relevant_squares'] == []
+    assert 'competing' not in json.dumps(data)
+    assert len(data['summary']['text'].split()) < 30
+    # No forced move recommendation, parity ownership or generic rule framework.
+    assert {e['id'] for e in service(app).provider.calls[-1]['evidence']['general_context']} == {'coordinates'}
+
+
+def test_mandatory_block_is_primary_and_hypothetical_reply_is_explicit(app):
+    state = play_sequence(app, [0, 1, 0, 1, 2, 1])
+    data = explain(app, state).json['explanation']
+    assert "must play Column 2 at b4 to block" in data['summary']['text']
+    assert 'Every other legal move' in data['summary']['text']
+    assert [s['name'] for s in data['relevant_squares']] == ['b4']
+    assert data['strategic_context'][0]['source']['references'][0]['section'] == '3.4'
+    bad = explain(app, state, 'what_if', column=2).json['explanation']
+    assert 'If Player 1 plays Column 3' in bad['summary']['text']
+    assert 'Player 2 can now win immediately by playing Column 2 at b4' in bad['summary']['text']
+    blocked = explain(app, state, 'what_if', column=1).json['explanation']
+    assert 'only move that blocked a loss' in blocked['summary']['text']
+
+
+def test_model_selects_valid_relationship_and_supporting_emphasis(app):
+    state = play_sequence(app, [3, 3, 2, 3, 4])  # thesis diagram 3.9
+    def select(**kwargs):
+        focus = kwargs['evidence']['verified_focuses'][0]
+        assert focus['id'] == 'forced_loss'
+        return {'focus_id': focus['id'], 'fact_ids': ['threats', 'defense'], 'concept_ids': ['tactics']}
+    service(app).provider.generate = select
+    result = explain(app, state).json['explanation']
+    assert 'cannot prevent a loss on the next reply' in result['summary']['text']
+    assert [f['id'] for f in result['key_facts']][:2] == ['threats', 'defense']
+    assert {s['name'] for s in result['relevant_squares']} == {'b1', 'f1'}
+    assert result['strategic_context'][0]['source']['references'][0]['thesis_pages'] == [21, 24]
+
+
+def test_multiple_verified_focuses_change_explanation_without_model_prose(app):
+    state = play_sequence(app, [3, 3, 2, 3, 4, 0])  # two immediate own winning squares
+    def select(**kwargs):
+        focus = kwargs['evidence']['verified_focuses'][-1]
+        return {'focus_id': focus['id'], 'fact_ids': ['wins'], 'concept_ids': ['winning_square']}
+    service(app).provider.generate = select
+    result = explain(app, state).json['explanation']
+    assert result['summary']['focus_id'] == 'win_f1'
+    assert 'Column 6 at f1' in result['summary']['text']
+    assert result['strategic_context'][0]['connection'].startswith('f1')
+
+
+@pytest.mark.parametrize('patch', [
+    {'focus_id': 'invented_b1_b3_winning_sequence'},
+    {'focus_id': True}, {'fact_ids': ['made_up_win']},
+    {'concept_ids': ['claimeven']}, {'prose': 'The agent used Allis to win.'},
+])
+def test_new_selection_rejects_unsupported_relationships_claims_and_citations(app, patch):
+    def select(**kwargs):
+        return {'focus_id': kwargs['evidence']['verified_focuses'][0]['id'],
+                'fact_ids': ['position'], 'concept_ids': [], **patch}
+    service(app).provider.generate = select
+    result = explain(app, start(app))
+    assert result.status_code == 502 and result.json['code'] == 'invalid_explanation'
+    assert not service(app).cache and not service(app).inflight
+
+
+def test_irrelevant_allowed_references_and_facts_safely_omitted_from_primary(app):
+    state = play_sequence(app, [0, 1, 0, 1, 2, 1])
+    def select(**kwargs):
+        return {'focus_id': 'block', 'fact_ids': ['reply_0'], 'concept_ids': ['coordinates']}
+    service(app).provider.generate = select
+    data = explain(app, state).json['explanation']
+    assert 'reply_0' not in {f['id'] for f in data['key_facts']}
+    assert 'defense' in {f['id'] for f in data['key_facts']}
+    assert data['strategic_context'][0]['concept_id'] == 'tactics'
+    assert data['additional_context'][0]['concept_id'] == 'coordinates'

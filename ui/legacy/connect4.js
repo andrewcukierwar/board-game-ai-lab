@@ -43,6 +43,7 @@ export function mountConnect4({ document, http }) {
       cell.disabled = busy || uncertain || game.gameOver || !humanTurn() || !game.legalMoves.includes(column);
       cell.setAttribute('aria-label', `Column ${column + 1}, row ${rowIndex + 1}: ${piece === 'X' ? 'red' : piece === 'O' ? 'yellow' : 'empty'}`);
       cell.dataset.column = String(column);
+      cell.dataset.square = `${String.fromCharCode(97 + column)}${6 - rowIndex}`;
       const circle = document.createElement('span');
       circle.className = `circle ${piece === 'X' ? 'x' : piece === 'O' ? 'o' : 'empty'}`;
       cell.appendChild(circle);

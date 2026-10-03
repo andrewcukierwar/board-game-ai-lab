@@ -40,7 +40,7 @@ export default function Connect4Page() {
       <div id="game-board" role="group" aria-label="Connect 4 board" />
       <section id="explanation-panel" aria-label="Grounded explanations">
         <h2>Understand the position</h2>
-        <p>Request analysis explicitly. Board facts are verified locally; Allis concepts provide strategic context. AI decision intent is unavailable.</p>
+        <p>Ask about a move or position. Explanations connect verified board facts to Connect 4 strategy.</p>
         <label htmlFor="explanation-question">Optional question (500 characters maximum):</label>
         <textarea id="explanation-question" maxLength={500} rows={2} />
         <div className="explanation-controls">

@@ -35,10 +35,18 @@ export function mountExplanations({ document, http }) {
     parent.appendChild(node);
   }
 
+  function clearHighlights() {
+    document.querySelectorAll('#game-board .explanation-square').forEach(cell => {
+      cell.classList.remove('explanation-square');
+      cell.querySelector('.square-label')?.remove();
+    });
+  }
+
   function show(data) {
     const root = el('explanation-result');
     root.replaceChildren();
-    const section = (title) => {
+    clearHighlights();
+    const section = title => {
       const group = document.createElement('section');
       const heading = document.createElement('h3');
       heading.textContent = title;
@@ -46,39 +54,83 @@ export function mountExplanations({ document, http }) {
       root.appendChild(group);
       return group;
     };
-    const facts = section('Verified tactical facts');
-    data.facts.forEach(fact => paragraph(facts, fact.text));
-    const strategy = section('Strategic context from Allis — not a proven rule application');
-    data.strategic_context.forEach(entry => {
-      paragraph(strategy, `${entry.title}: ${entry.text}`);
-      (entry.preconditions || []).forEach(text => paragraph(strategy, `Reference precondition: ${text}`));
-      entry.limitations.forEach(text => paragraph(strategy, text));
+    const disclosure = title => {
+      const group = document.createElement('details');
+      const label = document.createElement('summary');
+      label.textContent = title;
+      group.appendChild(label);
+      root.appendChild(group);
+      return group;
+    };
+    const concept = (parent, entry) => {
+      paragraph(parent, `${entry.title}: ${entry.text}`);
+      if (entry.connection) paragraph(parent, entry.connection);
       const link = document.createElement('a');
-      // Citations always come from the curated backend, never model prose.
+      // Only backend catalog references are rendered; model citations are rejected.
       link.href = 'https://tromp.github.io/c4/connect4_thesis.pdf';
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
       link.textContent = `Allis (1988): ${entry.source.references.map(ref =>
         `Chapter ${ref.chapter}, §${ref.section}, thesis/PDF pp. ${ref.thesis_pages[0]}–${ref.thesis_pages[1]}`).join('; ')}`;
-      strategy.appendChild(link);
-    });
-    const limits = section('What this analysis cannot establish');
+      parent.appendChild(link);
+    };
+    const primary = section('Primary explanation');
+    primary.className = 'primary-explanation';
+    paragraph(primary, data.summary.text);
+    const facts = section('Key tactical evidence');
+    data.key_facts.forEach(fact => paragraph(facts, fact.text));
+    if (data.strategic_context.length) {
+      const strategy = section('Relevant Allis concept');
+      data.strategic_context.forEach(entry => concept(strategy, entry));
+      paragraph(strategy, 'Conceptual context; not a proven rule application.');
+    }
+    const details = disclosure('Detailed analysis');
+    paragraph(details, 'Complete verified tactical facts');
+    data.facts.forEach(fact => paragraph(details, fact.text));
+    data.additional_context.forEach(entry => concept(details, entry));
+    const limits = disclosure('Methodology and limitations');
     data.limitations.forEach(text => paragraph(limits, text));
+    [...data.strategic_context, ...data.additional_context].forEach(entry => {
+      (entry.preconditions || []).forEach(text => paragraph(limits, `${entry.title} — reference precondition: ${text}`));
+      entry.limitations.forEach(text => paragraph(limits, text));
+    });
+    data.relevant_squares.forEach(square => {
+      const cell = document.querySelector(`#game-board .cell[data-square="${square.name}"]`);
+      if (!cell) return;
+      cell.classList.add('explanation-square');
+      const label = document.createElement('span');
+      label.className = 'square-label';
+      label.textContent = square.name;
+      label.setAttribute('aria-hidden', 'true');
+      cell.appendChild(label);
+    });
   }
 
   function validExplanation(data) {
     const explanation = data?.explanation;
     const texts = values => Array.isArray(values) && values.every(value => typeof value === 'string');
-    return explanation && Array.isArray(explanation.facts) && explanation.facts.length > 0 &&
-      explanation.facts.every(f => typeof f.text === 'string' && f.classification === 'confirmed_tactical') &&
-      Array.isArray(explanation.strategic_context) && explanation.strategic_context.every(entry =>
-        ['context_only', 'reference_only'].includes(entry.classification) &&
-        typeof entry.title === 'string' && typeof entry.text === 'string' && texts(entry.limitations) &&
-        (entry.preconditions === undefined || texts(entry.preconditions)) &&
-        Array.isArray(entry.source?.references) && entry.source.references.every(ref =>
-          Number.isInteger(ref.chapter) && typeof ref.section === 'string' &&
-          Array.isArray(ref.thesis_pages) && ref.thesis_pages.length === 2 && ref.thesis_pages.every(Number.isInteger))) &&
-      texts(explanation.limitations);
+    const facts = values => Array.isArray(values) && values.length > 0 && values.every(f =>
+      typeof f.id === 'string' && typeof f.text === 'string' && f.classification === 'confirmed_tactical');
+    const concepts = values => Array.isArray(values) && values.every(entry =>
+      ['context_only', 'reference_only'].includes(entry.classification) &&
+      typeof entry.title === 'string' && typeof entry.text === 'string' && texts(entry.limitations) &&
+      (entry.connection === undefined || typeof entry.connection === 'string') &&
+      (entry.preconditions === undefined || texts(entry.preconditions)) &&
+      Array.isArray(entry.source?.references) && entry.source.references.length > 0 && entry.source.references.every(ref =>
+        Number.isInteger(ref.chapter) && typeof ref.section === 'string' &&
+        Array.isArray(ref.thesis_pages) && ref.thesis_pages.length === 2 && ref.thesis_pages.every(Number.isInteger)));
+    return explanation && facts(explanation.facts) && facts(explanation.key_facts) && explanation.key_facts.length <= 3 &&
+      typeof explanation.summary?.text === 'string' && typeof explanation.summary.focus_id === 'string' &&
+      texts(explanation.summary.fact_ids) && explanation.summary.fact_ids.length > 0 &&
+      explanation.summary.fact_ids.every(id => explanation.facts.some(f => f.id === id)) &&
+      explanation.key_facts.every(key => explanation.facts.some(f => f.id === key.id && f.text === key.text)) &&
+      Array.isArray(explanation.relevant_squares) && explanation.relevant_squares.length <= 42 &&
+      explanation.relevant_squares.every(s => Number.isInteger(s.column) && s.column >= 0 && s.column < 7 &&
+        Number.isInteger(s.row_index) && s.row_index >= 0 && s.row_index < 6 && s.row === 6 - s.row_index &&
+        s.name === `${String.fromCharCode(97 + s.column)}${s.row}`) &&
+      concepts(explanation.strategic_context) && explanation.strategic_context.length <= 1 &&
+      explanation.strategic_context.every(e => e.classification === 'context_only' && e.connection) &&
+      concepts(explanation.additional_context) && texts(explanation.limitations);
   }
 
   async function request(mode) {
@@ -97,6 +149,7 @@ export function mountExplanations({ document, http }) {
     loading = true;
     status = 'Preparing a grounded explanation… You can still play or restart.';
     el('explanation-result').replaceChildren();
+    clearHighlights();
     controls();
     try {
       const response = await http.post('/v1/connect4/explain', requested, { signal: controller.signal });
@@ -133,6 +186,7 @@ export function mountExplanations({ document, http }) {
       if (changed || unavailable && !blocked) {
         cancel();
         el('explanation-result').replaceChildren();
+        clearHighlights();
         status = next ? 'Request an explanation for this board.' : 'Start a game to request an explanation.';
       }
       game = next;
@@ -151,6 +205,7 @@ export function mountExplanations({ document, http }) {
     cleanup() {
       active = false;
       cancel();
+      clearHighlights();
       listeners.forEach(remove => remove());
     },
   };
