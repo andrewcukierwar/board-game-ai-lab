@@ -15,6 +15,7 @@ All POST requests must use `Content-Type: application/json`. Error responses are
 - `POST /v1/connect4/start_game`: optional `player1` and `player2` objects (defaults: human and Negamax depth 2). Types: `human`, `random`, `negamax`; only Negamax accepts `depth`, an integer 1–4. Optional `replace_game_id` replaces a known previous session atomically after validation; an expired/unknown previous ID starts a fresh session. Returns 201.
 - `GET /v1/connect4/games/<game_id>`: returns the authoritative board for recovery. Returns 404 for missing or expired sessions.
 - `POST /v1/connect4/make_move`: requires `game_id` and the latest integer `revision`. On human turns include integer `column` (0–6); on AI turns omit `column`. Each request advances exactly one ply and increments revision. Returns 200.
+- `POST /v1/connect4/explain`: requires `game_id`, current `revision`, and `mode` (`last_move`, `position`, `what_if`); only `what_if` requires a legal `column` (0–6). Optional `question` is capped at 500 characters by default. Returns a revision-bound concise summary, key evidence, relevant square coordinates, full facts, Allis context/citations and limitations without mutating the game. Disabled by default. See [the complete explanation contract and configuration](llm-explanations.md).
 
 Successful game responses include `game_id`, `revision`, `board` (six rows of seven `X`, `O`, or space characters), `players`, `currentPlayer` (0 or 1), `gameOver`, `legalMoves`, and `winner` (`null`, `Player 1`, `Player 2`, or `Draw`). Responses are not cacheable.
 
@@ -32,12 +33,14 @@ The default store holds 128 games with a 1,800-second idle timeout. Internal Fla
 6. For natural expiration, leave a game idle for 30 minutes and then move. It should offer a fresh game. Focused tests use a controlled clock so they do not need to wait.
 7. Refresh `/connect4` directly; the page should load. Return Home and re-enter without duplicate handlers or console errors.
 
+Explanation runtime settings are backend-only: `OPENAI_EXPLANATION_MODEL` defaults to `gpt-6-luna` and `OPENAI_EXPLANATION_REASONING_EFFORT` defaults to `none`. The complete configuration and limits are in [the explanation guide](llm-explanations.md).
+
 ## Public deployment
 
-Phase 2 configuration and local verification are implemented; public rollout is awaiting review. Follow [the deployment guide](deployment.md) for exact Render settings, GitHub/GHCR image selection, approval-gated rollout, separate-origin local verification, and the production smoke checklist.
+Phase 2 public deployment is complete. [Play the public application](https://board-game-ai-lab-ui.onrender.com/) or [open Connect 4 directly](https://board-game-ai-lab-ui.onrender.com/connect4). The user verified public gameplay and CORS on October 2, 2026. The [API health endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/health) is at the verified backend origin. Phase 3A is committed at `37dc55e`; Phase 3B and 3B.1 are implemented at `45894d1`, and the user reports successful revised local GPT-6 Luna testing. Phase 3C prepares production deployment using mocked verification only. Follow [the deployment guide](deployment.md) for the backend variable checklist, disabled-first rollout, separate approval for enablement, rollback and manual smoke checks. No production rollout or new paid calls occur during preparation.
 
-The Static Site uses root `ui`, build `npm ci && npm run build:render`, publish `dist`, `NODE_VERSION=22`, and `VITE_API_BASE=https://<actual-api-host>`. Add a **Rewrite** from `/*` to `/index.html` for direct `/connect4` navigation. The API uses the GHCR image, `PORT=10000`, health path `/v1/connect4/health`, and `CORS_ALLOWED_ORIGINS=https://<actual-frontend-host>` (no slash/path/wildcard). Keep one instance and one worker/four threads, with the image CMD and no Render command override.
+The Static Site uses root `ui`, build `npm ci && npm run build:render`, publish `dist`, `NODE_VERSION=22`, and `VITE_API_BASE=https://board-game-ai-lab.onrender.com`. Add a **Rewrite** from `/*` to `/index.html` for direct `/connect4` navigation. The API uses the GHCR image, `PORT=10000`, health path `/v1/connect4/health`, and `CORS_ALLOWED_ORIGINS=https://board-game-ai-lab-ui.onrender.com` (no slash/path/wildcard). Keep one instance and one worker/four threads, with the image CMD and no Render command override.
 
 Docker explicitly builds with an empty API base; Vite development always uses its local proxy. Render's API origin is compiled into the browser bundle and requires rebuilding when changed. Requests allow 90 seconds for wake-up, with locked controls and explicit recovery. No move POST is automatically retried. After API restart/spin-down or expiration, start a fresh game.
 
-Do not push `main`, run the workflow or invoke its Render hook until rollout is approved. Automated gameplay tests must target local servers only.
+Do not push `main`, run the workflow or invoke its Render hook unless a future deployment is explicitly authorized. Automated gameplay tests must target local servers only.

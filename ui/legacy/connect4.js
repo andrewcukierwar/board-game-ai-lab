@@ -1,5 +1,7 @@
 // React owns the page; this small controller owns its board and request lifecycle.
 // No window globals: mounting twice or navigating away cannot retain an old game.
+import { mountExplanations } from './explanations.js';
+
 export function mountConnect4({ document, http }) {
   const el = id => document.getElementById(id);
   const boardElement = el('game-board');
@@ -12,6 +14,7 @@ export function mountConnect4({ document, http }) {
   const abort = new AbortController();
   const options = { signal: abort.signal };
   const listeners = [];
+  const explanations = mountExplanations({ document, http });
   const humanTurn = () => game?.players[game.currentPlayer].type === 'human';
 
   function render() {
@@ -28,6 +31,7 @@ export function mountConnect4({ document, http }) {
     el('retry-button').hidden = !(uncertain || retryAI);
     el('retry-button').disabled = busy;
     el('retry-button').textContent = uncertain ? 'Refresh game' : 'Retry AI move';
+    explanations.update(game, busy || uncertain);
     const board = el('game-board');
     board.replaceChildren();
     if (!game) return;
@@ -39,6 +43,7 @@ export function mountConnect4({ document, http }) {
       cell.disabled = busy || uncertain || game.gameOver || !humanTurn() || !game.legalMoves.includes(column);
       cell.setAttribute('aria-label', `Column ${column + 1}, row ${rowIndex + 1}: ${piece === 'X' ? 'red' : piece === 'O' ? 'yellow' : 'empty'}`);
       cell.dataset.column = String(column);
+      cell.dataset.square = `${String.fromCharCode(97 + column)}${6 - rowIndex}`;
       const circle = document.createElement('span');
       circle.className = `circle ${piece === 'X' ? 'x' : piece === 'O' ? 'o' : 'empty'}`;
       cell.appendChild(circle);
@@ -164,6 +169,7 @@ export function mountConnect4({ document, http }) {
   return () => {
     active = false;
     abort.abort();
+    explanations.cleanup();
     listeners.forEach(remove => remove());
     boardElement.replaceChildren();
   };

@@ -1,6 +1,6 @@
 # Phase 3A: deterministic Connect 4 grounding
 
-This layer records moves and produces verifiable, revision-bound evidence for a future LLM integration. It does not call an LLM, choose moves, expose an explanation HTTP route, or add a frontend panel. The gameplay endpoints and their JSON response shapes are unchanged. Random and Negamax still select moves exactly as before.
+This Phase 3A layer records moves and produces verifiable, revision-bound evidence. It does not itself call an LLM or choose moves. The separate [Phase 3B service and panel](llm-explanations.md) now consume it locally. The gameplay endpoints and their JSON response shapes are unchanged. Random and Negamax still select moves exactly as before.
 
 ## Use
 
@@ -123,4 +123,12 @@ Run `python -m pytest -q` from the repository root and the existing UI tests/bui
 - Immutable snapshots, complete replay, isolation, atomic rejection/agent failure, revision mismatch, concurrency, replacement, expiry, restart and evidence captured before a concurrent later move.
 - Explicit absence of formal-rule claims even on an empty board with many superficially plausible pairs; reference-only retrieval and stable citation metadata.
 
-Phase 3B (LLM request, provider credentials, question handling and frontend panel) remains unimplemented.
+Phase 3B now adds a separate, disabled-by-default explanation endpoint and frontend panel. See [its contract, constrained composition boundary, configuration, tests and live-test proposal](llm-explanations.md). The Phase 3A evidence schema and unsupported-formal-rule boundary remain unchanged; no paid calls or public rollout were performed.
+
+## Phase 3B.1 primary-source recheck (October 3, 2026)
+
+Consulted the local ignored `research/references/allis-1988-connect4.pdf` directly, extracting Chapters 3–8 and visually checking original diagrams 3.2, 3.9 and 6.1 and the §7.4 compatibility table. This edition has 91 PDF pages; existing catalog section/page metadata is retained. §3.1 (especially diagram 3.2, p.17) explicitly describes how filling b1 or f1 lets Black occupy the second-row winning square. This supports the explanatory distinction between geometric completion and gravity playability. §3.4 (pp.21–24) supports immediate forcing tactics, including independent playable threats in diagram 3.9. Chapters 5–8 retain the coverage, compatibility and evaluation-region requirements for formal rule proofs.
+
+Shortened the catalog's winning-square and immediate-tactics paraphrases for display. The threat-perspective convention remains in the winning-square limitations. No formal rule implementation or citation source was added. Phase 3A's context retrieval/schema is unchanged; Phase 3B.1's presentation layer selects only concepts linked to verified explanatory relationships. Quiet openings omit unrelated concepts; requested rule terminology remains reference material inside details. The revision-36 regression is a legally replayed reconstruction of the reported b1→b2 mechanism, not a claim to reproduce the unavailable live history or thesis diagram.
+
+The local reference is excluded from Git and Docker build contexts. Research extraction/rendering used temporary files and macOS PDFKit; PDF tools and the thesis are not application dependencies.

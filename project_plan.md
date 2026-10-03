@@ -1,8 +1,8 @@
 # Board Game AI Lab — Project Plan
 
 **Repository:** https://github.com/andrewcukierwar/board-game-ai-lab  
-**Plan updated:** October 2, 2026  
-**Status:** Phase 1 completed and manually verified at `830bfdc`. Phase 2 — Public Deployment complete; the user confirms the public Connect 4 application is functioning. Phase 3A — Deterministic Allis grounding implemented and locally verified on `phase3-allis-grounding`, based on latest `main` (`cbf8db5`). Phase 3B remains unimplemented.
+**Plan updated:** October 3, 2026
+**Status:** Phase 1 completed at `830bfdc`; Phase 2 public gameplay/CORS verified by the user. Phase 3A deterministic grounding committed at `37dc55e`. Phase 3B and 3B.1 committed locally on `phase3b-llm-explanations` at `45894d1`; the user reports successful revised GPT-6 Luna tests. Phase 3C completes local production-readiness review, mocked verification and deployment documentation. Public explanation rollout and enablement remain pending separate approvals; the source remains disabled by default.
 **Guiding objective:** Build a polished, publicly playable AI game laboratory and make the three intended resume bullets accurate and defensible. Prefer shipping a compelling hands-on application over expanding infrastructure or running formal agent benchmarks.
 
 ## 1. Product vision
@@ -62,7 +62,7 @@ The following baseline records the initial audit; Phase 1 and Phase 2 changes ar
 | Production frontend routing | Implemented locally: Render builds require `VITE_API_BASE` as an HTTPS API origin; Docker builds and Vite development retain their local proxies. Exact-origin API CORS and Render SPA routing support the functioning public application (user-confirmed Phase 2 completion). |
 | Learned-model packaging | Models are not packaged in the API image. The local web API/UI deliberately expose only Human, Random, and bounded Negamax (UI: human-versus-AI). Neural agents remain unavailable until their correctness and packaging are repaired. |
 | Per-user game state | Resolved locally: app-owned game-ID store, per-game locks, revision checks, 128-session capacity and 30-minute idle expiration. Single-worker operation remains required; restarts lose games. |
-| CI/CD | [Run 37034008283](https://github.com/andrewcukierwar/board-game-ai-lab/actions/runs/37034008283) for `830bfdc` confirms API image build/push and hook invocation. Phase 2 adds explicit package permissions, `linux/amd64`, and a bounded hook request. Phase 2 is now on `main` at `cbf8db5`, and the user confirms public gameplay works. No production workflow or deployment is triggered by Phase 3A work. |
+| CI/CD | [Run 37034008283](https://github.com/andrewcukierwar/board-game-ai-lab/actions/runs/37034008283) for `830bfdc` confirms API image build/push and hook invocation. Phase 2 adds explicit package permissions, `linux/amd64`, and a bounded hook request. Phase 2 was committed at `cbf8db5`, and the user confirms public gameplay works. The Phase 3A implementation assignment did not trigger a production workflow or deployment. |
 | Repo hygiene | Cleanup is complete and Compose no longer requires `.env`. Docker context excludes nested dependencies, local environments and test/build output. |
 | Documentation | Local setup, session/API behavior, tests and manual checks are documented. Grounding schema and thesis references are documented in `docs/allis-grounding.md`; screenshots and final portfolio wording remain later work. |
 | Code quality | Local request validation, frontend lifecycle/recovery and focused tests are implemented. Advanced-agent/search/training defects from the audit remain deferred. |
@@ -86,10 +86,10 @@ The following baseline records the initial audit; Phase 1 and Phase 2 changes ar
 - **74 backend tests, 15 frontend tests, and 8 Chromium end-to-end tests in each of three configurations passed** (24 browser test executions): Docker/Nginx, Vite development with a deliberately set remote API variable, and a production-built static frontend at port 4173 calling an exact-CORS API at port 8001. Tests cover complete games against both opponents, independence, switching/restart, direct navigation/refresh, slow/HTML startup, failure/expiry recovery and lost post-commit responses.
 - Compose rebuild/start and default/Render/cross-origin production builds passed. Missing Render API configuration fails the build as intended. The temporary API listened on Render-style port 10000 with one worker. Actual temporary-container restart recovery was verified in Chromium: old session reported missing, fresh start succeeded.
 - README and quickstart are updated; [docs/deployment.md](docs/deployment.md) contains exact Render settings, approval-gated manual steps and the production smoke checklist. Existing npm advisories remain outside this scope.
-- The original implementation stopped before rollout. **Subsequent Phase 2 completion:** the user confirms the public Connect 4 application is functioning as of the Phase 3 assignment (October 2, 2026). This records the user’s completion report, not a claim that Phase 3A repeated the production smoke checklist.
-- **Public frontend/API URLs:** awaiting the user’s exact addresses; the repository’s old API hostname was explicitly unverified and its frontend address was a placeholder. Do not invent deployment addresses.
+- The original implementation stopped before rollout. **Subsequent Phase 2 completion (October 2, 2026):** the user confirms public deployment is complete and public Connect 4 gameplay has been manually verified, including successful frontend/backend CORS configuration. This records the user’s verification, not a new production smoke test by this documentation update.
+- **Verified production URLs:** [public frontend](https://board-game-ai-lab-ui.onrender.com/), [Connect 4](https://board-game-ai-lab-ui.onrender.com/connect4), [backend API origin](https://board-game-ai-lab.onrender.com), and [API health endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/health).
 
-### Phase 3A implementation and local verification
+### Phase 3A implementation and local verification (committed at `37dc55e`)
 
 - Created local `phase3-allis-grounding` from freshly fetched `origin/main` at `cbf8db5`. No credentials changed, pushes, production mutations, or deployments.
 - Added immutable per-session move records with player/agent, column, before/after board, ply/revisions, and outcome. Existing locks, atomic candidate commits, revision errors, expiration, replacement, capacity, and gameplay JSON contracts are preserved.
@@ -100,11 +100,26 @@ The following baseline records the initial audit; Phase 1 and Phase 2 changes ar
 - **119 backend tests, 15 frontend tests and 8 Chromium end-to-end tests passed.** Browser tests used this branch’s local API at port 8001 and production-built frontend at port 4173 with exact CORS. Default and separate-origin Vite builds passed.
 - Evidence schema, research references, applicability boundaries and regression examples: [docs/allis-grounding.md](docs/allis-grounding.md). No LLM call, explanation HTTP endpoint or frontend panel has been added.
 
+### Phase 3B local verification (awaiting review)
+
+- Implemented all three explanation modes under `/v1/connect4/explain`, using Phase 3A's detached/replay-verified evidence, constrained model selections, validated citations and explicit unknowns.
+- Backend-only `.env`/environment configuration, disabled-by-default behavior, bounded provider request/output/timeout, per-game/client/global attempts, concurrent/duplicate protection and successful-response caching are implemented.
+- Added the explanation panel within the existing React/legacy controller architecture. Gameplay remains independent of explanation loading/errors; moves, restarts and navigation cancel/clear stale explanations.
+- **188 backend tests, 25 frontend tests and 13 Chromium tests passed**, including existing complete games against Random and Negamax. Default, separate-origin and Render-mode builds passed. All explanation provider responses were mocked. Live model compatibility/quality remain unverified.
+- No pushes, deployment, Render setting changes or paid requests. Detailed contract, limits and a separately approved three-call manual-test proposal: [docs/llm-explanations.md](docs/llm-explanations.md).
+
+### Phase 3B final review and configuration verification
+
+- Review fixes at `cd9eb0b` preserve the provider deadline/cleanup and exact hypothetical-column response validation. The `d35b9f0` documentation commit remains in history.
+- Backend defaults are now `OPENAI_EXPLANATION_MODEL=gpt-6-luna` and `OPENAI_EXPLANATION_REASONING_EFFORT=none`, using the Responses API's nested reasoning parameter. Both remain server-side/environment-configurable; cache identity includes effort. Token/time caps and unsupported-output rejection are preserved.
+- **224 backend tests passed on macOS and Linux, 26 frontend tests and 42 Chromium executions passed**, with all provider responses mocked. Default/separate-origin/Render-mode and Docker builds passed. See [the final review record](docs/phase3b-review.md).
+- The user authorizes a local commit after passing checks. No paid calls, push, merge, deployment, credentials or Render configuration changes.
+
 ## 4. Intended architecture
 
 **Local development:** Docker Compose orchestrates an API container (Python / Flask / Gunicorn / game engines / trained artifacts) and UI container (React/Vite build served by Nginx). Nginx proxies `/v1/` to the API service.
 
-**Production (previously chosen approach):**
+**Production (deployed topology):**
 
 ```text
 Visitor's browser
@@ -175,15 +190,15 @@ Work sequentially, but keep each phase bounded and demonstrable. Do not start a 
 
 **Exit criteria:** Each advertised AI approach has a working code path and can be challenged in the application for its supported game. The resume bullet accurately names each game/algorithm pairing.
 
-### Phase 3 — Allis-grounded LLM explanations (**3A implemented; 3B deferred**)
+### Phase 3 — Allis-grounded LLM explanations (**3A/3B/3B.1 implemented; 3C rollout preparation**)
 
 **Goal:** Let users ask useful questions about an actual game, grounded in board state and available engine evidence.
 
-**Phase 3A — Deterministic grounding (implemented locally)**
+**Phase 3A — Deterministic grounding (implemented, locally verified and committed)**
 
 Record immutable session history; verify tactical facts and legal alternatives; curate the original Allis thesis; assemble a revision-bound payload separating facts, supported rule applications, observations and unknowns. No nine-rule detector is claimed until its full applicability and interaction conditions are implemented and tested. See the implementation record above.
 
-**Phase 3B — LLM integration and frontend (not started)**
+**Phase 3B — LLM integration and frontend (implemented, including Phase 3B.1; revised local live test completed by user)**
 
 - Add a backend analysis endpoint that accepts a validated game/session, board state, side to move, last move (when relevant), and a user question or a small set of presets.
 - Provide the LLM with structured context: game rules, current board, legal actions, recent moves, immediate tactical threats, and *available* agent/engine signals. Add lightweight deterministic analysis when practical.
@@ -194,6 +209,16 @@ Record immutable session history; verify tactical facts and legal alternatives; 
 - Manually check several tactical positions, invalid inputs, and a finished game for grounding and useful explanations. Formal benchmarking is not required.
 
 **Exit criteria:** A real user can ask why a move matters or explore a legal alternative during a live match and receive a relevant, bounded explanation rather than a static demo or generic chatbot response. This supports the third resume bullet.
+
+**Phase 3C — Production Deployment & Verification (local preparation complete; rollout pending)**
+
+- Confirm clean starting branch/commit and Phase 3A/3B/3B.1 ancestry; review tracked files/history and production images for private artifacts and credential exposure.
+- Verify the proposed profile using mocks: GPT-6 Luna/`none`, 800 output tokens, 40-second timeout, 10 attempts/process/window, 3/game, 5/network client/window, 3600-second windows, one concurrent request. Preserve implementation defaults.
+- Document exact backend variable names, unchanged exact-origin CORS, one-instance/worker requirement, process-local restart/window/proxy limitations, cache behavior and provider-side budget/usage monitoring.
+- Verify the disabled Linux amd64 API image and frontend builds/tests. Label last-move analysis accurately as **Analyze Last AI Move**, preserving the endpoint and analysis behavior.
+- Prepare sequential disabled-image rollout, explicit separate enablement approval, bounded paid smoke testing only with its own allowance, and rollback by retained immutable image digest.
+
+**Exit criteria:** Local verification/documentation and a local commit are complete. Production completion additionally requires an approved push/merge and disabled deployment, recorded healthy-image/gameplay checks, then separately approved enablement and public verification. See [the readiness review](docs/phase3c-readiness.md) and [the rollout/rollback procedure](docs/deployment.md).
 
 ### Phase E — Mancala integration and portfolio polish
 
@@ -231,25 +256,37 @@ Additional guardrails:
 - [x] Local Docker Compose builds and permits a complete match.
 - [x] API image includes required code/dependencies for public Random and bounded Negamax; no learned checkpoints are needed for these agents. Neural agents remain disabled/deferred.
 - [x] Public backend supports functioning Connect 4 gameplay (user-confirmed Phase 2 completion).
-- [x] Separate-origin frontend API routing and restricted CORS implemented and verified locally.
+- [x] Separate-origin frontend API routing and restricted CORS implemented, verified locally and manually verified in production by the user.
 - [x] Public React frontend and API are functioning (user-confirmed Phase 2 completion; historical detailed smoke checklist retained in the deployment guide).
 - [x] Per-user game/session isolation implemented for local single-worker Connect 4.
 - [ ] Selectable advertised agents work end-to-end, with viable public-demo defaults.
-- [x] Phase 3A deterministic grounding and evidence schema implemented and locally tested.
-- [ ] Phase 3B LLM analysis endpoint and frontend interface work on real game states.
-- [ ] Provider credentials remain server-side; basic cost/error safeguards in place.
+- [x] Phase 3A deterministic grounding and evidence schema implemented, locally tested and committed at `37dc55e`.
+- [x] Phase 3B/3B.1 endpoint and frontend implemented; user reports successful revised local GPT-6 Luna testing. Automated verification uses mocks; public rollout remains pending.
+- [x] Provider credentials remain server-side; disabled-by-default functionality, request/token/time limits, per-game/client/global caps, duplicate protection and cache implemented.
+- [x] Phase 3C local readiness review, proposed spending-profile verification and disabled-first deployment/rollback documentation prepared.
+- [ ] Phase 3C production image/frontend deployed with explanations disabled and public smoke results recorded.
+- [ ] Separate public enablement approved, monitored and verified with an explicit paid-call allowance.
 - [ ] Mancala playable via the public UI, with applicable agents.
-- [ ] README, screenshots, quickstart, and demo link updated.
+- [x] README, quickstart and verified public demo links updated.
+- [ ] Portfolio screenshots added.
 - [ ] Final resume wording revalidated against shipped features.
 
 ## 8. Current assignment and approval boundary
 
-Phase 1 and Phase 2 are complete; the user confirms the public game is functioning. The current authorized assignment is **Phase 3A — Deterministic grounding**, preserving existing gameplay. Implementation and local verification are complete; the grounding layer is ready for independent review. The exact public frontend/API addresses still need to be recorded from the user’s confirmation.
+Phase 1 and Phase 2 are complete; public gameplay and CORS were verified by the user. Phase 3A is committed at `37dc55e`; Phase 3B/3B.1 are present at `45894d1`. The user reports revised live GPT-6 Luna testing succeeded. The current assignment authorizes **Phase 3C local production-readiness review, confirmed-blocker fixes only, deployment documentation, a small analysis-label correction, mocked verification and a local commit** on `phase3b-llm-explanations`.
 
-Work stays on local `phase3-allis-grounding`. **Do not modify Git credentials, push changes, trigger deployment hooks/workflows, or change production infrastructure.** Pushing to `main` automatically builds/pushes the API image and invokes the existing Render hook; Static Site auto-deploy may also respond to pushes.
+Phase 3B adds `POST /v1/connect4/explain`, detached hypothetical analysis, strict model selections over verified fact/curated concept IDs, trusted-text rendering and citations, backend-only configuration, per-game/client/global attempt limits, bounded concurrent requests/cache, and the existing React/legacy controller's explanation panel. See [the implementation contract, safeguards, limitations and proposed three-call manual procedure](docs/llm-explanations.md).
 
-Stop before Phase 3B. LLM/provider calls, the explanation frontend, paid APIs, retraining, neural MCTS repair, DQN recovery, Mancala and new external infrastructure are outside this assignment.
+After final checks pass, commit locally and report the SHA. **Do not push, merge, deploy, dispatch workflows/hooks, modify Render settings, change credentials or make paid API requests.** Explanations remain disabled by default. The future production image must initially run with `EXPLANATIONS_ENABLED=false`; public enablement is a separately approved configuration change after healthy-image/gameplay verification. Provider monitoring is still required because counters reset on restart and are not a durable dollar budget. MCTS, MCTS-NN, VictorAgent, DQN, Mancala, general refactoring/redesign and additional infrastructure remain outside scope.
 
 ---
 
 **Project finish line:** A prospective employer can click a link, select an AI opponent, play a real game, ask a grounded strategy question, and see concrete implementations corresponding to the project's three resume claims.
+
+### Phase 3B.1 — Explanation quality (October 3, 2026)
+
+The user completed the initial local live evaluation with GPT-6 Luna / reasoning effort `none`. All three modes worked, but the report was too verbose and the model mostly reordered templated content. Phase 3B.1 adds verified explanatory relationships, a model-selected primary paragraph, bounded relevant evidence, position-connected Allis concepts, expandable full analysis/methodology, and verified-square labels. Primary source Chapters 3–8 and original diagrams were consulted directly. Formal rule applications remain unsupported. No new paid request, production change, push, merge, training or Mancala work is authorized. See [the audit, examples, changed-file inventory and final verification](docs/phase3b1-quality.md).
+
+### Phase 3C — Readiness review (October 3, 2026)
+
+Started from clean `phase3b-llm-explanations` at `45894d1`, preserving all prior commits. The user reports the revised Phase 3B.1 feature now works with real GPT-6 Luna requests. This review uses mocks only and does not repeat live testing. The exact proposed production profile passes configuration, quota/cache/failure/window regressions; implementation defaults remain unchanged. Full verification and remaining operational limits are recorded in [docs/phase3c-readiness.md](docs/phase3c-readiness.md). [docs/deployment.md](docs/deployment.md) contains the backend checklist and sequential disabled deployment, separate enablement and rollback instructions. No implementation deployment blocker is confirmed; production service/image identity and public smoke checks must be completed during the future approved rollout.
