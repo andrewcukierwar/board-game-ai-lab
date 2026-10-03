@@ -44,7 +44,7 @@ test('disabled before start, all modes explicit, legal columns and sources displ
   }
   assert.equal(calls.at(-1).body.column, 0);
   ui.panel.update(state(2), false);
-  assert.equal(ui.el('explain-last').textContent, 'Explain AI Move');
+  assert.equal(ui.el('explain-last').textContent, 'Analyze Last AI Move');
   ui.panel.cleanup();
 });
 

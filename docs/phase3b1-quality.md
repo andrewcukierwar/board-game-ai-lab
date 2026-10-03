@@ -2,6 +2,8 @@
 
 Implemented locally on `phase3b-llm-explanations`, starting from a clean tree at `c5fc0f3`, October 3, 2026. The user reports that the original three modes worked locally with GPT-6 Luna and reasoning effort `none`. This refinement makes no new provider requests, changes no credentials or production settings, and does not push, merge or deploy.
 
+**Subsequent Phase 3C status:** the user reports successful real GPT-6 Luna testing of the revised implementation committed at `45894d1`. The unverified-live statements below describe this historical refinement's verification boundary. See [the current production-readiness review](phase3c-readiness.md) and [disabled-first rollout procedure](deployment.md). Phase 3C makes no new paid requests.
+
 ## What the LLM contributes
 
 Before this refinement, `prepare_evidence()` sent a detached board, coordinate conventions, up to four recent move records, readable deterministic facts, curated knowledge, unknowns/analysis limits and the optional untrusted question. For a hypothesis it sent the simulated resulting board. It did not send the complete history's boards, game ID, credentials or request headers as model content.

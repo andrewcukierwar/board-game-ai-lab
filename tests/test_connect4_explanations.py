@@ -68,6 +68,91 @@ def service(app):
     return app.extensions['connect4_explanations']
 
 
+@pytest.fixture
+def production_app(monkeypatch):
+    settings = {
+        'EXPLANATIONS_ENABLED': 'false',
+        'OPENAI_EXPLANATION_MODEL': 'gpt-6-luna',
+        'OPENAI_EXPLANATION_REASONING_EFFORT': 'none',
+        'EXPLANATION_MAX_OUTPUT_TOKENS': '800',
+        'EXPLANATION_TIMEOUT_SECONDS': '40',
+        'EXPLANATION_GLOBAL_LIMIT': '10',
+        'EXPLANATION_GAME_LIMIT': '3',
+        'EXPLANATION_CLIENT_LIMIT': '5',
+        'EXPLANATION_WINDOW_SECONDS': '3600',
+        'EXPLANATION_MAX_CONCURRENT': '1',
+        'CORS_ALLOWED_ORIGINS': 'https://board-game-ai-lab-ui.onrender.com',
+    }
+    for key, value in settings.items():
+        monkeypatch.setenv(key, value)
+    result = create_app({'TESTING': True, 'OPENAI_API_KEY': 'mock-only'})
+    service(result).provider = FakeProvider()
+    service(result).clock = lambda: 0
+    service(result).window_start = 0
+    return result
+
+
+def test_production_environment_starts_disabled_and_forwards_provider_caps(production_app):
+    app = production_app
+    state = start(app)
+    assert explain(app, state).json['code'] == 'explanations_disabled'
+    assert service(app).global_count == 0
+    assert not service(app).provider.calls
+    app.config['EXPLANATIONS_ENABLED'] = True
+    assert explain(app, state).status_code == 200
+    call = service(app).provider.calls[0]
+    assert (call['model'], call['reasoning_effort'], call['max_tokens'], call['timeout']) == (
+        'gpt-6-luna', 'none', 800, 40)
+    assert app.config['EXPLANATION_MAX_CONCURRENT'] == 1
+
+
+def test_production_game_client_global_limits_cache_failures_and_window(production_app):
+    app = production_app
+    app.config['EXPLANATIONS_ENABLED'] = True
+    svc = service(app)
+    client = app.test_client()
+    def request(state, identity, question):
+        return client.post(BASE + '/explain', json={
+            'game_id': state['game_id'], 'revision': 0, 'mode': 'position', 'question': question},
+            environ_overrides={'REMOTE_ADDR': identity, 'HTTP_X_FORWARDED_FOR': question})
+
+    first = start(app)
+    for index in range(3):
+        assert request(first, 'client-a', str(index)).status_code == 200
+    assert request(first, 'client-a', '0').json['cached'] is True
+    assert request(first, 'client-a', 'extra').json['code'] == 'explanation_game_limit'
+    second = start(app)
+    for index in range(2):
+        assert request(second, 'client-a', str(index)).status_code == 200
+    assert request(start(app), 'client-a', 'spoofed-ip').json['code'] == 'explanation_rate_limited'
+    assert svc.global_count == 5
+
+    third = start(app)
+    for index in range(3):
+        assert request(third, 'client-b', str(index)).status_code == 200
+    fourth = start(app)
+    assert request(fourth, 'client-b', 'success').status_code == 200
+    real = svc.provider.generate
+    def timeout(**kwargs):
+        real(**kwargs)
+        raise TimeoutError
+    svc.provider.generate = timeout
+    assert request(fourth, 'client-b', 'timeout').status_code == 504
+    assert svc.global_count == len(svc.provider.calls) == 10
+    assert not svc.inflight
+    assert request(start(app), 'client-c', 'extra').json['code'] == 'explanation_rate_limited'
+    assert request(first, 'client-c', '0').json['cached'] is True
+    assert svc.global_count == 10
+
+    # Window renewal clears network/process quotas, not the lifetime game limit.
+    svc.clock = lambda: 3600
+    svc.provider.generate = real
+    assert request(first, 'client-a', 'new-window').json['code'] == 'explanation_game_limit'
+    assert request(start(app), 'client-a', 'new-window').status_code == 200
+    assert svc.global_count == 1
+    assert len(svc.provider.calls) == 11
+
+
 @pytest.mark.parametrize('mode', ['last_move', 'position', 'what_if'])
 def test_modes_are_grounded_detached_and_do_not_mutate_game(app, mode):
     state = start(app)

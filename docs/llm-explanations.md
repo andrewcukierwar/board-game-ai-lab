@@ -1,6 +1,6 @@
 # Phase 3B: Allis-grounded explanations
 
-Implemented locally on `phase3b-llm-explanations`; the preceding `d35b9f0` documentation commit is preserved. Nothing has been pushed or deployed. The user completed initial local live testing before Phase 3B.1; development verification uses mocks and makes no paid model calls. Random/Negamax gameplay and existing game responses are unchanged. The feature is disabled by default.
+Implemented locally on `phase3b-llm-explanations`; the preceding `d35b9f0` documentation commit is preserved. Nothing has been pushed or deployed. The user reports successful local GPT-6 Luna tests of both the initial feature and the revised Phase 3B.1 implementation at `45894d1`; development/Phase 3C verification uses mocks and makes no paid model calls. Random/Negamax gameplay and existing game responses are unchanged. The feature is disabled by default. See [the production profile, rollout and rollback](deployment.md) and [final readiness verification](phase3c-readiness.md).
 
 ## Files changed
 
@@ -86,7 +86,7 @@ Copy `.env.example` to an ignored root `.env` for host development; Python loads
 | --- | --- | --- |
 | `EXPLANATIONS_ENABLED` | `false` | Explicit opt-in (`true`/`1`, `false`/`0`). |
 | `OPENAI_API_KEY` | empty | Backend project key; required only when enabled. |
-| `OPENAI_EXPLANATION_MODEL` | `gpt-6-luna` | Backend-only model; choose one supporting Responses, Structured Outputs and the configured effort. Availability is not live-verified. No fallback. |
+| `OPENAI_EXPLANATION_MODEL` | `gpt-6-luna` | Backend-only model; choose one supporting Responses, Structured Outputs and the configured effort. User reports successful local GPT-6 Luna requests; production access remains a rollout check. No fallback. |
 | `OPENAI_EXPLANATION_REASONING_EFFORT` | `none` | Backend-only effort: `none`, `low`, `medium`, `high`, `xhigh`, `max`. Invalid values fail startup. |
 | `EXPLANATION_MAX_OUTPUT_TOKENS` | 400 | Total generated-token cap, including reasoning and visible output, configurable 64–2000. |
 | `EXPLANATION_TIMEOUT_SECONDS` | 20 | Socket timeout and request/response deadline, configurable 1–60 seconds; OS DNS caveat above. |
@@ -131,7 +131,7 @@ For browser tests, run a local API with `EXPLANATIONS_ENABLED=false` and `OPENAI
 
 1. Review this implementation first. In a separate OpenAI project set a small budget/spending alert, confirm model access, and create a dedicated key. Use only a local backend, never the public app. Enter the key privately in ignored `.env`; do not paste it into chat or browser tools. Set `EXPLANATIONS_ENABLED=true`, `OPENAI_EXPLANATION_MODEL=gpt-6-luna`, `OPENAI_EXPLANATION_REASONING_EFFORT=none`, game/client/global limits to **3**, output cap **400**, timeout **20**, concurrent cap **1**. Start fresh so the global allowance begins at zero; do not restart until testing is complete.
 2. After explicit approval for up to **three** live calls, request **Analyze Position** once, then repeat exactly the same request and check `cached: true` with no extra provider usage. Confirm facts, limitations, schema acceptance, citations and actual usage in the provider dashboard. A failed request consumes one of the three attempts; do not automatically retry it.
-3. Play one human/AI turn locally (no model call), request **Explain AI Move** once, and verify the recorded column/piece/result and post-hoc caveat. Use the final allowance for one legal **What If?**; compare against a manually inspected detached result and verify board/revision did not change. Any malformed/unavailable response should remain a safe error; stop to review it instead of adding calls.
+3. Play one human/AI turn locally (no model call), request **Analyze Last AI Move** once, and verify the recorded column/piece/result and post-hoc caveat. Use the final allowance for one legal **What If?**; compare against a manually inspected detached result and verify board/revision did not change. Any malformed/unavailable response should remain a safe error; stop to review it instead of adding calls.
 4. Disable explanations and stop the local servers. Review project usage/spend, revoke the temporary key if appropriate, and keep all credentials out of tracked files. No deployment or provider request is authorized by these instructions alone.
 
-The user reports the original three-mode local integration works. The revised Phase 3B.1 schema and model selection quality have not been live-tested; historical provider latency/usage logs are unavailable. Advanced agents, Mancala and multiworker persistence remain deferred. See [the Phase 3B.1 audit, examples, inventory and verification](phase3b1-quality.md).
+The user reports the original and revised Phase 3B.1 local integrations work with real GPT-6 Luna requests. Historical provider latency/usage logs remain unavailable; no new measurements or paid calls are made by the Phase 3C review. Advanced agents, Mancala and multiworker persistence remain deferred. See [the historical Phase 3B.1 audit](phase3b1-quality.md) and [the current readiness review](phase3c-readiness.md).

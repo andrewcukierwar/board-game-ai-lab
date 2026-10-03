@@ -19,7 +19,7 @@ export function mountExplanations({ document, http }) {
         (['what-if', 'what-if-column'].includes(id) && (game.gameOver || !game.legalMoves.length));
     }
     el('explain-last').textContent = game?.revision > 0 &&
-      game.players[1 - game.currentPlayer].type !== 'human' ? 'Explain AI Move' : 'Explain Last Move';
+      game.players[1 - game.currentPlayer].type !== 'human' ? 'Analyze Last AI Move' : 'Analyze Last Move';
   }
 
   function cancel() {

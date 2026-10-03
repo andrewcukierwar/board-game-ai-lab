@@ -2,7 +2,7 @@
 
 **Repository:** https://github.com/andrewcukierwar/board-game-ai-lab  
 **Plan updated:** October 3, 2026
-**Status:** Phase 1 completed and manually verified at `830bfdc`. Phase 2 — Public Deployment complete; public gameplay and frontend/backend CORS configuration manually verified by the user. Phase 3A — Deterministic Allis grounding implemented, locally verified and committed at `37dc55e` (now on `main`). Phase 3B implemented and reviewed locally on `phase3b-llm-explanations`; automated verification uses mocks, no paid calls or deployment. Initial local three-mode live evaluation completed by the user. Phase 3B.1 improves concise explanations; revised schema verification uses mocks only.
+**Status:** Phase 1 completed at `830bfdc`; Phase 2 public gameplay/CORS verified by the user. Phase 3A deterministic grounding committed at `37dc55e`. Phase 3B and 3B.1 committed locally on `phase3b-llm-explanations` at `45894d1`; the user reports successful revised GPT-6 Luna tests. Phase 3C completes local production-readiness review, mocked verification and deployment documentation. Public explanation rollout and enablement remain pending separate approvals; the source remains disabled by default.
 **Guiding objective:** Build a polished, publicly playable AI game laboratory and make the three intended resume bullets accurate and defensible. Prefer shipping a compelling hands-on application over expanding infrastructure or running formal agent benchmarks.
 
 ## 1. Product vision
@@ -190,7 +190,7 @@ Work sequentially, but keep each phase bounded and demonstrable. Do not start a 
 
 **Exit criteria:** Each advertised AI approach has a working code path and can be challenged in the application for its supported game. The resume bullet accurately names each game/algorithm pairing.
 
-### Phase 3 — Allis-grounded LLM explanations (**3A committed; 3B initial local live test completed; 3B.1 refinement**)
+### Phase 3 — Allis-grounded LLM explanations (**3A/3B/3B.1 implemented; 3C rollout preparation**)
 
 **Goal:** Let users ask useful questions about an actual game, grounded in board state and available engine evidence.
 
@@ -198,7 +198,7 @@ Work sequentially, but keep each phase bounded and demonstrable. Do not start a 
 
 Record immutable session history; verify tactical facts and legal alternatives; curate the original Allis thesis; assemble a revision-bound payload separating facts, supported rule applications, observations and unknowns. No nine-rule detector is claimed until its full applicability and interaction conditions are implemented and tested. See the implementation record above.
 
-**Phase 3B — LLM integration and frontend (initial local live test completed; Phase 3B.1 refinement)**
+**Phase 3B — LLM integration and frontend (implemented, including Phase 3B.1; revised local live test completed by user)**
 
 - Add a backend analysis endpoint that accepts a validated game/session, board state, side to move, last move (when relevant), and a user question or a small set of presets.
 - Provide the LLM with structured context: game rules, current board, legal actions, recent moves, immediate tactical threats, and *available* agent/engine signals. Add lightweight deterministic analysis when practical.
@@ -209,6 +209,16 @@ Record immutable session history; verify tactical facts and legal alternatives; 
 - Manually check several tactical positions, invalid inputs, and a finished game for grounding and useful explanations. Formal benchmarking is not required.
 
 **Exit criteria:** A real user can ask why a move matters or explore a legal alternative during a live match and receive a relevant, bounded explanation rather than a static demo or generic chatbot response. This supports the third resume bullet.
+
+**Phase 3C — Production Deployment & Verification (local preparation complete; rollout pending)**
+
+- Confirm clean starting branch/commit and Phase 3A/3B/3B.1 ancestry; review tracked files/history and production images for private artifacts and credential exposure.
+- Verify the proposed profile using mocks: GPT-6 Luna/`none`, 800 output tokens, 40-second timeout, 10 attempts/process/window, 3/game, 5/network client/window, 3600-second windows, one concurrent request. Preserve implementation defaults.
+- Document exact backend variable names, unchanged exact-origin CORS, one-instance/worker requirement, process-local restart/window/proxy limitations, cache behavior and provider-side budget/usage monitoring.
+- Verify the disabled Linux amd64 API image and frontend builds/tests. Label last-move analysis accurately as **Analyze Last AI Move**, preserving the endpoint and analysis behavior.
+- Prepare sequential disabled-image rollout, explicit separate enablement approval, bounded paid smoke testing only with its own allowance, and rollback by retained immutable image digest.
+
+**Exit criteria:** Local verification/documentation and a local commit are complete. Production completion additionally requires an approved push/merge and disabled deployment, recorded healthy-image/gameplay checks, then separately approved enablement and public verification. See [the readiness review](docs/phase3c-readiness.md) and [the rollout/rollback procedure](docs/deployment.md).
 
 ### Phase E — Mancala integration and portfolio polish
 
@@ -251,8 +261,11 @@ Additional guardrails:
 - [x] Per-user game/session isolation implemented for local single-worker Connect 4.
 - [ ] Selectable advertised agents work end-to-end, with viable public-demo defaults.
 - [x] Phase 3A deterministic grounding and evidence schema implemented, locally tested and committed at `37dc55e`.
-- [x] Phase 3B endpoint and frontend implemented; user completed initial local live testing. Revised Phase 3B.1 schema uses mocked verification; public rollout remains pending.
+- [x] Phase 3B/3B.1 endpoint and frontend implemented; user reports successful revised local GPT-6 Luna testing. Automated verification uses mocks; public rollout remains pending.
 - [x] Provider credentials remain server-side; disabled-by-default functionality, request/token/time limits, per-game/client/global caps, duplicate protection and cache implemented.
+- [x] Phase 3C local readiness review, proposed spending-profile verification and disabled-first deployment/rollback documentation prepared.
+- [ ] Phase 3C production image/frontend deployed with explanations disabled and public smoke results recorded.
+- [ ] Separate public enablement approved, monitored and verified with an explicit paid-call allowance.
 - [ ] Mancala playable via the public UI, with applicable agents.
 - [x] README, quickstart and verified public demo links updated.
 - [ ] Portfolio screenshots added.
@@ -260,11 +273,11 @@ Additional guardrails:
 
 ## 8. Current assignment and approval boundary
 
-Phase 1 and Phase 2 are complete; public gameplay and CORS were manually verified by the user. Phase 3A is committed at `37dc55e`. The preceding documentation-only commit `d35b9f0` is preserved. The current assignment authorizes **local Phase 3B.1 explanation-quality refinement, documentation, mocked verification and a local commit after checks pass** on `phase3b-llm-explanations`.
+Phase 1 and Phase 2 are complete; public gameplay and CORS were verified by the user. Phase 3A is committed at `37dc55e`; Phase 3B/3B.1 are present at `45894d1`. The user reports revised live GPT-6 Luna testing succeeded. The current assignment authorizes **Phase 3C local production-readiness review, confirmed-blocker fixes only, deployment documentation, a small analysis-label correction, mocked verification and a local commit** on `phase3b-llm-explanations`.
 
 Phase 3B adds `POST /v1/connect4/explain`, detached hypothetical analysis, strict model selections over verified fact/curated concept IDs, trusted-text rendering and citations, backend-only configuration, per-game/client/global attempt limits, bounded concurrent requests/cache, and the existing React/legacy controller's explanation panel. See [the implementation contract, safeguards, limitations and proposed three-call manual procedure](docs/llm-explanations.md).
 
-After final review/configuration checks pass, the user authorizes a local commit only. **Do not modify Git credentials, push changes, trigger deployment hooks/workflows, alter Render settings or production infrastructure, or make paid API requests.** Explanations remain disabled by default. Live model/schema/latency/quality validation and public rollout need separate authorization. MCTS, MCTS-NN, VictorAgent, DQN, Mancala, broad redesign and additional infrastructure remain outside scope.
+After final checks pass, commit locally and report the SHA. **Do not push, merge, deploy, dispatch workflows/hooks, modify Render settings, change credentials or make paid API requests.** Explanations remain disabled by default. The future production image must initially run with `EXPLANATIONS_ENABLED=false`; public enablement is a separately approved configuration change after healthy-image/gameplay verification. Provider monitoring is still required because counters reset on restart and are not a durable dollar budget. MCTS, MCTS-NN, VictorAgent, DQN, Mancala, general refactoring/redesign and additional infrastructure remain outside scope.
 
 ---
 
@@ -273,3 +286,7 @@ After final review/configuration checks pass, the user authorizes a local commit
 ### Phase 3B.1 — Explanation quality (October 3, 2026)
 
 The user completed the initial local live evaluation with GPT-6 Luna / reasoning effort `none`. All three modes worked, but the report was too verbose and the model mostly reordered templated content. Phase 3B.1 adds verified explanatory relationships, a model-selected primary paragraph, bounded relevant evidence, position-connected Allis concepts, expandable full analysis/methodology, and verified-square labels. Primary source Chapters 3–8 and original diagrams were consulted directly. Formal rule applications remain unsupported. No new paid request, production change, push, merge, training or Mancala work is authorized. See [the audit, examples, changed-file inventory and final verification](docs/phase3b1-quality.md).
+
+### Phase 3C — Readiness review (October 3, 2026)
+
+Started from clean `phase3b-llm-explanations` at `45894d1`, preserving all prior commits. The user reports the revised Phase 3B.1 feature now works with real GPT-6 Luna requests. This review uses mocks only and does not repeat live testing. The exact proposed production profile passes configuration, quota/cache/failure/window regressions; implementation defaults remain unchanged. Full verification and remaining operational limits are recorded in [docs/phase3c-readiness.md](docs/phase3c-readiness.md). [docs/deployment.md](docs/deployment.md) contains the backend checklist and sequential disabled deployment, separate enablement and rollback instructions. No implementation deployment blocker is confirmed; production service/image identity and public smoke checks must be completed during the future approved rollout.

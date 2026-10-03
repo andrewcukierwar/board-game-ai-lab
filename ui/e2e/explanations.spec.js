@@ -27,7 +27,7 @@ test('all explanation modes, sources and explicit failure retry with gameplay av
   });
   await start(page);
   expect(requests).toHaveLength(0);
-  await page.getByRole('button', { name: 'Explain Last Move' }).click();
+  await page.getByRole('button', { name: 'Analyze Last Move' }).click();
   await expect(page.locator('#explanation-result')).toContainText('Key tactical evidence');
   await expect(page.locator('#explanation-result a')).toContainText('§3.4, thesis/PDF pp. 21–24');
   await page.getByRole('button', { name: 'Analyze Position', exact: true }).click();
@@ -95,7 +95,7 @@ test('disabled backend returns graceful explanation error while actual gameplay 
   await expect(page.locator('#loading')).toBeHidden();
   await expect(page.locator('.circle.x')).toHaveCount(1);
   await expect(page.locator('.circle.o')).toHaveCount(1);
-  await expect(page.getByRole('button', { name: 'Explain AI Move' })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'Analyze Last AI Move' })).toBeEnabled();
 });
 
 test('a response for another hypothetical column is rejected without affecting play', async ({ page }) => {

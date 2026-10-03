@@ -1,10 +1,10 @@
-# Phase 2 — Public deployment
+# Production deployment — Phase 3C preparation
 
 Phase 2 public deployment is complete. On October 2, 2026, the user confirmed manually verified public Connect 4 gameplay, including successful frontend/backend CORS configuration. The deployed topology is a **Render Static Site** for React/Vite and a **Render image-backed Web Service** for Flask/Gunicorn using GHCR. Local Compose remains a separate, same-origin setup.
 
 **Verified production URLs:** [public frontend](https://board-game-ai-lab-ui.onrender.com/), [Connect 4](https://board-game-ai-lab-ui.onrender.com/connect4), [backend API origin](https://board-game-ai-lab.onrender.com), and [API health endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/health).
 
-Phase 3A is implemented and committed at `37dc55e`; Phase 3B is implemented and reviewed locally, disabled by default; live-provider testing and public explanation rollout remain pending. This documentation update does not change Render configuration or trigger deployments.
+Phase 3A is committed at `37dc55e`; Phase 3B and the Phase 3B.1 refinement are present on `phase3b-llm-explanations` at `45894d1`. The user reports successful local testing of the revised explanations with real GPT-6 Luna requests. Phase 3C reviews production readiness with mocked responses only and prepares this procedure; public explanation deployment and enablement remain pending. See [the final readiness review](phase3c-readiness.md). No production configuration, credentials or deployment are changed during preparation.
 
 Local Phase 2 results on October 2, 2026: **74 backend tests, 15 frontend tests, and all 8 Chromium browser tests against each of Compose, Vite development and separate-origin static/API hosting passed**. Compose startup, production/Render builds, direct `/connect4` refresh, health, Render-style port 10000/one-worker operation, and actual API restart/browser session recovery passed. An initial missing-Chromium runner failure was resolved by installing Chromium. Cold-start delay/HTML and lost-response scenarios were simulated locally. The reusable manual checklist below covers detailed production checks; the user’s gameplay/CORS confirmation does not assert that every individual checklist item was exercised. Existing npm advisories were not changed.
 
@@ -44,6 +44,51 @@ For multiple deliberately supported domains, set a comma-separated exact list, f
 
 See Render's [image-backed deployment](https://render.com/docs/deploying-an-image), [port binding](https://render.com/docs/web-services#port-binding), and [health check](https://render.com/docs/health-checks) documentation.
 
+### Backend environment-variable checklist for Phase 3C
+
+Set these on the **backend Web Service only**, during a separately approved rollout. Names and parsing are verified against `api/app.py`, `api/gunicorn_config.py` and `api/connect4/explanations.py`. These production overrides do not change source defaults or `.env.example`.
+
+| Variable | Initial production value | Purpose |
+| --- | --- | --- |
+| `PORT` | `10000` | Existing Render listener configuration. |
+| `CORS_ALLOWED_ORIGINS` | `https://board-game-ai-lab-ui.onrender.com` | Preserve the existing exact origin, without a slash or wildcard. |
+| `EXPLANATIONS_ENABLED` | `false` | Keep disabled through image and gameplay verification. Only a separately approved change sets `true`. |
+| `OPENAI_API_KEY` | Leave unset/empty for the disabled rollout | Required and nonempty only for enablement; enter privately in backend Render configuration. Do not copy a value into this document or a command. |
+| `OPENAI_EXPLANATION_MODEL` | `gpt-6-luna` | Backend provider model. |
+| `OPENAI_EXPLANATION_REASONING_EFFORT` | `none` | Backend reasoning effort. |
+| `EXPLANATION_MAX_OUTPUT_TOKENS` | `800` | Generated-token cap per attempt. |
+| `EXPLANATION_TIMEOUT_SECONDS` | `40` | Provider socket timeout/deadline; OS DNS caveat below. |
+| `EXPLANATION_GLOBAL_LIMIT` | `10` | Reserved provider attempts per process/window, across all games/clients. |
+| `EXPLANATION_GAME_LIMIT` | `3` | Reserved provider attempts over one game session's lifetime. |
+| `EXPLANATION_CLIENT_LIMIT` | `5` | Reserved provider attempts per observed network client/window, across games. |
+| `EXPLANATION_WINDOW_SECONDS` | `3600` | Process/client counter window. |
+| `EXPLANATION_MAX_CONCURRENT` | `1` | One provider attempt in flight, leaving gameplay threads available. |
+
+The following source defaults can remain unset. If existing backend overrides are present, reconcile them to these values for this rollout:
+
+| Variable | Retained default |
+| --- | --- |
+| `EXPLANATION_MAX_QUESTION_LENGTH` | `500` |
+| `EXPLANATION_CACHE_SIZE` | `256` |
+| `EXPLANATION_CACHE_TTL_SECONDS` | `1800` |
+| `EXPLANATION_CLIENT_CAPACITY` | `1024` |
+
+Keep `GUNICORN_CMD_ARGS` unset, the Docker command override empty, one worker/four threads and one instance. `GAME_SESSION_CAPACITY` and `GAME_SESSION_TTL` are application config entries, **not environment overrides read by this code**; retain 128 sessions/1800 seconds.
+
+Do not put `OPENAI_API_KEY` or any other explanation setting in the Static Site configuration, a `VITE_*` variable, a tracked file, a build argument, an image layer or documentation examples. The frontend only needs the API origin and Node version listed below. An already provisioned backend key may remain private; the disabled flag prevents its use.
+
+### Spending safeguards and their limits
+
+All three quotas apply together: at most three provider attempts per game, five per observed network client/window across games, and ten per API process/window across all visitors. The mocked production-profile regression exhausts all three and checks that failures consume allowance. Reservations and the one-call concurrency gate share a lock; duplicate in-flight requests for the same game fail with 409, other uncached requests fail with 429 while capacity is occupied. Those rejections do not reserve attempts. Provider I/O holds no game lock, so gameplay can continue. Stale results, malformed responses, provider failures and timeouts retain their reservation; there is no automatic retry or alternate-model fallback.
+
+Successful responses are cached by game, revision, mode, hypothetical column, trimmed question, model and effort. The bounded LRU cache retains successes for 1800 seconds. A valid current-revision hit returns before quota/concurrency checks and uses no provider allowance, even if that game has reached its cap. Changing game/revision/question creates a distinct request; failures are not cached.
+
+The global fixed window starts with the process; each client window starts with its first reservation. They renew on request activity after 3600 seconds, rather than on wall-clock hour boundaries. Adjacent windows can allow bursts. The game cap does not renew hourly; restarting a game creates a new session, but does not bypass existing client/global counts. Client identity is `request.remote_addr`; forwarded-IP headers are not trusted. Render proxies may aggregate visitors, making the client cap more restrictive than expected. Verify actual proxy behavior before considering any future identity changes; keep the global cap regardless.
+
+**Counters, cache and games are process-local and reset after deploys, restarts or free-service spin-down.** Extra workers/instances, or overlapping old/new processes during a deploy, have independent allowances. These limits are not a durable hourly account limit or dollar budget. Provider-side project usage/budget monitoring and spending alerts remain required before enablement; confirm their actual enforcement rather than treating an alert as a hard stop. This application does not retain provider usage/timing metadata. The output cap does not bound input-token cost.
+
+The 40-second provider setting controls socket timeout and a monotonic watchdog that interrupts slow response reads and releases the permit. Connection setup consumes that deadline, but the watchdog starts only after connection setup: OS DNS resolution or sequential address/TCP/TLS connection stages can exceed the total interval before the elapsed-deadline check runs. It is not an absolute 40-second wall-clock guarantee for all network failures. Browser cancellation does not cancel an already dispatched provider request or undo its cost. The frontend's existing 90-second timeout accommodates normal bounded requests and cold starts, but can abort first in an exceptional setup delay. The image runs Gunicorn's threaded worker; its worker-liveness timeout is not a per-request 30-second cutoff. No Gunicorn timeout override is needed for this provider setting.
+
 ### UI: Static Site
 
 | Setting | Value |
@@ -60,17 +105,31 @@ See Render's [image-backed deployment](https://render.com/docs/deploying-an-imag
 
 The rewrite serves React on direct navigation and refresh at `/connect4`; existing static assets are served normally. Nginx already provides the equivalent fallback locally. Render uses dashboard rewrite rules; no Nginx server is deployed for this Static Site. See [Render rewrites](https://render.com/docs/redirects-rewrites) and [Node version configuration](https://render.com/docs/node-version).
 
-## Rollout/redeployment reference
+## Sequential Phase 3C rollout (future approval required)
 
-The initial Phase 2 rollout is complete. Retain these steps for future approved deployments; they are not pending work for this documentation update.
+Preparation stops before step 1. No push, merge, workflow dispatch, deploy hook, Render setting save, credential change or paid call is authorized by the readiness review. The initial Phase 2 rollout is complete; the following procedure applies to the new explanation release.
 
-1. Review the changes intended for deployment and confirm the API/frontend origins in Render. The current production origins and manual gameplay verification are recorded above.
-2. After approving production changes, configure the existing image-backed API with the settings above, including the exact future frontend origin. Obtain the Static Site origin by configuring that site; if its initial build deploys before CORS is ready, keep the URL unannounced until both services are verified. Configuration saves can trigger deploys.
-3. Review GHCR package visibility/access and image selection. GitHub's `GITHUB_TOKEN` builds/pushes with explicit `contents: read` and `packages: write`; `RENDER_DEPLOY_HOOK_URL` is a repository Actions secret for this API service. The workflow publishes `:main`, `:latest` and `:sha-<short-sha>`. Do not expose the hook URL or PAT.
-4. Only after approval, merge/push to `main`. **That push builds/pushes the API image and invokes the Render deploy hook.** It can also deploy the Static Site if auto-deploy is enabled. Do not separately run the workflow/hook unless a redeploy is intended.
-5. Verify the new workflow run, GHCR image digest and Render deploy events/logs. With `:main` or `:latest`, the hook pulls that tag's current image. If the service is pinned to an old SHA/digest, update its reference deliberately; an unparameterized hook will otherwise redeploy the old image. For a manual retry, use **Manual Deploy → Deploy latest reference**. Hook success means deployment was requested, not that the service is healthy.
-6. Confirm `GET https://board-game-ai-lab.onrender.com/v1/connect4/health` returns HTTP 200 and `OK`, and Gunicorn logs show one worker. Record the image digest and deploy result.
-7. Deploy the Static Site with the specified build env and rewrite rule. Confirm the build used `build:render`. Run the manual checklist below, then record actual demo URLs and public verification results in README/project plan. Re-enable frontend auto-deploy only when desired.
+1. Obtain approval for the **disabled deployment**, identifying the reviewed local commit and intended merge commit. Privately record the current backend deploy ID and immutable image digest, frontend deploy ID/commit, nonsecret settings and rollback target. Ensure the old digest remains accessible in GHCR. Inspect actual current service settings; this review does not assert live configuration inspection.
+2. Before any merge/push, apply the backend checklist with `EXPLANATIONS_ENABLED=false`, preserving exact CORS and one instance/worker. Leave a missing API key unset. Saving environment settings can deploy/restart the service; verify the currently running API returns 200/`OK` afterward. Disable frontend auto-deploy for sequential rollout. Do this only under the deployment approval.
+3. Confirm the workflow's image target/access and hook destination privately. `.github/workflows/docker-lite.yml` builds `linux/amd64`, publishes `:main`, `:latest` and `:sha-<short-sha>`, and then calls the API Render deploy hook. It runs on pushes to `main` **and manual dispatch**. It does not run regression tests or deploy the UI. Do not dispatch it merely to check CI, and never expose the hook or registry credentials.
+4. After the disabled deployment approval, merge/push the reviewed release to `main`. **This invokes build, image publication and the API deploy hook.** Keep the flag false before this trigger. Watch build/push/hook outcomes and record the merge SHA and new GHCR digest. Hook success only requests deployment. If the service is pinned to an old digest/SHA, the current unparameterized hook pulls that old reference; deliberately select the new digest and deploy it once available. Avoid redundant overlapping deploys.
+5. Verify Render reports the new API image live, its digest matches the approved build, the health endpoint returns HTTP 200/`OK`, and logs show one worker using port 10000/four threads with no import/startup errors. Health alone does not establish image identity or explanation availability. Inspect the backend setting privately and confirm the flag is still false.
+6. Deploy the frontend's reviewed commit using the documented Static Site settings and `npm ci && npm run build:render`. Preserve `VITE_API_BASE=https://board-game-ai-lab.onrender.com` and the `/*` → `/index.html` Rewrite. Verify homepage, direct `/connect4` and refresh, intended API host, exact-origin preflight/error responses, independent sessions, restart, and full games against Random/Negamax.
+7. With a valid current game/revision, click **Analyze Position** once while disabled. Expect HTTP 503 with `code=explanations_disabled`; gameplay must continue. Do not infer this result from an invalid-game request or from health. Check the browser bundle/network for credential exposure. Record the disabled API/frontend deploy IDs, image digest, commit and smoke results.
+8. Stop for **separate explicit approval to enable explanations**. Require healthy disabled-image/gameplay results and provider-side budget/usage monitoring. If a key is needed, privately provision it only on the backend under that approval. Review every quota/model/token/timeout value before changing `EXPLANATIONS_ENABLED=true`; do not widen limits. Saving/redeploying resets process counters and sessions.
+9. After enablement, verify the same image is healthy. Only with an explicit paid smoke-call allowance, check the three modes in a fresh game: position, last AI move and one legal hypothesis, then repeat one unchanged request to verify `cached=true`. Cap that smoke test at three provider attempts, including failures; stop on an error. Reuse the unchanged revision for the cache check, and verify the hypothetical mode did not mutate the game. Public traffic shares these quotas, so do not assume the allowance is reserved for the operator.
+10. Record enablement approval, nonsecret configuration, smoke outcomes, cache evidence, provider-side usage and remaining allowance. Observe failures/429s and provider spending without probing limits using paid requests. Re-enable frontend auto-deploy deliberately only after successful verification; keep credentials out of logs/screenshots/docs. Use rollback below if any gate fails.
+
+Render supports digest-based image references and **Manual Deploy → Deploy latest reference**. See [image deployment behavior](https://render.com/docs/deploying-an-image) and [deploy hooks](https://render.com/docs/deploy-hooks).
+
+## Rollback procedure
+
+1. For an explanation-only failure or unexpected spending, set backend `EXPLANATIONS_ENABLED=false` under the rollback authorization and save/deploy that setting. Keep the current image initially and preserve CORS/quotas. Wait until the disabled process is live, confirm health and a valid explanation request returns `explanations_disabled`, then verify gameplay. An in-flight paid call may finish; disabling cannot undo it.
+2. For an API/gameplay regression, select the previously recorded **immutable GHCR digest** in the image-backed service and deploy it with the flag false and the existing exact CORS. Do not rely on a previous `:main`/`:latest` tag: pulling it again can retrieve the broken new image. Confirm old-image availability/access, deploy identity, health and gameplay. Keep the bad image from being redeployed by a later workflow hook; inspect the service's persistent image reference as well as its current deploy.
+3. If the frontend is implicated, roll the Static Site back to the recorded successful deploy, or redeploy the previous known-good commit with its existing API origin and Rewrite. Verify direct navigation, refresh and both opponents. Keep automatic frontend deploys controlled until the cause is resolved.
+4. Recheck the effective environment after any Dashboard rollback: it can reuse the target deploy's environment for that rollback while leaving persistent service settings unchanged. Keep explanations false in both effective and persistent configuration, and preserve exact CORS/instance/worker settings. Record restored deploy IDs/digest and results. Deploys/rollbacks lose active games and reset quotas; ask visitors to start fresh. Explanation re-enablement requires new approval after the fix passes review.
+
+Render's [rollback documentation](https://render.com/docs/rollbacks) explains environment/configuration reuse and mutable-tag behavior. Retain old registry digests; Render must be able to pull an image again for image-backed rollback.
 
 [Run 37034008283](https://github.com/andrewcukierwar/board-game-ai-lab/actions/runs/37034008283) for `830bfdc` succeeded at image build/push and hook invocation. Read-only inspection confirmed those step outcomes. The workflow still does not run regression suites or deploy the UI; local checks should precede future deployments. No hook was invoked during Phase 2 implementation.
 
