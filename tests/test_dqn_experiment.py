@@ -208,9 +208,10 @@ def test_probes_are_legal_and_tactical_labels_are_true():
                     safe.append(move)
             assert safe == [expected]
         if name.startswith('full'):
-            assert not game.is_valid_move(0)
+            assert len(game.get_valid_moves()) == 6
+            assert not game.is_valid_move(6 if name.endswith('_mirror') else 0)
     rows = predictions(DQNTrainer().online)
-    assert len(rows) == 10
+    assert len(rows) == 60
     assert all(row['legal'][row['action']] for row in rows)
 
 

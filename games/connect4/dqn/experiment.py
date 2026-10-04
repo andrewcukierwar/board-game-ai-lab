@@ -22,7 +22,8 @@ import torch
 
 from ..connect4 import Connect4
 from .checkpoint import load_checkpoint, save_checkpoint
-from .diagnostics import evaluate_random, predictions
+from .diagnostics import (evaluate_random, predictions, summarize_predictions,
+                          validate_fixtures, random_protocol)
 from .encoding import encode_game
 from .network import checked_q
 from .training import DQNConfig, DQNTrainer, collect_transition, positive_int
@@ -68,7 +69,8 @@ def run_training(trainer, bounds, *, clock=time.monotonic,
                   started_games=0, plies=0, updates=0, replay_size=0,
                   epsilon_start=trainer.epsilon, epsilon_final=trainer.epsilon,
                   wins_x=0, wins_o=0, draws=0, episodes=[], losses=[],
-                  target_sync_updates=[], partial_episode=None)
+                  target_sync_updates=[], partial_episode=None,
+                  collected_terminal=0, collected_rewards={'0': 0, '1': 0})
     episode = None
 
     def stop_reason():
@@ -110,6 +112,8 @@ def run_training(trainer, bounds, *, clock=time.monotonic,
                 break
             transition = collect_transition(game, action)
             report['plies'] += 1
+            report['collected_terminal'] += int(transition.done)
+            report['collected_rewards'][str(int(transition.reward))] += 1
             episode['moves'].append(action)
             trainer.memory.append(transition)
             previous_updates = trainer.updates
@@ -148,7 +152,7 @@ def run_training(trainer, bounds, *, clock=time.monotonic,
                                loss_mean=sum(losses) / len(losses) if losses else None,
                                end_seconds=clock() - start)
                 report['episodes'].append(episode)
-                emit(dict(event='episode', **episode))
+                emit(dict(event='episode', replay_composition=trainer.memory.composition(), **episode))
                 episode = None
         report['status'] = 'interrupted' if report['stop_reason'] == 'interrupted' else 'bounded_stop'
     except Exception as exc:
@@ -157,7 +161,8 @@ def run_training(trainer, bounds, *, clock=time.monotonic,
     finally:
         report.update(updates=trainer.updates, replay_size=len(trainer.memory),
                       epsilon_final=trainer.epsilon, elapsed_seconds=clock() - start,
-                      partial_episode=episode)
+                      partial_episode=episode, replay_composition=trainer.memory.composition(),
+                      collected_nonterminal=report['plies'] - report['collected_terminal'])
     return report
 
 
@@ -218,12 +223,13 @@ def save_candidate(output, trainer, report):
 
 def run_experiment(output, config, bounds, *, threads=1, interop_threads=1,
                    evaluation_games=24, evaluation_seconds=120.0,
-                   should_stop=lambda: False):
+                   archived_checkpoint=None, should_stop=lambda: False):
     """One invocation, one training run. Never retry a failed or poor run."""
     positive_int('threads', threads)
     positive_int('interop_threads', interop_threads)
-    if evaluation_games not in (0, 4, 8, 12, 16, 20, 24):
-        raise ValueError('Evaluation games must be a multiple of four in 0..24')
+    if type(evaluation_games) is not int or not 0 <= evaluation_games <= 200 or evaluation_games % 4:
+        raise ValueError('Initial + final games must be a multiple of four in 0..200')
+    suite = validate_fixtures()
     if not math.isfinite(evaluation_seconds) or not 0 < evaluation_seconds <= 120:
         raise ValueError('Evaluation time must be in (0, 120] seconds')
     output = Path(output).resolve()
@@ -237,7 +243,7 @@ def run_experiment(output, config, bounds, *, threads=1, interop_threads=1,
     torch.set_num_threads(threads)
     torch.set_num_interop_threads(interop_threads)
     torch.use_deterministic_algorithms(True)
-    report = dict(schema_version=1, started_at_utc=datetime.now(timezone.utc).isoformat(),
+    report = dict(schema_version=2, diagnostic_suite=suite, started_at_utc=datetime.now(timezone.utc).isoformat(),
                   config=asdict(config), bounds=asdict(bounds), source=source_identity(root, output),
                   runtime=dict(python=platform.python_version(), pytorch=str(torch.__version__),
                                platform=platform.platform(), machine=platform.machine(), device='cpu',
@@ -245,7 +251,10 @@ def run_experiment(output, config, bounds, *, threads=1, interop_threads=1,
                                deterministic_algorithms=torch.are_deterministic_algorithms_enabled()),
                   evaluation_config=dict(total_games=evaluation_games, total_seconds=evaluation_seconds,
                                          seed=config.seed, policy='greedy vs uniform legal Random',
-                                         per_model_games=evaluation_games // 2),
+                                         per_model_games=evaluation_games // 2,
+                                         archived_additional_games=evaluation_games // 2 if archived_checkpoint else 0,
+                                         archived_seconds=60 if archived_checkpoint else 0,
+                                         protocol=random_protocol(evaluation_games // 2, config.seed)),
                   checkpoint=None)
     write_json(output / 'configuration.json', report)
     trainer = DQNTrainer(config)
@@ -262,6 +271,14 @@ def run_experiment(output, config, bounds, *, threads=1, interop_threads=1,
             report['evaluation'] = dict(initial=evaluate_random(
                 trainer.online, games=evaluation_games // 2, seed=config.seed,
                 seconds=evaluation_seconds / 2, should_stop=should_stop))
+            report['archived_checkpoint'] = dict(available=False, path=str(archived_checkpoint))
+            if archived_checkpoint is not None and Path(archived_checkpoint).is_file():
+                archived, _ = load_checkpoint(archived_checkpoint)
+                report['archived_checkpoint'].update(available=True, sha256=sha256(Path(archived_checkpoint)))
+                report['diagnostics']['archived'] = predictions(archived)
+                report['evaluation']['archived'] = evaluate_random(
+                    archived, games=evaluation_games // 2, seed=config.seed,
+                    seconds=60, should_stop=should_stop)
             report['training'] = run_training(trainer, bounds, emit=emit, should_stop=should_stop)
             write_json(output / 'report.json', report)
             if report['training']['status'] != 'invariant_failure':
@@ -271,6 +288,8 @@ def run_experiment(output, config, bounds, *, threads=1, interop_threads=1,
                     trainer.online, games=evaluation_games // 2, seed=config.seed,
                     seconds=max(0.000001, min(evaluation_seconds / 2, remaining)),
                     should_stop=should_stop)
+                report['diagnostic_summary'] = {key: summarize_predictions(rows)
+                                                for key, rows in report['diagnostics'].items()}
                 report['checkpoint'] = save_candidate(output, trainer, report)
         except Exception as exc:
             report['artifact_error'] = f'{type(exc).__name__}: {exc}'
@@ -289,6 +308,7 @@ def parser():
         cli.add_argument('--' + name.replace('_', '-'), type=type(default), default=default)
     cli.add_argument('--threads', type=int, default=1)
     cli.add_argument('--interop-threads', type=int, default=1)
+    cli.add_argument('--archived-checkpoint', type=Path, default=None)
     cli.add_argument('--evaluation-games', type=int, default=24)
     cli.add_argument('--evaluation-seconds', type=float, default=120.0)
     return cli

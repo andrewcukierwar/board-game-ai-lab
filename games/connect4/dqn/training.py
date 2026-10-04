@@ -115,6 +115,13 @@ class ReplayMemory:
         # Reconstruct at the ownership boundary, including detached tuple copies.
         self._items.append(Transition(**vars(transition)))
 
+    def composition(self):
+        """Read-only snapshot; does not consume replay RNG or change sampling."""
+        return dict(size=len(self), terminal=sum(t.done for t in self._items),
+                    nonterminal=sum(not t.done for t in self._items),
+                    rewards={str(r): sum(t.reward == r for t in self._items) for r in (0, 1)},
+                    actors={str(a): sum(t.actor == a for t in self._items) for a in (0, 1)})
+
     def sample(self, batch_size):
         positive_int('batch_size', batch_size)
         if batch_size > len(self):
