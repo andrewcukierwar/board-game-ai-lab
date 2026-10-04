@@ -43,15 +43,26 @@ class Bounds:
     max_plies: int = 840
     max_updates: int = 200
     max_seconds: float = 900.0
+    profile: str = "pilot"
 
     def __post_init__(self):
-        for name, ceiling in (("max_games", 20), ("max_plies", 840), ("max_updates", 200)):
+        if self.profile not in ("pilot", "scaled"):
+            raise ValueError("Unknown bounded profile")
+        ceilings = (20, 840, 200) if self.profile == "pilot" else (200, 8400, 2000)
+        for name, ceiling in zip(("max_games", "max_plies", "max_updates"), ceilings):
             value = getattr(self, name)
             if type(value) is not int or not 1 <= value <= ceiling:
                 raise ValueError(f"{name} must be a positive integer <= {ceiling}")
         if (type(self.max_seconds) not in (int, float) or not math.isfinite(self.max_seconds)
                 or not 0 < self.max_seconds <= 900):
             raise ValueError("max_seconds must be positive, finite and <= 900")
+
+
+    @classmethod
+    def scaled(cls, **reduced_limits):
+        values = dict(max_games=200, max_plies=8400, max_updates=2000, max_seconds=900, profile="scaled")
+        values.update(reduced_limits)
+        return cls(**values)
 
 
 CONFIG = dict(seed=42, python_seed=42, numpy_seed=42, torch_seed=42,
@@ -157,7 +168,8 @@ def label_counts(examples):
 
 
 def run_training(trainer, agent, bounds=Bounds(), *, sampling_rng=None,
-                 clock=time.monotonic, should_stop=lambda: False, emit=lambda event: None):
+                 clock=time.monotonic, should_stop=lambda: False, emit=lambda event: None,
+                 on_snapshot=lambda report: None):
     """Shared model; completed-game collection then persistent-trainer updates only.
 
     Injectable time, signals and search permit synthetic bounded tests. No retry.
@@ -281,6 +293,9 @@ def run_training(trainer, agent, bounds=Bounds(), *, sampling_rng=None,
                     emit(dict(event="update", **metrics, sampled_indices=indices,
                               elapsed_seconds=clock() - start, peak_memory_mib=memory_peak_mib()))
             episode["update_end"] = trainer.steps
+            if bounds.profile == "scaled" and report["completed_games"] in (50, 100, 150):
+                report["updates"] = trainer.steps
+                on_snapshot(report)
             episode, pending, records = None, [], []
         report["status"] = "interrupted" if report["stop_reason"] == "interrupted" else "bounded_stop"
     except Exception as exc:
@@ -298,10 +313,10 @@ def run_training(trainer, agent, bounds=Bounds(), *, sampling_rng=None,
     return report
 
 
-def diagnostics(inference):
+def diagnostics(inference, *, positions=POSITIONS):
     results = []
     helper = MCTSAgent(1)
-    for name, moves in POSITIONS:
+    for name, moves in positions:
         game = position(moves)
         require(not game.is_game_over(), "Diagnostic must be nonterminal")
         prediction = inference.predict(game)
@@ -397,7 +412,9 @@ def verify_checkpoint(path, model):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True, type=Path, help="New directory under ignored experiment-output/")
+    parser.add_argument("--profile", choices=("pilot", "scaled"), default="pilot")
     args = parser.parse_args(argv)
+    bounds = Bounds.scaled() if args.profile == "scaled" else Bounds()
     root = Path(__file__).resolve().parents[2]
     output = args.output.resolve()
     allowed = (root / "experiment-output").resolve()
@@ -419,7 +436,12 @@ def main(argv=None):
     initialization_seconds = time.monotonic() - start
     trainer = NeuralTrainer(model, learning_rate=.001)
     agent = MCTSNNAgent(model, 32, temperature=1, exploration=1.41, rng=search_rng, tactical_guard=False)
-    write_json(output / "config.json", dict(config=CONFIG, bounds=asdict(Bounds()),
+    if args.profile == "scaled":
+        from .neural_evaluation import EVALUATION_CONFIG, SNAPSHOT_GAMES, snapshot, evaluate
+        initial_inference = NeuralInference(deepcopy(model).eval())
+    write_json(output / "config.json", dict(config=CONFIG, bounds=asdict(bounds),
+               measurement_protocol=(dict(snapshot_games=SNAPSHOT_GAMES, evaluation=EVALUATION_CONFIG,
+                   frozen_labels="previously inspected; measurements only") if args.profile == "scaled" else None),
                checkpoint_contract=CHECKPOINT_CONTRACT, policy_target=POLICY_TARGET,
                source=identity, started_utc=datetime.now(timezone.utc).isoformat(),
                environment=dict(python=sys.version, platform=platform.platform(), machine=platform.machine(),
@@ -434,6 +456,9 @@ def main(argv=None):
                                                 before_collection=rng_states(search_rng, sampling_rng)))
     initial = diagnostics(agent.inference)
     write_json(output / "diagnostics-initial.json", initial)
+    if args.profile == "scaled":
+        write_json(output / "snapshot-initial.json", snapshot(agent.inference,
+                   dict(completed_games=0, updates=0, losses=[])))
     stop = [False]
     def request_stop(signum, frame):
         stop[0] = True
@@ -445,7 +470,13 @@ def main(argv=None):
                 stream.flush()
                 if event["event"] in ("completed_game", "smoke_gate"):
                     print(json.dumps({k: v for k, v in event.items() if k not in ("examples", "moves")}), flush=True)
-            report = run_training(trainer, agent, sampling_rng=sampling_rng, should_stop=lambda: stop[0], emit=emit)
+            def on_snapshot(current):
+                name = f"snapshot-game{current['completed_games']}.json"
+                write_json(output / name, snapshot(agent.inference, current))
+                print(json.dumps(dict(event="snapshot", games=current['completed_games'],
+                                      updates=current['updates'])), flush=True)
+            report = run_training(trainer, agent, bounds, sampling_rng=sampling_rng,
+                                  should_stop=lambda: stop[0], emit=emit, on_snapshot=on_snapshot)
     finally:
         for sig, handler in previous.items():
             signal.signal(sig, handler)
@@ -458,6 +489,8 @@ def main(argv=None):
         return 1
     final = diagnostics(agent.inference)
     write_json(output / "diagnostics-final.json", final)
+    if args.profile == "scaled":
+        write_json(output / "snapshot-final.json", snapshot(agent.inference, report))
     try:
         start = time.monotonic()
         save_checkpoint(output / "candidate.pt", model)
@@ -465,6 +498,11 @@ def main(argv=None):
         report["checkpoint_reload"] = verify_checkpoint(output / "candidate.pt", model)
     except Exception as exc:
         report.update(status="invariant_failure", error=f"Checkpoint: {type(exc).__name__}: {exc}")
+    if args.profile == "scaled" and report["status"] != "invariant_failure":
+        evaluation = evaluate(dict(initial=initial_inference, final=agent.inference))
+        write_json(output / "opponent-evaluation.json", evaluation)
+        report["evaluation"] = {k: evaluation[k] for k in
+                                ("status", "completed_games", "planned_games", "elapsed_seconds")}
     report.update(end_to_end_seconds=time.monotonic() - end_to_end,
                   peak_memory_mib=memory_peak_mib(), exact_resumability=False,
                   initialization_seconds=initialization_seconds)
