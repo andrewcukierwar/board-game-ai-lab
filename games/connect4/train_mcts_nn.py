@@ -1,115 +1,160 @@
-from agents.mcts_nn_agent import MCTSNNAgent, Connect4Net
-from .connect4 import Connect4
-from tqdm import tqdm
-import torch
-import torch.optim as optim
+"""Training foundations only. No self-play runner, checkpoint writer, or CLI.
+
+Capture pre-move examples explicitly, finalize only completed games, and reuse
+one NeuralTrainer across intended updates/iterations. No historical weights.
+"""
+from dataclasses import dataclass, replace
+
 import numpy as np
+import torch
+from torch.nn import functional as F
 
-def self_play_episode(agent1, agent2):
-    """Play one full game between two agents and collect training data"""
-    game = Connect4()
-    
-    while not game.is_game_over():
-        # Get move from current player
-        current_agent = agent1 if game.current_player == 0 else agent2
-        # print('Valid Moves', game.get_valid_moves())
-        # print('Untried Moves', current_agent.untried_moves)
-        move = current_agent.choose_move(game)
-        game.make_move(move)
-        # print(game.board)
-    
-    # Get game result
-    winner = game.check_winner()
-    # print('Winner is', winner)
-    
-    # Update training examples with final result
-    agent1.update_game_result(winner)
-    agent2.update_game_result(winner)
-    
-    return agent1.get_training_data() + agent2.get_training_data()
+from .neural_mcts import (
+    ENCODING, NeuralInference, encode_current_player, nonnegative_finite,
+    probability_vector, validate_input, validate_logits,
+)
 
-def reshape_board(board):
-        # Convert board to numpy array first
-        board_num = [[1 if cell == 'X' else -1 if cell == 'O' else 0 for cell in row] for row in board]
-        board_arr = np.array(board_num, dtype=np.float32)
-        # Now we can reshape
-        board_reshaped = board_arr.reshape(1, 6, 7)  # Add batch dimension
-        return board_reshaped
+POLICY_TARGET = "root-visits-temperature-v1"
 
-def train_network(model, examples, batch_size=32, epochs=10, lr=0.001):
-    """Train the neural network on collected examples"""
-    optimizer = optim.Adam(model.parameters(), lr=lr)
-    policy_criterion = torch.nn.CrossEntropyLoss()
-    value_criterion = torch.nn.CrossEntropyLoss()
-    
-    # Prepare data
-    # states = torch.FloatTensor([ex.board.reshape(1, 6, 7) for ex in examples])
-    states = torch.FloatTensor(np.array([reshape_board(ex.board) for ex in examples]))
-    policies = torch.FloatTensor(np.array([ex.policy for ex in examples]))
-    values = torch.FloatTensor(np.array([ex.value for ex in examples]))
-    
-    # Convert values to 3-class format
-    value_targets = torch.zeros((len(examples), 3))
-    value_targets[values == 1.0, 0] = 1.0  # win
-    value_targets[values == 0.0, 1] = 1.0  # draw
-    value_targets[values == -1.0, 2] = 1.0  # loss
-    
-    # Training loop
-    for epoch in range(epochs):
-        total_loss = 0
-        for i in range(0, len(examples), batch_size):
-            batch_states = states[i:i+batch_size]
-            batch_policies = policies[i:i+batch_size]
-            batch_values = value_targets[i:i+batch_size]
-            
-            # Forward pass
-            pred_policies, pred_values = model(batch_states)
-            
-            # Calculate losses
-            policy_loss = policy_criterion(pred_policies, batch_policies)
-            value_loss = value_criterion(pred_values, batch_values)
-            loss = policy_loss + value_loss
-            
-            # Backward pass
-            optimizer.zero_grad()
+
+@dataclass(frozen=True)
+class TrainingExample:
+    observation: tuple[tuple[int, ...], ...]
+    acting_player: int
+    policy: tuple[float, ...]
+    temperature: float
+    tactical_guard: bool = False
+    outcome: int | None = None
+    encoding: str = ENCODING
+    policy_target: str = POLICY_TARGET
+
+    def __post_init__(self):
+        # Frozen dataclasses alone do not freeze nested arrays/lists. Own tuples.
+        board = np.asarray(self.observation)
+        if board.shape != (6, 7) or not np.isin(board, [-1, 0, 1]).all():
+            raise ValueError("Observation must be a finite canonical 6x7 board")
+        if type(self.acting_player) is not int or self.acting_player not in (0, 1):
+            raise ValueError("Acting player must be X=0 or O=1")
+        if self.encoding != ENCODING or self.policy_target != POLICY_TARGET:
+            raise ValueError("Unsupported training representation/target convention")
+        if self.outcome is not None and (type(self.outcome) is not int or self.outcome not in (-1, 0, 1)):
+            raise ValueError("Outcome must be -1, 0, +1 or pending None")
+        if type(self.tactical_guard) is not bool:
+            raise TypeError("tactical_guard must be boolean")
+        policy = probability_vector(self.policy)
+        if (policy[board[0] != 0] != 0).any():
+            raise ValueError("Policy target assigns mass to an illegal column")
+        object.__setattr__(self, "observation", tuple(tuple(int(c) for c in row) for row in board))
+        object.__setattr__(self, "policy", tuple(float(p) for p in policy))
+        object.__setattr__(self, "temperature", nonnegative_finite(self.temperature, "temperature"))
+
+
+def capture_example(search_result):
+    """Capture the searched pre-move state, even if the caller has since moved.
+
+    The target is exactly the search action distribution at its recorded tau,
+    including uniform maximum-visit ties at zero. Guard usage is explicit.
+    """
+    game = search_result.root.game_state
+    if game.is_game_over() or not game.get_valid_moves():
+        raise ValueError("Training observation must be pre-move and nonterminal")
+    return TrainingExample(encode_current_player(game)[0, 0].tolist(), game.current_player,
+                           search_result.policy, search_result.temperature,
+                           tactical_guard=search_result.tactical_guard)
+
+
+def outcome_for_player(winner, acting_player):
+    if type(winner) is not int or winner not in (-1, 0, 1):
+        raise ValueError("Winner must be X=0, O=1 or draw=-1")
+    if type(acting_player) is not int or acting_player not in (0, 1):
+        raise ValueError("Acting player must be X=0 or O=1")
+    return 0 if winner == -1 else (1 if winner == acting_player else -1)
+
+
+def finalize_examples(examples, completed_game):
+    """Return newly labeled examples; incomplete games cannot produce labels."""
+    if not completed_game.is_game_over():
+        raise ValueError("Outcomes require a completed game")
+    winner = completed_game.check_winner()
+    result = []
+    for example in examples:
+        if example.outcome is not None:
+            raise ValueError("Example is already labeled")
+        result.append(replace(example, outcome=outcome_for_player(winner, example.acting_player)))
+    return tuple(result)
+
+
+def batch_tensors(examples):
+    if not examples or any(example.outcome is None for example in examples):
+        raise ValueError("A nonempty batch of completed examples is required")
+    states = torch.tensor([e.observation for e in examples], dtype=torch.float32).unsqueeze(1)
+    policies = torch.tensor([e.policy for e in examples], dtype=torch.float32)
+    # Classes are [win, draw, loss], distinct from winner IDs [X=0, O=1].
+    values = torch.tensor([{1: 0, 0: 1, -1: 2}[e.outcome] for e in examples], dtype=torch.long)
+    return states, policies, values
+
+
+def training_loss(policy_logits, value_logits, policies, outcomes):
+    """L = mean(-sum_a pi_a log softmax(p)_a) + mean(CE(v, WDL class)).
+
+    Equal head weights, no regularization in this foundation. Both inputs are
+    raw logits; outcomes are int64 classes win=0/draw=1/loss=2.
+    """
+    if not isinstance(policies, torch.Tensor) or policies.ndim != 2 or policies.shape[0] < 1:
+        raise ValueError("Policy targets require a nonempty (N,7) tensor")
+    n = policies.shape[0]
+    validate_logits(policy_logits, value_logits, n)
+    if (policies.shape != (n, 7) or policies.dtype != torch.float32 or policies.device.type != "cpu"
+            or not torch.isfinite(policies).all() or (policies < 0).any() or (policies > 1).any()
+            or not torch.allclose(policies.sum(1), torch.ones(n), rtol=0, atol=1e-6)):
+        raise ValueError("Policy targets must be finite normalized CPU float32 (N,7)")
+    if (not isinstance(outcomes, torch.Tensor) or outcomes.shape != (n,)
+            or outcomes.device.type != "cpu" or outcomes.dtype != torch.long
+            or ((outcomes < 0) | (outcomes > 2)).any()):
+        raise ValueError("Outcome classes must be CPU int64 (N,) in [0,2]")
+    loss = -(policies * F.log_softmax(policy_logits, dim=1)).sum(1).mean() + F.cross_entropy(value_logits, outcomes)
+    if not torch.isfinite(loss):
+        raise ValueError("Nonfinite training loss")
+    return loss
+
+
+class NeuralTrainer:
+    """Persistent Adam; sequential training/inference phases on a CPU model.
+
+    Owns the mode boundary: eval between updates, train during update, eval on
+    return (also on failure). No optimizer recreation at iteration boundaries.
+    """
+    def __init__(self, model, *, learning_rate=0.001):
+        learning_rate = nonnegative_finite(learning_rate, "learning_rate")
+        if learning_rate == 0:
+            raise ValueError("learning_rate must be positive")
+        if getattr(model, "representation_version", None) != ENCODING:
+            raise ValueError("Training requires a fresh canonical model")
+        model.eval()
+        NeuralInference(model)  # Validate parameters/device before optimizer creation.
+        self.model = model
+        self.optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+        self.steps = 0
+
+    def step(self, examples):
+        states, policies, outcomes = batch_tensors(examples)
+        validate_input(states)
+        self.model.train()
+        self.optimizer.zero_grad(set_to_none=True)
+        try:
+            loss = training_loss(*self.model(states), policies, outcomes)
             loss.backward()
-            optimizer.step()
-            
-            total_loss += loss.item()
-            
-        print(f"Epoch {epoch+1}/{epochs}, Loss: {total_loss/len(examples):.4f}")
+            gradients = [p.grad for p in self.model.parameters() if p.requires_grad]
+            if not gradients or any(g is None or not torch.isfinite(g).all() for g in gradients):
+                raise ValueError("Missing or nonfinite training gradients")
+            self.optimizer.step()
+            if any(not torch.isfinite(p).all() for p in self.model.parameters()):
+                raise ValueError("Nonfinite parameters after update; discard this trainer")
+            self.steps += 1
+            return float(loss.detach())
+        finally:
+            self.model.eval()
 
-def main():
-    # Initialize model and agents
-    model = Connect4Net()
-    agent1 = MCTSNNAgent(model, simulation_limit=100, temperature=1.0)
-    agent2 = MCTSNNAgent(model, simulation_limit=100, temperature=1.0)
-    
-    num_iterations = 100  # Number of training iterations
-    games_per_iteration = 10  # Number of self-play games per iteration
-    
-    for iteration in tqdm(range(num_iterations), desc="Training Progress"):
-        # print('Iteration', iteration)
-        examples = []
-        
-        # print('Playing games')
-        # Self-play phase
-        for n in range(games_per_iteration):
-            # print('Playing game', n, 'of iteration', iteration)
-            game_examples = self_play_episode(agent1, agent2)
-            examples.extend(game_examples)
-        
-        # print('Training')
-        # Training phase
-        train_network(model, examples)
-        
-        # Optionally save the model periodically
-        if (iteration + 1) % 10 == 0:
-            print('Saving Model')
-            torch.save({
-                'model_state_dict': model.state_dict(),
-                'iteration': iteration
-            }, f'connect4_model_iter_{iteration+1}.pt')
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit("Foundation only: self-play training requires a separately authorized Phase 4D.2 runner.")
