@@ -1,6 +1,6 @@
 # Phase 4B — Neural foundations and checkpoint audit
 
-Audit date: October 3, 2026. Audit only; no repository file changes, training, new checkpoints, commits, pushes, workflows, paid requests or deployment.
+Audit date: October 3, 2026. Archived in the repository after the audit; local source links were made portable in Phase 4C.1. Audit only; no repository file changes, training, new checkpoints, commits, pushes, workflows, paid requests or deployment.
 
 **Executive finding:** Preserve the historical artifacts, but do not deploy their weights. All ten load and produce finite normalized predictions; the inspected predictions and verified training/search defects provide no defensible basis for calling them useful learned opponents. Build a small, correct DQN vertical slice first, then corrected neural MCTS with fresh training. PyTorch CPU inference fits in the completed local constrained-memory experiment. Preserve Connect4Net’s architecture while repairing correctness; do not redesign it around Render Free. The new feasibility targets are native Mac mini M4 / 16 GB and, secondarily, Cloud Run 1 vCPU / 1 GiB; neither has been deployed or measured in this audit.
 
@@ -37,7 +37,7 @@ All ten pass: **16 parameter tensors, 326,026 float32 parameters, 1,304,104 raw 
 | 90 | 89 | 1,309,906 | `cb2c97028656e5d176cfd7a211f39ce0e460ee0972b21ef8b61ca680131c4953` | Pass / pass |
 | 100 | 99 | 1,309,926 | `8ced8d56469faffbcee2fa34da9780a9285567f531bcaf60b7f1036aeebb225a` | Pass / pass |
 
-The following shapes/counts apply identically to every checkpoint; each weight and bias is float32. Full per-checkpoint/per-tensor min/max/std/nonzero/finite statistics are in [checkpoints.json](/private/tmp/board-game-phase4b/checkpoints.json).
+The following shapes/counts apply identically to every checkpoint; each weight and bias is float32. Full per-checkpoint/per-tensor min/max/std/nonzero/finite statistics are in `checkpoints.json` in the [audit evidence archive](evidence.zip).
 
 | Layer | Weight shape | Bias shape | Combined parameters |
 |---|---|---|---:|
@@ -256,9 +256,9 @@ The best next assignment is **Phase 4C.1: implement and test a perspective-corre
 
 ### Source locations for implementation follow-up
 
-- [Network, prediction, search and loader](/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab/games/connect4/agents/mcts_nn_agent.py:17): network 17–52; selection 75–80/303–309; block guard 131–150; tree reuse 234–269; examples/labels 311–337; loader 339–352.
-- [Training pipeline](/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab/games/connect4/train_mcts_nn.py:8): collection 8–29; losses/optimizer 39–80; iterations/saving 82–112.
-- [Corrected standalone MCTS](/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab/games/connect4/agents/mcts_agent.py:10), [engine reward/turn handling](/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab/games/connect4/connect4.py:17), [list-backed Board](/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab/games/connect4/board.py:3).
-- [Recovered DQN source](/private/tmp/board-game-phase4b/DQN-recovered.txt), [all checkpoint measurements](/private/tmp/board-game-phase4b/checkpoints.json), [bounded defect results](/private/tmp/board-game-phase4b/defects.log).
+- [Network, prediction, search and loader](../../games/connect4/agents/mcts_nn_agent.py): network 17–52; selection 75–80/303–309; block guard 131–150; tree reuse 234–269; examples/labels 311–337; loader 339–352.
+- [Training pipeline](../../games/connect4/train_mcts_nn.py): collection 8–29; losses/optimizer 39–80; iterations/saving 82–112.
+- [Corrected standalone MCTS](../../games/connect4/agents/mcts_agent.py), [engine reward/turn handling](../../games/connect4/connect4.py), [list-backed Board](../../games/connect4/board.py).
+- `DQN-recovered.txt` in the [audit evidence archive](evidence.zip), `checkpoints.json` in the [audit evidence archive](evidence.zip), `defects.log` in the [audit evidence archive](evidence.zip).
 
-All diagnostic scripts, recovered notebook, JSON measurements and this report live outside the repository in `/private/tmp/board-game-phase4b/`. Containers used `--rm`; the temporary audit image was local only. No application source, production dependencies, Dockerfiles, workflows, model files or credentials were modified.
+The original audit used a temporary directory outside the repository. This report is now preserved here; diagnostic scripts, recovered notebook and JSON measurements are preserved in the [audit evidence archive](evidence.zip). Containers used `--rm`; the temporary audit image was local only. No application source, production dependencies, Dockerfiles, workflows, model files or credentials were modified.

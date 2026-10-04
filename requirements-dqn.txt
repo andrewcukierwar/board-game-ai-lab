@@ -1,0 +1,5 @@
+# Optional local DQN correctness / future offline training environment only.
+# Never include this file from production API requirements.
+numpy==1.26.4
+torch==2.10.0
+pytest>=8,<9
