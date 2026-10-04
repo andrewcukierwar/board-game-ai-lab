@@ -15,6 +15,7 @@ class BlockNeural(importlib.abc.MetaPathFinder):
             or fullname in {'games.connect4.neural_mcts',
                             'games.connect4.agents.mcts_nn_agent',
                             'games.connect4.train_mcts_nn',
+                            'games.connect4.neural_self_play',
                             'games.connect4.agents.dqn_agent'}):
             raise AssertionError('Production tried to import ' + fullname)
 sys.meta_path.insert(0, BlockNeural())

@@ -4,6 +4,7 @@ No search, training, device selection, or model-mode mutation occurs here.
 Historical weights require the explicitly separate forensic loader/encoder.
 """
 from dataclasses import dataclass
+from copy import deepcopy
 import math
 from numbers import Real
 
@@ -190,6 +191,25 @@ def load_checkpoint(path):
             or checkpoint["contract"] != CHECKPOINT_CONTRACT):
         raise ValueError("Expected a versioned canonical checkpoint; historical checkpoints are forensic only")
     return NeuralInference(_load_state(checkpoint["model_state_dict"], representation=ENCODING))
+
+
+def checkpoint_payload(model):
+    """Validated independent CPU tensors; provenance belongs outside this envelope."""
+    if type(model) is not Connect4Net or model.representation_version != ENCODING:
+        raise ValueError("Checkpoint requires the canonical Connect4Net")
+    NeuralInference(model)
+    state = {name: tensor.detach().cpu().clone() for name, tensor in model.state_dict().items()}
+    # Reuse the reader's authoritative shape/key/dtype checks without advancing RNG.
+    with torch.random.fork_rng(devices=[]):
+        _load_state(state, representation=ENCODING)
+    return {"contract": deepcopy(CHECKPOINT_CONTRACT), "model_state_dict": state}
+
+
+def save_checkpoint(path, model):
+    """Write a canonical inference artifact, refusing to overwrite any file."""
+    payload = checkpoint_payload(model)
+    with open(path, "xb") as stream:
+        torch.save(payload, stream)
 
 
 def load_historical_network_for_research(path):

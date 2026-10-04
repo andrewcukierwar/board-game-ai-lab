@@ -94,7 +94,7 @@ def batch_tensors(examples):
     return states, policies, values
 
 
-def training_loss(policy_logits, value_logits, policies, outcomes):
+def training_loss(policy_logits, value_logits, policies, outcomes, *, return_components=False):
     """L = mean(-sum_a pi_a log softmax(p)_a) + mean(CE(v, WDL class)).
 
     Equal head weights, no regularization in this foundation. Both inputs are
@@ -112,10 +112,12 @@ def training_loss(policy_logits, value_logits, policies, outcomes):
             or outcomes.device.type != "cpu" or outcomes.dtype != torch.long
             or ((outcomes < 0) | (outcomes > 2)).any()):
         raise ValueError("Outcome classes must be CPU int64 (N,) in [0,2]")
-    loss = -(policies * F.log_softmax(policy_logits, dim=1)).sum(1).mean() + F.cross_entropy(value_logits, outcomes)
+    policy_loss = -(policies * F.log_softmax(policy_logits, dim=1)).sum(1).mean()
+    value_loss = F.cross_entropy(value_logits, outcomes)
+    loss = policy_loss + value_loss
     if not torch.isfinite(loss):
         raise ValueError("Nonfinite training loss")
-    return loss
+    return (loss, policy_loss, value_loss) if return_components else loss
 
 
 class NeuralTrainer:
@@ -135,6 +137,7 @@ class NeuralTrainer:
         self.model = model
         self.optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
         self.steps = 0
+        self.last_metrics = None
 
     def step(self, examples):
         states, policies, outcomes = batch_tensors(examples)
@@ -142,15 +145,25 @@ class NeuralTrainer:
         self.model.train()
         self.optimizer.zero_grad(set_to_none=True)
         try:
-            loss = training_loss(*self.model(states), policies, outcomes)
+            loss, policy_loss, value_loss = training_loss(
+                *self.model(states), policies, outcomes, return_components=True)
             loss.backward()
             gradients = [p.grad for p in self.model.parameters() if p.requires_grad]
             if not gradients or any(g is None or not torch.isfinite(g).all() for g in gradients):
                 raise ValueError("Missing or nonfinite training gradients")
+            gradient_norm = torch.linalg.vector_norm(torch.stack([
+                torch.linalg.vector_norm(g) for g in gradients]))
+            if not torch.isfinite(gradient_norm):
+                raise ValueError("Nonfinite gradient norm")
             self.optimizer.step()
             if any(not torch.isfinite(p).all() for p in self.model.parameters()):
                 raise ValueError("Nonfinite parameters after update; discard this trainer")
             self.steps += 1
+            self.last_metrics = dict(
+                combined_loss=float(loss.detach()), policy_loss=float(policy_loss.detach()),
+                value_loss=float(value_loss.detach()), gradient_norm=float(gradient_norm),
+                policy_target_entropy=float(-(policies * policies.clamp_min(1e-30).log()).sum(1).mean()),
+                finite_gradients=True, finite_parameters=True)
             return float(loss.detach())
         finally:
             self.model.eval()
