@@ -86,8 +86,9 @@ def reject_duplicate(game, seen):
     seen.add(identity)
 
 
-def validate(rows):
-    seen = {key(replay(f['moves'])) for f in json.loads(OLD_PATH.read_text())['positions']}
+def validate(rows, *, exclude_paths=(OLD_PATH,)):
+    seen = {key(replay(f['moves'])) for path in exclude_paths
+            for f in json.loads(path.read_text())['positions']}
     originals = {}
     names = set()
     for row in rows:
@@ -111,8 +112,8 @@ def validate(rows):
     return len(originals)
 
 
-def construct():
-    rng = random.Random(SEED)
+def construct(*, seed=SEED, exclude_paths=(OLD_PATH,)):
+    rng = random.Random(seed)
     strata = [(k, d, p) for k in ('win', 'block')
               for d in ('horizontal', 'vertical', 'diagonal') for p in (0, 1)]
     # 48 families: 14 each outer column pair, 6 center-column families.
@@ -120,7 +121,8 @@ def construct():
     for i, s in enumerate(strata):
         for bucket in (0, 1, 2, (0, 1, 2, 3, 3, 3)[i % 6]):
             quotas[s + (bucket,)] += 1
-    seen = {key(replay(f['moves'])) for f in json.loads(OLD_PATH.read_text())['positions']}
+    seen = {key(replay(f['moves'])) for path in exclude_paths
+            for f in json.loads(path.read_text())['positions']}
     rows = []
     for attempt in range(200000):
         game, moves = Connect4(), []
@@ -147,8 +149,8 @@ def construct():
         rows.extend([original, dict(original, name=name+'_mirror', moves=[6-c for c in moves],
                                     expected_action=6-action, mirror_of=name)])
         if not sum(quotas.values()):
-            validate(rows)
-            return dict(version=1, construction_seed=SEED, attempted_rollouts=attempt+1,
+            validate(rows, exclude_paths=exclude_paths)
+            return dict(version=1, construction_seed=seed, attempted_rollouts=attempt+1,
                         original_families=48, mirrored_rows=48, positions=rows)
     raise RuntimeError(f'Construction exhausted: {quotas}')
 
