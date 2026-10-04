@@ -162,6 +162,7 @@ def run_training(trainer, bounds, *, clock=time.monotonic,
         report.update(updates=trainer.updates, replay_size=len(trainer.memory),
                       epsilon_final=trainer.epsilon, elapsed_seconds=clock() - start,
                       partial_episode=episode, replay_composition=trainer.memory.composition(),
+                      augmentation=trainer.augmentation_summary(),
                       collected_nonterminal=report['plies'] - report['collected_terminal'])
     return report
 

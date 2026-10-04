@@ -79,6 +79,24 @@ class Transition:
             raise ValueError('next_legal disagrees with next state / terminal status')
 
 
+def reflect_transition(transition):
+    """Reflect physical columns only, reconstructing the validated contract.
+
+    Row order, piece signs and actor identity are unchanged. Replay snapshots
+    are immutable; the reflected transition is a new independent instance.
+    """
+    if not isinstance(transition, Transition):
+        raise TypeError('Reflection requires a validated Transition')
+
+    def reflect(state):
+        return tuple(state[row * 7 + col] for row in range(6) for col in range(6, -1, -1))
+
+    return Transition(state=reflect(transition.state), action=6 - transition.action,
+                      reward=transition.reward, next_state=reflect(transition.next_state),
+                      done=transition.done, next_legal=transition.next_legal[::-1],
+                      actor=transition.actor)
+
+
 def collect_transition(game, action):
     """Advance game by exactly one legal ply and snapshot both perspectives.
 
@@ -173,13 +191,15 @@ class DQNConfig:
     epsilon_decay: float = 0.995
     target_sync_interval: int = 100
     seed: int = 0
+    horizontal_symmetry_probability: float = 0.0
 
     def __post_init__(self):
         for name in ('replay_capacity', 'batch_size', 'target_sync_interval'):
             positive_int(name, getattr(self, name))
         if self.batch_size > self.replay_capacity:
             raise ValueError('batch_size exceeds replay_capacity')
-        for name in ('gamma', 'epsilon_start', 'epsilon_min', 'epsilon_decay'):
+        for name in ('gamma', 'epsilon_start', 'epsilon_min', 'epsilon_decay',
+                     'horizontal_symmetry_probability'):
             unit_interval(name, getattr(self, name))
         if self.epsilon_min > self.epsilon_start:
             raise ValueError('epsilon_min exceeds epsilon_start')
@@ -209,6 +229,11 @@ class DQNTrainer:
         self.optimizer = torch.optim.Adam(self.online.parameters(), lr=self.config.learning_rate)
         self.memory = ReplayMemory(self.config.replay_capacity, seed=self.config.seed)
         self.rng = random.Random(self.config.seed)
+        # Domain-separated deterministic stream; never share exploration/replay RNGs.
+        self.augmentation_seed = f'connect4-horizontal-symmetry-v1:{self.config.seed}'
+        self.augmentation_rng = random.Random(self.augmentation_seed)
+        self.transformed_samples = 0
+        self.untransformed_samples = 0
         self.epsilon = self.config.epsilon_start
         self.updates = 0
 
@@ -222,10 +247,37 @@ class DQNTrainer:
         self.target.load_state_dict(self.online.state_dict(), strict=True)
         self.target.eval().requires_grad_(False)
 
+    def augment_batch(self, batch):
+        """One independent decision per sampled item; never insert into replay.
+
+        Counts describe constructed optimization samples, even if a subsequent
+        optimizer invariant fails. Disabled augmentation consumes no RNG draws.
+        """
+        probability = self.config.horizontal_symmetry_probability
+        if probability == 0:
+            self.untransformed_samples += len(batch)
+            return batch
+        augmented = []
+        for transition in batch:
+            if self.augmentation_rng.random() < probability:
+                augmented.append(reflect_transition(transition))
+                self.transformed_samples += 1
+            else:
+                augmented.append(transition)
+                self.untransformed_samples += 1
+        return augmented
+
+    def augmentation_summary(self):
+        total = self.transformed_samples + self.untransformed_samples
+        return dict(horizontal_symmetry_probability=self.config.horizontal_symmetry_probability,
+                    rng='python.random.Random', seed=self.augmentation_seed,
+                    transformed=self.transformed_samples, untransformed=self.untransformed_samples,
+                    total=total, observed_fraction=self.transformed_samples / total if total else None)
+
     def optimize(self):
         if len(self.memory) < self.config.batch_size:
             return None
-        batch = self.memory.sample(self.config.batch_size)
+        batch = self.augment_batch(self.memory.sample(self.config.batch_size))
         states = torch.tensor([t.state for t in batch], dtype=torch.float32)
         actions = torch.tensor([t.action for t in batch], dtype=torch.int64)
         targets = bellman_targets(self.target, batch, self.config.gamma)
