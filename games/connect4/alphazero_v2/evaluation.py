@@ -108,34 +108,47 @@ def _row_rng(namespace, row_id, seed):
     return seeded_rng(f"{EVALUATION_DOMAIN}:{namespace}:{row_id}", seed)
 
 
+def search_row(inference, row, *, simulations=512, seeds=(0, 1, 2, 3), namespace="positions", check=None):
+    """Row-level evidence for one row: chosen action, root visits and raw root value per declared seed."""
+    game = engine_position(row["moves"])
+    choices, visits, root_values = [], [], []
+    for seed in seeds:
+        if check is not None:
+            check()
+        result, selection = EvaluationAgent(inference, simulations, rng=_row_rng(namespace, row["id"], seed)).search(game)
+        choices.append(selection.move)
+        visits.append(tuple(result.visits))
+        root_values.append(result.root_value)
+    return dict(choices=choices, visits=visits, root_values=root_values)
+
+
 def search_rows(inference, rows, *, simulations=512, seeds=(0, 1, 2, 3), namespace="positions", check=None):
     """Chosen actions and root visits for every row and declared search/tie seed."""
     choices, visits = {}, {}
     for row in rows:
-        game = engine_position(row["moves"])
-        choices[row["id"]], visits[row["id"]] = [], []
-        for seed in seeds:
-            if check is not None:
-                check()
-            result, selection = EvaluationAgent(inference, simulations, rng=_row_rng(namespace, row["id"], seed)).search(game)
-            choices[row["id"]].append(selection.move)
-            visits[row["id"]].append(tuple(result.visits))
+        evidence = search_row(inference, row, simulations=simulations, seeds=seeds, namespace=namespace, check=check)
+        choices[row["id"]], visits[row["id"]] = evidence["choices"], evidence["visits"]
     return choices, visits
 
 
+def nn_only_choice(inference, row, *, namespace="nn-only"):
+    prediction = inference.predict(engine_position(row["moves"]))
+    best = max(prediction.policy)
+    return _row_rng(namespace, row["id"], 0).choice([a for a in range(7) if prediction.policy[a] == best])
+
+
 def nn_only_rows(inference, rows, *, namespace="nn-only"):
-    choices = {}
-    for row in rows:
-        prediction = inference.predict(engine_position(row["moves"]))
-        best = max(prediction.policy)
-        rng = _row_rng(namespace, row["id"], 0)
-        choices[row["id"]] = [rng.choice([a for a in range(7) if prediction.policy[a] == best])]
-    return choices
+    return {row["id"]: [nn_only_choice(inference, row, namespace=namespace)] for row in rows}
+
+
+def raw_value(inference, row):
+    """Raw tanh value for the player to move (no search)."""
+    return inference.predict(engine_position(row["moves"])).value
 
 
 def raw_values(inference, rows):
     """Raw tanh value for the player to move at every row (no search)."""
-    return {row["id"]: inference.predict(engine_position(row["moves"])).value for row in rows}
+    return {row["id"]: raw_value(inference, row) for row in rows}
 
 
 # Behavioral calibration -------------------------------------------------------------------

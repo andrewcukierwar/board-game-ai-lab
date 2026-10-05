@@ -8,6 +8,8 @@ tree under the same commit can differ) and not necessary (documentation-only
 commits leave execution unchanged), so the enforced identity is a content
 digest of the execution closure; Git state is recorded as provenance only.
 """
+import ctypes
+import ctypes.util
 from functools import lru_cache
 import hashlib
 import json
@@ -38,6 +40,13 @@ EXECUTION_DEPENDENCIES = (
 THREAD_ENVIRONMENT = ("OMP_NUM_THREADS", "MKL_NUM_THREADS", "OPENBLAS_NUM_THREADS",
                       "VECLIB_MAXIMUM_THREADS", "NUMEXPR_NUM_THREADS")
 SOURCE_SCHEME = "sha256(json(sorted relative path -> file sha256))-v1"
+# Reporting partition of the execution closure (both groups are always enforced together):
+# (A) modules a GenerationRunner loads to collect, train, save and resume; (B) everything
+# else in the closure: evaluation, solver, arena, statistics, packages and the launcher.
+TRAINING_SOURCE_FILES = tuple(f"{V2_PACKAGE}/{name}.py" for name in (
+    "__init__", "artifacts", "config", "data", "diagnostics", "generation", "network", "oracle",
+    "provenance", "search", "selfplay", "training")) + EXECUTION_DEPENDENCIES
+SOURCE_GROUPS = ("training", "evaluation_and_launch")
 
 
 def execution_source_files():
@@ -52,6 +61,20 @@ def execution_source_identity():
         files[relative] = hashlib.sha256((REPO_ROOT / relative).read_bytes()).hexdigest()
     combined = hashlib.sha256(json.dumps(files, sort_keys=True).encode()).hexdigest()
     return dict(scheme=SOURCE_SCHEME, sha256=combined, files=files)
+
+
+def source_group(relative):
+    return "training" if relative in TRAINING_SOURCE_FILES else "evaluation_and_launch"
+
+
+def source_groups(files):
+    """Per-group digests of an execution-closure file map (same scheme as the combined digest)."""
+    groups = {}
+    for name in SOURCE_GROUPS:
+        members = {path: digest for path, digest in files.items() if source_group(path) == name}
+        groups[name] = dict(files=sorted(members),
+                            sha256=hashlib.sha256(json.dumps(members, sort_keys=True).encode()).hexdigest())
+    return groups
 
 
 def source_differences(recorded, current):
@@ -89,10 +112,28 @@ def source_identity(execution=None):
     return dict(execution=execution or execution_source_identity(), git=git_provenance())
 
 
+def _sysctl_string(name):
+    """In-process sysctlbyname (no subprocess, so sandboxes that block exec still identify the CPU)."""
+    try:
+        libc = ctypes.CDLL(ctypes.util.find_library("c"), use_errno=True)
+        size = ctypes.c_size_t(0)
+        if libc.sysctlbyname(name.encode(), None, ctypes.byref(size), None, ctypes.c_size_t(0)) or not size.value:
+            return None
+        buffer = ctypes.create_string_buffer(size.value)
+        if libc.sysctlbyname(name.encode(), buffer, ctypes.byref(size), None, ctypes.c_size_t(0)):
+            return None
+        return buffer.value.decode().strip() or None
+    except (OSError, AttributeError, UnicodeDecodeError):
+        return None
+
+
 @lru_cache(maxsize=1)
 def _cpu_model():
     try:
         if sys.platform == "darwin":
+            probed = _sysctl_string("machdep.cpu.brand_string")
+            if probed:
+                return probed
             result = subprocess.run(["sysctl", "-n", "machdep.cpu.brand_string"], capture_output=True,
                                     text=True, timeout=10, check=True).stdout.strip()
             return result or None
@@ -126,6 +167,18 @@ def runtime_identity():
         float32_matmul_precision=torch.get_float32_matmul_precision(),
         mkldnn_enabled=bool(torch.backends.mkldnn.enabled),
         thread_environment={name: os.environ.get(name) for name in THREAD_ENVIRONMENT})
+
+
+def unavailable_runtime_fields(identity):
+    """Identity fields whose value could not be determined; such a runtime cannot be bound exactly.
+
+    Two runtimes that both failed to identify (say) their CPU would otherwise compare equal.
+    """
+    missing = sorted(key for key, value in identity.items() if value is None)
+    environment = identity.get("thread_environment")
+    if isinstance(environment, dict):
+        missing += sorted(f"thread_environment.{key}" for key, value in environment.items() if value is None)
+    return missing
 
 
 def runtime_differences(recorded, current):

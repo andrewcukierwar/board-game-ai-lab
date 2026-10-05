@@ -33,6 +33,15 @@ def play_game(player, generation, index, *, check=None, observer=None):
     return finalize_game(generation, index, moves, pending)
 
 
-def collect_generation(player, generation, games, *, check=None, observer=None):
-    """Exactly ``games`` complete games; an exception discards the whole generation."""
-    return tuple(play_game(player, generation, index, check=check, observer=observer) for index in range(games))
+def collect_generation(player, generation, games, *, check=None, observer=None, on_game=None):
+    """Exactly ``games`` complete games; an exception discards the whole generation.
+
+    ``on_game(completed)`` sees each completed game (durable attempt accounting); it
+    must not consume any RNG stream owned by the player.
+    """
+    collected = []
+    for index in range(games):
+        collected.append(play_game(player, generation, index, check=check, observer=observer))
+        if on_game is not None:
+            on_game(collected[-1])
+    return tuple(collected)

@@ -1,0 +1,57 @@
+{
+ "B1_source_not_bound": {
+  "campaign_accepted_old_token_after_edit": true,
+  "declaration_has_source_or_runtime_identity": false,
+  "digest_after_virtual_edit": "45176ea082c804f41a44ee6f11cd67e5e71595755dc5a20126ae502774675d67",
+  "digest_before": "fae266e4ee08d31ac4d5028aa42b94b60c126ffc1fe58588b2f281aaef1245c4",
+  "final_evaluate_references_identity": false,
+  "preflight_token_after_edit": "2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8"
+ },
+ "B2_generation_publication": {
+  "first_attempt": "injected crash after archival",
+  "resume_after_archive_crash": "FileExistsError: generation-0001.jsonl",
+  "resume_after_diagnostics_crash": {
+   "diagnostic_calls_on_resume": 1,
+   "generation1_summary_files": [],
+   "status": "completed"
+  },
+  "resume_after_partial_registration": "FileExistsError: Refusing to overwrite /var/folders/53/bsc2cxzd2m5304vbs9895nkc0000gn/T/tmpsu_374dr/c3/runs/seed-42/games/generation-0001.jsonl"
+ },
+ "B3_deadlines": {
+  "calibration_call_passes_check": false,
+  "final_with_overrun_and_stop": {
+   "check_supplied": false,
+   "seed_result_written": true,
+   "status": "completed"
+  },
+  "position_work_after_exact_ceiling": "refused: evaluation-game ceiling reached",
+  "training_overrun_then_evaluation_allowed": 101.0
+ },
+ "B4_accounting": {
+  "campaign_lock_present": false,
+  "in_memory_games": 5,
+  "recovered_games_after_crash": 0,
+  "torn_record": "JSONDecodeError: Unterminated string starting at",
+  "training_games_counts_only_full_generations": true
+ },
+ "S_findings": {
+  "S1_final_evaluate_catches_unexpected_exceptions": false,
+  "S1_seed_result_written_only_after_complete_seed": true,
+  "S2_final_result_keeps_row_choices": false,
+  "S2_learned_readiness_measurement_in_final": false,
+  "S3_action_values_on_won_history": {
+   "0": -1,
+   "1": 1,
+   "2": -1,
+   "3": -1,
+   "4": -1,
+   "5": -1,
+   "6": -1
+  },
+  "S3_exhaustive_action_values_on_won_history": "refused: Position is already won",
+  "S4_cpu_model_none_compares_equal": true,
+  "S4_preflight_checks_phase4d2f_checkpoint": false,
+  "S4_preflight_deterministic": false,
+  "S4_preflight_inter_op_threads": 10
+ }
+}

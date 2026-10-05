@@ -100,35 +100,50 @@ def play_game(agents, opening, rngs, *, check=None):
                 seconds=time.perf_counter() - started)
 
 
+PAIRED_GAMES = ((0, 0), (1, 1))  # (game index, agent color): agent owns X, then O
+
+
+def paired_game(agent, opponent, row, game_index, *, namespace, seed, check=None, keep_decisions=True):
+    """One game of an opening pair; its RNGs depend only on (namespace, row, game, role, seed).
+
+    Independent of execution order, so a durable campaign can resume an arena at
+    game granularity and obtain exactly the record ``run_paired_arena`` produces.
+    """
+    agent_color = dict(PAIRED_GAMES)[game_index]
+    agents = (agent, opponent) if agent_color == 0 else (opponent, agent)
+    roles = ("agent", "opponent") if agent_color == 0 else ("opponent", "agent")
+    rngs = tuple(agent_rng(namespace, row["id"], game_index, role, seed) for role in roles)
+    result = play_game(agents, row["moves"], rngs, check=check)
+    record = dict(opening_id=row["id"], family=row["family"], stratum=row["stratum"],
+                  prefix_length=len(row["moves"]), game_index=game_index, agent_color=agent_color,
+                  agent=agent.name, opponent=opponent.name, **result)
+    if not keep_decisions:
+        record["decisions"] = [dict(color=d["color"], move=d["move"], seconds=d["seconds"])
+                               for d in record["decisions"]]
+    if not result["abandoned"]:
+        winner = result["winner"]
+        record["result"] = "draw" if winner == -1 else ("win" if winner == agent_color else "loss")
+    return record
+
+
 def run_paired_arena(agent, opponent, openings, *, namespace, seed, check=None, on_game=None,
                      keep_decisions=True):
     """Play every opening row twice (agent as X, then as O). Returns (records, status)."""
     records = []
     for row in openings:
-        for game_index, agent_color in ((0, 0), (1, 1)):
+        for game_index, _ in PAIRED_GAMES:
             if check is not None:
                 try:
                     check()
                 except StopEvaluation as stop:
                     return records, dict(complete=False, stop_reason=str(stop))
-            agents = (agent, opponent) if agent_color == 0 else (opponent, agent)
-            roles = ("agent", "opponent") if agent_color == 0 else ("opponent", "agent")
-            rngs = tuple(agent_rng(namespace, row["id"], game_index, role, seed) for role in roles)
-            result = play_game(agents, row["moves"], rngs, check=check)
-            record = dict(opening_id=row["id"], family=row["family"], stratum=row["stratum"],
-                          prefix_length=len(row["moves"]), game_index=game_index, agent_color=agent_color,
-                          agent=agent.name, opponent=opponent.name, **result)
-            if not keep_decisions:
-                record["decisions"] = [dict(color=d["color"], move=d["move"], seconds=d["seconds"])
-                                       for d in record["decisions"]]
-            if not result["abandoned"]:
-                winner = result["winner"]
-                record["result"] = "draw" if winner == -1 else ("win" if winner == agent_color else "loss")
+            record = paired_game(agent, opponent, row, game_index, namespace=namespace, seed=seed, check=check,
+                                 keep_decisions=keep_decisions)
             records.append(record)
             if on_game is not None:
                 on_game(record)
-            if result["abandoned"]:
-                return records, dict(complete=False, stop_reason=result["stop_reason"])
+            if record["abandoned"]:
+                return records, dict(complete=False, stop_reason=record["stop_reason"])
     return records, dict(complete=True, stop_reason=None)
 
 

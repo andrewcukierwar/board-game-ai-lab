@@ -1,5 +1,12 @@
 # Phase 4D.3B — Milestone 1 hostile review and AlphaZero v2 evaluation/preflight (Milestone 2)
 
+> **Superseded launch instructions — read first.** The declaration token
+> `2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8` given below is **REJECTED / NOT
+> AUTHORIZED**. The [launch-readiness review](phase4d3b-launch-readiness-review.md) found blockers B1–B4. Phase
+> 4D.3B.1 fixed them and re-froze the declaration (format 2) with a new token: see
+> [phase4d3b1-launch-control-fixes.md](phase4d3b1-launch-control-fixes.md). The current launcher refuses the
+> old token and the old declaration bytes. Do not use the §10 token or the §13 commands as written.
+
 Completed October 5, 2026. **No research training was run.** This phase produced no learned v2 candidate, no research checkpoint, no strength evaluation, no API/UI exposure and no deployment. **It makes no strength claim.** The only optimizer updates were discarded updates on tiny synthetic data in unit tests and temporary directories, plus one discarded synthetic update used to size a full-scale resume artifact (§9).
 
 Starting point: `origin/main` = `a58abccb2f62c4308b074ac123cd6f3ad798c2c0` (Phase 4D.3A), clean tree. Work is on local branch `phase4d3b-alphazero-v2-preflight`, uncommitted. There was no commit, push, merge, dependency change or production-configuration change. Historical evidence under `experiment-output/` and `models/` was only read.
@@ -394,6 +401,8 @@ The inference artifact is 1.31 MB. Retaining two resume boundaries plus 21 infer
 
 ## 10. Frozen campaign declaration
 
+> **REJECTED (Phase 4D.3B.1):** the declaration and token described in this section must never authorize a campaign. See [phase4d3b1-launch-control-fixes.md](phase4d3b1-launch-control-fixes.md) §6.
+
 [`frozen/campaign-declaration.json`](../games/connect4/alphazero_v2/frozen/campaign-declaration.json), SHA-256 `2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8`. It is validated on every load: exact key set, config round-trip per seed, schedule within generations, package hashes, and the planned-games arithmetic.
 
 - **Seeds** 42 (primary) and 314159 (replication); **20 generations**.
@@ -444,6 +453,8 @@ All optimizer updates in tests and profiling used synthetic data in temporary di
 12. **Diagnostics cost.** Per-generation contradiction scans and replay family counts add an estimated ~2 s per generation at full scale (not measured at scale).
 
 ## 13. Exact steps for Milestone 3 (not authorized here)
+
+> **Stale (Phase 4D.3B.1):** these commands use the rejected token and the format-1 declaration. Use the steps in [phase4d3b1-launch-control-fixes.md](phase4d3b1-launch-control-fixes.md) §11 instead.
 
 1. Independent Astra/Codex review of this document, the code, the frozen packages and the declaration. Optionally, add an external Pons cross-check of the solved packages.
 2. Commit this work. The execution digest is unchanged by committing; any reviewer-requested code change changes it and requires refreezing the declaration (and the packages only if their builder changes).

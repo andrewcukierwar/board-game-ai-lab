@@ -169,12 +169,15 @@ class GenerationRunner:
 
     # Lifecycle -------------------------------------------------------------
 
-    def run_generation(self, boundary_directory=None, *, check=None):
+    def run_generation(self, boundary_directory=None, *, check=None, progress=None):
         """Run one complete generation; ``check()`` runs before every search and update.
 
         ``check`` may raise (budget exhausted, stop requested): the generation is
         then discarded exactly like any other interruption. The returned summary
         is the deterministic history entry plus non-deterministic ``resources``.
+        ``progress(event, **info)`` reports attempted work for durable accounting
+        ("game" after each completed game, "collected", "update" after each
+        optimizer step); it must not touch any runner RNG stream.
         """
         if self.failed:
             raise RuntimeError("Runner failed mid-generation; resume from the last valid boundary")
@@ -190,13 +193,17 @@ class GenerationRunner:
             player = SelfPlayer(V2Inference(snapshot), config, search_rng=self.search_rng,
                                 action_rng=self.action_rng, root_noise=self.root_noise)
             observer = diagnostics.CollectionObserver()
+            on_game = None if progress is None else (
+                lambda game: progress("game", index=game.index, plies=len(game.examples)))
             games = collect_generation(player, generation, config.games_per_generation, check=check,
-                                       observer=observer)
+                                       observer=observer, on_game=on_game)
             collected = time.perf_counter()
             if (len(games) != config.games_per_generation or self.trainer.steps != steps_before
                     or weights_sha256(self.model) != learner_hash or weights_sha256(snapshot) != learner_hash):
                 raise RuntimeError("Learner or snapshot changed during collection")
             new_positions = sum(len(game.examples) for game in games)
+            if progress is not None:
+                progress("collected", games=len(games), positions=new_positions)
             evicted = self.replay.add_generation(generation, games)
 
             self.phase = "training"
@@ -211,6 +218,8 @@ class GenerationRunner:
                 metrics.append(self.trainer.step(batch))
                 if self.trainer.optimizer is not self._optimizer:
                     raise RuntimeError("Optimizer was replaced")
+                if progress is not None:
+                    progress("update", step=self.trainer.steps)
             self.completed_generations = generation
             self.total_games += len(games)
             self.total_positions += new_positions

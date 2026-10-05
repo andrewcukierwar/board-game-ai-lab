@@ -1,0 +1,338 @@
+source_not_compared                      KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_changed_execution_source_refuses_launch[games/connect4/alphazero_v2/search.py-training]
+source_group_misreported                 KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_changed_execution_source_refuses_launch[games/connect4/alphazero_v2/evaluation.py-evaluation_and_launch]
+training_group_missing_oracle            KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_changed_execution_source_refuses_launch[games/connect4/alphazero_v2/oracle.py-training]
+closure_not_imported_at_launch           KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_fresh_interpreter_refuses_a_one_byte_source_edit
+mid_campaign_identity_unchecked          KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_source_drift_mid_campaign_stops_before_publication
+declared_source_consistency_unchecked    KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_declaration_validation_rejects_inconsistent_bindings
+runtime_not_compared                     KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_every_runtime_identity_field_refuses_launch_and_resume[cpu_capability]
+unavailable_fields_allowed               KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_unidentified_runtime_is_refused
+preflight_does_not_configure             KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_preflight_is_a_launch_gate
+cpu_probe_subprocess_only                KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_cpu_identity_probe_does_not_need_a_subprocess
+final_skips_attempt_identity             KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_final_evaluation_refuses_an_attempt_recorded_under_another_identity
+rejected_list_empty                      KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_rejected_token_is_listed
+load_skips_rejection                     KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_rejected_token_and_original_declaration_never_authorize
+token_not_compared                       KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_every_declaration_field_is_bound_by_the_token
+directory_declaration_unchecked          KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_campaign_directory_stays_bound_to_its_declaration
+journal_declaration_unchecked            KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_campaign_directory_stays_bound_to_its_declaration
+install_skips_hash_check                 KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_inconsistent_published_outputs_are_refused
+no_staging_recovery                      KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_source_drift_mid_campaign_stops_before_publication
+completed_units_rerun                    KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_source_drift_mid_campaign_stops_before_publication
+views_not_verified                       KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_views_are_written_once_and_must_match
+duplicate_decision_allowed               KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_duplicate_champion_decision_and_selection_are_refused
+out_of_order_commit_allowed              KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_invalid_transitions_are_refused_before_they_become_durable
+open_attempts_not_recovered              KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_hard_crash_is_charged_through_its_last_lease_and_never_resets
+torn_tail_not_repaired                   KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_torn_journal_tail_is_recovered_at_launch
+unterminated_record_accepted             KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_complete_but_unterminated_record_is_torn
+damage_before_valid_accepted             KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_damage_before_a_valid_record_is_refused
+concurrent_writer_allowed                KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_second_writer_is_refused_in_process
+lease_not_written                        KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_damage_before_a_valid_record_is_refused
+lease_renewed_only_after_expiry          KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_lease_is_durable_before_time_is_used_and_renews_ahead_of_expiry
+crash_charged_zero                       KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_lease_is_durable_before_time_is_used_and_renews_ahead_of_expiry
+clean_end_charged_lease                  KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_clean_end_charges_measured_time_and_downtime_is_not_charged
+start_check_strict                       KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_start_checks_refuse_at_limits_and_completion_rechecks_overruns
+completion_not_rechecked                 KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_final_calibration_receives_checks_and_an_overrun_is_incomplete
+completion_ignores_stop                  KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_stop_during_the_last_unit_defers_publication
+training_completion_unchecked            KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_last_update_overrunning_the_training_cap_discards_the_generation
+calibration_check_not_forwarded          KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_final_calibration_receives_checks_and_an_overrun_is_incomplete
+incomplete_not_final                     KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_final_calibration_receives_checks_and_an_overrun_is_incomplete
+game_charged_at_completion               KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_game_reservation_is_charged_before_play_and_survives_a_crash
+ceiling_not_enforced                     KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_game_reservation_is_charged_before_play_and_survives_a_crash
+prior_training_ignored                   KILLED   FAILED tests/test_alphazero_v2_launch_control.py::test_hard_crash_is_charged_through_its_last_lease_and_never_resets
+selfplay_progress_not_journaled          KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_uninterrupted_tiny_campaign_completes
+abandoned_game_not_recorded              KILLED   FAILED tests/test_alphazero_v2_campaign.py::test_cooperative_stops_resume_without_rerunning_completed_units
+[
+ {
+  "name": "source_not_compared",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_changed_execution_source_refuses_launch[games/connect4/alphazero_v2/search.py-training]",
+  "tail": "1 failed, 32 passed, 2 deselected in 18.21s"
+ },
+ {
+  "name": "source_group_misreported",
+  "file": "games/connect4/alphazero_v2/provenance.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_changed_execution_source_refuses_launch[games/connect4/alphazero_v2/evaluation.py-evaluation_and_launch]",
+  "tail": "1 failed, 35 passed, 2 deselected in 18.71s"
+ },
+ {
+  "name": "training_group_missing_oracle",
+  "file": "games/connect4/alphazero_v2/provenance.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_changed_execution_source_refuses_launch[games/connect4/alphazero_v2/oracle.py-training]",
+  "tail": "1 failed, 34 passed, 2 deselected in 18.36s"
+ },
+ {
+  "name": "closure_not_imported_at_launch",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_fresh_interpreter_refuses_a_one_byte_source_edit",
+  "tail": "1 failed, 40 passed, 2 deselected in 20.60s"
+ },
+ {
+  "name": "mid_campaign_identity_unchecked",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_source_drift_mid_campaign_stops_before_publication",
+  "tail": "1 failed, 41 passed, 2 deselected in 24.41s"
+ },
+ {
+  "name": "declared_source_consistency_unchecked",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_declaration_validation_rejects_inconsistent_bindings",
+  "tail": "1 failed, 28 passed, 2 deselected in 18.11s"
+ },
+ {
+  "name": "runtime_not_compared",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_every_runtime_identity_field_refuses_launch_and_resume[cpu_capability]",
+  "tail": "1 failed, 42 passed, 2 deselected in 24.85s"
+ },
+ {
+  "name": "unavailable_fields_allowed",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_unidentified_runtime_is_refused",
+  "tail": "1 failed, 59 passed, 2 deselected in 27.38s"
+ },
+ {
+  "name": "preflight_does_not_configure",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_preflight_is_a_launch_gate",
+  "tail": "1 failed, 62 passed, 2 deselected in 28.74s"
+ },
+ {
+  "name": "cpu_probe_subprocess_only",
+  "file": "games/connect4/alphazero_v2/provenance.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_cpu_identity_probe_does_not_need_a_subprocess",
+  "tail": "1 failed, 60 passed, 2 deselected in 27.29s"
+ },
+ {
+  "name": "final_skips_attempt_identity",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_final_evaluation_refuses_an_attempt_recorded_under_another_identity",
+  "tail": "1 failed, 65 passed, 2 deselected in 31.55s"
+ },
+ {
+  "name": "rejected_list_empty",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_rejected_token_is_listed",
+  "tail": "1 failed, 19 passed, 2 deselected in 0.66s"
+ },
+ {
+  "name": "load_skips_rejection",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_rejected_token_and_original_declaration_never_authorize",
+  "tail": "1 failed, 29 passed, 2 deselected in 17.61s"
+ },
+ {
+  "name": "token_not_compared",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_every_declaration_field_is_bound_by_the_token",
+  "tail": "1 failed, 30 passed, 2 deselected in 18.37s"
+ },
+ {
+  "name": "directory_declaration_unchecked",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_campaign_directory_stays_bound_to_its_declaration",
+  "tail": "1 failed, 64 passed, 2 deselected in 31.24s"
+ },
+ {
+  "name": "journal_declaration_unchecked",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_campaign_directory_stays_bound_to_its_declaration",
+  "tail": "1 failed, 64 passed, 2 deselected in 30.80s"
+ },
+ {
+  "name": "install_skips_hash_check",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_inconsistent_published_outputs_are_refused",
+  "tail": "1 failed, 68 passed, 2 deselected in 36.78s"
+ },
+ {
+  "name": "no_staging_recovery",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_source_drift_mid_campaign_stops_before_publication",
+  "tail": "1 failed, 41 passed, 2 deselected in 23.71s"
+ },
+ {
+  "name": "completed_units_rerun",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_source_drift_mid_campaign_stops_before_publication",
+  "tail": "1 failed, 41 passed, 2 deselected in 25.70s"
+ },
+ {
+  "name": "views_not_verified",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_views_are_written_once_and_must_match",
+  "tail": "1 failed, 16 passed, 2 deselected in 0.63s"
+ },
+ {
+  "name": "duplicate_decision_allowed",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_duplicate_champion_decision_and_selection_are_refused",
+  "tail": "1 failed, 6 passed, 2 deselected in 0.72s"
+ },
+ {
+  "name": "out_of_order_commit_allowed",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_invalid_transitions_are_refused_before_they_become_durable",
+  "tail": "1 failed, 5 passed, 2 deselected in 0.64s"
+ },
+ {
+  "name": "open_attempts_not_recovered",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_hard_crash_is_charged_through_its_last_lease_and_never_resets",
+  "tail": "1 failed, 8 passed, 2 deselected in 0.67s"
+ },
+ {
+  "name": "torn_tail_not_repaired",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_torn_journal_tail_is_recovered_at_launch",
+  "tail": "1 failed, 66 passed, 2 deselected in 37.08s"
+ },
+ {
+  "name": "unterminated_record_accepted",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_complete_but_unterminated_record_is_torn",
+  "tail": "1 failed, 2 passed, 2 deselected in 0.64s"
+ },
+ {
+  "name": "damage_before_valid_accepted",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_damage_before_a_valid_record_is_refused",
+  "tail": "1 failed, 4 passed, 2 deselected in 0.67s"
+ },
+ {
+  "name": "concurrent_writer_allowed",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_second_writer_is_refused_in_process",
+  "tail": "1 failed, 17 passed, 2 deselected in 0.75s"
+ },
+ {
+  "name": "lease_not_written",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_damage_before_a_valid_record_is_refused",
+  "tail": "1 failed, 4 passed, 2 deselected in 0.63s"
+ },
+ {
+  "name": "lease_renewed_only_after_expiry",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_lease_is_durable_before_time_is_used_and_renews_ahead_of_expiry",
+  "tail": "1 failed, 7 passed, 2 deselected in 0.66s"
+ },
+ {
+  "name": "crash_charged_zero",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_lease_is_durable_before_time_is_used_and_renews_ahead_of_expiry",
+  "tail": "1 failed, 7 passed, 2 deselected in 0.67s"
+ },
+ {
+  "name": "clean_end_charged_lease",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_clean_end_charges_measured_time_and_downtime_is_not_charged",
+  "tail": "1 failed, 9 passed, 2 deselected in 0.76s"
+ },
+ {
+  "name": "start_check_strict",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_start_checks_refuse_at_limits_and_completion_rechecks_overruns",
+  "tail": "1 failed, 11 passed, 2 deselected in 0.63s"
+ },
+ {
+  "name": "completion_not_rechecked",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_final_calibration_receives_checks_and_an_overrun_is_incomplete",
+  "tail": "1 failed, 69 passed, 2 deselected in 40.31s"
+ },
+ {
+  "name": "completion_ignores_stop",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_stop_during_the_last_unit_defers_publication",
+  "tail": "1 failed, 70 passed, 2 deselected in 40.05s"
+ },
+ {
+  "name": "training_completion_unchecked",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_last_update_overrunning_the_training_cap_discards_the_generation",
+  "tail": "1 failed, 71 passed, 2 deselected in 41.20s"
+ },
+ {
+  "name": "calibration_check_not_forwarded",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_final_calibration_receives_checks_and_an_overrun_is_incomplete",
+  "tail": "1 failed, 69 passed, 2 deselected in 39.11s"
+ },
+ {
+  "name": "incomplete_not_final",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_final_calibration_receives_checks_and_an_overrun_is_incomplete",
+  "tail": "1 failed, 69 passed, 2 deselected in 38.41s"
+ },
+ {
+  "name": "game_charged_at_completion",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_game_reservation_is_charged_before_play_and_survives_a_crash",
+  "tail": "1 failed, 13 passed, 2 deselected in 0.64s"
+ },
+ {
+  "name": "ceiling_not_enforced",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_game_reservation_is_charged_before_play_and_survives_a_crash",
+  "tail": "1 failed, 13 passed, 2 deselected in 0.65s"
+ },
+ {
+  "name": "prior_training_ignored",
+  "file": "games/connect4/alphazero_v2/launch_control.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_launch_control.py::test_hard_crash_is_charged_through_its_last_lease_and_never_resets",
+  "tail": "1 failed, 8 passed, 2 deselected in 0.57s"
+ },
+ {
+  "name": "selfplay_progress_not_journaled",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_uninterrupted_tiny_campaign_completes",
+  "tail": "1 failed, 74 passed, 2 deselected in 79.51s (0:01:19)"
+ },
+ {
+  "name": "abandoned_game_not_recorded",
+  "file": "games/connect4/alphazero_v2/campaign.py",
+  "status": "KILLED",
+  "first_failure": "FAILED tests/test_alphazero_v2_campaign.py::test_cooperative_stops_resume_without_rerunning_completed_units",
+  "tail": "1 failed, 67 passed, 2 deselected in 35.22s"
+ }
+]
