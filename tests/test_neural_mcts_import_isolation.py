@@ -12,6 +12,7 @@ class BlockNeural(importlib.abc.MetaPathFinder):
     def find_spec(self, fullname, path=None, target=None):
         if (fullname.split('.')[0] in {'torch', 'torchvision', 'torchaudio'}
             or fullname.startswith('games.connect4.dqn.')
+            or fullname.startswith('games.connect4.alphazero_v2')
             or fullname in {'games.connect4.neural_mcts',
                             'games.connect4.agents.mcts_nn_agent',
                             'games.connect4.train_mcts_nn',
