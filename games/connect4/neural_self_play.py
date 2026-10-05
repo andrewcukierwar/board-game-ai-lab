@@ -1,6 +1,6 @@
 """One explicitly launched, bounded CPU neural self-play experiment; inert on import.
 
-No historical initialization, tactical guards, noise or resume support.
+No historical initialization, tactical guards or resume support. Root noise is opt-in.
 Bounds are cooperative: check before every search, move and optimizer update.
 An in-flight operation may finish beyond the deadline; partial games are quarantined.
 """
@@ -70,6 +70,7 @@ CONFIG = dict(seed=42, python_seed=42, numpy_seed=42, torch_seed=42,
               search_seed=42, training_sampling_seed=42, diagnostic_seed=42,
               simulations=32, exploration=1.41, temperature=1.0,
               tactical_guard=False, root_dirichlet_noise=False,
+              root_noise_epsilon=0.0, root_dirichlet_alpha=0.30, root_noise_seed=42,
               horizontal_augmentation=False, horizontal_symmetry_probability=0.0,
               batch_size=32, learning_rate=0.001,
               device="cpu", dtype="float32", intra_op_threads=1, inter_op_threads=1,
@@ -122,6 +123,11 @@ def validate_search(result, game, agent):
     require(result.root.game_state.__dict__ == game.__dict__, "Search root is not the pre-move state")
     require(result.tactical_guard is False and result.guard_applied == "disabled", "Tactical guard used")
     require(result.temperature == 1.0, "Changed target temperature")
+    if hasattr(agent, "root_noise"):
+        require(result.root_noise_epsilon == agent.root_noise.epsilon
+                and result.root_dirichlet_alpha == agent.root_noise.alpha, "Root noise metadata mismatch")
+        require(result.root_prior == tuple(float(result.root.children[a].prior_p)
+                if a in result.root.children else 0.0 for a in range(7)), "Root prior metadata mismatch")
     require(len(result.visits) == 7 and all(type(v) is int and v >= 0 for v in result.visits), "Invalid visits")
     require(sum(result.visits) == result.root.visits == agent.simulation_limit, "Simulation accounting failed")
     require(result.visits == tuple(result.root.children[a].visits if a in result.root.children else 0
@@ -265,6 +271,12 @@ def run_training(trainer, agent, bounds=Bounds(), *, sampling_rng=None,
                 require(example.observation == tuple(tuple(int(c) for c in row) for row in expected)
                         and example.acting_player == actor, "Capture lost pre-move state/player")
                 require(example.outcome is None, "Captured example already labeled")
+                root_priors = result.root_prior_before_noise or tuple(
+                    float(result.root.children[a].prior_p) if a in result.root.children else 0.0
+                    for a in range(7))
+                noisy_priors = result.root_prior or root_priors
+                # Post-search annotations never filter actions or supply learning labels.
+                immediate_wins = MCTSAgent(1)._winning_moves(game)
                 record = dict(event="ply", game=episode["index"], game_ply=len(pending) + 1,
                               actor=actor, action=result.move, observation=example.observation,
                               policy=example.policy, visits=result.visits,
@@ -272,6 +284,14 @@ def run_training(trainer, agent, bounds=Bounds(), *, sampling_rng=None,
                               guard_applied=result.guard_applied, example_sha256=fingerprint(example),
                               policy_target_entropy=entropy(example.policy),
                               raw_policy=prediction.policy, predicted_wdl=prediction.value_probabilities,
+                              legal_moves=game.get_valid_moves(), immediate_wins=immediate_wins,
+                              root_prior_before_noise=root_priors, root_prior=noisy_priors,
+                              root_noise_epsilon=result.root_noise_epsilon,
+                              root_dirichlet_alpha=result.root_dirichlet_alpha,
+                              root_noise_sample=result.root_noise_sample,
+                              root_noise_draw_index=result.root_noise_draw_index,
+                              neural_prior_entropy=entropy(root_priors),
+                              noisy_root_prior_entropy=entropy(noisy_priors),
                               search_seconds=search_seconds)
                 # Release diagnostic trees promptly; only immutable data enters collection.
                 del result
@@ -386,17 +406,21 @@ def diagnostics(inference, *, positions=POSITIONS):
                                       predicted_wdl=legal.value_probabilities, search_seconds=seconds,
                                       tactical_success=result.move in required if required else None,
                                       modal_tactical_success=modal in required if required else None,
-                                      tactical_guard=False, guard_applied=result.guard_applied)))
+                                      tactical_guard=False, guard_applied=result.guard_applied,
+                                      root_noise_epsilon=result.root_noise_epsilon,
+                                      root_prior_before_noise=result.root_prior_before_noise,
+                                      root_prior=result.root_prior)))
     return results
 
 
-def rng_states(search_rng, sampling_rng, augmentation=None):
+def rng_states(search_rng, sampling_rng, augmentation=None, root_noise=None):
     return dict(python=random.getstate(), numpy={
         "algorithm": np.random.get_state()[0], "keys": np.random.get_state()[1].tolist(),
         "position": np.random.get_state()[2], "has_gauss": np.random.get_state()[3],
         "cached_gaussian": np.random.get_state()[4]}, torch=torch.get_rng_state().tolist(),
         search=search_rng.getstate(), training_sampling=sampling_rng.getstate(),
-        **({"augmentation": augmentation.rng_state()} if augmentation is not None else {}))
+        **({"augmentation": augmentation.rng_state()} if augmentation is not None else {}),
+        **({"root_noise": root_noise.rng_state()} if root_noise is not None else {}))
 
 
 def write_json(path, data):
@@ -456,11 +480,15 @@ def main(argv=None):
     parser.add_argument("--output", required=True, type=Path, help="New directory under ignored experiment-output/")
     parser.add_argument("--profile", choices=("pilot", "scaled"), default="pilot")
     parser.add_argument("--horizontal-symmetry-probability", type=float, default=0.0)
+    parser.add_argument("--root-noise-epsilon", type=float, default=0.0)
+    parser.add_argument("--root-dirichlet-alpha", type=float, default=0.30)
     parser.add_argument("--evaluation-baseline", type=Path,
                         help="Explicit canonical checkpoint for evaluation only; never initializes training")
     args = parser.parse_args(argv)
     bounds = Bounds.scaled() if args.profile == "scaled" else Bounds()
     augmentation = SymmetryAugmenter(args.horizontal_symmetry_probability)
+    from .agents.mcts_nn_agent import RootDirichletNoise
+    noise = RootDirichletNoise(args.root_noise_epsilon, args.root_dirichlet_alpha)
     require(args.evaluation_baseline is None or args.profile == "scaled", "Baseline evaluation requires scaled profile")
     root = Path(__file__).resolve().parents[2]
     output = args.output.resolve()
@@ -477,12 +505,14 @@ def main(argv=None):
     np.random.seed(42)
     torch.manual_seed(42)
     search_rng, sampling_rng = random.Random(42), random.Random(42)
-    initialization_rng = rng_states(search_rng, sampling_rng, augmentation)
+    initialization_rng = rng_states(search_rng, sampling_rng, augmentation, noise)
     start = time.monotonic()
     model = Connect4Net().cpu().float().eval()  # Sole initialization; no checkpoint reader here.
     initialization_seconds = time.monotonic() - start
     trainer = NeuralTrainer(model, learning_rate=.001)
-    agent = MCTSNNAgent(model, 32, temperature=1, exploration=1.41, rng=search_rng, tactical_guard=False)
+    agent = MCTSNNAgent(model, 32, temperature=1, exploration=1.41, rng=search_rng, tactical_guard=False,
+                        root_noise_epsilon=noise.epsilon, root_dirichlet_alpha=noise.alpha)
+    noise = agent.root_noise
     if args.profile == "scaled":
         from .neural_evaluation import EVALUATION_CONFIG, SNAPSHOT_GAMES, snapshot, evaluate
         if args.evaluation_baseline is None:
@@ -492,7 +522,10 @@ def main(argv=None):
                 initial_inference = load_checkpoint(args.evaluation_baseline)
     write_json(output / "config.json", dict(config=dict(CONFIG,
                horizontal_augmentation=augmentation.probability > 0,
-               horizontal_symmetry_probability=augmentation.probability), bounds=asdict(bounds),
+               horizontal_symmetry_probability=augmentation.probability,
+               root_dirichlet_noise=noise.epsilon > 0, root_noise_epsilon=noise.epsilon,
+               root_dirichlet_alpha=noise.alpha), bounds=asdict(bounds),
+               root_noise=noise.record(),
                augmentation=augmentation.record(),
                evaluation_models=dict(initial=(dict(path=str(args.evaluation_baseline),
                    sha256=sha256(args.evaluation_baseline)) if args.evaluation_baseline else "fresh untrained"),
@@ -510,7 +543,7 @@ def main(argv=None):
                initial_weights_sha256=hashlib.sha256(b"".join(
                    t.detach().numpy().tobytes() for t in model.state_dict().values())).hexdigest()))
     write_json(output / "rng-initial.json", dict(before_initialization=initialization_rng,
-                                                before_collection=rng_states(search_rng, sampling_rng, augmentation)))
+                                                before_collection=rng_states(search_rng, sampling_rng, augmentation, noise)))
     initial = diagnostics(agent.inference)
     write_json(output / "diagnostics-initial.json", initial)
     if args.profile == "scaled":
@@ -538,7 +571,8 @@ def main(argv=None):
     finally:
         for sig, handler in previous.items():
             signal.signal(sig, handler)
-    write_json(output / "rng-final.json", rng_states(search_rng, sampling_rng, augmentation))
+    write_json(output / "rng-final.json", rng_states(search_rng, sampling_rng, augmentation, noise))
+    report["root_noise"] = noise.record()
     # Failed gate/invariants never lead to more optimization or a candidate.
     if report["status"] == "invariant_failure" or report["smoke_gate"] != "passed":
         report["end_to_end_seconds"] = time.monotonic() - end_to_end

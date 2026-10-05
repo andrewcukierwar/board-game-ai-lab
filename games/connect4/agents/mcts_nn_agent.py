@@ -1,6 +1,7 @@
 """Plain neural PUCT tree, with current-player values and opt-in root tactics."""
 from copy import deepcopy
 from dataclasses import dataclass
+import hashlib
 import math
 import random
 
@@ -87,6 +88,50 @@ def tactical_root_moves(game):
     return game.get_valid_moves(), "none"
 
 
+class RootDirichletNoise:
+    """Private PCG64 stream, independent of search, training and global RNGs.
+
+    One draw per enabled search, in permitted physical-column order. Initial and
+    final bit-generator states plus per-search samples permit exact replay.
+    Disabled noise returns the original priors without normalization or draws.
+    """
+    domain = "connect4-self-play-root-dirichlet-v1"
+
+    def __init__(self, epsilon=0.0, alpha=0.30, *, seed=42):
+        if (type(epsilon) not in (int, float) or not math.isfinite(epsilon)
+                or not 0 <= epsilon <= 1):
+            raise ValueError("root_noise_epsilon must be finite in [0,1]")
+        if type(alpha) not in (int, float) or not math.isfinite(alpha) or alpha <= 0:
+            raise ValueError("root_dirichlet_alpha must be positive and finite")
+        if type(seed) is not int:
+            raise ValueError("root noise seed must be an integer")
+        self.epsilon, self.alpha = float(epsilon), float(alpha)
+        self.seed = seed
+        self.seed_digest = hashlib.sha256(f"{self.domain}:{seed}".encode()).hexdigest()
+        self._rng = np.random.Generator(np.random.PCG64(int(self.seed_digest, 16)))
+        self.draws = 0
+
+    def mix(self, priors, moves):
+        if self.epsilon == 0:
+            return priors, ()
+        noise = np.zeros(7, dtype=np.float64)
+        noise[list(moves)] = self._rng.dirichlet(np.full(len(moves), self.alpha))
+        mixed = (1 - self.epsilon) * np.asarray(priors) + self.epsilon * noise
+        mixed /= mixed.sum()
+        mixed = probability_vector(mixed)
+        self.draws += 1
+        return mixed, tuple(float(p) for p in noise)
+
+    def rng_state(self):
+        return deepcopy(self._rng.bit_generator.state)
+
+    def record(self):
+        return dict(domain=self.domain, seed=self.seed, seed_sha256=self.seed_digest,
+                    seed_integer=str(int(self.seed_digest, 16)), bit_generator="PCG64",
+                    numpy_version=np.__version__, epsilon=self.epsilon, alpha=self.alpha,
+                    draws=self.draws, action_order="permitted physical columns, ascending")
+
+
 @dataclass(frozen=True)
 class SearchResult:
     move: int
@@ -96,6 +141,12 @@ class SearchResult:
     tactical_guard: bool
     guard_applied: str
     root: Node  # Per-call diagnostic tree, never retained by the agent/model.
+    root_noise_epsilon: float = 0.0
+    root_dirichlet_alpha: float = 0.30
+    root_prior_before_noise: tuple[float, ...] = ()
+    root_prior: tuple[float, ...] = ()
+    root_noise_sample: tuple[float, ...] = ()
+    root_noise_draw_index: int | None = None
 
 
 class MCTSNNAgent:
@@ -108,7 +159,8 @@ class MCTSNNAgent:
     independent per-call rng objects. No tree survives a call on this agent.
     """
     def __init__(self, model, simulation_limit=1000, temperature=1.0, *,
-                 exploration=1.41, rng=None, tactical_guard=False):
+                 exploration=1.41, rng=None, tactical_guard=False,
+                 root_noise_epsilon=0.0, root_dirichlet_alpha=0.30, root_noise_seed=42):
         if isinstance(simulation_limit, bool) or not isinstance(simulation_limit, int):
             raise TypeError("simulation_limit must be a positive integer")
         if simulation_limit < 1:
@@ -121,6 +173,8 @@ class MCTSNNAgent:
         self.inference = model if isinstance(model, NeuralInference) else NeuralInference(model)
         self.rng = random.Random() if rng is None else rng
         self.tactical_guard = tactical_guard
+        self.root_noise = RootDirichletNoise(root_noise_epsilon, root_dirichlet_alpha,
+                                            seed=root_noise_seed)
 
     def _expand(self, node, allowed_moves=None):
         prediction = self.inference.predict_legal(node.game_state)
@@ -147,6 +201,12 @@ class MCTSNNAgent:
         allowed, applied = (tactical_root_moves(root.game_state) if self.tactical_guard
                             else (root.game_state.get_valid_moves(), "disabled"))
         self._expand(root, allowed)
+        before_noise = tuple(float(root.children[a].prior_p) if a in root.children else 0.0
+                             for a in range(7))
+        priors, noise_sample = self.root_noise.mix(before_noise, sorted(root.children))
+        if self.root_noise.epsilon > 0:
+            for action, child in root.children.items():
+                child.prior_p = float(priors[action])
         for _ in range(self.simulation_limit):
             node = root
             while node.children:
@@ -161,7 +221,10 @@ class MCTSNNAgent:
         support = [a for a in range(7) if policy[a] > 0]
         move = rng.choices(support, weights=[policy[a] for a in support], k=1)[0]
         return SearchResult(move, tuple(policy), visits, self.temperature,
-                            self.tactical_guard, applied, root)
+                            self.tactical_guard, applied, root,
+                            self.root_noise.epsilon, self.root_noise.alpha, before_noise,
+                            tuple(float(p) for p in priors), noise_sample,
+                            self.root_noise.draws if noise_sample else None)
 
     def choose_move(self, game):
         return self.search(game).move

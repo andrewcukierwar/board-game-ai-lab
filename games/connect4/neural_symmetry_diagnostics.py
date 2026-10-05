@@ -71,7 +71,7 @@ def validate_rows(rows):
     return seen
 
 
-def freeze(path):
+def freeze(path, *, seed=420402, excluded_rows=()):
     from .neural_self_play import position
     from .neural_evaluation import frozen_fixtures
     excluded = set()
@@ -79,7 +79,10 @@ def freeze(path):
         for row in rows:
             key = board_key(position(row['moves']))
             excluded.update((key, reflected_key(key)))
-    rng = random.Random(420402)
+    for row in excluded_rows:
+        key = board_key(position(row['moves']))
+        excluded.update((key, reflected_key(key)))
+    rng = random.Random(seed)
     rows, quotas = [], {(kind,p):0 for kind in ('immediate_win','forced_block') for p in (0,1)}
     examined = 0
     while len(rows) < 96 and examined < 200000:
@@ -109,9 +112,10 @@ def freeze(path):
         excluded.update((key,mirror_key))
     assert len(rows) == 96, 'Unable to fill predeclared quotas'
     validate_rows(rows)
-    payload = dict(format_version=1, seed=420402, positions=rows, examined_prefixes=examined,
+    payload = dict(format_version=1, seed=seed, positions=rows, examined_prefixes=examined,
                    construction='random legal prefixes; 12 unique bases per actor/category plus mirrors',
-                   exclusion='board plus actor; all three old suites and their reflections',
+                   exclusion=('board plus actor; all three old suites and their reflections' if not excluded_rows else
+                              'board plus actor; all three old suites and supplied earlier rows, plus reflections'),
                    labels='independent four-cell window scan; actual-engine/helper cross-check',
                    training_feedback=False, model_blind=True)
     with Path(path).open('x') as stream:
