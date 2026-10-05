@@ -84,6 +84,17 @@ def finalize_examples(examples, completed_game):
     return tuple(result)
 
 
+def reflect_completed_example(example):
+    """Reflect physical columns, preserving the completed actor-relative contract.
+
+    Reconstruct via dataclass validation; neither nested input nor labels change.
+    """
+    if not isinstance(example, TrainingExample) or example.outcome is None:
+        raise ValueError("Reflection requires a completed TrainingExample")
+    return replace(example, observation=tuple(row[::-1] for row in example.observation),
+                   policy=example.policy[::-1])
+
+
 def batch_tensors(examples):
     if not examples or any(example.outcome is None for example in examples):
         raise ValueError("A nonempty batch of completed examples is required")

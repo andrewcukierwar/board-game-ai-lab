@@ -1,6 +1,6 @@
 """One explicitly launched, bounded CPU neural self-play experiment; inert on import.
 
-No historical loads, tactical guards, noise, augmentation or resume support.
+No historical initialization, tactical guards, noise or resume support.
 Bounds are cooperative: check before every search, move and optimizer update.
 An in-flight operation may finish beyond the deadline; partial games are quarantined.
 """
@@ -34,6 +34,7 @@ from .neural_mcts import (
 from .train_mcts_nn import (
     POLICY_TARGET, NeuralTrainer, TrainingExample, capture_example,
     finalize_examples, outcome_for_player,
+    reflect_completed_example,
 )
 
 
@@ -69,7 +70,8 @@ CONFIG = dict(seed=42, python_seed=42, numpy_seed=42, torch_seed=42,
               search_seed=42, training_sampling_seed=42, diagnostic_seed=42,
               simulations=32, exploration=1.41, temperature=1.0,
               tactical_guard=False, root_dirichlet_noise=False,
-              horizontal_augmentation=False, batch_size=32, learning_rate=0.001,
+              horizontal_augmentation=False, horizontal_symmetry_probability=0.0,
+              batch_size=32, learning_rate=0.001,
               device="cpu", dtype="float32", intra_op_threads=1, inter_op_threads=1,
               deterministic_algorithms=True, smoke_games=2,
               updates_per_additional_game=10,
@@ -167,7 +169,40 @@ def label_counts(examples):
     return {str(label): counts[str(label)] for label in (-1, 0, 1)}
 
 
+class SymmetryAugmenter:
+    """Private domain-separated stream; draws only for enabled minibatch samples."""
+    domain = "connect4-completed-horizontal-symmetry-v1"
+
+    def __init__(self, probability=0.0, *, seed=42):
+        require(type(probability) in (int, float) and math.isfinite(probability)
+                and 0 <= probability <= 1, "Symmetry probability must be finite in [0,1]")
+        require(type(seed) is int, "Augmentation seed must be an integer")
+        self.probability = float(probability)
+        self.seed_digest = hashlib.sha256(f"{self.domain}:{seed}".encode()).hexdigest()
+        self._rng = random.Random(int(self.seed_digest, 16))
+        self.transformed = self.untransformed = 0
+
+    def batch(self, examples):
+        require(bool(examples) and all(isinstance(e, TrainingExample) and e.outcome is not None
+                                      for e in examples), "Augmentation requires completed examples")
+        flags = [self.probability > 0 and self._rng.random() < self.probability for _ in examples]
+        batch = [reflect_completed_example(e) if flag else e for e, flag in zip(examples, flags)]
+        self.transformed += sum(flags)
+        self.untransformed += len(flags) - sum(flags)
+        return batch, flags
+
+    def record(self):
+        total = self.transformed + self.untransformed
+        return dict(domain=self.domain, seed_sha256=self.seed_digest, probability=self.probability,
+                    transformed=self.transformed, untransformed=self.untransformed,
+                    observed_rate=self.transformed / total if total else None)
+
+    def rng_state(self):
+        return self._rng.getstate()
+
+
 def run_training(trainer, agent, bounds=Bounds(), *, sampling_rng=None,
+                 horizontal_symmetry_probability=0.0, augmentation=None,
                  clock=time.monotonic, should_stop=lambda: False, emit=lambda event: None,
                  on_snapshot=lambda report: None):
     """Shared model; completed-game collection then persistent-trainer updates only.
@@ -177,6 +212,8 @@ def run_training(trainer, agent, bounds=Bounds(), *, sampling_rng=None,
     The final completed game is recorded before stopping; no updates start at a limit.
     """
     sampling_rng = random.Random(42) if sampling_rng is None else sampling_rng
+    augmentation = (SymmetryAugmenter(horizontal_symmetry_probability) if augmentation is None else augmentation)
+    require(augmentation.probability == horizontal_symmetry_probability, "Augmentation configuration mismatch")
     require(trainer.steps == 0 and not trainer.optimizer.state, "Trainer must be fresh")
     require(agent.inference.model is trainer.model, "Both sides must share the trainer model")
     require((agent.simulation_limit, agent.exploration, agent.temperature, agent.tactical_guard)
@@ -284,13 +321,16 @@ def run_training(trainer, agent, bounds=Bounds(), *, sampling_rng=None,
                     if stop_reason():
                         break
                     indices = sampling_rng.sample(range(len(collection)), 32)
-                    trainer.step([collection[i] for i in indices])
+                    batch, reflected = augmentation.batch([collection[i] for i in indices])
+                    trainer.step(batch)
                     require(trainer.optimizer is optimizer, "Optimizer was replaced")
                     require(trainer.last_metrics is not None and all(
                         math.isfinite(v) for v in trainer.last_metrics.values()), "Nonfinite/missing trainer metrics")
                     metrics = dict(trainer.last_metrics, update=trainer.steps, after_game=report["completed_games"])
                     report["losses"].append(metrics)
                     emit(dict(event="update", **metrics, sampled_indices=indices,
+                              horizontal_reflected=reflected, transformed_samples=sum(reflected),
+                              untransformed_samples=len(reflected)-sum(reflected),
                               elapsed_seconds=clock() - start, peak_memory_mib=memory_peak_mib()))
             episode["update_end"] = trainer.steps
             if bounds.profile == "scaled" and report["completed_games"] in (50, 100, 150):
@@ -304,6 +344,7 @@ def run_training(trainer, agent, bounds=Bounds(), *, sampling_rng=None,
             report["smoke_gate"] = "failed"
     finally:
         report.update(updates=trainer.steps, elapsed_seconds=clock() - start,
+                      augmentation=augmentation.record(),
                       labels=label_counts(collection), labels_by_actor={
                           str(p): label_counts([e for e in collection if e.acting_player == p]) for p in (0, 1)},
                       peak_memory_mib=memory_peak_mib())
@@ -349,12 +390,13 @@ def diagnostics(inference, *, positions=POSITIONS):
     return results
 
 
-def rng_states(search_rng, sampling_rng):
+def rng_states(search_rng, sampling_rng, augmentation=None):
     return dict(python=random.getstate(), numpy={
         "algorithm": np.random.get_state()[0], "keys": np.random.get_state()[1].tolist(),
         "position": np.random.get_state()[2], "has_gauss": np.random.get_state()[3],
         "cached_gaussian": np.random.get_state()[4]}, torch=torch.get_rng_state().tolist(),
-        search=search_rng.getstate(), training_sampling=sampling_rng.getstate())
+        search=search_rng.getstate(), training_sampling=sampling_rng.getstate(),
+        **({"augmentation": augmentation.rng_state()} if augmentation is not None else {}))
 
 
 def write_json(path, data):
@@ -413,8 +455,13 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", required=True, type=Path, help="New directory under ignored experiment-output/")
     parser.add_argument("--profile", choices=("pilot", "scaled"), default="pilot")
+    parser.add_argument("--horizontal-symmetry-probability", type=float, default=0.0)
+    parser.add_argument("--evaluation-baseline", type=Path,
+                        help="Explicit canonical checkpoint for evaluation only; never initializes training")
     args = parser.parse_args(argv)
     bounds = Bounds.scaled() if args.profile == "scaled" else Bounds()
+    augmentation = SymmetryAugmenter(args.horizontal_symmetry_probability)
+    require(args.evaluation_baseline is None or args.profile == "scaled", "Baseline evaluation requires scaled profile")
     root = Path(__file__).resolve().parents[2]
     output = args.output.resolve()
     allowed = (root / "experiment-output").resolve()
@@ -430,7 +477,7 @@ def main(argv=None):
     np.random.seed(42)
     torch.manual_seed(42)
     search_rng, sampling_rng = random.Random(42), random.Random(42)
-    initialization_rng = rng_states(search_rng, sampling_rng)
+    initialization_rng = rng_states(search_rng, sampling_rng, augmentation)
     start = time.monotonic()
     model = Connect4Net().cpu().float().eval()  # Sole initialization; no checkpoint reader here.
     initialization_seconds = time.monotonic() - start
@@ -438,8 +485,18 @@ def main(argv=None):
     agent = MCTSNNAgent(model, 32, temperature=1, exploration=1.41, rng=search_rng, tactical_guard=False)
     if args.profile == "scaled":
         from .neural_evaluation import EVALUATION_CONFIG, SNAPSHOT_GAMES, snapshot, evaluate
-        initial_inference = NeuralInference(deepcopy(model).eval())
-    write_json(output / "config.json", dict(config=CONFIG, bounds=asdict(bounds),
+        if args.evaluation_baseline is None:
+            initial_inference = NeuralInference(deepcopy(model).eval())
+        else:
+            with torch.random.fork_rng(devices=[]):
+                initial_inference = load_checkpoint(args.evaluation_baseline)
+    write_json(output / "config.json", dict(config=dict(CONFIG,
+               horizontal_augmentation=augmentation.probability > 0,
+               horizontal_symmetry_probability=augmentation.probability), bounds=asdict(bounds),
+               augmentation=augmentation.record(),
+               evaluation_models=dict(initial=(dict(path=str(args.evaluation_baseline),
+                   sha256=sha256(args.evaluation_baseline)) if args.evaluation_baseline else "fresh untrained"),
+                   final="new candidate"),
                measurement_protocol=(dict(snapshot_games=SNAPSHOT_GAMES, evaluation=EVALUATION_CONFIG,
                    frozen_labels="previously inspected; measurements only") if args.profile == "scaled" else None),
                checkpoint_contract=CHECKPOINT_CONTRACT, policy_target=POLICY_TARGET,
@@ -453,7 +510,7 @@ def main(argv=None):
                initial_weights_sha256=hashlib.sha256(b"".join(
                    t.detach().numpy().tobytes() for t in model.state_dict().values())).hexdigest()))
     write_json(output / "rng-initial.json", dict(before_initialization=initialization_rng,
-                                                before_collection=rng_states(search_rng, sampling_rng)))
+                                                before_collection=rng_states(search_rng, sampling_rng, augmentation)))
     initial = diagnostics(agent.inference)
     write_json(output / "diagnostics-initial.json", initial)
     if args.profile == "scaled":
@@ -476,11 +533,12 @@ def main(argv=None):
                 print(json.dumps(dict(event="snapshot", games=current['completed_games'],
                                       updates=current['updates'])), flush=True)
             report = run_training(trainer, agent, bounds, sampling_rng=sampling_rng,
+                                  horizontal_symmetry_probability=augmentation.probability, augmentation=augmentation,
                                   should_stop=lambda: stop[0], emit=emit, on_snapshot=on_snapshot)
     finally:
         for sig, handler in previous.items():
             signal.signal(sig, handler)
-    write_json(output / "rng-final.json", rng_states(search_rng, sampling_rng))
+    write_json(output / "rng-final.json", rng_states(search_rng, sampling_rng, augmentation))
     # Failed gate/invariants never lead to more optimization or a candidate.
     if report["status"] == "invariant_failure" or report["smoke_gate"] != "passed":
         report["end_to_end_seconds"] = time.monotonic() - end_to_end
