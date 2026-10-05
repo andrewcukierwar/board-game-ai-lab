@@ -1,0 +1,18 @@
+draw_not_zero                    SURVIVED  failures=0  37 passed, 1 skipped in 86.78s (0:01:26)
+negamax_first_move_ties          KILLED    failures=1  1 failed, 36 passed, 1 skipped in 77.51s (0:01:17)
+solver_bounds_exact              KILLED    failures=3  3 failed, 34 passed, 1 skipped in 74.40s (0:01:14)
+solver_last_move_draw_wrong      KILLED    failures=8  6 failed, 29 passed, 1 skipped, 2 errors in 60.69s (0:01:00)
+solver_forced_ignored            SURVIVED  failures=0  37 passed, 1 skipped in 84.75s (0:01:24)
+scan_safe_ignores_win            SURVIVED  failures=0  37 passed, 1 skipped in 84.58s (0:01:24)
+family_no_reflection             KILLED    failures=1  1 failed, 36 passed, 1 skipped in 81.57s (0:01:21)
+bootstrap_by_game                KILLED    failures=3  3 failed, 34 passed, 1 skipped in 81.56s (0:01:21)
+gate_lower_inclusive             KILLED    failures=1  1 failed, 36 passed, 1 skipped in 83.03s (0:01:23)
+gate_ignores_complete            KILLED    failures=1  1 failed, 36 passed, 1 skipped in 82.35s (0:01:22)
+tactical_no_family_average       SURVIVED  failures=0  37 passed, 1 skipped in 81.42s (0:01:21)
+no_side_swap                     KILLED    failures=1  1 failed, 36 passed, 1 skipped in 82.00s (0:01:21)
+abandoned_scored                 KILLED    failures=1  1 failed, 36 passed, 1 skipped in 82.36s (0:01:22)
+arena_shares_game                KILLED    failures=1  1 failed, 36 passed, 1 skipped in 82.60s (0:01:22)
+package_no_exclusion             SURVIVED  failures=0  37 passed, 1 skipped in 83.31s (0:01:23)
+[["draw_not_zero", "SURVIVED", 0], ["negamax_first_move_ties", "KILLED", 1], ["solver_bounds_exact", "KILLED", 3], ["solver_last_move_draw_wrong", "KILLED", 8], ["solver_forced_ignored", "SURVIVED", 0], ["scan_safe_ignores_win", "SURVIVED", 0], ["family_no_reflection", "KILLED", 1], ["bootstrap_by_game", "KILLED", 3], ["gate_lower_inclusive", "KILLED", 1], ["gate_ignores_complete", "KILLED", 1], ["tactical_no_family_average", "SURVIVED", 0], ["no_side_swap", "KILLED", 1], ["abandoned_scored", "KILLED", 1], ["arena_shares_game", "KILLED", 1], ["package_no_exclusion", "SURVIVED", 0]]
+# Reruns after adding pinning tests:
+scan_safe_ignores_win KILLED 1 | tactical_no_family_average KILLED 1 | package_no_exclusion KILLED 1

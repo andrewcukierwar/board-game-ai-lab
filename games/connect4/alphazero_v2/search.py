@@ -73,6 +73,9 @@ class V2SearchResult:
     root_noise: tuple[float, ...] | None
     root_noise_draw: int | None
     root: Node                       # per-call diagnostic tree
+    max_depth: int = 0               # deepest selected leaf (root children are depth 1)
+    leaf_depth_sum: int = 0          # summed selected-leaf depth over all simulations
+    terminal_leaves: int = 0         # simulations ending at an engine-terminal leaf
 
     @property
     def visit_target(self):
@@ -127,19 +130,26 @@ class PUCTSearch:
             search_prior = tuple(float(p) for p in mixed)
             for action, child in root.children.items():
                 child.prior_p = search_prior[action]
+        max_depth = depth_sum = terminal_leaves = 0
         for _ in range(self.simulations):
-            node = root
+            node, depth = root, 0
             while node.children:
                 node = self._select_child(node, rng)
-            backup(node, terminal_value(node.game_state) if node.game_state.is_game_over()
-                   else self._expand(node).value)
+                depth += 1
+            max_depth, depth_sum = max(max_depth, depth), depth_sum + depth
+            if node.game_state.is_game_over():
+                terminal_leaves += 1
+                backup(node, terminal_value(node.game_state))
+            else:
+                backup(node, self._expand(node).value)
         visits = tuple(root.children[a].visits if a in root.children else 0 for a in range(7))
         if sum(visits) != self.simulations or root.visits != self.simulations:
             raise RuntimeError("Root-edge visit accounting failed")
         return V2SearchResult(visits, self.simulations, prediction.logits, prediction.value,
                               prediction.policy, search_prior,
                               None if noise is None else tuple(float(x) for x in noise),
-                              None if noise is None else root_noise.draws, root)
+                              None if noise is None else root_noise.draws, root,
+                              max_depth, depth_sum, terminal_leaves)
 
 
 @dataclass(frozen=True)

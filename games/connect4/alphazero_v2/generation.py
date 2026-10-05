@@ -7,26 +7,34 @@ generations), (E) run ``ceil(4 * new_positions / batch)`` persistent-AdamW
 updates on uniform replay samples with random reflection, (F) optionally save
 a boundary, (G) the trained learner collects the next generation.
 
-Exact continuation is promised only from a completed boundary, in the same
-runtime (versions/threads). Mid-game or mid-generation state is never saved:
-an interrupted generation is discarded and rerun from the last boundary.
+Exact continuation is promised only from a completed boundary, under an
+identical runtime identity (every field of ``provenance.runtime_identity``) and
+identical execution-source content (``provenance.execution_source_identity``).
+Both are enforced on load by default; a non-strict load is recorded in the
+boundary lineage as not claiming exact continuation. A runner also refuses to
+continue if its runtime or execution sources change while it is alive.
+Mid-game or mid-generation state is never saved: an interrupted generation is
+discarded and rerun from the last boundary.
 Inert on import; no CLI. Running a research campaign needs separate approval.
 """
 from copy import deepcopy
 import hashlib
 from pathlib import Path
-import platform
 import random
-import subprocess
+import time
 
 import numpy as np
 import torch
 
 from ..connect4 import Connect4
 from .artifacts import atomic_torch_save
-from .config import RESUME_CONTRACT, V2Config
+from . import diagnostics
+from .artifacts import file_sha256
+from .config import RESUME_CONTRACT, V2Config, action_temperature
 from .data import (GenerationReplay, ReflectionAugmenter, V2Example, encode_board, finalize_game,
                    pre_move_ply, seeded_rng)
+from .provenance import (execution_source_identity, runtime_differences, runtime_identity,
+                         source_differences, source_identity)
 from .network import (AlphaZeroV2Net, V2Inference, frozen_copy, model_from_state, model_state,
                       save_inference_checkpoint, weights_sha256)
 from .search import SelfPlayer, V2RootNoise
@@ -37,32 +45,18 @@ SEARCH_DOMAIN = "connect4-alphazero-v2-search-ties"
 ACTION_DOMAIN = "connect4-alphazero-v2-action-selection"
 SAMPLING_DOMAIN = "connect4-alphazero-v2-replay-sampling"
 INITIALIZATION_DOMAIN = "connect4-alphazero-v2-model-initialization"
-STRICT_RUNTIME_KEYS = ("python", "torch", "numpy", "machine", "intra_op_threads")
 PAYLOAD_KEYS = {"contract", "config", "counters", "model_state_dict", "optimizer_state_dict",
                 "replay", "rng", "augmentation_counts", "history", "learner_weights_sha256",
-                "state_sha256", "runtime", "source"}
+                "state_sha256", "runtime", "source", "lineage"}
+# Execution sources as imported by this process; disk is re-checked against it.
+PROCESS_EXECUTION_SOURCE = execution_source_identity()
 
 
-def runtime_identity():
-    return dict(python=platform.python_version(), torch=str(torch.__version__), numpy=str(np.__version__),
-                platform=platform.platform(), machine=platform.machine(),
-                intra_op_threads=torch.get_num_threads(), inter_op_threads=torch.get_num_interop_threads(),
-                deterministic_algorithms=torch.are_deterministic_algorithms_enabled())
-
-
-def source_identity():
-    """Best-effort code identity; None fields when git is unavailable."""
-    root = Path(__file__).resolve().parents[3]
-
-    def git(*args):
-        try:
-            return subprocess.run(["git", "-C", str(root), *args], capture_output=True, text=True,
-                                  timeout=10, check=True).stdout
-        except (OSError, subprocess.SubprocessError):
-            return None
-    commit, status = git("rev-parse", "HEAD"), git("status", "--porcelain=v1")
-    return dict(commit=commit.strip() if commit else None,
-                dirty=None if status is None else bool(status.strip()))
+def check_process_sources():
+    """Raise if any execution source changed on disk since this process imported it."""
+    changed = source_differences(PROCESS_EXECUTION_SOURCE, execution_source_identity())
+    if changed:
+        raise RuntimeError(f"Execution sources changed on disk since import: {changed}")
 
 
 def _python_rng_state(rng_state):
@@ -108,8 +102,12 @@ def _update_digest(digest, value):
         digest.update(repr(value).encode())
 
 
-def rebuild_game(generation, index, moves, visits, temperatures, winner, simulations):
-    """Reconstruct a stored game's examples by legal replay, then re-finalize it."""
+def rebuild_game(generation, index, moves, visits, temperatures, winner, simulations, exploratory_plies):
+    """Reconstruct a stored game's examples by legal replay, then re-finalize it.
+
+    Also checks the declared self-play execution: each stored action temperature
+    follows the ply schedule and a tau=0 action is a maximum-visit action.
+    """
     if not len(moves) == len(visits) == len(temperatures):
         raise ValueError("Stored game arrays differ in length")
     if any(sum(counts) != simulations for counts in visits):
@@ -118,6 +116,10 @@ def rebuild_game(generation, index, moves, visits, temperatures, winner, simulat
     for move, counts, temperature in zip(moves, visits, temperatures):
         if game.is_game_over():
             raise ValueError("Stored history continues after termination")
+        if float(temperature) != action_temperature(pre_move_ply(game), exploratory_plies):
+            raise ValueError("Stored action temperature disagrees with the self-play schedule")
+        if float(temperature) == 0 and counts[int(move)] != max(counts):
+            raise ValueError("Stored tau=0 action is not a maximum-visit action")
         pending.append(V2Example(encode_board(game), game.current_player, pre_move_ply(game),
                                  tuple(int(v) for v in counts), int(move), float(temperature)))
         if not game.make_move(int(move)):
@@ -128,6 +130,14 @@ def rebuild_game(generation, index, moves, visits, temperatures, winner, simulat
     return completed
 
 
+def initial_model(seed):
+    """Fresh, seed-determined initialization (never v1 weights); global RNG untouched."""
+    init_seed = int(hashlib.sha256(f"{INITIALIZATION_DOMAIN}:{seed}".encode()).hexdigest(), 16) % 2 ** 63
+    with torch.random.fork_rng(devices=[]):
+        torch.manual_seed(init_seed)
+        return AlphaZeroV2Net().eval()
+
+
 class GenerationRunner:
     """Owns the learner, persistent trainer, replay window and every RNG stream."""
 
@@ -135,14 +145,14 @@ class GenerationRunner:
         if not isinstance(config, V2Config):
             raise ValueError("GenerationRunner requires a V2Config")
         self.config = config
-        init_seed = int(hashlib.sha256(f"{INITIALIZATION_DOMAIN}:{config.seed}".encode()).hexdigest(), 16) % 2 ** 63
-        with torch.random.fork_rng(devices=[]):  # Fresh initialization only; never v1 weights.
-            torch.manual_seed(init_seed)
-            model = AlphaZeroV2Net().eval()
-        self._install(model)
+        self._install(initial_model(config.seed))
 
     def _install(self, model):
         config = self.config
+        check_process_sources()
+        # Pinned for the runner's lifetime; every generation and boundary must match.
+        self.runtime = runtime_identity()
+        self.lineage = []
         self.model = model
         self.trainer = V2Trainer(model, config)
         self._optimizer = self.trainer.optimizer  # Persistent across every generation.
@@ -159,19 +169,30 @@ class GenerationRunner:
 
     # Lifecycle -------------------------------------------------------------
 
-    def run_generation(self, boundary_directory=None):
+    def run_generation(self, boundary_directory=None, *, check=None):
+        """Run one complete generation; ``check()`` runs before every search and update.
+
+        ``check`` may raise (budget exhausted, stop requested): the generation is
+        then discarded exactly like any other interruption. The returned summary
+        is the deterministic history entry plus non-deterministic ``resources``.
+        """
         if self.failed:
             raise RuntimeError("Runner failed mid-generation; resume from the last valid boundary")
         if self.completed_generations >= self.config.max_generations:
             raise RuntimeError("Configured max_generations already completed")
+        self.check_runtime_and_sources()
         config, generation = self.config, self.completed_generations + 1
         try:
             self.phase = "collecting"
+            started = time.perf_counter()
             learner_hash, steps_before = weights_sha256(self.model), self.trainer.steps
             snapshot = frozen_copy(self.model)
             player = SelfPlayer(V2Inference(snapshot), config, search_rng=self.search_rng,
                                 action_rng=self.action_rng, root_noise=self.root_noise)
-            games = collect_generation(player, generation, config.games_per_generation)
+            observer = diagnostics.CollectionObserver()
+            games = collect_generation(player, generation, config.games_per_generation, check=check,
+                                       observer=observer)
+            collected = time.perf_counter()
             if (len(games) != config.games_per_generation or self.trainer.steps != steps_before
                     or weights_sha256(self.model) != learner_hash or weights_sha256(snapshot) != learner_hash):
                 raise RuntimeError("Learner or snapshot changed during collection")
@@ -180,9 +201,12 @@ class GenerationRunner:
 
             self.phase = "training"
             reflected_before = self.augmenter.reflected
-            metrics = []
+            metrics, addresses = [], []
             for _ in range(config.updates_for(new_positions)):
-                _, batch = self.replay.sample(config.batch_size, self.sampling_rng)
+                if check is not None:
+                    check()
+                positions, batch = self.replay.sample(config.batch_size, self.sampling_rng)
+                addresses.extend(self.replay.address(p) for p in positions)
                 batch, _ = self.augmenter.batch(batch)
                 metrics.append(self.trainer.step(batch))
                 if self.trainer.optimizer is not self._optimizer:
@@ -207,16 +231,30 @@ class GenerationRunner:
                 mean_combined_loss=_mean(m["combined_loss"] for m in metrics),
                 max_gradient_norm=max(m["gradient_norm"] for m in metrics),
                 clipped_updates=sum(m["clipped"] for m in metrics),
-                learner_weights_sha256=weights_sha256(self.model))
+                learner_weights_sha256=weights_sha256(self.model),
+                diagnostics=dict(search=observer.deterministic(), games=diagnostics.game_diagnostics(games),
+                                 replay=diagnostics.replay_diagnostics(self.replay),
+                                 sampling=diagnostics.sampling_diagnostics(addresses, generation),
+                                 gradients=diagnostics.gradient_diagnostics(metrics)))
             self.history.append(summary)
             self.phase = "idle"
         except BaseException:
             self.failed, self.phase = True, "failed"
             raise
+        finished = time.perf_counter()
         result = deepcopy(summary)
+        result["resources"] = dict(observer.resources(), collection_seconds=collected - started,
+                                   training_seconds=finished - collected, peak_rss_mib=diagnostics.peak_rss_mib())
         if boundary_directory is not None:
             result["artifacts"] = self.save_boundary(boundary_directory)
         return result
+
+    def check_runtime_and_sources(self):
+        """Refuse to continue after any change of runtime identity or execution sources."""
+        changed = runtime_differences(self.runtime, runtime_identity())
+        if changed:
+            raise RuntimeError(f"Runtime identity changed while the runner was alive: {changed}")
+        check_process_sources()
 
     # Boundary state ----------------------------------------------------------
 
@@ -266,13 +304,15 @@ class GenerationRunner:
     def boundary_payload(self):
         if self.failed or self.phase != "idle":
             raise RuntimeError("Boundaries exist only between completed generations")
+        self.check_runtime_and_sources()
         return dict(contract=deepcopy(RESUME_CONTRACT), config=self.config.to_dict(),
                     counters=self._counters(), model_state_dict=model_state(self.model),
                     optimizer_state_dict=deepcopy(self.trainer.optimizer.state_dict()),
                     replay=self._replay_payload(), rng=self._rng_payload(),
                     augmentation_counts=self._augmentation_counts(), history=deepcopy(self.history),
                     learner_weights_sha256=weights_sha256(self.model), state_sha256=self.state_sha256(),
-                    runtime=runtime_identity(), source=source_identity())
+                    runtime=deepcopy(self.runtime), source=source_identity(PROCESS_EXECUTION_SOURCE),
+                    lineage=deepcopy(self.lineage))
 
     def save_resume_boundary(self, path):
         payload = self.boundary_payload()
@@ -298,19 +338,31 @@ def _mean(values):
     return sum(values) / len(values)
 
 
-def load_resume_boundary(path, *, strict_runtime=True, restore_global_rng=True):
+def load_resume_boundary(path, *, strict_runtime=True, strict_source=True, restore_global_rng=True,
+                         expected_sha256=None):
     """Restore a runner exactly at a completed generation boundary.
 
     Weights-only CPU load. Rejects inference/v1 artifacts, changed contracts,
-    replay or state digests and (by default) a different runtime identity.
+    replay or state digests, an unexpected file hash and, by default, any
+    runtime-identity or execution-source difference. A non-strict load records
+    the differences in ``runner.lineage`` and does not claim exact continuation.
     Restores process-global Python/NumPy/torch RNGs unless told not to.
     """
+    loaded_sha256 = file_sha256(path)
+    if expected_sha256 is not None and loaded_sha256 != expected_sha256:
+        raise ValueError("Resume boundary file hash differs from the expected manifest hash")
     payload = torch.load(path, map_location="cpu", weights_only=True)
     if not isinstance(payload, dict) or set(payload) != PAYLOAD_KEYS or payload["contract"] != RESUME_CONTRACT:
         raise ValueError("Expected an AlphaZero v2 resume boundary")
-    runtime = runtime_identity()
-    if strict_runtime and any(payload["runtime"][k] != runtime[k] for k in STRICT_RUNTIME_KEYS):
-        raise ValueError("Runtime identity differs; exact continuation is not promised")
+    runtime_changes = runtime_differences(payload["runtime"], runtime_identity())
+    if strict_runtime and runtime_changes:
+        raise ValueError(f"Runtime identity differs; exact continuation is not promised: {runtime_changes}")
+    check_process_sources()
+    source_changes = source_differences(payload["source"]["execution"], PROCESS_EXECUTION_SOURCE)
+    if payload["source"]["execution"].get("sha256") != PROCESS_EXECUTION_SOURCE["sha256"] and not source_changes:
+        source_changes = ["<combined digest>"]
+    if strict_source and source_changes:
+        raise ValueError(f"Execution source identity differs; exact continuation is not promised: {source_changes}")
     config = V2Config.from_dict(payload["config"])
     runner = GenerationRunner.__new__(GenerationRunner)
     runner.config = config
@@ -322,7 +374,8 @@ def load_resume_boundary(path, *, strict_runtime=True, restore_global_rng=True):
             raise ValueError("Optimizer hyperparameters disagree with config")
     for stored in payload["replay"]["generations"]:
         games = tuple(rebuild_game(stored["generation"], g["index"], g["moves"], g["visits"],
-                                   g["action_temperatures"], g["winner"], config.self_play_simulations)
+                                   g["action_temperatures"], g["winner"], config.self_play_simulations,
+                                   config.exploratory_plies)
                       for g in stored["games"])
         runner.replay.add_generation(stored["generation"], games)
     if runner.replay.digest() != payload["replay"]["digest"]:
@@ -331,6 +384,9 @@ def load_resume_boundary(path, *, strict_runtime=True, restore_global_rng=True):
     runner.completed_generations = counters["completed_generations"]
     runner.total_games, runner.total_positions = counters["total_games"], counters["total_positions"]
     runner.trainer.steps = counters["trainer_steps"]
+    optimizer_steps = {int(state["step"]) for state in runner.trainer.optimizer.state.values()}
+    if optimizer_steps != ({runner.trainer.steps} if runner.trainer.steps else set()):
+        raise ValueError("Optimizer step state disagrees with the trainer step counter")
     runner.history = deepcopy(payload["history"])
     rng = payload["rng"]
     runner.search_rng.setstate(_python_rng_tuple(rng["search"]))
@@ -344,6 +400,11 @@ def load_resume_boundary(path, *, strict_runtime=True, restore_global_rng=True):
         raise ValueError("Learner weight digest mismatch")
     if runner.state_sha256() != payload["state_sha256"]:
         raise ValueError("Boundary state digest mismatch")
+    runner.lineage = deepcopy(payload["lineage"]) + [dict(
+        loaded_file_sha256=loaded_sha256, loaded_state_sha256=payload["state_sha256"],
+        completed_generations=runner.completed_generations, strict_runtime=strict_runtime,
+        strict_source=strict_source, runtime_differences=runtime_changes, source_differences=source_changes,
+        exact_continuation_claimed=not runtime_changes and not source_changes)]
     if restore_global_rng:
         random.setstate(_python_rng_tuple(rng["python"]))
         numpy_state = rng["numpy"]

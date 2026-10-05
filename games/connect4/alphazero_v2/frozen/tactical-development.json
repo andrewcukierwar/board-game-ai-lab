@@ -1,0 +1,9936 @@
+{
+ "format": "connect4-alphazero-v2-evaluation-package",
+ "format_version": 1,
+ "kind": "tactical",
+ "metadata": {
+  "achieved_bases": {
+   "unique_safe/o": 25,
+   "unique_safe/x": 25,
+   "unique_win/o": 25,
+   "unique_win/x": 25
+  },
+  "build_seed": 4303002,
+  "created_utc": "2026-10-05T18:16:51.021065+00:00",
+  "dedupe": "reflection family of (board, actor); transpositions share a board",
+  "exclusions": {
+   "families": 296,
+   "sources": [
+    {
+     "families": 30,
+     "name": "dqn_diagnostic",
+     "path": "games/connect4/dqn/diagnostic_positions.json",
+     "rows": 60,
+     "sha256": "ec99e0ee080370ab8cfc678c00a49ff552466de73ffe0955778ac87ee340543a"
+    },
+    {
+     "families": 48,
+     "name": "dqn_validation",
+     "path": "games/connect4/dqn/validation_positions.json",
+     "rows": 96,
+     "sha256": "1c79db45a09e00a8e8806448362eb319b5e9c81e431de03c7b5ece8b2d04bb2f"
+    },
+    {
+     "families": 48,
+     "name": "dqn_replication",
+     "path": "games/connect4/dqn/replication_positions.json",
+     "rows": 96,
+     "sha256": "8e63fd8be0419ddb4daf83ae226362f26999dced321617900938d61a60efb7da"
+    },
+    {
+     "families": 48,
+     "name": "phase4d2c_blind",
+     "path": "experiment-output/phase4d2c-neural-symmetry-seed42-20261005/preflight/blind-positions.json",
+     "rows": 96,
+     "sha256": "ba31268418872fb2b5d89879d48fa644cd8cb576db0b6fd2d80d1af41f3727d5"
+    },
+    {
+     "families": 48,
+     "name": "phase4d2d_blind",
+     "path": "experiment-output/phase4d2d-neural-root-noise-preflight-20261005/blind-positions.json",
+     "rows": 96,
+     "sha256": "53775d757c268fc76cb51e429679693b26fa2e11bcf11918be84ba0db11986cc"
+    },
+    {
+     "families": 64,
+     "name": "phase4d2f_exact_value_blind",
+     "path": "experiment-output/phase4d2f-neural-value-anchoring-preflight-20261005/exact-value-blind.json",
+     "rows": 128,
+     "sha256": "53a8bf0d9c99d16e165a08505cd651545a73f18dd4db195b51cd599dca3b89b0"
+    },
+    {
+     "families": 9,
+     "name": "original_probes",
+     "path": null,
+     "rows": 9,
+     "sha256": "e5a6f6fce1cb4f737bc05ab4f80d4d126d0bc58317cb0c5ec42cba0615760a7b"
+    },
+    {
+     "families": 3,
+     "name": "historical_openings",
+     "path": null,
+     "rows": 6,
+     "sha256": "c4204dc489497ebd48d83f90665f62a874bfca441c9dd611caafbe03ee87b35b"
+    }
+   ]
+  },
+  "generator": {
+   "rule": "per game a seeded style; each move uniform random with the style probability, else reference Negamax at a seeded style depth with seeded ties; self-symmetric boards excluded",
+   "styles": [
+    {
+     "name": "tactical",
+     "negamax_depths": [
+      1,
+      2
+     ],
+     "random_probability": 0.4
+    },
+    {
+     "name": "positional",
+     "negamax_depths": [
+      2,
+      4
+     ],
+     "random_probability": 0.1
+    }
+   ]
+  },
+  "labels": "unique immediate win or unique one-reply safe response; engine successor labels and an independent grid scan must agree on every row (both orientations)",
+  "model_blind": true,
+  "quota_bases_per_category_actor": 25,
+  "split_rule": "sealed quotas filled first from the shuffled pool, then development; disjoint families",
+  "stages": [
+   [
+    "early",
+    6,
+    13
+   ],
+   [
+    "middle",
+    14,
+    23
+   ],
+   [
+    "late",
+    24,
+    41
+   ]
+  ],
+  "stats": {
+   "examined": 894,
+   "games": 557
+  },
+  "training_feedback": false
+ },
+ "rows": [
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 1,
+   "family": "development-unique_win-x-000",
+   "id": "development-unique_win-x-000-base",
+   "immediate_wins": [
+    1
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    4,
+    0,
+    3,
+    5,
+    2,
+    4
+   ],
+   "opponent_threats": [],
+   "ply": 6,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 5,
+   "family": "development-unique_win-x-000",
+   "id": "development-unique_win-x-000-mirror",
+   "immediate_wins": [
+    5
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    2,
+    6,
+    3,
+    1,
+    4,
+    2
+   ],
+   "opponent_threats": [],
+   "ply": 6,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_win-x-001",
+   "id": "development-unique_win-x-001-base",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    4,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    6,
+    4,
+    3,
+    4,
+    6,
+    6,
+    6,
+    0,
+    0,
+    2,
+    1,
+    1,
+    5
+   ],
+   "opponent_threats": [],
+   "ply": 22,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_win-x-001",
+   "id": "development-unique_win-x-001-mirror",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    2,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    2,
+    0,
+    2,
+    3,
+    2,
+    0,
+    0,
+    0,
+    6,
+    6,
+    4,
+    5,
+    5,
+    1
+   ],
+   "opponent_threats": [],
+   "ply": 22,
+   "safe_actions": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_win-x-002",
+   "id": "development-unique_win-x-002-base",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    5,
+    4,
+    4,
+    4,
+    5,
+    5,
+    2,
+    5,
+    4,
+    5,
+    5,
+    1,
+    4,
+    0,
+    1,
+    1,
+    1,
+    4,
+    1,
+    2,
+    2,
+    2
+   ],
+   "opponent_threats": [],
+   "ply": 28,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_win-x-002",
+   "id": "development-unique_win-x-002-mirror",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    2,
+    2,
+    2,
+    1,
+    1,
+    4,
+    1,
+    2,
+    1,
+    1,
+    5,
+    2,
+    6,
+    5,
+    5,
+    5,
+    2,
+    5,
+    4,
+    4,
+    4
+   ],
+   "opponent_threats": [],
+   "ply": 28,
+   "safe_actions": [
+    0,
+    4,
+    5,
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 0,
+   "family": "development-unique_win-x-003",
+   "id": "development-unique_win-x-003-base",
+   "immediate_wins": [
+    0
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    1,
+    5,
+    3,
+    2,
+    3,
+    2,
+    6,
+    3,
+    2,
+    2,
+    3,
+    6,
+    1,
+    3
+   ],
+   "opponent_threats": [],
+   "ply": 14,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 6,
+   "family": "development-unique_win-x-003",
+   "id": "development-unique_win-x-003-mirror",
+   "immediate_wins": [
+    6
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    5,
+    1,
+    3,
+    4,
+    3,
+    4,
+    0,
+    3,
+    4,
+    4,
+    3,
+    0,
+    5,
+    3
+   ],
+   "opponent_threats": [],
+   "ply": 14,
+   "safe_actions": [
+    0,
+    1,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 3,
+   "family": "development-unique_win-x-004",
+   "id": "development-unique_win-x-004-base",
+   "immediate_wins": [
+    3
+   ],
+   "legal": [
+    3,
+    5,
+    6
+   ],
+   "moves": [
+    0,
+    2,
+    2,
+    2,
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    5,
+    1,
+    0,
+    0,
+    3,
+    0,
+    4,
+    6,
+    0,
+    4,
+    4,
+    5,
+    6,
+    4,
+    4,
+    4,
+    0,
+    2,
+    1,
+    6,
+    5,
+    3,
+    3,
+    3
+   ],
+   "opponent_threats": [],
+   "ply": 34,
+   "safe_actions": [
+    3,
+    5,
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 3,
+   "family": "development-unique_win-x-004",
+   "id": "development-unique_win-x-004-mirror",
+   "immediate_wins": [
+    3
+   ],
+   "legal": [
+    0,
+    1,
+    3
+   ],
+   "moves": [
+    6,
+    4,
+    4,
+    4,
+    4,
+    4,
+    5,
+    5,
+    5,
+    5,
+    1,
+    5,
+    6,
+    6,
+    3,
+    6,
+    2,
+    0,
+    6,
+    2,
+    2,
+    1,
+    0,
+    2,
+    2,
+    2,
+    6,
+    4,
+    5,
+    0,
+    1,
+    3,
+    3,
+    3
+   ],
+   "opponent_threats": [],
+   "ply": 34,
+   "safe_actions": [
+    0,
+    1,
+    3
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 6,
+   "family": "development-unique_win-x-005",
+   "id": "development-unique_win-x-005-base",
+   "immediate_wins": [
+    6
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    5,
+    2,
+    2,
+    2,
+    2,
+    4,
+    3,
+    2,
+    5,
+    4,
+    4,
+    3,
+    4,
+    3,
+    3,
+    4
+   ],
+   "opponent_threats": [],
+   "ply": 16,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 0,
+   "family": "development-unique_win-x-005",
+   "id": "development-unique_win-x-005-mirror",
+   "immediate_wins": [
+    0
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    1,
+    4,
+    4,
+    4,
+    4,
+    2,
+    3,
+    4,
+    1,
+    2,
+    2,
+    3,
+    2,
+    3,
+    3,
+    2
+   ],
+   "opponent_threats": [],
+   "ply": 16,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 0,
+   "family": "development-unique_win-x-006",
+   "id": "development-unique_win-x-006-base",
+   "immediate_wins": [
+    0
+   ],
+   "legal": [
+    0,
+    4,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    2,
+    1,
+    1,
+    3,
+    1,
+    0,
+    1,
+    1,
+    3,
+    5,
+    2,
+    2,
+    5,
+    5,
+    5,
+    5,
+    5,
+    1,
+    6,
+    6,
+    6,
+    6,
+    6,
+    2,
+    2,
+    2,
+    0,
+    0
+   ],
+   "opponent_threats": [],
+   "ply": 32,
+   "safe_actions": [
+    0,
+    4,
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 6,
+   "family": "development-unique_win-x-006",
+   "id": "development-unique_win-x-006-mirror",
+   "immediate_wins": [
+    6
+   ],
+   "legal": [
+    0,
+    2,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    4,
+    5,
+    5,
+    3,
+    5,
+    6,
+    5,
+    5,
+    3,
+    1,
+    4,
+    4,
+    1,
+    1,
+    1,
+    1,
+    1,
+    5,
+    0,
+    0,
+    0,
+    0,
+    0,
+    4,
+    4,
+    4,
+    6,
+    6
+   ],
+   "opponent_threats": [],
+   "ply": 32,
+   "safe_actions": [
+    0,
+    2,
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 0,
+   "family": "development-unique_win-x-007",
+   "id": "development-unique_win-x-007-base",
+   "immediate_wins": [
+    0
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    4,
+    4,
+    3,
+    3,
+    4,
+    6,
+    3,
+    1,
+    4,
+    2,
+    5
+   ],
+   "opponent_threats": [],
+   "ply": 12,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 6,
+   "family": "development-unique_win-x-007",
+   "id": "development-unique_win-x-007-mirror",
+   "immediate_wins": [
+    6
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    2,
+    2,
+    3,
+    3,
+    2,
+    0,
+    3,
+    5,
+    2,
+    4,
+    1
+   ],
+   "opponent_threats": [],
+   "ply": 12,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_win-x-008",
+   "id": "development-unique_win-x-008-base",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    1,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    5,
+    2,
+    2,
+    2,
+    2,
+    2,
+    5,
+    5,
+    5,
+    2,
+    3,
+    3,
+    3,
+    3,
+    6,
+    3
+   ],
+   "opponent_threats": [],
+   "ply": 16,
+   "safe_actions": [
+    0,
+    1,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_win-x-008",
+   "id": "development-unique_win-x-008-mirror",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    6
+   ],
+   "moves": [
+    1,
+    4,
+    4,
+    4,
+    4,
+    4,
+    1,
+    1,
+    1,
+    4,
+    3,
+    3,
+    3,
+    3,
+    0,
+    3
+   ],
+   "opponent_threats": [],
+   "ply": 16,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 1,
+   "family": "development-unique_win-x-009",
+   "id": "development-unique_win-x-009-base",
+   "immediate_wins": [
+    1
+   ],
+   "legal": [
+    1,
+    4,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    4,
+    4,
+    4,
+    4,
+    2,
+    2,
+    2,
+    2,
+    4,
+    2,
+    0,
+    0,
+    0,
+    0,
+    6,
+    0,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    1,
+    6,
+    6,
+    1,
+    1,
+    0,
+    1
+   ],
+   "opponent_threats": [],
+   "ply": 36,
+   "safe_actions": [
+    1,
+    4,
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 5,
+   "family": "development-unique_win-x-009",
+   "id": "development-unique_win-x-009-mirror",
+   "immediate_wins": [
+    5
+   ],
+   "legal": [
+    0,
+    2,
+    5
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    2,
+    2,
+    2,
+    2,
+    4,
+    4,
+    4,
+    4,
+    2,
+    4,
+    6,
+    6,
+    6,
+    6,
+    0,
+    6,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    5,
+    0,
+    0,
+    5,
+    5,
+    6,
+    5
+   ],
+   "opponent_threats": [],
+   "ply": 36,
+   "safe_actions": [
+    0,
+    2,
+    5
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 5,
+   "family": "development-unique_win-x-010",
+   "id": "development-unique_win-x-010-base",
+   "immediate_wins": [
+    5
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    5,
+    4,
+    4,
+    4,
+    4,
+    5,
+    6,
+    2,
+    2,
+    1,
+    4,
+    5,
+    5,
+    1
+   ],
+   "opponent_threats": [],
+   "ply": 20,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 1,
+   "family": "development-unique_win-x-010",
+   "id": "development-unique_win-x-010-mirror",
+   "immediate_wins": [
+    1
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    2,
+    2,
+    2,
+    2,
+    1,
+    0,
+    4,
+    4,
+    5,
+    2,
+    1,
+    1,
+    5
+   ],
+   "opponent_threats": [],
+   "ply": 20,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 1,
+   "family": "development-unique_win-x-011",
+   "id": "development-unique_win-x-011-base",
+   "immediate_wins": [
+    1
+   ],
+   "legal": [
+    1
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    4,
+    2,
+    2,
+    2,
+    4,
+    4,
+    4,
+    4,
+    2,
+    0,
+    1,
+    4,
+    0,
+    0,
+    0,
+    0,
+    2,
+    0,
+    6,
+    6,
+    6,
+    6,
+    6,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    6,
+    1
+   ],
+   "opponent_threats": [],
+   "ply": 38,
+   "safe_actions": [
+    1
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 5,
+   "family": "development-unique_win-x-011",
+   "id": "development-unique_win-x-011-mirror",
+   "immediate_wins": [
+    5
+   ],
+   "legal": [
+    5
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    2,
+    4,
+    4,
+    4,
+    2,
+    2,
+    2,
+    2,
+    4,
+    6,
+    5,
+    2,
+    6,
+    6,
+    6,
+    6,
+    4,
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    5
+   ],
+   "opponent_threats": [],
+   "ply": 38,
+   "safe_actions": [
+    5
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 2,
+   "family": "development-unique_win-x-012",
+   "id": "development-unique_win-x-012-base",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    5,
+    4,
+    4,
+    4,
+    1,
+    4,
+    4,
+    5,
+    6,
+    2,
+    4,
+    2,
+    1,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 20,
+   "safe_actions": [
+    2
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 4,
+   "family": "development-unique_win-x-012",
+   "id": "development-unique_win-x-012-mirror",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    2,
+    2,
+    2,
+    5,
+    2,
+    2,
+    1,
+    0,
+    4,
+    2,
+    4,
+    5,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 20,
+   "safe_actions": [
+    4
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 4,
+   "family": "development-unique_win-x-013",
+   "id": "development-unique_win-x-013-base",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    1,
+    4,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    2,
+    3,
+    3,
+    4,
+    2,
+    2,
+    2,
+    6,
+    5,
+    5,
+    5,
+    2,
+    5,
+    5,
+    3,
+    6,
+    6,
+    5,
+    2,
+    0,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 24,
+   "safe_actions": [
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 2,
+   "family": "development-unique_win-x-013",
+   "id": "development-unique_win-x-013-mirror",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    0,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    4,
+    3,
+    3,
+    2,
+    4,
+    4,
+    4,
+    0,
+    1,
+    1,
+    1,
+    4,
+    1,
+    1,
+    3,
+    0,
+    0,
+    1,
+    4,
+    6,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 24,
+   "safe_actions": [
+    2
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 0,
+   "family": "development-unique_win-x-014",
+   "id": "development-unique_win-x-014-base",
+   "immediate_wins": [
+    0
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    4,
+    3,
+    3,
+    2,
+    4,
+    1,
+    2
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 10,
+   "safe_actions": [
+    0,
+    1
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 6,
+   "family": "development-unique_win-x-014",
+   "id": "development-unique_win-x-014-mirror",
+   "immediate_wins": [
+    6
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    2,
+    3,
+    3,
+    4,
+    2,
+    5,
+    4
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 10,
+   "safe_actions": [
+    5,
+    6
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 5,
+   "family": "development-unique_win-x-015",
+   "id": "development-unique_win-x-015-base",
+   "immediate_wins": [
+    5
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    6,
+    6,
+    3,
+    3,
+    0,
+    3,
+    0,
+    3,
+    6,
+    6,
+    3,
+    0,
+    4,
+    4
+   ],
+   "opponent_threats": [],
+   "ply": 14,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 1,
+   "family": "development-unique_win-x-015",
+   "id": "development-unique_win-x-015-mirror",
+   "immediate_wins": [
+    1
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    0,
+    0,
+    3,
+    3,
+    6,
+    3,
+    6,
+    3,
+    0,
+    0,
+    3,
+    6,
+    2,
+    2
+   ],
+   "opponent_threats": [],
+   "ply": 14,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_win-x-016",
+   "id": "development-unique_win-x-016-base",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    6,
+    3,
+    3,
+    3,
+    3,
+    3,
+    6,
+    6,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    6,
+    6,
+    0,
+    0,
+    0,
+    2
+   ],
+   "opponent_threats": [],
+   "ply": 24,
+   "safe_actions": [
+    2,
+    4,
+    5,
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_win-x-016",
+   "id": "development-unique_win-x-016-mirror",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    4
+   ],
+   "moves": [
+    3,
+    0,
+    3,
+    3,
+    3,
+    3,
+    3,
+    0,
+    0,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    6,
+    6,
+    6,
+    0,
+    0,
+    6,
+    6,
+    6,
+    4
+   ],
+   "opponent_threats": [],
+   "ply": 24,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 0,
+   "family": "development-unique_win-x-017",
+   "id": "development-unique_win-x-017-base",
+   "immediate_wins": [
+    0
+   ],
+   "legal": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    2,
+    0,
+    2,
+    2,
+    4,
+    3,
+    2,
+    4,
+    1,
+    1,
+    4,
+    1,
+    0,
+    1,
+    1
+   ],
+   "opponent_threats": [],
+   "ply": 22,
+   "safe_actions": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 6,
+   "family": "development-unique_win-x-017",
+   "id": "development-unique_win-x-017-mirror",
+   "immediate_wins": [
+    6
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    6,
+    4,
+    4,
+    2,
+    3,
+    4,
+    2,
+    5,
+    5,
+    2,
+    5,
+    6,
+    5,
+    5
+   ],
+   "opponent_threats": [],
+   "ply": 22,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 3,
+   "family": "development-unique_win-x-018",
+   "id": "development-unique_win-x-018-base",
+   "immediate_wins": [
+    3
+   ],
+   "legal": [
+    0,
+    3,
+    5,
+    6
+   ],
+   "moves": [
+    4,
+    5,
+    2,
+    4,
+    4,
+    4,
+    5,
+    1,
+    2,
+    2,
+    2,
+    2,
+    4,
+    5,
+    5,
+    2,
+    6,
+    4,
+    1,
+    1,
+    1,
+    1,
+    1,
+    3
+   ],
+   "opponent_threats": [],
+   "ply": 24,
+   "safe_actions": [
+    0,
+    3,
+    5,
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 3,
+   "family": "development-unique_win-x-018",
+   "id": "development-unique_win-x-018-mirror",
+   "immediate_wins": [
+    3
+   ],
+   "legal": [
+    0,
+    1,
+    3,
+    6
+   ],
+   "moves": [
+    2,
+    1,
+    4,
+    2,
+    2,
+    2,
+    1,
+    5,
+    4,
+    4,
+    4,
+    4,
+    2,
+    1,
+    1,
+    4,
+    0,
+    2,
+    5,
+    5,
+    5,
+    5,
+    5,
+    3
+   ],
+   "opponent_threats": [],
+   "ply": 24,
+   "safe_actions": [
+    0,
+    1,
+    3,
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 6,
+   "family": "development-unique_win-x-019",
+   "id": "development-unique_win-x-019-base",
+   "immediate_wins": [
+    6
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    1,
+    3,
+    3,
+    3,
+    3,
+    1,
+    3,
+    1,
+    1,
+    4,
+    5,
+    4,
+    4,
+    4,
+    5,
+    2
+   ],
+   "opponent_threats": [],
+   "ply": 16,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 0,
+   "family": "development-unique_win-x-019",
+   "id": "development-unique_win-x-019-mirror",
+   "immediate_wins": [
+    0
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    5,
+    3,
+    3,
+    3,
+    3,
+    5,
+    3,
+    5,
+    5,
+    2,
+    1,
+    2,
+    2,
+    2,
+    1,
+    4
+   ],
+   "opponent_threats": [],
+   "ply": 16,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 2,
+   "family": "development-unique_win-x-020",
+   "id": "development-unique_win-x-020-base",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    0,
+    2,
+    4,
+    6
+   ],
+   "moves": [
+    3,
+    1,
+    1,
+    3,
+    3,
+    3,
+    1,
+    1,
+    4,
+    5,
+    0,
+    3,
+    5,
+    5,
+    5,
+    3,
+    1,
+    1,
+    0,
+    0,
+    0,
+    5,
+    5,
+    4,
+    4,
+    4,
+    2,
+    6
+   ],
+   "opponent_threats": [
+    6
+   ],
+   "ply": 28,
+   "safe_actions": [
+    2,
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 4,
+   "family": "development-unique_win-x-020",
+   "id": "development-unique_win-x-020-mirror",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    2,
+    4,
+    6
+   ],
+   "moves": [
+    3,
+    5,
+    5,
+    3,
+    3,
+    3,
+    5,
+    5,
+    2,
+    1,
+    6,
+    3,
+    1,
+    1,
+    1,
+    3,
+    5,
+    5,
+    6,
+    6,
+    6,
+    1,
+    1,
+    2,
+    2,
+    2,
+    4,
+    0
+   ],
+   "opponent_threats": [
+    0
+   ],
+   "ply": 28,
+   "safe_actions": [
+    0,
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_win-x-021",
+   "id": "development-unique_win-x-021-base",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    6,
+    2,
+    3,
+    3,
+    5,
+    2,
+    2,
+    5,
+    3,
+    1,
+    0
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 12,
+   "safe_actions": [
+    1,
+    4
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_win-x-021",
+   "id": "development-unique_win-x-021-mirror",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    0,
+    4,
+    3,
+    3,
+    1,
+    4,
+    4,
+    1,
+    3,
+    5,
+    6
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 12,
+   "safe_actions": [
+    2,
+    5
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_win-x-022",
+   "id": "development-unique_win-x-022-base",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    2,
+    2,
+    6,
+    2,
+    2,
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    4,
+    5,
+    0,
+    1
+   ],
+   "opponent_threats": [],
+   "ply": 22,
+   "safe_actions": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_win-x-022",
+   "id": "development-unique_win-x-022-mirror",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    4,
+    4,
+    0,
+    4,
+    4,
+    4,
+    4,
+    5,
+    5,
+    5,
+    5,
+    2,
+    1,
+    6,
+    5
+   ],
+   "opponent_threats": [],
+   "ply": 22,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_win-x-023",
+   "id": "development-unique_win-x-023-base",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    2
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    4,
+    4,
+    0,
+    4,
+    4,
+    4,
+    4,
+    0,
+    0,
+    0,
+    5,
+    0,
+    0,
+    6,
+    6,
+    6,
+    6,
+    5,
+    5,
+    5,
+    6,
+    5,
+    5,
+    6,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2
+   ],
+   "opponent_threats": [],
+   "ply": 40,
+   "safe_actions": [
+    2
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_win-x-023",
+   "id": "development-unique_win-x-023-mirror",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    4
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    2,
+    2,
+    6,
+    2,
+    2,
+    2,
+    2,
+    6,
+    6,
+    6,
+    1,
+    6,
+    6,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    0,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    4,
+    4,
+    4
+   ],
+   "opponent_threats": [],
+   "ply": 40,
+   "safe_actions": [
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 2,
+   "family": "development-unique_win-x-024",
+   "id": "development-unique_win-x-024-base",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    1,
+    3,
+    5,
+    5,
+    5,
+    5,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    1,
+    1,
+    4,
+    4,
+    0,
+    2,
+    1,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 20,
+   "safe_actions": [
+    2
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 4,
+   "family": "development-unique_win-x-024",
+   "id": "development-unique_win-x-024-mirror",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    5,
+    3,
+    1,
+    1,
+    1,
+    1,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    5,
+    5,
+    2,
+    2,
+    6,
+    4,
+    5,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 20,
+   "safe_actions": [
+    4
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 1,
+   "family": "development-unique_win-o-000",
+   "id": "development-unique_win-o-000-base",
+   "immediate_wins": [
+    1
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    5,
+    3,
+    3,
+    3,
+    3,
+    2,
+    5,
+    4,
+    4
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 9,
+   "safe_actions": [
+    1,
+    2
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 5,
+   "family": "development-unique_win-o-000",
+   "id": "development-unique_win-o-000-mirror",
+   "immediate_wins": [
+    5
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    1,
+    3,
+    3,
+    3,
+    3,
+    4,
+    1,
+    2,
+    2
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 9,
+   "safe_actions": [
+    4,
+    5
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_win-o-001",
+   "id": "development-unique_win-o-001-base",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    1,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    2,
+    5,
+    2,
+    2,
+    2,
+    0,
+    2,
+    6,
+    3,
+    3,
+    3,
+    1,
+    3,
+    3,
+    2,
+    5,
+    5,
+    6,
+    4
+   ],
+   "opponent_threats": [],
+   "ply": 19,
+   "safe_actions": [
+    0,
+    1,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_win-o-001",
+   "id": "development-unique_win-o-001-mirror",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    6
+   ],
+   "moves": [
+    4,
+    1,
+    4,
+    4,
+    4,
+    6,
+    4,
+    0,
+    3,
+    3,
+    3,
+    5,
+    3,
+    3,
+    4,
+    1,
+    1,
+    0,
+    2
+   ],
+   "opponent_threats": [],
+   "ply": 19,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_win-o-002",
+   "id": "development-unique_win-o-002-base",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    2,
+    4
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    6,
+    3,
+    3,
+    3,
+    6,
+    6,
+    1,
+    1,
+    5,
+    5,
+    5,
+    5,
+    1,
+    1,
+    5,
+    1,
+    6,
+    5,
+    6,
+    6,
+    0,
+    0,
+    0,
+    0,
+    1,
+    2,
+    2,
+    0,
+    0,
+    4,
+    4,
+    2,
+    2,
+    2,
+    4,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 39,
+   "safe_actions": [
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_win-o-002",
+   "id": "development-unique_win-o-002-mirror",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    2,
+    4
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    0,
+    3,
+    3,
+    3,
+    0,
+    0,
+    5,
+    5,
+    1,
+    1,
+    1,
+    1,
+    5,
+    5,
+    1,
+    5,
+    0,
+    1,
+    0,
+    0,
+    6,
+    6,
+    6,
+    6,
+    5,
+    4,
+    4,
+    6,
+    6,
+    2,
+    2,
+    4,
+    4,
+    4,
+    2,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 39,
+   "safe_actions": [
+    2
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 0,
+   "family": "development-unique_win-o-003",
+   "id": "development-unique_win-o-003-base",
+   "immediate_wins": [
+    0
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    4,
+    2,
+    1,
+    6,
+    2,
+    5,
+    5,
+    2,
+    3,
+    1,
+    1
+   ],
+   "opponent_threats": [],
+   "ply": 15,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 6,
+   "family": "development-unique_win-o-003",
+   "id": "development-unique_win-o-003-mirror",
+   "immediate_wins": [
+    6
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    2,
+    4,
+    5,
+    0,
+    4,
+    1,
+    1,
+    4,
+    3,
+    5,
+    5
+   ],
+   "opponent_threats": [],
+   "ply": 15,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 6,
+   "family": "development-unique_win-o-004",
+   "id": "development-unique_win-o-004-base",
+   "immediate_wins": [
+    6
+   ],
+   "legal": [
+    0,
+    2,
+    6
+   ],
+   "moves": [
+    4,
+    4,
+    4,
+    4,
+    4,
+    5,
+    5,
+    5,
+    0,
+    0,
+    5,
+    3,
+    1,
+    3,
+    5,
+    4,
+    6,
+    5,
+    1,
+    1,
+    3,
+    3,
+    3,
+    3,
+    1,
+    6,
+    1,
+    1,
+    6
+   ],
+   "opponent_threats": [],
+   "ply": 29,
+   "safe_actions": [
+    0,
+    2,
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 0,
+   "family": "development-unique_win-o-004",
+   "id": "development-unique_win-o-004-mirror",
+   "immediate_wins": [
+    0
+   ],
+   "legal": [
+    0,
+    4,
+    6
+   ],
+   "moves": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    1,
+    1,
+    1,
+    6,
+    6,
+    1,
+    3,
+    5,
+    3,
+    1,
+    2,
+    0,
+    1,
+    5,
+    5,
+    3,
+    3,
+    3,
+    3,
+    5,
+    0,
+    5,
+    5,
+    0
+   ],
+   "opponent_threats": [],
+   "ply": 29,
+   "safe_actions": [
+    0,
+    4,
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 2,
+   "family": "development-unique_win-o-005",
+   "id": "development-unique_win-o-005-base",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    2
+   ],
+   "moves": [
+    1,
+    1,
+    1,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    1,
+    3,
+    6,
+    5,
+    6,
+    6,
+    6,
+    1,
+    6,
+    2,
+    6,
+    0,
+    5,
+    5,
+    5,
+    5,
+    4,
+    4,
+    4,
+    4,
+    0,
+    0,
+    4,
+    0,
+    0,
+    5,
+    4,
+    2,
+    0,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 39,
+   "safe_actions": [
+    2
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 4,
+   "family": "development-unique_win-o-005",
+   "id": "development-unique_win-o-005-mirror",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    4
+   ],
+   "moves": [
+    5,
+    5,
+    5,
+    3,
+    3,
+    3,
+    3,
+    3,
+    5,
+    5,
+    3,
+    0,
+    1,
+    0,
+    0,
+    0,
+    5,
+    0,
+    4,
+    0,
+    6,
+    1,
+    1,
+    1,
+    1,
+    2,
+    2,
+    2,
+    2,
+    6,
+    6,
+    2,
+    6,
+    6,
+    1,
+    2,
+    4,
+    6,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 39,
+   "safe_actions": [
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 0,
+   "family": "development-unique_win-o-006",
+   "id": "development-unique_win-o-006-base",
+   "immediate_wins": [
+    0
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    1,
+    2,
+    3,
+    2,
+    2,
+    1,
+    0
+   ],
+   "opponent_threats": [],
+   "ply": 9,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 6,
+   "family": "development-unique_win-o-006",
+   "id": "development-unique_win-o-006-mirror",
+   "immediate_wins": [
+    6
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    5,
+    4,
+    3,
+    4,
+    4,
+    5,
+    6
+   ],
+   "opponent_threats": [],
+   "ply": 9,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 1,
+   "family": "development-unique_win-o-007",
+   "id": "development-unique_win-o-007-base",
+   "immediate_wins": [
+    1
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    4,
+    4,
+    4,
+    0,
+    4,
+    4,
+    4,
+    6,
+    6,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    5
+   ],
+   "opponent_threats": [],
+   "ply": 17,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 5,
+   "family": "development-unique_win-o-007",
+   "id": "development-unique_win-o-007-mirror",
+   "immediate_wins": [
+    5
+   ],
+   "legal": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    2,
+    2,
+    2,
+    6,
+    2,
+    2,
+    2,
+    0,
+    0,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    1
+   ],
+   "opponent_threats": [],
+   "ply": 17,
+   "safe_actions": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 1,
+   "family": "development-unique_win-o-008",
+   "id": "development-unique_win-o-008-base",
+   "immediate_wins": [
+    1
+   ],
+   "legal": [
+    0,
+    1,
+    4
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    5,
+    2,
+    5,
+    5,
+    5,
+    2,
+    2,
+    2,
+    2,
+    5,
+    2,
+    6,
+    5,
+    6,
+    6,
+    6,
+    6,
+    6,
+    4,
+    4,
+    1
+   ],
+   "opponent_threats": [],
+   "ply": 27,
+   "safe_actions": [
+    0,
+    1,
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 5,
+   "family": "development-unique_win-o-008",
+   "id": "development-unique_win-o-008-mirror",
+   "immediate_wins": [
+    5
+   ],
+   "legal": [
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    4,
+    1,
+    1,
+    1,
+    4,
+    4,
+    4,
+    4,
+    1,
+    4,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    2,
+    5
+   ],
+   "opponent_threats": [],
+   "ply": 27,
+   "safe_actions": [
+    2,
+    5,
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 0,
+   "family": "development-unique_win-o-009",
+   "id": "development-unique_win-o-009-base",
+   "immediate_wins": [
+    0
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    2,
+    2,
+    2,
+    4,
+    4,
+    4,
+    4,
+    1,
+    1,
+    4
+   ],
+   "opponent_threats": [],
+   "ply": 17,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 6,
+   "family": "development-unique_win-o-009",
+   "id": "development-unique_win-o-009-mirror",
+   "immediate_wins": [
+    6
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    4,
+    4,
+    2,
+    2,
+    2,
+    2,
+    5,
+    5,
+    2
+   ],
+   "opponent_threats": [],
+   "ply": 17,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 4,
+   "family": "development-unique_win-o-010",
+   "id": "development-unique_win-o-010-base",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    1,
+    4,
+    5
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    2,
+    1,
+    2,
+    1,
+    0,
+    2,
+    3,
+    4,
+    1,
+    1,
+    1,
+    6,
+    5,
+    6,
+    6,
+    2,
+    6,
+    6,
+    6,
+    0,
+    0,
+    0,
+    4,
+    5,
+    5,
+    0,
+    5,
+    0
+   ],
+   "opponent_threats": [],
+   "ply": 35,
+   "safe_actions": [
+    1,
+    4,
+    5
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 2,
+   "family": "development-unique_win-o-010",
+   "id": "development-unique_win-o-010-mirror",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    1,
+    2,
+    5
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    5,
+    4,
+    5,
+    6,
+    4,
+    3,
+    2,
+    5,
+    5,
+    5,
+    0,
+    1,
+    0,
+    0,
+    4,
+    0,
+    0,
+    0,
+    6,
+    6,
+    6,
+    2,
+    1,
+    1,
+    6,
+    1,
+    6
+   ],
+   "opponent_threats": [],
+   "ply": 35,
+   "safe_actions": [
+    1,
+    2,
+    5
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 4,
+   "family": "development-unique_win-o-011",
+   "id": "development-unique_win-o-011-base",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    4
+   ],
+   "moves": [
+    6,
+    3,
+    3,
+    3,
+    3,
+    3,
+    6,
+    6,
+    3,
+    6,
+    6,
+    1,
+    0,
+    1,
+    1,
+    1,
+    2,
+    2,
+    0,
+    1,
+    0,
+    0,
+    1,
+    6,
+    2,
+    2,
+    2,
+    2,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    4
+   ],
+   "opponent_threats": [],
+   "ply": 35,
+   "safe_actions": [
+    0,
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 2,
+   "family": "development-unique_win-o-011",
+   "id": "development-unique_win-o-011-mirror",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    2,
+    6
+   ],
+   "moves": [
+    0,
+    3,
+    3,
+    3,
+    3,
+    3,
+    0,
+    0,
+    3,
+    0,
+    0,
+    5,
+    6,
+    5,
+    5,
+    5,
+    4,
+    4,
+    6,
+    5,
+    6,
+    6,
+    5,
+    0,
+    4,
+    4,
+    4,
+    4,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    2
+   ],
+   "opponent_threats": [],
+   "ply": 35,
+   "safe_actions": [
+    2,
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_win-o-012",
+   "id": "development-unique_win-o-012-base",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    6,
+    3,
+    3,
+    1,
+    3,
+    3,
+    3,
+    4,
+    4
+   ],
+   "opponent_threats": [],
+   "ply": 9,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_win-o-012",
+   "id": "development-unique_win-o-012-mirror",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    0,
+    3,
+    3,
+    5,
+    3,
+    3,
+    3,
+    2,
+    2
+   ],
+   "opponent_threats": [],
+   "ply": 9,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 1,
+   "family": "development-unique_win-o-013",
+   "id": "development-unique_win-o-013-base",
+   "immediate_wins": [
+    1
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    4,
+    4,
+    4,
+    0,
+    4,
+    4,
+    4,
+    6,
+    6,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    5,
+    2,
+    2
+   ],
+   "opponent_threats": [],
+   "ply": 19,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 5,
+   "family": "development-unique_win-o-013",
+   "id": "development-unique_win-o-013-mirror",
+   "immediate_wins": [
+    5
+   ],
+   "legal": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    2,
+    2,
+    2,
+    6,
+    2,
+    2,
+    2,
+    0,
+    0,
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    1,
+    4,
+    4
+   ],
+   "opponent_threats": [],
+   "ply": 19,
+   "safe_actions": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_win-o-014",
+   "id": "development-unique_win-o-014-base",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    2
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    4,
+    4,
+    4,
+    4,
+    4,
+    1,
+    0,
+    6,
+    1,
+    5,
+    1,
+    6,
+    6,
+    1,
+    1,
+    4,
+    6,
+    5,
+    5,
+    5,
+    5,
+    5,
+    0,
+    0,
+    0,
+    6,
+    0,
+    0,
+    6,
+    2,
+    2,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 39,
+   "safe_actions": [
+    2
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_win-o-014",
+   "id": "development-unique_win-o-014-mirror",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    4
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    5,
+    2,
+    2,
+    2,
+    2,
+    2,
+    5,
+    6,
+    0,
+    5,
+    1,
+    5,
+    0,
+    0,
+    5,
+    5,
+    2,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    6,
+    6,
+    6,
+    0,
+    6,
+    6,
+    0,
+    4,
+    4,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 39,
+   "safe_actions": [
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 4,
+   "family": "development-unique_win-o-015",
+   "id": "development-unique_win-o-015-base",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    6,
+    3,
+    3,
+    3,
+    4,
+    2,
+    4,
+    2,
+    0,
+    1,
+    0,
+    0,
+    2,
+    3,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 15,
+   "safe_actions": [
+    4
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 2,
+   "family": "development-unique_win-o-015",
+   "id": "development-unique_win-o-015-mirror",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    0,
+    3,
+    3,
+    3,
+    2,
+    4,
+    2,
+    4,
+    6,
+    5,
+    6,
+    6,
+    4,
+    3,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 15,
+   "safe_actions": [
+    2
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 4,
+   "family": "development-unique_win-o-016",
+   "id": "development-unique_win-o-016-base",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    2,
+    4
+   ],
+   "moves": [
+    5,
+    3,
+    3,
+    3,
+    3,
+    3,
+    5,
+    5,
+    0,
+    5,
+    5,
+    3,
+    5,
+    6,
+    6,
+    0,
+    6,
+    6,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    6,
+    2,
+    6,
+    2,
+    2,
+    2,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 35,
+   "safe_actions": [
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 2,
+   "family": "development-unique_win-o-016",
+   "id": "development-unique_win-o-016-mirror",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    2,
+    4
+   ],
+   "moves": [
+    1,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    1,
+    6,
+    1,
+    1,
+    3,
+    1,
+    0,
+    0,
+    6,
+    0,
+    0,
+    6,
+    6,
+    6,
+    6,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    0,
+    4,
+    0,
+    4,
+    4,
+    4,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 35,
+   "safe_actions": [
+    2
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 4,
+   "family": "development-unique_win-o-017",
+   "id": "development-unique_win-o-017-base",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    1,
+    4,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    2,
+    2,
+    6,
+    2,
+    2,
+    2,
+    2,
+    1,
+    5,
+    6,
+    5,
+    5,
+    5,
+    5,
+    5,
+    6,
+    6,
+    1,
+    1,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 27,
+   "safe_actions": [
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 2,
+   "family": "development-unique_win-o-017",
+   "id": "development-unique_win-o-017-mirror",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    0,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    4,
+    4,
+    0,
+    4,
+    4,
+    4,
+    4,
+    5,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    5,
+    5,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 27,
+   "safe_actions": [
+    2
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_win-o-018",
+   "id": "development-unique_win-o-018-base",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    6,
+    3,
+    3,
+    2,
+    5,
+    1,
+    1,
+    1,
+    0
+   ],
+   "opponent_threats": [],
+   "ply": 9,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_win-o-018",
+   "id": "development-unique_win-o-018-mirror",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    0,
+    3,
+    3,
+    4,
+    1,
+    5,
+    5,
+    5,
+    6
+   ],
+   "opponent_threats": [],
+   "ply": 9,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 1,
+   "family": "development-unique_win-o-019",
+   "id": "development-unique_win-o-019-base",
+   "immediate_wins": [
+    1
+   ],
+   "legal": [
+    0,
+    1,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    2,
+    4,
+    3,
+    3,
+    5,
+    4,
+    4,
+    3,
+    5,
+    5,
+    4,
+    2,
+    2,
+    4,
+    3,
+    2,
+    2,
+    4,
+    2,
+    1,
+    6
+   ],
+   "opponent_threats": [],
+   "ply": 23,
+   "safe_actions": [
+    0,
+    1,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 5,
+   "family": "development-unique_win-o-019",
+   "id": "development-unique_win-o-019-mirror",
+   "immediate_wins": [
+    5
+   ],
+   "legal": [
+    0,
+    1,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    4,
+    2,
+    3,
+    3,
+    1,
+    2,
+    2,
+    3,
+    1,
+    1,
+    2,
+    4,
+    4,
+    2,
+    3,
+    4,
+    4,
+    2,
+    4,
+    5,
+    0
+   ],
+   "opponent_threats": [],
+   "ply": 23,
+   "safe_actions": [
+    0,
+    1,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 0,
+   "family": "development-unique_win-o-020",
+   "id": "development-unique_win-o-020-base",
+   "immediate_wins": [
+    0
+   ],
+   "legal": [
+    0
+   ],
+   "moves": [
+    2,
+    2,
+    2,
+    2,
+    4,
+    5,
+    4,
+    4,
+    4,
+    1,
+    4,
+    1,
+    1,
+    1,
+    2,
+    1,
+    2,
+    4,
+    6,
+    6,
+    6,
+    6,
+    5,
+    5,
+    3,
+    3,
+    3,
+    3,
+    5,
+    5,
+    6,
+    1,
+    6,
+    5,
+    3,
+    3,
+    0
+   ],
+   "opponent_threats": [],
+   "ply": 37,
+   "safe_actions": [
+    0
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 6,
+   "family": "development-unique_win-o-020",
+   "id": "development-unique_win-o-020-mirror",
+   "immediate_wins": [
+    6
+   ],
+   "legal": [
+    6
+   ],
+   "moves": [
+    4,
+    4,
+    4,
+    4,
+    2,
+    1,
+    2,
+    2,
+    2,
+    5,
+    2,
+    5,
+    5,
+    5,
+    4,
+    5,
+    4,
+    2,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    3,
+    3,
+    3,
+    3,
+    1,
+    1,
+    0,
+    5,
+    0,
+    1,
+    3,
+    3,
+    6
+   ],
+   "opponent_threats": [],
+   "ply": 37,
+   "safe_actions": [
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 0,
+   "family": "development-unique_win-o-021",
+   "id": "development-unique_win-o-021-base",
+   "immediate_wins": [
+    0
+   ],
+   "legal": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    1,
+    1,
+    3,
+    2,
+    2,
+    5,
+    3,
+    2,
+    2,
+    2,
+    2
+   ],
+   "opponent_threats": [],
+   "ply": 15,
+   "safe_actions": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 6,
+   "family": "development-unique_win-o-021",
+   "id": "development-unique_win-o-021-mirror",
+   "immediate_wins": [
+    6
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    5,
+    5,
+    3,
+    4,
+    4,
+    1,
+    3,
+    4,
+    4,
+    4,
+    4
+   ],
+   "opponent_threats": [],
+   "ply": 15,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_up",
+   "expected_action": 2,
+   "family": "development-unique_win-o-022",
+   "id": "development-unique_win-o-022-base",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    1,
+    4,
+    1,
+    1,
+    2,
+    0,
+    1,
+    3,
+    4,
+    0,
+    2,
+    1,
+    3,
+    0,
+    0,
+    5,
+    1,
+    0,
+    4,
+    4,
+    0,
+    5,
+    6,
+    2,
+    6
+   ],
+   "opponent_threats": [],
+   "ply": 29,
+   "safe_actions": [
+    2,
+    4,
+    5,
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 4,
+   "family": "development-unique_win-o-022",
+   "id": "development-unique_win-o-022-mirror",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    4
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    5,
+    2,
+    5,
+    5,
+    4,
+    6,
+    5,
+    3,
+    2,
+    6,
+    4,
+    5,
+    3,
+    6,
+    6,
+    1,
+    5,
+    6,
+    2,
+    2,
+    6,
+    1,
+    0,
+    4,
+    0
+   ],
+   "opponent_threats": [],
+   "ply": 29,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 2,
+   "family": "development-unique_win-o-023",
+   "id": "development-unique_win-o-023-base",
+   "immediate_wins": [
+    2
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    4,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    3,
+    4,
+    6,
+    3,
+    5,
+    5,
+    4,
+    1,
+    0,
+    0,
+    1,
+    1,
+    0,
+    0,
+    1,
+    5,
+    2
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 25,
+   "safe_actions": [
+    2,
+    5
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "diagonal_down",
+   "expected_action": 4,
+   "family": "development-unique_win-o-023",
+   "id": "development-unique_win-o-023-mirror",
+   "immediate_wins": [
+    4
+   ],
+   "legal": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    2,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    2,
+    3,
+    2,
+    0,
+    3,
+    1,
+    1,
+    2,
+    5,
+    6,
+    6,
+    5,
+    5,
+    6,
+    6,
+    5,
+    1,
+    4
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 25,
+   "safe_actions": [
+    1,
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 3,
+   "family": "development-unique_win-o-024",
+   "id": "development-unique_win-o-024-base",
+   "immediate_wins": [
+    3
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    5,
+    6,
+    2,
+    2,
+    3,
+    4,
+    2,
+    5,
+    2,
+    4,
+    5
+   ],
+   "opponent_threats": [],
+   "ply": 11,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_win",
+   "direction": "horizontal",
+   "expected_action": 3,
+   "family": "development-unique_win-o-024",
+   "id": "development-unique_win-o-024-mirror",
+   "immediate_wins": [
+    3
+   ],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    1,
+    0,
+    4,
+    4,
+    3,
+    2,
+    4,
+    1,
+    4,
+    2,
+    1
+   ],
+   "opponent_threats": [],
+   "ply": 11,
+   "safe_actions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_safe-x-000",
+   "id": "development-unique_safe-x-000-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    4,
+    1,
+    1,
+    0,
+    2,
+    3,
+    3,
+    2,
+    1,
+    4,
+    2
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 12,
+   "safe_actions": [
+    4
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_safe-x-000",
+   "id": "development-unique_safe-x-000-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    2,
+    5,
+    5,
+    6,
+    4,
+    3,
+    3,
+    4,
+    5,
+    2,
+    4
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 12,
+   "safe_actions": [
+    2
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_safe-x-001",
+   "id": "development-unique_safe-x-001-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    2,
+    2,
+    2,
+    5,
+    2,
+    2,
+    5,
+    5,
+    2,
+    5,
+    5,
+    3,
+    3,
+    6
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 14,
+   "safe_actions": [
+    4
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_safe-x-001",
+   "id": "development-unique_safe-x-001-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    6
+   ],
+   "moves": [
+    4,
+    4,
+    4,
+    1,
+    4,
+    4,
+    1,
+    1,
+    4,
+    1,
+    1,
+    3,
+    3,
+    0
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 14,
+   "safe_actions": [
+    2
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 6,
+   "family": "development-unique_safe-x-002",
+   "id": "development-unique_safe-x-002-base",
+   "immediate_wins": [],
+   "legal": [
+    1,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    4,
+    3,
+    3,
+    5,
+    4,
+    4,
+    5,
+    5,
+    4,
+    3,
+    2,
+    2,
+    2,
+    2,
+    2,
+    4,
+    5,
+    1,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    4,
+    1,
+    5,
+    6
+   ],
+   "opponent_threats": [
+    6
+   ],
+   "ply": 32,
+   "safe_actions": [
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 0,
+   "family": "development-unique_safe-x-002",
+   "id": "development-unique_safe-x-002-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    5
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    2,
+    3,
+    3,
+    1,
+    2,
+    2,
+    1,
+    1,
+    2,
+    3,
+    4,
+    4,
+    4,
+    4,
+    4,
+    2,
+    1,
+    5,
+    4,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    2,
+    5,
+    1,
+    0
+   ],
+   "opponent_threats": [
+    0
+   ],
+   "ply": 32,
+   "safe_actions": [
+    0
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 3,
+   "family": "development-unique_safe-x-003",
+   "id": "development-unique_safe-x-003-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    5,
+    3,
+    5,
+    3
+   ],
+   "opponent_threats": [
+    3
+   ],
+   "ply": 6,
+   "safe_actions": [
+    3
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 3,
+   "family": "development-unique_safe-x-003",
+   "id": "development-unique_safe-x-003-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    1,
+    3,
+    1,
+    3
+   ],
+   "opponent_threats": [
+    3
+   ],
+   "ply": 6,
+   "safe_actions": [
+    3
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 3,
+   "family": "development-unique_safe-x-004",
+   "id": "development-unique_safe-x-004-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    5,
+    6
+   ],
+   "moves": [
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    1,
+    3,
+    3,
+    3,
+    2,
+    6,
+    2,
+    3,
+    1,
+    3,
+    5,
+    2
+   ],
+   "opponent_threats": [
+    3
+   ],
+   "ply": 18,
+   "safe_actions": [
+    3
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 3,
+   "family": "development-unique_safe-x-004",
+   "id": "development-unique_safe-x-004-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    5,
+    3,
+    3,
+    3,
+    4,
+    0,
+    4,
+    3,
+    5,
+    3,
+    1,
+    4
+   ],
+   "opponent_threats": [
+    3
+   ],
+   "ply": 18,
+   "safe_actions": [
+    3
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 6,
+   "family": "development-unique_safe-x-005",
+   "id": "development-unique_safe-x-005-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    2,
+    4,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    0,
+    3,
+    3,
+    3,
+    5,
+    5,
+    5,
+    4,
+    5,
+    5,
+    1,
+    6,
+    6,
+    0,
+    0,
+    5,
+    6,
+    0,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    6
+   ],
+   "opponent_threats": [
+    6
+   ],
+   "ply": 28,
+   "safe_actions": [
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 0,
+   "family": "development-unique_safe-x-005",
+   "id": "development-unique_safe-x-005-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    2,
+    4,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    6,
+    3,
+    3,
+    3,
+    1,
+    1,
+    1,
+    2,
+    1,
+    1,
+    5,
+    0,
+    0,
+    6,
+    6,
+    1,
+    0,
+    6,
+    6,
+    5,
+    5,
+    5,
+    5,
+    5,
+    0
+   ],
+   "opponent_threats": [
+    0
+   ],
+   "ply": 28,
+   "safe_actions": [
+    0
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 0,
+   "family": "development-unique_safe-x-006",
+   "id": "development-unique_safe-x-006-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    5,
+    5,
+    1,
+    2,
+    2,
+    2,
+    2,
+    1
+   ],
+   "opponent_threats": [
+    0
+   ],
+   "ply": 14,
+   "safe_actions": [
+    0
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 6,
+   "family": "development-unique_safe-x-006",
+   "id": "development-unique_safe-x-006-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    1,
+    5,
+    4,
+    4,
+    4,
+    4,
+    5
+   ],
+   "opponent_threats": [
+    6
+   ],
+   "ply": 14,
+   "safe_actions": [
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 1,
+   "family": "development-unique_safe-x-007",
+   "id": "development-unique_safe-x-007-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    4,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    2,
+    2,
+    2,
+    5,
+    6,
+    5,
+    5,
+    5,
+    5,
+    3,
+    0,
+    5,
+    2,
+    0,
+    0,
+    6,
+    1
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 24,
+   "safe_actions": [
+    1
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 5,
+   "family": "development-unique_safe-x-007",
+   "id": "development-unique_safe-x-007-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    4,
+    4,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    3,
+    6,
+    1,
+    4,
+    6,
+    6,
+    0,
+    5
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 24,
+   "safe_actions": [
+    5
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 5,
+   "family": "development-unique_safe-x-008",
+   "id": "development-unique_safe-x-008-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    4,
+    4,
+    3,
+    1,
+    1,
+    6,
+    6,
+    5
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 16,
+   "safe_actions": [
+    5
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 1,
+   "family": "development-unique_safe-x-008",
+   "id": "development-unique_safe-x-008-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    2,
+    2,
+    2,
+    3,
+    5,
+    5,
+    0,
+    0,
+    1
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 16,
+   "safe_actions": [
+    1
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 2,
+   "family": "development-unique_safe-x-009",
+   "id": "development-unique_safe-x-009-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    2,
+    6
+   ],
+   "moves": [
+    6,
+    4,
+    4,
+    4,
+    4,
+    4,
+    5,
+    6,
+    6,
+    5,
+    5,
+    1,
+    3,
+    6,
+    1,
+    3,
+    5,
+    4,
+    6,
+    5,
+    5,
+    3,
+    3,
+    3,
+    1,
+    1,
+    1,
+    0,
+    2,
+    3,
+    1,
+    0,
+    0,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 34,
+   "safe_actions": [
+    2
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 4,
+   "family": "development-unique_safe-x-009",
+   "id": "development-unique_safe-x-009-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    4,
+    6
+   ],
+   "moves": [
+    0,
+    2,
+    2,
+    2,
+    2,
+    2,
+    1,
+    0,
+    0,
+    1,
+    1,
+    5,
+    3,
+    0,
+    5,
+    3,
+    1,
+    2,
+    0,
+    1,
+    1,
+    3,
+    3,
+    3,
+    5,
+    5,
+    5,
+    6,
+    4,
+    3,
+    5,
+    6,
+    6,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 34,
+   "safe_actions": [
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_safe-x-010",
+   "id": "development-unique_safe-x-010-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    6,
+    2,
+    1,
+    5,
+    2,
+    1,
+    2,
+    2,
+    1,
+    3
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 10,
+   "safe_actions": [
+    4
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_safe-x-010",
+   "id": "development-unique_safe-x-010-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    0,
+    4,
+    5,
+    1,
+    4,
+    5,
+    4,
+    4,
+    5,
+    3
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 10,
+   "safe_actions": [
+    2
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_safe-x-011",
+   "id": "development-unique_safe-x-011-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    5,
+    4,
+    3,
+    3,
+    3,
+    3,
+    4,
+    4,
+    4,
+    0,
+    5,
+    4,
+    5,
+    5,
+    0,
+    1,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 18,
+   "safe_actions": [
+    2
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_safe-x-011",
+   "id": "development-unique_safe-x-011-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    1,
+    2,
+    3,
+    3,
+    3,
+    3,
+    2,
+    2,
+    2,
+    6,
+    1,
+    2,
+    1,
+    1,
+    6,
+    5,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 18,
+   "safe_actions": [
+    4
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 1,
+   "family": "development-unique_safe-x-012",
+   "id": "development-unique_safe-x-012-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    4
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    5,
+    2,
+    5,
+    5,
+    5,
+    2,
+    2,
+    2,
+    2,
+    5,
+    2,
+    6,
+    5,
+    6,
+    6,
+    6,
+    6,
+    6,
+    4,
+    4,
+    1,
+    0
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 28,
+   "safe_actions": [
+    1
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 5,
+   "family": "development-unique_safe-x-012",
+   "id": "development-unique_safe-x-012-mirror",
+   "immediate_wins": [],
+   "legal": [
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    4,
+    1,
+    1,
+    1,
+    4,
+    4,
+    4,
+    4,
+    1,
+    4,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    2,
+    2,
+    5,
+    6
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 28,
+   "safe_actions": [
+    5
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 4,
+   "family": "development-unique_safe-x-013",
+   "id": "development-unique_safe-x-013-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    0,
+    1,
+    1,
+    1,
+    1,
+    0,
+    4,
+    4,
+    6,
+    4,
+    6,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 12,
+   "safe_actions": [
+    4
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 2,
+   "family": "development-unique_safe-x-013",
+   "id": "development-unique_safe-x-013-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    6,
+    5,
+    5,
+    5,
+    5,
+    6,
+    2,
+    2,
+    0,
+    2,
+    0,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 12,
+   "safe_actions": [
+    2
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 1,
+   "family": "development-unique_safe-x-014",
+   "id": "development-unique_safe-x-014-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    6,
+    3,
+    3,
+    3,
+    3,
+    0,
+    1,
+    3,
+    3,
+    5,
+    5,
+    0,
+    1,
+    1,
+    0,
+    1,
+    6,
+    1
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 18,
+   "safe_actions": [
+    1
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 5,
+   "family": "development-unique_safe-x-014",
+   "id": "development-unique_safe-x-014-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    0,
+    3,
+    3,
+    3,
+    3,
+    6,
+    5,
+    3,
+    3,
+    1,
+    1,
+    6,
+    5,
+    5,
+    6,
+    5,
+    0,
+    5
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 18,
+   "safe_actions": [
+    5
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 6,
+   "family": "development-unique_safe-x-015",
+   "id": "development-unique_safe-x-015-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    6,
+    3,
+    3,
+    3,
+    3,
+    2,
+    0,
+    6,
+    1,
+    1,
+    1,
+    5,
+    4,
+    4,
+    1,
+    1,
+    4,
+    5,
+    4,
+    6,
+    4,
+    4,
+    3,
+    3,
+    5,
+    6
+   ],
+   "opponent_threats": [
+    6
+   ],
+   "ply": 26,
+   "safe_actions": [
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 0,
+   "family": "development-unique_safe-x-015",
+   "id": "development-unique_safe-x-015-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    0,
+    3,
+    3,
+    3,
+    3,
+    4,
+    6,
+    0,
+    5,
+    5,
+    5,
+    1,
+    2,
+    2,
+    5,
+    5,
+    2,
+    1,
+    2,
+    0,
+    2,
+    2,
+    3,
+    3,
+    1,
+    0
+   ],
+   "opponent_threats": [
+    0
+   ],
+   "ply": 26,
+   "safe_actions": [
+    0
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 1,
+   "family": "development-unique_safe-x-016",
+   "id": "development-unique_safe-x-016-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    4,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    5,
+    2,
+    2,
+    2,
+    2,
+    6,
+    2,
+    2,
+    5,
+    0,
+    0,
+    5,
+    5,
+    5,
+    5,
+    1
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 22,
+   "safe_actions": [
+    1
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 5,
+   "family": "development-unique_safe-x-016",
+   "id": "development-unique_safe-x-016-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    4,
+    4,
+    4,
+    4,
+    0,
+    4,
+    4,
+    1,
+    6,
+    6,
+    1,
+    1,
+    1,
+    1,
+    5
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 22,
+   "safe_actions": [
+    5
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 1,
+   "family": "development-unique_safe-x-017",
+   "id": "development-unique_safe-x-017-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    6
+   ],
+   "moves": [
+    3,
+    2,
+    2,
+    2,
+    2,
+    3,
+    3,
+    3,
+    3,
+    2,
+    4,
+    4,
+    4,
+    4,
+    4,
+    4,
+    3,
+    5,
+    5,
+    5,
+    5,
+    0,
+    0,
+    5,
+    2,
+    6,
+    5,
+    1
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 28,
+   "safe_actions": [
+    1
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 5,
+   "family": "development-unique_safe-x-017",
+   "id": "development-unique_safe-x-017-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    4,
+    4,
+    4,
+    4,
+    3,
+    3,
+    3,
+    3,
+    4,
+    2,
+    2,
+    2,
+    2,
+    2,
+    2,
+    3,
+    1,
+    1,
+    1,
+    1,
+    6,
+    6,
+    1,
+    4,
+    0,
+    1,
+    5
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 28,
+   "safe_actions": [
+    5
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 5,
+   "family": "development-unique_safe-x-018",
+   "id": "development-unique_safe-x-018-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    4,
+    4,
+    4,
+    4,
+    2,
+    2,
+    6,
+    2,
+    5
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 16,
+   "safe_actions": [
+    5
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 1,
+   "family": "development-unique_safe-x-018",
+   "id": "development-unique_safe-x-018-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    2,
+    2,
+    2,
+    2,
+    4,
+    4,
+    0,
+    4,
+    1
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 16,
+   "safe_actions": [
+    1
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 5,
+   "family": "development-unique_safe-x-019",
+   "id": "development-unique_safe-x-019-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    4,
+    4,
+    4,
+    4,
+    2,
+    2,
+    2,
+    2,
+    4,
+    2,
+    1,
+    1,
+    1,
+    1,
+    6,
+    4,
+    5
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 24,
+   "safe_actions": [
+    5
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 1,
+   "family": "development-unique_safe-x-019",
+   "id": "development-unique_safe-x-019-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    2,
+    2,
+    2,
+    2,
+    4,
+    4,
+    4,
+    4,
+    2,
+    4,
+    5,
+    5,
+    5,
+    5,
+    0,
+    2,
+    1
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 24,
+   "safe_actions": [
+    1
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_safe-x-020",
+   "id": "development-unique_safe-x-020-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    5,
+    3,
+    3,
+    4,
+    3,
+    3,
+    4,
+    1
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 8,
+   "safe_actions": [
+    2
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_safe-x-020",
+   "id": "development-unique_safe-x-020-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    1,
+    3,
+    3,
+    2,
+    3,
+    3,
+    2,
+    5
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 8,
+   "safe_actions": [
+    4
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 0,
+   "family": "development-unique_safe-x-021",
+   "id": "development-unique_safe-x-021-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    5,
+    3,
+    3,
+    3,
+    3,
+    5,
+    5,
+    3,
+    5,
+    5,
+    3,
+    1,
+    4,
+    2,
+    4,
+    6
+   ],
+   "opponent_threats": [
+    0
+   ],
+   "ply": 16,
+   "safe_actions": [
+    0
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 6,
+   "family": "development-unique_safe-x-021",
+   "id": "development-unique_safe-x-021-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    1,
+    3,
+    3,
+    3,
+    3,
+    1,
+    1,
+    3,
+    1,
+    1,
+    3,
+    5,
+    2,
+    4,
+    2,
+    0
+   ],
+   "opponent_threats": [
+    6
+   ],
+   "ply": 16,
+   "safe_actions": [
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 1,
+   "family": "development-unique_safe-x-022",
+   "id": "development-unique_safe-x-022-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    2,
+    2,
+    1,
+    3,
+    4,
+    3,
+    3,
+    5,
+    4,
+    4,
+    3,
+    2,
+    6,
+    2,
+    2,
+    5,
+    3,
+    3,
+    5,
+    2,
+    6,
+    4,
+    5,
+    5,
+    0,
+    0
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 26,
+   "safe_actions": [
+    1
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 5,
+   "family": "development-unique_safe-x-022",
+   "id": "development-unique_safe-x-022-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    4,
+    4,
+    5,
+    3,
+    2,
+    3,
+    3,
+    1,
+    2,
+    2,
+    3,
+    4,
+    0,
+    4,
+    4,
+    1,
+    3,
+    3,
+    1,
+    4,
+    0,
+    2,
+    1,
+    1,
+    6,
+    6
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 26,
+   "safe_actions": [
+    5
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 2,
+   "family": "development-unique_safe-x-023",
+   "id": "development-unique_safe-x-023-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    1,
+    3,
+    2,
+    2,
+    3,
+    3,
+    1,
+    1,
+    5,
+    2,
+    1,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 12,
+   "safe_actions": [
+    2
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 4,
+   "family": "development-unique_safe-x-023",
+   "id": "development-unique_safe-x-023-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    5,
+    3,
+    4,
+    4,
+    3,
+    3,
+    5,
+    5,
+    1,
+    4,
+    5,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 12,
+   "safe_actions": [
+    4
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 2,
+   "family": "development-unique_safe-x-024",
+   "id": "development-unique_safe-x-024-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    2,
+    3,
+    3,
+    5,
+    6,
+    2,
+    2,
+    0,
+    2,
+    4,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 14,
+   "safe_actions": [
+    2
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 0,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 4,
+   "family": "development-unique_safe-x-024",
+   "id": "development-unique_safe-x-024-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    4,
+    3,
+    3,
+    1,
+    0,
+    4,
+    4,
+    6,
+    4,
+    2,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 14,
+   "safe_actions": [
+    4
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_safe-o-000",
+   "id": "development-unique_safe-o-000-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    4,
+    0,
+    4,
+    4,
+    6,
+    1
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 7,
+   "safe_actions": [
+    2
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_safe-o-000",
+   "id": "development-unique_safe-o-000-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    2,
+    6,
+    2,
+    2,
+    0,
+    5
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 7,
+   "safe_actions": [
+    4
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_safe-o-001",
+   "id": "development-unique_safe-o-001-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    1,
+    1,
+    1,
+    3,
+    3,
+    3,
+    3,
+    1,
+    3,
+    3,
+    2,
+    5
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 17,
+   "safe_actions": [
+    4
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_safe-o-001",
+   "id": "development-unique_safe-o-001-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    4,
+    4,
+    4,
+    4,
+    4,
+    5,
+    5,
+    5,
+    3,
+    3,
+    3,
+    3,
+    5,
+    3,
+    3,
+    4,
+    1
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 17,
+   "safe_actions": [
+    2
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 6,
+   "family": "development-unique_safe-o-002",
+   "id": "development-unique_safe-o-002-base",
+   "immediate_wins": [],
+   "legal": [
+    1,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    4,
+    3,
+    3,
+    5,
+    4,
+    4,
+    5,
+    5,
+    4,
+    3,
+    2,
+    2,
+    2,
+    2,
+    2,
+    4,
+    5,
+    1,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    4,
+    1,
+    5,
+    6,
+    6,
+    6,
+    5,
+    6,
+    6
+   ],
+   "opponent_threats": [
+    6
+   ],
+   "ply": 37,
+   "safe_actions": [
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 0,
+   "family": "development-unique_safe-o-002",
+   "id": "development-unique_safe-o-002-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    5
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    2,
+    3,
+    3,
+    1,
+    2,
+    2,
+    1,
+    1,
+    2,
+    3,
+    4,
+    4,
+    4,
+    4,
+    4,
+    2,
+    1,
+    5,
+    4,
+    6,
+    6,
+    6,
+    6,
+    6,
+    6,
+    2,
+    5,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0
+   ],
+   "opponent_threats": [
+    0
+   ],
+   "ply": 37,
+   "safe_actions": [
+    0
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 2,
+   "family": "development-unique_safe-o-003",
+   "id": "development-unique_safe-o-003-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    5,
+    1,
+    3,
+    2,
+    1,
+    3,
+    3,
+    2,
+    2,
+    3,
+    2,
+    1,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 13,
+   "safe_actions": [
+    2
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 4,
+   "family": "development-unique_safe-o-003",
+   "id": "development-unique_safe-o-003-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    1,
+    5,
+    3,
+    4,
+    5,
+    3,
+    3,
+    4,
+    4,
+    3,
+    4,
+    5,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 13,
+   "safe_actions": [
+    4
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 3,
+   "family": "development-unique_safe-o-004",
+   "id": "development-unique_safe-o-004-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    5,
+    1,
+    1,
+    1,
+    3,
+    3,
+    5,
+    6,
+    3,
+    5,
+    5,
+    1,
+    3,
+    0,
+    3
+   ],
+   "opponent_threats": [
+    3
+   ],
+   "ply": 15,
+   "safe_actions": [
+    3
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 3,
+   "family": "development-unique_safe-o-004",
+   "id": "development-unique_safe-o-004-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    1,
+    5,
+    5,
+    5,
+    3,
+    3,
+    1,
+    0,
+    3,
+    1,
+    1,
+    5,
+    3,
+    6,
+    3
+   ],
+   "opponent_threats": [
+    3
+   ],
+   "ply": 15,
+   "safe_actions": [
+    3
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 2,
+   "family": "development-unique_safe-o-005",
+   "id": "development-unique_safe-o-005-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    4,
+    3,
+    1,
+    3,
+    3,
+    0,
+    4,
+    4,
+    0,
+    1,
+    4,
+    4,
+    2,
+    6,
+    2,
+    1
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 19,
+   "safe_actions": [
+    2
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 4,
+   "family": "development-unique_safe-o-005",
+   "id": "development-unique_safe-o-005-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    2,
+    3,
+    5,
+    3,
+    3,
+    6,
+    2,
+    2,
+    6,
+    5,
+    2,
+    2,
+    4,
+    0,
+    4,
+    5
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 19,
+   "safe_actions": [
+    4
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 4,
+   "family": "development-unique_safe-o-006",
+   "id": "development-unique_safe-o-006-base",
+   "immediate_wins": [],
+   "legal": [
+    1,
+    4
+   ],
+   "moves": [
+    1,
+    3,
+    2,
+    3,
+    3,
+    0,
+    2,
+    2,
+    6,
+    3,
+    1,
+    2,
+    3,
+    2,
+    2,
+    4,
+    3,
+    6,
+    4,
+    6,
+    0,
+    0,
+    0,
+    1,
+    1,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    6,
+    6,
+    6,
+    0,
+    0,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 37,
+   "safe_actions": [
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 2,
+   "family": "development-unique_safe-o-006",
+   "id": "development-unique_safe-o-006-mirror",
+   "immediate_wins": [],
+   "legal": [
+    2,
+    5
+   ],
+   "moves": [
+    5,
+    3,
+    4,
+    3,
+    3,
+    6,
+    4,
+    4,
+    0,
+    3,
+    5,
+    4,
+    3,
+    4,
+    4,
+    2,
+    3,
+    0,
+    2,
+    0,
+    6,
+    6,
+    6,
+    5,
+    5,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    6,
+    6,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 37,
+   "safe_actions": [
+    2
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 5,
+   "family": "development-unique_safe-o-007",
+   "id": "development-unique_safe-o-007-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    4,
+    4,
+    4,
+    4,
+    2,
+    2,
+    2,
+    2,
+    4,
+    2,
+    6,
+    6,
+    5,
+    5
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 21,
+   "safe_actions": [
+    5
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 1,
+   "family": "development-unique_safe-o-007",
+   "id": "development-unique_safe-o-007-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    2,
+    2,
+    2,
+    2,
+    4,
+    4,
+    4,
+    4,
+    2,
+    4,
+    0,
+    0,
+    1,
+    1
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 21,
+   "safe_actions": [
+    1
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 2,
+   "family": "development-unique_safe-o-008",
+   "id": "development-unique_safe-o-008-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    2,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    5,
+    4,
+    4,
+    4,
+    5,
+    5,
+    5,
+    5,
+    4,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    5,
+    6,
+    6,
+    2,
+    4,
+    4,
+    6,
+    6,
+    2,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 31,
+   "safe_actions": [
+    2
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 4,
+   "family": "development-unique_safe-o-008",
+   "id": "development-unique_safe-o-008-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    4,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    2,
+    2,
+    2,
+    1,
+    1,
+    1,
+    1,
+    2,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    1,
+    0,
+    0,
+    4,
+    2,
+    2,
+    0,
+    0,
+    4,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 31,
+   "safe_actions": [
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 5,
+   "family": "development-unique_safe-o-009",
+   "id": "development-unique_safe-o-009-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    4,
+    2,
+    2,
+    2,
+    6
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 11,
+   "safe_actions": [
+    5
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 1,
+   "family": "development-unique_safe-o-009",
+   "id": "development-unique_safe-o-009-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    2,
+    4,
+    4,
+    4,
+    0
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 11,
+   "safe_actions": [
+    1
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 5,
+   "family": "development-unique_safe-o-010",
+   "id": "development-unique_safe-o-010-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    1,
+    1,
+    1,
+    3,
+    2,
+    1,
+    3,
+    3,
+    6,
+    3,
+    3,
+    3,
+    2,
+    5,
+    2,
+    0,
+    1,
+    6,
+    4,
+    2,
+    4
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 21,
+   "safe_actions": [
+    5
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 1,
+   "family": "development-unique_safe-o-010",
+   "id": "development-unique_safe-o-010-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    5,
+    5,
+    5,
+    3,
+    4,
+    5,
+    3,
+    3,
+    0,
+    3,
+    3,
+    3,
+    4,
+    1,
+    4,
+    6,
+    5,
+    0,
+    2,
+    4,
+    2
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 21,
+   "safe_actions": [
+    1
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 0,
+   "family": "development-unique_safe-o-011",
+   "id": "development-unique_safe-o-011-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    4,
+    5
+   ],
+   "moves": [
+    3,
+    6,
+    3,
+    1,
+    3,
+    3,
+    1,
+    1,
+    3,
+    3,
+    1,
+    6,
+    2,
+    6,
+    6,
+    5,
+    2,
+    2,
+    5,
+    2,
+    2,
+    2,
+    6,
+    6,
+    1,
+    1,
+    5,
+    5,
+    0
+   ],
+   "opponent_threats": [
+    0
+   ],
+   "ply": 29,
+   "safe_actions": [
+    0
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 6,
+   "family": "development-unique_safe-o-011",
+   "id": "development-unique_safe-o-011-mirror",
+   "immediate_wins": [],
+   "legal": [
+    1,
+    2,
+    6
+   ],
+   "moves": [
+    3,
+    0,
+    3,
+    5,
+    3,
+    3,
+    5,
+    5,
+    3,
+    3,
+    5,
+    0,
+    4,
+    0,
+    0,
+    1,
+    4,
+    4,
+    1,
+    4,
+    4,
+    4,
+    0,
+    0,
+    5,
+    5,
+    1,
+    1,
+    6
+   ],
+   "opponent_threats": [
+    6
+   ],
+   "ply": 29,
+   "safe_actions": [
+    6
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 5,
+   "family": "development-unique_safe-o-012",
+   "id": "development-unique_safe-o-012-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    5,
+    5,
+    5,
+    2,
+    5,
+    3,
+    5
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 7,
+   "safe_actions": [
+    5
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 1,
+   "family": "development-unique_safe-o-012",
+   "id": "development-unique_safe-o-012-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    1,
+    1,
+    1,
+    4,
+    1,
+    3,
+    1
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 7,
+   "safe_actions": [
+    1
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 0,
+   "family": "development-unique_safe-o-013",
+   "id": "development-unique_safe-o-013-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    6,
+    3,
+    3,
+    3,
+    3,
+    3,
+    6,
+    6,
+    3,
+    6,
+    6,
+    1,
+    0,
+    1,
+    1,
+    1,
+    2,
+    2,
+    0,
+    1,
+    0
+   ],
+   "opponent_threats": [
+    0
+   ],
+   "ply": 21,
+   "safe_actions": [
+    0
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 6,
+   "family": "development-unique_safe-o-013",
+   "id": "development-unique_safe-o-013-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    0,
+    3,
+    3,
+    3,
+    3,
+    3,
+    0,
+    0,
+    3,
+    0,
+    0,
+    5,
+    6,
+    5,
+    5,
+    5,
+    4,
+    4,
+    6,
+    5,
+    6
+   ],
+   "opponent_threats": [
+    6
+   ],
+   "ply": 21,
+   "safe_actions": [
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 1,
+   "family": "development-unique_safe-o-014",
+   "id": "development-unique_safe-o-014-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    2,
+    4,
+    2,
+    3,
+    2,
+    2,
+    0,
+    4,
+    4,
+    5,
+    6,
+    3,
+    3,
+    3,
+    0,
+    0,
+    4
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 17,
+   "safe_actions": [
+    1
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 5,
+   "family": "development-unique_safe-o-014",
+   "id": "development-unique_safe-o-014-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    4,
+    2,
+    4,
+    3,
+    4,
+    4,
+    6,
+    2,
+    2,
+    1,
+    0,
+    3,
+    3,
+    3,
+    6,
+    6,
+    2
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 17,
+   "safe_actions": [
+    5
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 4,
+   "family": "development-unique_safe-o-015",
+   "id": "development-unique_safe-o-015-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    2,
+    4,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    2,
+    2,
+    2,
+    2,
+    1,
+    0,
+    1,
+    1,
+    1,
+    5,
+    6,
+    5,
+    5,
+    4,
+    4,
+    5,
+    5,
+    5,
+    1,
+    6,
+    6,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 29,
+   "safe_actions": [
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 2,
+   "family": "development-unique_safe-o-015",
+   "id": "development-unique_safe-o-015-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    2,
+    4,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    5,
+    4,
+    4,
+    4,
+    4,
+    5,
+    6,
+    5,
+    5,
+    5,
+    1,
+    0,
+    1,
+    1,
+    2,
+    2,
+    1,
+    1,
+    1,
+    5,
+    0,
+    0,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 29,
+   "safe_actions": [
+    2
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 6,
+   "family": "development-unique_safe-o-016",
+   "id": "development-unique_safe-o-016-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    4,
+    4,
+    4,
+    4,
+    4,
+    1,
+    1,
+    1,
+    3,
+    5,
+    3,
+    3,
+    3,
+    3,
+    5
+   ],
+   "opponent_threats": [
+    6
+   ],
+   "ply": 15,
+   "safe_actions": [
+    6
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 0,
+   "family": "development-unique_safe-o-016",
+   "id": "development-unique_safe-o-016-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    2,
+    2,
+    2,
+    2,
+    2,
+    5,
+    5,
+    5,
+    3,
+    1,
+    3,
+    3,
+    3,
+    3,
+    1
+   ],
+   "opponent_threats": [
+    0
+   ],
+   "ply": 15,
+   "safe_actions": [
+    0
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 4,
+   "family": "development-unique_safe-o-017",
+   "id": "development-unique_safe-o-017-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    1,
+    0,
+    1,
+    1,
+    5,
+    6,
+    1,
+    5,
+    1,
+    5,
+    5,
+    6,
+    6,
+    3,
+    1,
+    3,
+    3,
+    4,
+    4,
+    2,
+    3,
+    2,
+    3,
+    3,
+    2,
+    2,
+    2
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 27,
+   "safe_actions": [
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 2,
+   "family": "development-unique_safe-o-017",
+   "id": "development-unique_safe-o-017-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    6
+   ],
+   "moves": [
+    5,
+    6,
+    5,
+    5,
+    1,
+    0,
+    5,
+    1,
+    5,
+    1,
+    1,
+    0,
+    0,
+    3,
+    5,
+    3,
+    3,
+    2,
+    2,
+    4,
+    3,
+    4,
+    3,
+    3,
+    4,
+    4,
+    4
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 27,
+   "safe_actions": [
+    2
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 6,
+   "family": "development-unique_safe-o-018",
+   "id": "development-unique_safe-o-018-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    5,
+    2,
+    5,
+    5,
+    5,
+    3,
+    4,
+    1,
+    2
+   ],
+   "opponent_threats": [
+    6
+   ],
+   "ply": 13,
+   "safe_actions": [
+    6
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 0,
+   "family": "development-unique_safe-o-018",
+   "id": "development-unique_safe-o-018-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    1,
+    4,
+    1,
+    1,
+    1,
+    3,
+    2,
+    5,
+    4
+   ],
+   "opponent_threats": [
+    0
+   ],
+   "ply": 13,
+   "safe_actions": [
+    0
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_safe-o-019",
+   "id": "development-unique_safe-o-019-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    2,
+    6,
+    3,
+    1,
+    1,
+    3,
+    6,
+    3,
+    3,
+    1,
+    0,
+    3,
+    1,
+    0,
+    5
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 15,
+   "safe_actions": [
+    4
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_safe-o-019",
+   "id": "development-unique_safe-o-019-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    4,
+    0,
+    3,
+    5,
+    5,
+    3,
+    0,
+    3,
+    3,
+    5,
+    6,
+    3,
+    5,
+    6,
+    1
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 15,
+   "safe_actions": [
+    2
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 4,
+   "family": "development-unique_safe-o-020",
+   "id": "development-unique_safe-o-020-base",
+   "immediate_wins": [],
+   "legal": [
+    1,
+    4
+   ],
+   "moves": [
+    1,
+    3,
+    2,
+    3,
+    3,
+    0,
+    2,
+    2,
+    6,
+    3,
+    1,
+    2,
+    3,
+    2,
+    2,
+    4,
+    3,
+    6,
+    4,
+    6,
+    0,
+    0,
+    0,
+    1,
+    1,
+    5,
+    5,
+    5,
+    5,
+    5,
+    5,
+    6,
+    6,
+    6,
+    0,
+    0,
+    4,
+    4,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 39,
+   "safe_actions": [
+    4
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "horizontal",
+   "expected_action": 2,
+   "family": "development-unique_safe-o-020",
+   "id": "development-unique_safe-o-020-mirror",
+   "immediate_wins": [],
+   "legal": [
+    2,
+    5
+   ],
+   "moves": [
+    5,
+    3,
+    4,
+    3,
+    3,
+    6,
+    4,
+    4,
+    0,
+    3,
+    5,
+    4,
+    3,
+    4,
+    4,
+    2,
+    3,
+    0,
+    2,
+    0,
+    6,
+    6,
+    6,
+    5,
+    5,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    6,
+    6,
+    2,
+    2,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 39,
+   "safe_actions": [
+    2
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 1,
+   "family": "development-unique_safe-o-021",
+   "id": "development-unique_safe-o-021-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    2,
+    1,
+    1,
+    3,
+    1,
+    0,
+    1
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 11,
+   "safe_actions": [
+    1
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 5,
+   "family": "development-unique_safe-o-021",
+   "id": "development-unique_safe-o-021-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    4,
+    5,
+    5,
+    3,
+    5,
+    6,
+    5
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 11,
+   "safe_actions": [
+    5
+   ],
+   "stage": "early"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 1,
+   "family": "development-unique_safe-o-022",
+   "id": "development-unique_safe-o-022-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    6
+   ],
+   "moves": [
+    3,
+    5,
+    3,
+    3,
+    3,
+    6,
+    5,
+    5,
+    6,
+    1,
+    5,
+    6,
+    6,
+    5,
+    1,
+    3,
+    1,
+    5,
+    1
+   ],
+   "opponent_threats": [
+    1
+   ],
+   "ply": 19,
+   "safe_actions": [
+    1
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "vertical",
+   "expected_action": 5,
+   "family": "development-unique_safe-o-022",
+   "id": "development-unique_safe-o-022-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    2,
+    3,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    1,
+    3,
+    3,
+    3,
+    0,
+    1,
+    1,
+    0,
+    5,
+    1,
+    0,
+    0,
+    1,
+    5,
+    3,
+    5,
+    1,
+    5
+   ],
+   "opponent_threats": [
+    5
+   ],
+   "ply": 19,
+   "safe_actions": [
+    5
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 4,
+   "family": "development-unique_safe-o-023",
+   "id": "development-unique_safe-o-023-base",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    1,
+    4,
+    0,
+    2,
+    2,
+    2,
+    2,
+    4,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 15,
+   "safe_actions": [
+    4
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 2,
+   "family": "development-unique_safe-o-023",
+   "id": "development-unique_safe-o-023-mirror",
+   "immediate_wins": [],
+   "legal": [
+    0,
+    1,
+    2,
+    4,
+    5,
+    6
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    3,
+    3,
+    3,
+    5,
+    2,
+    6,
+    4,
+    4,
+    4,
+    4,
+    2,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 15,
+   "safe_actions": [
+    2
+   ],
+   "stage": "middle"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_up",
+   "expected_action": 2,
+   "family": "development-unique_safe-o-024",
+   "id": "development-unique_safe-o-024-base",
+   "immediate_wins": [],
+   "legal": [
+    1,
+    2
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    0,
+    3,
+    3,
+    3,
+    5,
+    5,
+    5,
+    5,
+    5,
+    0,
+    5,
+    0,
+    0,
+    1,
+    4,
+    6,
+    6,
+    6,
+    6,
+    6,
+    0,
+    0,
+    1,
+    4,
+    4,
+    4,
+    4,
+    4,
+    6,
+    2
+   ],
+   "opponent_threats": [
+    2
+   ],
+   "ply": 33,
+   "safe_actions": [
+    2
+   ],
+   "stage": "late"
+  },
+  {
+   "actor": 1,
+   "category": "unique_safe",
+   "direction": "diagonal_down",
+   "expected_action": 4,
+   "family": "development-unique_safe-o-024",
+   "id": "development-unique_safe-o-024-mirror",
+   "immediate_wins": [],
+   "legal": [
+    4,
+    5
+   ],
+   "moves": [
+    3,
+    3,
+    3,
+    6,
+    3,
+    3,
+    3,
+    1,
+    1,
+    1,
+    1,
+    1,
+    6,
+    1,
+    6,
+    6,
+    5,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    6,
+    5,
+    2,
+    2,
+    2,
+    2,
+    2,
+    0,
+    4
+   ],
+   "opponent_threats": [
+    4
+   ],
+   "ply": 33,
+   "safe_actions": [
+    4
+   ],
+   "stage": "late"
+  }
+ ],
+ "rows_sha256": "99a2b47dda7dfbfb67a026a2f6c3b6e1442a4c33112fde691eec7d4a390f35be",
+ "split": "development"
+}

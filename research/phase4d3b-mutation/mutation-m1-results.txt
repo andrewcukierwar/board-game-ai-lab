@@ -1,0 +1,16 @@
+# First sweep: 30 mutations against the unmodified Phase 4D.3A tests (tests/test_alphazero_v2.py, 104 tests)
+puct_sign KILLED 3 | backup_no_alternation KILLED 2 | terminal_sign KILLED 2 | outcome_sign KILLED 3
+schedule_le KILLED 3 | target_from_action_temp KILLED 2 | noise_global_numpy KILLED 3 | noise_two_draws SURVIVED
+snapshot_is_learner KILLED 1 | replay_window_plus_one KILLED 3 | sample_with_replacement KILLED 2 | sample_newest_only KILLED 1
+sampling_uses_search_rng SURVIVED | optimizer_moments_reset KILLED 1 | bias_decay KILLED 5 | no_clipping KILLED 1
+updates_floor KILLED 2 | softmax_then_mask KILLED 2 | reflection_keeps_visits KILLED 11 | resume_skip_optimizer KILLED 4
+resume_skip_noise_state KILLED 4 | resume_skip_aug_rng KILLED 4 | strict_drop_intra SURVIVED | inference_loader_no_contract SURVIVED
+example_temp_constant KILLED 2 | eval_temperature_one KILLED 1 | label_by_final_mover KILLED 3 | evict_before_check_partial KILLED 1
+resume_skip_counters_steps KILLED 4 | noise_eps_ignored KILLED 1
+
+# After the Phase 4D.3B fixes and new tests (138 tests): the four survivors plus nine provenance mutations
+noise_two_draws KILLED 1 | sampling_uses_search_rng KILLED 1 (after strengthening the phase-ownership test)
+inference_loader_no_contract KILLED 3 | runtime_ignore_interop KILLED 2 | runtime_drop_deterministic KILLED 1
+source_gate_disabled KILLED 1 | runtime_gate_disabled KILLED 18 | drift_check_removed KILLED 1 | disk_check_removed KILLED 1
+schedule_check_removed KILLED 1 | lineage_not_saved KILLED 1 | closure_missing_board KILLED 1
+(strict_drop_intra no longer applies: STRICT_RUNTIME_KEYS was replaced by whole-identity comparison.)

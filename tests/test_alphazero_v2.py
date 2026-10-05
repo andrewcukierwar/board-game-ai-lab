@@ -33,7 +33,8 @@ from games.connect4.alphazero_v2.data import (
     finalize_game,
     outcome_for_actor, pre_move_ply, reflect_example, visit_target,
 )
-from games.connect4.alphazero_v2.generation import GenerationRunner, load_resume_boundary
+from games.connect4.alphazero_v2 import provenance
+from games.connect4.alphazero_v2.generation import GenerationRunner, load_resume_boundary, rebuild_game
 from games.connect4.alphazero_v2.network import (
     AlphaZeroV2Net, V2Inference, legal_policy_from_logits, load_inference_checkpoint,
     save_inference_checkpoint, weights_sha256,
@@ -109,6 +110,11 @@ def pending_examples(moves):
 
 def completed(generation, index, moves=X_WIN):
     return finalize_game(generation, index, moves, pending_examples(moves))
+
+
+def deterministic(summary):
+    """A generation summary without its non-deterministic resource timings/paths."""
+    return {k: v for k, v in summary.items() if k not in ('resources', 'artifacts')}
 
 
 # Contracts and configuration ---------------------------------------------------
@@ -638,13 +644,13 @@ def test_generation_collects_frozen_then_trains(monkeypatch):
     calls, real_collect = [], generation_module.collect_generation
     real_step = runner.trainer.step
 
-    def spy_collect(player, generation, games):
+    def spy_collect(player, generation, games, **hooks):
         learner = weights_sha256(runner.model)
         steps, optimizer_state = runner.trainer.steps, deepcopy(runner.trainer.optimizer.state_dict())
         assert runner.phase == 'collecting'
         assert player.search.inference.model is not runner.model
         assert weights_sha256(player.search.inference.model) == learner
-        result = real_collect(player, generation, games)
+        result = real_collect(player, generation, games, **hooks)
         assert weights_sha256(runner.model) == learner and runner.trainer.steps == steps
         assert str(runner.trainer.optimizer.state_dict()) == str(optimizer_state)
         calls.append(('collect', generation))
@@ -708,7 +714,7 @@ def test_interrupted_generation_is_discarded_and_runner_must_resume(monkeypatch)
     runner = GenerationRunner(tiny_config())
     runner.run_generation()
 
-    def broken(*args):
+    def broken(*args, **hooks):
         raise KeyboardInterrupt
     monkeypatch.setattr(generation_module, 'collect_generation', broken)
     with pytest.raises(KeyboardInterrupt):
@@ -731,7 +737,7 @@ def test_fresh_runners_are_deterministic_and_seeded():
     a, b = GenerationRunner(tiny_config()), GenerationRunner(tiny_config())
     assert weights_sha256(a.model) == weights_sha256(b.model)
     assert weights_sha256(GenerationRunner(tiny_config(seed=7)).model) != weights_sha256(a.model)
-    assert a.run_generation() == b.run_generation()
+    assert deterministic(a.run_generation()) == deterministic(b.run_generation())
 
 
 # Resume -----------------------------------------------------------------------------
@@ -746,7 +752,9 @@ def test_boundary_files_schema_and_no_overwrite(tmp_path):
     assert set(payload['rng']) == {'python', 'numpy', 'torch', 'search', 'action', 'sampling',
                                    'augmentation', 'root_noise'}
     assert payload['counters']['completed_generations'] == 1
-    assert payload['runtime']['intra_op_threads'] == 1 and 'commit' in payload['source']
+    assert payload['runtime']['intra_op_threads'] == 1 and 'commit' in payload['source']['git']
+    assert payload['source']['execution']['sha256'] == generation_module.PROCESS_EXECUTION_SOURCE['sha256']
+    assert payload['lineage'] == []
     assert load_inference_checkpoint(artifacts['inference']).model.state_dict().keys() == \
         runner.model.state_dict().keys()
     with pytest.raises(ValueError):
@@ -770,7 +778,7 @@ def test_resume_continues_exactly_in_process(tmp_path):
     assert resumed.trainer.optimizer.state_dict()['state'][0]['step'] == \
         uninterrupted.trainer.optimizer.state_dict()['state'][0]['step']
     expected, actual = uninterrupted.run_generation(), resumed.run_generation()
-    assert actual == expected
+    assert deterministic(actual) == deterministic(expected)
     assert list(resumed.replay.iter_games()) == list(uninterrupted.replay.iter_games())
     assert resumed.state_sha256() == uninterrupted.state_sha256()
     assert weights_sha256(resumed.model) == weights_sha256(uninterrupted.model)
@@ -788,13 +796,14 @@ torch.set_num_threads(1)
 from games.connect4.alphazero_v2.generation import load_resume_boundary
 runner = load_resume_boundary({str(tmp_path / 'boundary.pt')!r})
 summary = runner.run_generation()
+summary.pop('resources')
 print(json.dumps(dict(summary=summary, state=runner.state_sha256())))
 '''
     result = subprocess.run([sys.executable, '-c', script], capture_output=True, text=True,
                             timeout=120, cwd=ROOT, env=dict(os.environ, PYTHONDONTWRITEBYTECODE='1'))
     assert result.returncode == 0, result.stderr
     output = json.loads(result.stdout.strip().splitlines()[-1])
-    assert output['summary'] == json.loads(json.dumps(expected))
+    assert output['summary'] == json.loads(json.dumps(deterministic(expected)))
     assert output['state'] == runner.state_sha256()
 
 
@@ -860,3 +869,264 @@ print(V2Config().self_play_simulations)
     result = subprocess.run([sys.executable, '-c', script], capture_output=True, text=True,
                             timeout=60, cwd=ROOT)
     assert result.returncode == 0 and result.stdout.strip() == '256', result.stdout + result.stderr
+
+
+# Phase 4D.3B hostile-review regressions ------------------------------------------------
+
+RUNTIME_KEYS = sorted(provenance.runtime_identity())
+
+
+@pytest.mark.parametrize('key', RUNTIME_KEYS)
+def test_every_runtime_identity_field_is_enforced_on_resume(tmp_path, monkeypatch, key):
+    runner = GenerationRunner(tiny_config())
+    runner.run_generation()
+    path = tmp_path / 'boundary.pt'
+    runner.save_resume_boundary(path)
+    real = generation_module.runtime_identity
+    monkeypatch.setattr(generation_module, 'runtime_identity', lambda: dict(real(), **{key: 'changed'}))
+    with pytest.raises(ValueError, match='Runtime identity differs'):
+        load_resume_boundary(path, restore_global_rng=False)
+    relaxed = load_resume_boundary(path, strict_runtime=False, restore_global_rng=False)
+    assert relaxed.state_sha256() == runner.state_sha256()
+    assert relaxed.lineage[-1]['runtime_differences'] == [key]
+    assert relaxed.lineage[-1]['exact_continuation_claimed'] is False
+
+
+def test_runtime_missing_field_is_a_difference():
+    current = provenance.runtime_identity()
+    reduced = {k: v for k, v in current.items() if k != 'inter_op_threads'}
+    assert provenance.runtime_differences(reduced, current) == ['inter_op_threads']
+    assert provenance.runtime_differences(current, dict(current)) == []
+
+
+def test_runner_refuses_to_continue_after_runtime_drift():
+    runner = GenerationRunner(tiny_config())
+    runner.run_generation()
+    torch.set_num_threads(2)
+    try:
+        with pytest.raises(RuntimeError, match='intra_op_threads'):
+            runner.run_generation()
+        with pytest.raises(RuntimeError, match='intra_op_threads'):
+            runner.boundary_payload()
+    finally:
+        torch.set_num_threads(1)
+    assert runner.completed_generations == 1 and not runner.failed
+
+
+def tampered_source(execution, name):
+    files = dict(execution['files'], **{name: '0' * 64})
+    return dict(execution, files=files, sha256=hashlib_sha256(json.dumps(files, sort_keys=True)))
+
+
+def hashlib_sha256(text):
+    import hashlib
+    return hashlib.sha256(text.encode()).hexdigest()
+
+
+def test_execution_source_content_is_enforced_on_resume(tmp_path):
+    runner = GenerationRunner(tiny_config())
+    runner.run_generation()
+    runner.save_resume_boundary(tmp_path / 'boundary.pt')
+    payload = torch.load(tmp_path / 'boundary.pt', map_location='cpu', weights_only=True)
+    payload['source']['execution'] = tampered_source(payload['source']['execution'],
+                                                     'games/connect4/agents/mcts_nn_agent.py')
+    torch.save(payload, tmp_path / 'other-source.pt')
+    with pytest.raises(ValueError, match='source identity differs.*mcts_nn_agent'):
+        load_resume_boundary(tmp_path / 'other-source.pt', restore_global_rng=False)
+    relaxed = load_resume_boundary(tmp_path / 'other-source.pt', strict_source=False, restore_global_rng=False)
+    assert relaxed.lineage[-1]['source_differences'] == ['games/connect4/agents/mcts_nn_agent.py']
+    assert relaxed.lineage[-1]['exact_continuation_claimed'] is False
+    # A different commit with identical execution content is not a difference.
+    payload = torch.load(tmp_path / 'boundary.pt', map_location='cpu', weights_only=True)
+    payload['source']['git'] = dict(payload['source']['git'], commit='0' * 40, tracked_dirty=True)
+    torch.save(payload, tmp_path / 'other-commit.pt')
+    exact = load_resume_boundary(tmp_path / 'other-commit.pt', restore_global_rng=False)
+    assert exact.lineage[-1]['exact_continuation_claimed'] is True
+
+
+def test_sources_changed_on_disk_stop_the_runner_and_resume(tmp_path, monkeypatch):
+    runner = GenerationRunner(tiny_config())
+    runner.run_generation()
+    runner.save_resume_boundary(tmp_path / 'boundary.pt')
+    original = generation_module.PROCESS_EXECUTION_SOURCE
+    edited = tampered_source(original, 'games/connect4/connect4.py')
+    monkeypatch.setattr(generation_module, 'execution_source_identity', lambda: edited)
+    for action in (runner.run_generation, runner.boundary_payload,
+                   lambda: load_resume_boundary(tmp_path / 'boundary.pt', restore_global_rng=False)):
+        with pytest.raises(RuntimeError, match='changed on disk.*connect4.py'):
+            action()
+
+
+def test_execution_closure_covers_every_loaded_repository_module(tmp_path):
+    script = f"""
+import json, sys, torch
+from pathlib import Path
+torch.set_num_threads(1)
+from games.connect4.alphazero_v2.config import V2Config
+from games.connect4.alphazero_v2.generation import GenerationRunner, load_resume_boundary
+from games.connect4.alphazero_v2.provenance import REPO_ROOT, execution_source_files
+config = V2Config(self_play_simulations=2, games_per_generation=2, replay_generations=1, replay_max_games=2,
+                  batch_size=8, max_generations=2)
+runner = GenerationRunner(config)
+runner.run_generation({str(tmp_path)!r})
+load_resume_boundary({str(tmp_path / 'generation-0001.resume.pt')!r}).run_generation()
+loaded = sorted(Path(m.__file__).resolve().relative_to(REPO_ROOT).as_posix() for m in list(sys.modules.values())
+                if getattr(m, '__file__', None) and Path(m.__file__).is_absolute()
+                and Path(m.__file__).resolve().is_relative_to(REPO_ROOT))
+print(json.dumps(dict(loaded=loaded, declared=list(execution_source_files()))))
+"""
+    result = subprocess.run([sys.executable, '-c', script], capture_output=True, text=True, timeout=180,
+                            cwd=ROOT, env=dict(os.environ, PYTHONDONTWRITEBYTECODE='1'))
+    assert result.returncode == 0, result.stderr
+    output = json.loads(result.stdout.strip().splitlines()[-1])
+    assert output['loaded'] and set(output['loaded']) <= set(output['declared']), \
+        set(output['loaded']) - set(output['declared'])
+    assert all((ROOT / name).is_file() for name in output['declared'])
+
+
+def test_resume_file_hash_and_lineage_chain(tmp_path):
+    runner = GenerationRunner(tiny_config())
+    runner.run_generation()
+    path = tmp_path / 'boundary.pt'
+    digest = runner.save_resume_boundary(path)
+    with pytest.raises(ValueError, match='file hash'):
+        load_resume_boundary(path, expected_sha256='0' * 64, restore_global_rng=False)
+    resumed = load_resume_boundary(path, expected_sha256=digest, restore_global_rng=False)
+    assert resumed.lineage == [dict(loaded_file_sha256=digest, loaded_state_sha256=runner.state_sha256(),
+                                    completed_generations=1, strict_runtime=True, strict_source=True,
+                                    runtime_differences=[], source_differences=[],
+                                    exact_continuation_claimed=True)]
+    resumed.run_generation()
+    resumed.save_resume_boundary(tmp_path / 'next.pt')
+    assert torch.load(tmp_path / 'next.pt', weights_only=True)['lineage'] == resumed.lineage
+
+
+def test_generation_zero_boundary_round_trips(tmp_path):
+    runner = GenerationRunner(tiny_config())
+    artifacts = runner.save_boundary(tmp_path)
+    assert Path(artifacts['inference']).name == 'generation-0000.inference.pt'
+    resumed = load_resume_boundary(artifacts['resume'], restore_global_rng=False)
+    assert resumed.state_sha256() == runner.state_sha256() and len(resumed.replay) == 0
+    assert deterministic(resumed.run_generation()) == deterministic(runner.run_generation())
+
+
+def test_inference_and_resume_artifacts_hold_identical_learner_weights(tmp_path):
+    runner = GenerationRunner(tiny_config())
+    artifacts = runner.run_generation(tmp_path)['artifacts']
+    inference = load_inference_checkpoint(artifacts['inference']).model
+    resumed = load_resume_boundary(artifacts['resume'], restore_global_rng=False).model
+    assert weights_sha256(inference) == weights_sha256(resumed) == weights_sha256(runner.model)
+
+
+@pytest.mark.parametrize('change', [dict(format_version=1), dict(architecture='other'),
+                                    dict(value_perspective='fixed_x')])
+def test_inference_loader_rejects_any_contract_change(tmp_path, change):
+    save_inference_checkpoint(tmp_path / 'ok.pt', seeded_net())
+    payload = torch.load(tmp_path / 'ok.pt', weights_only=True)
+    payload['contract'] = dict(payload['contract'], **change)
+    torch.save(payload, tmp_path / 'changed.pt')
+    with pytest.raises(ValueError, match='inference checkpoint'):
+        load_inference_checkpoint(tmp_path / 'changed.pt')
+
+
+def test_rng_streams_are_owned_by_their_phase(monkeypatch):
+    runner = GenerationRunner(tiny_config())
+    runner.run_generation()
+    real_collect = generation_module.collect_generation
+    streams = lambda: dict(search=runner.search_rng.getstate(), action=runner.action_rng.getstate(),
+                           noise=str(runner.root_noise.get_state()), sampling=runner.sampling_rng.getstate(),
+                           augmentation=runner.augmenter.rng.getstate())
+    boundary = {}
+
+    def spy_collect(player, generation, games, **hooks):
+        boundary['start'] = streams()
+        result = real_collect(player, generation, games, **hooks)
+        boundary['collected'] = streams()
+        return result
+    monkeypatch.setattr(generation_module, 'collect_generation', spy_collect)
+    runner.run_generation()
+    start, collected, end = boundary['start'], boundary['collected'], streams()
+    for name in ('search', 'action', 'noise'):  # collection only
+        assert collected[name] != start[name] and end[name] == collected[name], name
+    for name in ('sampling', 'augmentation'):  # training only
+        assert collected[name] == start[name] and end[name] != collected[name], name
+
+
+def test_generation_never_consumes_process_global_rngs():
+    runner = GenerationRunner(tiny_config())
+    before = random.getstate(), np.random.get_state()[1].copy(), torch.get_rng_state().clone()
+    runner.run_generation()
+    assert random.getstate() == before[0] and (np.random.get_state()[1] == before[1]).all()
+    assert torch.equal(torch.get_rng_state(), before[2])
+
+
+def test_root_noise_is_exactly_one_legal_dirichlet_draw_per_search():
+    player = self_player(noise_seed=11)
+    positions = [[], [3], [0] * 6, [0] * 6 + [1] * 6, [0] * 6 + [1] * 6 + [2] * 6]
+    observed = [player.decide(position(moves)).search for moves in positions]
+    reference = np.random.Generator(np.random.PCG64(int(hashlib_sha256(f'{V2RootNoise.domain}:11'), 16)))
+    for moves, result in zip(positions, observed):
+        legal = sorted(position(moves).get_valid_moves())
+        expected = np.zeros(7)
+        expected[legal] = reference.dirichlet(np.ones(len(legal)))
+        assert list(result.root_noise) == expected.tolist()
+    assert player.root_noise.get_state()['bit_generator'] == reference.bit_generator.state
+    assert player.root_noise.draws == len(positions)
+
+
+def scheduled_history(moves, simulations, override=None):
+    """Synthetic stored arrays following the self-play schedule (visits on the played move)."""
+    visits, temperatures = [], []
+    for ply, move in enumerate(moves):
+        counts = [0] * 7
+        counts[move] = simulations
+        visits.append(counts)
+        temperatures.append(action_temperature(ply, 8))
+    if override:
+        override(visits, temperatures)
+    return visits, temperatures
+
+
+def test_rebuild_rejects_records_that_violate_the_declared_schedule():
+    winner = position(DRAW).check_winner()
+    visits, temperatures = scheduled_history(DRAW, 3)
+    assert rebuild_game(1, 0, DRAW, visits, temperatures, winner, 3, 8).winner == -1
+    visits, temperatures = scheduled_history(DRAW, 3, lambda v, t: t.__setitem__(0, 0.0))
+    with pytest.raises(ValueError, match='schedule'):
+        rebuild_game(1, 0, DRAW, visits, temperatures, winner, 3, 8)
+    game = position(DRAW[:9])
+    other = next(a for a in game.get_valid_moves() if a != DRAW[9])
+
+    def non_maximal(v, t):
+        v[9] = [0] * 7
+        v[9][DRAW[9]], v[9][other] = 1, 2
+    visits, temperatures = scheduled_history(DRAW, 3, non_maximal)
+    with pytest.raises(ValueError, match='maximum-visit'):
+        rebuild_game(1, 0, DRAW, visits, temperatures, winner, 3, 8)
+
+
+def test_resume_rejects_optimizer_state_inconsistent_with_trainer_steps(tmp_path):
+    runner = GenerationRunner(tiny_config())
+    runner.run_generation()
+    runner.save_resume_boundary(tmp_path / 'boundary.pt')
+    payload = torch.load(tmp_path / 'boundary.pt', weights_only=True)
+    payload['counters']['trainer_steps'] += 1
+    torch.save(payload, tmp_path / 'steps.pt')
+    with pytest.raises(ValueError, match='Optimizer step'):
+        load_resume_boundary(tmp_path / 'steps.pt', restore_global_rng=False)
+
+
+def test_deterministic_runtime_configuration_in_fresh_process():
+    script = """
+import json
+from games.connect4.alphazero_v2.provenance import configure_deterministic_runtime
+print(json.dumps(configure_deterministic_runtime(1)))
+"""
+    env = dict(os.environ, PYTHONDONTWRITEBYTECODE='1', **provenance.required_thread_environment(1))
+    result = subprocess.run([sys.executable, '-c', script], capture_output=True, text=True, timeout=60,
+                            cwd=ROOT, env=env)
+    assert result.returncode == 0, result.stderr
+    identity = json.loads(result.stdout.strip().splitlines()[-1])
+    assert (identity['intra_op_threads'], identity['inter_op_threads'], identity['deterministic_algorithms']) == \
+        (1, 1, True)
+    assert set(identity['thread_environment'].values()) == {'1'}

@@ -1,0 +1,1363 @@
+{
+ "format": "connect4-alphazero-v2-evaluation-package",
+ "format_version": 1,
+ "kind": "openings",
+ "metadata": {
+  "build_seed": 4303002,
+  "created_utc": "2026-10-05T18:16:51.021065+00:00",
+  "dedupe": "reflection family of (board, actor); transpositions share a board",
+  "empty_board_pairs": 20,
+  "exact_values": "not computed: beyond the bounded Python oracle",
+  "exclusions": {
+   "families": 296,
+   "sources": [
+    {
+     "families": 30,
+     "name": "dqn_diagnostic",
+     "path": "games/connect4/dqn/diagnostic_positions.json",
+     "rows": 60,
+     "sha256": "ec99e0ee080370ab8cfc678c00a49ff552466de73ffe0955778ac87ee340543a"
+    },
+    {
+     "families": 48,
+     "name": "dqn_validation",
+     "path": "games/connect4/dqn/validation_positions.json",
+     "rows": 96,
+     "sha256": "1c79db45a09e00a8e8806448362eb319b5e9c81e431de03c7b5ece8b2d04bb2f"
+    },
+    {
+     "families": 48,
+     "name": "dqn_replication",
+     "path": "games/connect4/dqn/replication_positions.json",
+     "rows": 96,
+     "sha256": "8e63fd8be0419ddb4daf83ae226362f26999dced321617900938d61a60efb7da"
+    },
+    {
+     "families": 48,
+     "name": "phase4d2c_blind",
+     "path": "experiment-output/phase4d2c-neural-symmetry-seed42-20261005/preflight/blind-positions.json",
+     "rows": 96,
+     "sha256": "ba31268418872fb2b5d89879d48fa644cd8cb576db0b6fd2d80d1af41f3727d5"
+    },
+    {
+     "families": 48,
+     "name": "phase4d2d_blind",
+     "path": "experiment-output/phase4d2d-neural-root-noise-preflight-20261005/blind-positions.json",
+     "rows": 96,
+     "sha256": "53775d757c268fc76cb51e429679693b26fa2e11bcf11918be84ba0db11986cc"
+    },
+    {
+     "families": 64,
+     "name": "phase4d2f_exact_value_blind",
+     "path": "experiment-output/phase4d2f-neural-value-anchoring-preflight-20261005/exact-value-blind.json",
+     "rows": 128,
+     "sha256": "53a8bf0d9c99d16e165a08505cd651545a73f18dd4db195b51cd599dca3b89b0"
+    },
+    {
+     "families": 9,
+     "name": "original_probes",
+     "path": null,
+     "rows": 9,
+     "sha256": "e5a6f6fce1cb4f737bc05ab4f80d4d126d0bc58317cb0c5ec42cba0615760a7b"
+    },
+    {
+     "families": 3,
+     "name": "historical_openings",
+     "path": null,
+     "rows": 6,
+     "sha256": "c4204dc489497ebd48d83f90665f62a874bfca441c9dd611caafbe03ee87b35b"
+    }
+   ]
+  },
+  "generator": {
+   "rule": "per game a seeded style; each move uniform random with the style probability, else reference Negamax at a seeded style depth with seeded ties; self-symmetric boards excluded",
+   "styles": [
+    {
+     "name": "tactical",
+     "negamax_depths": [
+      1,
+      2
+     ],
+     "random_probability": 0.4
+    },
+    {
+     "name": "positional",
+     "negamax_depths": [
+      2,
+      4
+     ],
+     "random_probability": 0.1
+    }
+   ]
+  },
+  "model_blind": true,
+  "prefix_bases": 40,
+  "prefix_lengths": "2-8; even (X to move) and odd (O to move) bases balanced 20/20; each base plus mirror",
+  "requirements": "nonterminal, no immediate win for either side, not self-symmetric",
+  "split_rule": "sealed quotas filled first from the shuffled pool, then development; disjoint families",
+  "stats": {
+   "attempts": 95
+  },
+  "training_feedback": false
+ },
+ "rows": [
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-00",
+   "moves": [],
+   "pair_seed": 0,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-01",
+   "moves": [],
+   "pair_seed": 1,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-02",
+   "moves": [],
+   "pair_seed": 2,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-03",
+   "moves": [],
+   "pair_seed": 3,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-04",
+   "moves": [],
+   "pair_seed": 4,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-05",
+   "moves": [],
+   "pair_seed": 5,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-06",
+   "moves": [],
+   "pair_seed": 6,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-07",
+   "moves": [],
+   "pair_seed": 7,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-08",
+   "moves": [],
+   "pair_seed": 8,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-09",
+   "moves": [],
+   "pair_seed": 9,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-10",
+   "moves": [],
+   "pair_seed": 10,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-11",
+   "moves": [],
+   "pair_seed": 11,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-12",
+   "moves": [],
+   "pair_seed": 12,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-13",
+   "moves": [],
+   "pair_seed": 13,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-14",
+   "moves": [],
+   "pair_seed": 14,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-15",
+   "moves": [],
+   "pair_seed": 15,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-16",
+   "moves": [],
+   "pair_seed": 16,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-17",
+   "moves": [],
+   "pair_seed": 17,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-18",
+   "moves": [],
+   "pair_seed": 18,
+   "stratum": "empty"
+  },
+  {
+   "family": "empty-board",
+   "id": "sealed-empty-19",
+   "moves": [],
+   "pair_seed": 19,
+   "stratum": "empty"
+  },
+  {
+   "family": "sealed-prefix-00",
+   "id": "sealed-prefix-00-base",
+   "moves": [
+    2,
+    6
+   ],
+   "pair_seed": 20,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-00",
+   "id": "sealed-prefix-00-mirror",
+   "moves": [
+    4,
+    0
+   ],
+   "pair_seed": 21,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-01",
+   "id": "sealed-prefix-01-base",
+   "moves": [
+    5,
+    5,
+    6,
+    6
+   ],
+   "pair_seed": 22,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-01",
+   "id": "sealed-prefix-01-mirror",
+   "moves": [
+    1,
+    1,
+    0,
+    0
+   ],
+   "pair_seed": 23,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-02",
+   "id": "sealed-prefix-02-base",
+   "moves": [
+    3,
+    3,
+    6,
+    4,
+    3,
+    2
+   ],
+   "pair_seed": 24,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-02",
+   "id": "sealed-prefix-02-mirror",
+   "moves": [
+    3,
+    3,
+    0,
+    2,
+    3,
+    4
+   ],
+   "pair_seed": 25,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-03",
+   "id": "sealed-prefix-03-base",
+   "moves": [
+    1,
+    2,
+    4,
+    1,
+    0,
+    3,
+    5,
+    5
+   ],
+   "pair_seed": 26,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-03",
+   "id": "sealed-prefix-03-mirror",
+   "moves": [
+    5,
+    4,
+    2,
+    5,
+    6,
+    3,
+    1,
+    1
+   ],
+   "pair_seed": 27,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-04",
+   "id": "sealed-prefix-04-base",
+   "moves": [
+    2,
+    0
+   ],
+   "pair_seed": 28,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-04",
+   "id": "sealed-prefix-04-mirror",
+   "moves": [
+    4,
+    6
+   ],
+   "pair_seed": 29,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-05",
+   "id": "sealed-prefix-05-base",
+   "moves": [
+    6,
+    4,
+    2,
+    2
+   ],
+   "pair_seed": 30,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-05",
+   "id": "sealed-prefix-05-mirror",
+   "moves": [
+    0,
+    2,
+    4,
+    4
+   ],
+   "pair_seed": 31,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-06",
+   "id": "sealed-prefix-06-base",
+   "moves": [
+    1,
+    4,
+    3,
+    1,
+    6,
+    3
+   ],
+   "pair_seed": 32,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-06",
+   "id": "sealed-prefix-06-mirror",
+   "moves": [
+    5,
+    2,
+    3,
+    5,
+    0,
+    3
+   ],
+   "pair_seed": 33,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-07",
+   "id": "sealed-prefix-07-base",
+   "moves": [
+    3,
+    4,
+    6,
+    2,
+    2,
+    3,
+    1,
+    2
+   ],
+   "pair_seed": 34,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-07",
+   "id": "sealed-prefix-07-mirror",
+   "moves": [
+    3,
+    2,
+    0,
+    4,
+    4,
+    3,
+    5,
+    4
+   ],
+   "pair_seed": 35,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-08",
+   "id": "sealed-prefix-08-base",
+   "moves": [
+    3,
+    1
+   ],
+   "pair_seed": 36,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-08",
+   "id": "sealed-prefix-08-mirror",
+   "moves": [
+    3,
+    5
+   ],
+   "pair_seed": 37,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-09",
+   "id": "sealed-prefix-09-base",
+   "moves": [
+    6,
+    6,
+    2,
+    5
+   ],
+   "pair_seed": 38,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-09",
+   "id": "sealed-prefix-09-mirror",
+   "moves": [
+    0,
+    0,
+    4,
+    1
+   ],
+   "pair_seed": 39,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-10",
+   "id": "sealed-prefix-10-base",
+   "moves": [
+    2,
+    2,
+    0,
+    1,
+    3,
+    6
+   ],
+   "pair_seed": 40,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-10",
+   "id": "sealed-prefix-10-mirror",
+   "moves": [
+    4,
+    4,
+    6,
+    5,
+    3,
+    0
+   ],
+   "pair_seed": 41,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-11",
+   "id": "sealed-prefix-11-base",
+   "moves": [
+    3,
+    5,
+    4,
+    3,
+    5,
+    6,
+    6,
+    6
+   ],
+   "pair_seed": 42,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-11",
+   "id": "sealed-prefix-11-mirror",
+   "moves": [
+    3,
+    1,
+    2,
+    3,
+    1,
+    0,
+    0,
+    0
+   ],
+   "pair_seed": 43,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-12",
+   "id": "sealed-prefix-12-base",
+   "moves": [
+    5,
+    3
+   ],
+   "pair_seed": 44,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-12",
+   "id": "sealed-prefix-12-mirror",
+   "moves": [
+    1,
+    3
+   ],
+   "pair_seed": 45,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-13",
+   "id": "sealed-prefix-13-base",
+   "moves": [
+    6,
+    6,
+    5,
+    2
+   ],
+   "pair_seed": 46,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-13",
+   "id": "sealed-prefix-13-mirror",
+   "moves": [
+    0,
+    0,
+    1,
+    4
+   ],
+   "pair_seed": 47,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-14",
+   "id": "sealed-prefix-14-base",
+   "moves": [
+    3,
+    4,
+    4,
+    0,
+    4,
+    2
+   ],
+   "pair_seed": 48,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-14",
+   "id": "sealed-prefix-14-mirror",
+   "moves": [
+    3,
+    2,
+    2,
+    6,
+    2,
+    4
+   ],
+   "pair_seed": 49,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-15",
+   "id": "sealed-prefix-15-base",
+   "moves": [
+    2,
+    3,
+    2,
+    2,
+    5,
+    6,
+    0,
+    1
+   ],
+   "pair_seed": 50,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-15",
+   "id": "sealed-prefix-15-mirror",
+   "moves": [
+    4,
+    3,
+    4,
+    4,
+    1,
+    0,
+    6,
+    5
+   ],
+   "pair_seed": 51,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-16",
+   "id": "sealed-prefix-16-base",
+   "moves": [
+    1,
+    5
+   ],
+   "pair_seed": 52,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-16",
+   "id": "sealed-prefix-16-mirror",
+   "moves": [
+    5,
+    1
+   ],
+   "pair_seed": 53,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-17",
+   "id": "sealed-prefix-17-base",
+   "moves": [
+    6,
+    0,
+    5,
+    0
+   ],
+   "pair_seed": 54,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-17",
+   "id": "sealed-prefix-17-mirror",
+   "moves": [
+    0,
+    6,
+    1,
+    6
+   ],
+   "pair_seed": 55,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-18",
+   "id": "sealed-prefix-18-base",
+   "moves": [
+    1,
+    1,
+    5,
+    2,
+    2,
+    5
+   ],
+   "pair_seed": 56,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-18",
+   "id": "sealed-prefix-18-mirror",
+   "moves": [
+    5,
+    5,
+    1,
+    4,
+    4,
+    1
+   ],
+   "pair_seed": 57,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-19",
+   "id": "sealed-prefix-19-base",
+   "moves": [
+    3,
+    6,
+    0,
+    1,
+    4,
+    5,
+    2,
+    6
+   ],
+   "pair_seed": 58,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-19",
+   "id": "sealed-prefix-19-mirror",
+   "moves": [
+    3,
+    0,
+    6,
+    5,
+    2,
+    1,
+    4,
+    0
+   ],
+   "pair_seed": 59,
+   "stratum": "prefix",
+   "to_move": 0
+  },
+  {
+   "family": "sealed-prefix-20",
+   "id": "sealed-prefix-20-base",
+   "moves": [
+    5,
+    2,
+    5
+   ],
+   "pair_seed": 60,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-20",
+   "id": "sealed-prefix-20-mirror",
+   "moves": [
+    1,
+    4,
+    1
+   ],
+   "pair_seed": 61,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-21",
+   "id": "sealed-prefix-21-base",
+   "moves": [
+    0,
+    0,
+    1,
+    0,
+    1
+   ],
+   "pair_seed": 62,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-21",
+   "id": "sealed-prefix-21-mirror",
+   "moves": [
+    6,
+    6,
+    5,
+    6,
+    5
+   ],
+   "pair_seed": 63,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-22",
+   "id": "sealed-prefix-22-base",
+   "moves": [
+    2,
+    6,
+    1,
+    5,
+    2,
+    6,
+    1
+   ],
+   "pair_seed": 64,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-22",
+   "id": "sealed-prefix-22-mirror",
+   "moves": [
+    4,
+    0,
+    5,
+    1,
+    4,
+    0,
+    5
+   ],
+   "pair_seed": 65,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-23",
+   "id": "sealed-prefix-23-base",
+   "moves": [
+    3,
+    4,
+    4
+   ],
+   "pair_seed": 66,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-23",
+   "id": "sealed-prefix-23-mirror",
+   "moves": [
+    3,
+    2,
+    2
+   ],
+   "pair_seed": 67,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-24",
+   "id": "sealed-prefix-24-base",
+   "moves": [
+    1,
+    2,
+    6,
+    0,
+    2
+   ],
+   "pair_seed": 68,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-24",
+   "id": "sealed-prefix-24-mirror",
+   "moves": [
+    5,
+    4,
+    0,
+    6,
+    4
+   ],
+   "pair_seed": 69,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-25",
+   "id": "sealed-prefix-25-base",
+   "moves": [
+    3,
+    1,
+    6,
+    4,
+    4,
+    2,
+    1
+   ],
+   "pair_seed": 70,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-25",
+   "id": "sealed-prefix-25-mirror",
+   "moves": [
+    3,
+    5,
+    0,
+    2,
+    2,
+    4,
+    5
+   ],
+   "pair_seed": 71,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-26",
+   "id": "sealed-prefix-26-base",
+   "moves": [
+    2,
+    5,
+    2
+   ],
+   "pair_seed": 72,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-26",
+   "id": "sealed-prefix-26-mirror",
+   "moves": [
+    4,
+    1,
+    4
+   ],
+   "pair_seed": 73,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-27",
+   "id": "sealed-prefix-27-base",
+   "moves": [
+    3,
+    3,
+    3,
+    1,
+    1
+   ],
+   "pair_seed": 74,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-27",
+   "id": "sealed-prefix-27-mirror",
+   "moves": [
+    3,
+    3,
+    3,
+    5,
+    5
+   ],
+   "pair_seed": 75,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-28",
+   "id": "sealed-prefix-28-base",
+   "moves": [
+    0,
+    0,
+    2,
+    3,
+    0,
+    4,
+    0
+   ],
+   "pair_seed": 76,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-28",
+   "id": "sealed-prefix-28-mirror",
+   "moves": [
+    6,
+    6,
+    4,
+    3,
+    6,
+    2,
+    6
+   ],
+   "pair_seed": 77,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-29",
+   "id": "sealed-prefix-29-base",
+   "moves": [
+    1,
+    2,
+    4
+   ],
+   "pair_seed": 78,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-29",
+   "id": "sealed-prefix-29-mirror",
+   "moves": [
+    5,
+    4,
+    2
+   ],
+   "pair_seed": 79,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-30",
+   "id": "sealed-prefix-30-base",
+   "moves": [
+    3,
+    0,
+    0,
+    2,
+    0
+   ],
+   "pair_seed": 80,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-30",
+   "id": "sealed-prefix-30-mirror",
+   "moves": [
+    3,
+    6,
+    6,
+    4,
+    6
+   ],
+   "pair_seed": 81,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-31",
+   "id": "sealed-prefix-31-base",
+   "moves": [
+    3,
+    6,
+    0,
+    3,
+    4,
+    5,
+    6
+   ],
+   "pair_seed": 82,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-31",
+   "id": "sealed-prefix-31-mirror",
+   "moves": [
+    3,
+    0,
+    6,
+    3,
+    2,
+    1,
+    0
+   ],
+   "pair_seed": 83,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-32",
+   "id": "sealed-prefix-32-base",
+   "moves": [
+    4,
+    4,
+    5
+   ],
+   "pair_seed": 84,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-32",
+   "id": "sealed-prefix-32-mirror",
+   "moves": [
+    2,
+    2,
+    1
+   ],
+   "pair_seed": 85,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-33",
+   "id": "sealed-prefix-33-base",
+   "moves": [
+    3,
+    3,
+    0,
+    4,
+    4
+   ],
+   "pair_seed": 86,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-33",
+   "id": "sealed-prefix-33-mirror",
+   "moves": [
+    3,
+    3,
+    6,
+    2,
+    2
+   ],
+   "pair_seed": 87,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-34",
+   "id": "sealed-prefix-34-base",
+   "moves": [
+    2,
+    0,
+    4,
+    0,
+    2,
+    0,
+    0
+   ],
+   "pair_seed": 88,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-34",
+   "id": "sealed-prefix-34-mirror",
+   "moves": [
+    4,
+    6,
+    2,
+    6,
+    4,
+    6,
+    6
+   ],
+   "pair_seed": 89,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-35",
+   "id": "sealed-prefix-35-base",
+   "moves": [
+    1,
+    2,
+    0
+   ],
+   "pair_seed": 90,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-35",
+   "id": "sealed-prefix-35-mirror",
+   "moves": [
+    5,
+    4,
+    6
+   ],
+   "pair_seed": 91,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-36",
+   "id": "sealed-prefix-36-base",
+   "moves": [
+    2,
+    0,
+    4,
+    5,
+    5
+   ],
+   "pair_seed": 92,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-36",
+   "id": "sealed-prefix-36-mirror",
+   "moves": [
+    4,
+    6,
+    2,
+    1,
+    1
+   ],
+   "pair_seed": 93,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-37",
+   "id": "sealed-prefix-37-base",
+   "moves": [
+    0,
+    0,
+    4,
+    1,
+    6,
+    2,
+    1
+   ],
+   "pair_seed": 94,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-37",
+   "id": "sealed-prefix-37-mirror",
+   "moves": [
+    6,
+    6,
+    2,
+    5,
+    0,
+    4,
+    5
+   ],
+   "pair_seed": 95,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-38",
+   "id": "sealed-prefix-38-base",
+   "moves": [
+    0,
+    6,
+    1
+   ],
+   "pair_seed": 96,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-38",
+   "id": "sealed-prefix-38-mirror",
+   "moves": [
+    6,
+    0,
+    5
+   ],
+   "pair_seed": 97,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-39",
+   "id": "sealed-prefix-39-base",
+   "moves": [
+    3,
+    1,
+    2,
+    1,
+    0
+   ],
+   "pair_seed": 98,
+   "stratum": "prefix",
+   "to_move": 1
+  },
+  {
+   "family": "sealed-prefix-39",
+   "id": "sealed-prefix-39-mirror",
+   "moves": [
+    3,
+    5,
+    4,
+    5,
+    6
+   ],
+   "pair_seed": 99,
+   "stratum": "prefix",
+   "to_move": 1
+  }
+ ],
+ "rows_sha256": "c7687b08e02084f3c8d87753f0401ca3b0fcfda35b977254716fc34254a68f47",
+ "split": "sealed"
+}

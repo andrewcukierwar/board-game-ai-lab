@@ -1,0 +1,37 @@
+{
+ "builder_matches_current": {
+  "oracle.py": true,
+  "packages.py": true,
+  "reference_negamax.py": true
+ },
+ "builder_source_sha256": {
+  "__init__.py": "5703dbb3fd6064ed23ac15ec61f8d57376891f57847a8b84dc87081d43302b5b",
+  "config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
+  "data.py": "98cf69f75773eeef21ef6126dcba344deefb9f4d609efefd9ad4cfdf2f2a2c87",
+  "oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+  "packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+  "reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2"
+ },
+ "command": "PYTHONPATH=. python -m games.connect4.alphazero_v2.packages build --output-dir <scratch>/frozen-build",
+ "current_source_sha256": {
+  "oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+  "packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+  "reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2"
+ },
+ "log_tail": [
+  "  \"sha256\": \"73c0f5a581a42a508e444c16e465239bad4de5be69d26d8caeec021e5b6de044\"",
+  " }",
+  "}",
+  "exit=0"
+ ],
+ "note": "Built once, structurally verified, then copied unchanged; file hashes are in manifest.json.",
+ "seed": 4303002,
+ "verified_rows": {
+  "openings-development": 100,
+  "openings-sealed": 100,
+  "solved-development": 300,
+  "solved-sealed": 600,
+  "tactical-development": 200,
+  "tactical-sealed": 800
+ }
+}

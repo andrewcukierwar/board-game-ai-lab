@@ -26,12 +26,15 @@ INFERENCE_CONTRACT = {
 
 RESUME_CONTRACT = {
     "format": "connect4-alphazero-v2-resume",
-    "format_version": 1,
+    # v2 (Phase 4D.3B): enforced full runtime identity, execution-source content
+    # digest and resume lineage. No v1 resume artifact was ever produced outside tests.
+    "format_version": 2,
     "inference_contract": INFERENCE_CONTRACT,
     "policy_target": POLICY_TARGET,
     "value_target": VALUE_TARGET,
     "replay_schema": "generation/games/moves+visits+action_temperatures-v1",
     "boundary": "completed generation (collection, replay insertion and training finished)",
+    "exact_continuation": "identical runtime_identity and execution-source sha256; else recorded, not claimed",
 }
 
 

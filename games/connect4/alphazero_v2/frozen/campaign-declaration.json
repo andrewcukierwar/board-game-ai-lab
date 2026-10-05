@@ -1,0 +1,223 @@
+{
+ "budgets": {
+  "campaign_seconds": 86400,
+  "evaluation_games_ceiling": 6400,
+  "per_run_training_seconds": 28800,
+  "planned_evaluation_games": 6272
+ },
+ "champion": {
+  "arena_openings": 100,
+  "baseline_opponents": [
+   "random",
+   "negamax1",
+   "negamax2"
+  ],
+  "baseline_rows": [
+   "development-empty-00",
+   "development-empty-01",
+   "development-empty-02",
+   "development-empty-03",
+   "development-prefix-00-base",
+   "development-prefix-00-mirror",
+   "development-prefix-01-base",
+   "development-prefix-01-mirror",
+   "development-prefix-02-base",
+   "development-prefix-02-mirror",
+   "development-prefix-03-base",
+   "development-prefix-03-mirror",
+   "development-prefix-04-base",
+   "development-prefix-04-mirror",
+   "development-prefix-05-base",
+   "development-prefix-05-mirror",
+   "development-prefix-06-base",
+   "development-prefix-06-mirror",
+   "development-prefix-07-base",
+   "development-prefix-07-mirror"
+  ],
+  "gate": {
+   "lower_bound": 0.5,
+   "max_tactical_regression": 0.02,
+   "score": 0.55
+  },
+  "schedule": [
+   5,
+   10,
+   15,
+   20
+  ],
+  "tactical_package": "tactical-development"
+ },
+ "config": {
+  "adam_betas": [
+   0.9,
+   0.999
+  ],
+  "adam_eps": 1e-08,
+  "batch_size": 128,
+  "evaluation_simulations": 512,
+  "exploratory_plies": 8,
+  "games_per_generation": 256,
+  "interactive_simulations": 512,
+  "learning_rate": 0.0003,
+  "max_generations": 20,
+  "max_grad_norm": 5.0,
+  "reflection_probability": 0.5,
+  "replay_generations": 8,
+  "replay_max_games": 2048,
+  "root_dirichlet_alpha": 1.0,
+  "root_noise_epsilon": 0.25,
+  "samples_per_new_position": 4,
+  "self_play_simulations": 256,
+  "weight_decay": 0.0001
+ },
+ "evaluation": {
+  "root_noise": false,
+  "simulations": 512,
+  "tactical_guard": false,
+  "tactical_seeds": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "temperature": 0,
+  "ties": "seeded uniform"
+ },
+ "final": {
+  "calibration_constant": null,
+  "calibration_games": 256,
+  "ladder": [
+   "random",
+   "negamax1",
+   "negamax2",
+   "negamax4",
+   "guarded_uct_800",
+   "initial_v2_512",
+   "phase4d2f_512"
+  ],
+  "ladder_openings": 100,
+  "one_time": true
+ },
+ "format": "connect4-alphazero-v2-campaign-declaration",
+ "format_version": 1,
+ "generations": 20,
+ "kind": "research",
+ "name": "phase4d3c-alphazero-v2-two-seed",
+ "notes": [
+  "Phase 4D.3B frozen declaration for the Milestone 3 two-seed campaign; running it needs separate authorization.",
+  "The authorization token is the SHA-256 of this exact file.",
+  "Seed 42 is primary; seed 314159 is replication, not a second chance.",
+  "Package paths are relative to this file; the Phase 4D.2f checkpoint path is relative to the repository root."
+ ],
+ "packages": {
+  "openings-development": {
+   "path": "openings-development.json",
+   "sha256": "3990bc230084bd5c9293c15a44eae05f35749d2a3a18e66566461dae98f82f72"
+  },
+  "openings-sealed": {
+   "path": "openings-sealed.json",
+   "sha256": "d30683aa300fb7fe095da3f867c8bb9b301d387532aebe751660b90fb8aa34eb"
+  },
+  "solved-development": {
+   "path": "solved-development.json",
+   "sha256": "41ffd4dfcdd85b939c8afaea692566339e612224f16d2a62797c2960192f37b9"
+  },
+  "solved-sealed": {
+   "path": "solved-sealed.json",
+   "sha256": "2c5f70dcbb9bd0e3242a760e240eec3ca52cd075a066eedaf5fa39472376394b"
+  },
+  "tactical-development": {
+   "path": "tactical-development.json",
+   "sha256": "106cc315c7e8d9b44a260df1a3407578ce1197411a6e614be3a7c38a5b9e6d9d"
+  },
+  "tactical-sealed": {
+   "path": "tactical-sealed.json",
+   "sha256": "cb4e2e1e4ef1b877d8ecce840e04b04e8522df08747ba765c0d5608134af6f47"
+  }
+ },
+ "phase4d2f_checkpoint": {
+  "path": "experiment-output/phase4d2f-neural-value-anchoring-seed42-20261005/candidate.pt",
+  "sha256": "78276912bdef5f1b1b53ac6b2ec3ede2eed20a8ebb5796a9bdcbb57e4cb28c51"
+ },
+ "primary_seed": 42,
+ "retention": {
+  "archived_games": "all",
+  "inference_snapshots": "all",
+  "resume_boundaries": 2
+ },
+ "runtime": {
+  "deterministic_algorithms": true,
+  "strict_resume_runtime": true,
+  "strict_resume_source": true,
+  "threads": 1
+ },
+ "seeds": [
+  42,
+  314159
+ ],
+ "thresholds": {
+  "arena": {
+   "initial_v2_512": {
+    "lower_bound": 0.5,
+    "lower_bound_strict": true,
+    "score": 0.6
+   },
+   "negamax1": {
+    "lower_bound": 0.7,
+    "lower_bound_strict": true,
+    "score": 0.8
+   },
+   "negamax2": {
+    "lower_bound": 0.55,
+    "lower_bound_strict": true,
+    "min_color_score": 0.5,
+    "score": 0.65
+   },
+   "nn_only_vs_random": {
+    "lower_bound": 0.75,
+    "lower_bound_strict": true,
+    "score": 0.85
+   },
+   "phase4d2f_512": {
+    "lower_bound": 0.5,
+    "lower_bound_strict": true,
+    "score": 0.6
+   },
+   "random": {
+    "lower_bound": 0.9,
+    "lower_bound_strict": false,
+    "score": 0.95
+   }
+  },
+  "calibration": {
+   "bins": 5,
+   "max_bin_gap": 0.15,
+   "min_games_per_bin": 30
+  },
+  "readiness": {
+   "min_positions": 500,
+   "p95_ms": 500.0
+  },
+  "reported_only": [
+   "negamax4",
+   "guarded_uct_800"
+  ],
+  "solved": {
+   "avoidable_loss_max": 0.05,
+   "optimal_preserving": 0.8
+  },
+  "tactical": {
+   "immediate_win": 0.99,
+   "per_actor_immediate_win": 0.97,
+   "per_actor_safe_response": 0.9,
+   "safe_response": 0.95
+  },
+  "value": {
+   "class_balanced_mse_max": 0.6,
+   "decisive_sign_min": 0.85,
+   "draw_mae_max": 0.35,
+   "saturation": 0.95,
+   "wrong_sign_saturated_max": 0.05
+  }
+ }
+}

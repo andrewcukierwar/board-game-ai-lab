@@ -1,0 +1,7 @@
+tt_always_exact                  KILLED    failures=5  5 failed, 42 passed, 1 skipped in 95.10s (0:01:35)
+tt_ignore_bounds_type            KILLED    failures=5  5 failed, 42 passed, 1 skipped in 91.32s (0:01:31)
+terminal_not_dominant            KILLED    failures=5  5 failed, 42 passed, 1 skipped in 84.15s (0:01:24)
+draw_not_zero                    SURVIVED  failures=0  47 passed, 1 skipped in 92.47s (0:01:32)
+negamax_first_move_ties          SURVIVED  failures=0  47 passed, 1 skipped in 78.25s (0:01:18)
+solver_bounds_exact              SURVIVED  failures=0  47 passed, 1 skipped in 94.65s (0:01:34)
+solver_last_move_draw_wrong      KILLED    failures=9  3 failed, 38 passed, 1 skipped, 6 errors in 72.54s (0:01:12)
