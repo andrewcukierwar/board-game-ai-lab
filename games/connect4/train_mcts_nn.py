@@ -14,6 +14,8 @@ from .neural_mcts import (
     probability_vector, validate_input, validate_logits,
 )
 
+from .tactical_value import reconstruct_canonical, tactical_proof
+
 POLICY_TARGET = "root-visits-temperature-v1"
 
 
@@ -182,3 +184,31 @@ class NeuralTrainer:
 
 if __name__ == "__main__":
     raise SystemExit("Foundation only: self-play training requires a separately authorized Phase 4D.2 runner.")
+
+
+class ValueTargetAnchorer:
+    """Deterministic temporary optimizer targets; never mutate completed replay.
+
+    An aligned proof is anchored but numerically unchanged. Contradiction compares
+    proof to behavior independently of whether anchoring is enabled.
+    """
+    def __init__(self, enabled=False):
+        if type(enabled) is not bool:
+            raise TypeError("enabled must be boolean")
+        self.enabled = enabled
+
+    def batch(self, examples):
+        if not examples or any(not isinstance(e, TrainingExample) or e.outcome is None for e in examples):
+            raise ValueError("Anchoring requires completed TrainingExamples")
+        transformed, records = [], []
+        for example in examples:
+            proof = (tactical_proof(reconstruct_canonical(example.observation, example.acting_player))
+                     if self.enabled else {"value": None})
+            value = proof["value"]
+            anchored = self.enabled and value is not None
+            target = value if anchored else example.outcome
+            transformed.append(replace(example, outcome=target) if target != example.outcome else example)
+            records.append(dict(behavioral_outcome=example.outcome, proven_value=value,
+                                training_outcome=target, anchored=anchored,
+                                contradiction=value is not None and value != example.outcome))
+        return transformed, records

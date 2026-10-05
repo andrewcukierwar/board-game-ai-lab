@@ -34,7 +34,7 @@ from .neural_mcts import (
 from .train_mcts_nn import (
     POLICY_TARGET, NeuralTrainer, TrainingExample, capture_example,
     finalize_examples, outcome_for_player,
-    reflect_completed_example,
+    reflect_completed_example, ValueTargetAnchorer,
 )
 
 
@@ -209,6 +209,7 @@ class SymmetryAugmenter:
 
 def run_training(trainer, agent, bounds=Bounds(), *, sampling_rng=None,
                  horizontal_symmetry_probability=0.0, augmentation=None,
+                 value_anchoring=False, anchorer=None,
                  clock=time.monotonic, should_stop=lambda: False, emit=lambda event: None,
                  on_snapshot=lambda report: None):
     """Shared model; completed-game collection then persistent-trainer updates only.
@@ -220,6 +221,8 @@ def run_training(trainer, agent, bounds=Bounds(), *, sampling_rng=None,
     sampling_rng = random.Random(42) if sampling_rng is None else sampling_rng
     augmentation = (SymmetryAugmenter(horizontal_symmetry_probability) if augmentation is None else augmentation)
     require(augmentation.probability == horizontal_symmetry_probability, "Augmentation configuration mismatch")
+    anchorer = ValueTargetAnchorer(value_anchoring) if anchorer is None else anchorer
+    require(anchorer.enabled == value_anchoring, "Value anchoring configuration mismatch")
     require(trainer.steps == 0 and not trainer.optimizer.state, "Trainer must be fresh")
     require(agent.inference.model is trainer.model, "Both sides must share the trainer model")
     require((agent.simulation_limit, agent.exploration, agent.temperature, agent.tactical_guard)
@@ -341,7 +344,8 @@ def run_training(trainer, agent, bounds=Bounds(), *, sampling_rng=None,
                     if stop_reason():
                         break
                     indices = sampling_rng.sample(range(len(collection)), 32)
-                    batch, reflected = augmentation.batch([collection[i] for i in indices])
+                    base_batch, anchor_records = anchorer.batch([collection[i] for i in indices])
+                    batch, reflected = augmentation.batch(base_batch)
                     trainer.step(batch)
                     require(trainer.optimizer is optimizer, "Optimizer was replaced")
                     require(trainer.last_metrics is not None and all(
@@ -349,6 +353,7 @@ def run_training(trainer, agent, bounds=Bounds(), *, sampling_rng=None,
                     metrics = dict(trainer.last_metrics, update=trainer.steps, after_game=report["completed_games"])
                     report["losses"].append(metrics)
                     emit(dict(event="update", **metrics, sampled_indices=indices,
+                              **({"value_anchors": anchor_records} if value_anchoring else {}),
                               horizontal_reflected=reflected, transformed_samples=sum(reflected),
                               untransformed_samples=len(reflected)-sum(reflected),
                               elapsed_seconds=clock() - start, peak_memory_mib=memory_peak_mib()))
@@ -480,6 +485,7 @@ def main(argv=None):
     parser.add_argument("--output", required=True, type=Path, help="New directory under ignored experiment-output/")
     parser.add_argument("--profile", choices=("pilot", "scaled"), default="pilot")
     parser.add_argument("--horizontal-symmetry-probability", type=float, default=0.0)
+    parser.add_argument("--value-anchoring", action="store_true")
     parser.add_argument("--root-noise-epsilon", type=float, default=0.0)
     parser.add_argument("--root-dirichlet-alpha", type=float, default=0.30)
     parser.add_argument("--evaluation-baseline", type=Path,
@@ -524,7 +530,7 @@ def main(argv=None):
                horizontal_augmentation=augmentation.probability > 0,
                horizontal_symmetry_probability=augmentation.probability,
                root_dirichlet_noise=noise.epsilon > 0, root_noise_epsilon=noise.epsilon,
-               root_dirichlet_alpha=noise.alpha), bounds=asdict(bounds),
+               root_dirichlet_alpha=noise.alpha, value_anchoring=args.value_anchoring), bounds=asdict(bounds),
                root_noise=noise.record(),
                augmentation=augmentation.record(),
                evaluation_models=dict(initial=(dict(path=str(args.evaluation_baseline),
@@ -567,6 +573,7 @@ def main(argv=None):
                                       updates=current['updates'])), flush=True)
             report = run_training(trainer, agent, bounds, sampling_rng=sampling_rng,
                                   horizontal_symmetry_probability=augmentation.probability, augmentation=augmentation,
+                                  value_anchoring=args.value_anchoring,
                                   should_stop=lambda: stop[0], emit=emit, on_snapshot=on_snapshot)
     finally:
         for sig, handler in previous.items():

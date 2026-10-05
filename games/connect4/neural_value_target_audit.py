@@ -13,6 +13,7 @@ from pathlib import Path
 import random
 
 from .connect4 import Connect4
+from .tactical_value import immediate_wins, tactical_proof
 
 ENCODING = "connect4-current-player-1x6x7-v1"
 POLICY_TARGET = "root-visits-temperature-v1"
@@ -52,41 +53,6 @@ def canonical_board(game):
     return [[0 if cell == " " else 1 if cell == own else -1 for cell in row]
             for row in game.board]
 
-
-def immediate_wins(game):
-    require(not game.is_game_over(), "Proof requires a nonterminal position")
-    actor = game.current_player
-    wins = []
-    for action in game.get_valid_moves():
-        after = deepcopy(game)
-        require(after.make_move(action), "Engine rejected legal successor")
-        if after.check_winner() == actor:
-            wins.append(action)
-    return sorted(wins)
-
-
-def tactical_proof(game):
-    """Return +1, conservative -1, or unknown, with successor witnesses.
-
-    A draw successor prevents a loss proof. A loss needs an opponent winning
-    reply for EVERY legal move and no immediate win for the current actor.
-    A uniquely safe ordinary block establishes no exact outcome here.
-    """
-    wins = immediate_wins(game)
-    if wins:
-        return {"value": 1, "winning_actions": wins, "reply_witnesses": {}}
-    witnesses = {}
-    for action in game.get_valid_moves():
-        after = deepcopy(game)
-        require(after.make_move(action), "Engine rejected legal successor")
-        if after.is_game_over():
-            return {"value": None, "winning_actions": [], "reply_witnesses": {}}
-        replies = immediate_wins(after)
-        if not replies:
-            return {"value": None, "winning_actions": [], "reply_witnesses": {}}
-        witnesses[str(action)] = replies
-    require(bool(witnesses), "No legal actions for nonterminal position")
-    return {"value": -1, "winning_actions": [], "reply_witnesses": witnesses}
 
 
 def counts(rows):
