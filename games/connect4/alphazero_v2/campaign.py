@@ -1,10 +1,11 @@
-"""Single-owner, fail-closed AlphaZero v2 official campaign launcher (Milestone 3 tool, Phase 4D.3B.3).
+"""Single-owner, fail-closed AlphaZero v2 official campaign launcher (Milestone 3 tool, Phase 4D.3B.4).
 
 Nothing runs on import. ``launch`` fails closed unless all of the following hold:
 
 * ``--authorize`` equals the SHA-256 of the exact declaration file, and neither
   is a rejected token (Phase 4D.3B ``2741314399...``, Phase 4D.3B.1
-  ``8a8a52b100...`` and Phase 4D.3B.2 ``ed641aea2f...`` are rejected).
+  ``8a8a52b100...``, Phase 4D.3B.2 ``ed641aea2f...`` and Phase 4D.3B.3
+  ``34b4d89963...`` are rejected).
 * The declaration (format 3) validates, and every input it binds is identical
   in this process: execution-source content (training and evaluation/launch
   groups), frozen package and frozen-record bytes, the retained Phase 4D.2f
@@ -29,6 +30,11 @@ authoritative endpoint. After it, only the atomic COMPLETE write remains; it
 certifies work that is already complete, and no later signal or error can
 change a visible COMPLETE.
 
+``official_results`` accepts a COMPLETE record only if it passes a strict
+schema (``complete_record_problems``): every required field present and in its
+domain, every per-seed mapping covering exactly the declared seeds, and every
+quantity stored in two places equal in both.
+
 Layout of a campaign directory (created once; nothing is overwritten except state.json):
 
     declaration.json        verbatim copy; its hash is the authorization token
@@ -44,6 +50,7 @@ import argparse
 import hashlib
 import importlib
 import json
+import math
 import os
 from pathlib import Path
 import shutil
@@ -144,6 +151,13 @@ def launch_control_declaration():
                          "write certifies it. A later signal is recorded but cannot change the outcome. INCOMPLETE "
                          "is written only if the visible state is non-terminal, so no error path can replace a "
                          "visible COMPLETE. A write that fails before COMPLETE is visible ends INCOMPLETE."),
+        acceptance=("Official results require a COMPLETE record that passes a strict schema. Every required field "
+                    "must be present and in its domain: finite non-negative seconds, non-negative integer counts and "
+                    "SHA-256 digests. Every per-seed mapping must cover exactly the declared seeds (the research "
+                    "declaration's seeds are exactly 42 and 314159), with no missing, extra or non-canonical key. "
+                    "Quantities stored twice (completion record and counters; history, started.json and result "
+                    "selections) must agree, and totals must equal their per-kind units. Duplicate JSON keys and "
+                    "NaN/Infinity are refused."),
         evaluation_games=("Reserved before a game's first move. No game starts once evaluation_games_ceiling games "
                           "have started."),
         final_evaluation=("Both selections are recorded durably in RUNNING_FINAL_EVALUATION before any sealed "
@@ -169,7 +183,7 @@ def load_declaration(path):
     digest = sha256_bytes(data)
     if digest in REJECTED_DECLARATION_TOKENS:
         raise LaunchRefused(f"Declaration token {digest} is REJECTED / NOT AUTHORIZED (Phase 4D.3B / 4D.3B.1 / "
-                            "4D.3B.2 launch reviews); it must never authorize a campaign")
+                            "4D.3B.2 / 4D.3B.3 launch reviews); it must never authorize a campaign")
     declaration = json.loads(data)
     validate_declaration(declaration, path.parent)
     return declaration, digest
@@ -827,9 +841,10 @@ class Campaign:
         """
         if self.state.state != RUNNING_FINAL:
             raise RuntimeError(f"Completion attempted from {self.state.state}")
-        problems = (certified_evidence_problems(self.directory, self.declaration_sha256, self.seeds,
-                                                self.final_results, self.started_sha256)
-                    + account_problems(self.declaration, self.counters()))
+        seeds = required_seed_keys(self.declaration)
+        problems = (certified_evidence_problems(self.directory, self.declaration_sha256, seeds, self.final_results,
+                                                self.started_sha256, self.final_started["selections"])
+                    + counter_problems(self.declaration, self.counters(), seeds))
         if problems:
             raise RuntimeError("Campaign evidence is not complete: " + "; ".join(problems))
         self.verify_identity("campaign complete")
@@ -1023,8 +1038,91 @@ def campaign_status(directory):
     return dict(document, note=note)
 
 
+# Strict COMPLETE schema ----------------------------------------------------------------------------
+# Acceptance validates the whole COMPLETE record against this schema. Every required field must be
+# present, of its type and domain. Every per-seed mapping must cover exactly the declared seeds. Every
+# quantity stored twice must agree in both places. Nothing is validated only "if present".
+
+OFFICIAL_SEEDS = (42, 314159)  # the frozen research declaration's seeds
+OUTCOME_KEYS = {"status", "final_results", "started_sha256", "completion", "note"}
 COMPLETION_KEYS = {"endpoint", "elapsed_seconds", "training_seconds", "evaluation_games_started", "limits"}
 COMPLETION_LIMITS = ("campaign_seconds", "per_run_training_seconds", "evaluation_games_ceiling")
+COUNTER_KEYS = {"note", "time", "training", "evaluation"}
+TIME_KEYS = {"elapsed_seconds", "phase_seconds", "training_seconds", "evaluation_games_started"}
+TRAINING_KEYS = {"generations_attempted", "generations_completed", "selfplay_games_attempted",
+                 "selfplay_games_completed", "plies", "optimizer_steps"}
+EVALUATION_KEYS = {"by_kind", "development_games", "sealed_games", "calibration_games", "total_games_started",
+                   "total_games_completed", "ceiling"}
+STARTED_KEYS = {"selections", "descriptions", "runtime", "execution_sha256", "declaration_sha256"}
+
+
+class MalformedRecord(ValueError):
+    """A record acceptance relies on is not strictly well formed (duplicate keys, NaN/Infinity, bad seeds)."""
+
+
+def strict_json(data):
+    """Parse JSON for acceptance. Duplicate object keys and non-finite numbers are refused, never resolved."""
+    def pairs(items):
+        keys = [key for key, _ in items]
+        if len(set(keys)) != len(keys):
+            raise MalformedRecord(f"duplicate JSON object keys {sorted({k for k in keys if keys.count(k) > 1})}")
+        return dict(items)
+
+    def constant(name):
+        raise MalformedRecord(f"non-finite JSON number {name}")
+    return json.loads(data, object_pairs_hook=pairs, parse_constant=constant)
+
+
+def is_count(value):
+    return type(value) is int and value >= 0
+
+
+def is_seconds(value):
+    return type(value) in (int, float) and math.isfinite(value) and value >= 0
+
+
+def is_sha256(value):
+    return isinstance(value, str) and len(value) == 64 and set(value) <= set("0123456789abcdef")
+
+
+def required_seed_keys(declaration):
+    """The exact key set of every per-seed mapping: the declared seeds as canonical decimal strings."""
+    seeds = declaration["seeds"]
+    if (not isinstance(seeds, list) or not seeds or any(type(s) is not int for s in seeds)
+            or len(set(seeds)) != len(seeds)):
+        raise MalformedRecord(f"declared seeds are malformed: {seeds!r}")
+    if declaration["kind"] == "research" and seeds != list(OFFICIAL_SEEDS):
+        raise MalformedRecord(f"a research declaration must declare exactly seeds {list(OFFICIAL_SEEDS)}")
+    return {str(seed) for seed in seeds}
+
+
+def keys_problems(name, value, keys):
+    if not isinstance(value, dict):
+        return [f"{name} is missing or not an object"]
+    if set(value) != set(keys):
+        return [f"{name} must have exactly keys {sorted(keys)}; differs by {sorted(set(value) ^ set(keys))}"]
+    return []
+
+
+def seed_mapping_problems(name, value, seeds, valid=None, domain="valid"):
+    """A required per-seed mapping: exactly the declared seeds (no missing, extra or non-canonical key)."""
+    if not isinstance(value, dict):
+        return [f"{name} is missing or not a per-seed mapping"]
+    if set(value) != seeds:
+        return [f"{name} must cover exactly seeds {sorted(seeds)}; has {sorted(value)}"]
+    if valid is None:
+        return []
+    return [f"{name}[{seed}] is not {domain}: {value[seed]!r}" for seed in sorted(value) if not valid(value[seed])]
+
+
+def selection_problems(name, selections, seeds, declaration_sha256):
+    def valid(seed_selection):
+        return isinstance(seed_selection, dict) and seed_selection.get("declaration_sha256") == declaration_sha256
+    problems = seed_mapping_problems(name, selections, seeds, valid, f"a selection under {declaration_sha256}")
+    if not problems:
+        problems = [f"{name}[{seed}] names seed {selections[seed].get('seed')!r}" for seed in sorted(seeds)
+                    if type(selections[seed].get("seed")) is not int or str(selections[seed]["seed"]) != seed]
+    return problems
 
 
 def completion_record(time_account, budgets):
@@ -1043,91 +1141,211 @@ def safe_sha256_file(path):
         return None
 
 
-def certified_evidence_problems(directory, declaration_sha256, seeds, final_results, started_sha256):
-    """Every way the files a COMPLETE record certifies differ from what acceptance requires."""
+def certified_evidence_problems(directory, declaration_sha256, seeds, final_results, started_sha256, selections):
+    """Every way the files a COMPLETE record certifies differ from what acceptance requires.
+
+    ``seeds`` is the required key set; ``selections`` are the selections recorded in state.json.
+    """
     directory, problems = Path(directory), []
-    if declaration_sha256 in REJECTED_DECLARATION_TOKENS:
-        problems.append(f"declaration {declaration_sha256} is REJECTED / NOT AUTHORIZED")
+    if not is_sha256(declaration_sha256) or declaration_sha256 in REJECTED_DECLARATION_TOKENS:
+        problems.append(f"declaration {declaration_sha256!r} is malformed or REJECTED / NOT AUTHORIZED")
     if safe_sha256_file(directory / "declaration.json") != declaration_sha256:
         problems.append("declaration.json differs from the declaration the campaign ran under")
-    if started_sha256 is None or safe_sha256_file(directory / "final" / "started.json") != started_sha256:
+    problems += selection_problems("recorded selections", selections, seeds, declaration_sha256)
+    started = None
+    if not is_sha256(started_sha256) or safe_sha256_file(directory / "final" / "started.json") != started_sha256:
         problems.append("final/started.json differs from the hash recorded when the sealed phase started")
-    if not isinstance(final_results, dict) or sorted(final_results) != sorted(str(s) for s in seeds):
-        return problems + ["COMPLETE does not certify a result for every declared seed"]
-    for seed, digest in sorted(final_results.items()):
+    else:
+        started = strict_json((directory / "final" / "started.json").read_bytes())
+        started_problems = keys_problems("final/started.json", started, STARTED_KEYS)
+        if not started_problems:
+            if started["declaration_sha256"] != declaration_sha256:
+                started_problems.append("final/started.json names another declaration")
+            started_problems += seed_mapping_problems("final/started.json selections", started["selections"], seeds)
+            started_problems += seed_mapping_problems(
+                "final/started.json descriptions", started["descriptions"], seeds,
+                lambda value: isinstance(value, dict) and "agent" in value, "an agent description")
+            if started["selections"] != json_normalized(selections):
+                started_problems.append("final/started.json selections differ from the selections in state.json")
+        problems += started_problems
+    problems += seed_mapping_problems("outcome.final_results", final_results, seeds, is_sha256, "a SHA-256")
+    if problems:
+        return problems
+    for seed in sorted(seeds):
         path = directory / "final" / f"seed-{seed}.json"
-        if safe_sha256_file(path) != digest:
+        if safe_sha256_file(path) != final_results[seed]:
             problems.append(f"{path} differs from the hash certified by COMPLETE")
             continue
-        result = json.loads(path.read_bytes())
-        if result.get("seed") != int(seed) or result.get("completeness") != "complete":
+        result = strict_json(path.read_bytes())
+        if (not isinstance(result, dict) or type(result.get("seed")) is not int or str(result["seed"]) != seed
+                or result.get("completeness") != "complete"):
             problems.append(f"{path} is not a complete sealed result for seed {seed}")
+        elif (result.get("selection") != started["selections"][seed]
+              or result.get("agent") != started["descriptions"][seed]["agent"]):
+            problems.append(f"{path} selection or agent differs from final/started.json")
     return problems
 
 
-def account_problems(declaration, counters):
-    """Count requirements of a COMPLETE campaign (time is checked against the completion record)."""
-    problems, evaluation = [], counters["evaluation"]
-    unfinished = {k: v for k, v in evaluation["by_kind"].items() if v["started"] != v["completed"]}
-    if unfinished:
-        problems.append(f"evidence units started but not completed: {unfinished}")
-    if evaluation["total_games_started"] > declaration["budgets"]["evaluation_games_ceiling"]:
-        problems.append("evaluation games started exceed the declared ceiling")
-    for seed in declaration["seeds"]:
-        completed = counters["training"].get(str(seed), {}).get("generations_completed")
-        if completed != declaration["generations"]:
-            problems.append(f"seed {seed} completed {completed} of {declaration['generations']} generations")
-    return problems
+def counter_problems(declaration, counters, seeds):
+    """The counter account of a COMPLETE campaign: exact structure, seed coverage, domains, internal totals.
+    Limits are checked against the completion record (``completion_problems``) and at the barrier."""
+    problems = keys_problems("counters", counters, COUNTER_KEYS)
+    if problems:
+        return problems
+    time_account, training, evaluation = counters["time"], counters["training"], counters["evaluation"]
+    time_problems = keys_problems("counters.time", time_account, TIME_KEYS)
+    if not time_problems:
+        if not is_seconds(time_account["elapsed_seconds"]):
+            time_problems.append("counters.time.elapsed_seconds is not finite non-negative seconds")
+        time_problems += seed_mapping_problems("counters.time.training_seconds", time_account["training_seconds"],
+                                               seeds, is_seconds, "finite non-negative seconds")
+        phases = time_account["phase_seconds"]  # diagnostic: typed, but no required phase names
+        if not isinstance(phases, dict) or not all(is_seconds(v) for v in phases.values()):
+            time_problems.append("counters.time.phase_seconds is not a mapping of phase names to seconds")
+        if not is_count(time_account["evaluation_games_started"]):
+            time_problems.append("counters.time.evaluation_games_started is not a non-negative integer")
+    problems += time_problems
+    training_problems = seed_mapping_problems("counters.training", training, seeds)
+    if not training_problems:
+        generations = declaration["generations"]
+        games = generations * declaration["config"]["games_per_generation"]
+        for seed in sorted(seeds):
+            name, entry = f"counters.training[{seed}]", training[seed]
+            entry_problems = keys_problems(name, entry, TRAINING_KEYS)
+            if not entry_problems and not all(is_count(v) for v in entry.values()):
+                entry_problems.append(f"{name} has values that are not non-negative integers")
+            if not entry_problems and not (entry["generations_attempted"] == entry["generations_completed"]
+                                           == generations):
+                entry_problems.append(f"seed {seed} completed {entry['generations_completed']} of {generations} "
+                                      f"generations ({entry['generations_attempted']} attempted)")
+            if not entry_problems and not (entry["selfplay_games_attempted"] == entry["selfplay_games_completed"]
+                                           == games):
+                entry_problems.append(f"seed {seed} completed {entry['selfplay_games_completed']} of {games} "
+                                      f"self-play games ({entry['selfplay_games_attempted']} attempted)")
+            training_problems += entry_problems
+    problems += training_problems
+    evaluation_problems = keys_problems("counters.evaluation", evaluation, EVALUATION_KEYS)
+    if not evaluation_problems:
+        by_kind = evaluation["by_kind"]
+        evaluation_problems = keys_problems("counters.evaluation.by_kind", by_kind, GAME_KINDS + ROW_KINDS)
+        if not evaluation_problems:
+            for kind, units in sorted(by_kind.items()):
+                if keys_problems(kind, units, ("started", "completed")) or not all(map(is_count, units.values())):
+                    evaluation_problems.append(f"counters.evaluation.by_kind[{kind}] is malformed")
+                elif units["started"] != units["completed"]:
+                    evaluation_problems.append(f"{kind}: {units['started']} evidence units started, "
+                                               f"{units['completed']} completed")
+    if not evaluation_problems:
+        def total(kinds, key):
+            return sum(by_kind[kind][key] for kind in kinds)
+        ceiling = declaration["budgets"]["evaluation_games_ceiling"]
+        expected = dict(development_games=total(DEVELOPMENT_GAME_KINDS, "completed"),
+                        sealed_games=total(SEALED_GAME_KINDS, "completed"),
+                        calibration_games=total(CALIBRATION_GAME_KINDS, "completed"),
+                        total_games_started=total(GAME_KINDS, "started"),
+                        total_games_completed=total(GAME_KINDS, "completed"), ceiling=ceiling)
+        for key, value in expected.items():
+            if not is_count(evaluation[key]) or evaluation[key] != value:
+                evaluation_problems.append(f"counters.evaluation.{key} is {evaluation[key]!r}; the units give {value}")
+        if evaluation["total_games_started"] > ceiling:
+            evaluation_problems.append("evaluation games started exceed the declared ceiling")
+        if not time_problems and time_account["evaluation_games_started"] != evaluation["total_games_started"]:
+            evaluation_problems.append("counters.time.evaluation_games_started differs from the games started")
+    return problems + evaluation_problems
 
 
-def completion_problems(completion, counters, budgets):
-    """Every way a COMPLETE record's endpoint fails the declared limits (inclusive) or its own account."""
-    if not isinstance(completion, dict) or set(completion) != COMPLETION_KEYS:
-        return ["COMPLETE has no completion-barrier record"]
-    problems, time_account = [], counters["time"]
+def completion_problems(completion, counters, budgets, seeds):
+    """The completion record: exact structure and seed coverage; its endpoint, every seed's training seconds
+    and the games started within the declared limits (inclusive); and equal to the account it certifies."""
+    problems = keys_problems("outcome.completion", completion, COMPLETION_KEYS)
+    if problems:
+        return problems
+    if not isinstance(completion["endpoint"], str):
+        problems.append("outcome.completion.endpoint is not a description")
     if completion["limits"] != {k: budgets[k] for k in COMPLETION_LIMITS}:
         problems.append("completion record limits differ from the declaration")
-    if (completion["elapsed_seconds"], completion["training_seconds"], completion["evaluation_games_started"]) \
-            != (time_account["elapsed_seconds"], time_account["training_seconds"],
-                time_account["evaluation_games_started"]):
-        problems.append("completion record differs from the account it certifies")
-    if not completion["elapsed_seconds"] <= budgets["campaign_seconds"]:
+    if not is_seconds(completion["elapsed_seconds"]):
+        problems.append("outcome.completion.elapsed_seconds is not finite non-negative seconds")
+    elif not completion["elapsed_seconds"] <= budgets["campaign_seconds"]:
         problems.append("completion endpoint is past the campaign wall-clock budget")
-    for seed, seconds in completion["training_seconds"].items():
-        if not seconds <= budgets["per_run_training_seconds"]:
-            problems.append(f"seed {seed} training seconds exceed the per-seed budget at completion")
-    if not completion["evaluation_games_started"] <= budgets["evaluation_games_ceiling"]:
+    training = completion["training_seconds"]
+    training_problems = seed_mapping_problems("outcome.completion.training_seconds", training, seeds, is_seconds,
+                                              "finite non-negative seconds")
+    if not training_problems:
+        training_problems = [f"seed {seed} training seconds exceed the per-seed budget at completion"
+                             for seed in sorted(seeds) if not training[seed] <= budgets["per_run_training_seconds"]]
+    problems += training_problems
+    if not is_count(completion["evaluation_games_started"]):
+        problems.append("outcome.completion.evaluation_games_started is not a non-negative integer")
+    elif not completion["evaluation_games_started"] <= budgets["evaluation_games_ceiling"]:
         problems.append("evaluation games started exceed the ceiling at completion")
+    # The same quantities are stored in the account the record certifies: both copies must agree exactly.
+    time_account = counters.get("time") if isinstance(counters, dict) else None
+    for key in ("elapsed_seconds", "training_seconds", "evaluation_games_started"):
+        if not isinstance(time_account, dict) or time_account.get(key) != completion[key]:
+            problems.append(f"outcome.completion.{key} differs from counters.time.{key}")
     return problems
+
+
+def history_problems(document, seeds):
+    """The selections and sealed-phase start recorded in the transition history (each state appears once)."""
+    entries = {entry["state"]: entry for entry in document["history"]}
+    token, problems = document["declaration_sha256"], []
+    for state in (SELECTION_COMPLETE, RUNNING_FINAL):
+        problems += selection_problems(f"history {state} selections", entries[state].get("selections"), seeds, token)
+    if not problems and entries[SELECTION_COMPLETE]["selections"] != entries[RUNNING_FINAL]["selections"]:
+        problems.append("selections changed between DEVELOPMENT_SELECTION_COMPLETE and RUNNING_FINAL_EVALUATION")
+    if entries[RUNNING_FINAL].get("started_sha256") != document["outcome"]["started_sha256"]:
+        problems.append("started.json hash differs from the one recorded on entering the sealed phase")
+    return problems
+
+
+def complete_record_problems(directory, document):
+    """Every way a COMPLETE state document (strictly parsed) fails the frozen schema; empty means acceptable."""
+    outcome = document["outcome"]
+    problems = keys_problems("outcome", outcome, OUTCOME_KEYS)
+    if problems:
+        return problems
+    if outcome["status"] != COMPLETE or not isinstance(outcome["note"], str):
+        problems.append("outcome status or note is malformed")
+    token = document["declaration_sha256"]
+    if not is_sha256(token) or safe_sha256_file(directory / "declaration.json") != token:
+        return problems + ["declaration.json differs from the declaration the campaign ran under"]
+    declaration = strict_json((directory / "declaration.json").read_bytes())
+    seeds = required_seed_keys(declaration)
+    if document["seeds"] != declaration["seeds"]:
+        problems.append("state seeds differ from the declaration")
+    problems += history_problems(document, seeds)
+    if problems:
+        return problems
+    selections = next(h["selections"] for h in document["history"] if h["state"] == RUNNING_FINAL)
+    return (certified_evidence_problems(directory, token, seeds, outcome["final_results"], outcome["started_sha256"],
+                                        selections)
+            + counter_problems(declaration, document["counters"], seeds)
+            + completion_problems(outcome["completion"], document["counters"], declaration["budgets"], seeds))
 
 
 def official_results(directory):
-    """The sealed results, only if state.json is a valid COMPLETE record and everything it certifies validates:
-    declaration bytes and token, started.json, every seed result, the counts, and the completion endpoint
-    against the declared budgets. A COMPLETE string alone is never enough."""
+    """The sealed results, only if state.json is a COMPLETE record that passes the strict frozen schema
+    (``complete_record_problems``) and every file it certifies validates. A COMPLETE string alone, or a record
+    missing any required field or seed, is never enough."""
     directory = Path(directory)
     state = CampaignStateFile.load(directory)
     if state.state != COMPLETE:
         raise NotOfficialEvidence(f"Campaign is {state.state}; its artifacts are forensic only and are never "
                                   "official evidence")
-    document, outcome = state.document, state.document["outcome"]
-    problems = certified_evidence_problems(directory, document["declaration_sha256"], document["seeds"],
-                                           outcome.get("final_results"), outcome.get("started_sha256"))
-    if not problems:
-        declaration = json.loads((directory / "declaration.json").read_bytes())
-        started = [h.get("started_sha256") for h in document["history"] if h["state"] == RUNNING_FINAL]
-        if started != [outcome["started_sha256"]]:
-            problems.append("started.json hash differs from the one recorded on entering the sealed phase")
-        if declaration["seeds"] != document["seeds"]:
-            problems.append("state seeds differ from the declaration")
-        problems += account_problems(declaration, document["counters"])
-        problems += completion_problems(outcome.get("completion"), document["counters"], declaration["budgets"])
+    try:
+        document = strict_json(state.data)
+        problems = complete_record_problems(directory, document)
+        if not problems:
+            results = {seed: strict_json((directory / "final" / f"seed-{seed}.json").read_bytes())
+                       for seed in sorted(document["outcome"]["final_results"])}
+    except (MalformedRecord, KeyError, TypeError, ValueError, AttributeError, OSError) as error:
+        problems = [f"malformed COMPLETE record: {type(error).__name__}: {error}"]
     if problems:
         raise NotOfficialEvidence("COMPLETE is not accepted: " + "; ".join(problems))
-    results = {seed: json.loads((directory / "final" / f"seed-{seed}.json").read_bytes())
-               for seed in outcome["final_results"]}
     return dict(declaration_sha256=document["declaration_sha256"], results=results,
-                completion=outcome["completion"])
+                completion=document["outcome"]["completion"])
 
 
 # Preflight and freeze -------------------------------------------------------------------------
@@ -1217,17 +1435,20 @@ def freeze(output, *, name="phase4d3c-alphazero-v2-two-seed", notes=None):
 
 
 FREEZE_NOTES = [
-    "Phase 4D.3B.3 frozen declaration (format 3) for the Milestone 3 two-seed campaign; running it needs "
+    "Phase 4D.3B.4 frozen declaration (format 3) for the Milestone 3 two-seed campaign; running it needs "
     "separate authorization.",
     "The authorization token is the SHA-256 of this exact file. The Phase 4D.3B token "
     "2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8, the Phase 4D.3B.1 token "
-    "8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39 and the Phase 4D.3B.2 token "
-    "ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb are REJECTED / NOT AUTHORIZED.",
+    "8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39, the Phase 4D.3B.2 token "
+    "ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb and the Phase 4D.3B.3 token "
+    "34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390 are REJECTED / NOT AUTHORIZED.",
     "The official campaign is NON-RESUMABLE: one owning process runs both seeds, the development selection and the "
     "sealed final evaluation; any interruption, limit or identity drift before the completion barrier makes it "
     "INCOMPLETE.",
     "COMPLETE is a one-way terminal commit: all evidence is published and validated before one completion barrier, "
     "whose monotonic reading is the authoritative endpoint; nothing after it can downgrade a visible COMPLETE.",
+    "Official results require a COMPLETE record that passes the strict schema, with exact coverage of seeds 42 and "
+    "314159 in every per-seed mapping.",
     "It binds execution-source content, the complete runtime identity, frozen packages and records, the retained "
     "4D.2f checkpoint and the launch-control semantics; any difference refuses the launch.",
     "Seed 42 is primary; seed 314159 is replication, not a second chance.",

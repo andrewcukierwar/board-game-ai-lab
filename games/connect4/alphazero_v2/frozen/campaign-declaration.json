@@ -91,13 +91,13 @@
    "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
    "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
    "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
-   "games/connect4/alphazero_v2/campaign.py": "ee7aef80972e21f0f5583b876730434f33e3e40aea52d85683e0c55847c14778",
+   "games/connect4/alphazero_v2/campaign.py": "cc8253fa462ea4a68919769d9c767e99c130116b3289d688fe2226bb8a0fe385",
    "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
    "games/connect4/alphazero_v2/data.py": "98cf69f75773eeef21ef6126dcba344deefb9f4d609efefd9ad4cfdf2f2a2c87",
    "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
    "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
    "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
-   "games/connect4/alphazero_v2/launch_control.py": "58e6d1e745292855572e716a3ef2dbb51936840db72549303fc7bcf1b9fc3d25",
+   "games/connect4/alphazero_v2/launch_control.py": "61e49bfa047055b0feafa4a07b928cb8bad82fda358ccfef0d73cac10357cb09",
    "games/connect4/alphazero_v2/network.py": "764ef18fc0e60e91538b94e167a6f4edf7d7538ec3f75ac8c61a1730c4c0f217",
    "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
    "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
@@ -124,7 +124,7 @@
      "games/connect4/alphazero_v2/reference_negamax.py",
      "games/connect4/alphazero_v2/statistics.py"
     ],
-    "sha256": "62c42e6fe68862c10369f188dcabd9fc48d1f54c97365e7c82dd5cb011125a90"
+    "sha256": "e4532730d92c37fa8ca516f5b2b56570a56453b954a46cbe35dcfce3785498c8"
    },
    "training": {
     "files": [
@@ -151,7 +151,7 @@
    }
   },
   "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
-  "sha256": "c6e474923c532e16acc2999afe38aff065a831f914c8d409aa7910e09eaf393d"
+  "sha256": "8f554b939a894283542ec675304a6f7ba23c88899659869245a9d48f2e162b37"
  },
  "final": {
   "calibration_constant": null,
@@ -187,6 +187,7 @@
  "generations": 20,
  "kind": "research",
  "launch_control": {
+  "acceptance": "Official results require a COMPLETE record that passes a strict schema. Every required field must be present and in its domain: finite non-negative seconds, non-negative integer counts and SHA-256 digests. Every per-seed mapping must cover exactly the declared seeds (the research declaration's seeds are exactly 42 and 314159), with no missing, extra or non-canonical key. Quantities stored twice (completion record and counters; history, started.json and result selections) must agree, and totals must equal their per-kind units. Duplicate JSON keys and NaN/Infinity are refused.",
   "counters": "Live provenance snapshotted into state.json. After a crash they are lower bounds and authorize nothing.",
   "deadlines": "Monotonic seconds of the owning process. Per seed, collection+optimization stays within per_run_training_seconds; the whole campaign stays within campaign_seconds. A check refuses to start any unit, search, move or update at a limit. Work that finishes past a limit is never accepted. Reaching any limit ends the campaign INCOMPLETE. Limits are inclusive at completion: COMPLETE needs elapsed seconds at the completion barrier <= campaign_seconds and each seed's training seconds <= per_run_training_seconds.",
   "evaluation_games": "Reserved before a game's first move. No game starts once evaluation_games_ceiling games have started.",
@@ -196,7 +197,8 @@
   "rejected_declaration_tokens": [
    "2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8",
    "8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39",
-   "ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb"
+   "ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb",
+   "34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390"
   ],
   "resume": "Forbidden. An official campaign never resumes after a crash, reboot or drift, never repairs state to continue, never retries interrupted work and never reuses partial evidence. Generation resume artifacts are diagnostic only; the official launcher never loads them.",
   "single_owner": "One orchestrator process holds an exclusive flock on campaign.lock for the whole campaign and runs every seed, the development selection and the sealed final evaluation sequentially. A second process is refused. A campaign always starts in a new directory.",
@@ -207,10 +209,11 @@
  },
  "name": "phase4d3c-alphazero-v2-two-seed",
  "notes": [
-  "Phase 4D.3B.3 frozen declaration (format 3) for the Milestone 3 two-seed campaign; running it needs separate authorization.",
-  "The authorization token is the SHA-256 of this exact file. The Phase 4D.3B token 2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8, the Phase 4D.3B.1 token 8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39 and the Phase 4D.3B.2 token ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb are REJECTED / NOT AUTHORIZED.",
+  "Phase 4D.3B.4 frozen declaration (format 3) for the Milestone 3 two-seed campaign; running it needs separate authorization.",
+  "The authorization token is the SHA-256 of this exact file. The Phase 4D.3B token 2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8, the Phase 4D.3B.1 token 8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39, the Phase 4D.3B.2 token ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb and the Phase 4D.3B.3 token 34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390 are REJECTED / NOT AUTHORIZED.",
   "The official campaign is NON-RESUMABLE: one owning process runs both seeds, the development selection and the sealed final evaluation; any interruption, limit or identity drift before the completion barrier makes it INCOMPLETE.",
   "COMPLETE is a one-way terminal commit: all evidence is published and validated before one completion barrier, whose monotonic reading is the authoritative endpoint; nothing after it can downgrade a visible COMPLETE.",
+  "Official results require a COMPLETE record that passes the strict schema, with exact coverage of seeds 42 and 314159 in every per-seed mapping.",
   "It binds execution-source content, the complete runtime identity, frozen packages and records, the retained 4D.2f checkpoint and the launch-control semantics; any difference refuses the launch.",
   "Seed 42 is primary; seed 314159 is replication, not a second chance.",
   "Package and frozen-record paths are relative to this file; the Phase 4D.2f checkpoint path is relative to the repository root."

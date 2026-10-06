@@ -2,7 +2,7 @@
 
 **Verdict: CONDITIONAL GO — fix B1–B4, test the repaired boundaries, and re-freeze the declaration before authorization.**
 
-> **Status:** the token `2741314399…67d8` reviewed here is **REJECTED / NOT AUTHORIZED**, as are the later Phase 4D.3B.1 (`8a8a52b100…`) and 4D.3B.2 (`ed641aea…`) tokens. The current declaration is described in [phase4d3b3-terminal-commit-fix.md](phase4d3b3-terminal-commit-fix.md).
+> **Status:** the token `2741314399…67d8` reviewed here is **REJECTED / NOT AUTHORIZED**, as are the later Phase 4D.3B.1 (`8a8a52b100…`), 4D.3B.2 (`ed641aea…`) and 4D.3B.3 (`34b4d899…`) tokens. The current declaration is described in [phase4d3b4-complete-schema-fix.md](phase4d3b4-complete-schema-fix.md).
 
 The current repository is **not ready to execute the campaign under declaration token `2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8`**. That token is not approved for launch. The learning architecture and inspected exact labels do not require redesign. The blockers concern executable identity, interruption recovery, deadline completion, and durable budget accounting.
 

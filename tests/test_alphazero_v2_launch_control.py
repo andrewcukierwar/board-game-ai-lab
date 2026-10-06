@@ -18,7 +18,8 @@ LIMITS = dict(per_run_training_seconds=100.0, campaign_seconds=1000.0, evaluatio
 SEEDS = (42, 314159)
 OLD_TOKENS = ('2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8',
               '8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39',
-              'ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb')
+              'ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb',
+              '34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390')
 OUTCOME = dict(status='INCOMPLETE', reason='test')
 COMPLETE_OUTCOME = dict(status='COMPLETE')
 
@@ -422,5 +423,5 @@ def test_lock_held_by_another_process_is_refused_and_released_on_death(tmp_path)
             time.sleep(0.05)
 
 
-def test_all_three_previous_tokens_are_rejected():
+def test_all_four_previous_tokens_are_rejected():
     assert L.REJECTED_DECLARATION_TOKENS == OLD_TOKENS

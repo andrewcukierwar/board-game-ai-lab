@@ -1,4 +1,4 @@
-"""Fail-closed, non-resumable control for the official AlphaZero v2 campaign (torch-free, Phase 4D.3B.3).
+"""Fail-closed, non-resumable control for the official AlphaZero v2 campaign (torch-free, Phase 4D.3B.4).
 
 The official campaign is one owning process holding one exclusive lock on its
 campaign directory. It runs every seed, the development selection and the
@@ -40,10 +40,12 @@ from .arena import StopEvaluation
 LAUNCH_CONTROL_VERSION = "connect4-alphazero-v2-launch-control-v3-terminal-commit"
 STATE_FORMAT = "connect4-alphazero-v2-official-campaign-state-v2"
 # Declaration tokens that must never authorize a campaign: Phase 4D.3B (launch-readiness review),
-# Phase 4D.3B.1 (final launch review, NO GO) and Phase 4D.3B.2 (final fail-closed launch review, NO GO).
+# Phase 4D.3B.1 (final launch review, NO GO), Phase 4D.3B.2 (final fail-closed launch review, NO GO) and
+# Phase 4D.3B.3 (NO GO: a malformed COMPLETE record without seed 42 training time was accepted).
 REJECTED_DECLARATION_TOKENS = ("2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8",
                                "8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39",
-                               "ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb")
+                               "ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb",
+                               "34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390")
 CREATED, SELECTION_COMPLETE = "CREATED", "DEVELOPMENT_SELECTION_COMPLETE"
 RUNNING_FINAL, COMPLETE, INCOMPLETE = "RUNNING_FINAL_EVALUATION", "COMPLETE", "INCOMPLETE"
 TERMINAL_STATES = (COMPLETE, INCOMPLETE)

@@ -1,5 +1,7 @@
 # Phase 4D.3B.3 — Final terminal-commit fix
 
+> **SUPERSEDED (Phase 4D.3B.4):** the next review returned NO GO. `official_results` accepted a malformed `COMPLETE` record with seed 42 deleted from both per-seed training-time mappings. The token `34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390` below is now **REJECTED / NOT AUTHORIZED**, like all earlier tokens. Acceptance now uses a strict `COMPLETE` schema, and the declaration was re-frozen with token `9f7259827e8abee6db81113147e48c2a3420248296d09df559f2783c5d7d85f4`: see [phase4d3b4-complete-schema-fix.md](phase4d3b4-complete-schema-fix.md). The launch command in §11 is stale; do not use it.
+
 Completed October 6, 2026 on local branch `phase4d3b-alphazero-v2-preflight`, starting from clean HEAD `8715b38`. **No campaign was launched.**
 
 This phase fixes exactly the two blockers in the [Phase 4D.3B.2 final launch review](phase4d3b2-final-launch-review.md) (NO GO):

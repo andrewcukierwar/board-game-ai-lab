@@ -5,7 +5,7 @@
 > AUTHORIZED**. The [launch-readiness review](phase4d3b-launch-readiness-review.md) found blockers B1–B4. Phase
 > 4D.3B.1 fixed them and re-froze the declaration (format 2) with a new token: see
 > [phase4d3b1-launch-control-fixes.md](phase4d3b1-launch-control-fixes.md). That token and the Phase 4D.3B.2 token
-> are also **REJECTED / NOT AUTHORIZED**; the current declaration is described in [phase4d3b3-terminal-commit-fix.md](phase4d3b3-terminal-commit-fix.md).
+> are also **REJECTED / NOT AUTHORIZED**; so is the 4D.3B.3 token `34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390` ([phase4d3b3-terminal-commit-fix.md](phase4d3b3-terminal-commit-fix.md)). The current declaration is described in [phase4d3b4-complete-schema-fix.md](phase4d3b4-complete-schema-fix.md).
 > The current launcher refuses every old token and old declaration bytes. Do not use the §10 token or the §13
 > commands as written.
 

@@ -1,6 +1,6 @@
 # Phase 4D.3B.2 — Fail-closed, non-resumable official campaign
 
-> **SUPERSEDED (Phase 4D.3B.3):** the independent [final launch review](phase4d3b2-final-launch-review.md) returned NO GO (F1, F2). The token `ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb` below is now **REJECTED / NOT AUTHORIZED**, like both earlier tokens. The terminal commit was fixed and the declaration re-frozen with token `34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390`: see [phase4d3b3-terminal-commit-fix.md](phase4d3b3-terminal-commit-fix.md). The launch steps in §12 are stale; do not use them.
+> **SUPERSEDED (Phase 4D.3B.3):** the independent [final launch review](phase4d3b2-final-launch-review.md) returned NO GO (F1, F2). The token `ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb` below is now **REJECTED / NOT AUTHORIZED**, like both earlier tokens. The terminal commit was fixed and the declaration re-frozen with token `34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390`: see [phase4d3b3-terminal-commit-fix.md](phase4d3b3-terminal-commit-fix.md). That token is now also **REJECTED / NOT AUTHORIZED**; the current declaration is [phase4d3b4-complete-schema-fix.md](phase4d3b4-complete-schema-fix.md). The launch steps in §12 are stale; do not use them.
 
 Completed October 5, 2026 on local branch `phase4d3b-alphazero-v2-preflight`, starting from clean HEAD `1f6ae8f`. **No campaign was launched.**
 

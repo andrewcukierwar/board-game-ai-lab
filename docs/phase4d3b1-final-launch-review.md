@@ -2,7 +2,7 @@
 
 **Verdict: NO GO**
 
-> **Status:** the token `8a8a52b100…5e39` reviewed here is **REJECTED / NOT AUTHORIZED**, as is the Phase 4D.3B.2 token `ed641aea…0bbb`. The current declaration is described in [phase4d3b3-terminal-commit-fix.md](phase4d3b3-terminal-commit-fix.md).
+> **Status:** the token `8a8a52b100…5e39` reviewed here is **REJECTED / NOT AUTHORIZED**, as are the Phase 4D.3B.2 token `ed641aea…0bbb` and the Phase 4D.3B.3 token `34b4d899…c390`. The current declaration is described in [phase4d3b4-complete-schema-fix.md](phase4d3b4-complete-schema-fix.md).
 
 The frozen declaration `8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39` is **not approved** for the Milestone-3 campaign. Its bytes and identities are correct, and the generation transaction fixes the previous duplicate inference-registration inconsistency. However, the five launch-blocking findings below prevent the required identity, recovery, deadline and accounting guarantees.
 

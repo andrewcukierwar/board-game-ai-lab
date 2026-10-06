@@ -177,7 +177,8 @@ def test_quantiles_are_nearest_rank_including_minimum():
 
 OLD_TOKENS = {'a663454': '2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8',   # Phase 4D.3B
               'c302c18': '8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39',   # Phase 4D.3B.1
-              'ff1ded6': 'ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb'}   # Phase 4D.3B.2
+              'ff1ded6': 'ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb',   # Phase 4D.3B.2
+              'bf48303': '34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390'}   # Phase 4D.3B.3
 FROZEN_DECLARATION = ROOT / 'games/connect4/alphazero_v2/frozen/campaign-declaration.json'
 
 
@@ -262,13 +263,17 @@ def write_declaration(package_dir, declaration, name):
 
 @pytest.fixture
 def fake_runtime(monkeypatch):
+    return pin_fake_runtime(monkeypatch)
+
+
+def pin_fake_runtime(patch):
     for name in THREAD_ENVIRONMENT:
-        monkeypatch.setenv(name, '1')
+        patch.setenv(name, '1')
     identity = dict(C.runtime_identity(), intra_op_threads=1, inter_op_threads=1, deterministic_algorithms=True,
                     deterministic_warn_only=False, thread_environment=required_thread_environment(1))
     current = dict(identity=identity)
-    monkeypatch.setattr(C, 'runtime_identity', lambda: json.loads(json.dumps(current['identity'])))
-    monkeypatch.setattr(C.Campaign, 'configure_runtime', lambda self: C.runtime_identity())
+    patch.setattr(C, 'runtime_identity', lambda: json.loads(json.dumps(current['identity'])))
+    patch.setattr(C.Campaign, 'configure_runtime', lambda self: C.runtime_identity())
     return current
 
 
@@ -330,7 +335,7 @@ def test_full_declaration_plans_exactly_the_reviewed_evaluation_games():
     assert len(declaration['champion']['baseline_rows']) == 20
     assert declaration['format_version'] == 3 and declaration['launch_control'] == C.launch_control_declaration()
     assert declaration['runtime'] == dict(threads=1, deterministic_algorithms=True)  # no resume flags
-    assert declaration['launch_control']['rejected_declaration_tokens'] == sorted(OLD_TOKENS.values())
+    assert sorted(declaration['launch_control']['rejected_declaration_tokens']) == sorted(OLD_TOKENS.values())
     assert 'Forbidden' in declaration['launch_control']['resume']
     assert not any('lease' in key for key in declaration['launch_control'])
 
@@ -423,6 +428,7 @@ def test_frozen_declaration_is_the_new_format_3_declaration():
         k: v['sha256'] for k, v in json.loads((FROZEN_DECLARATION.parent / 'manifest.json').read_text()).items()
         if k != 'exclusions'}
     assert C.unavailable_runtime_fields(declaration['runtime_identity']) == []
+    assert C.required_seed_keys(declaration) == {'42', '314159'}  # acceptance's exact per-seed key set
 
 
 def test_every_declaration_field_is_bound_by_the_token(tmp_path, tiny_packages, launch_runtime):
@@ -1206,6 +1212,239 @@ def test_official_results_validates_the_complete_record(tmp_path, tiny_packages,
             pytest.fail(f'forged COMPLETE accepted: {name}')
     state_path.write_bytes(original)
     assert C.official_results(directory)['declaration_sha256'] == token
+
+
+# Phase 4D.3B.4 strict COMPLETE schema: required fields, exact seed coverage, consistent copies ---------------
+# One genuine two-seed COMPLETE campaign (the official seeds and per-seed limit; tiny synthetic work) is
+# copied per test, and its state.json is forged. Every forged record must be refused.
+
+SEEDS = {'42', '314159'}
+LIMIT = 28800
+
+
+@pytest.fixture(scope='module')
+def official_complete(tmp_path_factory, tiny_packages):
+    root = tmp_path_factory.mktemp('complete-schema')
+    with pytest.MonkeyPatch.context() as patch:
+        fake = pin_fake_runtime(patch)
+        path, _ = in_process(tiny_packages, fake, 'complete-schema.json', seeds=C.OFFICIAL_SEEDS,
+                             per_run_training_seconds=LIMIT)
+        assert run_campaign(root / 'campaign', path, hashlib.sha256(path.read_bytes()).hexdigest()) == 'completed'
+    return root / 'campaign'
+
+
+@pytest.fixture
+def complete_copy(official_complete, tmp_path):
+    shutil.copytree(official_complete, tmp_path / 'campaign')
+    return tmp_path / 'campaign'
+
+
+def read_state(directory):
+    return json.loads((directory / 'state.json').read_bytes())
+
+
+def write_state(directory, document):
+    (directory / 'state.json').write_bytes(L.view_bytes(document))
+
+
+def refusal(directory):
+    """The refusal message, or None if official_results accepted the record."""
+    try:
+        C.official_results(directory)
+    except (C.NotOfficialEvidence, L.StateCorrupt) as error:
+        return str(error)
+    return None
+
+
+def training_copies(document):
+    return document['counters']['time']['training_seconds'], document['outcome']['completion']['training_seconds']
+
+
+def test_exact_reproduced_exploit_is_refused(complete_copy):
+    """The 4D.3B.3 blocker: 28,801 s for seed 42 is refused, and so is deleting seed 42 from both copies."""
+    original = read_state(complete_copy)
+    assert sorted(C.official_results(complete_copy)['results']) == ['314159', '42']
+    over = json.loads(json.dumps(original))
+    for copy in training_copies(over):
+        copy['42'] = LIMIT + 1
+    write_state(complete_copy, over)
+    assert 'seed 42 training seconds exceed the per-seed budget' in refusal(complete_copy)
+    deleted = json.loads(json.dumps(original))
+    for copy in training_copies(deleted):
+        del copy['42']
+    write_state(complete_copy, deleted)
+    message = refusal(complete_copy)
+    assert message is not None, 'a COMPLETE record without seed 42 training time was accepted'
+    assert "counters.time.training_seconds must cover exactly seeds ['314159', '42']; has ['314159']" in message
+    assert "outcome.completion.training_seconds must cover exactly seeds ['314159', '42']; has ['314159']" in message
+
+
+def rename(mapping, old, new):
+    mapping[new] = mapping.pop(old)
+
+
+TRAINING_FORGERIES = {
+    'seed 314159 deleted from both': lambda t, c: (t.pop('314159'), c.pop('314159')),
+    'both seeds deleted from both': lambda t, c: (t.clear(), c.clear()),
+    'seed 42 deleted from counters only': lambda t, c: t.pop('42'),
+    'seed 42 deleted from completion only': lambda t, c: c.pop('42'),
+    'seed 314159 deleted from completion only': lambda t, c: c.pop('314159'),
+    'unexpected extra seed in both': lambda t, c: (t.update({'7': 1.0}), c.update({'7': 1.0})),
+    'non-canonical key 042 in both': lambda t, c: (rename(t, '42', '042'), rename(c, '42', '042')),
+    'padded key " 42" in both': lambda t, c: (rename(t, '42', ' 42'), rename(c, '42', ' 42')),
+    'counters and completion disagree': lambda t, c: (t.update({'42': 100.0}), c.update({'42': 200.0})),
+    'negative seconds in both': lambda t, c: (t.update({'42': -1.0}), c.update({'42': -1.0})),
+    'string seconds in both': lambda t, c: (t.update({'42': '100'}), c.update({'42': '100'})),
+    'boolean seconds in both': lambda t, c: (t.update({'42': True}), c.update({'42': True})),
+    'null seconds in both': lambda t, c: (t.update({'42': None}), c.update({'42': None})),
+    'just over the limit in both': lambda t, c: (t.update({'42': LIMIT + 0.5}), c.update({'42': LIMIT + 0.5})),
+    'mapping replaced by a list in both': None,
+}
+
+
+@pytest.mark.parametrize('name', sorted(TRAINING_FORGERIES))
+def test_per_seed_training_time_requires_both_seeds_in_both_copies(complete_copy, name):
+    document = read_state(complete_copy)
+    time_copy, completion_copy = training_copies(document)
+    if TRAINING_FORGERIES[name] is None:
+        document['counters']['time']['training_seconds'] = list(time_copy.values())
+        document['outcome']['completion']['training_seconds'] = list(completion_copy.values())
+    else:
+        TRAINING_FORGERIES[name](time_copy, completion_copy)
+    write_state(complete_copy, document)
+    assert refusal(complete_copy) is not None, f'forged COMPLETE accepted: {name}'
+
+
+@pytest.mark.parametrize('token', ['NaN', 'Infinity', '-Infinity'])
+def test_non_finite_training_time_is_refused(complete_copy, token):
+    """view_bytes refuses NaN, but a forged state.json can still contain the token; json.loads would parse it."""
+    document = read_state(complete_copy)
+    for copy in training_copies(document):
+        copy['42'] = 123456.789
+    text = L.view_bytes(document).decode()
+    assert text.count('123456.789') == 2
+    (complete_copy / 'state.json').write_text(text.replace('123456.789', token))
+    assert C.CampaignStateFile.load(complete_copy).state == 'COMPLETE'  # the ordinary loader accepts it
+    assert 'non-finite JSON number' in refusal(complete_copy)
+
+
+def test_duplicate_seed_keys_are_refused(complete_copy):
+    """A duplicate key would otherwise resolve to its last value: an over-budget first copy could hide."""
+    document = read_state(complete_copy)
+    for copy in training_copies(document):
+        copy['42'] = LIMIT + 1
+    text = L.view_bytes(document).decode().replace(f'"42": {LIMIT + 1}', f'"42": {LIMIT + 1},\n   "42": 1.5')
+    (complete_copy / 'state.json').write_text(text)
+    assert training_copies(C.CampaignStateFile.load(complete_copy).document)[1]['42'] == 1.5
+    assert 'duplicate JSON object keys' in refusal(complete_copy)
+
+
+def test_exactly_the_per_seed_limit_is_accepted(complete_copy):
+    document = read_state(complete_copy)
+    for copy in training_copies(document):
+        copy.update({'42': LIMIT, '314159': float(LIMIT)})
+    write_state(complete_copy, document)
+    assert C.official_results(complete_copy)['completion']['training_seconds'] == {'42': LIMIT, '314159': LIMIT}
+
+
+def test_valid_two_seed_record_is_accepted(complete_copy):
+    accepted = C.official_results(complete_copy)
+    assert set(accepted['results']) == SEEDS and set(accepted['completion']['training_seconds']) == SEEDS
+    assert all(accepted['results'][seed]['seed'] == int(seed) for seed in SEEDS)
+
+
+def test_started_record_seed_coverage_is_checked_beyond_its_hash(complete_copy):
+    """A consistently re-hashed started.json without seed 42's description is refused by the schema itself."""
+    started_path = complete_copy / 'final/started.json'
+    started = json.loads(started_path.read_bytes())
+    del started['descriptions']['42']
+    data = L.view_bytes(started)
+    started_path.write_bytes(data)
+    digest = hashlib.sha256(data).hexdigest()
+    document = read_state(complete_copy)
+    document['outcome']['started_sha256'] = digest
+    next(h for h in document['history'] if h['state'] == L.RUNNING_FINAL)['started_sha256'] = digest
+    write_state(complete_copy, document)
+    assert "final/started.json descriptions must cover exactly seeds ['314159', '42']" in refusal(complete_copy)
+
+
+def required_paths(document):
+    """Every field of the COMPLETE record that acceptance requires. The only exclusions are diagnostic:
+    individual phase names in counters.time.phase_seconds and provenance-only history/owner details."""
+    def walk(value, prefix):
+        if isinstance(value, dict):
+            for key in value:
+                path = prefix + (key,)
+                if path[:3] == ('counters', 'time', 'phase_seconds') and len(path) > 3:
+                    continue
+                yield path
+                yield from walk(value[key], path)
+    yield from ((key,) for key in document)
+    for part in ('outcome', 'counters'):
+        yield from walk(document[part], (part,))
+    for index, entry in enumerate(document['history']):
+        if entry['state'] in (L.SELECTION_COMPLETE, L.RUNNING_FINAL):
+            yield from walk(entry, ('history', index))
+    # (history 'state'/'utc' and owner details are validated by CampaignStateFile or are provenance only)
+
+
+def at_path(document, path):
+    for key in path[:-1]:
+        document = document[key]
+    return document, path[-1]
+
+
+def test_mutation_sweep_every_required_field_and_seed_key(complete_copy):
+    """Delete each required field, and break each per-seed mapping (delete, extra or non-canonical seed), one at a
+    time. Every mutated record must be refused; the untouched record and diagnostic-only deletions are accepted."""
+    original = read_state(complete_copy)
+    mutations = []
+    for path in required_paths(original):
+        if path[-1] in ('state', 'utc') and path[0] == 'history':
+            continue
+        mutations.append((f'delete {"/".join(map(str, path))}', path, 'delete'))
+        parent, key = at_path(original, path)
+        if isinstance(parent[key], dict) and set(parent[key]) == SEEDS:
+            for change in ('delete-42', 'delete-314159', 'extra-7', 'rename-042'):
+                mutations.append((f'{change} in {"/".join(map(str, path))}', path, change))
+    accepted = []
+    for name, path, change in mutations:
+        document = json.loads(json.dumps(original))
+        parent, key = at_path(document, path)
+        if change == 'delete':
+            del parent[key]
+        elif change.startswith('delete-'):
+            del parent[key][change[len('delete-'):]]
+        elif change == 'extra-7':
+            parent[key]['7'] = parent[key]['42']
+        else:
+            rename(parent[key], '42', '042')
+        write_state(complete_copy, document)
+        if refusal(complete_copy) is None:
+            accepted.append(name)
+    seed_mappings = sum(1 for _, _, change in mutations if change == 'extra-7')
+    assert not accepted, f'{len(accepted)} of {len(mutations)} malformed COMPLETE records accepted: {accepted}'
+    assert len(mutations) > 100 and seed_mappings == 6, (len(mutations), seed_mappings)
+    # Diagnostic phase timings are typed but not a required set of names.
+    document = json.loads(json.dumps(original))
+    document['counters']['time']['phase_seconds'].pop('final')
+    write_state(complete_copy, document)
+    assert refusal(complete_copy) is None
+    write_state(complete_copy, original)
+    assert refusal(complete_copy) is None
+
+
+@pytest.mark.parametrize('seeds,kind,valid', [
+    ([42, 314159], 'research', True), ([42], 'research', False), ([314159, 42], 'research', False),
+    ([42, 314159, 7], 'research', False), ([42, 7], 'test', True), ([42, 42], 'test', False),
+    ([True, 2], 'test', False), (['42'], 'test', False), ([], 'test', False), ('42', 'test', False)])
+def test_required_seed_keys_are_the_declared_seeds(seeds, kind, valid):
+    declaration = dict(seeds=seeds, kind=kind)
+    if valid:
+        assert C.required_seed_keys(declaration) == {str(s) for s in seeds}
+    else:
+        with pytest.raises(C.MalformedRecord):
+            C.required_seed_keys(declaration)
 
 
 # Hard interruption (real fresh interpreters): never resumable --------------------------------------------
