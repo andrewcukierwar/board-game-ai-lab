@@ -2,6 +2,8 @@
 
 **Verdict: NO GO**
 
+> **Status (Phase 4D.3B.3):** F1 and F2 are addressed in [phase4d3b3-terminal-commit-fix.md](phase4d3b3-terminal-commit-fix.md). The token `ed641aea…0bbb` reviewed here remains **REJECTED / NOT AUTHORIZED**; the re-frozen declaration has a new token and still needs its own review and authorization.
+
 The frozen declaration `ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb` is not approved for launch. The non-resumable design removes the previous continuation, journal-repair and lease-accounting failures, but terminal publication still violates the required fail-closed contract. Two blocking defects are reproduced below.
 
 Reviewed October 6, 2026, at initially clean HEAD `ff1ded6431638e8d687d707fd94aa2579af772a1`. Read the previous final review, the Phase 4D.3B.2 handoff, prior superseded notices, both controller modules, rewritten tests, declaration, and relevant generation, provenance, evaluation and package code. This review is the only repository change. No research training, official campaign launch, frozen-package regeneration, retained learned-model evaluation, source edit, commit or deployment occurred. Existing tests and additional fault probes used discarded tiny synthetic fixtures in temporary directories. No inference ran on the actual frozen sealed positions.

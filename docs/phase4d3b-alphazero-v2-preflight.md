@@ -4,8 +4,10 @@
 > `2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8` given below is **REJECTED / NOT
 > AUTHORIZED**. The [launch-readiness review](phase4d3b-launch-readiness-review.md) found blockers B1–B4. Phase
 > 4D.3B.1 fixed them and re-froze the declaration (format 2) with a new token: see
-> [phase4d3b1-launch-control-fixes.md](phase4d3b1-launch-control-fixes.md). The current launcher refuses the
-> old token and the old declaration bytes. Do not use the §10 token or the §13 commands as written.
+> [phase4d3b1-launch-control-fixes.md](phase4d3b1-launch-control-fixes.md). That token and the Phase 4D.3B.2 token
+> are also **REJECTED / NOT AUTHORIZED**; the current declaration is described in [phase4d3b3-terminal-commit-fix.md](phase4d3b3-terminal-commit-fix.md).
+> The current launcher refuses every old token and old declaration bytes. Do not use the §10 token or the §13
+> commands as written.
 
 Completed October 5, 2026. **No research training was run.** This phase produced no learned v2 candidate, no research checkpoint, no strength evaluation, no API/UI exposure and no deployment. **It makes no strength claim.** The only optimizer updates were discarded updates on tiny synthetic data in unit tests and temporary directories, plus one discarded synthetic update used to size a full-scale resume artifact (§9).
 

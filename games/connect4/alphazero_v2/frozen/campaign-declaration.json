@@ -91,13 +91,13 @@
    "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
    "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
    "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
-   "games/connect4/alphazero_v2/campaign.py": "46b39a65f2c848fd4822ef24122c6fcd31476ca61be1395dd038b032b11bce61",
+   "games/connect4/alphazero_v2/campaign.py": "ee7aef80972e21f0f5583b876730434f33e3e40aea52d85683e0c55847c14778",
    "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
    "games/connect4/alphazero_v2/data.py": "98cf69f75773eeef21ef6126dcba344deefb9f4d609efefd9ad4cfdf2f2a2c87",
    "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
    "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
    "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
-   "games/connect4/alphazero_v2/launch_control.py": "8bd7e2556168a868d95b69c9504136a915806b13ea699ae5f1bf2a656f2201c6",
+   "games/connect4/alphazero_v2/launch_control.py": "58e6d1e745292855572e716a3ef2dbb51936840db72549303fc7bcf1b9fc3d25",
    "games/connect4/alphazero_v2/network.py": "764ef18fc0e60e91538b94e167a6f4edf7d7538ec3f75ac8c61a1730c4c0f217",
    "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
    "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
@@ -124,7 +124,7 @@
      "games/connect4/alphazero_v2/reference_negamax.py",
      "games/connect4/alphazero_v2/statistics.py"
     ],
-    "sha256": "f6e2646160f27038333ed2b32bbf339a3560e74d6b158ddd2254cd62209571f5"
+    "sha256": "62c42e6fe68862c10369f188dcabd9fc48d1f54c97365e7c82dd5cb011125a90"
    },
    "training": {
     "files": [
@@ -151,7 +151,7 @@
    }
   },
   "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
-  "sha256": "08df122b199eb6eaf6ca5fa8714be89e984b8fa3cb0e2a6c69c0937a84a787ca"
+  "sha256": "c6e474923c532e16acc2999afe38aff065a831f914c8d409aa7910e09eaf393d"
  },
  "final": {
   "calibration_constant": null,
@@ -188,26 +188,29 @@
  "kind": "research",
  "launch_control": {
   "counters": "Live provenance snapshotted into state.json. After a crash they are lower bounds and authorize nothing.",
-  "deadlines": "Monotonic seconds of the owning process. Per seed, collection+optimization stays within per_run_training_seconds; the whole campaign stays within campaign_seconds. A check refuses to start any unit, search, move or update at a limit. Work that finishes past a limit is never accepted. Reaching any limit ends the campaign INCOMPLETE. COMPLETE is written only if every limit holds in the account it records.",
+  "deadlines": "Monotonic seconds of the owning process. Per seed, collection+optimization stays within per_run_training_seconds; the whole campaign stays within campaign_seconds. A check refuses to start any unit, search, move or update at a limit. Work that finishes past a limit is never accepted. Reaching any limit ends the campaign INCOMPLETE. Limits are inclusive at completion: COMPLETE needs elapsed seconds at the completion barrier <= campaign_seconds and each seed's training seconds <= per_run_training_seconds.",
   "evaluation_games": "Reserved before a game's first move. No game starts once evaluation_games_ceiling games have started.",
   "final_evaluation": "Both selections are recorded durably in RUNNING_FINAL_EVALUATION before any sealed inference. An interrupted sealed evaluation ends the campaign INCOMPLETE and is never restarted under this declaration.",
   "identity": "Declared execution sources and runtime identity are revalidated at launch, around every generation and evaluation unit, and before every transition. Any difference ends the campaign INCOMPLETE.",
   "interruption": "An owner that ends without a terminal state leaves the campaign INCOMPLETE. A later invocation records INCOMPLETE, reports that the campaign cannot be resumed and exits nonzero.",
   "rejected_declaration_tokens": [
    "2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8",
-   "8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39"
+   "8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39",
+   "ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb"
   ],
   "resume": "Forbidden. An official campaign never resumes after a crash, reboot or drift, never repairs state to continue, never retries interrupted work and never reuses partial evidence. Generation resume artifacts are diagnostic only; the official launcher never loads them.",
   "single_owner": "One orchestrator process holds an exclusive flock on campaign.lock for the whole campaign and runs every seed, the development selection and the sealed final evaluation sequentially. A second process is refused. A campaign always starts in a new directory.",
-  "state_file": "connect4-alphazero-v2-official-campaign-state-v1",
+  "state_file": "connect4-alphazero-v2-official-campaign-state-v2",
   "states": "CREATED -> RUNNING_SEED_<seed> for each declared seed in order -> DEVELOPMENT_SELECTION_COMPLETE -> RUNNING_FINAL_EVALUATION -> COMPLETE. INCOMPLETE may follow any non-terminal state. COMPLETE and INCOMPLETE are terminal. Each transition atomically replaces state.json.",
-  "version": "connect4-alphazero-v2-launch-control-v2-fail-closed"
+  "terminal_commit": "Every result file is published, flushed and re-validated, identity is re-verified and every count is checked before one completion barrier. The barrier latches one monotonic reading before reading the stop flag; that reading is the campaign's authoritative endpoint. A stop handled or a limit exceeded at the barrier ends the campaign INCOMPLETE. After it, only the atomic COMPLETE write remains: the scientific campaign is complete at the barrier, and the write certifies it. A later signal is recorded but cannot change the outcome. INCOMPLETE is written only if the visible state is non-terminal, so no error path can replace a visible COMPLETE. A write that fails before COMPLETE is visible ends INCOMPLETE.",
+  "version": "connect4-alphazero-v2-launch-control-v3-terminal-commit"
  },
  "name": "phase4d3c-alphazero-v2-two-seed",
  "notes": [
-  "Phase 4D.3B.2 frozen declaration (format 3) for the Milestone 3 two-seed campaign; running it needs separate authorization.",
-  "The authorization token is the SHA-256 of this exact file. The Phase 4D.3B token 2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8 and the Phase 4D.3B.1 token 8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39 are REJECTED / NOT AUTHORIZED.",
-  "The official campaign is NON-RESUMABLE: one owning process runs both seeds, the development selection and the sealed final evaluation; any interruption, limit or identity drift makes it INCOMPLETE.",
+  "Phase 4D.3B.3 frozen declaration (format 3) for the Milestone 3 two-seed campaign; running it needs separate authorization.",
+  "The authorization token is the SHA-256 of this exact file. The Phase 4D.3B token 2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8, the Phase 4D.3B.1 token 8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39 and the Phase 4D.3B.2 token ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb are REJECTED / NOT AUTHORIZED.",
+  "The official campaign is NON-RESUMABLE: one owning process runs both seeds, the development selection and the sealed final evaluation; any interruption, limit or identity drift before the completion barrier makes it INCOMPLETE.",
+  "COMPLETE is a one-way terminal commit: all evidence is published and validated before one completion barrier, whose monotonic reading is the authoritative endpoint; nothing after it can downgrade a visible COMPLETE.",
   "It binds execution-source content, the complete runtime identity, frozen packages and records, the retained 4D.2f checkpoint and the launch-control semantics; any difference refuses the launch.",
   "Seed 42 is primary; seed 314159 is replication, not a second chance.",
   "Package and frozen-record paths are relative to this file; the Phase 4D.2f checkpoint path is relative to the repository root."

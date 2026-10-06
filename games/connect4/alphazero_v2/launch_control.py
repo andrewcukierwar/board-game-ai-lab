@@ -1,4 +1,4 @@
-"""Fail-closed, non-resumable control for the official AlphaZero v2 campaign (torch-free, Phase 4D.3B.2).
+"""Fail-closed, non-resumable control for the official AlphaZero v2 campaign (torch-free, Phase 4D.3B.3).
 
 The official campaign is one owning process holding one exclusive lock on its
 campaign directory. It runs every seed, the development selection and the
@@ -6,16 +6,22 @@ sealed final evaluation sequentially under one declaration. There is no resume:
 
 * ``state.json`` is the single authority. It is replaced atomically (temporary
   file, fsync, rename, directory fsync) on every transition, so a crash leaves
-  either the previous or the next complete state, never a torn one.
+  either the previous or the next complete state, never a torn one. The owner
+  only replaces the exact bytes it last wrote; after a failed write it adopts
+  whatever readers can now see.
 * States advance along one fixed line: CREATED, RUNNING_SEED_<seed> for each
   declared seed in order, DEVELOPMENT_SELECTION_COMPLETE,
   RUNNING_FINAL_EVALUATION, COMPLETE. INCOMPLETE may follow any non-terminal
-  state. COMPLETE and INCOMPLETE are terminal and never transition again.
+  state. COMPLETE and INCOMPLETE are terminal and never transition again:
+  ``terminate`` is the one way into them, and ``mark_incomplete`` writes
+  INCOMPLETE only if the visible state is still non-terminal.
 * A non-terminal state with no live owner means the owner died. A later
   invocation marks it INCOMPLETE and refuses; it never repairs and continues.
 * ``Budget`` measures monotonic seconds inside the owning process only. Limits
   are checked before every substantial unit and every search, move and
   optimizer update. Nothing is reconstructed across processes, so no leases.
+  ``cross_completion_barrier`` latches the campaign's one authoritative
+  endpoint; a stop requested after it is recorded but cannot change the outcome.
 * Counters are live provenance. If the process dies before writing them, the
   campaign is INCOMPLETE and the last written counters are lower bounds.
 """
@@ -31,12 +37,13 @@ import socket
 
 from .arena import StopEvaluation
 
-LAUNCH_CONTROL_VERSION = "connect4-alphazero-v2-launch-control-v2-fail-closed"
-STATE_FORMAT = "connect4-alphazero-v2-official-campaign-state-v1"
-# Declaration tokens that must never authorize a campaign:
-# Phase 4D.3B (launch-readiness review) and Phase 4D.3B.1 (final launch review, NO GO).
+LAUNCH_CONTROL_VERSION = "connect4-alphazero-v2-launch-control-v3-terminal-commit"
+STATE_FORMAT = "connect4-alphazero-v2-official-campaign-state-v2"
+# Declaration tokens that must never authorize a campaign: Phase 4D.3B (launch-readiness review),
+# Phase 4D.3B.1 (final launch review, NO GO) and Phase 4D.3B.2 (final fail-closed launch review, NO GO).
 REJECTED_DECLARATION_TOKENS = ("2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8",
-                               "8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39")
+                               "8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39",
+                               "ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb")
 CREATED, SELECTION_COMPLETE = "CREATED", "DEVELOPMENT_SELECTION_COMPLETE"
 RUNNING_FINAL, COMPLETE, INCOMPLETE = "RUNNING_FINAL_EVALUATION", "COMPLETE", "INCOMPLETE"
 TERMINAL_STATES = (COMPLETE, INCOMPLETE)
@@ -144,14 +151,26 @@ def publish_view(path, value):
 
 
 def atomic_replace(path, data):
-    """Replace a file atomically: a reader sees the old or the new bytes, never a mixture."""
+    """Replace a file atomically: a reader sees the old or the new bytes, never a mixture.
+
+    The new bytes become visible at the rename. A failure before it removes the
+    temporary file and leaves the old bytes; a failure after it (directory fsync)
+    leaves the new bytes visible, so callers must re-read before deciding anything.
+    """
     path = Path(path)
     temporary = path.with_name(f".{path.name}.{os.getpid()}.tmp")
-    with open(temporary, "wb") as stream:
-        stream.write(data)
-        stream.flush()
-        full_fsync(stream.fileno())
-    os.replace(temporary, path)
+    try:
+        with open(temporary, "wb") as stream:
+            stream.write(data)
+            stream.flush()
+            full_fsync(stream.fileno())
+        os.replace(temporary, path)
+    except BaseException:
+        try:
+            os.unlink(temporary)
+        except OSError:
+            pass  # already renamed, or never created
+        raise
     fsync_directory(path.parent)
 
 
@@ -185,12 +204,17 @@ class CampaignLock:
 # Authoritative state ------------------------------------------------------------------------
 
 class CampaignStateFile:
-    """``state.json``: current state, transition history and the last counter snapshot."""
+    """``state.json``: current state, transition history and the last counter snapshot.
+
+    Every write first checks that the visible file still holds exactly the bytes
+    this object last wrote or read, so nothing ever blindly replaces it. If a
+    write fails, the object adopts whatever is now visible (old or new).
+    """
 
     NAME = "state.json"
 
-    def __init__(self, path, document):
-        self.path, self.document = Path(path), document
+    def __init__(self, path, document, data):
+        self.path, self.document, self.data = Path(path), document, data
 
     @classmethod
     def create(cls, directory, *, declaration_sha256, seeds):
@@ -198,19 +222,20 @@ class CampaignStateFile:
                         declaration_sha256=declaration_sha256, seeds=list(seeds), state=CREATED,
                         owner=dict(pid=os.getpid(), host=socket.gethostname(), started_utc=utc_now()),
                         history=[dict(state=CREATED, utc=utc_now())], counters=None, outcome=None)
-        path = Path(directory) / cls.NAME
-        write_once(path, view_bytes(document))
-        return cls(path, document)
+        path, data = Path(directory) / cls.NAME, view_bytes(document)
+        write_once(path, data)
+        return cls(path, document, data)
 
     @classmethod
     def load(cls, directory):
         path = Path(directory) / cls.NAME
         try:
-            document = json.loads(path.read_bytes())
+            data = path.read_bytes()
+            document = json.loads(data)
         except (OSError, ValueError) as error:
             raise StateCorrupt(f"{path} is missing or unreadable: {error}") from error
         cls.validate(document)
-        return cls(path, document)
+        return cls(path, document, data)
 
     @staticmethod
     def validate(document):
@@ -227,6 +252,8 @@ class CampaignStateFile:
             raise StateCorrupt(f"state.json history is not a valid transition sequence: {visited}")
         if (document["outcome"] is not None) != (document["state"] in TERMINAL_STATES):
             raise StateCorrupt("state.json outcome disagrees with its state")
+        if document["outcome"] is not None and document["outcome"].get("status") != document["state"]:
+            raise StateCorrupt("state.json outcome status disagrees with its terminal state")
 
     @property
     def state(self):
@@ -236,29 +263,82 @@ class CampaignStateFile:
     def terminal(self):
         return self.state in TERMINAL_STATES
 
-    def _write(self, document):
-        self.validate(document)
-        atomic_replace(self.path, view_bytes(document))
-        self.document = document
+    def refresh(self):
+        """Adopt the state readers can see now. If it is unreadable, keep the cached copy: the next write
+        then refuses, because the visible bytes are no longer the bytes this object holds."""
+        try:
+            visible = self.load(self.path.parent)
+        except StateCorrupt:
+            return
+        self.document, self.data = visible.document, visible.data
 
-    def transition(self, new_state, *, counters=None, outcome=None, **info):
-        """Durably enter ``new_state``; only the next state in sequence, or INCOMPLETE, is accepted."""
+    def _write(self, document):
+        """Replace state.json, only if it still holds exactly the bytes this object last wrote or read."""
+        self.validate(document)
+        try:
+            visible = self.path.read_bytes()
+        except OSError as error:
+            raise StateCorrupt(f"{self.path} is unreadable; refusing to replace it: {error}") from error
+        if visible != self.data:
+            raise StateCorrupt(f"{self.path} is not the document this owner last wrote; refusing to replace it")
+        data = view_bytes(document)
+        try:
+            atomic_replace(self.path, data)
+        except BaseException:
+            self.refresh()  # the old or the new document may be visible now; only the visible one counts
+            raise
+        self.document, self.data = document, data
+
+    def _require_nonterminal(self):
         if self.terminal:
             raise InvalidTransition(f"Campaign is {self.state}; terminal states never transition again")
-        sequence = state_sequence(self.document["seeds"])
-        expected = sequence[sequence.index(self.state) + 1]
-        if new_state not in (expected, INCOMPLETE):
-            raise InvalidTransition(f"{self.state} -> {new_state} is not allowed (next is {expected} or "
-                                    f"{INCOMPLETE})")
-        if (new_state in TERMINAL_STATES) != (outcome is not None):
-            raise InvalidTransition("A terminal state needs an outcome; a running state has none")
+
+    def _next(self, new_state, counters, outcome, info):
         document = json.loads(json.dumps(self.document))
         document["state"] = new_state
         document["history"].append(dict(info, state=new_state, utc=utc_now()))
         if counters is not None:
             document["counters"] = counters
         document["outcome"] = outcome
-        self._write(document)
+        return document
+
+    def transition(self, new_state, *, counters=None, **info):
+        """Durably enter the next running state in sequence. Terminal states are entered only by ``terminate``."""
+        self._require_nonterminal()
+        sequence = state_sequence(self.document["seeds"])
+        expected = sequence[sequence.index(self.state) + 1]
+        if new_state in TERMINAL_STATES or "outcome" in info:
+            raise InvalidTransition(f"{new_state} is not a running state; use terminate() for {COMPLETE} or "
+                                    f"{INCOMPLETE}")
+        if new_state != expected:
+            raise InvalidTransition(f"{self.state} -> {new_state} is not allowed (next is {expected} or "
+                                    f"{INCOMPLETE})")
+        self._write(self._next(new_state, counters, None, info))
+
+    def terminate(self, terminal_state, *, outcome, counters=None, **info):
+        """The one terminal-state transition. COMPLETE only from RUNNING_FINAL_EVALUATION, INCOMPLETE from any
+        non-terminal state; neither has an outgoing transition. ``outcome['status']`` must name the state."""
+        self._require_nonterminal()
+        if terminal_state not in TERMINAL_STATES:
+            raise InvalidTransition(f"{terminal_state} is not a terminal state")
+        if terminal_state == COMPLETE and self.state != RUNNING_FINAL:
+            raise InvalidTransition(f"{self.state} -> {COMPLETE} is not allowed (only from {RUNNING_FINAL})")
+        if not isinstance(outcome, dict) or outcome.get("status") != terminal_state:
+            raise InvalidTransition("A terminal state needs an outcome whose status names it")
+        self._write(self._next(terminal_state, counters, outcome, info))
+
+    def mark_incomplete(self, *, reason, counters=None, **info):
+        """Conditionally end the campaign INCOMPLETE; the only operation error and interruption paths use.
+
+        It re-reads the visible state first. If that is already terminal (COMPLETE or
+        INCOMPLETE) nothing is written. Otherwise INCOMPLETE is built from the visible
+        document, never from a stale copy. Returns the visible terminal state.
+        """
+        self.refresh()
+        if not self.terminal:
+            self.terminate(INCOMPLETE, counters=counters, outcome=dict(status=INCOMPLETE, reason=reason,
+                                                                       during=self.state), **info)
+        return self.state
 
     def record_counters(self, counters):
         """Snapshot live counters (lower bounds if the process later dies)."""
@@ -277,6 +357,13 @@ class Budget:
     ``completion_violation`` is the recheck before anything is accepted or
     published (``>``): an in-flight primitive may overrun a cooperative check,
     but its result is then never accepted and the campaign ends INCOMPLETE.
+
+    ``cross_completion_barrier`` takes the campaign's one authoritative endpoint.
+    It latches that clock reading *before* reading the stop flag, so every stop
+    request is either seen by the barrier or arrives after it. Python runs signal
+    handlers between bytecodes of the main thread, whichever thread received the
+    signal, so this ordering needs no signal masking. After the latch, elapsed
+    time is frozen at the endpoint and stop requests are only recorded.
     """
 
     def __init__(self, limits, *, clock):
@@ -286,12 +373,18 @@ class Budget:
         self.phase_seconds = {}
         self.games_started = 0
         self.stop_reason = None
+        self.barrier_time = None
+        self.late_stop_requests = []
 
     def request_stop(self, reason="stop requested"):
-        self.stop_reason = reason
+        """Signal-handler safe: only records. After the completion barrier a request cannot change the outcome."""
+        if self.barrier_time is not None:
+            self.late_stop_requests.append(reason)
+        else:
+            self.stop_reason = reason
 
     def elapsed(self):
-        return self.clock() - self.started
+        return (self.clock() if self.barrier_time is None else self.barrier_time) - self.started
 
     def training_seconds(self, seed):
         seconds = self.training_accumulated.get(str(seed), 0.0)
@@ -343,6 +436,31 @@ class Budget:
                 return BudgetExhausted(f"seed {seed} collection+optimization budget exceeded before the "
                                        "generation was accepted")
         return None
+
+    def cross_completion_barrier(self, seeds):
+        """Latch the authoritative endpoint, then decide completion eligibility from it alone.
+
+        Limits are inclusive at completion, as for every acceptance check: elapsed
+        seconds at the endpoint <= campaign_seconds, each seed's training seconds
+        <= per_run_training_seconds, games started <= evaluation_games_ceiling.
+        Raises CampaignStop/BudgetExhausted if not eligible; returns the account.
+        """
+        if self.barrier_time is not None:
+            raise RuntimeError("The completion barrier is crossed once")
+        if self.training_seed is not None:
+            raise RuntimeError("Training time is still being measured at the completion barrier")
+        self.barrier_time = self.clock()  # the latch: a stop request handled after this line is post-completion
+        if self.stop_reason is not None:
+            raise CampaignStop(self.stop_reason)
+        if self.elapsed() > self.limits["campaign_seconds"]:
+            raise BudgetExhausted("campaign wall-clock budget exceeded at the completion barrier")
+        for seed in seeds:
+            if self.training_seconds(seed) > self.limits["per_run_training_seconds"]:
+                raise BudgetExhausted(f"seed {seed} collection+optimization budget exceeded at the completion "
+                                      "barrier")
+        if self.games_started > self.limits["evaluation_games_ceiling"]:
+            raise BudgetExhausted("evaluation-game ceiling exceeded at the completion barrier")
+        return self.snapshot(seeds)
 
     def snapshot(self, seeds):
         return dict(elapsed_seconds=self.elapsed(), phase_seconds=dict(sorted(self.phase_seconds.items())),

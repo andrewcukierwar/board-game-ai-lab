@@ -1,6 +1,6 @@
 # Phase 4D.3B.1 — Launch-control hardening and re-freeze
 
-> **SUPERSEDED (Phase 4D.3B.2):** the independent [final launch review](phase4d3b1-final-launch-review.md) returned NO GO. The token `8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39` below is now **REJECTED / NOT AUTHORIZED**. The resumable journal/lease controller described here was replaced by a fail-closed, non-resumable official campaign. The launch steps in §11 are stale. See [phase4d3b2-fail-closed-campaign.md](phase4d3b2-fail-closed-campaign.md).
+> **SUPERSEDED (Phase 4D.3B.2):** the independent [final launch review](phase4d3b1-final-launch-review.md) returned NO GO. The token `8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39` below is now **REJECTED / NOT AUTHORIZED**. The resumable journal/lease controller described here was replaced by a fail-closed, non-resumable official campaign. The launch steps in §11 are stale. See [phase4d3b2-fail-closed-campaign.md](phase4d3b2-fail-closed-campaign.md), itself superseded: its token `ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb` is also **REJECTED / NOT AUTHORIZED**. The current declaration is [phase4d3b3-terminal-commit-fix.md](phase4d3b3-terminal-commit-fix.md).
 
 Completed October 5, 2026 on local branch `phase4d3b-alphazero-v2-preflight` (starting HEAD `d5696cb`, clean). **No campaign was launched.**
 

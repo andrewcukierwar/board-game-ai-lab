@@ -1,10 +1,10 @@
-"""Single-owner, fail-closed AlphaZero v2 official campaign launcher (Milestone 3 tool, Phase 4D.3B.2).
+"""Single-owner, fail-closed AlphaZero v2 official campaign launcher (Milestone 3 tool, Phase 4D.3B.3).
 
 Nothing runs on import. ``launch`` fails closed unless all of the following hold:
 
 * ``--authorize`` equals the SHA-256 of the exact declaration file, and neither
-  is a rejected token (Phase 4D.3B ``2741314399...`` and Phase 4D.3B.1
-  ``8a8a52b100...`` are rejected).
+  is a rejected token (Phase 4D.3B ``2741314399...``, Phase 4D.3B.1
+  ``8a8a52b100...`` and Phase 4D.3B.2 ``ed641aea2f...`` are rejected).
 * The declaration (format 3) validates, and every input it binds is identical
   in this process: execution-source content (training and evaluation/launch
   groups), frozen package and frozen-record bytes, the retained Phase 4D.2f
@@ -21,6 +21,13 @@ published as write-once files. The process never reads evidence back from disk
 and never loads a generation resume boundary. Any stop, limit, identity drift or
 error ends the campaign INCOMPLETE. If the owner dies, a later invocation records
 INCOMPLETE and refuses: see ``launch_control``.
+
+COMPLETE is a one-way terminal commit (``Campaign._complete``). Every fallible
+step (evidence publication and validation, identity, counts) happens before one
+completion barrier, whose single monotonic reading is the campaign's
+authoritative endpoint. After it, only the atomic COMPLETE write remains; it
+certifies work that is already complete, and no later signal or error can
+change a visible COMPLETE.
 
 Layout of a campaign directory (created once; nothing is overwritten except state.json):
 
@@ -50,7 +57,7 @@ from .arena import (PAIRED_GAMES, GuardedUCTOpponent, NegamaxOpponent, RandomOpp
 from .config import V2Config
 from .launch_control import (COMPLETE, INCOMPLETE, INTERRUPTED_MESSAGE, LAUNCH_CONTROL_VERSION,
                              REJECTED_DECLARATION_TOKENS, RUNNING_FINAL, SELECTION_COMPLETE, STATE_FORMAT, Budget,
-                             BudgetExhausted, CampaignLock, CampaignLocked, CampaignStateFile, CampaignStop,
+                             CampaignLock, CampaignLocked, CampaignStateFile, CampaignStop,
                              InterruptedCampaign, StateCorrupt, TerminalCampaign, fsync_directory, publish_view,
                              running_seed, sha256_bytes, sha256_file, view_bytes, write_once)
 from .oracle import family_key
@@ -126,8 +133,17 @@ def launch_control_declaration():
         deadlines=("Monotonic seconds of the owning process. Per seed, collection+optimization stays within "
                    "per_run_training_seconds; the whole campaign stays within campaign_seconds. A check refuses to "
                    "start any unit, search, move or update at a limit. Work that finishes past a limit is never "
-                   "accepted. Reaching any limit ends the campaign INCOMPLETE. COMPLETE is written only if every "
-                   "limit holds in the account it records."),
+                   "accepted. Reaching any limit ends the campaign INCOMPLETE. Limits are inclusive at completion: "
+                   "COMPLETE needs elapsed seconds at the completion barrier <= campaign_seconds and each seed's "
+                   "training seconds <= per_run_training_seconds."),
+        terminal_commit=("Every result file is published, flushed and re-validated, identity is re-verified and every "
+                         "count is checked before one completion barrier. The barrier latches one monotonic reading "
+                         "before reading the stop flag; that reading is the campaign's authoritative endpoint. A stop "
+                         "handled or a limit exceeded at the barrier ends the campaign INCOMPLETE. After it, only the "
+                         "atomic COMPLETE write remains: the scientific campaign is complete at the barrier, and the "
+                         "write certifies it. A later signal is recorded but cannot change the outcome. INCOMPLETE "
+                         "is written only if the visible state is non-terminal, so no error path can replace a "
+                         "visible COMPLETE. A write that fails before COMPLETE is visible ends INCOMPLETE."),
         evaluation_games=("Reserved before a game's first move. No game starts once evaluation_games_ceiling games "
                           "have started."),
         final_evaluation=("Both selections are recorded durably in RUNNING_FINAL_EVALUATION before any sealed "
@@ -152,8 +168,8 @@ def load_declaration(path):
     data = path.read_bytes()
     digest = sha256_bytes(data)
     if digest in REJECTED_DECLARATION_TOKENS:
-        raise LaunchRefused(f"Declaration token {digest} is REJECTED / NOT AUTHORIZED (Phase 4D.3B / 4D.3B.1 "
-                            "launch reviews); it must never authorize a campaign")
+        raise LaunchRefused(f"Declaration token {digest} is REJECTED / NOT AUTHORIZED (Phase 4D.3B / 4D.3B.1 / "
+                            "4D.3B.2 launch reviews); it must never authorize a campaign")
     declaration = json.loads(data)
     validate_declaration(declaration, path.parent)
     return declaration, digest
@@ -370,6 +386,7 @@ class Campaign:
         self.verify_identity("launch")
         self._extra_check, self._context, self._last_stop, self._ran = None, {}, None, False
         self.evidence, self.seed_records, self.final_results = {}, {}, {}
+        self.post_commit_errors = []
         self.units = {kind: dict(started=0, completed=0) for kind in GAME_KINDS + ROW_KINDS}
         self.training = {str(seed): dict(generations_attempted=0, generations_completed=0,
                                          selfplay_games_attempted=0, selfplay_games_completed=0, plies=0,
@@ -436,9 +453,9 @@ class Campaign:
                 raise TerminalCampaign(f"Official campaign is already {state.state}; a terminal campaign never "
                                        "runs or transitions again")
             owner = state.document["owner"]
-            state.transition(INCOMPLETE, detected_by_pid=os.getpid(), outcome=dict(
-                status=INCOMPLETE, reason=(f"interrupted: owner pid {owner['pid']} ended while {state.state}; "
-                                           "official campaigns are non-resumable")))
+            state.mark_incomplete(detected_by_pid=os.getpid(), reason=(
+                f"interrupted: owner pid {owner['pid']} ended while {state.state}; official campaigns are "
+                "non-resumable"))
             raise InterruptedCampaign(INTERRUPTED_MESSAGE)
         finally:
             lock.release()
@@ -449,10 +466,15 @@ class Campaign:
     # Lifecycle --------------------------------------------------------------------------------
 
     def run(self, *, extra_check=None):
-        """Run the whole campaign once: every seed, selection, sealed evaluation. Returns a status string."""
+        """Run the whole campaign once: every seed, selection, sealed evaluation. Returns a status string.
+
+        The status reports the visible terminal state. An error raised after COMPLETE is visible
+        changes nothing: it is listed in ``post_commit_errors`` and the status stays "completed".
+        """
         if self._ran:
             raise RuntimeError("An official campaign runs once")
         self._ran, self._extra_check = True, extra_check
+        status = None
         try:
             with self.budget.phase("setup"):
                 self.source = snapshot_source(self.directory / "source")
@@ -463,15 +485,16 @@ class Campaign:
                 selections[str(seed)] = self._run_seed(seed)
             self._transition(SELECTION_COMPLETE, selections=selections)
             self._final(selections)
-            return "completed"
-        except (CampaignStop, IdentityDrift) as stop:
-            return self._incomplete(stop)
         except BaseException as error:
-            self._incomplete(error)
-            raise
+            status = self._incomplete(error)  # conditional: never replaces a visible COMPLETE
+            if self.state.state == COMPLETE:
+                self.post_commit_errors.append(f"{type(error).__name__}: {error}")
+            elif not isinstance(error, (CampaignStop, IdentityDrift)):
+                raise
         finally:
             self.budget.end_training()
             self.close()
+        return "completed" if self.state.state == COMPLETE else status
 
     def _transition(self, new_state, **info):
         self.verify_identity(f"before {new_state}")
@@ -482,13 +505,12 @@ class Campaign:
         self.fault(f"after_transition:{new_state}")
 
     def _incomplete(self, reason):
+        """Every error and stop path ends here: INCOMPLETE only if the visible state is still non-terminal."""
         text = f"{type(reason).__name__}: {reason}" if not isinstance(reason, CampaignStop) else str(reason)
-        if not self.state.terminal:
-            try:
-                self.state.transition(INCOMPLETE, counters=self.counters(), outcome=dict(
-                    status=INCOMPLETE, reason=text, during=self.state.state))
-            except Exception:  # noqa: BLE001 - the state stays non-terminal; a later invocation marks it INCOMPLETE
-                pass
+        try:
+            self.state.mark_incomplete(reason=text, counters=self.counters())
+        except Exception:  # noqa: BLE001 - the state stays non-terminal; a later invocation marks it INCOMPLETE
+            pass
         return f"incomplete: {text}"
 
     def _check(self, phase, seed=None):
@@ -778,9 +800,9 @@ class Campaign:
             self.final_started = dict(selections=selections, descriptions=descriptions, runtime=self.runtime,
                                       execution_sha256=self.declaration["execution_source"]["sha256"],
                                       declaration_sha256=self.declaration_sha256)
-            started_sha256 = publish_view(self.directory / "final" / "started.json", self.final_started)
+            self.started_sha256 = publish_view(self.directory / "final" / "started.json", self.final_started)
             # Selections are fixed durably here, before any sealed inference.
-            self._transition(RUNNING_FINAL, selections=selections, started_sha256=started_sha256)
+            self._transition(RUNNING_FINAL, selections=selections, started_sha256=self.started_sha256)
             for seed in self.seeds:
                 self._final_seed_units(seed)
                 result = self._final_seed_result(seed)
@@ -792,23 +814,54 @@ class Campaign:
         self._complete()
 
     def _complete(self):
-        """COMPLETE only if every limit holds in the exact account it records."""
+        """The completion barrier, then the one-way terminal commit.
+
+        Before the barrier, every fallible step: all evidence published (write-once,
+        fsynced) and re-validated exactly as ``official_results`` will validate it,
+        source/runtime identity re-verified, and every count checked. The barrier
+        latches one monotonic reading (the authoritative endpoint) before reading the
+        stop flag, then checks every limit against that reading. The scientific
+        campaign is complete when the barrier succeeds. After it there is no
+        computation, selection, evaluation or evidence publication: only the atomic
+        COMPLETE write, which certifies the already-completed work.
+        """
+        if self.state.state != RUNNING_FINAL:
+            raise RuntimeError(f"Completion attempted from {self.state.state}")
+        problems = (certified_evidence_problems(self.directory, self.declaration_sha256, self.seeds,
+                                                self.final_results, self.started_sha256)
+                    + account_problems(self.declaration, self.counters()))
+        if problems:
+            raise RuntimeError("Campaign evidence is not complete: " + "; ".join(problems))
         self.verify_identity("campaign complete")
-        account = self.counters()
-        limits, time_account = self.declaration["budgets"], account["time"]
-        if self.budget.stop_reason is not None:
-            raise CampaignStop(self.budget.stop_reason)
-        if time_account["elapsed_seconds"] > limits["campaign_seconds"]:
-            raise BudgetExhausted("campaign wall-clock budget exceeded before COMPLETE")
-        for seed, seconds in time_account["training_seconds"].items():
-            if seconds > limits["per_run_training_seconds"]:
-                raise BudgetExhausted(f"seed {seed} collection+optimization budget exceeded before COMPLETE")
-        if account["evaluation"]["total_games_started"] > limits["evaluation_games_ceiling"]:
-            raise BudgetExhausted("evaluation-game ceiling exceeded before COMPLETE")
-        self.state.transition(COMPLETE, counters=account, outcome=dict(
-            status=COMPLETE, final_results=dict(self.final_results),
+        self.fault("before_completion_barrier")
+        time_account = self.budget.cross_completion_barrier(self.seeds)  # CampaignStop/BudgetExhausted if not
+        # ---- The scientific campaign is complete. Only terminal certification follows. ----
+        account = dict(self.counters(), time=time_account)
+        outcome = dict(
+            status=COMPLETE, final_results=dict(self.final_results), started_sha256=self.started_sha256,
+            completion=completion_record(time_account, self.declaration["budgets"]),
             note=("COMPLETE means every declared evidence unit finished in one uninterrupted owning process "
-                  "within the declared limits; acceptance is judged separately against the declared thresholds.")))
+                  "within the declared limits, as measured at the completion barrier; acceptance is judged "
+                  "separately against the declared thresholds."))
+        self.fault("after_completion_barrier")
+        self._commit_complete(account, outcome)
+        self.fault("after_complete")
+
+    def _commit_complete(self, account, outcome):
+        """Atomically publish COMPLETE. A failure before it is visible propagates (the campaign ends INCOMPLETE);
+        a failure after it is visible never downgrades it."""
+        try:
+            self.state.terminate(COMPLETE, counters=account, outcome=outcome)
+        except BaseException as error:
+            if self.state.state != COMPLETE:  # ``terminate`` re-read the visible state on failure
+                raise
+            self.post_commit_errors.append(f"{type(error).__name__} after COMPLETE was visible: {error}")
+            try:
+                fsync_directory(self.directory)  # retry the directory flush that may have failed
+            except OSError as retry:
+                self.post_commit_errors.append(f"directory fsync retry failed ({retry}): COMPLETE is visible; if "
+                                               "the rename is later lost, the earlier state can only become "
+                                               "INCOMPLETE")
 
     def _selected_agent(self, seed, selection):
         from .evaluation import load_v2_agent
@@ -970,24 +1023,111 @@ def campaign_status(directory):
     return dict(document, note=note)
 
 
+COMPLETION_KEYS = {"endpoint", "elapsed_seconds", "training_seconds", "evaluation_games_started", "limits"}
+COMPLETION_LIMITS = ("campaign_seconds", "per_run_training_seconds", "evaluation_games_ceiling")
+
+
+def completion_record(time_account, budgets):
+    """The COMPLETE record's authoritative endpoint: the account measured at the completion barrier."""
+    return dict(endpoint="completion barrier: one monotonic reading in the owning process; limits inclusive",
+                elapsed_seconds=time_account["elapsed_seconds"],
+                training_seconds=dict(time_account["training_seconds"]),
+                evaluation_games_started=time_account["evaluation_games_started"],
+                limits={k: budgets[k] for k in COMPLETION_LIMITS})
+
+
+def safe_sha256_file(path):
+    try:
+        return sha256_file(path)
+    except OSError:
+        return None
+
+
+def certified_evidence_problems(directory, declaration_sha256, seeds, final_results, started_sha256):
+    """Every way the files a COMPLETE record certifies differ from what acceptance requires."""
+    directory, problems = Path(directory), []
+    if declaration_sha256 in REJECTED_DECLARATION_TOKENS:
+        problems.append(f"declaration {declaration_sha256} is REJECTED / NOT AUTHORIZED")
+    if safe_sha256_file(directory / "declaration.json") != declaration_sha256:
+        problems.append("declaration.json differs from the declaration the campaign ran under")
+    if started_sha256 is None or safe_sha256_file(directory / "final" / "started.json") != started_sha256:
+        problems.append("final/started.json differs from the hash recorded when the sealed phase started")
+    if not isinstance(final_results, dict) or sorted(final_results) != sorted(str(s) for s in seeds):
+        return problems + ["COMPLETE does not certify a result for every declared seed"]
+    for seed, digest in sorted(final_results.items()):
+        path = directory / "final" / f"seed-{seed}.json"
+        if safe_sha256_file(path) != digest:
+            problems.append(f"{path} differs from the hash certified by COMPLETE")
+            continue
+        result = json.loads(path.read_bytes())
+        if result.get("seed") != int(seed) or result.get("completeness") != "complete":
+            problems.append(f"{path} is not a complete sealed result for seed {seed}")
+    return problems
+
+
+def account_problems(declaration, counters):
+    """Count requirements of a COMPLETE campaign (time is checked against the completion record)."""
+    problems, evaluation = [], counters["evaluation"]
+    unfinished = {k: v for k, v in evaluation["by_kind"].items() if v["started"] != v["completed"]}
+    if unfinished:
+        problems.append(f"evidence units started but not completed: {unfinished}")
+    if evaluation["total_games_started"] > declaration["budgets"]["evaluation_games_ceiling"]:
+        problems.append("evaluation games started exceed the declared ceiling")
+    for seed in declaration["seeds"]:
+        completed = counters["training"].get(str(seed), {}).get("generations_completed")
+        if completed != declaration["generations"]:
+            problems.append(f"seed {seed} completed {completed} of {declaration['generations']} generations")
+    return problems
+
+
+def completion_problems(completion, counters, budgets):
+    """Every way a COMPLETE record's endpoint fails the declared limits (inclusive) or its own account."""
+    if not isinstance(completion, dict) or set(completion) != COMPLETION_KEYS:
+        return ["COMPLETE has no completion-barrier record"]
+    problems, time_account = [], counters["time"]
+    if completion["limits"] != {k: budgets[k] for k in COMPLETION_LIMITS}:
+        problems.append("completion record limits differ from the declaration")
+    if (completion["elapsed_seconds"], completion["training_seconds"], completion["evaluation_games_started"]) \
+            != (time_account["elapsed_seconds"], time_account["training_seconds"],
+                time_account["evaluation_games_started"]):
+        problems.append("completion record differs from the account it certifies")
+    if not completion["elapsed_seconds"] <= budgets["campaign_seconds"]:
+        problems.append("completion endpoint is past the campaign wall-clock budget")
+    for seed, seconds in completion["training_seconds"].items():
+        if not seconds <= budgets["per_run_training_seconds"]:
+            problems.append(f"seed {seed} training seconds exceed the per-seed budget at completion")
+    if not completion["evaluation_games_started"] <= budgets["evaluation_games_ceiling"]:
+        problems.append("evaluation games started exceed the ceiling at completion")
+    return problems
+
+
 def official_results(directory):
-    """The sealed results, only if state.json is COMPLETE and every certified file still matches its hash."""
+    """The sealed results, only if state.json is a valid COMPLETE record and everything it certifies validates:
+    declaration bytes and token, started.json, every seed result, the counts, and the completion endpoint
+    against the declared budgets. A COMPLETE string alone is never enough."""
     directory = Path(directory)
     state = CampaignStateFile.load(directory)
     if state.state != COMPLETE:
         raise NotOfficialEvidence(f"Campaign is {state.state}; its artifacts are forensic only and are never "
                                   "official evidence")
-    if sha256_file(directory / "declaration.json") != state.document["declaration_sha256"]:
-        raise NotOfficialEvidence("declaration.json differs from the declaration the campaign ran under")
-    results = {}
-    for seed, digest in state.document["outcome"]["final_results"].items():
-        path = directory / "final" / f"seed-{seed}.json"
-        if sha256_file(path) != digest:
-            raise NotOfficialEvidence(f"{path} differs from the hash certified by COMPLETE")
-        results[seed] = json.loads(path.read_text())
-    if sorted(results) != sorted(str(s) for s in state.document["seeds"]):
-        raise NotOfficialEvidence("COMPLETE does not certify a result for every declared seed")
-    return dict(declaration_sha256=state.document["declaration_sha256"], results=results)
+    document, outcome = state.document, state.document["outcome"]
+    problems = certified_evidence_problems(directory, document["declaration_sha256"], document["seeds"],
+                                           outcome.get("final_results"), outcome.get("started_sha256"))
+    if not problems:
+        declaration = json.loads((directory / "declaration.json").read_bytes())
+        started = [h.get("started_sha256") for h in document["history"] if h["state"] == RUNNING_FINAL]
+        if started != [outcome["started_sha256"]]:
+            problems.append("started.json hash differs from the one recorded on entering the sealed phase")
+        if declaration["seeds"] != document["seeds"]:
+            problems.append("state seeds differ from the declaration")
+        problems += account_problems(declaration, document["counters"])
+        problems += completion_problems(outcome.get("completion"), document["counters"], declaration["budgets"])
+    if problems:
+        raise NotOfficialEvidence("COMPLETE is not accepted: " + "; ".join(problems))
+    results = {seed: json.loads((directory / "final" / f"seed-{seed}.json").read_bytes())
+               for seed in outcome["final_results"]}
+    return dict(declaration_sha256=document["declaration_sha256"], results=results,
+                completion=outcome["completion"])
 
 
 # Preflight and freeze -------------------------------------------------------------------------
@@ -1077,13 +1217,17 @@ def freeze(output, *, name="phase4d3c-alphazero-v2-two-seed", notes=None):
 
 
 FREEZE_NOTES = [
-    "Phase 4D.3B.2 frozen declaration (format 3) for the Milestone 3 two-seed campaign; running it needs "
+    "Phase 4D.3B.3 frozen declaration (format 3) for the Milestone 3 two-seed campaign; running it needs "
     "separate authorization.",
     "The authorization token is the SHA-256 of this exact file. The Phase 4D.3B token "
-    "2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8 and the Phase 4D.3B.1 token "
-    "8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39 are REJECTED / NOT AUTHORIZED.",
+    "2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8, the Phase 4D.3B.1 token "
+    "8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39 and the Phase 4D.3B.2 token "
+    "ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb are REJECTED / NOT AUTHORIZED.",
     "The official campaign is NON-RESUMABLE: one owning process runs both seeds, the development selection and the "
-    "sealed final evaluation; any interruption, limit or identity drift makes it INCOMPLETE.",
+    "sealed final evaluation; any interruption, limit or identity drift before the completion barrier makes it "
+    "INCOMPLETE.",
+    "COMPLETE is a one-way terminal commit: all evidence is published and validated before one completion barrier, "
+    "whose monotonic reading is the authoritative endpoint; nothing after it can downgrade a visible COMPLETE.",
     "It binds execution-source content, the complete runtime identity, frozen packages and records, the retained "
     "4D.2f checkpoint and the launch-control semantics; any difference refuses the launch.",
     "Seed 42 is primary; seed 314159 is replication, not a second chance.",
@@ -1095,6 +1239,17 @@ FREEZE_NOTES = [
 # CLI --------------------------------------------------------------------------------------------
 
 EXIT_COMPLETED, EXIT_REFUSED, EXIT_INCOMPLETE = 0, 2, 4
+STOP_SIGNALS = (signal.SIGINT, signal.SIGTERM)
+
+
+def install_stop_handlers(campaign):
+    """SIGINT/SIGTERM request a cooperative stop. The handler only records: it never raises and never writes
+    state, so it cannot interrupt the terminal commit or replace COMPLETE. Before the completion barrier the
+    stop ends the campaign INCOMPLETE; after it, the request is recorded and cannot change the outcome."""
+    def stop(signum, frame):
+        campaign.budget.request_stop(f"signal {signum}")
+    for signum in STOP_SIGNALS:
+        signal.signal(signum, stop)
 
 
 def main(argv=None):
@@ -1131,12 +1286,13 @@ def main(argv=None):
         print(f"refused: {type(error).__name__}: {error}")
         return EXIT_REFUSED
 
-    def stop(signum, frame):
-        campaign.budget.request_stop(f"signal {signum}")
-    signal.signal(signal.SIGINT, stop)
-    signal.signal(signal.SIGTERM, stop)
+    install_stop_handlers(campaign)
     status = campaign.run()
     print(status)
+    for problem in campaign.post_commit_errors:
+        print(f"warning: {problem}; the certified COMPLETE outcome is unchanged", file=sys.stderr)
+    for reason in campaign.budget.late_stop_requests:
+        print(f"note: {reason} arrived after the completion barrier and cannot change the outcome", file=sys.stderr)
     return EXIT_COMPLETED if status == "completed" else EXIT_INCOMPLETE
 
 

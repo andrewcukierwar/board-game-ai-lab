@@ -176,7 +176,8 @@ def test_quantiles_are_nearest_rank_including_minimum():
 # Phase 4D.3B.2 official campaign: shared fixtures ---------------------------------------------------
 
 OLD_TOKENS = {'a663454': '2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8',   # Phase 4D.3B
-              'c302c18': '8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39'}   # Phase 4D.3B.1
+              'c302c18': '8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39',   # Phase 4D.3B.1
+              'ff1ded6': 'ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb'}   # Phase 4D.3B.2
 FROZEN_DECLARATION = ROOT / 'games/connect4/alphazero_v2/frozen/campaign-declaration.json'
 
 
@@ -826,34 +827,30 @@ def test_last_calibration_overrun_is_incomplete(tmp_path, tiny_packages, fake_ru
     assert_not_official(tmp_path / 'c')
 
 
-def test_overrun_just_before_the_terminal_write_is_incomplete(tmp_path, tiny_packages, fake_runtime):
-    """R3 window: time passing between the last unit and COMPLETE can never yield COMPLETE past the cap."""
+@pytest.mark.parametrize('at,eligible', [(9.9, True), (10.0, True), (10.1, False)],
+                         ids=['just-under', 'exactly-at', 'just-over'])
+def test_completion_barrier_deadline_boundary(tmp_path, tiny_packages, fake_runtime, at, eligible):
+    """The endpoint is the barrier's one reading; limits are inclusive (<=), like every acceptance check."""
     clock = Clock()
-    path, token = in_process(tiny_packages, fake_runtime, 'terminal.json', campaign_seconds=10)
+    path, token = in_process(tiny_packages, fake_runtime, 'boundary.json', campaign_seconds=10)
 
     def late(point, campaign):
         if point == 'after_unit_begin:calibration_game':
-            clock.now = 9.9
-        if point == 'before_campaign_complete':
-            clock.now = 10.1
+            clock.now = 9.0
+        if point == 'before_completion_barrier':  # every result is published and validated already
+            clock.now = at
     status = run_campaign(tmp_path / 'c', path, token, clock=clock, fault=late)
-    assert status == 'incomplete: campaign wall-clock budget exceeded before COMPLETE'
     state = state_of(tmp_path / 'c')
-    assert state['state'] == 'INCOMPLETE' and state['counters']['time']['elapsed_seconds'] == 10.1
-    assert (tmp_path / 'c/final/seed-42.json').exists()  # forensic artifact only
-    assert_not_official(tmp_path / 'c')
-
-
-def test_complete_is_written_only_with_an_account_within_every_limit(tmp_path, tiny_packages, fake_runtime):
-    clock = Clock()
-    path, token = in_process(tiny_packages, fake_runtime, 'at-limit.json', campaign_seconds=10)
-
-    def exactly(point, campaign):
-        if point == 'before_campaign_complete':
-            clock.now = 10.0
-    assert run_campaign(tmp_path / 'c', path, token, clock=clock, fault=exactly) == 'completed'
-    state = state_of(tmp_path / 'c')
-    assert state['state'] == 'COMPLETE' and state['counters']['time']['elapsed_seconds'] == 10.0
+    assert state['counters']['time']['elapsed_seconds'] == at
+    if eligible:
+        assert status == 'completed' and state['state'] == 'COMPLETE'
+        assert state['outcome']['completion']['elapsed_seconds'] == at
+        assert C.official_results(tmp_path / 'c')['completion']['elapsed_seconds'] == at
+    else:
+        assert status == 'incomplete: campaign wall-clock budget exceeded at the completion barrier'
+        assert state['state'] == 'INCOMPLETE' and state['outcome']['during'] == 'RUNNING_FINAL_EVALUATION'
+        assert (tmp_path / 'c/final/seed-42.json').exists()  # forensic artifact only
+        assert_not_official(tmp_path / 'c')
 
 
 def test_exact_game_ceiling_completes_and_one_less_is_incomplete(tmp_path, tiny_packages, fake_runtime):
@@ -929,6 +926,286 @@ def test_forged_complete_state_without_matching_results_is_not_official(tmp_path
     result.write_text(result.read_text().replace('"complete"', '"tampered"'))
     with pytest.raises(C.NotOfficialEvidence, match='differs from the hash certified'):
         C.official_results(tmp_path / 'c')
+
+
+# Phase 4D.3B.3 terminal commit: completion barrier, signals and publication failures ------------------------
+# F1 and F2 of the Phase 4D.3B.2 final launch review. Fault injection inside the real atomic publication only.
+
+def writes_complete(source):
+    return b'"state": "COMPLETE"' in Path(source).read_bytes()
+
+
+@pytest.fixture
+def saved_handlers():
+    saved = {s: signal.getsignal(s) for s in (signal.SIGINT, signal.SIGTERM)}
+    yield
+    for s, handler in saved.items():
+        signal.signal(s, handler)
+
+
+@pytest.fixture
+def recorded_campaigns(monkeypatch):
+    """Every Campaign the CLI constructs (to inspect its budget after ``main`` returns)."""
+    made = []
+
+    class Recording(C.Campaign):
+        def __init__(self, *args, **kwargs):
+            super().__init__(*args, **kwargs)
+            made.append(self)
+    monkeypatch.setattr(C, 'Campaign', Recording)
+    return made
+
+
+def inject_into_terminal_publication(patch, directory, where, action):
+    """Run ``action`` at one point inside the atomic publication of the COMPLETE document."""
+    real_fsync, real_replace, real_dir_fsync = L.full_fsync, os.replace, L.fsync_directory
+    temporary = directory / f'.state.json.{os.getpid()}.tmp'
+    if where == 'temporary-fsync':
+        def full_fsync(descriptor):
+            real_fsync(descriptor)
+            if temporary.exists() and writes_complete(temporary):
+                action()
+        patch.setattr(L, 'full_fsync', full_fsync)
+    elif where in ('rename', 'after-rename'):
+        def replace(source, target):
+            complete = Path(target).name == 'state.json' and writes_complete(source)
+            if complete and where == 'rename':
+                action()
+            real_replace(source, target)
+            if complete and where == 'after-rename':
+                action()
+        patch.setattr(L.os, 'replace', replace)
+    elif where == 'directory-fsync':
+        fired = []
+
+        def fsync_directory(path):
+            if (Path(path) == directory and not fired and (directory / 'state.json').exists()
+                    and state_of(directory)['state'] == 'COMPLETE'):
+                fired.append(path)
+                action()
+            return real_dir_fsync(path)
+        patch.setattr(L, 'fsync_directory', fsync_directory)
+    else:
+        raise ValueError(where)
+
+
+@pytest.mark.parametrize('where', ['temporary-fsync', 'rename', 'directory-fsync'])
+def test_signal_during_terminal_commit_cannot_certify_an_accepted_stop(tmp_path, tiny_packages, fake_runtime,
+                                                                       recorded_campaigns, saved_handlers, capsys,
+                                                                       where):
+    """F1 (signal). The review's probe: a real SIGTERM, received by the CLI's installed handler, while COMPLETE
+    is being published. Before 4D.3B.3 the handler accepted the stop (stop_reason set while the state was
+    non-terminal) and COMPLETE was still certified. Now the barrier precedes the publication: the signal is
+    post-completion, recorded, and can neither stop nor interrupt the commit."""
+    path, token = in_process(tiny_packages, fake_runtime, f'signal-{where}.json')
+    directory, seen = tmp_path / 'c', {}
+
+    def deliver():
+        seen['state'] = state_of(directory)['state']
+        os.kill(os.getpid(), signal.SIGTERM)
+        time.sleep(0.01)  # let the interpreter run the installed handler here, inside the publication
+        seen['stop_reason'] = recorded_campaigns[0].budget.stop_reason
+    with pytest.MonkeyPatch.context() as patch:
+        inject_into_terminal_publication(patch, directory, where, deliver)
+        code = C.main(['launch', '--declaration', str(path), '--campaign-dir', str(directory), '--authorize', token])
+    budget = recorded_campaigns[0].budget
+    assert seen['state'] == ('COMPLETE' if where == 'directory-fsync' else 'RUNNING_FINAL_EVALUATION')
+    state = state_of(directory)
+    assert state['state'] == 'COMPLETE' and code == C.EXIT_COMPLETED
+    # A stop accepted before terminal commitment can never be certified COMPLETE:
+    assert budget.stop_reason is None and seen['stop_reason'] is None
+    assert budget.late_stop_requests == [f'signal {int(signal.SIGTERM)}']
+    assert 'after the completion barrier' in capsys.readouterr().err
+    assert C.official_results(directory)['completion'] == state['outcome']['completion']
+
+
+def test_signal_immediately_before_the_completion_barrier_is_incomplete(tmp_path, tiny_packages, fake_runtime,
+                                                                        saved_handlers):
+    path, token = in_process(tiny_packages, fake_runtime, 'signal-before.json')
+    campaign = launch(tmp_path / 'c', path, token, fault=lambda point, campaign: (
+        signal.raise_signal(signal.SIGTERM) if point == 'before_completion_barrier' else None))
+    C.install_stop_handlers(campaign)
+    status = campaign.run()
+    assert status == f'incomplete: signal {int(signal.SIGTERM)}'
+    state = state_of(tmp_path / 'c')
+    assert state['state'] == 'INCOMPLETE' and state['outcome']['during'] == 'RUNNING_FINAL_EVALUATION'
+    assert 'COMPLETE' not in [h['state'] for h in state['history']]
+    assert sorted(p.name for p in (tmp_path / 'c/final').glob('seed-*.json')) == ['seed-42.json']  # forensic
+    assert_not_official(tmp_path / 'c')
+
+
+def test_signal_after_complete_changes_nothing(tmp_path, tiny_packages, fake_runtime, saved_handlers):
+    path, token = in_process(tiny_packages, fake_runtime, 'signal-after.json')
+    seen = {}
+
+    def after(point, campaign):
+        if point == 'after_complete':
+            seen['bytes'] = (tmp_path / 'c/state.json').read_bytes()
+            signal.raise_signal(signal.SIGTERM)
+    campaign = launch(tmp_path / 'c', path, token, fault=after)
+    C.install_stop_handlers(campaign)
+    assert campaign.run() == 'completed'
+    signal.raise_signal(signal.SIGINT)  # handlers are still installed after the owner finished
+    assert (tmp_path / 'c/state.json').read_bytes() == seen['bytes']
+    assert campaign.budget.stop_reason is None and len(campaign.budget.late_stop_requests) == 2
+    assert campaign.post_commit_errors == []
+    C.official_results(tmp_path / 'c')
+
+
+def test_clock_after_eligibility_never_changes_the_recorded_completion_time(tmp_path, tiny_packages, fake_runtime):
+    """F1 (deadline). The review's probe: 9.9 s at the end of the work, 10.1 s at the terminal rename. The
+    barrier's reading is the authoritative endpoint; certification time after it is not campaign work. The
+    endpoint is bound in the COMPLETE record and acceptance re-checks it against the declared budget."""
+    clock = Clock()
+    path, token = in_process(tiny_packages, fake_runtime, 'post-eligibility.json', campaign_seconds=10)
+
+    def late(point, campaign):
+        if point == 'before_campaign_complete':
+            clock.now = 9.9
+        if point == 'after_completion_barrier':
+            clock.now = 10.05
+    directory = tmp_path / 'c'
+    with pytest.MonkeyPatch.context() as patch:
+        inject_into_terminal_publication(patch, directory, 'rename', lambda: setattr(clock, 'now', 10.1))
+        status = run_campaign(directory, path, token, clock=clock, fault=late)
+    assert status == 'completed' and clock.now == 10.1
+    # A COMPLETE record whose endpoint is past the budget is never accepted, even with valid result files.
+    original = (directory / 'state.json').read_bytes()
+    late_endpoint = json.loads(original)
+    late_endpoint['counters']['time']['elapsed_seconds'] = 10.1
+    late_endpoint['outcome'].setdefault('completion', {})['elapsed_seconds'] = 10.1
+    (directory / 'state.json').write_bytes(L.view_bytes(late_endpoint))
+    with pytest.raises(C.NotOfficialEvidence, match='past the campaign wall-clock budget'):
+        C.official_results(directory)
+    (directory / 'state.json').write_bytes(original)
+    state = state_of(directory)
+    completion = state['outcome']['completion']
+    assert completion['elapsed_seconds'] == state['counters']['time']['elapsed_seconds'] == 9.9
+    assert completion['limits']['campaign_seconds'] == 10
+    assert C.official_results(directory)['completion']['elapsed_seconds'] == 9.9
+
+
+@pytest.mark.parametrize('where', ['temporary-fsync', 'rename'])
+def test_publication_failure_before_complete_is_visible_is_incomplete(tmp_path, tiny_packages, fake_runtime,
+                                                                       where):
+    path, token = in_process(tiny_packages, fake_runtime, f'fail-before-{where}.json')
+    directory = tmp_path / 'c'
+
+    def fail():
+        raise OSError(f'injected {where} failure')
+    with pytest.MonkeyPatch.context() as patch:
+        inject_into_terminal_publication(patch, directory, where, fail)
+        with pytest.raises(OSError, match='injected'):
+            run_campaign(directory, path, token)
+    state = state_of(directory)
+    assert state['state'] == 'INCOMPLETE' and 'OSError' in state['outcome']['reason']
+    assert [h['state'] for h in state['history']][-2:] == ['RUNNING_FINAL_EVALUATION', 'INCOMPLETE']
+    assert not list(directory.glob('.state.json.*'))  # no stray COMPLETE document left behind
+    assert_not_official(directory)
+
+
+@pytest.mark.parametrize('where,error', [('after-rename', OSError), ('after-rename', KeyboardInterrupt),
+                                         ('directory-fsync', OSError), ('after_complete', RuntimeError)])
+def test_failure_after_complete_is_visible_never_downgrades_it(tmp_path, tiny_packages, fake_runtime, where, error):
+    """F2. The review's probe is ``directory-fsync``: an OSError at the directory fsync right after the terminal
+    rename, while readers already see (and accept) COMPLETE. Before 4D.3B.3 the error handler then replaced it
+    with INCOMPLETE rebuilt from a stale document. Now the owner adopts the visible COMPLETE and reports it."""
+    path, token = in_process(tiny_packages, fake_runtime, f'fail-after-{where}-{error.__name__}.json')
+    directory, seen = tmp_path / 'c', {}
+
+    def fail():
+        seen['visible'] = (directory / 'state.json').read_bytes()
+        seen['accepted'] = sorted(C.official_results(directory)['results'])
+        raise error(f'injected failure {where}')
+    campaign = launch(directory, path, token, fault=lambda point, campaign: (
+        fail() if point == where else None))
+    with pytest.MonkeyPatch.context() as patch:
+        if where != 'after_complete':
+            inject_into_terminal_publication(patch, directory, where, fail)
+        status = campaign.run()
+    assert status == 'completed'
+    assert seen['accepted'] == ['42'] and (directory / 'state.json').read_bytes() == seen['visible']
+    state = state_of(directory)
+    history = [h['state'] for h in state['history']]
+    assert state['state'] == 'COMPLETE' and history[-2:] == ['RUNNING_FINAL_EVALUATION', 'COMPLETE']
+    assert history.count('COMPLETE') == 1 and 'INCOMPLETE' not in history
+    assert len(campaign.post_commit_errors) >= 1 and 'injected failure' in campaign.post_commit_errors[0]
+    assert C.official_results(directory)['results'].keys() == {'42'}
+    with pytest.raises(C.TerminalCampaign, match='already COMPLETE'):
+        launch(directory, path, token)
+    assert (directory / 'state.json').read_bytes() == seen['visible']
+
+
+def test_official_results_validates_the_complete_record(tmp_path, tiny_packages, fake_runtime):
+    """A COMPLETE string is not enough: the token, every certified file, the counts and the completion
+    endpoint must all validate against the declaration."""
+    path, token = in_process(tiny_packages, fake_runtime, 'acceptance.json', campaign_seconds=1000)
+    directory = tmp_path / 'c'
+    assert run_campaign(directory, path, token) == 'completed'
+    state_path = directory / 'state.json'
+    original = state_path.read_bytes()
+    assert C.official_results(directory)['declaration_sha256'] == token
+
+    def forged(change):
+        document = json.loads(original)
+        change(document)
+        return document
+
+    def at(document, *keys):
+        for key in keys[:-1]:
+            document = document[key]
+        return document, keys[-1]
+
+    def setter(*keys, value):
+        def change(document):
+            target, key = at(document, *keys)
+            target[key] = value
+        return change
+
+    def remover(*keys):
+        def change(document):
+            target, key = at(document, *keys)
+            del target[key]
+        return change
+    budgets = json.loads(path.read_text())['budgets']
+    over = budgets['campaign_seconds'] + 1
+
+    def endpoint_over(document):
+        document['counters']['time']['elapsed_seconds'] = over
+        document['outcome']['completion']['elapsed_seconds'] = over
+
+    def training_over(document):
+        for part in (document['counters']['time'], document['outcome']['completion']):
+            part['training_seconds']['42'] = budgets['per_run_training_seconds'] + 1
+
+    def games_over(document):
+        ceiling = budgets['evaluation_games_ceiling'] + 1
+        document['counters']['evaluation']['total_games_started'] = ceiling
+        for part in (document['counters']['time'], document['outcome']['completion']):
+            part['evaluation_games_started'] = ceiling
+    forgeries = {
+        'no completion record': remover('outcome', 'completion'),
+        'endpoint past the budget': endpoint_over,
+        'endpoint disagrees with its account': setter('outcome', 'completion', 'elapsed_seconds', value=0.0),
+        'training past the per-seed budget': training_over,
+        'games past the ceiling': games_over,
+        'limits differ from the declaration': setter('outcome', 'completion', 'limits', 'campaign_seconds',
+                                                     value=over),
+        'unfinished evidence unit': setter('counters', 'evaluation', 'by_kind', 'calibration_game', 'completed',
+                                           value=0),
+        'missing generation': setter('counters', 'training', '42', 'generations_completed', value=1),
+        'started.json hash': setter('outcome', 'started_sha256', value='0' * 64),
+        'missing seed result': setter('outcome', 'final_results', value={}),
+        'other declaration': setter('declaration_sha256', value='0' * 64),
+        'rejected token': setter('declaration_sha256', value=OLD_TOKENS['ff1ded6']),
+    }
+    for name, change in forgeries.items():
+        state_path.write_bytes(L.view_bytes(forged(change)))
+        with pytest.raises(C.NotOfficialEvidence):
+            C.official_results(directory)
+            pytest.fail(f'forged COMPLETE accepted: {name}')
+    state_path.write_bytes(original)
+    assert C.official_results(directory)['declaration_sha256'] == token
 
 
 # Hard interruption (real fresh interpreters): never resumable --------------------------------------------
