@@ -471,7 +471,8 @@ class Block(importlib.abc.MetaPathFinder):
 sys.meta_path.insert(0, Block())
 import games.connect4.alphazero_v2.oracle, games.connect4.alphazero_v2.reference_negamax
 import games.connect4.alphazero_v2.packages, games.connect4.alphazero_v2.statistics
-import games.connect4.alphazero_v2.arena
+import games.connect4.alphazero_v2.arena, games.connect4.alphazero_v2.launch_control
+import games.connect4.alphazero_v2.official_evidence
 print("ok")
 '''
     result = subprocess.run([sys.executable, '-c', script], capture_output=True, text=True, timeout=60, cwd=ROOT)

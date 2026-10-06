@@ -1,4 +1,4 @@
-"""Fail-closed, non-resumable control for the official AlphaZero v2 campaign (torch-free, Phase 4D.3B.4).
+"""Fail-closed, non-resumable control for the official AlphaZero v2 campaign (torch-free, Phase 4D.3B.5).
 
 The official campaign is one owning process holding one exclusive lock on its
 campaign directory. It runs every seed, the development selection and the
@@ -40,16 +40,74 @@ from .arena import StopEvaluation
 LAUNCH_CONTROL_VERSION = "connect4-alphazero-v2-launch-control-v3-terminal-commit"
 STATE_FORMAT = "connect4-alphazero-v2-official-campaign-state-v2"
 # Declaration tokens that must never authorize a campaign: Phase 4D.3B (launch-readiness review),
-# Phase 4D.3B.1 (final launch review, NO GO), Phase 4D.3B.2 (final fail-closed launch review, NO GO) and
-# Phase 4D.3B.3 (NO GO: a malformed COMPLETE record without seed 42 training time was accepted).
+# Phase 4D.3B.1 (final launch review, NO GO), Phase 4D.3B.2 (final fail-closed launch review, NO GO),
+# Phase 4D.3B.3 (NO GO: a malformed COMPLETE record without seed 42 training time was accepted) and
+# Phase 4D.3B.4 (NO GO: a certified final result without its ladder, tactical, solved, evidence and calibration
+# fields was accepted).
 REJECTED_DECLARATION_TOKENS = ("2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8",
                                "8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39",
                                "ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb",
-                               "34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390")
+                               "34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390",
+                               "9f7259827e8abee6db81113147e48c2a3420248296d09df559f2783c5d7d85f4")
 CREATED, SELECTION_COMPLETE = "CREATED", "DEVELOPMENT_SELECTION_COMPLETE"
 RUNNING_FINAL, COMPLETE, INCOMPLETE = "RUNNING_FINAL_EVALUATION", "COMPLETE", "INCOMPLETE"
 TERMINAL_STATES = (COMPLETE, INCOMPLETE)
 INTERRUPTED_MESSAGE = "Existing interrupted official campaign is INCOMPLETE and cannot be resumed."
+
+
+def launch_control_declaration():
+    """Launch-control semantics bound by the declaration (the executable meaning is bound by source)."""
+    return dict(
+        version=LAUNCH_CONTROL_VERSION, state_file=STATE_FORMAT,
+        resume=("Forbidden. An official campaign never resumes after a crash, reboot or drift, never repairs state "
+                "to continue, never retries interrupted work and never reuses partial evidence. Generation resume "
+                "artifacts are diagnostic only; the official launcher never loads them."),
+        single_owner=("One orchestrator process holds an exclusive flock on campaign.lock for the whole campaign and "
+                      "runs every seed, the development selection and the sealed final evaluation sequentially. A "
+                      "second process is refused. A campaign always starts in a new directory."),
+        states=("CREATED -> RUNNING_SEED_<seed> for each declared seed in order -> DEVELOPMENT_SELECTION_COMPLETE -> "
+                "RUNNING_FINAL_EVALUATION -> COMPLETE. INCOMPLETE may follow any non-terminal state. COMPLETE and "
+                "INCOMPLETE are terminal. Each transition atomically replaces state.json."),
+        interruption=("An owner that ends without a terminal state leaves the campaign INCOMPLETE. A later "
+                      "invocation records INCOMPLETE, reports that the campaign cannot be resumed and exits nonzero."),
+        identity=("Declared execution sources and runtime identity are revalidated at launch, around every "
+                  "generation and evaluation unit, and before every transition. Any difference ends the campaign "
+                  "INCOMPLETE."),
+        deadlines=("Monotonic seconds of the owning process. Per seed, collection+optimization stays within "
+                   "per_run_training_seconds; the whole campaign stays within campaign_seconds. A check refuses to "
+                   "start any unit, search, move or update at a limit. Work that finishes past a limit is never "
+                   "accepted. Reaching any limit ends the campaign INCOMPLETE. Limits are inclusive at completion: "
+                   "COMPLETE needs elapsed seconds at the completion barrier <= campaign_seconds and each seed's "
+                   "training seconds <= per_run_training_seconds."),
+        terminal_commit=("Every result file is published, flushed and re-validated, identity is re-verified and every "
+                         "count is checked before one completion barrier. The barrier latches one monotonic reading "
+                         "before reading the stop flag; that reading is the campaign's authoritative endpoint. A stop "
+                         "handled or a limit exceeded at the barrier ends the campaign INCOMPLETE. After it, only the "
+                         "atomic COMPLETE write remains: the scientific campaign is complete at the barrier, and the "
+                         "write certifies it. A later signal is recorded but cannot change the outcome. INCOMPLETE "
+                         "is written only if the visible state is non-terminal, so no error path can replace a "
+                         "visible COMPLETE. A write that fails before COMPLETE is visible ends INCOMPLETE."),
+        acceptance=("Official results require a COMPLETE record whose every certified artifact satisfies one "
+                    "authoritative evidence contract (official_evidence). The same validators run before "
+                    "started.json and each sealed result are published, before the completion barrier on the files "
+                    "read back from disk, and in official_results. Every required field must be present, of its "
+                    "type and in its domain; objects have exactly their keys; every per-seed mapping covers exactly "
+                    "the declared seeds (the research declaration's are exactly 42 and 314159). Sealed evidence "
+                    "covers exactly the declared ladder opponents, the sealed tactical and solved package rows, the "
+                    "paired games of the declared sealed openings (each replayed through the engine) and every "
+                    "declared calibration game; every summary and gate must equal what the one result producer "
+                    "derives from that evidence. Every evidence-unit count equals the count the declaration and "
+                    "packages determine. Quantities stored more than once must agree. Duplicate JSON keys and "
+                    "NaN/Infinity are refused. The campaign directory holds a hash-verified copy of every declared "
+                    "package."),
+        evaluation_games=("Reserved before a game's first move. No game starts once evaluation_games_ceiling games "
+                          "have started."),
+        final_evaluation=("Both selections are recorded durably in RUNNING_FINAL_EVALUATION before any sealed "
+                          "inference. An interrupted sealed evaluation ends the campaign INCOMPLETE and is never "
+                          "restarted under this declaration."),
+        counters=("Live provenance snapshotted into state.json. After a crash they are lower bounds and authorize "
+                  "nothing."),
+        rejected_declaration_tokens=list(REJECTED_DECLARATION_TOKENS))
 
 
 def running_seed(seed):
@@ -245,6 +303,10 @@ class CampaignStateFile:
                     "counters", "outcome"}
         if not isinstance(document, dict) or set(document) != required or document["format"] != STATE_FORMAT:
             raise StateCorrupt("state.json is not an official campaign state document")
+        if (not isinstance(document["seeds"], list) or not isinstance(document["history"], list)
+                or not all(isinstance(entry, dict) for entry in document["history"])
+                or not isinstance(document["outcome"], (dict, type(None)))):
+            raise StateCorrupt("state.json seeds, history or outcome are malformed")
         sequence = state_sequence(document["seeds"])
         visited = [entry.get("state") for entry in document["history"]]
         if not visited or visited[-1] != document["state"]:

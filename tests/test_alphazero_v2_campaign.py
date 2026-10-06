@@ -3,6 +3,7 @@ fail-closed official campaign launcher (declaration binding, single owner, no re
 Every run uses tiny synthetic settings in temporary directories; no research training, learned
 checkpoint or strength claim is produced."""
 import hashlib
+import inspect
 import json
 import os
 from pathlib import Path
@@ -31,6 +32,7 @@ from games.connect4.alphazero_v2.config import V2Config
 from games.connect4.alphazero_v2.data import V2Example, encode_board, finalize_game, pre_move_ply
 from games.connect4.alphazero_v2.generation import GenerationRunner, initial_model, load_resume_boundary
 from games.connect4.alphazero_v2 import launch_control as L
+from games.connect4.alphazero_v2 import official_evidence as OE
 from games.connect4.alphazero_v2.network import V2Inference, weights_sha256
 from games.connect4.alphazero_v2.oracle import engine_position
 from games.connect4.alphazero_v2.provenance import THREAD_ENVIRONMENT, required_thread_environment
@@ -178,7 +180,8 @@ def test_quantiles_are_nearest_rank_including_minimum():
 OLD_TOKENS = {'a663454': '2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8',   # Phase 4D.3B
               'c302c18': '8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39',   # Phase 4D.3B.1
               'ff1ded6': 'ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb',   # Phase 4D.3B.2
-              'bf48303': '34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390'}   # Phase 4D.3B.3
+              'bf48303': '34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390',   # Phase 4D.3B.3
+              '85dd988': '9f7259827e8abee6db81113147e48c2a3420248296d09df559f2783c5d7d85f4'}   # Phase 4D.3B.4
 FROZEN_DECLARATION = ROOT / 'games/connect4/alphazero_v2/frozen/campaign-declaration.json'
 
 
@@ -225,7 +228,7 @@ def launch_runtime():
 
 
 def declaration_document(package_dir, runtime, *, seeds=(42,), games=2, schedule=(1, 2), ceiling=None,
-                         **budget_overrides):
+                         ladder=('random', 'negamax1'), ladder_openings=1, calibration_games=1, **budget_overrides):
     package_dir = Path(package_dir)
     manifest = json.loads((package_dir / 'manifest.json').read_text())
     config = V2Config(self_play_simulations=2, games_per_generation=games, replay_generations=2,
@@ -242,8 +245,8 @@ def declaration_document(package_dir, runtime, *, seeds=(42,), games=2, schedule
                       baseline_rows=C.baseline_rows(empty_pairs=1, prefix_families=0),
                       gate={k: v for k, v in C.statistics.CHAMPION_GATE.items() if k != 'schedule'},
                       tactical_package='tactical-development'),
-        final=dict(ladder=['random', 'negamax1'], ladder_openings=1, calibration_games=1, calibration_constant=None,
-                   one_time=True),
+        final=dict(ladder=list(ladder), ladder_openings=ladder_openings, calibration_games=calibration_games,
+                   calibration_constant=None, one_time=True),
         runtime_identity=runtime, frozen_records=C.frozen_record_entries(package_dir, ('manifest.json',
                                                                                      'exclusions.json')),
         phase4d2f_checkpoint=dict(path=str(checkpoint), sha256=hashlib.sha256(checkpoint.read_bytes()).hexdigest()))
@@ -707,7 +710,7 @@ def test_normal_campaign_completes_without_any_resume_path(tmp_path, tiny_packag
     official = C.official_results(tmp_path / 'c')
     assert sorted(official['results']) == ['42'] and official['declaration_sha256'] == token
     assert sorted(p.name for p in (tmp_path / 'c').iterdir()) == ['campaign.lock', 'declaration.json', 'final',
-                                                                  'runs', 'source', 'state.json']
+                                                                  'packages', 'runs', 'source', 'state.json']
     # A COMPLETE campaign never runs or transitions again.
     with pytest.raises(C.TerminalCampaign, match='already COMPLETE'):
         launch(tmp_path / 'c', path, token)
@@ -1445,6 +1448,581 @@ def test_required_seed_keys_are_the_declared_seeds(seeds, kind, valid):
     else:
         with pytest.raises(C.MalformedRecord):
             C.required_seed_keys(declaration)
+
+
+# Phase 4D.3B.5 official evidence contract: one schema, one result producer, schema-driven mutations -----------
+# One genuine two-seed COMPLETE campaign with a richer tiny protocol than above: four ladder opponents (one
+# reported-only, one v2 search agent), prefix openings and two calibration games. Mutations are generated from
+# the produced artifacts themselves. Every path is deleted and retyped, and a member is added to every object.
+# Only paths in OE.OPTIONAL_PATHS may be removed.
+
+CONTRACT_LADDER = ('random', 'negamax1', 'negamax4', 'initial_v2_512')
+STAGES = {'_final': 'A', '_complete': 'B', 'official_results': 'C'}
+
+
+def validation_stage():
+    for frame in inspect.stack():
+        if frame.function in STAGES:
+            return STAGES[frame.function]
+    return None
+
+
+@pytest.fixture(scope='module')
+def contract_campaign(tmp_path_factory, tiny_packages):
+    """The genuine campaign, with every contract validation recorded at its call site (A, B or C)."""
+    root = tmp_path_factory.mktemp('evidence-contract')
+    calls = []
+    with pytest.MonkeyPatch.context() as patch:
+        fake = pin_fake_runtime(patch)
+        for name in ('seed_result_problems', 'started_problems'):
+            real = getattr(OE, name)
+
+            def spy(context, started, *args, _real=real, _name=name):
+                problems = _real(context, started, *args)
+                calls.append(dict(stage=validation_stage(), function=_name, args=json.loads(json.dumps(args)),
+                                  started=json.loads(json.dumps(started)), problems=problems))
+                return problems
+            patch.setattr(OE, name, spy)
+        path, token = in_process(tiny_packages, fake, 'evidence-contract.json', seeds=C.OFFICIAL_SEEDS,
+                                 per_run_training_seconds=LIMIT, ladder=CONTRACT_LADDER, ladder_openings=3,
+                                 calibration_games=2)
+        assert run_campaign(root / 'campaign', path, token) == 'completed'
+        official = C.official_results(root / 'campaign')
+    return dict(directory=root / 'campaign', calls=calls, official=official, token=token)
+
+
+@pytest.fixture
+def contract_copy(contract_campaign, tmp_path):
+    shutil.copytree(contract_campaign['directory'], tmp_path / 'campaign')
+    return tmp_path / 'campaign'
+
+
+@pytest.fixture
+def cached_derivation(monkeypatch):
+    """Memoize the result producer. It is a pure function of its inputs, so validation is unchanged; the
+    thousands of mutated copies of a result share a few raw-evidence inputs, and bootstraps are slow."""
+    real, cache = OE.derive_seed_result, {}
+
+    def cached(context, seed, started, raw):
+        key = json.dumps([context.token, seed, started, raw], sort_keys=True)
+        if key not in cache:
+            cache[key] = real(context, seed, started, raw)
+        return cache[key]
+    monkeypatch.setattr(OE, 'derive_seed_result', cached)
+
+
+def read_json(path):
+    return json.loads(Path(path).read_bytes())
+
+
+def write_json(path, value):
+    data = L.view_bytes(value)
+    Path(path).write_bytes(data)
+    return hashlib.sha256(data).hexdigest()
+
+
+def contract_inputs(directory):
+    context, problems = OE.load_context(directory, read_state(directory)['declaration_sha256'])
+    assert problems == []
+    return context, read_json(directory / 'final/started.json')
+
+
+def rehash_result(directory, seed, result):
+    document = read_state(directory)
+    document['outcome']['final_results'][seed] = write_json(directory / f'final/seed-{seed}.json', result)
+    write_state(directory, document)
+
+
+def rehash_started(directory, started):
+    digest, document = write_json(directory / 'final/started.json', started), read_state(directory)
+    document['outcome']['started_sha256'] = digest
+    next(h for h in document['history'] if h['state'] == L.RUNNING_FINAL)['started_sha256'] = digest
+    write_state(directory, document)
+
+
+def strict_refusal(directory):
+    """The refusal message (None if accepted). An internal validator error is a test failure: every validator
+    must refuse malformed input by inspecting it, not by crashing into the fail-closed backstop."""
+    message = refusal(directory)
+    assert message is None or 'internal validation error' not in message, message
+    return message
+
+
+def json_paths(value, prefix=()):
+    if isinstance(value, dict):
+        items = value.items()
+    elif isinstance(value, list):
+        items = enumerate(value)
+    else:
+        return
+    for key, child in items:
+        yield prefix + (key,)
+        yield from json_paths(child, prefix + (key,))
+
+
+def schema_paths(document):
+    """Every schema path of an artifact: list indices collapse to one schema position, mutated at its first and
+    last occurrence (dict keys never collapse: seeds, row IDs and opponents are declaration-derived identities)."""
+    groups = {}
+    for path in json_paths(document):
+        groups.setdefault(tuple('*' if isinstance(k, int) else k for k in path), []).append(path)
+    for paths in groups.values():
+        yield from dict.fromkeys((paths[0], paths[-1]))
+
+
+def wrong_types(value):
+    """Replacements of another JSON type. No field of the contract admits both of any such pair."""
+    if isinstance(value, bool):
+        return [int(value)]
+    if isinstance(value, int):
+        return [str(value), bool(value)]
+    if isinstance(value, float):
+        return [str(value)]
+    if isinstance(value, str):
+        return [len(value)]
+    if value is None:
+        return ['null']
+    if isinstance(value, list):
+        return [{str(i): v for i, v in enumerate(value)}]
+    return [list(value.values())]
+
+
+DELETE = object()
+
+
+def mutated(document, path, value):
+    copy = json.loads(json.dumps(document))
+    parent = copy
+    for key in path[:-1]:
+        parent = parent[key]
+    if value is DELETE:
+        del parent[path[-1]]
+    else:
+        parent[path[-1]] = value
+    return copy
+
+
+def schema_mutations(document, artifact, paths=None):
+    """(name, mutated copy, must refuse) for every schema path of a genuine artifact: delete it, retype it, and add
+    an unexpected member to it if it is an object. Only declared optional diagnostics may be removed or extended."""
+    for path in (schema_paths(document) if paths is None else paths):
+        label = '/'.join(map(str, path))
+        parent = document
+        for key in path[:-1]:
+            parent = parent[key]
+        value = parent[path[-1]]
+        yield f'delete {label}', mutated(document, path, DELETE), not OE.is_optional(artifact, path)
+        for wrong in wrong_types(value):
+            yield f'retype {label} as {type(wrong).__name__}', mutated(document, path, wrong), True
+        if isinstance(value, dict):
+            extended = dict(value, **{'unexpected-member': 0})
+            yield (f'add a member to {label}', mutated(document, path, extended),
+                   not OE.is_optional(artifact, path + ('unexpected-member',)))
+
+
+def run_sweep(mutations, refused):
+    """Apply every mutation; return (count, wrongly accepted, wrongly refused)."""
+    count, accepted, rejected = 0, [], []
+    for name, document, must_refuse in mutations:
+        count += 1
+        if refused(document) != must_refuse:
+            (accepted if must_refuse else rejected).append(name)
+    return count, accepted, rejected
+
+
+def test_reproduced_exploit_certified_result_without_scientific_fields_is_refused(contract_copy):
+    """The 4D.3B.4 blocker: final/seed-42.json without ladder, tactical, solved, evidence and calibration, its new
+    SHA-256 written into the COMPLETE record, was accepted. Every required top-level field is now required."""
+    original = read_json(contract_copy / 'final/seed-42.json')
+    stripped = {k: v for k, v in original.items() if k not in ('ladder', 'tactical', 'solved', 'evidence',
+                                                                 'calibration')}
+    rehash_result(contract_copy, '42', stripped)
+    message = strict_refusal(contract_copy)
+    assert message is not None, 'a certified result without its scientific fields was accepted'
+    assert "final/seed-42.json must have exactly keys" in message and "'calibration', 'evidence'" in message
+    for key in sorted(OE.SEED_RESULT_KEYS):
+        rehash_result(contract_copy, '42', {k: v for k, v in original.items() if k != key})
+        assert strict_refusal(contract_copy) is not None, f'accepted without {key}'
+    rehash_result(contract_copy, '42', original)
+    assert strict_refusal(contract_copy) is None
+
+
+def test_round_trip_produce_validate_serialize_parse_validate_complete_accept(contract_campaign):
+    """produce -> validate (A) -> serialize -> strict parse -> validate (B) -> COMPLETE -> official_results (C)."""
+    directory, calls = contract_campaign['directory'], contract_campaign['calls']
+    results = [c for c in calls if c['function'] == 'seed_result_problems']
+    assert [c['stage'] for c in results] == ['A', 'A', 'B', 'B', 'C', 'C']
+    assert all({c['args'][0] for c in results if c['stage'] == stage} == SEEDS for stage in 'ABC')
+    assert [c['args'][0] for c in results if c['stage'] == 'A'] == ['42', '314159']  # declared order, as run
+    assert [c['stage'] for c in calls if c['function'] == 'started_problems'] == ['A', 'B', 'C']
+    assert all(c['problems'] == [] for c in calls)
+    official = contract_campaign['official']
+    assert read_state(directory)['state'] == 'COMPLETE' and set(official['results']) == SEEDS
+    for seed in sorted(SEEDS):
+        produced, read_back, accepted = (c['args'][1] for c in results if c['args'][0] == seed)
+        data = (directory / f'final/seed-{seed}.json').read_bytes()
+        assert L.view_bytes(produced) == data  # the validated object is exactly the published bytes
+        assert C.strict_json(data) == read_back == accepted == official['results'][seed]
+        assert hashlib.sha256(data).hexdigest() == read_state(directory)['outcome']['final_results'][seed]
+    started = [c for c in calls if c['function'] == 'started_problems']
+    assert started[0]['started'] == started[1]['started'] == read_json(directory / 'final/started.json')
+
+
+def test_produced_artifacts_have_exactly_the_contract_shape(contract_campaign):
+    """The genuine artifacts carry exactly the declared key sets: a producer field without acceptance semantics
+    would already have been refused before publication (see the next test)."""
+    directory = contract_campaign['directory']
+    context, started = contract_inputs(directory)
+    for seed in sorted(SEEDS):
+        result = read_json(directory / f'final/seed-{seed}.json')
+        assert set(result) == OE.SEED_RESULT_KEYS and set(result['evidence']) == OE.EVIDENCE_KEYS
+        assert set(result['ladder']) == set(CONTRACT_LADDER) and result['ladder']['negamax4']['gate'] is None
+        assert all(set(e) == OE.TACTICAL_EVIDENCE_KEYS for e in result['evidence']['tactical'].values())
+        assert all(set(e) == OE.SOLVED_EVIDENCE_KEYS for e in result['evidence']['solved'].values())
+        assert {r['game'] for r in result['evidence']['calibration']} == {0, 1}
+        records = [r for entry in result['ladder'].values() for r in entry['records']]
+        assert all(set(r) == OE.ARENA_RECORD_KEYS for r in records) and len(records) == len(CONTRACT_LADDER) * 6
+        assert {r['stratum'] for r in records} == {'empty', 'prefix'}
+        assert OE.seed_result_problems(context, started, seed, result) == []
+    assert read_state(directory)['counters']['evaluation']['by_kind'] == {
+        kind: dict(started=count, completed=count) for kind, count in OE.expected_units(context).items()}
+
+
+@pytest.mark.parametrize('where', ['search row', 'arena record', 'calibration record'])
+def test_new_producer_field_without_acceptance_semantics_stops_publication(tmp_path, tiny_packages, fake_runtime,
+                                                                           monkeypatch, where):
+    """Adding a raw-evidence field to the producer without declaring it in the contract fails validation at A:
+    the result is never published and the campaign ends INCOMPLETE."""
+    import games.connect4.alphazero_v2.evaluation as E2
+    if where == 'search row':
+        real = E2.search_row
+        monkeypatch.setattr(E2, 'search_row', lambda *a, **k: dict(real(*a, **k), undeclared=1))
+    elif where == 'arena record':
+        real = C.paired_game
+        monkeypatch.setattr(C, 'paired_game', lambda *a, **k: dict(real(*a, **k), undeclared=1))
+    else:
+        real = E2.calibration_games
+        monkeypatch.setattr(E2, 'calibration_games', lambda *a, **k: [dict(r, undeclared=1) for r in real(*a, **k)])
+    path, token = in_process(tiny_packages, fake_runtime, f'undeclared-{where[:5]}.json')
+    with pytest.raises(RuntimeError, match=r'final/seed-42.json violates the official evidence contract'):
+        run_campaign(tmp_path / 'c', path, token)
+    state = state_of(tmp_path / 'c')
+    assert state['state'] == 'INCOMPLETE' and 'undeclared' in state['outcome']['reason']
+    assert not (tmp_path / 'c/final/seed-42.json').exists()
+    assert_not_official(tmp_path / 'c')
+
+
+@pytest.mark.parametrize('seed', sorted(SEEDS))
+def test_seed_result_schema_mutation_sweep(contract_campaign, cached_derivation, seed):
+    """Every path of a genuine sealed result: deleted, retyped (and an int made a bool), and every object given
+    an unexpected member. The shared validator must refuse each by inspection; nothing in a result is optional."""
+    directory = contract_campaign['directory']
+    context, started = contract_inputs(directory)
+    original = read_json(directory / f'final/seed-{seed}.json')
+    summarized = []
+
+    def refused(document):
+        problems = OE.seed_result_problems(context, started, seed, document)
+        summarized.extend(p for p in problems if 'cannot be summarized' in p)
+        return bool(problems)
+    assert not refused(original)
+    count, accepted, rejected = run_sweep(schema_mutations(original, 'final/seed-S.json'), refused)
+    assert not accepted, f'{len(accepted)} of {count} malformed results accepted: {accepted[:20]}'
+    assert not rejected and not summarized, (rejected, summarized[:3])
+    assert count > 1800, count
+
+
+def test_state_record_schema_mutation_sweep(contract_copy, cached_derivation):
+    """Every path of the genuine COMPLETE record, through official_results. Only the optional diagnostic phase
+    timings may be removed, and only that mapping may gain a member."""
+    original = read_state(contract_copy)
+
+    def refused(document):
+        write_state(contract_copy, document)
+        return strict_refusal(contract_copy) is not None
+    count, accepted, rejected = run_sweep(schema_mutations(original, 'state.json'), refused)
+    assert not accepted, f'{len(accepted)} of {count} malformed COMPLETE records accepted: {accepted[:20]}'
+    assert not rejected, f'optional diagnostics refused: {rejected}'
+    assert count > 350, count
+    write_state(contract_copy, original)
+    assert strict_refusal(contract_copy) is None
+
+
+def test_started_record_schema_mutation_sweep(contract_copy, cached_derivation):
+    """Every path of final/started.json, consistently re-hashed into the COMPLETE record."""
+    original = read_json(contract_copy / 'final/started.json')
+
+    def refused(document):
+        rehash_started(contract_copy, document)
+        return strict_refusal(contract_copy) is not None
+    count, accepted, rejected = run_sweep(schema_mutations(original, 'final/started.json'), refused)
+    assert not accepted and not rejected, f'{len(accepted)} of {count} malformed started records accepted: {accepted}'
+    assert count > 250, count
+
+
+def retoken(directory, declaration):
+    """Coherently re-certify every artifact under a new declaration (the token and every copy of it)."""
+    data = L.view_bytes(declaration)
+    (directory / 'declaration.json').write_bytes(data)
+    token = hashlib.sha256(data).hexdigest()
+    started = read_json(directory / 'final/started.json')
+    started['declaration_sha256'] = token
+    for selection in started['selections'].values():
+        selection['declaration_sha256'] = token
+    document = read_state(directory)
+    document['declaration_sha256'] = token
+    for entry in document['history']:
+        for selection in entry.get('selections', {}).values():
+            selection['declaration_sha256'] = token
+    for seed in sorted(SEEDS):
+        result = read_json(directory / f'final/seed-{seed}.json')
+        result['selection']['declaration_sha256'] = token
+        document['outcome']['final_results'][seed] = write_json(directory / f'final/seed-{seed}.json', result)
+    write_state(directory, document)
+    rehash_started(directory, started)
+
+
+def test_declaration_schema_mutation_sweep(contract_copy, cached_derivation):
+    """Every path of the declaration, coherently re-tokened (every copy of the token and every certified hash
+    rewritten): the declaration contract must refuse. A COMPLETE campaign's declaration is always one that could
+    have launched. Only free-text notes and non-research frozen-record entries may be removed (another valid
+    declaration). Without re-tokening, any change to the declaration's bytes is refused by its hash."""
+    original = read_json(contract_copy / 'declaration.json')
+    pristine = {name: (contract_copy / name).read_bytes() for name in ('state.json', 'final/started.json',
+                                                                        'final/seed-42.json', 'final/seed-314159.json')}
+    retoken(contract_copy, original)  # re-serialized: a new token, still the same declaration
+    assert strict_refusal(contract_copy) is None
+
+    def refused(document):
+        retoken(contract_copy, document)
+        return strict_refusal(contract_copy) is not None
+    mutations = ((name, document, must_refuse and not (name.startswith('delete ') and OE.removable_declaration_item(
+        original, tuple(int(k) if k.isdigit() else k for k in name[len('delete '):].split('/')))))
+                 for name, document, must_refuse in schema_mutations(original, 'declaration.json'))
+    count, accepted, rejected = run_sweep(mutations, refused)
+    assert not accepted, f'{len(accepted)} of {count} re-tokened declarations accepted: {accepted}'
+    assert not rejected, f'free declaration items refused: {rejected}'
+    assert count > 500, count
+    for name, data in pristine.items():
+        (contract_copy / name).write_bytes(data)
+    (contract_copy / 'declaration.json').write_bytes(L.view_bytes(dict(original, notes=['edited'])))
+    assert 'declaration.json differs' in strict_refusal(contract_copy)
+
+
+def test_optional_diagnostics_may_be_removed_but_stay_typed(contract_copy):
+    """The contract's only optional field: the individual phase timings. Each may be removed (and new ones added);
+    a retyped one is refused. Any other optional path would have to be declared in OE.OPTIONAL_PATHS."""
+    assert OE.OPTIONAL_PATHS == {'state.json': (('counters', 'time', 'phase_seconds', '*'),)}
+    original = read_state(contract_copy)
+    phases = original['counters']['time']['phase_seconds']
+    assert len(phases) >= 5
+    for name in sorted(phases):
+        write_state(contract_copy, mutated(original, ('counters', 'time', 'phase_seconds', name), DELETE))
+        assert strict_refusal(contract_copy) is None, name
+    write_state(contract_copy, mutated(original, ('counters', 'time', 'phase_seconds'), {}))
+    assert strict_refusal(contract_copy) is None
+    write_state(contract_copy, mutated(original, ('counters', 'time', 'phase_seconds', 'final'), 'slow'))
+    assert 'phase_seconds is not a mapping of phase names to seconds' in strict_refusal(contract_copy)
+
+
+def test_declaration_derived_seed_sets(contract_copy):
+    """The certified result set covers exactly the declared seeds; each file is the result of its own seed."""
+    document = read_state(contract_copy)
+    results = document['outcome']['final_results']
+    forgeries = {
+        'seed removed': dict(results.items() - {('42', results['42'])}),
+        'seed added': dict(results, **{'7': results['42']}),
+        'seed renamed 042': {'042': results['42'], '314159': results['314159']},
+        'seed results swapped': {'42': results['314159'], '314159': results['42']},
+    }
+    for name, final_results in forgeries.items():
+        write_state(contract_copy, dict(document, outcome=dict(document['outcome'], final_results=final_results)))
+        assert strict_refusal(contract_copy) is not None, name
+    write_state(contract_copy, document)
+    other = read_json(contract_copy / 'final/seed-314159.json')
+    rehash_result(contract_copy, '42', other)  # seed 314159's genuine result certified as seed 42's
+    assert 'final/seed-42.json' in strict_refusal(contract_copy)
+
+
+def test_declaration_derived_evidence_sets(contract_copy, cached_derivation):
+    """Ladder opponents, sealed rows, paired games and calibration games are exactly the declared sets, even when
+    every summary is re-derived consistently from the forged evidence (only the evidence coverage can refuse)."""
+    context, started = contract_inputs(contract_copy)
+    original = read_json(contract_copy / 'final/seed-42.json')
+
+    def consistent(change):
+        """Change the raw evidence, then re-derive every summary from it with the real producer."""
+        forged = json.loads(json.dumps(original))
+        change(forged)
+        tactical, solved = forged['evidence']['tactical'], forged['evidence']['solved']
+        rows = {name: [r for r in context.rows(name) if r['id'] in evidence]
+                for name, evidence in (('tactical-sealed', tactical), ('solved-sealed', solved))}
+        forged_context = OE.OfficialContext(context.declaration, context.token, dict(context.packages, **rows))
+        forged_context.declaration = dict(context.declaration, final=dict(
+            context.declaration['final'], ladder=sorted(forged['ladder']),
+            calibration_games=len({r['game'] for r in forged['evidence']['calibration']})))
+        derived = OE.derive_seed_result(forged_context, 42, dict(started, descriptions={'42': dict(
+            started['descriptions']['42'], opponents={k: started['descriptions']['42']['opponents'].get(
+                k, started['descriptions']['42']['opponents']['random']) for k in forged['ladder']})}), dict(
+            overlap_families=forged['overlap_families'], tactical=tactical, solved=solved,
+            calibration=forged['evidence']['calibration'],
+            ladder={k: v['records'] for k, v in forged['ladder'].items()},
+            nn_only_vs_random=forged['nn_only_vs_random']['records']))
+        return json.loads(json.dumps(derived))
+    first_tactical, first_solved = context.rows('tactical-sealed')[0]['id'], context.rows('solved-sealed')[0]['id']
+    forgeries = {
+        'ladder opponent removed': lambda r: r['ladder'].pop('negamax1'),
+        'ladder opponent added': lambda r: r['ladder'].update(negamax2=r['ladder']['random']),
+        'ladder opponent renamed': lambda r: r['ladder'].update(negamax2=r['ladder'].pop('negamax4')),
+        'tactical row removed': lambda r: r['evidence']['tactical'].pop(first_tactical),
+        'solved row removed': lambda r: r['evidence']['solved'].pop(first_solved),
+        'calibration game removed': lambda r: r['evidence'].update(calibration=[
+            c for c in r['evidence']['calibration'] if c['game'] == 0]),
+        'calibration truncated by one ply': lambda r: r['evidence']['calibration'].pop(),
+        'arena game removed': lambda r: r['ladder']['random']['records'].pop(),
+        'nn-only game removed': lambda r: r['nn_only_vs_random']['records'].pop(0),
+    }
+    for name, change in forgeries.items():
+        forged = consistent(change)
+        problems = OE.seed_result_problems(context, started, '42', forged)
+        assert problems, f'accepted: {name}'
+        assert not any('is not what its evidence derives' in p for p in problems), (name, problems)
+        rehash_result(contract_copy, '42', forged)
+        assert strict_refusal(contract_copy) is not None, name
+    # Truncating a decisive calibration game by two plies keeps its parity and last-mover outcome; with its
+    # summary left as published, it is refused. (Records carry no moves: re-deriving every summary from the
+    # truncated records as well is a coherent forgery, outside the contract's scope; see the Phase 4D.3B.5 notes.)
+    truncated = json.loads(json.dumps(original))
+    del truncated['evidence']['calibration'][-2:]
+    assert any('is not what its evidence derives: result.calibration' in p
+               for p in OE.seed_result_problems(context, started, '42', truncated))
+    rehash_result(contract_copy, '42', truncated)
+    assert strict_refusal(contract_copy) is not None
+    rehash_result(contract_copy, '42', original)
+    assert strict_refusal(contract_copy) is None
+
+
+def test_summaries_are_cross_checked_against_their_evidence(contract_copy, cached_derivation):
+    """A summary that disagrees with its evidence is refused, and so is evidence that disagrees with itself
+    (replayed games, root network values) even after its summary is re-derived to match."""
+    context, started = contract_inputs(contract_copy)
+    original = read_json(contract_copy / 'final/seed-42.json')
+
+    def derive_from(result):
+        raw, problems = OE.raw_evidence(context, '42', result)
+        return problems, raw and json.loads(json.dumps(OE.derive_seed_result(context, 42, started, raw)))
+
+    def flip_first_result(r):
+        record = r['ladder']['random']['records'][0]
+        record['result'] = {'win': 'loss', 'loss': 'win', 'draw': 'win'}[record['result']]
+    summary_forgeries = {
+        'ladder score': lambda r: r['ladder']['random']['summary'].update(score=1.0),
+        'ladder gate': lambda r: r['ladder']['random']['gate'].update(passed=not r['ladder']['random']['gate']['passed']),
+        'reported-only gate added': lambda r: r['ladder']['negamax4'].update(gate=r['ladder']['random']['gate']),
+        'nn-only interval': lambda r: r['nn_only_vs_random']['summary'].update(interval95=[0.9, 1.0]),
+        'tactical metric': lambda r: r['tactical']['complete_set'].update(immediate_win=1.0),
+        'nn-only tactical metric': lambda r: r['tactical_nn_only']['complete_set'].update(safe_response=1.0),
+        'solved metric': lambda r: r['solved']['complete_set'].update(optimal_preserving=1.0),
+        'value metric': lambda r: r['value']['complete_set'].update(class_balanced_mse=0.0),
+        'calibration summary': lambda r: r['calibration'].update(improvement_over_zero=1.0),
+        'overlap sensitivity': lambda r: r['tactical'].update(overlap_excluded=None),
+        'selection': lambda r: r['selection'].update(generation=0),
+        'agent': lambda r: r['agent'].update(weights_sha256='0' * 64),
+        'opponent description': lambda r: r['ladder']['negamax1']['opponent'].update(depth=2),
+        'arena result alone': flip_first_result,
+    }
+    for name, change in summary_forgeries.items():
+        forged = json.loads(json.dumps(original))
+        change(forged)
+        problems = OE.seed_result_problems(context, started, '42', forged)
+        assert problems, f'accepted: {name}'
+    self_inconsistent = {
+        'arena result flipped, summary re-derived': flip_first_result,
+        'arena winner changed, summary re-derived': lambda r: r['ladder']['random']['records'][0].update(winner=-1),
+        'arena moves truncated': lambda r: r['ladder']['random']['records'][0]['moves'].pop(),
+        'solved raw value changed, value summary re-derived': lambda r: r['evidence']['solved'][
+            context.rows('solved-sealed')[0]['id']].update(raw_value=0.0),
+        'search choice not the maximum-visit action': lambda r: r['evidence']['tactical'][
+            context.rows('tactical-sealed')[0]['id']].update(choices=[next(
+                a for a in range(7) if a in engine_position(context.rows('tactical-sealed')[0]['moves'])
+                .get_valid_moves() and r['evidence']['tactical'][context.rows('tactical-sealed')[0]['id']]['visits'][0][a]
+                < max(r['evidence']['tactical'][context.rows('tactical-sealed')[0]['id']]['visits'][0]))]),
+        'calibration outcome changed': lambda r: r['evidence']['calibration'][0].update(
+            outcome=-r['evidence']['calibration'][0]['outcome']),
+    }
+    for name, change in self_inconsistent.items():
+        forged = json.loads(json.dumps(original))
+        change(forged)
+        problems, derived = derive_from(forged)
+        assert problems, f'self-inconsistent evidence passed the structural checks: {name}'
+        assert OE.seed_result_problems(context, started, '42', forged), name
+
+
+def test_coherently_reduced_unit_counts_are_refused(contract_copy):
+    """Every unit kind's count is fixed by the declaration and packages; an account consistently reduced by one
+    unit (aggregates, totals and every copy of games started rewritten) is refused."""
+    original = read_state(contract_copy)
+    for kind in OE.GAME_KINDS + OE.ROW_KINDS:
+        document = json.loads(json.dumps(original))
+        evaluation = document['counters']['evaluation']
+        evaluation['by_kind'][kind] = {k: v - 1 for k, v in evaluation['by_kind'][kind].items()}
+        if kind in OE.GAME_KINDS:
+            group = next(name for name, kinds in (('development_games', OE.DEVELOPMENT_GAME_KINDS),
+                                                  ('sealed_games', OE.SEALED_GAME_KINDS),
+                                                  ('calibration_games', OE.CALIBRATION_GAME_KINDS)) if kind in kinds)
+            evaluation[group] -= 1
+            for key in ('total_games_started', 'total_games_completed'):
+                evaluation[key] -= 1
+            for part in (document['counters']['time'], document['outcome']['completion']):
+                part['evaluation_games_started'] -= 1
+        write_state(contract_copy, document)
+        assert f'{kind}: ' in (strict_refusal(contract_copy) or ''), kind
+    write_state(contract_copy, original)
+    assert strict_refusal(contract_copy) is None
+
+
+def test_research_ladder_descriptions_satisfy_the_contract():
+    """The full research ladder (all seven opponents, the retained 4D.2f checkpoint) as the producer describes
+    it, against the declaration-derived opponent schema the sealed phase will be validated with."""
+    declaration = C.build_declaration({}, runtime_identity={})
+    checkpoint = ROOT / declaration['phase4d2f_checkpoint']['path']
+    if not checkpoint.exists():
+        pytest.skip('retained Phase 4D.2f checkpoint not present locally')
+    context = OE.OfficialContext(declaration, '0' * 64, {})
+    opponents = C.ladder_opponents(declaration, 42)
+    assert sorted(opponents) == sorted(declaration['final']['ladder']) == sorted(OE.LADDER_NAMES)
+    for name, opponent in opponents.items():
+        description = json.loads(json.dumps(opponent.describe()))
+        assert OE.opponent_problems(context, name, description) == [], name
+        for key in description:
+            assert OE.opponent_problems(context, name, {k: v for k, v in description.items() if k != key}), key
+    wrong = json.loads(json.dumps(opponents['phase4d2f_512'].describe()))
+    assert OE.opponent_problems(context, 'phase4d2f_512', dict(wrong, sha256='0' * 64))
+
+
+def test_campaign_directory_holds_the_declared_packages(contract_copy):
+    """Acceptance derives sealed rows from the campaign's own hash-verified package copies."""
+    declaration = read_json(contract_copy / 'declaration.json')
+    assert sorted(p.stem for p in (contract_copy / OE.PACKAGE_DIRECTORY).iterdir()) == sorted(declaration['packages'])
+    package = contract_copy / OE.PACKAGE_DIRECTORY / 'tactical-sealed.json'
+    package.write_bytes(package.read_bytes() + b' ')
+    assert 'packages/tactical-sealed.json differs from the package the declaration binds' in strict_refusal(
+        contract_copy)
+    package.unlink()
+    assert strict_refusal(contract_copy) is not None
+
+
+def test_validators_are_total_on_arbitrary_json():
+    """Every contract validator refuses any JSON value by inspection, never by raising."""
+    declaration = C.build_declaration({}, runtime_identity={})
+    context = OE.OfficialContext(declaration, '0' * 64, {})
+    values = [None, True, 0, 1.5, 'x', [], {}, [None], {'seed': None}, {k: None for k in OE.SEED_RESULT_KEYS}]
+    for value in values:
+        assert OE.declaration_problems(value)
+        assert OE.selection_problems(context, 'selection', value, '42')
+        assert OE.started_problems(context, value, {})
+        assert OE.seed_result_problems(context, {}, '42', value)
+        assert OE.keys_problems('x', value, {'a'}) or value == {'a': None}
 
 
 # Hard interruption (real fresh interpreters): never resumable --------------------------------------------

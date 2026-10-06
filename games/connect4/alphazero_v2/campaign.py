@@ -1,11 +1,11 @@
-"""Single-owner, fail-closed AlphaZero v2 official campaign launcher (Milestone 3 tool, Phase 4D.3B.4).
+"""Single-owner, fail-closed AlphaZero v2 official campaign launcher (Milestone 3 tool, Phase 4D.3B.5).
 
 Nothing runs on import. ``launch`` fails closed unless all of the following hold:
 
 * ``--authorize`` equals the SHA-256 of the exact declaration file, and neither
   is a rejected token (Phase 4D.3B ``2741314399...``, Phase 4D.3B.1
-  ``8a8a52b100...``, Phase 4D.3B.2 ``ed641aea2f...`` and Phase 4D.3B.3
-  ``34b4d89963...`` are rejected).
+  ``8a8a52b100...``, Phase 4D.3B.2 ``ed641aea2f...``, Phase 4D.3B.3
+  ``34b4d89963...`` and Phase 4D.3B.4 ``9f7259827e...`` are rejected).
 * The declaration (format 3) validates, and every input it binds is identical
   in this process: execution-source content (training and evaluation/launch
   groups), frozen package and frozen-record bytes, the retained Phase 4D.2f
@@ -30,14 +30,18 @@ authoritative endpoint. After it, only the atomic COMPLETE write remains; it
 certifies work that is already complete, and no later signal or error can
 change a visible COMPLETE.
 
-``official_results`` accepts a COMPLETE record only if it passes a strict
-schema (``complete_record_problems``): every required field present and in its
-domain, every per-seed mapping covering exactly the declared seeds, and every
-quantity stored in two places equal in both.
+Every artifact ``official_results`` relies on has one authoritative schema in
+``official_evidence``, and the same validators run at three points: before
+``final/started.json`` and each ``final/seed-S.json`` is published, before the
+completion barrier (read back from disk), and in ``official_results``. A sealed
+result has one producer, ``official_evidence.derive_seed_result``: acceptance
+re-derives every summary from the result's raw evidence and requires the whole
+result to equal it.
 
 Layout of a campaign directory (created once; nothing is overwritten except state.json):
 
     declaration.json        verbatim copy; its hash is the authorization token
+    packages/NAME.json      verbatim copy of every declared package (hashes bound by the declaration)
     state.json              the single authority (atomically replaced on each transition)
     campaign.lock           single-owner lock
     source/                 source snapshot (provenance)
@@ -47,10 +51,8 @@ Layout of a campaign directory (created once; nothing is overwritten except stat
                             official only if state.json is COMPLETE and lists their hashes
 """
 import argparse
-import hashlib
 import importlib
 import json
-import math
 import os
 from pathlib import Path
 import shutil
@@ -59,14 +61,20 @@ import subprocess
 import sys
 import time
 
-from . import statistics
+from . import official_evidence, statistics
 from .arena import (PAIRED_GAMES, GuardedUCTOpponent, NegamaxOpponent, RandomOpponent, paired_game, scored)
 from .config import V2Config
-from .launch_control import (COMPLETE, INCOMPLETE, INTERRUPTED_MESSAGE, LAUNCH_CONTROL_VERSION,
-                             REJECTED_DECLARATION_TOKENS, RUNNING_FINAL, SELECTION_COMPLETE, STATE_FORMAT, Budget,
-                             CampaignLock, CampaignLocked, CampaignStateFile, CampaignStop,
-                             InterruptedCampaign, StateCorrupt, TerminalCampaign, fsync_directory, publish_view,
-                             running_seed, sha256_bytes, sha256_file, view_bytes, write_once)
+from .launch_control import (COMPLETE, INCOMPLETE, INTERRUPTED_MESSAGE, REJECTED_DECLARATION_TOKENS,  # noqa: F401
+                             RUNNING_FINAL, SELECTION_COMPLETE, Budget, CampaignLock, CampaignLocked,
+                             CampaignStateFile, CampaignStop, InterruptedCampaign, StateCorrupt, TerminalCampaign,
+                             fsync_directory, launch_control_declaration, publish_view, running_seed, sha256_bytes,
+                             sha256_file, view_bytes, write_once)
+from .official_evidence import (CALIBRATION_GAME_KINDS, DECLARATION_FORMAT, DECLARATION_KEYS,  # noqa: F401
+                                DECLARATION_VERSION, DEVELOPMENT_GAME_KINDS, FROZEN_RECORD_NAMES, GAME_KINDS,
+                                OFFICIAL_SEEDS, OPPONENT_NAMES, PACKAGE_DIRECTORY, ROW_KINDS, SEALED_GAME_KINDS,
+                                SELECTION_RULE, MalformedRecord, champion_name, completion_record, nn_only_name,
+                                planned_evaluation_games, required_seed_keys, strict_json)
+from .official_evidence import normalized as json_normalized
 from .oracle import family_key
 from .packages import load_package
 from .provenance import (REPO_ROOT, SOURCE_SCHEME, configure_deterministic_runtime, execution_source_files,
@@ -74,22 +82,10 @@ from .provenance import (REPO_ROOT, SOURCE_SCHEME, configure_deterministic_runti
                          runtime_identity, source_differences, source_group, source_groups,
                          unavailable_runtime_fields)
 
-DECLARATION_FORMAT = "connect4-alphazero-v2-campaign-declaration"
-DECLARATION_VERSION = 3
 UNTRACKED_LIMIT_BYTES = 100 * 1024 * 1024
-DECLARATION_KEYS = {"format", "format_version", "name", "kind", "seeds", "primary_seed", "config", "generations",
-                    "budgets", "runtime", "evaluation", "champion", "final", "packages", "thresholds",
-                    "retention", "phase4d2f_checkpoint", "notes",
-                    "execution_source", "runtime_identity", "frozen_records", "launch_control"}
-FROZEN_RECORD_NAMES = ("build-provenance.json", "exclusions.json", "manifest.json")
 RUNTIME_IDENTITY_KEYS = tuple(sorted(runtime_identity()))
 PHASE4D2F_CHECKPOINT = dict(path="experiment-output/phase4d2f-neural-value-anchoring-seed42-20261005/candidate.pt",
                             sha256="78276912bdef5f1b1b53ac6b2ec3ede2eed20a8ebb5796a9bdcbb57e4cb28c51")
-DEVELOPMENT_GAME_KINDS = ("development_arena_game", "development_baseline_game")
-SEALED_GAME_KINDS = ("final_ladder_game", "final_nn_only_game")
-CALIBRATION_GAME_KINDS = ("calibration_game",)
-GAME_KINDS = DEVELOPMENT_GAME_KINDS + SEALED_GAME_KINDS + CALIBRATION_GAME_KINDS
-ROW_KINDS = ("development_tactics_row", "final_tactical_row", "final_solved_row")
 
 
 class LaunchRefused(PermissionError):
@@ -113,60 +109,7 @@ def write_json_once(path, value):
     return write_once(path, view_bytes(value))
 
 
-def json_normalized(value):
-    return json.loads(json.dumps(value))
-
-
 # Declaration ------------------------------------------------------------------------------
-
-def launch_control_declaration():
-    """Launch-control semantics bound by the declaration (the executable meaning is bound by source)."""
-    return dict(
-        version=LAUNCH_CONTROL_VERSION, state_file=STATE_FORMAT,
-        resume=("Forbidden. An official campaign never resumes after a crash, reboot or drift, never repairs state "
-                "to continue, never retries interrupted work and never reuses partial evidence. Generation resume "
-                "artifacts are diagnostic only; the official launcher never loads them."),
-        single_owner=("One orchestrator process holds an exclusive flock on campaign.lock for the whole campaign and "
-                      "runs every seed, the development selection and the sealed final evaluation sequentially. A "
-                      "second process is refused. A campaign always starts in a new directory."),
-        states=("CREATED -> RUNNING_SEED_<seed> for each declared seed in order -> DEVELOPMENT_SELECTION_COMPLETE -> "
-                "RUNNING_FINAL_EVALUATION -> COMPLETE. INCOMPLETE may follow any non-terminal state. COMPLETE and "
-                "INCOMPLETE are terminal. Each transition atomically replaces state.json."),
-        interruption=("An owner that ends without a terminal state leaves the campaign INCOMPLETE. A later "
-                      "invocation records INCOMPLETE, reports that the campaign cannot be resumed and exits nonzero."),
-        identity=("Declared execution sources and runtime identity are revalidated at launch, around every "
-                  "generation and evaluation unit, and before every transition. Any difference ends the campaign "
-                  "INCOMPLETE."),
-        deadlines=("Monotonic seconds of the owning process. Per seed, collection+optimization stays within "
-                   "per_run_training_seconds; the whole campaign stays within campaign_seconds. A check refuses to "
-                   "start any unit, search, move or update at a limit. Work that finishes past a limit is never "
-                   "accepted. Reaching any limit ends the campaign INCOMPLETE. Limits are inclusive at completion: "
-                   "COMPLETE needs elapsed seconds at the completion barrier <= campaign_seconds and each seed's "
-                   "training seconds <= per_run_training_seconds."),
-        terminal_commit=("Every result file is published, flushed and re-validated, identity is re-verified and every "
-                         "count is checked before one completion barrier. The barrier latches one monotonic reading "
-                         "before reading the stop flag; that reading is the campaign's authoritative endpoint. A stop "
-                         "handled or a limit exceeded at the barrier ends the campaign INCOMPLETE. After it, only the "
-                         "atomic COMPLETE write remains: the scientific campaign is complete at the barrier, and the "
-                         "write certifies it. A later signal is recorded but cannot change the outcome. INCOMPLETE "
-                         "is written only if the visible state is non-terminal, so no error path can replace a "
-                         "visible COMPLETE. A write that fails before COMPLETE is visible ends INCOMPLETE."),
-        acceptance=("Official results require a COMPLETE record that passes a strict schema. Every required field "
-                    "must be present and in its domain: finite non-negative seconds, non-negative integer counts and "
-                    "SHA-256 digests. Every per-seed mapping must cover exactly the declared seeds (the research "
-                    "declaration's seeds are exactly 42 and 314159), with no missing, extra or non-canonical key. "
-                    "Quantities stored twice (completion record and counters; history, started.json and result "
-                    "selections) must agree, and totals must equal their per-kind units. Duplicate JSON keys and "
-                    "NaN/Infinity are refused."),
-        evaluation_games=("Reserved before a game's first move. No game starts once evaluation_games_ceiling games "
-                          "have started."),
-        final_evaluation=("Both selections are recorded durably in RUNNING_FINAL_EVALUATION before any sealed "
-                          "inference. An interrupted sealed evaluation ends the campaign INCOMPLETE and is never "
-                          "restarted under this declaration."),
-        counters=("Live provenance snapshotted into state.json. After a crash they are lower bounds and authorize "
-                  "nothing."),
-        rejected_declaration_tokens=list(REJECTED_DECLARATION_TOKENS))
-
 
 def execution_source_declaration():
     identity = execution_source_identity()
@@ -183,69 +126,35 @@ def load_declaration(path):
     digest = sha256_bytes(data)
     if digest in REJECTED_DECLARATION_TOKENS:
         raise LaunchRefused(f"Declaration token {digest} is REJECTED / NOT AUTHORIZED (Phase 4D.3B / 4D.3B.1 / "
-                            "4D.3B.2 / 4D.3B.3 launch reviews); it must never authorize a campaign")
+                            "4D.3B.2 / 4D.3B.3 / 4D.3B.4 launch reviews); it must never authorize a campaign")
     declaration = json.loads(data)
     validate_declaration(declaration, path.parent)
     return declaration, digest
 
 
 def validate_declaration(declaration, base):
-    if set(declaration) != DECLARATION_KEYS:
-        raise ValueError(f"Declaration keys differ: {sorted(set(declaration) ^ DECLARATION_KEYS)}")
-    if (declaration["format"], declaration["format_version"]) != (DECLARATION_FORMAT, DECLARATION_VERSION):
-        raise ValueError(f"Not a format-{DECLARATION_VERSION} v2 campaign declaration")
-    seeds = declaration["seeds"]
-    if not seeds or len(set(seeds)) != len(seeds) or declaration["primary_seed"] not in seeds:
-        raise ValueError("Seeds must be distinct and include the primary seed")
-    for seed in seeds:
-        config = V2Config.from_dict(dict(declaration["config"], seed=seed))
-        if config.max_generations != declaration["generations"]:
-            raise ValueError("config.max_generations must equal the declared generations")
-    budgets = declaration["budgets"]
-    for name in ("per_run_training_seconds", "campaign_seconds", "evaluation_games_ceiling"):
-        if not isinstance(budgets[name], (int, float)) or budgets[name] <= 0:
-            raise ValueError(f"Budget {name} must be positive")
-    if budgets["planned_evaluation_games"] > budgets["evaluation_games_ceiling"]:
-        raise ValueError("Planned evaluation games exceed the ceiling")
-    schedule = declaration["champion"]["schedule"]
-    if sorted(set(schedule)) != schedule or not all(1 <= g <= declaration["generations"] for g in schedule):
-        raise ValueError("Champion schedule must be increasing generations within the campaign")
-    if planned_evaluation_games(declaration) != budgets["planned_evaluation_games"]:
-        raise ValueError(f"Planned evaluation games must be {planned_evaluation_games(declaration)}")
-    # The launcher executes statistics.CHAMPION_GATE and ACCEPTANCE_THRESHOLDS; a declaration may not differ.
-    if declaration["champion"]["gate"] != {k: v for k, v in statistics.CHAMPION_GATE.items() if k != "schedule"}:
-        raise ValueError("Declared champion gate differs from the executed gate")
-    if declaration["thresholds"] != json_normalized(statistics.ACCEPTANCE_THRESHOLDS):
-        raise ValueError("Declared thresholds differ from the executed thresholds")
-    if declaration["launch_control"] != json_normalized(launch_control_declaration()):
-        raise ValueError("Declared launch-control semantics differ from this launcher")
+    # The shared evidence contract: every check that needs neither torch nor files, the same function acceptance
+    # re-applies to a certified declaration.
+    problems = official_evidence.declaration_problems(declaration)
+    if problems:
+        raise ValueError("Declaration violates the official evidence contract: " + "; ".join(problems))
+    # Launch-only checks: the execution-source partition and the runtime field names come from this process.
     source = declaration["execution_source"]
-    if (set(source) != {"scheme", "sha256", "files", "groups"} or source["scheme"] != SOURCE_SCHEME
-            or source["sha256"] != hashlib.sha256(json.dumps(source["files"], sort_keys=True).encode()).hexdigest()
-            or source["groups"] != source_groups(source["files"])):
+    if source["scheme"] != SOURCE_SCHEME or source["groups"] != source_groups(source["files"]):
         raise ValueError("Declared execution source is internally inconsistent")
     runtime = declaration["runtime_identity"]
-    if not isinstance(runtime, dict) or tuple(sorted(runtime)) != RUNTIME_IDENTITY_KEYS:
+    if tuple(sorted(runtime)) != RUNTIME_IDENTITY_KEYS:
         raise ValueError("Declared runtime identity must contain exactly the enforced runtime fields")
-    if unavailable_runtime_fields(runtime):
-        raise ValueError(f"Declared runtime identity has unavailable fields: {unavailable_runtime_fields(runtime)}")
-    if set(declaration["runtime"]) != {"threads", "deterministic_algorithms"}:
-        raise ValueError("Declared runtime settings must be exactly threads and deterministic_algorithms")
-    threads = declaration["runtime"]["threads"]
-    if ((runtime["intra_op_threads"], runtime["inter_op_threads"], runtime["deterministic_algorithms"])
-            != (threads, threads, declaration["runtime"]["deterministic_algorithms"])
-            or runtime["thread_environment"] != required_thread_environment(threads)):
+    if runtime["thread_environment"] != required_thread_environment(declaration["runtime"]["threads"]):
         raise ValueError("Declared runtime identity disagrees with the declared runtime settings")
-    records = declaration["frozen_records"]
-    if declaration["kind"] == "research" and sorted(records) != sorted(FROZEN_RECORD_NAMES):
-        raise ValueError(f"A research declaration must bind {list(FROZEN_RECORD_NAMES)}")
-    for name, entry in records.items():
+    for name, entry in declaration["frozen_records"].items():
         if sha256_file(Path(base) / entry["path"]) != entry["sha256"]:
             raise ValueError(f"Frozen record {name} differs from the declaration")
-    if set(declaration["phase4d2f_checkpoint"]) != {"path", "sha256"}:
-        raise ValueError("phase4d2f_checkpoint needs path and sha256")
-    for name, entry in declaration["packages"].items():
-        load_package(Path(base) / entry["path"], expected_sha256=entry["sha256"])
+    documents = {name: load_package(Path(base) / entry["path"], expected_sha256=entry["sha256"])
+                 for name, entry in declaration["packages"].items()}
+    problems = official_evidence.package_problems(declaration, documents)
+    if problems:
+        raise ValueError("Declared packages violate the official evidence contract: " + "; ".join(problems))
     return True
 
 
@@ -290,16 +199,6 @@ def import_execution_closure():
 def package_rows(declaration, base, name):
     entry = declaration["packages"][name]
     return load_package(Path(base) / entry["path"], expected_sha256=entry["sha256"])["rows"]
-
-
-def planned_evaluation_games(declaration):
-    champion, final = declaration["champion"], declaration["final"]
-    per_check = 2 * champion["arena_openings"] + 2 * len(champion["baseline_rows"]) * len(champion["baseline_opponents"])
-    per_seed = (len(champion["schedule"]) * per_check
-                + 2 * final["ladder_openings"] * len(final["ladder"])
-                + 2 * final["ladder_openings"]  # NN Only versus Random
-                + final["calibration_games"])
-    return per_seed * len(declaration["seeds"])
 
 
 def baseline_rows(prefix="development", empty_pairs=4, prefix_families=8):
@@ -443,11 +342,23 @@ class Campaign:
             if sha256_bytes(data) != self.declaration_sha256:
                 raise LaunchRefused("Declaration changed while launching")
             write_once(directory / "declaration.json", data)
+            self._snapshot_packages()
             self.state = CampaignStateFile.create(directory, declaration_sha256=self.declaration_sha256,
                                                   seeds=self.seeds)
         except BaseException:
             self.lock.release()
             raise
+
+    def _snapshot_packages(self):
+        """Copy every declared package into the campaign directory, verified against the declared hash, so the
+        directory alone holds every input official acceptance derives its expectations from."""
+        target = self.directory / PACKAGE_DIRECTORY
+        target.mkdir()
+        for name, entry in sorted(self.declaration["packages"].items()):
+            data = (self.base / entry["path"]).read_bytes()
+            if sha256_bytes(data) != entry["sha256"]:
+                raise LaunchRefused(f"Package {name} changed while launching")
+            write_once(target / f"{name}.json", data)
 
     def _refuse_existing(self):
         """An existing directory is never continued. An interrupted official campaign is marked INCOMPLETE."""
@@ -799,7 +710,7 @@ class Campaign:
         _, inference = self._artifact(seed, champion, "inference")
         selection = dict(seed=seed, generation=champion, inference=inference,
                          decisions={str(g): d["promote"] for g, d in sorted(record["decisions"].items())},
-                         rule="development evidence only; sealed packages untouched",
+                         rule=SELECTION_RULE,
                          declaration_sha256=self.declaration_sha256)
         publish_view(self.run_dir(seed) / "selection.json", selection)
         return selection
@@ -810,22 +721,40 @@ class Campaign:
         with self.budget.phase("final"):
             self._check("evaluation")
             self.verify_identity("final start")
+            self.context = self._official_context()
             descriptions = {str(seed): self._final_descriptions(seed, selections[str(seed)]) for seed in self.seeds}
-            self.final_started = dict(selections=selections, descriptions=descriptions, runtime=self.runtime,
-                                      execution_sha256=self.declaration["execution_source"]["sha256"],
-                                      declaration_sha256=self.declaration_sha256)
+            self.final_started = json_normalized(dict(
+                selections=selections, descriptions=descriptions, runtime=self.runtime,
+                execution_sha256=self.declaration["execution_source"]["sha256"],
+                declaration_sha256=self.declaration_sha256))
+            # Contract call site A (started.json): validated before it is published.
+            self._require_contract("final/started.json", official_evidence.started_problems(
+                self.context, self.final_started, self.final_started["selections"]))
             self.started_sha256 = publish_view(self.directory / "final" / "started.json", self.final_started)
             # Selections are fixed durably here, before any sealed inference.
             self._transition(RUNNING_FINAL, selections=selections, started_sha256=self.started_sha256)
             for seed in self.seeds:
                 self._final_seed_units(seed)
-                result = self._final_seed_result(seed)
+                result = json_normalized(self._final_seed_result(seed))
+                # Contract call site A (final/seed-S.json): the exact bytes about to be published are validated.
+                self._require_contract(f"final/seed-{seed}.json", official_evidence.seed_result_problems(
+                    self.context, self.final_started, str(seed), result))
                 self._require_within_limits()
                 self.verify_identity(f"final seed {seed}")
                 self.final_results[str(seed)] = publish_view(self.directory / "final" / f"seed-{seed}.json", result)
                 self.state.record_counters(self.counters())
         self.fault("before_campaign_complete")
         self._complete()
+
+    def _official_context(self):
+        context, problems = official_evidence.load_context(self.directory, self.declaration_sha256)
+        self._require_contract("the campaign directory's declaration and packages", problems)
+        return context
+
+    @staticmethod
+    def _require_contract(name, problems):
+        if problems:
+            raise RuntimeError(f"{name} violates the official evidence contract: " + "; ".join(problems))
 
     def _complete(self):
         """The completion barrier, then the one-way terminal commit.
@@ -841,10 +770,12 @@ class Campaign:
         """
         if self.state.state != RUNNING_FINAL:
             raise RuntimeError(f"Completion attempted from {self.state.state}")
-        seeds = required_seed_keys(self.declaration)
-        problems = (certified_evidence_problems(self.directory, self.declaration_sha256, seeds, self.final_results,
-                                                self.started_sha256, self.final_started["selections"])
-                    + counter_problems(self.declaration, self.counters(), seeds))
+        # Contract call site B: every certified file read back from disk, exactly as official_results reads it.
+        context, problems = official_evidence.load_context(self.directory, self.declaration_sha256)
+        if not problems:
+            problems = (official_evidence.certified_evidence_problems(
+                self.directory, context, self.final_results, self.started_sha256, self.final_started["selections"])
+                + official_evidence.counter_problems(context, json_normalized(self.counters())))
         if problems:
             raise RuntimeError("Campaign evidence is not complete: " + "; ".join(problems))
         self.verify_identity("campaign complete")
@@ -882,25 +813,12 @@ class Campaign:
         from .evaluation import load_v2_agent
         path = self.run_dir(seed) / selection["inference"]["path"]
         agent = load_v2_agent(path, self.declaration["evaluation"]["simulations"],
-                              expected_sha256=selection["inference"]["sha256"], name=f"seed{seed}-champion")
+                              expected_sha256=selection["inference"]["sha256"], name=champion_name(seed))
         agent.identity["path"] = selection["inference"]["path"]
         return agent
 
-    def _ladder_opponents(self, seed):
-        from .evaluation import V1SearchArenaAgent, V2SearchArenaAgent, untrained_model
-        final, simulations = self.declaration["final"], self.declaration["evaluation"]["simulations"]
-        opponents = {name: opponent_by_name(name) for name in final["ladder"] if name in OPPONENT_NAMES}
-        if "initial_v2_512" in final["ladder"]:
-            opponents["initial_v2_512"] = V2SearchArenaAgent(untrained_model(seed), simulations, name="initial_v2_512")
-        if "phase4d2f_512" in final["ladder"]:
-            checkpoint = self.declaration["phase4d2f_checkpoint"]
-            opponents["phase4d2f_512"] = V1SearchArenaAgent(REPO_ROOT / checkpoint["path"], checkpoint["sha256"],
-                                                            simulations)
-            opponents["phase4d2f_512"].identity["path"] = checkpoint["path"]
-        return opponents
-
     def _final_descriptions(self, seed, selection):
-        opponents = self._ladder_opponents(seed)
+        opponents = ladder_opponents(self.declaration, seed)
         return dict(agent=self._selected_agent(seed, selection).describe(),
                     opponents={name: opponents[name].describe() for name in self.declaration["final"]["ladder"]})
 
@@ -924,11 +842,11 @@ class Campaign:
             self._unit(seed, f"{prefix}/solved/{row['id']}", "final_solved_row", lambda: dict(
                 search_row(agent.inference, row, simulations=simulations, seeds=tie_seeds, namespace="sealed-solved",
                            check=check), raw_value=raw_value(agent.inference, row)))
-        opponents = self._ladder_opponents(seed)
+        opponents = ladder_opponents(self.declaration, seed)
         for name in final["ladder"]:
             self._arena_units(seed, f"{prefix}/ladder-{name}", "final_ladder_game", agent, opponents[name], openings,
                               f"seed{seed}-final-{name}")
-        nn_only = V2NNOnlyAgent(agent.inference, name=f"seed{seed}-champion-nn-only")
+        nn_only = V2NNOnlyAgent(agent.inference, name=nn_only_name(seed))
         self._arena_units(seed, f"{prefix}/nn-only-vs-random", "final_nn_only_game", nn_only, RandomOpponent(),
                           openings, f"seed{seed}-final-nn-only")
         config = self.config_for(seed)
@@ -938,56 +856,31 @@ class Campaign:
                                                                seed=seed * 1_000_003 + index, check=check)]))
 
     def _final_seed_result(self, seed):
-        """The sealed result for one seed, computed from this process's evidence only (deterministic)."""
-        final, thresholds = self.declaration["final"], self.declaration["thresholds"]
-        started = self.final_started
+        """The sealed result for one seed: this process's raw evidence, summarized by the one result producer."""
+        final = self.declaration["final"]
         tactics = package_rows(self.declaration, self.base, "tactical-sealed")
         solved = package_rows(self.declaration, self.base, "solved-sealed")
         openings = package_rows(self.declaration, self.base, "openings-sealed")[:final["ladder_openings"]]
         prefix = f"final/seed{seed}"
         evidence = self._evidence
 
-        def arena(name, label):
-            records = [evidence(f"{prefix}/{label}/{row['id']}/{g}") for row in openings for g, _ in PAIRED_GAMES]
-            summary = statistics.arena_summary(scored(records), planned_games=2 * len(openings))
-            rule = thresholds["arena"].get(name)
-            return dict(summary=summary, records=records,
-                        gate=statistics.arena_gate(summary, rule) if rule else None)
-        tactical = {row["id"]: evidence(f"{prefix}/tactical/{row['id']}") for row in tactics}
-        solved_ev = {row["id"]: evidence(f"{prefix}/solved/{row['id']}") for row in solved}
-        overlap = training_overlap(self._archived_games(seed), [r["moves"] for r in tactics + solved])
-        choices = {k: v["choices"] for k, v in tactical.items()}
-        visits = {k: v["visits"] for k, v in tactical.items()}
-        nn_choices = {k: [v["nn_only_choice"]] for k, v in tactical.items()}
-        solved_choices = {k: v["choices"] for k, v in solved_ev.items()}
-        values = {k: v["raw_value"] for k, v in solved_ev.items()}
-        ladder = {}
-        for name in final["ladder"]:
-            opponent = started["descriptions"][str(seed)]["opponents"][name]
-            ladder[name] = dict(arena(name, f"ladder-{name}"), opponent=opponent)
-        calibration = [r for index in range(final["calibration_games"])
-                       for r in evidence(f"{prefix}/calibration/{index:04d}")["records"]]
-        return dict(
-            seed=seed, completeness="complete", selection=started["selections"][str(seed)],
-            agent=started["descriptions"][str(seed)]["agent"], overlap_families=sorted(overlap),
-            tactical=with_overlap_sensitivity(tactics, overlap,
-                                              lambda rows: statistics.tactical_metrics(rows, choices, visits)),
-            tactical_nn_only=with_overlap_sensitivity(tactics, overlap,
-                                                      lambda rows: statistics.tactical_metrics(rows, nn_choices)),
-            solved=with_overlap_sensitivity(solved, overlap,
-                                            lambda rows: statistics.solved_decision_metrics(rows, solved_choices)),
-            value=with_overlap_sensitivity(solved, overlap, lambda rows: statistics.value_metrics(rows, values)),
-            ladder=ladder, nn_only_vs_random=arena("nn_only_vs_random", "nn-only-vs-random"),
-            calibration=statistics.calibration_summary(calibration, constant=final.get("calibration_constant")),
-            evidence=dict(tactical=tactical, solved=solved_ev, calibration=calibration))
+        def records(label):
+            return [evidence(f"{prefix}/{label}/{row['id']}/{g}") for row in openings for g, _ in PAIRED_GAMES]
+        raw = dict(
+            overlap_families=sorted(training_overlap(self._archived_games(seed),
+                                                     [r["moves"] for r in tactics + solved])),
+            tactical={row["id"]: evidence(f"{prefix}/tactical/{row['id']}") for row in tactics},
+            solved={row["id"]: evidence(f"{prefix}/solved/{row['id']}") for row in solved},
+            calibration=[r for index in range(final["calibration_games"])
+                         for r in evidence(f"{prefix}/calibration/{index:04d}")["records"]],
+            ladder={name: records(f"ladder-{name}") for name in final["ladder"]},
+            nn_only_vs_random=records("nn-only-vs-random"))
+        return official_evidence.derive_seed_result(self.context, seed, self.final_started, raw)
 
     def _archived_games(self, seed):
         """Every archived training game of this seed, from files re-verified against their recorded hashes."""
         generations = self.seed_records[str(seed)]["generations"]
         return [self._artifact(seed, g, "games")[0] for g in sorted(generations) if g]
-
-
-OPPONENT_NAMES = ("random", "negamax1", "negamax2", "negamax4", "guarded_uct_800")
 
 
 def opponent_by_name(name):
@@ -998,6 +891,21 @@ def opponent_by_name(name):
     if name.startswith("guarded_uct_"):
         return GuardedUCTOpponent(int(name[len("guarded_uct_"):]))
     raise ValueError(f"Unknown opponent {name}")
+
+
+def ladder_opponents(declaration, seed):
+    """The declared final-ladder opponents for one seed (``declaration["final"]["ladder"]`` names)."""
+    from .evaluation import V1SearchArenaAgent, V2SearchArenaAgent, untrained_model
+    final, simulations = declaration["final"], declaration["evaluation"]["simulations"]
+    opponents = {name: opponent_by_name(name) for name in final["ladder"] if name in OPPONENT_NAMES}
+    if "initial_v2_512" in final["ladder"]:
+        opponents["initial_v2_512"] = V2SearchArenaAgent(untrained_model(seed), simulations, name="initial_v2_512")
+    if "phase4d2f_512" in final["ladder"]:
+        checkpoint = declaration["phase4d2f_checkpoint"]
+        opponents["phase4d2f_512"] = V1SearchArenaAgent(REPO_ROOT / checkpoint["path"], checkpoint["sha256"],
+                                                        simulations)
+        opponents["phase4d2f_512"].identity["path"] = checkpoint["path"]
+    return opponents
 
 
 def training_overlap(game_files, histories):
@@ -1012,13 +920,6 @@ def training_overlap(game_files, histories):
                 if key in wanted:
                     found.add(key)
     return found
-
-
-def with_overlap_sensitivity(rows, overlap, metric):
-    """Prespecified sensitivity: drop every package family seen in training (either orientation)."""
-    kept = [r for r in rows if family_key(r["moves"]) not in overlap]
-    return dict(complete_set=metric(rows), overlap_excluded=metric(kept) if kept else None,
-                overlap_excluded_rows=len(rows) - len(kept))
 
 
 # Status and official results --------------------------------------------------------------------
@@ -1038,310 +939,27 @@ def campaign_status(directory):
     return dict(document, note=note)
 
 
-# Strict COMPLETE schema ----------------------------------------------------------------------------
-# Acceptance validates the whole COMPLETE record against this schema. Every required field must be
-# present, of its type and domain. Every per-seed mapping must cover exactly the declared seeds. Every
-# quantity stored twice must agree in both places. Nothing is validated only "if present".
-
-OFFICIAL_SEEDS = (42, 314159)  # the frozen research declaration's seeds
-OUTCOME_KEYS = {"status", "final_results", "started_sha256", "completion", "note"}
-COMPLETION_KEYS = {"endpoint", "elapsed_seconds", "training_seconds", "evaluation_games_started", "limits"}
-COMPLETION_LIMITS = ("campaign_seconds", "per_run_training_seconds", "evaluation_games_ceiling")
-COUNTER_KEYS = {"note", "time", "training", "evaluation"}
-TIME_KEYS = {"elapsed_seconds", "phase_seconds", "training_seconds", "evaluation_games_started"}
-TRAINING_KEYS = {"generations_attempted", "generations_completed", "selfplay_games_attempted",
-                 "selfplay_games_completed", "plies", "optimizer_steps"}
-EVALUATION_KEYS = {"by_kind", "development_games", "sealed_games", "calibration_games", "total_games_started",
-                   "total_games_completed", "ceiling"}
-STARTED_KEYS = {"selections", "descriptions", "runtime", "execution_sha256", "declaration_sha256"}
-
-
-class MalformedRecord(ValueError):
-    """A record acceptance relies on is not strictly well formed (duplicate keys, NaN/Infinity, bad seeds)."""
-
-
-def strict_json(data):
-    """Parse JSON for acceptance. Duplicate object keys and non-finite numbers are refused, never resolved."""
-    def pairs(items):
-        keys = [key for key, _ in items]
-        if len(set(keys)) != len(keys):
-            raise MalformedRecord(f"duplicate JSON object keys {sorted({k for k in keys if keys.count(k) > 1})}")
-        return dict(items)
-
-    def constant(name):
-        raise MalformedRecord(f"non-finite JSON number {name}")
-    return json.loads(data, object_pairs_hook=pairs, parse_constant=constant)
-
-
-def is_count(value):
-    return type(value) is int and value >= 0
-
-
-def is_seconds(value):
-    return type(value) in (int, float) and math.isfinite(value) and value >= 0
-
-
-def is_sha256(value):
-    return isinstance(value, str) and len(value) == 64 and set(value) <= set("0123456789abcdef")
-
-
-def required_seed_keys(declaration):
-    """The exact key set of every per-seed mapping: the declared seeds as canonical decimal strings."""
-    seeds = declaration["seeds"]
-    if (not isinstance(seeds, list) or not seeds or any(type(s) is not int for s in seeds)
-            or len(set(seeds)) != len(seeds)):
-        raise MalformedRecord(f"declared seeds are malformed: {seeds!r}")
-    if declaration["kind"] == "research" and seeds != list(OFFICIAL_SEEDS):
-        raise MalformedRecord(f"a research declaration must declare exactly seeds {list(OFFICIAL_SEEDS)}")
-    return {str(seed) for seed in seeds}
-
-
-def keys_problems(name, value, keys):
-    if not isinstance(value, dict):
-        return [f"{name} is missing or not an object"]
-    if set(value) != set(keys):
-        return [f"{name} must have exactly keys {sorted(keys)}; differs by {sorted(set(value) ^ set(keys))}"]
-    return []
-
-
-def seed_mapping_problems(name, value, seeds, valid=None, domain="valid"):
-    """A required per-seed mapping: exactly the declared seeds (no missing, extra or non-canonical key)."""
-    if not isinstance(value, dict):
-        return [f"{name} is missing or not a per-seed mapping"]
-    if set(value) != seeds:
-        return [f"{name} must cover exactly seeds {sorted(seeds)}; has {sorted(value)}"]
-    if valid is None:
-        return []
-    return [f"{name}[{seed}] is not {domain}: {value[seed]!r}" for seed in sorted(value) if not valid(value[seed])]
-
-
-def selection_problems(name, selections, seeds, declaration_sha256):
-    def valid(seed_selection):
-        return isinstance(seed_selection, dict) and seed_selection.get("declaration_sha256") == declaration_sha256
-    problems = seed_mapping_problems(name, selections, seeds, valid, f"a selection under {declaration_sha256}")
-    if not problems:
-        problems = [f"{name}[{seed}] names seed {selections[seed].get('seed')!r}" for seed in sorted(seeds)
-                    if type(selections[seed].get("seed")) is not int or str(selections[seed]["seed"]) != seed]
-    return problems
-
-
-def completion_record(time_account, budgets):
-    """The COMPLETE record's authoritative endpoint: the account measured at the completion barrier."""
-    return dict(endpoint="completion barrier: one monotonic reading in the owning process; limits inclusive",
-                elapsed_seconds=time_account["elapsed_seconds"],
-                training_seconds=dict(time_account["training_seconds"]),
-                evaluation_games_started=time_account["evaluation_games_started"],
-                limits={k: budgets[k] for k in COMPLETION_LIMITS})
-
-
-def safe_sha256_file(path):
-    try:
-        return sha256_file(path)
-    except OSError:
-        return None
-
-
-def certified_evidence_problems(directory, declaration_sha256, seeds, final_results, started_sha256, selections):
-    """Every way the files a COMPLETE record certifies differ from what acceptance requires.
-
-    ``seeds`` is the required key set; ``selections`` are the selections recorded in state.json.
-    """
-    directory, problems = Path(directory), []
-    if not is_sha256(declaration_sha256) or declaration_sha256 in REJECTED_DECLARATION_TOKENS:
-        problems.append(f"declaration {declaration_sha256!r} is malformed or REJECTED / NOT AUTHORIZED")
-    if safe_sha256_file(directory / "declaration.json") != declaration_sha256:
-        problems.append("declaration.json differs from the declaration the campaign ran under")
-    problems += selection_problems("recorded selections", selections, seeds, declaration_sha256)
-    started = None
-    if not is_sha256(started_sha256) or safe_sha256_file(directory / "final" / "started.json") != started_sha256:
-        problems.append("final/started.json differs from the hash recorded when the sealed phase started")
-    else:
-        started = strict_json((directory / "final" / "started.json").read_bytes())
-        started_problems = keys_problems("final/started.json", started, STARTED_KEYS)
-        if not started_problems:
-            if started["declaration_sha256"] != declaration_sha256:
-                started_problems.append("final/started.json names another declaration")
-            started_problems += seed_mapping_problems("final/started.json selections", started["selections"], seeds)
-            started_problems += seed_mapping_problems(
-                "final/started.json descriptions", started["descriptions"], seeds,
-                lambda value: isinstance(value, dict) and "agent" in value, "an agent description")
-            if started["selections"] != json_normalized(selections):
-                started_problems.append("final/started.json selections differ from the selections in state.json")
-        problems += started_problems
-    problems += seed_mapping_problems("outcome.final_results", final_results, seeds, is_sha256, "a SHA-256")
-    if problems:
-        return problems
-    for seed in sorted(seeds):
-        path = directory / "final" / f"seed-{seed}.json"
-        if safe_sha256_file(path) != final_results[seed]:
-            problems.append(f"{path} differs from the hash certified by COMPLETE")
-            continue
-        result = strict_json(path.read_bytes())
-        if (not isinstance(result, dict) or type(result.get("seed")) is not int or str(result["seed"]) != seed
-                or result.get("completeness") != "complete"):
-            problems.append(f"{path} is not a complete sealed result for seed {seed}")
-        elif (result.get("selection") != started["selections"][seed]
-              or result.get("agent") != started["descriptions"][seed]["agent"]):
-            problems.append(f"{path} selection or agent differs from final/started.json")
-    return problems
-
-
-def counter_problems(declaration, counters, seeds):
-    """The counter account of a COMPLETE campaign: exact structure, seed coverage, domains, internal totals.
-    Limits are checked against the completion record (``completion_problems``) and at the barrier."""
-    problems = keys_problems("counters", counters, COUNTER_KEYS)
-    if problems:
-        return problems
-    time_account, training, evaluation = counters["time"], counters["training"], counters["evaluation"]
-    time_problems = keys_problems("counters.time", time_account, TIME_KEYS)
-    if not time_problems:
-        if not is_seconds(time_account["elapsed_seconds"]):
-            time_problems.append("counters.time.elapsed_seconds is not finite non-negative seconds")
-        time_problems += seed_mapping_problems("counters.time.training_seconds", time_account["training_seconds"],
-                                               seeds, is_seconds, "finite non-negative seconds")
-        phases = time_account["phase_seconds"]  # diagnostic: typed, but no required phase names
-        if not isinstance(phases, dict) or not all(is_seconds(v) for v in phases.values()):
-            time_problems.append("counters.time.phase_seconds is not a mapping of phase names to seconds")
-        if not is_count(time_account["evaluation_games_started"]):
-            time_problems.append("counters.time.evaluation_games_started is not a non-negative integer")
-    problems += time_problems
-    training_problems = seed_mapping_problems("counters.training", training, seeds)
-    if not training_problems:
-        generations = declaration["generations"]
-        games = generations * declaration["config"]["games_per_generation"]
-        for seed in sorted(seeds):
-            name, entry = f"counters.training[{seed}]", training[seed]
-            entry_problems = keys_problems(name, entry, TRAINING_KEYS)
-            if not entry_problems and not all(is_count(v) for v in entry.values()):
-                entry_problems.append(f"{name} has values that are not non-negative integers")
-            if not entry_problems and not (entry["generations_attempted"] == entry["generations_completed"]
-                                           == generations):
-                entry_problems.append(f"seed {seed} completed {entry['generations_completed']} of {generations} "
-                                      f"generations ({entry['generations_attempted']} attempted)")
-            if not entry_problems and not (entry["selfplay_games_attempted"] == entry["selfplay_games_completed"]
-                                           == games):
-                entry_problems.append(f"seed {seed} completed {entry['selfplay_games_completed']} of {games} "
-                                      f"self-play games ({entry['selfplay_games_attempted']} attempted)")
-            training_problems += entry_problems
-    problems += training_problems
-    evaluation_problems = keys_problems("counters.evaluation", evaluation, EVALUATION_KEYS)
-    if not evaluation_problems:
-        by_kind = evaluation["by_kind"]
-        evaluation_problems = keys_problems("counters.evaluation.by_kind", by_kind, GAME_KINDS + ROW_KINDS)
-        if not evaluation_problems:
-            for kind, units in sorted(by_kind.items()):
-                if keys_problems(kind, units, ("started", "completed")) or not all(map(is_count, units.values())):
-                    evaluation_problems.append(f"counters.evaluation.by_kind[{kind}] is malformed")
-                elif units["started"] != units["completed"]:
-                    evaluation_problems.append(f"{kind}: {units['started']} evidence units started, "
-                                               f"{units['completed']} completed")
-    if not evaluation_problems:
-        def total(kinds, key):
-            return sum(by_kind[kind][key] for kind in kinds)
-        ceiling = declaration["budgets"]["evaluation_games_ceiling"]
-        expected = dict(development_games=total(DEVELOPMENT_GAME_KINDS, "completed"),
-                        sealed_games=total(SEALED_GAME_KINDS, "completed"),
-                        calibration_games=total(CALIBRATION_GAME_KINDS, "completed"),
-                        total_games_started=total(GAME_KINDS, "started"),
-                        total_games_completed=total(GAME_KINDS, "completed"), ceiling=ceiling)
-        for key, value in expected.items():
-            if not is_count(evaluation[key]) or evaluation[key] != value:
-                evaluation_problems.append(f"counters.evaluation.{key} is {evaluation[key]!r}; the units give {value}")
-        if evaluation["total_games_started"] > ceiling:
-            evaluation_problems.append("evaluation games started exceed the declared ceiling")
-        if not time_problems and time_account["evaluation_games_started"] != evaluation["total_games_started"]:
-            evaluation_problems.append("counters.time.evaluation_games_started differs from the games started")
-    return problems + evaluation_problems
-
-
-def completion_problems(completion, counters, budgets, seeds):
-    """The completion record: exact structure and seed coverage; its endpoint, every seed's training seconds
-    and the games started within the declared limits (inclusive); and equal to the account it certifies."""
-    problems = keys_problems("outcome.completion", completion, COMPLETION_KEYS)
-    if problems:
-        return problems
-    if not isinstance(completion["endpoint"], str):
-        problems.append("outcome.completion.endpoint is not a description")
-    if completion["limits"] != {k: budgets[k] for k in COMPLETION_LIMITS}:
-        problems.append("completion record limits differ from the declaration")
-    if not is_seconds(completion["elapsed_seconds"]):
-        problems.append("outcome.completion.elapsed_seconds is not finite non-negative seconds")
-    elif not completion["elapsed_seconds"] <= budgets["campaign_seconds"]:
-        problems.append("completion endpoint is past the campaign wall-clock budget")
-    training = completion["training_seconds"]
-    training_problems = seed_mapping_problems("outcome.completion.training_seconds", training, seeds, is_seconds,
-                                              "finite non-negative seconds")
-    if not training_problems:
-        training_problems = [f"seed {seed} training seconds exceed the per-seed budget at completion"
-                             for seed in sorted(seeds) if not training[seed] <= budgets["per_run_training_seconds"]]
-    problems += training_problems
-    if not is_count(completion["evaluation_games_started"]):
-        problems.append("outcome.completion.evaluation_games_started is not a non-negative integer")
-    elif not completion["evaluation_games_started"] <= budgets["evaluation_games_ceiling"]:
-        problems.append("evaluation games started exceed the ceiling at completion")
-    # The same quantities are stored in the account the record certifies: both copies must agree exactly.
-    time_account = counters.get("time") if isinstance(counters, dict) else None
-    for key in ("elapsed_seconds", "training_seconds", "evaluation_games_started"):
-        if not isinstance(time_account, dict) or time_account.get(key) != completion[key]:
-            problems.append(f"outcome.completion.{key} differs from counters.time.{key}")
-    return problems
-
-
-def history_problems(document, seeds):
-    """The selections and sealed-phase start recorded in the transition history (each state appears once)."""
-    entries = {entry["state"]: entry for entry in document["history"]}
-    token, problems = document["declaration_sha256"], []
-    for state in (SELECTION_COMPLETE, RUNNING_FINAL):
-        problems += selection_problems(f"history {state} selections", entries[state].get("selections"), seeds, token)
-    if not problems and entries[SELECTION_COMPLETE]["selections"] != entries[RUNNING_FINAL]["selections"]:
-        problems.append("selections changed between DEVELOPMENT_SELECTION_COMPLETE and RUNNING_FINAL_EVALUATION")
-    if entries[RUNNING_FINAL].get("started_sha256") != document["outcome"]["started_sha256"]:
-        problems.append("started.json hash differs from the one recorded on entering the sealed phase")
-    return problems
-
-
-def complete_record_problems(directory, document):
-    """Every way a COMPLETE state document (strictly parsed) fails the frozen schema; empty means acceptable."""
-    outcome = document["outcome"]
-    problems = keys_problems("outcome", outcome, OUTCOME_KEYS)
-    if problems:
-        return problems
-    if outcome["status"] != COMPLETE or not isinstance(outcome["note"], str):
-        problems.append("outcome status or note is malformed")
-    token = document["declaration_sha256"]
-    if not is_sha256(token) or safe_sha256_file(directory / "declaration.json") != token:
-        return problems + ["declaration.json differs from the declaration the campaign ran under"]
-    declaration = strict_json((directory / "declaration.json").read_bytes())
-    seeds = required_seed_keys(declaration)
-    if document["seeds"] != declaration["seeds"]:
-        problems.append("state seeds differ from the declaration")
-    problems += history_problems(document, seeds)
-    if problems:
-        return problems
-    selections = next(h["selections"] for h in document["history"] if h["state"] == RUNNING_FINAL)
-    return (certified_evidence_problems(directory, token, seeds, outcome["final_results"], outcome["started_sha256"],
-                                        selections)
-            + counter_problems(declaration, document["counters"], seeds)
-            + completion_problems(outcome["completion"], document["counters"], declaration["budgets"], seeds))
-
+# Official results ----------------------------------------------------------------------------------
+# Acceptance is the official evidence contract (official_evidence.complete_record_problems): the same validators
+# the owning process ran before publishing and before the completion barrier. Nothing is validated "if present".
 
 def official_results(directory):
-    """The sealed results, only if state.json is a COMPLETE record that passes the strict frozen schema
-    (``complete_record_problems``) and every file it certifies validates. A COMPLETE string alone, or a record
-    missing any required field or seed, is never enough."""
+    """The sealed results, only if state.json is a COMPLETE record whose every certified artifact satisfies the
+    official evidence contract. A COMPLETE string alone, a hash match alone, or a record or result missing any
+    required field, seed, row, opponent, game or summary is never enough. Returns exactly the validated documents."""
     directory = Path(directory)
     state = CampaignStateFile.load(directory)
     if state.state != COMPLETE:
         raise NotOfficialEvidence(f"Campaign is {state.state}; its artifacts are forensic only and are never "
                                   "official evidence")
+    results = {}
     try:
         document = strict_json(state.data)
-        problems = complete_record_problems(directory, document)
-        if not problems:
-            results = {seed: strict_json((directory / "final" / f"seed-{seed}.json").read_bytes())
-                       for seed in sorted(document["outcome"]["final_results"])}
-    except (MalformedRecord, KeyError, TypeError, ValueError, AttributeError, OSError) as error:
+        problems = official_evidence.complete_record_problems(directory, document, results)
+    except (MalformedRecord, OSError) as error:
         problems = [f"malformed COMPLETE record: {type(error).__name__}: {error}"]
+    except Exception as error:  # noqa: BLE001 - fail closed: a validator defect can only refuse, never accept
+        problems = [f"internal validation error (refused): {type(error).__name__}: {error}"]
     if problems:
         raise NotOfficialEvidence("COMPLETE is not accepted: " + "; ".join(problems))
     return dict(declaration_sha256=document["declaration_sha256"], results=results,
@@ -1435,20 +1053,22 @@ def freeze(output, *, name="phase4d3c-alphazero-v2-two-seed", notes=None):
 
 
 FREEZE_NOTES = [
-    "Phase 4D.3B.4 frozen declaration (format 3) for the Milestone 3 two-seed campaign; running it needs "
+    "Phase 4D.3B.5 frozen declaration (format 3) for the Milestone 3 two-seed campaign; running it needs "
     "separate authorization.",
     "The authorization token is the SHA-256 of this exact file. The Phase 4D.3B token "
     "2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8, the Phase 4D.3B.1 token "
     "8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39, the Phase 4D.3B.2 token "
-    "ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb and the Phase 4D.3B.3 token "
-    "34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390 are REJECTED / NOT AUTHORIZED.",
+    "ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb, the Phase 4D.3B.3 token "
+    "34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390 and the Phase 4D.3B.4 token "
+    "9f7259827e8abee6db81113147e48c2a3420248296d09df559f2783c5d7d85f4 are REJECTED / NOT AUTHORIZED.",
     "The official campaign is NON-RESUMABLE: one owning process runs both seeds, the development selection and the "
     "sealed final evaluation; any interruption, limit or identity drift before the completion barrier makes it "
     "INCOMPLETE.",
     "COMPLETE is a one-way terminal commit: all evidence is published and validated before one completion barrier, "
     "whose monotonic reading is the authoritative endpoint; nothing after it can downgrade a visible COMPLETE.",
-    "Official results require a COMPLETE record that passes the strict schema, with exact coverage of seeds 42 and "
-    "314159 in every per-seed mapping.",
+    "Official results require a COMPLETE record whose every certified artifact satisfies the one official evidence "
+    "contract (official_evidence), with exact coverage of seeds 42 and 314159, the declared ladder, the sealed "
+    "package rows, the declared openings and calibration games, and every summary re-derived from its evidence.",
     "It binds execution-source content, the complete runtime identity, frozen packages and records, the retained "
     "4D.2f checkpoint and the launch-control semantics; any difference refuses the launch.",
     "Seed 42 is primary; seed 314159 is replication, not a second chance.",
