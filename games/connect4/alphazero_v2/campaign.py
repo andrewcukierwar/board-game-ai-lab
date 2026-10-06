@@ -1,40 +1,37 @@
-"""Bounded, explicitly authorized AlphaZero v2 campaign launcher (Milestone 3 tool).
+"""Single-owner, fail-closed AlphaZero v2 official campaign launcher (Milestone 3 tool, Phase 4D.3B.2).
 
-Nothing runs on import. Every command that does campaign work (``run``,
-``final-evaluate``) fails closed unless all of the following hold:
+Nothing runs on import. ``launch`` fails closed unless all of the following hold:
 
-* ``--authorize`` equals the SHA-256 of the exact declaration file, and that
-  token is not rejected. The Phase 4D.3B token ``2741314399...`` is rejected.
-* The declaration (format 2) validates, and every input it binds is identical
-  in this process:
-  - execution-source content, in its training and evaluation/launch groups;
-  - frozen package and frozen-record bytes;
-  - the retained Phase 4D.2f checkpoint;
-  - campaign configuration and launch-control semantics;
-  - the complete runtime identity, after the deterministic runtime is
-    configured: Python, torch build, NumPy, platform/OS, machine, CPU model,
-    threads, deterministic flags and the library thread environment.
-  A runtime that cannot identify one of those fields is refused.
-* No other invocation holds the campaign directory (``flock``).
+* ``--authorize`` equals the SHA-256 of the exact declaration file, and neither
+  is a rejected token (Phase 4D.3B ``2741314399...`` and Phase 4D.3B.1
+  ``8a8a52b100...`` are rejected).
+* The declaration (format 3) validates, and every input it binds is identical
+  in this process: execution-source content (training and evaluation/launch
+  groups), frozen package and frozen-record bytes, the retained Phase 4D.2f
+  checkpoint, campaign configuration, launch-control semantics, and the complete
+  runtime identity after the deterministic runtime is configured. A runtime
+  that cannot identify one of those fields is refused.
+* ``--campaign-dir`` does not exist. An official campaign always starts in a
+  fresh directory.
 
-Identity is re-verified at every phase boundary and before every publication.
-Git commit and dirty state are recorded as provenance only.
+The official campaign is NON-RESUMABLE. One process owns the directory (``flock``)
+and runs seed by seed, the development selection, then the sealed final
+evaluation, under one declaration. Evidence lives in this process and is
+published as write-once files. The process never reads evidence back from disk
+and never loads a generation resume boundary. Any stop, limit, identity drift or
+error ends the campaign INCOMPLETE. If the owner dies, a later invocation records
+INCOMPLETE and refuses: see ``launch_control``.
 
-Layout of a campaign directory (created once; nothing is overwritten):
+Layout of a campaign directory (created once; nothing is overwritten except state.json):
 
-    declaration.json         verbatim copy; its hash is the authorization token
-    journal.jsonl            the single authority (launch_control): checksummed, fsynced
-                             transitions, time leases, unit reservations and evidence
-    campaign.lock            single-writer lock
-    attempts/attempt-NNN/    source snapshot of each invocation (provenance)
-    runs/seed-S/generations/generation-NNNN/   committed inference, resume and archived games
-    runs/seed-S/staging/     generation outputs awaiting a commit record (never authoritative)
-    runs/seed-S/*.json, final/*.json, outcome.json
-                             views derived from the journal, written once and verified on
-                             every recovery; status.json is a replaceable summary
-
-Crash recovery, deadlines and budgets: see ``launch_control`` and
-docs/phase4d3b1-launch-control-fixes.md.
+    declaration.json        verbatim copy; its hash is the authorization token
+    state.json              the single authority (atomically replaced on each transition)
+    campaign.lock           single-owner lock
+    source/                 source snapshot (provenance)
+    runs/seed-S/generations/generation-NNNN/   inference, resume (diagnostic only), games, summary
+    runs/seed-S/champion-check-NNNN.json, runs/seed-S/selection.json
+    final/started.json, final/seed-S.json
+                            official only if state.json is COMPLETE and lists their hashes
 """
 import argparse
 import hashlib
@@ -51,11 +48,11 @@ import time
 from . import statistics
 from .arena import (PAIRED_GAMES, GuardedUCTOpponent, NegamaxOpponent, RandomOpponent, paired_game, scored)
 from .config import V2Config
-from .launch_control import (GAME_KINDS, JOURNAL_FORMAT, LAUNCH_CONTROL_VERSION, LEASE_SECONDS,
-                             REJECTED_DECLARATION_TOKENS, RENEW_BELOW_SECONDS, Budget, BudgetExhausted,
-                             CampaignLock, CampaignLocked, CampaignState, CampaignStop, InconsistentCampaign, Journal,
-                             close_open_work, fsync_directory, publish_view, read_state, recover_open_attempts,
-                             replace_view, sha256_bytes, sha256_file, view_bytes, write_once)
+from .launch_control import (COMPLETE, INCOMPLETE, INTERRUPTED_MESSAGE, LAUNCH_CONTROL_VERSION,
+                             REJECTED_DECLARATION_TOKENS, RUNNING_FINAL, SELECTION_COMPLETE, STATE_FORMAT, Budget,
+                             BudgetExhausted, CampaignLock, CampaignLocked, CampaignStateFile, CampaignStop,
+                             InterruptedCampaign, StateCorrupt, TerminalCampaign, fsync_directory, publish_view,
+                             running_seed, sha256_bytes, sha256_file, view_bytes, write_once)
 from .oracle import family_key
 from .packages import load_package
 from .provenance import (REPO_ROOT, SOURCE_SCHEME, configure_deterministic_runtime, execution_source_files,
@@ -64,26 +61,42 @@ from .provenance import (REPO_ROOT, SOURCE_SCHEME, configure_deterministic_runti
                          unavailable_runtime_fields)
 
 DECLARATION_FORMAT = "connect4-alphazero-v2-campaign-declaration"
-DECLARATION_VERSION = 2
+DECLARATION_VERSION = 3
 UNTRACKED_LIMIT_BYTES = 100 * 1024 * 1024
 DECLARATION_KEYS = {"format", "format_version", "name", "kind", "seeds", "primary_seed", "config", "generations",
                     "budgets", "runtime", "evaluation", "champion", "final", "packages", "thresholds",
                     "retention", "phase4d2f_checkpoint", "notes",
-                    # Phase 4D.3B.1 bindings:
                     "execution_source", "runtime_identity", "frozen_records", "launch_control"}
 FROZEN_RECORD_NAMES = ("build-provenance.json", "exclusions.json", "manifest.json")
 RUNTIME_IDENTITY_KEYS = tuple(sorted(runtime_identity()))
 PHASE4D2F_CHECKPOINT = dict(path="experiment-output/phase4d2f-neural-value-anchoring-seed42-20261005/candidate.pt",
                             sha256="78276912bdef5f1b1b53ac6b2ec3ede2eed20a8ebb5796a9bdcbb57e4cb28c51")
+DEVELOPMENT_GAME_KINDS = ("development_arena_game", "development_baseline_game")
+SEALED_GAME_KINDS = ("final_ladder_game", "final_nn_only_game")
+CALIBRATION_GAME_KINDS = ("calibration_game",)
+GAME_KINDS = DEVELOPMENT_GAME_KINDS + SEALED_GAME_KINDS + CALIBRATION_GAME_KINDS
+ROW_KINDS = ("development_tactics_row", "final_tactical_row", "final_solved_row")
 
 
 class LaunchRefused(PermissionError):
     """The declaration does not authorize this invocation (token, source, runtime or frozen inputs)."""
 
 
+class IdentityDrift(LaunchRefused):
+    """Bound source or runtime identity changed after launch: the campaign ends INCOMPLETE."""
+
+
+class ArtifactMismatch(RuntimeError):
+    """An artifact written by this campaign no longer has the hash recorded when it was written."""
+
+
+class NotOfficialEvidence(RuntimeError):
+    """Campaign artifacts that are not certified by a COMPLETE state (forensic only)."""
+
+
 def write_json_once(path, value):
     """Write JSON to a new file only (temporary file, fsync, hard-link publish)."""
-    return write_once(path, (json.dumps(value, indent=1, sort_keys=True, allow_nan=False) + "\n").encode())
+    return write_once(path, view_bytes(value))
 
 
 def json_normalized(value):
@@ -95,25 +108,33 @@ def json_normalized(value):
 def launch_control_declaration():
     """Launch-control semantics bound by the declaration (the executable meaning is bound by source)."""
     return dict(
-        version=LAUNCH_CONTROL_VERSION, journal=JOURNAL_FORMAT,
-        single_writer="flock on campaign.lock; a concurrent invocation is refused",
-        lease_seconds=LEASE_SECONDS, renew_below_seconds=RENEW_BELOW_SECONDS,
-        time_accounting=("Active invocation seconds. Downtime between invocations is not charged. An attempt that "
-                         "ends normally is charged its measured time; a hard interruption is charged through its "
-                         "last durable lease."),
-        evaluation_games=("Charged when the game's durable reservation precedes its first move. Abandoned and "
-                          "unclosed reservations stay charged and are never evidence. A game may start only while "
-                          "charged games are below the ceiling."),
-        deadlines=("A check precedes every search, move and optimizer update and refuses to start work at a limit. "
-                   "An in-flight primitive may finish past a cooperative deadline, but a generation, decision, "
-                   "selection or final result is published only if every charged limit still holds at its "
-                   "completion. Otherwise the campaign is INCOMPLETE."),
-        recovery=("Journal-first commits. Completed units are never rerun. Interrupted units are abandoned "
-                  "(still charged) and rerun. Interrupted generations are discarded and rerun from the last "
-                  "committed boundary. Inconsistent published outputs are refused."),
-        final_evaluation=("Selections are fixed by final_started before any sealed inference. Each sealed unit "
-                          "completes at most once. The evaluation resumes at unit granularity; it is never "
-                          "restarted from scratch and never reselected."),
+        version=LAUNCH_CONTROL_VERSION, state_file=STATE_FORMAT,
+        resume=("Forbidden. An official campaign never resumes after a crash, reboot or drift, never repairs state "
+                "to continue, never retries interrupted work and never reuses partial evidence. Generation resume "
+                "artifacts are diagnostic only; the official launcher never loads them."),
+        single_owner=("One orchestrator process holds an exclusive flock on campaign.lock for the whole campaign and "
+                      "runs every seed, the development selection and the sealed final evaluation sequentially. A "
+                      "second process is refused. A campaign always starts in a new directory."),
+        states=("CREATED -> RUNNING_SEED_<seed> for each declared seed in order -> DEVELOPMENT_SELECTION_COMPLETE -> "
+                "RUNNING_FINAL_EVALUATION -> COMPLETE. INCOMPLETE may follow any non-terminal state. COMPLETE and "
+                "INCOMPLETE are terminal. Each transition atomically replaces state.json."),
+        interruption=("An owner that ends without a terminal state leaves the campaign INCOMPLETE. A later "
+                      "invocation records INCOMPLETE, reports that the campaign cannot be resumed and exits nonzero."),
+        identity=("Declared execution sources and runtime identity are revalidated at launch, around every "
+                  "generation and evaluation unit, and before every transition. Any difference ends the campaign "
+                  "INCOMPLETE."),
+        deadlines=("Monotonic seconds of the owning process. Per seed, collection+optimization stays within "
+                   "per_run_training_seconds; the whole campaign stays within campaign_seconds. A check refuses to "
+                   "start any unit, search, move or update at a limit. Work that finishes past a limit is never "
+                   "accepted. Reaching any limit ends the campaign INCOMPLETE. COMPLETE is written only if every "
+                   "limit holds in the account it records."),
+        evaluation_games=("Reserved before a game's first move. No game starts once evaluation_games_ceiling games "
+                          "have started."),
+        final_evaluation=("Both selections are recorded durably in RUNNING_FINAL_EVALUATION before any sealed "
+                          "inference. An interrupted sealed evaluation ends the campaign INCOMPLETE and is never "
+                          "restarted under this declaration."),
+        counters=("Live provenance snapshotted into state.json. After a crash they are lower bounds and authorize "
+                  "nothing."),
         rejected_declaration_tokens=list(REJECTED_DECLARATION_TOKENS))
 
 
@@ -131,8 +152,8 @@ def load_declaration(path):
     data = path.read_bytes()
     digest = sha256_bytes(data)
     if digest in REJECTED_DECLARATION_TOKENS:
-        raise LaunchRefused(f"Declaration token {digest} is REJECTED / NOT AUTHORIZED (Phase 4D.3B launch-readiness "
-                            "review); it must never authorize a campaign")
+        raise LaunchRefused(f"Declaration token {digest} is REJECTED / NOT AUTHORIZED (Phase 4D.3B / 4D.3B.1 "
+                            "launch reviews); it must never authorize a campaign")
     declaration = json.loads(data)
     validate_declaration(declaration, path.parent)
     return declaration, digest
@@ -142,7 +163,7 @@ def validate_declaration(declaration, base):
     if set(declaration) != DECLARATION_KEYS:
         raise ValueError(f"Declaration keys differ: {sorted(set(declaration) ^ DECLARATION_KEYS)}")
     if (declaration["format"], declaration["format_version"]) != (DECLARATION_FORMAT, DECLARATION_VERSION):
-        raise ValueError("Not a format-2 v2 campaign declaration")
+        raise ValueError(f"Not a format-{DECLARATION_VERSION} v2 campaign declaration")
     seeds = declaration["seeds"]
     if not seeds or len(set(seeds)) != len(seeds) or declaration["primary_seed"] not in seeds:
         raise ValueError("Seeds must be distinct and include the primary seed")
@@ -178,6 +199,8 @@ def validate_declaration(declaration, base):
         raise ValueError("Declared runtime identity must contain exactly the enforced runtime fields")
     if unavailable_runtime_fields(runtime):
         raise ValueError(f"Declared runtime identity has unavailable fields: {unavailable_runtime_fields(runtime)}")
+    if set(declaration["runtime"]) != {"threads", "deterministic_algorithms"}:
+        raise ValueError("Declared runtime settings must be exactly threads and deterministic_algorithms")
     threads = declaration["runtime"]["threads"]
     if ((runtime["intra_op_threads"], runtime["inter_op_threads"], runtime["deterministic_algorithms"])
             != (threads, threads, declaration["runtime"]["deterministic_algorithms"])
@@ -277,8 +300,7 @@ def build_declaration(packages, *, name="phase4d3c-alphazero-v2-two-seed", kind=
         primary_seed=primary_seed, config=config, generations=config["max_generations"],
         budgets=budgets or dict(per_run_training_seconds=8 * 3600, campaign_seconds=24 * 3600,
                                 evaluation_games_ceiling=6400, planned_evaluation_games=0),
-        runtime=runtime or dict(threads=1, deterministic_algorithms=True, strict_resume_runtime=True,
-                                strict_resume_source=True),
+        runtime=runtime or dict(threads=1, deterministic_algorithms=True),
         evaluation=evaluation or dict(simulations=512, tactical_seeds=[0, 1, 2, 3], root_noise=False,
                                       tactical_guard=False, temperature=0, ties="seeded uniform"),
         champion=champion, final=final, packages=packages,
@@ -324,9 +346,9 @@ def snapshot_source(directory):
 # Campaign ---------------------------------------------------------------------------------
 
 class Campaign:
-    """One invocation against one campaign directory (holds the single-writer lock until ``close``).
+    """The single owner of one new official campaign directory; ``run`` executes it exactly once.
 
-    ``fault(point, campaign)`` is an optional test hook called at named transitions.
+    ``fault(point, campaign)`` is an optional test hook called at named points.
     """
 
     def __init__(self, directory, declaration_path, authorization, *, clock=time.monotonic, fault=None):
@@ -336,6 +358,7 @@ class Campaign:
         if authorization != digest:
             raise PermissionError("Authorization token must equal the declaration SHA-256")
         self.declaration, self.declaration_sha256 = declaration, digest
+        self.seeds = list(declaration["seeds"])
         self.base = Path(declaration_path).resolve().parent
         self.directory, self.clock, self._fault = Path(directory), clock, fault
         self.runtime = self.configure_runtime()
@@ -345,8 +368,14 @@ class Campaign:
                                 + "; ".join(problems))
         import_execution_closure()
         self.verify_identity("launch")
-        self.attempt, self._budget, self._extra_check, self._context, self._last_stop = None, None, None, {}, None
-        self._open_directory(Path(declaration_path))
+        self._extra_check, self._context, self._last_stop, self._ran = None, {}, None, False
+        self.evidence, self.seed_records, self.final_results = {}, {}, {}
+        self.units = {kind: dict(started=0, completed=0) for kind in GAME_KINDS + ROW_KINDS}
+        self.training = {str(seed): dict(generations_attempted=0, generations_completed=0,
+                                         selfplay_games_attempted=0, selfplay_games_completed=0, plies=0,
+                                         optimizer_steps=0) for seed in self.seeds}
+        self._create_directory(Path(declaration_path))
+        self.budget = Budget(declaration["budgets"], clock=clock)
 
     # Runtime and identity --------------------------------------------------------------------
 
@@ -361,143 +390,164 @@ class Campaign:
             else runtime_identity()
 
     def verify_identity(self, where):
-        """Fail closed if runtime or execution sources drifted from the declaration mid-campaign."""
+        """Raise IdentityDrift if runtime or execution sources differ from the declaration."""
         problems = identity_problems(self.declaration, runtime_identity())
         if problems:
-            raise LaunchRefused(f"Identity changed during the campaign ({where}): " + "; ".join(problems))
+            raise IdentityDrift(f"Identity changed during the campaign ({where}): " + "; ".join(problems))
 
     def fault(self, point):
         if self._fault is not None:
             self._fault(point, self)
 
-    # Directory, lock and recovery -------------------------------------------------------------
+    # Directory and ownership -------------------------------------------------------------------
 
-    def _open_directory(self, declaration_path):
+    def _create_directory(self, declaration_path):
         directory = self.directory
         if directory.exists():
-            entries = {p.name for p in directory.iterdir()}
-            if "declaration.json" not in entries and entries - {"campaign.lock"}:
-                raise FileExistsError(f"{directory} exists and is not a campaign directory")
-        directory.mkdir(parents=True, exist_ok=True)
+            self._refuse_existing()
+        directory.mkdir(parents=True)  # never exist_ok: a concurrent creator loses here
         self.lock = CampaignLock(directory)
         try:
-            copy = directory / "declaration.json"
-            if copy.exists():
-                if sha256_file(copy) != self.declaration_sha256:
-                    raise FileExistsError("Campaign directory exists for a different declaration")
-            else:
-                if (directory / "journal.jsonl").exists():
-                    raise InconsistentCampaign("Journal exists without its declaration copy")
-                data = declaration_path.read_bytes()
-                if sha256_bytes(data) != self.declaration_sha256:
-                    raise LaunchRefused("Declaration changed while launching")
-                write_once(copy, data)
-            self.state = CampaignState(self.declaration["generations"], self.declaration["champion"]["schedule"])
-            self.journal = Journal(directory / "journal.jsonl", self.state)
-            self.journal.repair()
-            if self.state.declaration_sha256 is None:
-                self.journal.append(dict(event="campaign_created", declaration_sha256=self.declaration_sha256,
-                                         launch_control=LAUNCH_CONTROL_VERSION))
-            elif self.state.declaration_sha256 != self.declaration_sha256:
-                raise InconsistentCampaign("Journal belongs to a different declaration")
-            self.recovered_attempts = recover_open_attempts(self.journal, self.declaration["seeds"])
+            data = declaration_path.read_bytes()
+            if sha256_bytes(data) != self.declaration_sha256:
+                raise LaunchRefused("Declaration changed while launching")
+            write_once(directory / "declaration.json", data)
+            self.state = CampaignStateFile.create(directory, declaration_sha256=self.declaration_sha256,
+                                                  seeds=self.seeds)
         except BaseException:
             self.lock.release()
             raise
 
+    def _refuse_existing(self):
+        """An existing directory is never continued. An interrupted official campaign is marked INCOMPLETE."""
+        directory = self.directory
+        if not (directory / CampaignStateFile.NAME).exists():
+            raise FileExistsError(f"{directory} exists and is not a new directory; an official campaign always "
+                                  "starts in a new campaign directory")
+        lock = CampaignLock(directory)  # CampaignLocked if the owner is still alive
+        try:
+            try:
+                state = CampaignStateFile.load(directory)
+            except StateCorrupt as error:
+                raise TerminalCampaign(f"{error}. The campaign is INCOMPLETE and cannot be resumed.") from error
+            if state.document["declaration_sha256"] != self.declaration_sha256:
+                raise FileExistsError(f"{directory} holds a campaign for a different declaration")
+            if state.terminal:
+                raise TerminalCampaign(f"Official campaign is already {state.state}; a terminal campaign never "
+                                       "runs or transitions again")
+            owner = state.document["owner"]
+            state.transition(INCOMPLETE, detected_by_pid=os.getpid(), outcome=dict(
+                status=INCOMPLETE, reason=(f"interrupted: owner pid {owner['pid']} ended while {state.state}; "
+                                           "official campaigns are non-resumable")))
+            raise InterruptedCampaign(INTERRUPTED_MESSAGE)
+        finally:
+            lock.release()
+
     def close(self):
         self.lock.release()
 
-    def _close_open_work(self, number, reason):
-        close_open_work(self.journal, number, reason, self.declaration["seeds"])
+    # Lifecycle --------------------------------------------------------------------------------
 
-    # Attempts -----------------------------------------------------------------------------------
-
-    def _attempt(self, scope, body, extra_check):
-        number = self.attempt = len(self.state.attempts) + 1
-        self.journal.append(dict(event="attempt_start", attempt=number, scope=str(scope), pid=os.getpid(),
-                                 declaration_sha256=self.declaration_sha256, runtime=self.runtime,
-                                 execution_sha256=self.declaration["execution_source"]["sha256"]))
-        budget = self._budget = Budget(self.journal, self.declaration["budgets"], scope=scope, attempt=number,
-                                       clock=self.clock)
-        self._extra_check, self._last_stop = extra_check, None
-        status = "running"
+    def run(self, *, extra_check=None):
+        """Run the whole campaign once: every seed, selection, sealed evaluation. Returns a status string."""
+        if self._ran:
+            raise RuntimeError("An official campaign runs once")
+        self._ran, self._extra_check = True, extra_check
         try:
-            budget.lease(force=True)
-            source = snapshot_source(self.directory / "attempts" / f"attempt-{number:03d}" / "source")
-            self.journal.append(dict(event="attempt_source", attempt=number, git=source["git"],
-                                     execution_sha256=source["execution"]["sha256"],
-                                     tracked_patch_sha256=source["tracked_patch_sha256"],
-                                     untracked_files=len(source["untracked_files"])))
-            self.verify_identity("attempt start")
-            self._refresh_views()
-            body()
-            status = "completed"
-        except BudgetExhausted as stop:
-            status = f"incomplete: {stop}"
-            self._close_open_work(number, status)
-            self._declare_incomplete(scope, str(stop))
-        except CampaignStop as stop:
-            status = f"stopped: {stop}"
+            with self.budget.phase("setup"):
+                self.source = snapshot_source(self.directory / "source")
+            self.verify_identity("campaign start")
+            selections = {}
+            for seed in self.seeds:
+                self._transition(running_seed(seed))
+                selections[str(seed)] = self._run_seed(seed)
+            self._transition(SELECTION_COMPLETE, selections=selections)
+            self._final(selections)
+            return "completed"
+        except (CampaignStop, IdentityDrift) as stop:
+            return self._incomplete(stop)
         except BaseException as error:
-            status = f"failed: {type(error).__name__}: {error}"
+            self._incomplete(error)
             raise
         finally:
-            if not self.journal.broken:
-                self._close_open_work(number, status)
-                budget.settle(status)
-                self._write_status()
-            self._budget = None
-        return status
+            self.budget.end_training()
+            self.close()
 
-    def _check(self, phase):
+    def _transition(self, new_state, **info):
+        self.verify_identity(f"before {new_state}")
+        problem = self.budget.completion_violation(seeds=self.seeds)
+        if problem is not None:
+            raise problem
+        self.state.transition(new_state, counters=self.counters(), **info)
+        self.fault(f"after_transition:{new_state}")
+
+    def _incomplete(self, reason):
+        text = f"{type(reason).__name__}: {reason}" if not isinstance(reason, CampaignStop) else str(reason)
+        if not self.state.terminal:
+            try:
+                self.state.transition(INCOMPLETE, counters=self.counters(), outcome=dict(
+                    status=INCOMPLETE, reason=text, during=self.state.state))
+            except Exception:  # noqa: BLE001 - the state stays non-terminal; a later invocation marks it INCOMPLETE
+                pass
+        return f"incomplete: {text}"
+
+    def _check(self, phase, seed=None):
         try:
             if self._extra_check is not None:
                 self._extra_check(phase, self._context)
-            self._budget.check(phase)
+            self.budget.check(phase, seed)
         except CampaignStop as stop:
             self._last_stop = stop
             raise
 
-    def _unit(self, seed, unit, kind, compute):
-        """Run one evaluation unit durably; a completed unit returns its journaled evidence unchanged."""
-        evidence = self.state.evidence(unit)
-        if evidence is not None:
-            return evidence
-        self._check("evaluation")
-        if kind in GAME_KINDS:
-            self._budget.require_game_slot()
-        self.journal.append(dict(event="unit_begin", unit=unit, kind=kind, seed=seed, attempt=self.attempt))
-        self._context = dict(unit=unit, kind=kind, seed=seed)
-        self.fault(f"after_unit_begin:{kind}")
-        try:
-            evidence = compute()
-        except CampaignStop as stop:
-            self.journal.append(dict(event="unit_abandoned", unit=unit, kind=kind, seed=seed, attempt=self.attempt,
-                                     reason=str(stop)))
-            raise
-        if isinstance(evidence, dict) and evidence.get("abandoned"):
-            self.journal.append(dict(event="unit_abandoned", unit=unit, kind=kind, seed=seed, attempt=self.attempt,
-                                     reason=evidence["stop_reason"], partial=evidence))
-            raise self._last_stop or CampaignStop(evidence["stop_reason"])
-        self.fault(f"before_unit_complete:{kind}")
-        self.journal.append(dict(event="unit_complete", unit=unit, kind=kind, seed=seed, attempt=self.attempt,
-                                 evidence=evidence, within_budget=self._budget.completion_violation() is None))
-        return self.state.evidence(unit)
-
-    def _completion_problem(self, *, training=False):
-        """Recheck before publishing: nothing is published after a stop request or past a limit."""
-        if self._budget.stop_reason is not None:
-            return CampaignStop(self._budget.stop_reason)
-        violation = self._budget.completion_violation(training=training)
-        return BudgetExhausted(violation) if violation else None
-
-    def _require_completion(self, *, training=False):
-        problem = self._completion_problem(training=training)
+    def _require_within_limits(self, seeds=()):
+        problem = self.budget.completion_violation(seeds=seeds)
         if problem is not None:
+            self._last_stop = problem
             raise problem
 
-    # Paths and views ----------------------------------------------------------------------------
+    def counters(self):
+        games = lambda kinds, key: sum(self.units[k][key] for k in kinds)  # noqa: E731
+        return dict(
+            note="live provenance; lower bounds unless the state is terminal",
+            time=self.budget.snapshot(self.seeds), training=json_normalized(self.training),
+            evaluation=dict(
+                by_kind=json_normalized(self.units),
+                development_games=games(DEVELOPMENT_GAME_KINDS, "completed"),
+                sealed_games=games(SEALED_GAME_KINDS, "completed"),
+                calibration_games=games(CALIBRATION_GAME_KINDS, "completed"),
+                total_games_started=games(GAME_KINDS, "started"), total_games_completed=games(GAME_KINDS, "completed"),
+                ceiling=self.declaration["budgets"]["evaluation_games_ceiling"]))
+
+    # Evidence units ------------------------------------------------------------------------------
+
+    def _unit(self, seed, unit, kind, compute):
+        """Compute one evidence unit exactly once, under the bound identity and within every limit."""
+        if unit in self.evidence:
+            raise RuntimeError(f"Evidence unit {unit} was already computed; units never run twice")
+        self._check("evaluation")
+        self.verify_identity(f"before {unit}")
+        if kind in GAME_KINDS:
+            self.budget.start_game()
+        self.units[kind]["started"] += 1
+        self._context = dict(unit=unit, kind=kind, seed=seed)
+        self.fault(f"after_unit_begin:{kind}")
+        evidence = compute()
+        if isinstance(evidence, dict) and evidence.get("abandoned"):
+            raise self._last_stop or CampaignStop(evidence["stop_reason"])
+        self.fault(f"before_unit_complete:{kind}")
+        self._require_within_limits()
+        self.verify_identity(f"after {unit}")
+        self.units[kind]["completed"] += 1
+        self.evidence[unit] = evidence
+        return evidence
+
+    def _evidence(self, unit):
+        if unit not in self.evidence:
+            raise RuntimeError(f"Evidence missing: {unit}")
+        return self.evidence[unit]
+
+    # Paths and artifacts --------------------------------------------------------------------------
 
     def run_dir(self, seed):
         return self.directory / "runs" / f"seed-{seed}"
@@ -505,238 +555,129 @@ class Campaign:
     def config_for(self, seed):
         return V2Config.from_dict(dict(self.declaration["config"], seed=seed))
 
-    def _committed_file(self, seed, generation, kind):
-        info = self.state.seed(seed)["committed"][generation]["files"][kind]
-        path = self.run_dir(seed) / info["path"]
-        if sha256_file(path) != info["sha256"]:
-            raise InconsistentCampaign(f"Committed artifact differs from the journal: {path}")
-        return path, info
-
     def _generation_dir(self, seed, generation):
         return self.run_dir(seed) / "generations" / f"generation-{generation:04d}"
 
-    def _refresh_views(self):
-        """Publish every journal-derived view that is missing; verify those present."""
-        for seed in self.declaration["seeds"]:
-            seed_state = self.state.seed(seed)
-            self._recover_seed_files(seed)
-            for generation in sorted(seed_state["diagnostics"]):
-                publish_view(self._generation_dir(seed, generation) / "summary.json",
-                             self._generation_view(seed, generation))
-            for generation in sorted(seed_state["decisions"]):
-                publish_view(self.run_dir(seed) / f"champion-check-{generation:04d}.json",
-                             self._check_view(seed, generation))
-            if seed_state["selected"] is not None:
-                publish_view(self.run_dir(seed) / "selection.json", self._selection_view(seed))
-        if self.state.final["started"] is not None:
-            publish_view(self.directory / "final" / "started.json", self.state.final["started"])
-            for seed in self.declaration["seeds"]:
-                if str(seed) in self.state.final["seeds"]:
-                    self._publish_final_seed(seed)
-        if self.state.outcome is not None:
-            publish_view(self.directory / "outcome.json", self._outcome_view())
-            if self.state.final["started"] is not None:
-                publish_view(self.directory / "final" / "result.json", self._outcome_view())
+    def _artifact(self, seed, generation, kind):
+        """Path of an artifact this campaign wrote, re-verified against the hash recorded at write time."""
+        info = self.seed_records[str(seed)]["generations"][generation]["files"][kind]
+        path = self.run_dir(seed) / info["path"]
+        if sha256_file(path) != info["sha256"]:
+            raise ArtifactMismatch(f"{path} differs from the hash recorded when it was written")
+        return path, info
 
-    def _write_status(self):
-        replace_view(self.directory / "status.json", campaign_status_from_state(
-            self.state, self.declaration, note="non-authoritative summary; the journal is the authority"))
+    # Per-seed run --------------------------------------------------------------------------------
 
-    # Generation commits (B2) ----------------------------------------------------------------------
+    def _run_seed(self, seed):
+        from .generation import GenerationRunner
+        record = self.seed_records[str(seed)] = dict(generations={}, diagnostics={}, decisions={})
+        config = self.config_for(seed)
+        with self.budget.phase(f"seed-{seed}:setup"):
+            self._check("setup")
+            runner = GenerationRunner(config)
+            self._save_generation(seed, runner, None)
+        rows = package_rows(self.declaration, self.base, "solved-development")
+        schedule = self.declaration["champion"]["schedule"]
+        while runner.completed_generations < config.max_generations:
+            generation = runner.completed_generations + 1
+            self._context = dict(runner=runner, generation=generation, seed=seed)
+            with self.budget.phase(f"seed-{seed}:training"):
+                summary = self._train_generation(seed, runner, generation)
+            with self.budget.phase(f"seed-{seed}:development"):
+                self._save_generation(seed, runner, summary)
+                self._diagnostics(seed, generation, rows)
+                self._prune(seed)
+                if generation in schedule:
+                    self._champion_check(seed, generation)
+            self.state.record_counters(self.counters())
+        with self.budget.phase(f"seed-{seed}:development"):
+            return self._select(seed, record)
 
-    def _commit_generation(self, seed, runner, summary):
-        """Stage every generation output, journal the commit, then install it (journal-first)."""
+    def _train_generation(self, seed, runner, generation):
+        counters = self.training[str(seed)]
+        collecting = dict(active=True)
+
+        def progress(event, **info):
+            if event == "game":
+                counters["selfplay_games_attempted"] += 1
+                counters["selfplay_games_completed"] += 1
+                counters["plies"] += info["plies"]
+            elif event == "collected":
+                collecting["active"] = False
+            elif event == "update":
+                counters["optimizer_steps"] += 1
+            self.fault(f"progress:{event}")
+        self.verify_identity(f"seed {seed} before generation {generation}")
+        self._check("training", seed)
+        counters["generations_attempted"] += 1
+        self.budget.begin_training(seed)
+        try:
+            summary = runner.run_generation(check=lambda: self._check("training", seed), progress=progress)
+        except BaseException:
+            if collecting["active"]:
+                counters["selfplay_games_attempted"] += 1  # the game in progress when collection stopped
+            raise
+        finally:
+            self.budget.end_training()
+        self.fault("after_training")
+        self._require_within_limits(seeds=[seed])
+        self.verify_identity(f"seed {seed} after generation {generation}")
+        counters["generations_completed"] += 1
+        return summary
+
+    def _save_generation(self, seed, runner, summary):
+        """Write a completed generation's inference, resume (diagnostic) and games once; record their hashes."""
         from .network import weights_sha256
         generation = runner.completed_generations
-        run = self.run_dir(seed)
-        staging = run / "staging" / f"generation-{generation:04d}.attempt-{self.attempt:03d}"
-        staging.mkdir(parents=True)
-        saved = runner.save_boundary(staging)
-        self.fault("after_boundary_files")
-        final_rel = Path("generations") / f"generation-{generation:04d}"
-        files = {}
-        for kind in ("inference", "resume"):
-            path = Path(saved[kind])
-            files[kind] = dict(path=str(final_rel / path.name), sha256=saved[f"{kind}_sha256"],
-                               bytes=path.stat().st_size)
+        directory = self._generation_dir(seed, generation)
+        directory.mkdir(parents=True)
+        saved = runner.save_boundary(directory)
+        relative = Path("generations") / directory.name
+        files = {kind: dict(path=str(relative / Path(saved[kind]).name), sha256=saved[f"{kind}_sha256"],
+                            bytes=Path(saved[kind]).stat().st_size) for kind in ("inference", "resume")}
         if generation:
             games = [g for g in runner.replay.iter_games() if g.generation == generation]
             data = "".join(json.dumps(dict(generation=generation, index=g.index, moves=list(g.moves),
                                            winner=g.winner)) + "\n" for g in games).encode()
             name = f"generation-{generation:04d}.games.jsonl"
-            files["games"] = dict(path=str(final_rel / name), sha256=write_once(staging / name, data), bytes=len(data))
-        fsync_directory(staging)
-        self._require_completion()
-        self.verify_identity(f"seed {seed} commit generation {generation}")
-        self.fault("before_commit_record")
-        resources = None if summary is None else summary["resources"]
-        self.journal.append(dict(
-            event="generation_committed", seed=seed, generation=generation, attempt=self.attempt,
-            staging=str(staging.relative_to(run)), files=files, learner_weights_sha256=weights_sha256(runner.model),
+            files["games"] = dict(path=str(relative / name), sha256=write_once(directory / name, data), bytes=len(data))
+        fsync_directory(directory)
+        self.seed_records[str(seed)]["generations"][generation] = dict(
+            seed=seed, generation=generation, files=files, learner_weights_sha256=weights_sha256(runner.model),
             state_sha256=runner.state_sha256(),
             summary=None if summary is None else {k: v for k, v in summary.items() if k != "resources"},
-            resources=resources))
-        self.fault("after_commit_record")
-        self._install_committed(seed, generation)
-        self.fault("after_commit_install")
-
-    def _install_committed(self, seed, generation):
-        """Make a committed generation's directory authoritative, finishing an interrupted install."""
-        record = self.state.seed(seed)["committed"][generation]
-        pruned = self.state.seed(seed)["pruned"]
-        final_dir, staging = self._generation_dir(seed, generation), self.run_dir(seed) / record["staging"]
-        source = final_dir if final_dir.exists() else staging
-        if not source.exists():
-            raise InconsistentCampaign(f"Committed generation {generation} of seed {seed} has no outputs")
-        for kind, info in record["files"].items():
-            path = source / Path(info["path"]).name
-            if info["path"] in pruned and not path.exists():
-                continue
-            if not path.is_file() or sha256_file(path) != info["sha256"]:
-                raise InconsistentCampaign(f"Committed {kind} artifact of generation {generation} differs from the "
-                                           "journal")
-        if source is staging:
-            final_dir.parent.mkdir(parents=True, exist_ok=True)
-            os.rename(staging, final_dir)
-            fsync_directory(final_dir.parent)
-            fsync_directory(staging.parent)
-
-    def _recover_seed_files(self, seed):
-        seed_state = self.state.seed(seed)
-        for generation in sorted(seed_state["committed"]):
-            self._install_committed(seed, generation)
-        for path_name, record in seed_state["pruned"].items():
-            path = self.run_dir(seed) / path_name
-            if path.exists():  # interrupted between the prune record and the unlink
-                if sha256_file(path) != record["sha256"]:
-                    raise InconsistentCampaign(f"Refusing to finish pruning a modified artifact: {path}")
-                path.unlink()
-                fsync_directory(path.parent)
+            resources=None if summary is None else summary["resources"], resume_pruned=False)
+        self.fault("after_generation_saved")
 
     def _prune(self, seed):
+        """Delete resume boundaries beyond the retention count (diagnostic artifacts; never loaded here)."""
         keep = self.declaration["retention"]["resume_boundaries"]
-        seed_state = self.state.seed(seed)
-        live = [g for g in sorted(seed_state["committed"])
-                if seed_state["committed"][g]["files"]["resume"]["path"] not in seed_state["pruned"]]
+        generations = self.seed_records[str(seed)]["generations"]
+        live = [g for g in sorted(generations) if not generations[g]["resume_pruned"]]
         for generation in live[:-keep] if len(live) > keep else []:
-            path, info = self._committed_file(seed, generation, "resume")
-            self.journal.append(dict(event="artifact_pruned", seed=seed, generation=generation, attempt=self.attempt,
-                                     path=info["path"], sha256=info["sha256"], bytes=info["bytes"]))
-            self.fault("after_prune_record")
+            path, _ = self._artifact(seed, generation, "resume")
             path.unlink()
             fsync_directory(path.parent)
-
-    def _generation_view(self, seed, generation):
-        record = self.state.seed(seed)["committed"][generation]
-        diagnostics = self.state.seed(seed)["diagnostics"][generation]
-        return dict(seed=seed, generation=generation, committed_attempt=record["attempt"], artifacts=record["files"],
-                    learner_weights_sha256=record["learner_weights_sha256"], state_sha256=record["state_sha256"],
-                    summary=record["summary"], resources=record["resources"],
-                    development_raw_value=diagnostics["development_raw_value"])
-
-    # Per-seed run --------------------------------------------------------------------------------
-
-    def run_seed(self, seed, *, extra_check=None):
-        """Run or resume one seed until its generations finish or a stop/limit ends the attempt."""
-        if seed not in self.declaration["seeds"]:
-            raise ValueError("Seed is not declared")
-        if self.state.outcome is not None:
-            self._refresh_views()
-            return self._outcome_status()
-        if self.state.seed(seed)["selected"] is not None:
-            raise RuntimeError("This seed already completed champion selection")
-        if self.state.final["started"] is not None:
-            raise RuntimeError("The sealed final evaluation has started; seed runs are closed")
-        from . import generation as generation_module  # torch-dependent
-        if generation_module.PROCESS_EXECUTION_SOURCE["sha256"] != self.declaration["execution_source"]["sha256"]:
-            raise LaunchRefused("The loaded generation sources differ from the declaration")
-        return self._attempt(seed, lambda: self._seed_body(seed), extra_check)
-
-    def _seed_body(self, seed):
-        from .generation import GenerationRunner, load_resume_boundary
-        seed_state = self.state.seed(seed)
-        config = self.config_for(seed)
-        if seed_state["committed"]:
-            latest = max(seed_state["committed"])
-            record = seed_state["committed"][latest]
-            path, info = self._committed_file(seed, latest, "resume")
-            runtime = self.declaration["runtime"]
-            runner = load_resume_boundary(path, expected_sha256=info["sha256"],
-                                          strict_runtime=runtime["strict_resume_runtime"],
-                                          strict_source=runtime["strict_resume_source"])
-            if runner.completed_generations != latest or runner.state_sha256() != record["state_sha256"]:
-                raise InconsistentCampaign(f"Resume boundary of generation {latest} disagrees with its commit record")
-        else:
-            self._check("setup")
-            runner = GenerationRunner(config)
-            self._commit_generation(seed, runner, None)
-        rows = package_rows(self.declaration, self.base, "solved-development")
-        self._finish_pending(seed, rows)
-        while runner.completed_generations < config.max_generations:
-            generation = runner.completed_generations + 1
-            self.verify_identity(f"seed {seed} generation {generation}")
-            self._context = dict(runner=runner, generation=generation, seed=seed)
-            self._check("training")
-            self.fault("before_generation_begin")
-            self.journal.append(dict(event="generation_begin", seed=seed, generation=generation, attempt=self.attempt,
-                                     base_state_sha256=seed_state["committed"][generation - 1]["state_sha256"]))
-            self.fault("after_generation_begin")
-
-            def progress(event, **info):
-                if event == "game":
-                    self.journal.append(dict(event="selfplay_game", seed=seed, generation=generation,
-                                             attempt=self.attempt, index=info["index"], plies=info["plies"]))
-                elif event == "update":
-                    self.journal.append(dict(event="optimizer_step", seed=seed, generation=generation,
-                                             attempt=self.attempt, step=info["step"]))
-                self.fault(f"progress:{event}")
-            self._budget.begin_training()
-            try:
-                summary = runner.run_generation(check=lambda: self._check("training"), progress=progress)
-            except BaseException as error:
-                self._budget.end_training()
-                self.journal.append(dict(event="generation_discarded", seed=seed, generation=generation,
-                                         attempt=self.attempt, reason=f"{type(error).__name__}: {error}"))
-                raise
-            self._budget.end_training()
-            self.fault("after_training")
-            problem = self._completion_problem(training=True)
-            if problem is not None:
-                self.journal.append(dict(event="generation_discarded", seed=seed, generation=generation,
-                                         attempt=self.attempt, reason=str(problem)))
-                raise problem
-            self._commit_generation(seed, runner, summary)
-            self._finish_pending(seed, rows)
-        self._select(seed)
-
-    def _finish_pending(self, seed, rows):
-        """Post-commit work in generation order: diagnostics, pruning, then a scheduled champion check."""
-        seed_state = self.state.seed(seed)
-        for generation in sorted(g for g in seed_state["committed"] if g):
-            if generation not in seed_state["diagnostics"]:
-                self._diagnostics(seed, generation, rows)
-            self._prune(seed)
-            if generation in self.declaration["champion"]["schedule"] and generation not in seed_state["decisions"]:
-                self._champion_check(seed, generation)
+            generations[generation]["resume_pruned"] = True
 
     def _diagnostics(self, seed, generation, rows):
         from .evaluation import raw_values
         from .network import load_inference_checkpoint
         self._check("evaluation")
-        path, _ = self._committed_file(seed, generation, "inference")
+        path, _ = self._artifact(seed, generation, "inference")
         metrics = statistics.value_metrics(rows, raw_values(load_inference_checkpoint(path), rows))
-        self._require_completion()
-        self.fault("before_diagnostics_record")
-        self.journal.append(dict(event="generation_diagnostics", seed=seed, generation=generation,
-                                 attempt=self.attempt, development_raw_value=metrics))
-        self.fault("after_diagnostics_record")
-        publish_view(self._generation_dir(seed, generation) / "summary.json", self._generation_view(seed, generation))
+        self._require_within_limits()
+        self.verify_identity(f"seed {seed} diagnostics {generation}")
+        record = self.seed_records[str(seed)]
+        record["diagnostics"][generation] = metrics
+        publish_view(self._generation_dir(seed, generation) / "summary.json",
+                     dict(record["generations"][generation], development_raw_value=metrics))
 
     # Champion selection (development evidence only) ---------------------------------------------
 
     def _v2_agent(self, seed, generation, name):
         from .evaluation import load_v2_agent
-        path, info = self._committed_file(seed, generation, "inference")
+        path, info = self._artifact(seed, generation, "inference")
         agent = load_v2_agent(path, self.declaration["evaluation"]["simulations"], expected_sha256=info["sha256"],
                               name=name)
         agent.identity["path"] = info["path"]  # campaign-relative
@@ -754,18 +695,29 @@ class Campaign:
     def _development_tactics(self, seed, generation, agent, rows):
         from .evaluation import search_row
         evaluation = self.declaration["evaluation"]
-        evidence = {row["id"]: self._unit(
-            seed, f"seed{seed}/development-tactics/g{generation:04d}/{row['id']}", "development_tactics_row",
-            lambda: search_row(agent.inference, row, simulations=evaluation["simulations"],
-                               seeds=evaluation["tactical_seeds"], namespace="development-tactics",
-                               check=lambda: self._check("evaluation"))) for row in rows}
+        evidence = {}
+        for row in rows:
+            unit = f"seed{seed}/development-tactics/g{generation:04d}/{row['id']}"
+            # The incumbent's rows may already exist from the check that promoted it; they are reused in-process.
+            evidence[row["id"]] = self.evidence[unit] if unit in self.evidence else self._unit(
+                seed, unit, "development_tactics_row",
+                lambda: search_row(agent.inference, row, simulations=evaluation["simulations"],
+                                   seeds=evaluation["tactical_seeds"], namespace="development-tactics",
+                                   check=lambda: self._check("evaluation")))
         return statistics.tactical_metrics(rows, {k: v["choices"] for k, v in evidence.items()},
                                            {k: v["visits"] for k, v in evidence.items()})
+
+    def champion_generation(self, seed):
+        champion = 0
+        for generation, decision in sorted(self.seed_records[str(seed)]["decisions"].items()):
+            if decision["promote"]:
+                champion = generation
+        return champion
 
     def _champion_check(self, seed, generation):
         self.verify_identity(f"seed {seed} champion check {generation}")
         decl = self.declaration["champion"]
-        champion_generation = self.state.champion_generation(seed)
+        champion_generation = self.champion_generation(seed)
         candidate = self._v2_agent(seed, generation, f"generation-{generation}")
         incumbent = self._v2_agent(seed, champion_generation, f"champion-generation-{champion_generation}")
         openings = package_rows(self.declaration, self.base, "openings-development")
@@ -787,100 +739,76 @@ class Campaign:
         arena = statistics.arena_summary(scored(records), planned_games=2 * len(arena_rows))
         # Every unit completed and no correctness error was raised.
         decision = statistics.champion_decision(arena, candidate_tactics, champion_tactics, True)
-        self._require_completion()
+        self._require_within_limits()
         self.verify_identity(f"seed {seed} champion decision {generation}")
-        self.fault("before_decision_record")
-        self.journal.append(dict(event="champion_decision", seed=seed, generation=generation, attempt=self.attempt,
-                                 previous=champion_generation, promote=decision["promote"], decision=decision,
-                                 arena=arena, baselines=baselines, candidate_tactics=candidate_tactics,
-                                 champion_tactics=champion_tactics, candidate=candidate.describe(),
-                                 champion=incumbent.describe()))
-        self.fault("after_decision_record")
-        publish_view(self.run_dir(seed) / f"champion-check-{generation:04d}.json", self._check_view(seed, generation))
+        prefixes = (f"{prefix}/", f"seed{seed}/development-tactics/g{generation:04d}/",
+                    f"seed{seed}/development-tactics/g{champion_generation:04d}/")
+        record = dict(seed=seed, generation=generation, previous=champion_generation, promote=decision["promote"],
+                      decision=decision, arena=arena, baselines=baselines, candidate_tactics=candidate_tactics,
+                      champion_tactics=champion_tactics, candidate=candidate.describe(), champion=incumbent.describe())
+        self.seed_records[str(seed)]["decisions"][generation] = record
+        publish_view(self.run_dir(seed) / f"champion-check-{generation:04d}.json", dict(
+            record, records={u: e for u, e in sorted(self.evidence.items()) if u.startswith(prefixes)}))
 
-    def _check_view(self, seed, generation):
-        record = self.state.seed(seed)["decisions"][generation]
-        prefixes = (f"seed{seed}/development-g{generation:04d}/",
-                    f"seed{seed}/development-tactics/g{generation:04d}/",
-                    f"seed{seed}/development-tactics/g{record['previous']:04d}/")
-        units = sorted(u for u in self.state.units if u.startswith(prefixes))
-        return dict(record, records={unit: self.state.evidence(unit) for unit in units})
-
-    def _select(self, seed):
-        seed_state = self.state.seed(seed)
+    def _select(self, seed, record):
         generations = self.declaration["generations"]
-        missing = ([g for g in range(generations + 1) if g not in seed_state["committed"]]
-                   + [g for g in range(1, generations + 1) if g not in seed_state["diagnostics"]]
-                   + [g for g in self.declaration["champion"]["schedule"] if g not in seed_state["decisions"]])
+        missing = ([g for g in range(generations + 1) if g not in record["generations"]]
+                   + [g for g in range(1, generations + 1) if g not in record["diagnostics"]]
+                   + [g for g in self.declaration["champion"]["schedule"] if g not in record["decisions"]])
         if missing:
-            raise InconsistentCampaign(f"Selection attempted with missing work: {missing}")
-        self._require_completion()
-        champion = self.state.champion_generation(seed)
-        self.fault("before_selection_record")
-        self.journal.append(dict(event="seed_selected", seed=seed, attempt=self.attempt, generation=champion,
-                                 inference=seed_state["committed"][champion]["files"]["inference"],
-                                 decisions={str(g): d["promote"] for g, d in sorted(seed_state["decisions"].items())},
-                                 rule="development evidence only; sealed packages untouched"))
-        self.fault("after_selection_record")
-        publish_view(self.run_dir(seed) / "selection.json", self._selection_view(seed))
-
-    def _selection_view(self, seed):
-        return dict(self.state.seed(seed)["selected"], declaration_sha256=self.declaration_sha256)
+            raise RuntimeError(f"Selection attempted with missing work: {missing}")
+        self._require_within_limits()
+        self.verify_identity(f"seed {seed} selection")
+        champion = self.champion_generation(seed)
+        _, inference = self._artifact(seed, champion, "inference")
+        selection = dict(seed=seed, generation=champion, inference=inference,
+                         decisions={str(g): d["promote"] for g, d in sorted(record["decisions"].items())},
+                         rule="development evidence only; sealed packages untouched",
+                         declaration_sha256=self.declaration_sha256)
+        publish_view(self.run_dir(seed) / "selection.json", selection)
+        return selection
 
     # Sealed final evaluation ------------------------------------------------------------------------
 
-    def final_evaluate(self, *, extra_check=None):
-        if self.state.outcome is not None:
-            self._refresh_views()
-            return self._outcome_status()
-        selections = {}
-        for seed in self.declaration["seeds"]:
-            selected = self.state.seed(seed)["selected"]
-            if selected is None:
-                raise RuntimeError(f"Seed {seed} has no development champion selection")
-            selections[str(seed)] = selected
-        # Every earlier attempt (training and development evaluation) ran under the declared identity.
-        for number, info in sorted(self.state.attempts.items()):
-            start = info["start"]
-            if (runtime_differences(self.declaration["runtime_identity"], start["runtime"])
-                    or start["execution_sha256"] != self.declaration["execution_source"]["sha256"]
-                    or start["declaration_sha256"] != self.declaration_sha256):
-                raise LaunchRefused(f"Attempt {number} ran under a different identity; final evaluation refused")
-        return self._attempt("final", lambda: self._final_body(selections), extra_check)
-
-    def _final_body(self, selections):
-        started = self.state.final["started"]
-        if started is None:
+    def _final(self, selections):
+        with self.budget.phase("final"):
             self._check("evaluation")
             self.verify_identity("final start")
-            descriptions = {str(seed): self._final_descriptions(seed, selections[str(seed)])
-                            for seed in self.declaration["seeds"]}
-            self.fault("before_final_started")
-            self.journal.append(dict(event="final_started", attempt=self.attempt, selections=selections,
-                                     descriptions=descriptions, runtime=self.runtime,
-                                     execution_sha256=self.declaration["execution_source"]["sha256"],
-                                     declaration_sha256=self.declaration_sha256))
-            self.fault("after_final_started")
-        elif started["selections"] != selections:
-            raise InconsistentCampaign("Selections changed after the sealed evaluation started")
-        publish_view(self.directory / "final" / "started.json", self.state.final["started"])
-        for seed in self.declaration["seeds"]:
-            if str(seed) not in self.state.final["seeds"]:
+            descriptions = {str(seed): self._final_descriptions(seed, selections[str(seed)]) for seed in self.seeds}
+            self.final_started = dict(selections=selections, descriptions=descriptions, runtime=self.runtime,
+                                      execution_sha256=self.declaration["execution_source"]["sha256"],
+                                      declaration_sha256=self.declaration_sha256)
+            started_sha256 = publish_view(self.directory / "final" / "started.json", self.final_started)
+            # Selections are fixed durably here, before any sealed inference.
+            self._transition(RUNNING_FINAL, selections=selections, started_sha256=started_sha256)
+            for seed in self.seeds:
                 self._final_seed_units(seed)
                 result = self._final_seed_result(seed)
-                self._require_completion()
+                self._require_within_limits()
                 self.verify_identity(f"final seed {seed}")
-                self.fault("before_final_seed_record")
-                self.journal.append(dict(event="final_seed_complete", seed=seed, attempt=self.attempt,
-                                         result_sha256=sha256_bytes(view_bytes(result))))
-                self.fault("after_final_seed_record")
-            self._publish_final_seed(seed)
-        self._require_completion()
+                self.final_results[str(seed)] = publish_view(self.directory / "final" / f"seed-{seed}.json", result)
+                self.state.record_counters(self.counters())
         self.fault("before_campaign_complete")
-        self.journal.append(dict(event="campaign_complete", attempt=self.attempt, status="COMPLETE",
-                                 final_results={k: v["result_sha256"] for k, v in self.state.final["seeds"].items()}))
-        publish_view(self.directory / "final" / "result.json", self._outcome_view())
-        publish_view(self.directory / "outcome.json", self._outcome_view())
+        self._complete()
+
+    def _complete(self):
+        """COMPLETE only if every limit holds in the exact account it records."""
+        self.verify_identity("campaign complete")
+        account = self.counters()
+        limits, time_account = self.declaration["budgets"], account["time"]
+        if self.budget.stop_reason is not None:
+            raise CampaignStop(self.budget.stop_reason)
+        if time_account["elapsed_seconds"] > limits["campaign_seconds"]:
+            raise BudgetExhausted("campaign wall-clock budget exceeded before COMPLETE")
+        for seed, seconds in time_account["training_seconds"].items():
+            if seconds > limits["per_run_training_seconds"]:
+                raise BudgetExhausted(f"seed {seed} collection+optimization budget exceeded before COMPLETE")
+        if account["evaluation"]["total_games_started"] > limits["evaluation_games_ceiling"]:
+            raise BudgetExhausted("evaluation-game ceiling exceeded before COMPLETE")
+        self.state.transition(COMPLETE, counters=account, outcome=dict(
+            status=COMPLETE, final_results=dict(self.final_results),
+            note=("COMPLETE means every declared evidence unit finished in one uninterrupted owning process "
+                  "within the declared limits; acceptance is judged separately against the declared thresholds.")))
 
     def _selected_agent(self, seed, selection):
         from .evaluation import load_v2_agent
@@ -912,7 +840,7 @@ class Campaign:
         from .evaluation import V2NNOnlyAgent, calibration_games, nn_only_choice, raw_value, search_row
         final, evaluation = self.declaration["final"], self.declaration["evaluation"]
         simulations, tie_seeds = evaluation["simulations"], evaluation["tactical_seeds"]
-        agent = self._selected_agent(seed, self.state.final["started"]["selections"][str(seed)])
+        agent = self._selected_agent(seed, self.final_started["selections"][str(seed)])
         tactics = package_rows(self.declaration, self.base, "tactical-sealed")
         solved = package_rows(self.declaration, self.base, "solved-sealed")
         openings = package_rows(self.declaration, self.base, "openings-sealed")[:final["ladder_openings"]]
@@ -942,19 +870,14 @@ class Campaign:
                                                                seed=seed * 1_000_003 + index, check=check)]))
 
     def _final_seed_result(self, seed):
-        """The sealed result for one seed, computed from journaled evidence only (deterministic)."""
+        """The sealed result for one seed, computed from this process's evidence only (deterministic)."""
         final, thresholds = self.declaration["final"], self.declaration["thresholds"]
-        started = self.state.final["started"]
+        started = self.final_started
         tactics = package_rows(self.declaration, self.base, "tactical-sealed")
         solved = package_rows(self.declaration, self.base, "solved-sealed")
         openings = package_rows(self.declaration, self.base, "openings-sealed")[:final["ladder_openings"]]
         prefix = f"final/seed{seed}"
-
-        def evidence(unit):
-            value = self.state.evidence(unit)
-            if value is None:
-                raise InconsistentCampaign(f"Final evidence missing: {unit}")
-            return value
+        evidence = self._evidence
 
         def arena(name, label):
             records = [evidence(f"{prefix}/{label}/{row['id']}/{g}") for row in openings for g, _ in PAIRED_GAMES]
@@ -964,7 +887,7 @@ class Campaign:
                         gate=statistics.arena_gate(summary, rule) if rule else None)
         tactical = {row["id"]: evidence(f"{prefix}/tactical/{row['id']}") for row in tactics}
         solved_ev = {row["id"]: evidence(f"{prefix}/solved/{row['id']}") for row in solved}
-        overlap = training_overlap(self.run_dir(seed), [r["moves"] for r in tactics + solved])
+        overlap = training_overlap(self._archived_games(seed), [r["moves"] for r in tactics + solved])
         choices = {k: v["choices"] for k, v in tactical.items()}
         visits = {k: v["visits"] for k, v in tactical.items()}
         nn_choices = {k: [v["nn_only_choice"]] for k, v in tactical.items()}
@@ -990,38 +913,10 @@ class Campaign:
             calibration=statistics.calibration_summary(calibration, constant=final.get("calibration_constant")),
             evidence=dict(tactical=tactical, solved=solved_ev, calibration=calibration))
 
-    def _publish_final_seed(self, seed):
-        path = self.directory / "final" / f"seed-{seed}.json"
-        expected = self.state.final["seeds"][str(seed)]["result_sha256"]
-        if path.exists():
-            if sha256_file(path) != expected:
-                raise InconsistentCampaign(f"{path} disagrees with the journal")
-            return
-        result = self._final_seed_result(seed)
-        if sha256_bytes(view_bytes(result)) != expected:
-            raise InconsistentCampaign(f"Recomputed final result for seed {seed} disagrees with the journal")
-        publish_view(path, result)
-
-    # Outcomes --------------------------------------------------------------------------------------
-
-    def _declare_incomplete(self, scope, reason):
-        if self.state.outcome is not None:
-            return
-        self.journal.append(dict(event="campaign_incomplete", attempt=self.attempt, scope=str(scope), status="INCOMPLETE",
-                                 reason=reason, progress=progress_summary(self.state, self.declaration)))
-        publish_view(self.directory / "outcome.json", self._outcome_view())
-        if self.state.final["started"] is not None:
-            publish_view(self.directory / "final" / "result.json", self._outcome_view())
-
-    def _outcome_view(self):
-        return dict(self.state.outcome, declaration_sha256=self.declaration_sha256,
-                    note=("COMPLETE means every declared evidence unit finished within the declared limits; "
-                          "acceptance is judged separately against the declared thresholds. INCOMPLETE is final: "
-                          "missing evidence is never filled by extending a limit."))
-
-    def _outcome_status(self):
-        outcome = self.state.outcome
-        return "completed" if outcome["event"] == "campaign_complete" else f"incomplete: {outcome['reason']}"
+    def _archived_games(self, seed):
+        """Every archived training game of this seed, from files re-verified against their recorded hashes."""
+        generations = self.seed_records[str(seed)]["generations"]
+        return [self._artifact(seed, g, "games")[0] for g in sorted(generations) if g]
 
 
 OPPONENT_NAMES = ("random", "negamax1", "negamax2", "negamax4", "guarded_uct_800")
@@ -1037,12 +932,12 @@ def opponent_by_name(name):
     raise ValueError(f"Unknown opponent {name}")
 
 
-def training_overlap(run_dir, histories):
+def training_overlap(game_files, histories):
     """Package families (board+actor and reflection) that appear in any archived training position."""
     wanted = {family_key(list(moves)) for moves in histories}
     found = set()
-    for path in sorted((Path(run_dir) / "generations").glob("generation-*/generation-*.games.jsonl")):
-        for line in path.read_text().splitlines():
+    for path in game_files:
+        for line in Path(path).read_text().splitlines():
             moves = json.loads(line)["moves"]
             for ply in range(len(moves)):
                 key = family_key(moves[:ply])
@@ -1058,49 +953,41 @@ def with_overlap_sensitivity(rows, overlap, metric):
                 overlap_excluded_rows=len(rows) - len(kept))
 
 
-# Status ---------------------------------------------------------------------------------------
-
-def progress_summary(state, declaration):
-    seeds = {}
-    for seed in declaration["seeds"]:
-        s = state.seed(seed)
-        seeds[str(seed)] = dict(
-            committed_generations=max(s["committed"]) if s["committed"] else None,
-            required_generations=declaration["generations"], diagnostics=sorted(s["diagnostics"]),
-            decisions={str(g): d["promote"] for g, d in sorted(s["decisions"].items())},
-            pending_checks=[g for g in declaration["champion"]["schedule"] if g not in s["decisions"]],
-            selected_generation=None if s["selected"] is None else s["selected"]["generation"])
-    final_units = {}
-    for unit, info in state.units.items():
-        if unit.startswith("final/"):
-            entry = final_units.setdefault(info["kind"], dict(completed=0, incomplete=0))
-            entry["completed" if info["completed"] else "incomplete"] += 1
-    return dict(seeds=seeds, final=dict(started=state.final["started"] is not None,
-                                        seeds_complete=sorted(state.final["seeds"]), units=final_units))
-
-
-def campaign_status_from_state(state, declaration, note=None):
-    limits = declaration["budgets"]
-    consumption = state.consumption()
-    return dict(
-        note=note, outcome=None if state.outcome is None else dict(event=state.outcome["event"],
-                                                                   reason=state.outcome.get("reason")),
-        open_attempts=state.open_attempts(), progress=progress_summary(state, declaration), consumption=consumption,
-        limits=dict(limits, remaining_campaign_seconds=limits["campaign_seconds"] - consumption["charged_seconds"],
-                    remaining_evaluation_games=limits["evaluation_games_ceiling"]
-                    - consumption["evaluation_games_charged"]))
-
+# Status and official results --------------------------------------------------------------------
 
 def campaign_status(directory):
-    """Read-only status (no lock, no recovery): an open attempt is either running or was hard-interrupted."""
+    """Read-only view of state.json (no lock, no writes)."""
     directory = Path(directory)
-    declaration = json.loads((directory / "declaration.json").read_text())
-    state, journal = read_state(directory, generations=declaration["generations"],
-                                schedule=declaration["champion"]["schedule"])
-    status = campaign_status_from_state(state, declaration, note="read-only; open attempts are running or "
-                                        "were hard-interrupted and will be charged through their last lease")
-    status["journal"] = dict(records=len(journal.records), torn_tail_bytes=len(journal.torn_tail or b""))
-    return status
+    try:
+        state = CampaignStateFile.load(directory)
+    except StateCorrupt as error:
+        return dict(state=None, error=str(error), note="unreadable state: the campaign is not COMPLETE")
+    document = state.document
+    note = {COMPLETE: "terminal: COMPLETE (official results are certified by this state)",
+            INCOMPLETE: "terminal: INCOMPLETE (artifacts are forensic only)"}.get(
+        state.state, "non-terminal: running in its owning process, or interrupted; an interrupted campaign is "
+                     "INCOMPLETE and the next launch invocation records that")
+    return dict(document, note=note)
+
+
+def official_results(directory):
+    """The sealed results, only if state.json is COMPLETE and every certified file still matches its hash."""
+    directory = Path(directory)
+    state = CampaignStateFile.load(directory)
+    if state.state != COMPLETE:
+        raise NotOfficialEvidence(f"Campaign is {state.state}; its artifacts are forensic only and are never "
+                                  "official evidence")
+    if sha256_file(directory / "declaration.json") != state.document["declaration_sha256"]:
+        raise NotOfficialEvidence("declaration.json differs from the declaration the campaign ran under")
+    results = {}
+    for seed, digest in state.document["outcome"]["final_results"].items():
+        path = directory / "final" / f"seed-{seed}.json"
+        if sha256_file(path) != digest:
+            raise NotOfficialEvidence(f"{path} differs from the hash certified by COMPLETE")
+        results[seed] = json.loads(path.read_text())
+    if sorted(results) != sorted(str(s) for s in state.document["seeds"]):
+        raise NotOfficialEvidence("COMPLETE does not certify a result for every declared seed")
+    return dict(declaration_sha256=state.document["declaration_sha256"], results=results)
 
 
 # Preflight and freeze -------------------------------------------------------------------------
@@ -1164,7 +1051,7 @@ def preflight(declaration_path):
 
 
 def freeze(output, *, name="phase4d3c-alphazero-v2-two-seed", notes=None):
-    """Write a new format-2 declaration from the frozen packages beside ``output`` and this runtime."""
+    """Write a new declaration from the frozen packages beside ``output`` and this runtime."""
     output = Path(output)
     if output.exists():
         raise FileExistsError(f"Refusing to overwrite {output}")
@@ -1190,10 +1077,13 @@ def freeze(output, *, name="phase4d3c-alphazero-v2-two-seed", notes=None):
 
 
 FREEZE_NOTES = [
-    "Phase 4D.3B.1 frozen declaration (format 2) for the Milestone 3 two-seed campaign; running it needs "
+    "Phase 4D.3B.2 frozen declaration (format 3) for the Milestone 3 two-seed campaign; running it needs "
     "separate authorization.",
     "The authorization token is the SHA-256 of this exact file. The Phase 4D.3B token "
-    "2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8 is REJECTED / NOT AUTHORIZED.",
+    "2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8 and the Phase 4D.3B.1 token "
+    "8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39 are REJECTED / NOT AUTHORIZED.",
+    "The official campaign is NON-RESUMABLE: one owning process runs both seeds, the development selection and the "
+    "sealed final evaluation; any interruption, limit or identity drift makes it INCOMPLETE.",
     "It binds execution-source content, the complete runtime identity, frozen packages and records, the retained "
     "4D.2f checkpoint and the launch-control semantics; any difference refuses the launch.",
     "Seed 42 is primary; seed 314159 is replication, not a second chance.",
@@ -1204,11 +1094,12 @@ FREEZE_NOTES = [
 
 # CLI --------------------------------------------------------------------------------------------
 
-EXIT_COMPLETED, EXIT_REFUSED, EXIT_STOPPED, EXIT_INCOMPLETE = 0, 2, 3, 4
+EXIT_COMPLETED, EXIT_REFUSED, EXIT_INCOMPLETE = 0, 2, 4
 
 
 def main(argv=None):
-    parser = argparse.ArgumentParser(description="AlphaZero v2 bounded campaign (requires authorization)")
+    parser = argparse.ArgumentParser(description="AlphaZero v2 official campaign (requires authorization; "
+                                                 "non-resumable)")
     sub = parser.add_subparsers(dest="command", required=True)
     pre = sub.add_parser("preflight")
     pre.add_argument("--declaration", required=True)
@@ -1216,13 +1107,10 @@ def main(argv=None):
     frz.add_argument("--output", required=True)
     stat = sub.add_parser("status")
     stat.add_argument("--campaign-dir", required=True)
-    for name in ("run", "final-evaluate"):
-        command = sub.add_parser(name)
-        command.add_argument("--declaration", required=True)
-        command.add_argument("--campaign-dir", required=True)
-        command.add_argument("--authorize", required=True)
-        if name == "run":
-            command.add_argument("--seed", type=int, required=True)
+    command = sub.add_parser("launch")
+    command.add_argument("--declaration", required=True)
+    command.add_argument("--campaign-dir", required=True, help="a new directory; existing ones are never continued")
+    command.add_argument("--authorize", required=True)
     args = parser.parse_args(argv)
     if args.command == "preflight":
         report = preflight(args.declaration)
@@ -1236,20 +1124,20 @@ def main(argv=None):
         return EXIT_COMPLETED
     try:
         campaign = Campaign(args.campaign_dir, args.declaration, args.authorize)
+    except InterruptedCampaign as error:
+        print(str(error))
+        return EXIT_INCOMPLETE
     except (PermissionError, FileExistsError, RuntimeError) as error:
         print(f"refused: {type(error).__name__}: {error}")
         return EXIT_REFUSED
 
     def stop(signum, frame):
-        if campaign._budget is not None:
-            campaign._budget.request_stop(f"signal {signum}")
+        campaign.budget.request_stop(f"signal {signum}")
     signal.signal(signal.SIGINT, stop)
     signal.signal(signal.SIGTERM, stop)
-    status = campaign.run_seed(args.seed) if args.command == "run" else campaign.final_evaluate()
+    status = campaign.run()
     print(status)
-    if status == "completed":
-        return EXIT_COMPLETED
-    return EXIT_INCOMPLETE if status.startswith("incomplete") else EXIT_STOPPED
+    return EXIT_COMPLETED if status == "completed" else EXIT_INCOMPLETE
 
 
 if __name__ == "__main__":

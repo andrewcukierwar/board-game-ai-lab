@@ -1,5 +1,7 @@
 # Phase 4D.3B.1 — Launch-control hardening and re-freeze
 
+> **SUPERSEDED (Phase 4D.3B.2):** the independent [final launch review](phase4d3b1-final-launch-review.md) returned NO GO. The token `8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39` below is now **REJECTED / NOT AUTHORIZED**. The resumable journal/lease controller described here was replaced by a fail-closed, non-resumable official campaign. The launch steps in §11 are stale. See [phase4d3b2-fail-closed-campaign.md](phase4d3b2-fail-closed-campaign.md).
+
 Completed October 5, 2026 on local branch `phase4d3b-alphazero-v2-preflight` (starting HEAD `d5696cb`, clean). **No campaign was launched.**
 
 This phase produced:

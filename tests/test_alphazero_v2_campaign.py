@@ -1,5 +1,5 @@
-"""Phase 4D.3B/4D.3B.1 torch-side preflight: evaluation agents, diagnostics, profiling helpers and the
-bounded campaign launcher (declaration binding, crash recovery, deadlines and durable budgets).
+"""Phase 4D.3B/4D.3B.2 torch-side preflight: evaluation agents, diagnostics, profiling helpers and the
+fail-closed official campaign launcher (declaration binding, single owner, no resume, deadlines and budgets).
 Every run uses tiny synthetic settings in temporary directories; no research training, learned
 checkpoint or strength claim is produced."""
 import hashlib
@@ -30,7 +30,7 @@ from games.connect4.alphazero_v2.arena import RandomOpponent, run_paired_arena
 from games.connect4.alphazero_v2.config import V2Config
 from games.connect4.alphazero_v2.data import V2Example, encode_board, finalize_game, pre_move_ply
 from games.connect4.alphazero_v2.generation import GenerationRunner, initial_model, load_resume_boundary
-from games.connect4.alphazero_v2.launch_control import LEASE_SECONDS
+from games.connect4.alphazero_v2 import launch_control as L
 from games.connect4.alphazero_v2.network import V2Inference, weights_sha256
 from games.connect4.alphazero_v2.oracle import engine_position
 from games.connect4.alphazero_v2.provenance import THREAD_ENVIRONMENT, required_thread_environment
@@ -168,10 +168,15 @@ def test_synthetic_full_scale_replay_is_legal_and_resumable(tmp_path):
     assert len(positions) == 20 and not any(engine_position(m).is_game_over() for m in positions)
 
 
-# Phase 4D.3B.1 launch control: shared fixtures ------------------------------------------------------
+def test_quantiles_are_nearest_rank_including_minimum():
+    values = list(range(1, 101))
+    assert D.quantiles(values, (0.0, 0.5, 0.95, 1.0)) == dict(p0=1, p50=50, p95=95, p100=100)
 
-OLD_TOKEN = '2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8'
-OLD_DECLARATION_COMMIT = 'a663454'  # the reviewed HEAD holding the rejected format-1 declaration
+
+# Phase 4D.3B.2 official campaign: shared fixtures ---------------------------------------------------
+
+OLD_TOKENS = {'a663454': '2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8',   # Phase 4D.3B
+              'c302c18': '8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39'}   # Phase 4D.3B.1
 FROZEN_DECLARATION = ROOT / 'games/connect4/alphazero_v2/frozen/campaign-declaration.json'
 
 
@@ -240,9 +245,8 @@ def declaration_document(package_dir, runtime, *, seeds=(42,), games=2, schedule
         runtime_identity=runtime, frozen_records=C.frozen_record_entries(package_dir, ('manifest.json',
                                                                                      'exclusions.json')),
         phase4d2f_checkpoint=dict(path=str(checkpoint), sha256=hashlib.sha256(checkpoint.read_bytes()).hexdigest()))
-    if ceiling is not None:
-        declaration['budgets']['evaluation_games_ceiling'] = (
-            declaration['budgets']['planned_evaluation_games'] if ceiling == 'planned' else ceiling)
+    if ceiling == 'planned':
+        declaration['budgets']['evaluation_games_ceiling'] = declaration['budgets']['planned_evaluation_games']
     return declaration
 
 
@@ -275,27 +279,45 @@ def launch(directory, declaration, token, **options):
     return C.Campaign(directory, declaration, token, **options)
 
 
-def run_to_end(directory, declaration, token, seeds=(42,), **options):
-    statuses = []
-    for seed in seeds:
-        campaign = launch(directory, declaration, token, **options)
-        try:
-            statuses.append(campaign.run_seed(seed))
-        finally:
-            campaign.close()
-    campaign = launch(directory, declaration, token, **options)
-    try:
-        statuses.append(campaign.final_evaluate())
-    finally:
-        campaign.close()
-    return statuses
+def run_campaign(directory, declaration, token, extra_check=None, **options):
+    return launch(directory, declaration, token, **options).run(extra_check=extra_check)
 
 
-def journal_records(directory):
-    return [json.loads(line)['record'] for line in (Path(directory) / 'journal.jsonl').read_text().splitlines()]
+def state_of(directory):
+    return json.loads((Path(directory) / 'state.json').read_text())
 
 
-# Declaration and token ----------------------------------------------------------------------------------
+def stop_at(phase, generation=None, kind=None, after=0):
+    """extra_check that requests a cooperative stop at a phase (optionally a generation or unit kind)."""
+    state = dict(seen=0, fired=False)
+
+    def check(current, context):
+        if state['fired'] or current != phase:
+            return
+        if generation is not None and context.get('generation') != generation:
+            return
+        if kind is not None and context.get('kind') != kind:
+            return
+        state['seen'] += 1
+        if state['seen'] > after:
+            state['fired'] = True
+            raise C.CampaignStop(f'test stop at {phase}')
+    return check
+
+
+def tree(directory, exclude=('state.json', 'campaign.lock')):
+    """Every file under a campaign directory with its hash (to prove nothing new ran)."""
+    directory = Path(directory)
+    return {p.relative_to(directory).as_posix(): hashlib.sha256(p.read_bytes()).hexdigest()
+            for p in sorted(directory.rglob('*')) if p.is_file() and p.name not in exclude}
+
+
+def assert_not_official(directory):
+    with pytest.raises(C.NotOfficialEvidence):
+        C.official_results(directory)
+
+
+# Declaration and tokens ---------------------------------------------------------------------------------
 
 def test_full_declaration_plans_exactly_the_reviewed_evaluation_games():
     declaration = C.build_declaration({})
@@ -305,8 +327,11 @@ def test_full_declaration_plans_exactly_the_reviewed_evaluation_games():
     assert declaration['generations'] == 20 and declaration['champion']['schedule'] == [5, 10, 15, 20]
     assert V2Config.from_dict(dict(declaration['config'], seed=42)) == V2Config(seed=42)
     assert len(declaration['champion']['baseline_rows']) == 20
-    assert declaration['format_version'] == 2 and declaration['launch_control'] == C.launch_control_declaration()
-    assert OLD_TOKEN in declaration['launch_control']['rejected_declaration_tokens']
+    assert declaration['format_version'] == 3 and declaration['launch_control'] == C.launch_control_declaration()
+    assert declaration['runtime'] == dict(threads=1, deterministic_algorithms=True)  # no resume flags
+    assert declaration['launch_control']['rejected_declaration_tokens'] == sorted(OLD_TOKENS.values())
+    assert 'Forbidden' in declaration['launch_control']['resume']
+    assert not any('lease' in key for key in declaration['launch_control'])
 
 
 def test_declaration_validation_rejects_inconsistent_bindings(tiny_packages, launch_runtime):
@@ -316,13 +341,15 @@ def test_declaration_validation_rejects_inconsistent_bindings(tiny_packages, lau
     tampered_files = dict(source['files'], **{'games/connect4/alphazero_v2/search.py': '0' * 64})
     changes = [
         dict(budgets=dict(declaration['budgets'], planned_evaluation_games=1)), dict(generations=3),
-        dict(seeds=[42, 42]), dict(format_version=1), dict(champion=dict(declaration['champion'], schedule=[2, 1])),
+        dict(seeds=[42, 42]), dict(format_version=2), dict(champion=dict(declaration['champion'], schedule=[2, 1])),
         dict(packages=dict(declaration['packages'], **{'tactical-sealed': dict(
             declaration['packages']['tactical-sealed'], sha256='0' * 64)})),
         dict(champion=dict(declaration['champion'], gate=dict(declaration['champion']['gate'], score=0.5))),
         dict(thresholds=dict(declaration['thresholds'], solved=dict(optimal_preserving=0.5, avoidable_loss_max=0.5))),
-        dict(launch_control=dict(declaration['launch_control'], lease_seconds=10_000)),
+        dict(launch_control=dict(declaration['launch_control'], resume='allowed')),
+        dict(launch_control=dict(declaration['launch_control'], lease_seconds=300.0)),
         dict(launch_control=dict(declaration['launch_control'], rejected_declaration_tokens=[])),
+        dict(runtime=dict(declaration['runtime'], strict_resume_runtime=True)),
         dict(execution_source=dict(source, files=tampered_files)),  # digest no longer matches its files
         dict(runtime_identity={k: v for k, v in launch_runtime.items() if k != 'cpu_model'}),
         dict(runtime_identity=dict(launch_runtime, cpu_model=None)),
@@ -336,38 +363,58 @@ def test_declaration_validation_rejects_inconsistent_bindings(tiny_packages, lau
             C.validate_declaration(dict(declaration, **change), tiny_packages)
 
 
-def test_rejected_token_and_original_declaration_never_authorize(tmp_path, tiny_packages, launch_runtime):
-    path, token = write_declaration(tiny_packages, declaration_document(tiny_packages, launch_runtime), 'ok.json')
+@pytest.mark.parametrize('commit', sorted(OLD_TOKENS))
+def test_both_old_tokens_and_their_declarations_never_authorize(tmp_path, tiny_packages, launch_runtime, commit):
+    token = OLD_TOKENS[commit]
+    path, _ = write_declaration(tiny_packages, declaration_document(tiny_packages, launch_runtime), 'ok.json')
     with pytest.raises(C.LaunchRefused, match='REJECTED'):
-        C.Campaign(tmp_path / 'c', path, OLD_TOKEN)
-    old = subprocess.run(['git', '-C', str(ROOT), 'show', f'{OLD_DECLARATION_COMMIT}:{FROZEN_DECLARATION.relative_to(ROOT)}'],
+        C.Campaign(tmp_path / 'c', path, token)
+    old = subprocess.run(['git', '-C', str(ROOT), 'show', f'{commit}:{FROZEN_DECLARATION.relative_to(ROOT)}'],
                          capture_output=True)
     if old.returncode != 0:
         pytest.skip('original declaration bytes unavailable from git')
-    assert hashlib.sha256(old.stdout).hexdigest() == OLD_TOKEN
+    assert hashlib.sha256(old.stdout).hexdigest() == token
     copy = tmp_path / 'campaign-declaration.json'
     copy.write_bytes(old.stdout)
-    for loader in (lambda: C.load_declaration(copy), lambda: C.Campaign(tmp_path / 'c', copy, OLD_TOKEN)):
+    for loader in (lambda: C.load_declaration(copy), lambda: C.Campaign(tmp_path / 'c', copy, token)):
         with pytest.raises(C.LaunchRefused, match='REJECTED / NOT AUTHORIZED'):
             loader()
     report = C.preflight(copy)
     assert report['ok'] is False and 'REJECTED' in report['gates'][0]['detail']
-    assert report['declaration_sha256'] == OLD_TOKEN
-    # The CLI refuses it in a fresh interpreter (exit 2) even with a pinned runtime.
-    result = subprocess.run([sys.executable, '-m', 'games.connect4.alphazero_v2.campaign', 'run', '--declaration',
-                             str(copy), '--campaign-dir', str(tmp_path / 'cli'), '--authorize', OLD_TOKEN, '--seed',
-                             '42'], capture_output=True, text=True, timeout=120, cwd=ROOT, env=pinned_env())
+    # The CLI refuses it in a fresh interpreter (exit 2) even with a pinned runtime; no directory is created.
+    result = subprocess.run([sys.executable, '-m', 'games.connect4.alphazero_v2.campaign', 'launch', '--declaration',
+                             str(copy), '--campaign-dir', str(tmp_path / 'cli'), '--authorize', token],
+                            capture_output=True, text=True, timeout=120, cwd=ROOT, env=pinned_env())
     assert result.returncode == C.EXIT_REFUSED and 'REJECTED' in result.stdout
-    assert not (tmp_path / 'cli').exists()
+    assert not (tmp_path / 'c').exists() and not (tmp_path / 'cli').exists()
 
 
-def test_frozen_declaration_is_the_new_format_2_declaration():
-    """The repository's frozen declaration is the re-frozen one: valid, bound, and not the rejected token."""
+def test_the_new_token_is_required(tmp_path, tiny_packages, fake_runtime):
+    path, token = in_process(tiny_packages, fake_runtime, 'token.json')
+    _, other = in_process(tiny_packages, fake_runtime, 'token-other.json', games=3)
+    for wrong in (other, '0' * 64, token.upper()):
+        with pytest.raises(PermissionError, match='must equal the declaration SHA-256'):
+            launch(tmp_path / 'c', path, wrong)
+    assert not (tmp_path / 'c').exists()
+    launch(tmp_path / 'c', path, token).close()
+    assert state_of(tmp_path / 'c')['declaration_sha256'] == token
+
+
+def test_old_multi_command_workflow_no_longer_exists():
+    for command in (['run', '--seed', '42'], ['final-evaluate']):
+        with pytest.raises(SystemExit) as raised:
+            C.main(command + ['--declaration', 'd', '--campaign-dir', 'c', '--authorize', 'x'])
+        assert raised.value.code == 2
+
+
+def test_frozen_declaration_is_the_new_format_3_declaration():
+    """The repository's frozen declaration is the re-frozen one: valid, bound, and not a rejected token."""
     token = hashlib.sha256(FROZEN_DECLARATION.read_bytes()).hexdigest()
-    assert token != OLD_TOKEN
+    assert token not in OLD_TOKENS.values()
     declaration, digest = C.load_declaration(FROZEN_DECLARATION)
-    assert digest == token and declaration['format_version'] == 2 and declaration['kind'] == 'research'
+    assert digest == token and declaration['format_version'] == 3 and declaration['kind'] == 'research'
     assert declaration['execution_source'] == C.execution_source_declaration()  # matches this tree's sources
+    assert declaration['launch_control'] == C.launch_control_declaration()
     assert sorted(declaration['frozen_records']) == sorted(C.FROZEN_RECORD_NAMES)
     assert declaration['budgets'] == C.build_declaration({})['budgets']
     assert declaration['config'] == C.build_declaration({})['config'] and declaration['seeds'] == [42, 314159]
@@ -387,6 +434,7 @@ def test_every_declaration_field_is_bound_by_the_token(tmp_path, tiny_packages, 
         assert other != token, key
         with pytest.raises((PermissionError, ValueError, KeyError, TypeError, AttributeError)):
             C.Campaign(tmp_path / f'c-{key}', path, token)  # the old token never authorizes the new bytes
+        assert not (tmp_path / f'c-{key}').exists()
 
 
 def test_launch_rejects_changed_packages_frozen_records_and_checkpoint(tmp_path, tiny_packages, fake_runtime):
@@ -402,11 +450,12 @@ def test_launch_rejects_changed_packages_frozen_records_and_checkpoint(tmp_path,
         try:
             with pytest.raises((ValueError, C.LaunchRefused), match=match):
                 launch(tmp_path / f'c-{name}', path, token)
+            assert not (tmp_path / f'c-{name}').exists()
         finally:
             target.write_bytes(original)
 
 
-# Source binding -----------------------------------------------------------------------------------------
+# Source and runtime binding at launch -------------------------------------------------------------------
 
 def tampered_identity(name):
     identity = provenance.execution_source_identity()
@@ -477,77 +526,46 @@ except C.LaunchRefused as error:
 def test_fresh_interpreter_refuses_a_one_byte_source_edit(tmp_path, tiny_packages, launch_runtime):
     """A copied repository tree: an edited execution file is refused by a fresh interpreter;
     documentation, tests and non-closure modules do not change executable identity."""
-    tree = tmp_path / 'tree'
+    tree_root = tmp_path / 'tree'
     for relative in provenance.execution_source_files():
-        (tree / relative).parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(ROOT / relative, tree / relative)
-    shutil.copytree(tiny_packages, tree / 'packages')
-    path, token = write_declaration(tree / 'packages', declaration_document(tree / 'packages', launch_runtime),
+        (tree_root / relative).parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ROOT / relative, tree_root / relative)
+    shutil.copytree(tiny_packages, tree_root / 'packages')
+    path, token = write_declaration(tree_root / 'packages', declaration_document(tree_root / 'packages', launch_runtime),
                                     'declaration.json')
 
     def attempt(name):
         result = subprocess.run([sys.executable, '-c', COPIED_LAUNCH, str(path), token, str(tmp_path / name)],
-                                capture_output=True, text=True, timeout=180, cwd=tree, env=pinned_env())
+                                capture_output=True, text=True, timeout=180, cwd=tree_root, env=pinned_env())
         assert result.returncode == 0, result.stderr
         return json.loads(result.stdout.strip().splitlines()[-1])
     assert attempt('clean') == dict(accepted=True, preflight=True)
-    (tree / 'docs').mkdir()
-    (tree / 'docs/notes.md').write_text('documentation only\n')
-    (tree / 'tests').mkdir()
-    (tree / 'tests/test_extra.py').write_text('def test_nothing():\n    pass\n')
-    (tree / 'games/connect4/agents/negamax_agent.py').write_text('# legacy, outside the execution closure\n')
+    (tree_root / 'docs').mkdir()
+    (tree_root / 'docs/notes.md').write_text('documentation only\n')
+    (tree_root / 'tests').mkdir()
+    (tree_root / 'tests/test_extra.py').write_text('def test_nothing():\n    pass\n')
+    (tree_root / 'games/connect4/agents/negamax_agent.py').write_text('# legacy, outside the execution closure\n')
     assert attempt('docs-only') == dict(accepted=True, preflight=True)
     for relative, group in (('games/connect4/alphazero_v2/search.py', 'training'),
                             ('games/connect4/alphazero_v2/evaluation.py', 'evaluation_and_launch')):
-        original = (tree / relative).read_bytes()
-        (tree / relative).write_bytes(original + b'#')
+        original = (tree_root / relative).read_bytes()
+        (tree_root / relative).write_bytes(original + b'#')
         try:
             outcome = attempt(f'edited-{group}')
             assert outcome['accepted'] is False and f'{group} source differs' in outcome['error'] \
                 and relative in outcome['error']
             assert not (tmp_path / f'edited-{group}').exists()
         finally:
-            (tree / relative).write_bytes(original)
+            (tree_root / relative).write_bytes(original)
 
-
-def test_source_drift_mid_campaign_stops_before_publication(tmp_path, tiny_packages, fake_runtime, monkeypatch):
-    path, token = in_process(tiny_packages, fake_runtime, 'drift.json')
-    real = C.execution_source_identity
-    state = dict(drift=False)
-
-    def drift(phase, context):
-        if context.get('generation') == 2:
-            state['drift'] = True
-    monkeypatch.setattr(C, 'execution_source_identity',
-                        lambda: tampered_identity('games/connect4/alphazero_v2/data.py') if state['drift'] else real())
-    campaign = launch(tmp_path / 'c', path, token)
-    with pytest.raises(C.LaunchRefused, match='during the campaign.*training source differs.*data.py'):
-        campaign.run_seed(42, extra_check=drift)
-    campaign.close()
-    records = journal_records(tmp_path / 'c')
-    assert not any(r['event'] == 'generation_committed' and r['generation'] == 2 for r in records)
-    assert records[-1]['event'] == 'attempt_end' and records[-1]['status'].startswith('failed: LaunchRefused')
-    state['drift'] = False
-    assert run_to_end(tmp_path / 'c', path, token) == ['completed', 'completed']
-
-
-# Runtime binding -----------------------------------------------------------------------------------------
 
 @pytest.mark.parametrize('key', C.RUNTIME_IDENTITY_KEYS)
-def test_every_runtime_identity_field_refuses_launch_and_resume(tmp_path, tiny_packages, fake_runtime, key):
+def test_every_runtime_identity_field_refuses_launch(tmp_path, tiny_packages, fake_runtime, key):
     path, token = in_process(tiny_packages, fake_runtime, 'runtime.json')
-    campaign = launch(tmp_path / 'c', path, token)
-    assert campaign.run_seed(42, extra_check=stop_at('training', 1)).startswith('stopped')
-    campaign.close()
-    before = (tmp_path / 'c' / 'journal.jsonl').read_bytes()
-    original = fake_runtime['identity']
-    fake_runtime['identity'] = dict(original, **{key: 'changed'})
-    try:
-        with pytest.raises(C.LaunchRefused, match=f'runtime differs from the declaration.*{key}'):
-            launch(tmp_path / 'c', path, token)
-        assert (tmp_path / 'c' / 'journal.jsonl').read_bytes() == before  # refused before any new work
-    finally:
-        fake_runtime['identity'] = original
+    fake_runtime['identity'] = dict(fake_runtime['identity'], **{key: 'changed'})
+    with pytest.raises(C.LaunchRefused, match=f'runtime differs from the declaration.*{key}'):
+        launch(tmp_path / 'c', path, token)
+    assert not (tmp_path / 'c').exists()
 
 
 def test_unidentified_runtime_is_refused(tmp_path, tiny_packages, fake_runtime):
@@ -567,24 +585,6 @@ def test_cpu_identity_probe_does_not_need_a_subprocess(monkeypatch):
         assert provenance._cpu_model()
     finally:
         provenance._cpu_model.cache_clear()
-
-
-def test_runtime_change_between_training_and_final_evaluation_is_refused(tmp_path, tiny_packages, fake_runtime,
-                                                                          monkeypatch):
-    path, token = in_process(tiny_packages, fake_runtime, 'final-identity.json')
-    campaign = launch(tmp_path / 'c', path, token)
-    assert campaign.run_seed(42) == 'completed'
-    campaign.close()
-    original = fake_runtime['identity']
-    fake_runtime['identity'] = dict(original, torch='2.10.1')
-    with pytest.raises(C.LaunchRefused, match='torch'):
-        launch(tmp_path / 'c', path, token)
-    fake_runtime['identity'] = original
-    monkeypatch.setattr(C, 'execution_source_identity',
-                        lambda: tampered_identity('games/connect4/alphazero_v2/arena.py'))
-    with pytest.raises(C.LaunchRefused, match='evaluation_and_launch source differs.*arena.py'):
-        launch(tmp_path / 'c', path, token)
-    assert not (tmp_path / 'c' / 'final').exists()
 
 
 def test_preflight_is_a_launch_gate(tmp_path, tiny_packages, launch_runtime):
@@ -612,217 +612,182 @@ def test_preflight_is_a_launch_gate(tmp_path, tiny_packages, launch_runtime):
         'detail']
 
 
-def test_concurrent_invocation_is_refused(tmp_path, tiny_packages, fake_runtime):
-    path, token = in_process(tiny_packages, fake_runtime, 'lock.json')
-    first = launch(tmp_path / 'c', path, token)
-    try:
-        with pytest.raises(C.CampaignLocked):
-            launch(tmp_path / 'c', path, token)
-        status = C.campaign_status(tmp_path / 'c')  # read-only status works while the writer holds the lock
-        assert status['journal']['torn_tail_bytes'] == 0
-    finally:
-        first.close()
-    launch(tmp_path / 'c', path, token).close()
+# Identity drift after launch => INCOMPLETE ----------------------------------------------------------------
+
+def test_source_drift_mid_campaign_is_incomplete_and_never_continues(tmp_path, tiny_packages, fake_runtime,
+                                                                     monkeypatch):
+    path, token = in_process(tiny_packages, fake_runtime, 'drift.json')
+    real = C.execution_source_identity
+    drift = dict(on=False)
+
+    def trigger(phase, context):
+        if context.get('generation') == 2:
+            drift['on'] = True
+    monkeypatch.setattr(C, 'execution_source_identity',
+                        lambda: tampered_identity('games/connect4/alphazero_v2/data.py') if drift['on'] else real())
+    status = run_campaign(tmp_path / 'c', path, token, extra_check=trigger)
+    assert status.startswith('incomplete: IdentityDrift') and 'training source differs' in status \
+        and 'data.py' in status
+    state = state_of(tmp_path / 'c')
+    assert state['state'] == 'INCOMPLETE' and state['outcome']['during'] == 'RUNNING_SEED_42'
+    assert not (tmp_path / 'c/runs/seed-42/generations/generation-0002').exists()  # its work is never accepted
+    drift['on'] = False  # even with the declared identity restored, the declaration never continues
+    with pytest.raises(C.TerminalCampaign, match='already INCOMPLETE'):
+        launch(tmp_path / 'c', path, token)
+    assert state_of(tmp_path / 'c') == state
 
 
-def test_campaign_directory_stays_bound_to_its_declaration(tmp_path, tiny_packages, fake_runtime):
-    path, token = in_process(tiny_packages, fake_runtime, 'bound-a.json')
-    other, other_token = in_process(tiny_packages, fake_runtime, 'bound-b.json', games=3)
-    launch(tmp_path / 'c', path, token).close()
-    with pytest.raises(FileExistsError, match='different declaration'):
-        launch(tmp_path / 'c', other, other_token)
-    (tmp_path / 'c/declaration.json').unlink()
-    shutil.copy2(other, tmp_path / 'c/declaration.json')  # a swapped copy cannot adopt the journal
-    with pytest.raises(C.InconsistentCampaign, match='different declaration'):
-        launch(tmp_path / 'c', other, other_token)
-    (tmp_path / 'unrelated').mkdir()
-    (tmp_path / 'unrelated/data.txt').write_text('not a campaign')
-    with pytest.raises(FileExistsError, match='not a campaign directory'):
-        launch(tmp_path / 'unrelated', path, token)
+@pytest.mark.parametrize('key', ['deterministic_algorithms', 'intra_op_threads', 'torch', 'cpu_model',
+                                 'thread_environment'])
+def test_runtime_drift_mid_campaign_is_incomplete(tmp_path, tiny_packages, fake_runtime, key):
+    path, token = in_process(tiny_packages, fake_runtime, 'runtime-drift.json')
+    original = fake_runtime['identity']
+
+    def trigger(phase, context):
+        if phase == 'training' and context.get('generation') == 1:
+            fake_runtime['identity'] = dict(original, **{key: 'drifted'})
+    status = run_campaign(tmp_path / 'c', path, token, extra_check=trigger)
+    assert status.startswith('incomplete: IdentityDrift') and key in status
+    assert state_of(tmp_path / 'c')['state'] == 'INCOMPLETE'
+    assert not (tmp_path / 'c/runs/seed-42/generations/generation-0001').exists()
 
 
-def test_final_evaluation_refuses_an_attempt_recorded_under_another_identity(tmp_path, tiny_packages,
-                                                                               fake_runtime):
-    path, token = in_process(tiny_packages, fake_runtime, 'history.json')
-    campaign = launch(tmp_path / 'c', path, token)
-    assert campaign.run_seed(42) == 'completed'
-    campaign.close()
-    # Append, with valid checksums, an attempt that an unchecked launcher could have run under another runtime.
-    from games.connect4.alphazero_v2 import launch_control as L
-    declaration = json.loads(path.read_text())
-    state = L.CampaignState(declaration['generations'], declaration['champion']['schedule'])
-    journal = L.Journal(tmp_path / 'c/journal.jsonl', state)
-    number = len(state.attempts) + 1
-    journal.append(dict(event='attempt_start', attempt=number, scope='42', declaration_sha256=token,
-                        runtime=dict(fake_runtime['identity'], intra_op_threads=8),
-                        execution_sha256=declaration['execution_source']['sha256']))
-    journal.append(dict(event='attempt_end', attempt=number, scope='42', status='stopped', total_seconds=1,
-                        training_seconds=0))
-    campaign = launch(tmp_path / 'c', path, token)
-    try:
-        with pytest.raises(C.LaunchRefused, match=f'Attempt {number} ran under a different identity'):
-            campaign.final_evaluate()
-    finally:
-        campaign.close()
-    assert not (tmp_path / 'c/final').exists()
+def test_runtime_drift_during_sealed_evaluation_leaves_no_acceptable_evidence(tmp_path, tiny_packages,
+                                                                             fake_runtime):
+    """R1: evidence computed under a drifted runtime is never accepted, now or by any later invocation."""
+    path, token = in_process(tiny_packages, fake_runtime, 'sealed-drift.json')
+    original = fake_runtime['identity']
+
+    def drift(point, campaign):
+        if point == 'after_unit_begin:calibration_game':
+            fake_runtime['identity'] = dict(original, deterministic_algorithms=False)
+    status = run_campaign(tmp_path / 'c', path, token, fault=drift)
+    assert status.startswith('incomplete: IdentityDrift') and 'deterministic_algorithms' in status
+    state = state_of(tmp_path / 'c')
+    assert state['state'] == 'INCOMPLETE' and state['outcome']['during'] == 'RUNNING_FINAL_EVALUATION'
+    counts = state['counters']['evaluation']['by_kind']['calibration_game']
+    assert counts == dict(started=1, completed=0)  # computed, never accepted
+    assert not (tmp_path / 'c/final/seed-42.json').exists()
+    assert_not_official(tmp_path / 'c')
+    fake_runtime['identity'] = original
+    before = tree(tmp_path / 'c', exclude=('campaign.lock',))
+    with pytest.raises(C.TerminalCampaign):
+        launch(tmp_path / 'c', path, token)
+    assert tree(tmp_path / 'c', exclude=('campaign.lock',)) == before
 
 
-def test_torn_journal_tail_is_recovered_at_launch(tmp_path, tiny_packages, fake_runtime):
-    path, token = in_process(tiny_packages, fake_runtime, 'torn.json')
-    plain = run_to_end(tmp_path / 'plain', path, token)
-    campaign = launch(tmp_path / 'c', path, token)
-    assert campaign.run_seed(42, extra_check=stop_at('training', 2)).startswith('stopped')
-    campaign.close()
-    with open(tmp_path / 'c/journal.jsonl', 'ab') as stream:
-        stream.write(b'{"seq": 999, "record": {"event": "unit_begin"')  # crash mid-append
-    assert C.campaign_status(tmp_path / 'c')['journal']['torn_tail_bytes'] > 0
-    assert run_to_end(tmp_path / 'c', path, token) == plain
-    records = journal_records(tmp_path / 'c')
-    torn = [r for r in records if r['event'] == 'torn_tail_discarded']
-    assert len(torn) == 1 and (tmp_path / 'c' / torn[0]['saved_as']).exists()
-    assert fingerprint(tmp_path / 'c') == fingerprint(tmp_path / 'plain')
+# Normal completion ------------------------------------------------------------------------------------
+
+def test_normal_campaign_completes_without_any_resume_path(tmp_path, tiny_packages, fake_runtime, monkeypatch):
+    from games.connect4.alphazero_v2 import generation as G
+    real, validated = G.load_resume_boundary, []
+
+    def forbidden(path, *args, **kwargs):
+        # Writing a diagnostic boundary validates its unpublished temporary file by reloading it;
+        # loading any published boundary would be a continuation, which the official launcher never does.
+        if not Path(path).name.endswith('.tmp'):
+            raise AssertionError('the official launcher must never load a published resume boundary')
+        validated.append(path)
+        return real(path, *args, **kwargs)
+    monkeypatch.setattr(G, 'load_resume_boundary', forbidden)
+    path, token = in_process(tiny_packages, fake_runtime, 'normal.json')
+    assert run_campaign(tmp_path / 'c', path, token) == 'completed'
+    assert len(validated) == 3  # generations 0, 1 and 2 were written, never read back as a continuation
+    state = state_of(tmp_path / 'c')
+    assert state['state'] == 'COMPLETE'
+    assert [h['state'] for h in state['history']] == ['CREATED', 'RUNNING_SEED_42', 'DEVELOPMENT_SELECTION_COMPLETE',
+                                                      'RUNNING_FINAL_EVALUATION', 'COMPLETE']
+    official = C.official_results(tmp_path / 'c')
+    assert sorted(official['results']) == ['42'] and official['declaration_sha256'] == token
+    assert sorted(p.name for p in (tmp_path / 'c').iterdir()) == ['campaign.lock', 'declaration.json', 'final',
+                                                                  'runs', 'source', 'state.json']
+    # A COMPLETE campaign never runs or transitions again.
+    with pytest.raises(C.TerminalCampaign, match='already COMPLETE'):
+        launch(tmp_path / 'c', path, token)
+    assert state_of(tmp_path / 'c') == state
 
 
-# Durable transitions in-process --------------------------------------------------------------------------
-
-def stop_at(phase, generation=None, kind=None, after=0):
-    """extra_check that requests a cooperative stop at a phase (optionally a generation or unit kind)."""
-    state = dict(seen=0, fired=False)
-
-    def check(current, context):
-        if state['fired'] or current != phase:
-            return
-        if generation is not None and context.get('generation') != generation:
-            return
-        if kind is not None and context.get('kind') != kind:
-            return
-        state['seen'] += 1
-        if state['seen'] > after:
-            state['fired'] = True
-            raise C.CampaignStop(f'test stop at {phase}')
-    return check
+def test_official_launcher_has_no_resume_code_path():
+    names = set()
+    import tokenize
+    with open(ROOT / 'games/connect4/alphazero_v2/campaign.py', 'rb') as stream:
+        names = {t.string for t in tokenize.tokenize(stream.readline) if t.type == tokenize.NAME}
+    assert not names & {'load_resume_boundary', 'save_resume_boundary', 'recover_open_attempts', 'Journal',
+                        'repair', 'lease', 'final_evaluate', 'run_seed'}
 
 
-def test_cooperative_stops_resume_without_rerunning_completed_units(tmp_path, tiny_packages, fake_runtime):
-    path, token = in_process(tiny_packages, fake_runtime, 'stops.json')
-    plain = run_to_end(tmp_path / 'plain', path, token)
-    campaign = launch(tmp_path / 'c', path, token)
-    status = campaign.run_seed(42, extra_check=stop_at('evaluation', kind='development_arena_game', after=3))
-    campaign.close()
-    assert status == 'stopped: test stop at evaluation'
-    records = journal_records(tmp_path / 'c')
-    completed_before = {r['unit'] for r in records if r['event'] == 'unit_complete'}
-    abandoned = [r for r in records if r['event'] == 'unit_abandoned']
-    assert len(abandoned) == 1 and abandoned[0]['partial']['abandoned']
-    assert run_to_end(tmp_path / 'c', path, token) == plain
-    records = journal_records(tmp_path / 'c')
-    begins = [r['unit'] for r in records if r['event'] == 'unit_begin']
-    assert not any(begins.count(u) > 1 for u in completed_before)  # completed units never rerun
-    assert begins.count(abandoned[0]['unit']) == 2               # the abandoned unit is rerun once
-    assert fingerprint(tmp_path / 'c') == fingerprint(tmp_path / 'plain')
+def test_counters_record_every_unit_of_live_work(tmp_path, tiny_packages, fake_runtime):
+    path, token = in_process(tiny_packages, fake_runtime, 'counters.json', seeds=(42, 7))
+    assert run_campaign(tmp_path / 'c', path, token) == 'completed'
+    declaration, state = json.loads(path.read_text()), state_of(tmp_path / 'c')
+    counters = state['counters']
+    for seed in ('42', '7'):
+        training = counters['training'][seed]
+        summaries = [json.loads((tmp_path / f'c/runs/seed-{seed}/generations/generation-{g:04d}/summary.json')
+                                .read_text())['summary'] for g in (1, 2)]
+        assert training['generations_attempted'] == training['generations_completed'] == 2
+        assert training['selfplay_games_attempted'] == training['selfplay_games_completed'] == 4
+        assert training['plies'] == sum(s['new_positions'] for s in summaries)
+        assert training['optimizer_steps'] == sum(s['updates'] for s in summaries)
+    evaluation = counters['evaluation']
+    assert all(v['started'] == v['completed'] for v in evaluation['by_kind'].values())
+    assert evaluation['total_games_started'] == evaluation['total_games_completed'] \
+        == declaration['budgets']['planned_evaluation_games']
+    assert evaluation['development_games'] + evaluation['sealed_games'] + evaluation['calibration_games'] \
+        == evaluation['total_games_completed']
+    assert evaluation['calibration_games'] == 2 and evaluation['sealed_games'] == 2 * (4 + 2)
+    phases = counters['time']['phase_seconds']
+    assert {'setup', 'seed-42:training', 'seed-7:development', 'final'} <= set(phases)
+    assert counters['time']['elapsed_seconds'] <= declaration['budgets']['campaign_seconds']
 
 
-def test_inconsistent_published_outputs_are_refused(tmp_path, tiny_packages, fake_runtime):
-    path, token = in_process(tiny_packages, fake_runtime, 'inconsistent.json')
-    campaign = launch(tmp_path / 'c', path, token)
-    assert campaign.run_seed(42, extra_check=stop_at('training', 2)).startswith('stopped')
-    campaign.close()
-    artifact = tmp_path / 'c/runs/seed-42/generations/generation-0001/generation-0001.inference.pt'
-    original = artifact.read_bytes()
-    artifact.write_bytes(original + b'x')
-
-    def resume():
-        campaign = launch(tmp_path / 'c', path, token)
-        try:
-            return campaign.run_seed(42)
-        finally:
-            campaign.close()
-    with pytest.raises(C.InconsistentCampaign, match='generation 1'):
-        resume()
-    artifact.write_bytes(original)
-    view = tmp_path / 'c/runs/seed-42/generations/generation-0001/summary.json'
-    view.write_text(view.read_text().replace('"generation": 1', '"generation": 9'))
-    with pytest.raises(C.InconsistentCampaign, match='disagrees with the journal'):
-        resume()
-    assert not any(r['event'] == 'generation_committed' and r['generation'] == 2
-                   for r in journal_records(tmp_path / 'c'))  # no new work over inconsistent outputs
-
-
-# Deadlines (fake clock) -------------------------------------------------------------------------------------
-
-def outcome(directory):
-    path = Path(directory) / 'outcome.json'
-    return json.loads(path.read_text()) if path.exists() else None
-
-
-def test_final_calibration_receives_checks_and_an_overrun_is_incomplete(tmp_path, tiny_packages, fake_runtime,
-                                                                        monkeypatch):
-    """B3 regression: the last calibration game overruns the campaign cap after its final check."""
-    clock = Clock()
-    path, token = in_process(tiny_packages, fake_runtime, 'calibration.json', campaign_seconds=1000)
-    import games.connect4.alphazero_v2.evaluation as E2
+def test_selections_are_fixed_before_any_sealed_inference(tmp_path, tiny_packages, fake_runtime):
+    path, token = in_process(tiny_packages, fake_runtime, 'fixed.json', seeds=(42, 7))
     seen = {}
-    real = E2.calibration_games
 
-    def overrunning(*args, check=None, **kwargs):
-        seen['check'] = check is not None
-        records = real(*args, check=check, **kwargs)
-        clock.now = 1000.5
-        return records
-    directory = tmp_path / 'overrun'
-    campaign = launch(directory, path, token, clock=clock)
-    clock.now = 0.0
-    assert campaign.run_seed(42) == 'completed'
-    campaign.close()
-    monkeypatch.setattr(E2, 'calibration_games', overrunning)
-    campaign = launch(directory, path, token, clock=clock)
-    status = campaign.final_evaluate()
-    campaign.close()
-    assert seen['check'] is True
-    assert status == 'incomplete: campaign wall-clock budget exceeded before the phase completed'
-    assert not (directory / 'final/seed-42.json').exists()
-    assert outcome(directory)['status'] == 'INCOMPLETE'
-    assert json.loads((directory / 'final/result.json').read_text())['status'] == 'INCOMPLETE'
-    records = journal_records(directory)
-    calibration = [r for r in records if r['event'] == 'unit_complete' and r['kind'] == 'calibration_game']
-    assert calibration and calibration[-1]['within_budget'] is False
-    assert not any(r['event'] in ('final_seed_complete', 'campaign_complete') for r in records)
-    # INCOMPLETE is final: a later invocation does no work and cannot extend the deadline.
-    clock.now = 0.0
-    campaign = launch(directory, path, token, clock=Clock())
-    assert campaign.final_evaluate().startswith('incomplete')
-    campaign.close()
-    assert len(journal_records(directory)) == len(records)
+    def observe(point, campaign):
+        if point == 'after_unit_begin:final_tactical_row' and not seen:
+            seen['state'] = state_of(campaign.directory)
+            seen['started'] = (campaign.directory / 'final/started.json').exists()
+    assert run_campaign(tmp_path / 'c', path, token, fault=observe) == 'completed'
+    assert seen['state']['state'] == 'RUNNING_FINAL_EVALUATION' and seen['started']
+    fixed = seen['state']['history'][-1]['selections']
+    for seed in ('42', '7'):
+        assert fixed[seed] == json.loads((tmp_path / f'c/runs/seed-{seed}/selection.json').read_text())
 
 
-def test_stop_during_the_last_unit_defers_publication(tmp_path, tiny_packages, fake_runtime, monkeypatch):
-    path, token = in_process(tiny_packages, fake_runtime, 'last-stop.json')
-    campaign = launch(tmp_path / 'c', path, token)
-    assert campaign.run_seed(42) == 'completed'
-    campaign.close()
-    import games.connect4.alphazero_v2.evaluation as E2
-    real = E2.calibration_games
-    campaign = launch(tmp_path / 'c', path, token)
+# Deadlines and limits (fake clock) => INCOMPLETE -------------------------------------------------------
 
-    def stopping(*args, **kwargs):
-        records = real(*args, **kwargs)
-        campaign._budget.request_stop('signal 15')
-        return records
-    monkeypatch.setattr(E2, 'calibration_games', stopping)
-    assert campaign.final_evaluate() == 'stopped: signal 15'
-    campaign.close()
-    assert not (tmp_path / 'c/final/seed-42.json').exists() and outcome(tmp_path / 'c') is None
-    monkeypatch.setattr(E2, 'calibration_games', real)
-    begun = sum(r['event'] == 'unit_begin' for r in journal_records(tmp_path / 'c'))
-    campaign = launch(tmp_path / 'c', path, token)
-    assert campaign.final_evaluate() == 'completed'
-    campaign.close()
-    assert sum(r['event'] == 'unit_begin' for r in journal_records(tmp_path / 'c')) == begun  # nothing rerun
-    assert outcome(tmp_path / 'c')['status'] == 'COMPLETE'
+def test_deadline_during_development_is_incomplete(tmp_path, tiny_packages, fake_runtime):
+    clock = Clock()
+    path, token = in_process(tiny_packages, fake_runtime, 'dev-deadline.json', campaign_seconds=1000)
+
+    def expire(point, campaign):
+        if point == 'before_unit_complete:development_arena_game':
+            clock.now = 1000.5
+    status = run_campaign(tmp_path / 'c', path, token, clock=clock, fault=expire)
+    assert status == 'incomplete: campaign wall-clock budget exceeded before the work was accepted'
+    state = state_of(tmp_path / 'c')
+    assert state['state'] == 'INCOMPLETE' and state['outcome']['during'] == 'RUNNING_SEED_42'
+    assert state['counters']['evaluation']['by_kind']['development_arena_game'] == dict(started=1, completed=0)
+    assert not list((tmp_path / 'c/runs/seed-42').glob('champion-check-*.json'))
 
 
-def test_last_update_overrunning_the_training_cap_discards_the_generation(tmp_path, tiny_packages, fake_runtime,
-                                                                          monkeypatch):
+def test_no_unit_starts_at_the_deadline(tmp_path, tiny_packages, fake_runtime):
+    clock = Clock()
+    path, token = in_process(tiny_packages, fake_runtime, 'start-deadline.json', campaign_seconds=1000)
+
+    def expire(point, campaign):
+        if point == 'after_generation_saved' and campaign.budget.phase_seconds.get('seed-42:training') is not None:
+            clock.now = 1000.0  # exactly at the limit: nothing new may start
+    status = run_campaign(tmp_path / 'c', path, token, clock=clock, fault=expire)
+    assert status == 'incomplete: campaign wall-clock budget exhausted'
+    state = state_of(tmp_path / 'c')
+    assert state['counters']['evaluation']['total_games_started'] == 0
+    assert not (tmp_path / 'c/runs/seed-42/generations/generation-0001/summary.json').exists()
+
+
+def test_training_overrun_is_never_accepted(tmp_path, tiny_packages, fake_runtime, monkeypatch):
     clock = Clock()
     path, token = in_process(tiny_packages, fake_runtime, 'training-cap.json', per_run_training_seconds=100)
     from games.connect4.alphazero_v2 import generation as G
@@ -830,253 +795,332 @@ def test_last_update_overrunning_the_training_cap_discards_the_generation(tmp_pa
 
     def slow_last_update(self, *args, **kwargs):
         summary = real(self, *args, **kwargs)
-        clock.now += 101.0  # the final optimizer update ran past the per-run cap
+        clock.now += 101.0  # the final optimizer update ran past the per-seed cap
         return summary
     monkeypatch.setattr(G.GenerationRunner, 'run_generation', slow_last_update)
-    campaign = launch(tmp_path / 'c', path, token, clock=clock)
-    status = campaign.run_seed(42)
-    campaign.close()
-    assert status == ('incomplete: per-run collection+optimization budget exceeded before the generation '
-                      'completed')
-    records = journal_records(tmp_path / 'c')
-    assert [r['generation'] for r in records if r['event'] == 'generation_committed'] == [0]
-    assert [r['generation'] for r in records if r['event'] == 'generation_discarded'] == [1]
-    assert outcome(tmp_path / 'c')['scope'] == '42'
+    status = run_campaign(tmp_path / 'c', path, token, clock=clock)
+    assert status == ('incomplete: seed 42 collection+optimization budget exceeded before the generation was '
+                      'accepted')
+    assert not (tmp_path / 'c/runs/seed-42/generations/generation-0001').exists()
+    assert state_of(tmp_path / 'c')['counters']['training']['42']['generations_completed'] == 0
 
 
-def test_deadline_during_development_evaluation_preserves_evidence(tmp_path, tiny_packages, fake_runtime):
+def test_last_calibration_overrun_is_incomplete(tmp_path, tiny_packages, fake_runtime, monkeypatch):
+    """B3 regression: the last calibration game overruns the campaign cap after its final check."""
     clock = Clock()
-    path, token = in_process(tiny_packages, fake_runtime, 'dev-deadline.json', campaign_seconds=1000)
+    path, token = in_process(tiny_packages, fake_runtime, 'calibration.json', campaign_seconds=1000)
+    import games.connect4.alphazero_v2.evaluation as E2
+    real, seen = E2.calibration_games, {}
 
-    def expire(point, campaign):
-        if point == 'before_unit_complete:development_arena_game':
-            clock.now = 1000.0
-    campaign = launch(tmp_path / 'c', path, token, clock=clock, fault=expire)
-    status = campaign.run_seed(42)
-    campaign.close()
-    assert status == 'incomplete: campaign wall-clock budget exhausted'
-    records = journal_records(tmp_path / 'c')
-    completed = [r for r in records if r['event'] == 'unit_complete']
-    assert len(completed) == 1 and completed[0]['within_budget'] is True  # finished exactly at the limit
-    assert not any(r['event'] == 'champion_decision' for r in records)
-    status = C.campaign_status(tmp_path / 'c')
-    assert status['outcome']['event'] == 'campaign_incomplete'
-    assert status['progress']['seeds']['42']['pending_checks'] == [1, 2]
+    def overrunning(*args, check=None, **kwargs):
+        seen['check'] = check is not None
+        records = real(*args, check=check, **kwargs)
+        clock.now = 1000.5
+        return records
+    monkeypatch.setattr(E2, 'calibration_games', overrunning)
+    status = run_campaign(tmp_path / 'c', path, token, clock=clock)
+    assert seen['check'] is True
+    assert status == 'incomplete: campaign wall-clock budget exceeded before the work was accepted'
+    assert not (tmp_path / 'c/final/seed-42.json').exists()
+    assert state_of(tmp_path / 'c')['outcome']['during'] == 'RUNNING_FINAL_EVALUATION'
+    assert_not_official(tmp_path / 'c')
 
 
-def test_exact_game_ceiling_completes_and_one_lost_slot_is_incomplete(tmp_path, tiny_packages, fake_runtime):
+def test_overrun_just_before_the_terminal_write_is_incomplete(tmp_path, tiny_packages, fake_runtime):
+    """R3 window: time passing between the last unit and COMPLETE can never yield COMPLETE past the cap."""
+    clock = Clock()
+    path, token = in_process(tiny_packages, fake_runtime, 'terminal.json', campaign_seconds=10)
+
+    def late(point, campaign):
+        if point == 'after_unit_begin:calibration_game':
+            clock.now = 9.9
+        if point == 'before_campaign_complete':
+            clock.now = 10.1
+    status = run_campaign(tmp_path / 'c', path, token, clock=clock, fault=late)
+    assert status == 'incomplete: campaign wall-clock budget exceeded before COMPLETE'
+    state = state_of(tmp_path / 'c')
+    assert state['state'] == 'INCOMPLETE' and state['counters']['time']['elapsed_seconds'] == 10.1
+    assert (tmp_path / 'c/final/seed-42.json').exists()  # forensic artifact only
+    assert_not_official(tmp_path / 'c')
+
+
+def test_complete_is_written_only_with_an_account_within_every_limit(tmp_path, tiny_packages, fake_runtime):
+    clock = Clock()
+    path, token = in_process(tiny_packages, fake_runtime, 'at-limit.json', campaign_seconds=10)
+
+    def exactly(point, campaign):
+        if point == 'before_campaign_complete':
+            clock.now = 10.0
+    assert run_campaign(tmp_path / 'c', path, token, clock=clock, fault=exactly) == 'completed'
+    state = state_of(tmp_path / 'c')
+    assert state['state'] == 'COMPLETE' and state['counters']['time']['elapsed_seconds'] == 10.0
+
+
+def test_exact_game_ceiling_completes_and_one_less_is_incomplete(tmp_path, tiny_packages, fake_runtime):
     path, token = in_process(tiny_packages, fake_runtime, 'ceiling.json', ceiling='planned')
-    assert run_to_end(tmp_path / 'exact', path, token) == ['completed', 'completed']
+    assert run_campaign(tmp_path / 'exact', path, token) == 'completed'
     planned = json.loads(path.read_text())['budgets']['planned_evaluation_games']
-    consumption = C.campaign_status(tmp_path / 'exact')['consumption']
-    assert consumption['evaluation_games_charged'] == consumption['evaluation_games_completed'] == planned
-    # One abandoned game keeps its charge, so the final game no longer fits under the ceiling.
-    campaign = launch(tmp_path / 'short', path, token)
-    assert campaign.run_seed(42, extra_check=stop_at('evaluation', kind='development_arena_game', after=1)) \
-        .startswith('stopped')
-    campaign.close()
-    statuses = run_to_end(tmp_path / 'short', path, token)
-    assert statuses == ['completed', 'incomplete: evaluation-game ceiling reached']
-    consumption = C.campaign_status(tmp_path / 'short')['consumption']
-    assert consumption['evaluation_games_charged'] == planned
-    assert consumption['evaluation_games_completed'] == planned - 1
-    assert outcome(tmp_path / 'short')['status'] == 'INCOMPLETE'
+    assert state_of(tmp_path / 'exact')['counters']['evaluation']['total_games_started'] == planned
+    # A declaration cannot plan more games than its ceiling; one slot taken by anything else is fatal.
+
+    def take_a_slot(point, campaign):
+        if point == 'after_transition:RUNNING_FINAL_EVALUATION':
+            campaign.budget.games_started += 1
+    status = run_campaign(tmp_path / 'short', path, token, fault=take_a_slot)
+    assert status == 'incomplete: evaluation-game ceiling reached'
+    state = state_of(tmp_path / 'short')
+    assert state['state'] == 'INCOMPLETE' and state['counters']['evaluation']['total_games_completed'] == planned - 1
 
 
-# Crash recovery (hard interruption at every transition, real fresh interpreters) ----------------------------
+def test_cooperative_stop_during_sealed_evaluation_is_incomplete(tmp_path, tiny_packages, fake_runtime):
+    path, token = in_process(tiny_packages, fake_runtime, 'sealed-stop.json')
+    status = run_campaign(tmp_path / 'c', path, token, extra_check=stop_at('evaluation', kind='final_ladder_game'))
+    assert status == 'incomplete: test stop at evaluation'
+    state = state_of(tmp_path / 'c')
+    assert state['state'] == 'INCOMPLETE' and state['outcome']['during'] == 'RUNNING_FINAL_EVALUATION'
+    assert_not_official(tmp_path / 'c')
+    with pytest.raises(C.TerminalCampaign):
+        launch(tmp_path / 'c', path, token)
+
+
+# Ownership and existing directories ------------------------------------------------------------------------
+
+def test_second_process_cannot_advance_a_live_campaign(tmp_path, tiny_packages, fake_runtime):
+    path, token = in_process(tiny_packages, fake_runtime, 'lock.json')
+    first = launch(tmp_path / 'c', path, token)
+    try:
+        with pytest.raises(C.CampaignLocked):
+            launch(tmp_path / 'c', path, token)
+        assert C.campaign_status(tmp_path / 'c')['state'] == 'CREATED'  # read-only status needs no lock
+    finally:
+        first.close()
+    # The owner ended without a terminal state: the campaign is now INCOMPLETE, never continued.
+    with pytest.raises(C.InterruptedCampaign, match=L.INTERRUPTED_MESSAGE):
+        launch(tmp_path / 'c', path, token)
+    assert state_of(tmp_path / 'c')['state'] == 'INCOMPLETE'
+
+
+def test_existing_directories_are_never_adopted(tmp_path, tiny_packages, fake_runtime):
+    path, token = in_process(tiny_packages, fake_runtime, 'bound-a.json')
+    other, other_token = in_process(tiny_packages, fake_runtime, 'bound-b.json', games=3)
+    (tmp_path / 'empty').mkdir()
+    (tmp_path / 'unrelated').mkdir()
+    (tmp_path / 'unrelated/data.txt').write_text('not a campaign')
+    for name in ('empty', 'unrelated'):
+        with pytest.raises(FileExistsError, match='new campaign directory'):
+            launch(tmp_path / name, path, token)
+    launch(tmp_path / 'c', path, token).close()
+    before = tree(tmp_path / 'c', exclude=('campaign.lock',))
+    with pytest.raises(FileExistsError, match='different declaration'):
+        launch(tmp_path / 'c', other, other_token)
+    assert tree(tmp_path / 'c', exclude=('campaign.lock',)) == before  # another declaration never touches it
+    (tmp_path / 'c/state.json').write_text('{"torn')
+    with pytest.raises(C.TerminalCampaign, match='cannot be resumed'):
+        launch(tmp_path / 'c', path, token)
+    assert C.campaign_status(tmp_path / 'c')['state'] is None
+    with pytest.raises(L.StateCorrupt):
+        C.official_results(tmp_path / 'c')
+
+
+def test_forged_complete_state_without_matching_results_is_not_official(tmp_path, tiny_packages, fake_runtime):
+    path, token = in_process(tiny_packages, fake_runtime, 'forged.json')
+    assert run_campaign(tmp_path / 'c', path, token) == 'completed'
+    result = tmp_path / 'c/final/seed-42.json'
+    result.write_text(result.read_text().replace('"complete"', '"tampered"'))
+    with pytest.raises(C.NotOfficialEvidence, match='differs from the hash certified'):
+        C.official_results(tmp_path / 'c')
+
+
+# Hard interruption (real fresh interpreters): never resumable --------------------------------------------
 
 CRASH_SCRIPT = '''
 import json, os, sys
 from pathlib import Path
 from games.connect4.alphazero_v2 import campaign as C
 declaration, token, directory, fault = sys.argv[1], sys.argv[2], Path(sys.argv[3]), json.loads(sys.argv[4])
-counts = {}
+count = [0]
 
 def crash(point, campaign):
-    scope = campaign.state.attempts[campaign.attempt]["scope"] if campaign.attempt else None
-    if fault and point == fault[0] and scope == fault[1]:
-        counts[point] = counts.get(point, 0) + 1
-        if counts[point] == fault[2]:
-            os._exit(91)  # hard interruption: no attempt_end, no cleanup
-statuses = []
-seeds = json.loads(Path(declaration).read_text())["seeds"]
-for seed in seeds:
-    while True:
-        campaign = C.Campaign(directory, declaration, token, fault=crash)
-        try:
-            if campaign.state.seed(seed)["selected"] is not None:
-                break
-            statuses.append(campaign.run_seed(seed))
-        finally:
-            campaign.close()
-        if statuses[-1] != "completed":
-            break
-campaign = C.Campaign(directory, declaration, token, fault=crash)
-statuses.append(campaign.final_evaluate())
-campaign.close()
-print(json.dumps(statuses))
+    if fault and point == fault[0]:
+        count[0] += 1
+        if count[0] == fault[1]:
+            os._exit(91)  # hard interruption: no terminal state, no cleanup
+print(json.dumps(C.Campaign(directory, declaration, token, fault=crash).run()))
+'''
+
+REFERENCE_SCRIPT = '''
+import json, sys
+from games.connect4.alphazero_v2.config import V2Config
+from games.connect4.alphazero_v2.generation import GenerationRunner
+from games.connect4.alphazero_v2.provenance import configure_deterministic_runtime
+configure_deterministic_runtime(1)
+declaration = json.load(open(sys.argv[1]))
+hashes = {}
+for seed in declaration["seeds"]:
+    runner = GenerationRunner(V2Config.from_dict(dict(declaration["config"], seed=seed)))
+    hashes[str(seed)] = [runner.state_sha256()]
+    for _ in range(declaration["generations"]):
+        runner.run_generation()
+        hashes[str(seed)].append(runner.state_sha256())
+print(json.dumps(hashes))
 '''
 
 CRASH_POINTS = [
-    ('before_generation_begin', '42', 2), ('progress:game', '42', 1), ('progress:collected', '42', 1),
-    ('progress:update', '42', 2), ('after_training', '42', 1), ('after_boundary_files', '42', 2),
-    ('before_commit_record', '42', 2), ('after_commit_record', '42', 2), ('after_commit_install', '42', 2),
-    ('before_diagnostics_record', '42', 1), ('after_diagnostics_record', '42', 2), ('after_prune_record', '42', 1),
-    ('after_unit_begin:development_arena_game', '42', 2),
-    ('before_unit_complete:development_baseline_game', '42', 1),
-    ('before_unit_complete:development_tactics_row', '42', 3),
-    ('before_decision_record', '42', 1), ('after_decision_record', '42', 2),
-    ('before_selection_record', '42', 1), ('after_selection_record', '42', 1),
-    ('before_commit_record', '7', 1), ('progress:update', '7', 1),  # between seeds / second seed
-    ('before_final_started', 'final', 1), ('after_final_started', 'final', 1),
-    ('after_unit_begin:final_tactical_row', 'final', 1), ('before_unit_complete:final_solved_row', 'final', 2),
-    ('before_unit_complete:final_ladder_game', 'final', 3), ('after_unit_begin:calibration_game', 'final', 1),
-    ('before_final_seed_record', 'final', 1), ('after_final_seed_record', 'final', 1),
-    ('before_campaign_complete', 'final', 1),
+    ('after_transition:RUNNING_SEED_42', 1),
+    ('progress:game', 1),                               # a self-play game completed, before any counter snapshot
+    ('progress:update', 1),
+    ('after_generation_saved', 2),                      # a valid generation-1 resume boundary exists
+    ('after_unit_begin:development_arena_game', 1),
+    ('after_transition:RUNNING_SEED_7', 1),             # between seeds
+    ('after_transition:DEVELOPMENT_SELECTION_COMPLETE', 1),
+    ('after_transition:RUNNING_FINAL_EVALUATION', 1),   # selections fixed, no sealed inference yet
+    ('after_unit_begin:final_ladder_game', 1),          # sealed interruption
+    ('before_unit_complete:calibration_game', 2),
+    ('before_campaign_complete', 1),                    # every result file written, COMPLETE not yet written
 ]
-
-
-# A hard interruption inside an open generation discards it (the generation-0 boundary has no open generation).
-DISCARDS_GENERATION = {p for p in CRASH_POINTS if p[0] in (
-    'progress:game', 'progress:collected', 'progress:update', 'after_training', 'after_boundary_files',
-    'before_commit_record') and p != ('before_commit_record', '7', 1)}
 
 
 def strip_timing(value):
     if isinstance(value, dict):
-        return {k: strip_timing(v) for k, v in value.items() if k not in ('seconds', 'utc')}
+        return {k: strip_timing(v) for k, v in value.items() if k not in ('seconds', 'utc', 'resources', 'files')}
     if isinstance(value, list):
         return [strip_timing(v) for v in value]
     return value
 
 
 def fingerprint(directory):
-    """Everything that must equal the uninterrupted campaign (timings and attempt numbers excluded)."""
+    """Every deterministic campaign result (timings, and artifact files that embed Git provenance, excluded)."""
     directory = Path(directory)
-    records = journal_records(directory)
-    pick = lambda event, *keys: sorted(tuple(json.dumps(r[k], sort_keys=True) for k in keys)  # noqa: E731
-                                       for r in records if r['event'] == event)
-    finals = {p.name: strip_timing(json.loads(p.read_text())) for p in sorted((directory / 'final').glob('seed-*.json'))}
-    for result in finals.values():
-        for name in ('agent', 'selection'):
-            result.pop(name, None)
-    return dict(
-        commits=pick('generation_committed', 'seed', 'generation', 'learner_weights_sha256', 'state_sha256', 'summary'),
-        games=sorted((r['seed'], r['generation'], r['files'].get('games', {}).get('sha256'))
-                     for r in records if r['event'] == 'generation_committed'),
-        diagnostics=pick('generation_diagnostics', 'seed', 'generation', 'development_raw_value'),
-        decisions=pick('champion_decision', 'seed', 'generation', 'previous', 'promote', 'decision', 'arena',
-                       'baselines', 'candidate_tactics', 'champion_tactics'),
-        selections=pick('seed_selected', 'seed', 'generation', 'inference'),
-        evidence={r['unit']: strip_timing(r['evidence']) for r in records if r['event'] == 'unit_complete'},
-        finals=finals, outcome=[r['status'] for r in records if r['event'] in ('campaign_complete',
-                                                                              'campaign_incomplete')])
+    files = sorted(directory.glob('runs/seed-*/generations/generation-*/summary.json')) \
+        + sorted(directory.glob('runs/seed-*/*.json')) + sorted(directory.glob('final/seed-*.json'))
+    return {p.relative_to(directory).as_posix(): strip_timing(json.loads(p.read_text())) for p in files}
+
+
+def cli_launch(path, token, directory):
+    return subprocess.run([sys.executable, '-m', 'games.connect4.alphazero_v2.campaign', 'launch', '--declaration',
+                           str(path), '--campaign-dir', str(directory), '--authorize', token],
+                          capture_output=True, text=True, timeout=900, cwd=ROOT, env=pinned_env())
 
 
 @pytest.fixture(scope='module')
 def crash_matrix(tmp_path_factory, tiny_packages, launch_runtime):
-    """Run the uninterrupted tiny two-seed campaign and one hard crash + resume per transition, in parallel."""
+    """Uninterrupted tiny two-seed campaigns and one hard crash + later invocations per point, in parallel."""
     from concurrent.futures import ThreadPoolExecutor
     root = tmp_path_factory.mktemp('crash-matrix')
     path, token = write_declaration(tiny_packages, declaration_document(
         tiny_packages, launch_runtime, seeds=(42, 7), schedule=(1, 2)), 'crash.json')
 
-    def run(directory, fault):
-        result = subprocess.run([sys.executable, '-c', CRASH_SCRIPT, str(path), token, str(directory),
-                                 json.dumps(fault)], capture_output=True, text=True, timeout=900, cwd=ROOT,
-                                env=pinned_env())
-        return result.returncode, result.stdout, result.stderr
+    def crash_run(directory, fault):
+        return subprocess.run([sys.executable, '-c', CRASH_SCRIPT, str(path), token, str(directory),
+                               json.dumps(fault)], capture_output=True, text=True, timeout=900, cwd=ROOT,
+                              env=pinned_env())
 
     def scenario(index_point):
         index, point = index_point
         directory = root / f'crash-{index:02d}'
-        first = run(directory, list(point))
-        second = run(directory, None) if first[0] == 91 else None
-        return point, first, second
+        first = crash_run(directory, list(point))
+        after_crash = dict(state=state_of(directory), tree=tree(directory)) if first.returncode == 91 else None
+        second = cli_launch(path, token, directory) if first.returncode == 91 else None
+        after_second = dict(state=state_of(directory), tree=tree(directory)) if second else None
+        third = cli_launch(path, token, directory) if second else None
+        return point, dict(first=first, after_crash=after_crash, second=second, after_second=after_second,
+                           third=third, directory=directory)
     with ThreadPoolExecutor(max_workers=max(2, (os.cpu_count() or 2) // 2)) as pool:
-        plain = pool.submit(run, root / 'plain', None)
-        crashes = list(pool.map(scenario, enumerate(CRASH_POINTS)))
-    return dict(root=root, plain=plain.result(), crashes={tuple(p): (i, f, s) for i, (p, f, s) in enumerate(crashes)})
+        plain = pool.submit(cli_launch, path, token, root / 'plain')
+        again = pool.submit(crash_run, root / 'again', None)
+        reference = pool.submit(subprocess.run, [sys.executable, '-c', REFERENCE_SCRIPT, str(path)],
+                                capture_output=True, text=True, timeout=900, cwd=ROOT, env=pinned_env())
+        crashes = dict(pool.map(scenario, enumerate(CRASH_POINTS)))
+    return dict(root=root, path=path, token=token, plain=plain.result(), again=again.result(),
+                reference=reference.result(), crashes=crashes)
 
 
-def test_uninterrupted_tiny_campaign_completes(crash_matrix):
-    code, stdout, stderr = crash_matrix['plain']
-    assert code == 0, stderr[-3000:]
-    assert json.loads(stdout.strip().splitlines()[-1]) == ['completed', 'completed', 'completed']
-    assert outcome(crash_matrix['root'] / 'plain')['status'] == 'COMPLETE'
-    consumption = C.campaign_status(crash_matrix['root'] / 'plain')['consumption']
-    for seed in consumption['seeds'].values():  # uninterrupted: every attempted unit of work was accepted
-        assert seed['selfplay_games_completed'] == seed['accepted_games'] == 2 * 2
-        assert seed['training_plies_completed'] == seed['accepted_plies'] > 0
-        assert seed['optimizer_steps_attempted'] == seed['accepted_optimizer_steps'] > 0
-        assert seed['generations_begun'] == seed['generations_committed'] == 2
-    assert consumption['evaluation_games_charged'] == consumption['evaluation_games_completed'] > 0
-    assert all(u['attempted'] == u['completed'] for u in consumption['units'].values())
+def test_uninterrupted_tiny_campaign_completes_identically_to_the_expected_result(crash_matrix):
+    root, plain = crash_matrix['root'], crash_matrix['plain']
+    assert plain.returncode == C.EXIT_COMPLETED, plain.stdout[-2000:] + plain.stderr[-3000:]
+    assert plain.stdout.strip().splitlines()[-1] == 'completed'
+    assert crash_matrix['again'].returncode == 0, crash_matrix['again'].stderr[-3000:]
+    assert state_of(root / 'plain')['state'] == state_of(root / 'again')['state'] == 'COMPLETE'
+    # Two independent uninterrupted campaigns produce identical results.
+    assert fingerprint(root / 'plain') == fingerprint(root / 'again') and fingerprint(root / 'plain')
+    # Evaluation interleaving never changes training: every generation equals a standalone trajectory.
+    assert crash_matrix['reference'].returncode == 0, crash_matrix['reference'].stderr[-3000:]
+    expected = json.loads(crash_matrix['reference'].stdout.strip().splitlines()[-1])
+    for seed, hashes in expected.items():
+        for generation, digest in enumerate(hashes):
+            summary = root / f'plain/runs/seed-{seed}/generations/generation-{generation:04d}'
+            if generation:
+                assert json.loads((summary / 'summary.json').read_text())['state_sha256'] == digest
+    official = C.official_results(root / 'plain')
+    assert sorted(official['results']) == ['42', '7']
+    status = subprocess.run([sys.executable, '-m', 'games.connect4.alphazero_v2.campaign', 'status',
+                             '--campaign-dir', str(root / 'plain')], capture_output=True, text=True, timeout=120,
+                            cwd=ROOT, env=pinned_env())
+    assert status.returncode == 0 and json.loads(status.stdout)['state'] == 'COMPLETE'
 
 
-@pytest.mark.parametrize('point', CRASH_POINTS, ids=[f'{p}@{s}#{n}' for p, s, n in CRASH_POINTS])
-def test_hard_crash_recovers_to_the_uninterrupted_result(crash_matrix, point):
-    index, first, second = crash_matrix['crashes'][tuple(point)]
-    assert first[0] == 91, f'fault point never reached: {first[2][-2000:]}'
-    assert second is not None and second[0] == 0, second[2][-3000:]
-    assert json.loads(second[1].strip().splitlines()[-1])[-1] == 'completed'
-    directory = crash_matrix['root'] / f'crash-{index:02d}'
-    plain = crash_matrix['root'] / 'plain'
-    assert fingerprint(directory) == fingerprint(plain)
-    status, reference = C.campaign_status(directory), C.campaign_status(plain)
-    consumption = status['consumption']
-    assert consumption['attempts']['recovered_after_hard_interruption'] == 1 and consumption['attempts']['open'] == 0
-    # The crashed attempt is charged through its lease: time can only grow, never reset.
-    assert consumption['charged_seconds'] >= reference['consumption']['charged_seconds'] + 0.5 * LEASE_SECONDS
-    games, plain_games = consumption['evaluation_games_charged'], reference['consumption']['evaluation_games_charged']
-    if point[0].endswith(('_game', 'calibration_game')) and 'unit' in point[0]:
-        assert games == plain_games + 1  # the interrupted game stays charged and is replayed once
-    else:
-        assert games == plain_games
-    assert consumption['evaluation_games_completed'] == reference['consumption']['evaluation_games_completed']
-    for name, seed in consumption['seeds'].items():
-        accepted = reference['consumption']['seeds'][name]
-        for key in ('accepted_games', 'accepted_plies', 'accepted_optimizer_steps', 'generations_committed'):
-            assert seed[key] == accepted[key], key
-        assert seed['selfplay_games_completed'] >= accepted['selfplay_games_completed']
-        assert seed['optimizer_steps_attempted'] >= accepted['optimizer_steps_attempted']
-    if point == ('progress:game', '42', 1):  # one self-play game completed inside the discarded generation
-        attempted, accepted = consumption['seeds']['42'], reference['consumption']['seeds']['42']
-        assert attempted['selfplay_games_completed'] == accepted['selfplay_games_completed'] + 1
-    if point == ('progress:update', '42', 2):
-        attempted, accepted = consumption['seeds']['42'], reference['consumption']['seeds']['42']
-        assert attempted['optimizer_steps_attempted'] == accepted['optimizer_steps_attempted'] + 2
-    records = journal_records(directory)
-    discarded = [r for r in records if r['event'] == 'generation_discarded']
-    if point in DISCARDS_GENERATION:
-        assert len(discarded) == 1 and 'hard interruption' in discarded[0]['reason']
-    else:
-        assert discarded == []
-    if point[0] in ('after_boundary_files', 'before_commit_record'):
-        assert list((directory / f'runs/seed-{point[1]}/staging').iterdir())  # orphan staging, never authoritative
+@pytest.mark.parametrize('point', CRASH_POINTS, ids=[f'{p}#{n}' for p, n in CRASH_POINTS])
+def test_interrupted_official_campaign_can_never_resume(crash_matrix, point):
+    run = crash_matrix['crashes'][point]
+    assert run['first'].returncode == 91, f"fault point never reached: {run['first'].stderr[-2000:]}"
+    crashed = run['after_crash']['state']
+    assert crashed['state'] not in L.TERMINAL_STATES  # the dead owner left a non-terminal state
+    # A later invocation: INCOMPLETE, the required notice, nonzero exit, and no new work.
+    second = run['second']
+    assert second.returncode == C.EXIT_INCOMPLETE, second.stdout + second.stderr[-2000:]
+    assert L.INTERRUPTED_MESSAGE in second.stdout
+    state = run['after_second']['state']
+    assert state['state'] == 'INCOMPLETE' and state['outcome']['reason'].startswith('interrupted')
+    assert crashed['state'] in state['outcome']['reason']
+    assert [h['state'] for h in state['history']] == [h['state'] for h in crashed['history']] + ['INCOMPLETE']
+    assert run['after_second']['tree'] == run['after_crash']['tree']  # nothing repaired, rerun or added
+    # Terminal: every later invocation is refused and changes nothing.
+    third = run['third']
+    assert third.returncode == C.EXIT_REFUSED and 'already INCOMPLETE' in third.stdout
+    assert state_of(run['directory']) == state
+    assert_not_official(run['directory'])
 
 
-def test_signal_stops_the_cli_cooperatively(tmp_path, tiny_packages, launch_runtime):
+def test_valid_resume_boundary_does_not_permit_official_continuation(crash_matrix):
+    run = crash_matrix['crashes'][('after_generation_saved', 2)]
+    resume = run['directory'] / 'runs/seed-42/generations/generation-0001/generation-0001.resume.pt'
+    runner = load_resume_boundary(resume, strict_runtime=False, restore_global_rng=False)
+    assert runner.completed_generations == 1  # a valid, loadable generation boundary exists
+    assert run['second'].returncode == C.EXIT_INCOMPLETE and state_of(run['directory'])['state'] == 'INCOMPLETE'
+    assert not (run['directory'] / 'runs/seed-42/generations/generation-0002').exists()
+
+
+def test_lost_counters_cannot_authorize_continuation(crash_matrix):
+    """R5: a game completed after the last counter snapshot is lost from the counters, and that is harmless."""
+    run = crash_matrix['crashes'][('progress:game', 1)]
+    counters = run['after_crash']['state']['counters']
+    assert counters['training']['42']['selfplay_games_completed'] == 0  # a lower bound: one game physically ran
+    assert run['after_second']['state']['state'] == 'INCOMPLETE'
+
+
+def test_partial_sealed_results_are_never_official(crash_matrix):
+    run = crash_matrix['crashes'][('before_campaign_complete', 1)]
+    directory = run['directory']
+    assert sorted(p.name for p in (directory / 'final').glob('seed-*.json')) == ['seed-42.json', 'seed-7.json']
+    assert run['after_second']['state']['outcome']['reason'].startswith(
+        'interrupted: owner pid') and 'RUNNING_FINAL_EVALUATION' in run['after_second']['state']['outcome']['reason']
+    assert_not_official(directory)
+
+
+def test_signal_stops_the_cli_and_the_campaign_is_incomplete(tmp_path, tiny_packages, launch_runtime):
     path, token = write_declaration(tiny_packages, declaration_document(tiny_packages, launch_runtime, games=40),
                                     'signal.json')
     directory = tmp_path / 'signal'
-    process = subprocess.Popen([sys.executable, '-m', 'games.connect4.alphazero_v2.campaign', 'run',
+    process = subprocess.Popen([sys.executable, '-m', 'games.connect4.alphazero_v2.campaign', 'launch',
                                 '--declaration', str(path), '--campaign-dir', str(directory),
-                                '--authorize', token, '--seed', '42'], cwd=ROOT, env=pinned_env(),
+                                '--authorize', token], cwd=ROOT, env=pinned_env(),
                                stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     deadline = time.time() + 120
-    while time.time() < deadline and not any(
-            '"selfplay_game"' in line for line in ((directory / 'journal.jsonl').read_text().splitlines()
-                                                   if (directory / 'journal.jsonl').exists() else [])):
+    while time.time() < deadline and not (directory / 'runs/seed-42/generations/generation-0000').exists():
         time.sleep(0.2)
     process.send_signal(signal.SIGINT)
     stdout, stderr = process.communicate(timeout=120)
-    assert process.returncode == C.EXIT_STOPPED, stdout + stderr
-    end = [r for r in journal_records(directory) if r['event'] == 'attempt_end'][-1]
-    assert end['status'] == f'stopped: signal {int(signal.SIGINT)}'
-    assert any(r['event'] == 'generation_discarded' for r in journal_records(directory))
-
-
-def test_quantiles_are_nearest_rank_including_minimum():
-    values = list(range(1, 101))
-    assert D.quantiles(values, (0.0, 0.5, 0.95, 1.0)) == dict(p0=1, p50=50, p95=95, p100=100)
+    assert process.returncode == C.EXIT_INCOMPLETE, stdout + stderr
+    state = state_of(directory)
+    assert state['state'] == 'INCOMPLETE' and state['outcome']['reason'] == f'signal {int(signal.SIGINT)}'
+    assert not (directory / 'runs/seed-42/generations/generation-0001').exists()

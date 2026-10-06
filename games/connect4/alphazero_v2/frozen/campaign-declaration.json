@@ -91,13 +91,13 @@
    "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
    "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
    "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
-   "games/connect4/alphazero_v2/campaign.py": "d044ac708c8d8cfa89d4ef66713d47fa462ae7893f6cd259ddcfcb4a6ff75cf5",
+   "games/connect4/alphazero_v2/campaign.py": "46b39a65f2c848fd4822ef24122c6fcd31476ca61be1395dd038b032b11bce61",
    "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
    "games/connect4/alphazero_v2/data.py": "98cf69f75773eeef21ef6126dcba344deefb9f4d609efefd9ad4cfdf2f2a2c87",
    "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
    "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
    "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
-   "games/connect4/alphazero_v2/launch_control.py": "258f03a5dbe1fff9b8baa9c3d618c370b9687bdade5b618b787a1bf9cb3946c6",
+   "games/connect4/alphazero_v2/launch_control.py": "8bd7e2556168a868d95b69c9504136a915806b13ea699ae5f1bf2a656f2201c6",
    "games/connect4/alphazero_v2/network.py": "764ef18fc0e60e91538b94e167a6f4edf7d7538ec3f75ac8c61a1730c4c0f217",
    "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
    "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
@@ -124,7 +124,7 @@
      "games/connect4/alphazero_v2/reference_negamax.py",
      "games/connect4/alphazero_v2/statistics.py"
     ],
-    "sha256": "4c32d8e42049c2ee280552557164deae88c76978f63cc087333b3c6385f77bda"
+    "sha256": "f6e2646160f27038333ed2b32bbf339a3560e74d6b158ddd2254cd62209571f5"
    },
    "training": {
     "files": [
@@ -151,7 +151,7 @@
    }
   },
   "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
-  "sha256": "86a4b8502b1fb708e3c3e97614985dad98bc71ab5cbe46a236f5550874855886"
+  "sha256": "08df122b199eb6eaf6ca5fa8714be89e984b8fa3cb0e2a6c69c0937a84a787ca"
  },
  "final": {
   "calibration_constant": null,
@@ -169,7 +169,7 @@
   "one_time": true
  },
  "format": "connect4-alphazero-v2-campaign-declaration",
- "format_version": 2,
+ "format_version": 3,
  "frozen_records": {
   "build-provenance.json": {
    "path": "build-provenance.json",
@@ -187,24 +187,27 @@
  "generations": 20,
  "kind": "research",
  "launch_control": {
-  "deadlines": "A check precedes every search, move and optimizer update and refuses to start work at a limit. An in-flight primitive may finish past a cooperative deadline, but a generation, decision, selection or final result is published only if every charged limit still holds at its completion. Otherwise the campaign is INCOMPLETE.",
-  "evaluation_games": "Charged when the game's durable reservation precedes its first move. Abandoned and unclosed reservations stay charged and are never evidence. A game may start only while charged games are below the ceiling.",
-  "final_evaluation": "Selections are fixed by final_started before any sealed inference. Each sealed unit completes at most once. The evaluation resumes at unit granularity; it is never restarted from scratch and never reselected.",
-  "journal": "connect4-alphazero-v2-campaign-journal-v1",
-  "lease_seconds": 300.0,
-  "recovery": "Journal-first commits. Completed units are never rerun. Interrupted units are abandoned (still charged) and rerun. Interrupted generations are discarded and rerun from the last committed boundary. Inconsistent published outputs are refused.",
+  "counters": "Live provenance snapshotted into state.json. After a crash they are lower bounds and authorize nothing.",
+  "deadlines": "Monotonic seconds of the owning process. Per seed, collection+optimization stays within per_run_training_seconds; the whole campaign stays within campaign_seconds. A check refuses to start any unit, search, move or update at a limit. Work that finishes past a limit is never accepted. Reaching any limit ends the campaign INCOMPLETE. COMPLETE is written only if every limit holds in the account it records.",
+  "evaluation_games": "Reserved before a game's first move. No game starts once evaluation_games_ceiling games have started.",
+  "final_evaluation": "Both selections are recorded durably in RUNNING_FINAL_EVALUATION before any sealed inference. An interrupted sealed evaluation ends the campaign INCOMPLETE and is never restarted under this declaration.",
+  "identity": "Declared execution sources and runtime identity are revalidated at launch, around every generation and evaluation unit, and before every transition. Any difference ends the campaign INCOMPLETE.",
+  "interruption": "An owner that ends without a terminal state leaves the campaign INCOMPLETE. A later invocation records INCOMPLETE, reports that the campaign cannot be resumed and exits nonzero.",
   "rejected_declaration_tokens": [
-   "2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8"
+   "2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8",
+   "8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39"
   ],
-  "renew_below_seconds": 150.0,
-  "single_writer": "flock on campaign.lock; a concurrent invocation is refused",
-  "time_accounting": "Active invocation seconds. Downtime between invocations is not charged. An attempt that ends normally is charged its measured time; a hard interruption is charged through its last durable lease.",
-  "version": "connect4-alphazero-v2-launch-control-v1"
+  "resume": "Forbidden. An official campaign never resumes after a crash, reboot or drift, never repairs state to continue, never retries interrupted work and never reuses partial evidence. Generation resume artifacts are diagnostic only; the official launcher never loads them.",
+  "single_owner": "One orchestrator process holds an exclusive flock on campaign.lock for the whole campaign and runs every seed, the development selection and the sealed final evaluation sequentially. A second process is refused. A campaign always starts in a new directory.",
+  "state_file": "connect4-alphazero-v2-official-campaign-state-v1",
+  "states": "CREATED -> RUNNING_SEED_<seed> for each declared seed in order -> DEVELOPMENT_SELECTION_COMPLETE -> RUNNING_FINAL_EVALUATION -> COMPLETE. INCOMPLETE may follow any non-terminal state. COMPLETE and INCOMPLETE are terminal. Each transition atomically replaces state.json.",
+  "version": "connect4-alphazero-v2-launch-control-v2-fail-closed"
  },
  "name": "phase4d3c-alphazero-v2-two-seed",
  "notes": [
-  "Phase 4D.3B.1 frozen declaration (format 2) for the Milestone 3 two-seed campaign; running it needs separate authorization.",
-  "The authorization token is the SHA-256 of this exact file. The Phase 4D.3B token 2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8 is REJECTED / NOT AUTHORIZED.",
+  "Phase 4D.3B.2 frozen declaration (format 3) for the Milestone 3 two-seed campaign; running it needs separate authorization.",
+  "The authorization token is the SHA-256 of this exact file. The Phase 4D.3B token 2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8 and the Phase 4D.3B.1 token 8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39 are REJECTED / NOT AUTHORIZED.",
+  "The official campaign is NON-RESUMABLE: one owning process runs both seeds, the development selection and the sealed final evaluation; any interruption, limit or identity drift makes it INCOMPLETE.",
   "It binds execution-source content, the complete runtime identity, frozen packages and records, the retained 4D.2f checkpoint and the launch-control semantics; any difference refuses the launch.",
   "Seed 42 is primary; seed 314159 is replication, not a second chance.",
   "Package and frozen-record paths are relative to this file; the Phase 4D.2f checkpoint path is relative to the repository root."
@@ -247,8 +250,6 @@
  },
  "runtime": {
   "deterministic_algorithms": true,
-  "strict_resume_runtime": true,
-  "strict_resume_source": true,
   "threads": 1
  },
  "runtime_identity": {
