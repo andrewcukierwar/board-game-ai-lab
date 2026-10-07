@@ -28,7 +28,7 @@ test('all explanation modes, sources and explicit failure retry with gameplay av
   await start(page);
   expect(requests).toHaveLength(0);
   await page.getByRole('button', { name: 'Analyze Last Move' }).click();
-  await expect(page.locator('#explanation-result')).toContainText('Key tactical evidence');
+  await expect(page.locator('#explanation-result')).toContainText('Verified tactical evidence');
   await expect(page.locator('#explanation-result a')).toContainText('§3.4, thesis/PDF pp. 21–24');
   await page.getByRole('button', { name: 'Analyze Position', exact: true }).click();
   await expect(page.locator('#explanation-panel')).toHaveAttribute('aria-busy', 'false');
@@ -149,7 +149,7 @@ test('revision 36 summary, expandable evidence and square highlighting preserve 
   await expect(page.locator('#explanation-result > section')).toHaveCount(3);
   await expect(page.locator('.explanation-square')).toHaveCount(2);
   await expect(page.locator('.square-label')).toHaveText(['b2', 'b1']);
-  // React settings rerenders must preserve the legacy highlighter's DOM edits.
+  // Settings rerenders must preserve React-owned highlights.
   await page.locator('input[name="opponent"][value="random"]').check();
   await expect(page.locator('.explanation-square')).toHaveCount(2);
   await expect(page.locator('.square-label')).toHaveText(['b2', 'b1']);
@@ -166,7 +166,7 @@ test('revision 36 summary, expandable evidence and square highlighting preserve 
   await methodology.locator('summary').click();
   await expect(methodology.getByText('Post-hoc analysis; agent intent is unknown.')).toBeVisible();
   await methodology.locator('summary').click();
-  await page.screenshot({ path: '/private/tmp/phase3b1-panel.png', fullPage: true });
+
   const actual = await (await page.request.get(`${api}/v1/connect4/games/${state.game_id}`)).json();
   expect(actual).toEqual(state);
   await page.locator('.cell[data-square="b1"]').click();
@@ -174,4 +174,149 @@ test('revision 36 summary, expandable evidence and square highlighting preserve 
   await expect(page.locator('#explanation-result')).toBeEmpty();
   await expect(page.locator('.explanation-square')).toHaveCount(0);
   await expect(page.locator('.square-label')).toHaveCount(0);
+});
+
+function representative(request) {
+  const result = explained(request);
+  const data = result.explanation;
+  data.summary.text = 'This move makes d2 reachable under gravity. The resulting position allows an immediate reply there; avoiding that reply does not prove a long-term win.';
+  data.facts = [
+    { id: 'position', text: 'The highlighted square d2 becomes reachable when d1 is occupied.', classification: 'confirmed_tactical' },
+    { id: 'reply', text: 'Immediate replies were checked against legal columns. Geometric completion squares are not automatically playable.', classification: 'confirmed_tactical' },
+  ];
+  data.key_facts = data.facts;
+  data.relevant_squares = [{ name: 'd1', column: 3, row: 1, row_index: 5 }, { name: 'd2', column: 3, row: 2, row_index: 4 }];
+  data.strategic_context[0] = { ...data.strategic_context[0], title: 'Threats and winning squares',
+    text: 'A winning square must be reachable under gravity.', connection: 'One relevant strategic concept is the distinction between a completion square and a playable winning square.',
+    preconditions: ['The reference applies to a legal position with gravity.'] };
+  data.additional_context = [{ ...data.strategic_context[0], title: 'Formal coverage', classification: 'reference_only',
+    text: 'Formal coverage requires compatible solutions and additional preconditions.', connection: '',
+    limitations: ['No formal rule application is established by this analysis.'] }];
+  return result;
+}
+
+for (const [name, width, height] of [['desktop', 1440, 1100], ['tablet', 820, 1100], ['mobile', 375, 812], ['narrow-mobile', 320, 740]]) {
+  test(`populated analysis and disclosures fit at ${width}px`, async ({ page }, testInfo) => {
+    await page.setViewportSize({ width, height });
+    await page.route('**/v1/connect4/explain', route => route.fulfill({ json: representative(route.request().postDataJSON()) }));
+    await start(page);
+    await page.locator('#explain-last').focus();
+    await page.keyboard.press('Tab');
+    await expect(page.locator('#analyze-position')).toBeFocused();
+    expect(await page.locator('#analyze-position').evaluate(node => getComputedStyle(node).outlineStyle)).toBe('solid');
+    await page.keyboard.press('Enter');
+    await expect(page.locator('#explanation-panel')).toHaveAttribute('aria-busy', 'false');
+    await expect(page.locator('#analyze-position')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('.explanation-square')).toHaveCount(2);
+    expect(await page.locator('.square-label').evaluateAll(nodes => nodes.every(node => node.getAttribute('aria-hidden') === 'true'))).toBe(true);
+    const source = page.locator('.strategic-context a');
+    await expect(source).toHaveAttribute('href', 'https://tromp.github.io/c4/connect4_thesis.pdf');
+    await expect(source).toHaveAttribute('target', '_blank');
+    await expect(source).toHaveAttribute('rel', 'noopener noreferrer');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.screenshot({ path: testInfo.outputPath(`analysis-${name}-result.png`), fullPage: true });
+    await page.locator('#explanation-panel').screenshot({ path: testInfo.outputPath(`analysis-${name}-panel.png`) });
+    for (const title of ['Detailed analysis', 'Methodology and limitations']) {
+      const summary = page.getByText(title, { exact: true });
+      await summary.focus();
+      expect(await summary.evaluate(node => getComputedStyle(node).outlineStyle)).toBe('solid');
+      await page.keyboard.press('Space');
+      await expect(summary.locator('..')).toHaveAttribute('open', '');
+    }
+    await expect(page.getByText('Reference only', { exact: true })).toBeVisible();
+    await expect(page.getByText('Reference precondition: The reference applies to a legal position with gravity.', { exact: true })).toHaveCount(2);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.locator('#explanation-panel').screenshot({ path: testInfo.outputPath(`analysis-${name}-expanded.png`) });
+    await page.locator('#what-if-column').selectOption('3');
+    await page.locator('#what-if').focus(); await page.keyboard.press('Space');
+    await expect(page.locator('#what-if')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#explanation-status')).toContainText('Hypothetical Column 4');
+  });
+}
+
+test('optional question is capped at 500 and submitted unchanged', async ({ page }) => {
+  let body;
+  await page.route('**/v1/connect4/explain', route => {
+    body = route.request().postDataJSON();
+    return route.fulfill({ json: explained(body) });
+  });
+  await start(page);
+  await page.getByLabel('Optional question', { exact: true }).fill('q'.repeat(500));
+  await page.getByLabel('Optional question', { exact: true }).press('End');
+  await page.getByLabel('Optional question', { exact: true }).press('x');
+  await expect(page.locator('#question-count')).toHaveText('500/500');
+  await page.locator('#analyze-position').click();
+  await expect(page.locator('#explanation-result')).toContainText('Concise verified answer');
+  expect(body.question).toBe('q'.repeat(500));
+  expect(body).not.toHaveProperty('column');
+});
+
+for (const wrong of ['game_id', 'revision', 'mode', 'explanation']) {
+  test(`invalid ${wrong} never renders result or highlights`, async ({ page }) => {
+    await page.route('**/v1/connect4/explain', route => {
+      const result = representative(route.request().postDataJSON());
+      result[wrong] = wrong === 'revision' ? result.revision + 1 : wrong === 'explanation' ? { facts: [] } : 'wrong';
+      return route.fulfill({ json: result });
+    });
+    await start(page); await page.locator('#analyze-position').click();
+    await expect(page.locator('#explanation-status')).toContainText('Gameplay remains available');
+    await expect(page.locator('#explanation-result')).toBeEmpty();
+    await expect(page.locator('.explanation-square')).toHaveCount(0);
+    await page.locator('.cell[data-column="3"]:enabled').first().click();
+    await expect(page.locator('.circle.x')).toHaveCount(1);
+    await expect(page.locator('.circle.o')).toHaveCount(1);
+    await page.locator('#restart-button').click();
+    await expect(page.locator('.circle.x')).toHaveCount(0);
+  });
+}
+
+for (const action of ['restart', 'navigate']) {
+  test(`${action} clears a completed analysis and board labels`, async ({ page }) => {
+    await page.route('**/v1/connect4/explain', route => route.fulfill({ json: representative(route.request().postDataJSON()) }));
+    await start(page); await page.locator('#analyze-position').click();
+    await expect(page.locator('.explanation-square')).toHaveCount(2);
+    if (action === 'restart') await page.locator('#restart-button').click();
+    else {
+      await page.getByRole('link', { name: 'Home', exact: true }).click();
+      await page.getByRole('link', { name: 'Play Connect 4', exact: true }).click();
+    }
+    await expect(page.locator('.explanation-square, .square-label')).toHaveCount(0);
+    await expect(page.locator('#explanation-result')).toBeEmpty();
+  });
+}
+
+test('loading, disabled service and long unavailable error fit at 320px while gameplay stays available', async ({ page }, testInfo) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+  let release;
+  const gate = new Promise(resolve => { release = resolve; });
+  await page.route('**/v1/connect4/explain', async route => {
+    await gate;
+    await route.fulfill({ status: 503, json: { error: 'Explanations are disabled. You can continue playing.' } });
+  });
+  await start(page); await page.locator('#analyze-position').click();
+  await expect(page.locator('#explanation-panel')).toHaveAttribute('aria-busy', 'true');
+  await expect(page.locator('#explanation-status')).toContainText('Preparing grounded analysis');
+  await expect(page.locator('.cell:enabled').first()).toBeEnabled();
+  await expect(page.locator('#restart-button')).toBeEnabled();
+  await expect(page.getByLabel('Optional question', { exact: true })).toBeDisabled();
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: testInfo.outputPath('analysis-loading-320.png'), fullPage: true });
+  release();
+  await expect(page.locator('#explanation-status')).toContainText('disabled');
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: testInfo.outputPath('analysis-disabled-320.png'), fullPage: true });
+  await page.unroute('**/v1/connect4/explain');
+  await page.route('**/v1/connect4/explain', route => route.fulfill({ status: 429, json: {
+    error: 'Analysis is temporarily unavailable. Please try again later. '.repeat(8) + 'LongUnbrokenDiagnosticLabel'.repeat(8),
+  } }));
+  await page.locator('#analyze-position').click();
+  await expect(page.locator('#explanation-status')).toContainText('Gameplay remains available');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.screenshot({ path: testInfo.outputPath('analysis-long-error-320.png'), fullPage: true });
+  await page.locator('.cell[data-column="3"]:enabled').first().click();
+  await expect(page.locator('.circle.x')).toHaveCount(1);
+  await expect(page.locator('.circle.o')).toHaveCount(1);
 });
