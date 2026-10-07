@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { timelineLabel } from './matchRecord.js';
 
-export default function MatchTimeline({ game, moves, live, viewedRevision, review, returnLive }) {
+export default function MatchTimeline({ game, moves, live, viewedRevision, review, returnLive, endLabel = 'Return to live' }) {
   const list = useRef(null);
   useEffect(() => {
     if (live && list.current) list.current.scrollTop = list.current.scrollHeight;
@@ -14,7 +14,7 @@ export default function MatchTimeline({ game, moves, live, viewedRevision, revie
     <div className="replay-controls">
       <button id="match-previous" disabled={!ready || revision === 0} onClick={() => review(revision - 1)}>Previous</button>
       <button id="match-forward" disabled={!ready || revision >= moves.length} onClick={() => review(revision + 1)}>Next</button>
-      <button id="match-live" disabled={!ready || live} onClick={returnLive}>Return to live</button>
+      <button id="match-live" disabled={!ready || live} onClick={returnLive}>{endLabel}</button>
     </div>
     <ol ref={list} className="move-list" aria-label="Match move history" start="0">
       <li><button disabled={!ready} aria-current={ready && revision === 0 ? 'step' : undefined} onClick={() => review(0)}><span className="move-index">0</span><span>Start · Empty board</span></button></li>

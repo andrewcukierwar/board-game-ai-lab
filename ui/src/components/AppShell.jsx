@@ -34,6 +34,7 @@ export default function AppShell() {
           <nav className="site-nav" aria-label="Main navigation">
             <NavLink end to="/connect4">Play</NavLink>
             <NavLink to="/connect4/match-lab">Match Lab</NavLink>
+            <NavLink to="/connect4/tournament">Tournament Lab</NavLink>
             <Link to="/#agents">Agents</Link>
             <Link to="/#research">Research</Link>
             <a href={REPOSITORY_URL}>GitHub <span aria-hidden="true">↗</span></a>

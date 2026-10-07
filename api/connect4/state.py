@@ -18,6 +18,7 @@ class GameError(Exception):
 class GameSession:
     players: list
     touched: float
+    rng_seed: int | None = None
     game: Connect4 = field(default_factory=Connect4)
     revision: int = 0
     history: tuple[MoveRecord, ...] = ()
@@ -45,7 +46,7 @@ class GameStore:
                 finally:
                     session.lock.release()
 
-    def create(self, players, replace_id=None):
+    def create(self, players, replace_id=None, rng_seed=None):
         with self._lock:
             self._expire()
             old = self._games.get(replace_id)
@@ -55,7 +56,7 @@ class GameStore:
                 if old is None and len(self._games) >= self.capacity:
                     raise GameError('session_limit', 'The game server is full. Try again later.', 503)
                 gid = str(uuid4())
-                session = GameSession(players=players, touched=self.clock())
+                session = GameSession(players=players, touched=self.clock(), rng_seed=rng_seed)
                 self._games[gid] = session
                 if old is not None:
                     del self._games[replace_id]

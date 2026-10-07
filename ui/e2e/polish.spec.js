@@ -52,9 +52,10 @@ for (const width of [1440, 1024, 820, 768, 375, 320]) {
       const boxes = await nav.getByRole('link').evaluateAll(links => links.map(link => {
         const { y, height } = link.getBoundingClientRect(); return { y, height };
       }));
-      expect(new Set(boxes.map(box => box.y)).size).toBe(1);
+      // Six links use two rows of three to keep Tournament Lab readable.
+      expect(new Set(boxes.map(box => box.y)).size).toBe(2);
       expect(boxes.every(box => box.height >= 44)).toBe(true);
-      expect((await page.locator('.site-header').boundingBox()).height).toBeLessThan(120);
+      expect((await page.locator('.site-header').boundingBox()).height).toBeLessThan(164);
     }
     expect(await fits(page)).toBe(true);
     await capture('homepage');
@@ -73,6 +74,9 @@ for (const width of [1440, 1024, 820, 768, 375, 320]) {
     await nav.getByRole('link', { name: 'Play', exact: true }).focus();
     await page.keyboard.press(tabKey);
     await expect(nav.getByRole('link', { name: 'Match Lab', exact: true })).toBeFocused();
+    await page.keyboard.press(tabKey);
+    await expect(nav.getByRole('link', { name: 'Tournament Lab', exact: true })).toBeFocused();
+    expect(await nav.getByRole('link', { name: 'Tournament Lab', exact: true }).evaluate(node => getComputedStyle(node).outlineStyle)).toBe('solid');
     await page.keyboard.press(tabKey);
     await expect(nav.getByRole('link', { name: 'Agents', exact: true })).toBeFocused();
     expect(await nav.getByRole('link', { name: 'Agents', exact: true }).evaluate(node => getComputedStyle(node).outlineStyle)).toBe('solid');

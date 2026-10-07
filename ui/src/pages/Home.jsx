@@ -58,6 +58,11 @@ export default function Home() {
         <ActionLink to="/connect4/match-lab" variant="secondary">Open Match Lab</ActionLink>
       </section>
 
+      <section className="match-lab-discovery site-container" aria-label="Tournament Lab">
+        <div><p className="eyebrow">Tournament Lab</p><h2>Build a field. Crown a champion.</h2><p>Seed an AI bracket, run matchups sequentially, and replay every game.</p></div>
+        <ActionLink to="/connect4/tournament" variant="secondary">Open Tournament Lab</ActionLink>
+      </section>
+
       <section className="explain-section" aria-label="Explainability">
         <div className="site-container explain-layout">
           <div><SectionHeading number="02" eyebrow="Beyond the move" title="Make the position understandable.">A move is only the beginning. Explore verified board facts and their connection to Connect 4 strategy.</SectionHeading>

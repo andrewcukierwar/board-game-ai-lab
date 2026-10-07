@@ -23,6 +23,8 @@ function outcome(board) {
 export function validateMatchHistory(data, expected = {}) {
   const invalid = () => { throw new Error('The match history does not agree with the authoritative board.'); };
   const game = validateSnapshot(data?.state, expected);
+  if ((data.rng_seed !== undefined && (!Number.isInteger(data.rng_seed) || data.rng_seed < 0 || data.rng_seed > 4294967295)) ||
+      (expected.rng_seed !== undefined && data.rng_seed !== expected.rng_seed)) invalid();
   if (data.game_id !== game.game_id || data.revision !== game.revision ||
       !samePlayers(data.players, game.players) || !Array.isArray(data.moves) ||
       data.moves.length !== game.revision || game.revision > 42 ||

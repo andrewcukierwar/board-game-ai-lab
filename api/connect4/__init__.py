@@ -1,5 +1,6 @@
 """Connect 4 API: each mutation is locked and guarded by a board revision."""
 from copy import deepcopy
+import random
 from threading import BoundedSemaphore
 
 from flask import Blueprint, current_app, jsonify, request
@@ -16,6 +17,14 @@ MAX_DEPTH = 8
 MCTS_SIMULATION_LIMITS = (50, 100, 250, 400, 800)
 # Shared by all app instances in this process; never wait/queue for a search.
 _mcts_reservation = BoundedSemaphore(1)
+
+
+def ply_seed(seed, revision, player):
+    """32-bit avalanche of seed XOR ply/player salts (no runtime hash/global RNG)."""
+    value = (seed ^ ((revision + 1) * 0x9E3779B9) ^ ((player + 1) * 0x85EBCA6B)) & 0xFFFFFFFF
+    value = ((value ^ (value >> 16)) * 0x7FEB352D) & 0xFFFFFFFF
+    value = ((value ^ (value >> 15)) * 0x846CA68B) & 0xFFFFFFFF
+    return (value ^ (value >> 16)) & 0xFFFFFFFF
 
 
 def store():
@@ -86,12 +95,15 @@ def client_error(error):
 @bp.route('/start_game', methods=['POST'])
 def start_game():
     data = json_object()
-    if set(data) - {'player1', 'player2', 'replace_game_id'}:
+    if set(data) - {'player1', 'player2', 'replace_game_id', 'rng_seed'}:
         raise GameError('invalid_request', 'Unknown start-game field.')
+    seed = data.get('rng_seed')
+    if 'rng_seed' in data and (type(seed) is not int or not 0 <= seed <= 0xFFFFFFFF):
+        raise GameError('invalid_rng_seed', 'rng_seed must be an integer from 0 to 4294967295.')
     players = [player_config(data.get('player1', {'type': 'human'})),
                player_config(data.get('player2', {'type': 'negamax', 'depth': 2}))]
     replace_id = game_id(data['replace_game_id']) if 'replace_game_id' in data else None
-    gid, session = store().create(players, replace_id)
+    gid, session = store().create(players, replace_id, seed)
     return jsonify(snapshot(gid, session)), 201
 
 
@@ -108,6 +120,7 @@ def get_history(gid):
     with store().access(game_id(gid)) as session:
         state = snapshot(gid, session)
         return jsonify(game_id=gid, revision=session.revision,
+                       **({'rng_seed': session.rng_seed} if session.rng_seed is not None else {}),
                        players=state['players'], state=state,
                        moves=[record.to_dict() for record in session.history])
 
@@ -143,11 +156,14 @@ def make_move():
             if reserved and not _mcts_reservation.acquire(blocking=False):
                 raise GameError('agent_busy', 'Another MCTS search is running. Retry the AI move shortly.', 503)
             try:
+                rng = (random.Random(ply_seed(session.rng_seed, session.revision, candidate.current_player))
+                       if session.rng_seed is not None else None)
                 # Explicit production-safe imports; fresh search state per request.
                 if config['type'] == 'mcts':
-                    agent = MCTSAgent(config['simulation_limit'])
+                    agent = (MCTSAgent(config['simulation_limit'], rng=rng) if rng is not None
+                             else MCTSAgent(config['simulation_limit']))
                 elif config['type'] == 'random':
-                    agent = RandomAgent()
+                    agent = RandomAgent(rng=rng) if rng is not None else RandomAgent()
                 else:
                     agent = NegamaxAgent(config['depth'])
                 # Never expose the live game to agent code.

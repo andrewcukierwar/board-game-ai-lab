@@ -6,7 +6,7 @@ Play Connect 4 against Random, depth-limited Negamax or bounded MCTS in a Flask 
 
 Backend API origin: [https://board-game-ai-lab.onrender.com](https://board-game-ai-lab.onrender.com) · [API health endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/health).
 
-**Status:** Public Play is stable and deployed at verified main commit `1d0874102c8a78935ab68d8cd470f24f66431e9f`, with Random, corrected Negamax, MCTS, both turn orders, and grounded AI Analysis. Phase 5A adds a separate **Match Lab** locally at `/connect4/match-lab`, pending review and deployment. It supports any two public competitors, manual stepping, safe autoplay/pause, and read-only timeline replay. See [Match Lab architecture and verification](docs/phase5a-match-lab.md), [the explanation contract](docs/llm-explanations.md), and [deployment guidance](docs/deployment.md).
+**Status:** Public Play and Phase 5A Match Lab are deployed and manually verified at main commit `ed8cd20533fa6ecbad550a960365550b08f29250`. Play supports Random, corrected Negamax, MCTS, both turn orders, and grounded AI Analysis. Match Lab supports independent competitors, manual stepping, safe autoplay/pause, and authoritative replay. Phase 5B adds **Tournament Lab** locally at `/connect4/tournament`: seeded 8/16/32/64-player AI brackets, sequential execution, browser-local persistence, and compact completed-game replay. Tournament Lab is pending review and deployment. See [Tournament Lab architecture and verification](docs/phase5b-tournament-lab.md), [Match Lab](docs/phase5a-match-lab.md), and [deployment guidance](docs/deployment.md).
 
 ## Run locally with Docker
 
