@@ -18,7 +18,7 @@ docker compose up --build
 
 Open **http://localhost:3000** and select **Play Connect 4**. No `.env` file, API key, Python install, or Node install is required. The first build downloads public images and dependencies. Ports 3000 and 8000 must be free. The UI waits for the API health check before starting.
 
-Choose Random, Negamax (depth 1–4, default 2), or MCTS (Quick — 50 simulations; Standard — 100 simulations, default; Deeper — 250 simulations), then **Start game**. You play red and move first. Use **Start new game** at any time to restart; choose another opponent first to switch. Two tabs have independent games. Failed requests show recovery controls instead of automatically repeating moves.
+Choose Random, Negamax (depth presets 1/2/4/6/8, default 2), or MCTS (Quick — 100 simulations, default; Balanced — 400; Deep — 800), then **Start game**. Choose **You go first** (default, red) or **AI goes first** (you play yellow). AI-first games automatically make one opening move. Use **Start new game** at any time to restart; choose another opponent first to switch. Two tabs have independent games. Failed requests show recovery controls instead of automatically repeating moves.
 
 Stop the stack with `Ctrl+C`, then `docker compose down` to remove its containers/network.
 
@@ -62,7 +62,7 @@ For Vite instead, set `PLAYWRIGHT_BASE_URL=http://localhost:5173` when running `
 
 ## Scope and limitations
 
-- The local web API exposes Human, Random, Negamax and MCTS; the UI is human-versus-AI. Negamax is capped at depth 4. MCTS uses UCT selection, random rollouts, alternating-player reward backpropagation and final visit-count selection, with immediate-win and immediate-loss-avoidance root guards. Public simulation presets are 50/100/250 (default 100); strength is not formally benchmarked.
+- The local web API exposes Human, Random, Negamax and MCTS; the UI is human-versus-AI. Corrected Negamax is capped at depth 8 (API integers 1–8; UI presets 1/2/4/6/8). It uses exact dominant terminal values, zero draws, center-first ties and bound-typed transposition entries. MCTS uses UCT selection, random rollouts, alternating-player reward backpropagation and final visit-count selection, with immediate-win and immediate-loss-avoidance root guards. UI simulation presets are 100/400/800 (default 100); the API also retains benchmarked 50/250 for compatibility. Local latency measurements selected these caps; playing strength is not formally benchmarked. See [the performance and turn-order report](docs/public-agent-strength-and-turn-order.md).
 - At most one MCTS search runs per process. A competing request immediately receives HTTP 503 `agent_busy` without changing its board, revision or history; recovery refreshes the board before an explicit retry. Human, Random and Negamax do not use this guard. Searches are synchronous; simulation limits bound work, not a strict wall-clock deadline. Retain one worker/four threads and one instance on Render Free; this is not a distributed limit or fairness queue.
 - Sessions have random game IDs, per-game locks and revision checks. The server retains at most 128 sessions, with 30-minute idle expiry. Expired sessions are reclaimed on subsequent requests. At capacity it rejects new sessions; restarting your existing game replaces it without consuming another slot.
 - Games disappear on server restart. Reloading or leaving the gameplay page starts a new browser interaction; abandoned server sessions expire. Game IDs isolate games but are not authentication credentials for an account system.

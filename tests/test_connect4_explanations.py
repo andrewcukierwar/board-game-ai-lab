@@ -881,3 +881,31 @@ def test_mcts_moves_compatible_with_mocked_explanations(app, monkeypatch, mode):
     assert len(service(app).provider.calls) == 1
     assert app.test_client().get(BASE + '/games/' + state['game_id']).json == state
     assert 'not the agent’s recorded decision process or search trace' in result.json['explanation']['limitations'][0]
+
+
+@pytest.mark.parametrize('human_first', [True, False])
+@pytest.mark.parametrize('kind', ['random', 'negamax', 'mcts'])
+def test_all_analysis_modes_after_first_ai_move_for_both_player_orders(app, human_first, kind):
+    players = [{'type': 'human'}, {'type': kind}] if human_first else [{'type': kind}, {'type': 'human'}]
+    state = start(app, player1=players[0], player2=players[1])
+    if human_first:
+        state = move(app, state, 3)
+    result = app.test_client().post(BASE + '/make_move', json={
+        'game_id': state['game_id'], 'revision': state['revision']})
+    assert result.status_code == 200
+    state = result.json
+    assert state['revision'] == (2 if human_first else 1)
+    before = deepcopy(state)
+    from api.connect4.evidence import get_explanation_context
+    context = get_explanation_context(app.extensions['connect4_games'], state['game_id'], state['revision'])
+    assert context['provenance']['history_verified_by_replay']
+    assert context['move_history'][-1]['player'] == (1 if human_first else 0)
+    assert context['move_history'][-1]['agent']['type'] == kind
+    for mode in ['last_move', 'position', 'what_if']:
+        response = explain(app, state, mode, **({'column': state['legalMoves'][0]} if mode == 'what_if' else {}))
+        assert response.status_code == 200, response.json
+        assert response.json['revision'] == state['revision']
+        assert response.json['mode'] == mode
+    current = app.test_client().get(BASE + '/games/' + state['game_id']).json
+    assert current == before
+    assert len(service(app).provider.calls) == 3

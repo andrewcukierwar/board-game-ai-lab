@@ -29,7 +29,7 @@ export default function Connect4Page({ http = gameHttp }) {
         <GameControls {...gameplay} />
       </aside>
     </div>
-    <p className="game-instructions">Choose a column to drop a piece. Connect four horizontally, vertically, or diagonally. You move first.</p>
+    <p className="game-instructions">Choose a column to drop a piece. Connect four horizontally, vertically, or diagonally. Red moves first. Choose your side in game setup.</p>
     <AnalysisPanel analysis={analysis} />
   </main>;
 }

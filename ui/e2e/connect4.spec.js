@@ -9,7 +9,7 @@ async function start(page, opponent = 'negamax') {
   if (opponent === 'mcts') {
     await expect(page.locator('#mcts-options')).toBeVisible();
     await expect(page.locator('#negamax-options')).toBeHidden();
-    await page.getByLabel('Search simulations:').selectOption('50');
+    await page.getByLabel('Search simulations:').selectOption('100');
   }
   const result = page.waitForResponse(r => r.url().endsWith('/start_game') && r.request().method() === 'POST');
   await page.getByRole('button', { name: 'Start game', exact: true }).click();
@@ -24,7 +24,7 @@ for (const opponent of ['random', 'negamax', 'mcts']) {
     const pageErrors = [];
     page.on('pageerror', error => pageErrors.push(error.message));
     let state = await start(page, opponent);
-    if (opponent === 'mcts') expect(state.players[1]).toEqual({ type: 'mcts', simulation_limit: 50 });
+    if (opponent === 'mcts') expect(state.players[1]).toEqual({ type: 'mcts', simulation_limit: 100 });
     for (let turns = 0; turns < 42 && !state.gameOver; turns++) {
       const column = state.legalMoves[0];
       const humanResult = page.waitForResponse(r => r.url().endsWith('/make_move') && r.request().method() === 'POST' && 'column' in r.request().postDataJSON());
@@ -162,4 +162,112 @@ test('a lost AI response after commit recovers the board without a duplicate mov
   await expect(page.locator('#retry-button')).toBeHidden();
   await expect(page.locator('.cell:enabled')).toHaveCount(42);
   expect(aiRequests).toBe(1);
+});
+
+for (const opponent of ['random', 'negamax', 'mcts']) {
+  test(`AI-first ${opponent} opens exactly once, supports analysis, and restarts human-first`, async ({ page }) => {
+    const { explained } = await import('./fixtures/analysis.js');
+    await page.goto('/connect4');
+    await page.locator(`input[name="opponent"][value="${opponent}"]`).check();
+    if (opponent === 'negamax') await page.getByLabel('Search depth:').selectOption('8');
+    if (opponent === 'mcts') await page.getByLabel('Search simulations:').selectOption('800');
+    await page.getByRole('radio', { name: 'AI goes first' }).check();
+    const moves = [], analyses = [];
+    page.on('request', request => {
+      if (request.url().endsWith('/make_move')) moves.push(request.postDataJSON());
+    });
+    await page.route('**/v1/connect4/explain', route => {
+      const body = route.request().postDataJSON(); analyses.push(body);
+      return route.fulfill({ json: explained(body) });
+    });
+    const started = page.waitForResponse(r => r.url().endsWith('/start_game'));
+    await page.getByRole('button', { name: 'Start game', exact: true }).click();
+    const initial = await (await started).json();
+    expect(initial.revision).toBe(0);
+    expect(initial.players[0].type).toBe(opponent);
+    expect(initial.players[1].type).toBe('human');
+    await expect(page.locator('#loading')).toBeHidden();
+    expect(moves).toEqual([{ game_id: initial.game_id, revision: 0 }]);
+    await expect(page.locator('.circle.x')).toHaveCount(1);
+    await expect(page.locator('.circle.o')).toHaveCount(0);
+    await expect(page.getByRole('status')).toContainText('Your turn');
+    await expect(page.locator('.board-legend')).toContainText('AI · red');
+    await expect(page.locator('.board-legend')).toContainText('You · yellow');
+    await expect(page.locator('.settings-note')).toContainText('AI moves first');
+    await expect(page.locator('#explain-last')).toHaveAccessibleName('Analyze Last AI Move');
+    for (const id of ['explain-last', 'analyze-position', 'what-if']) {
+      await page.locator(`#${id}`).click();
+      await expect(page.locator('#explanation-panel')).toHaveAttribute('aria-busy', 'false');
+      await expect(page.locator('#explanation-result')).toContainText('Concise verified answer.');
+    }
+    expect(analyses.map(body => body.mode)).toEqual(['last_move', 'position', 'what_if']);
+    expect(analyses.every(body => body.revision === 1 && body.game_id === initial.game_id)).toBe(true);
+    expect(moves).toHaveLength(1);
+    await page.getByRole('radio', { name: 'You go first' }).check();
+    await expect(page.locator('.settings-note')).toContainText('AI moves first');
+    await expect(page.locator('.board-legend')).toContainText('You · yellow');
+    const restarted = page.waitForResponse(r => r.url().endsWith('/start_game'));
+    await page.getByRole('button', { name: 'Start new game' }).click();
+    const next = await (await restarted).json();
+    await expect(page.getByRole('status')).toContainText('Your turn');
+    expect(next.players[0].type).toBe('human');
+    expect(next.revision).toBe(0);
+    expect(moves).toHaveLength(1);
+    await expect(page.locator('.circle.x')).toHaveCount(0);
+    await expect(page.locator('.settings-note')).toContainText('You move first');
+  });
+}
+
+for (const committed of [false, true]) {
+  test(`AI opening ${committed ? 'response lost after commit' : 'failure before commit'} never automatically replays`, async ({ page }) => {
+    await page.goto('/connect4');
+    await page.getByRole('radio', { name: /^Random/ }).check();
+    await page.getByRole('radio', { name: 'AI goes first' }).check();
+    let calls = 0, reads = 0;
+    page.on('request', request => { if (/\/games\//.test(request.url())) reads++; });
+    await page.route('**/v1/connect4/make_move', async route => {
+      calls++;
+      if (calls > 1) return route.continue();
+      if (committed) { await route.fetch(); return route.abort('failed'); }
+      return route.fulfill({ status: 503, json: { error: 'AI opener unavailable', code: 'agent_failed' } });
+    });
+    await page.getByRole('button', { name: 'Start game', exact: true }).click();
+    await expect(page.locator('#loading')).toBeHidden();
+    expect(calls).toBe(1);
+    expect(reads).toBe(1);
+    if (committed) {
+      await expect(page.locator('#retry-button')).toBeHidden();
+      await expect(page.locator('.cell:enabled')).toHaveCount(42);
+    } else {
+      await expect(page.getByRole('button', { name: 'Retry AI move' })).toBeVisible();
+      await expect(page.locator('.cell:enabled')).toHaveCount(0);
+      await page.getByRole('button', { name: 'Retry AI move' }).click();
+      await expect(page.locator('#loading')).toBeHidden();
+      expect(calls).toBe(2);
+      expect(reads).toBe(2);
+      await expect(page.getByRole('status')).toContainText('Your turn');
+    }
+    await expect(page.locator('.circle.x')).toHaveCount(1);
+    await expect(page.locator('.circle.o')).toHaveCount(0);
+  });
+}
+
+test('navigation during a delayed AI opener aborts its lifecycle and remount has a fresh setup', async ({ page }) => {
+  await page.goto('/connect4');
+  await page.getByRole('radio', { name: 'AI goes first' }).check();
+  let release, moves = 0;
+  const ready = new Promise(resolve => { release = resolve; });
+  await page.route('**/v1/connect4/make_move', async route => {
+    moves++; await ready;
+    await route.fulfill({ status: 503, json: { error: 'Delayed opener' } }).catch(() => {});
+  });
+  await page.getByRole('button', { name: 'Start game', exact: true }).click();
+  await expect(page.getByRole('status')).toContainText('AI thinking');
+  await page.getByRole('link', { name: 'Home', exact: true }).click();
+  release();
+  await page.getByRole('link', { name: 'Play Connect 4', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Start game', exact: true })).toBeEnabled();
+  await expect(page.getByRole('radio', { name: 'You go first' })).toBeChecked();
+  await expect(page.locator('#retry-button')).toBeHidden();
+  expect(moves).toBe(1);
 });

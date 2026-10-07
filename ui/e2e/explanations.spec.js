@@ -110,6 +110,7 @@ test('revision 36 summary, expandable evidence and square highlighting preserve 
   let state = await (await page.request.post(`${api}/v1/connect4/start_game`, { data: {
     player1: { type: 'human' }, player2: { type: 'human' },
   } })).json();
+  const initial = state;
   for (const column of [2, 5, 6, 3, 5, 5, 0, 2, 3, 2, 6, 0, 4, 4, 3, 6, 2, 2,
     4, 3, 6, 0, 0, 2, 6, 5, 4, 3, 3, 0, 5, 4, 0, 6, 5, 4]) {
     const moved = await page.request.post(`${api}/v1/connect4/make_move`, { data: {
@@ -119,7 +120,7 @@ test('revision 36 summary, expandable evidence and square highlighting preserve 
     state = await moved.json();
   }
   expect(state.legalMoves).toEqual([1]);
-  await page.route('**/v1/connect4/start_game', route => route.fulfill({ status: 201, json: state }), { times: 1 });
+  await page.route('**/v1/connect4/start_game', route => route.fulfill({ status: 201, json: initial }), { times: 1 });
   await page.route('**/v1/connect4/explain', route => {
     const request = route.request().postDataJSON();
     const result = explained(request);
@@ -139,6 +140,11 @@ test('revision 36 summary, expandable evidence and square highlighting preserve 
     return route.fulfill({ json: result });
   });
   await start(page);
+  // Starts are revision 0. A stale move reconciles the already advanced real
+  // session through GET, preserving the revision-36 analysis regression.
+  await page.locator('.cell[data-column="3"]:enabled').first().click();
+  await expect(page.locator('#loading')).toBeHidden();
+  await expect(page.locator('.board-revision')).toHaveText('Move 36');
   await page.getByRole('button', { name: 'Analyze Position', exact: true }).click();
   await expect(page.locator('.primary-explanation')).toContainText('b2 accessible to Player 2');
   await expect(page.locator('#explanation-result > section')).toHaveCount(3);

@@ -11,7 +11,7 @@ const agents = [
     detail: 'Depth-limited · heuristic evaluation' },
   { name: 'MCTS', label: 'Monte Carlo Tree Search', glyph: 'mcts', title: 'Simulate. Build evidence.',
     description: 'Uses UCT-style search and simulated rollouts to explore possible continuations within a bounded simulation budget.',
-    detail: '50 / 100 / 250 simulation presets' },
+    detail: '100 / 400 / 800 simulation presets' },
 ];
 
 function ApproachGlyph({ type }) {
@@ -35,7 +35,7 @@ export default function Home() {
           <p className="hero-statement">Explore how game-playing AI chooses moves.</p>
           <p className="hero-description">Play Connect 4 against different AI approaches. Compare how they choose moves and inspect grounded analysis of the board.</p>
           <div className="action-row"><ActionLink to="/connect4">Play Connect 4</ActionLink><ActionLink to="/#agents" variant="secondary">Explore the agents</ActionLink></div>
-          <p className="hero-note"><span className="piece-dot piece-dot--red" /><span className="piece-dot piece-dot--yellow" />You play red. The AI plays yellow.</p>
+          <p className="hero-note"><span className="piece-dot piece-dot--red" /><span className="piece-dot piece-dot--yellow" />Choose whether you or the AI moves first.</p>
         </div>
         <BoardIllustration />
       </section>

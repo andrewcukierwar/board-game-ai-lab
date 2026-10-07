@@ -94,11 +94,16 @@ for (const width of [1440, 1024, 820, 768, 375, 320]) {
     await expect(page.locator('.agent-option.is-selected')).toContainText('Random');
     await random.focus();
     await page.keyboard.press(tabKey);
+    await expect(page.getByRole('radio', { name: 'You go first' })).toBeFocused();
+    await page.keyboard.press(tabKey);
     await expect(page.locator('#start-button')).toBeFocused();
     expect(await page.locator('#start-button').evaluate(node => getComputedStyle(node).outlineStyle)).toBe('solid');
     await page.keyboard.press(`Shift+${tabKey}`);
+    await expect(page.getByRole('radio', { name: 'You go first' })).toBeFocused();
+    await page.keyboard.press(`Shift+${tabKey}`);
     await expect(random).toBeFocused();
     expect(await page.locator('.agent-option.is-selected').evaluate(node => getComputedStyle(node).outlineStyle)).toBe('solid');
+    await page.keyboard.press(tabKey);
     await page.keyboard.press(tabKey);
     await page.keyboard.press('Enter');
     await expect(page.locator('#message')).toContainText('Your turn');
@@ -168,6 +173,18 @@ for (const width of [1440, 1024, 820, 768, 375, 320]) {
     await page.keyboard.press(tabKey);
     await expect(page.locator('.strategic-context a')).toBeFocused();
     expect(await page.locator('.strategic-context a').evaluate(node => getComputedStyle(node).outlineStyle)).toBe('solid');
+    // The new native radio group is keyboard-operable in all three engines.
+    await page.getByRole('radio', { name: 'You go first' }).focus();
+    await page.keyboard.press('ArrowRight');
+    await expect(page.getByRole('radio', { name: 'AI goes first' })).toBeChecked();
+    await expect(page.locator('.board-legend')).toContainText('You · red');
+    await page.getByRole('button', { name: 'Start new game' }).click();
+    await expect(page.locator('#loading')).toBeHidden();
+    await expect(page.locator('.circle.x')).toHaveCount(1);
+    await expect(page.locator('.circle.o')).toHaveCount(0);
+    await expect(page.locator('.board-legend')).toContainText('You · yellow');
+    await expect(page.locator('.settings-note')).toContainText('AI moves first');
+    await expect(page.locator('#explain-last')).toHaveAccessibleName('Analyze Last AI Move');
     expect(errors).toEqual([]);
   });
 }

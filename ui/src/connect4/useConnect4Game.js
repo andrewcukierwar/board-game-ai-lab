@@ -1,17 +1,24 @@
 import { useEffect, useReducer, useRef } from 'react';
 
 export const humanTurn = game => game?.players[game.currentPlayer].type === 'human';
+export const playerLabel = (game, index) => game?.players[index].type === 'human' ? 'You' : 'AI';
+export const winnerLabel = game => game.winner === 'Draw' ? 'Draw'
+  : playerLabel(game, game.winner === 'Player 1' ? 0 : 1) === 'You' ? 'You win' : 'The AI wins';
 
-function validateSnapshot(data) {
+function validateSnapshot(data, expected = {}) {
   // Waking proxies can return HTML with HTTP 200. Never discard a valid board
   // until the response passes the game snapshot contract.
-  if (!data || typeof data.game_id !== 'string' || !Number.isInteger(data.revision) ||
+  if (!data || typeof data.game_id !== 'string' || !data.game_id || !Number.isInteger(data.revision) || data.revision < 0 ||
       !Array.isArray(data.board) || data.board.length !== 6 ||
-      !data.board.every(row => Array.isArray(row) && row.length === 7) ||
+      !data.board.every(row => Array.isArray(row) && row.length === 7 && row.every(piece => ['X', 'O', ' '].includes(piece))) ||
       !Array.isArray(data.players) || data.players.length !== 2 ||
-      !data.players.every(player => player && typeof player.type === 'string') ||
-      ![0, 1].includes(data.currentPlayer) || typeof data.gameOver !== 'boolean' ||
-      !Array.isArray(data.legalMoves)) {
+      !data.players.every(player => player && ['human', 'random', 'negamax', 'mcts'].includes(player.type)) ||
+      ![0, 1].includes(data.currentPlayer) || data.currentPlayer !== data.revision % 2 || typeof data.gameOver !== 'boolean' ||
+      !Array.isArray(data.legalMoves) || !data.legalMoves.every(col => Number.isInteger(col) && col >= 0 && col < 7) ||
+      (expected.game_id !== undefined && data.game_id !== expected.game_id) ||
+      (expected.revision !== undefined && data.revision !== expected.revision) ||
+      (expected.minRevision !== undefined && data.revision < expected.minRevision) ||
+      (data.revision === 0 && (data.currentPlayer !== 0 || data.gameOver || data.board.some(row => row.some(piece => piece !== ' '))))) {
     throw new Error('The game server did not return a game snapshot.');
   }
   return data;
@@ -19,8 +26,8 @@ function validateSnapshot(data) {
 
 const initialState = {
   game: null, phase: 'idle', uncertain: false, retryAI: false, notice: null,
-  message: 'Choose an opponent and start a game. You play red and move first.',
-  selection: { type: 'negamax', depth: 2, simulations: 100 },
+  message: 'Choose an opponent and who moves first, then start a game.',
+  selection: { type: 'negamax', depth: 2, simulations: 100, first: 'human' },
 };
 
 function reducer(state, action) {
@@ -30,7 +37,7 @@ function reducer(state, action) {
     return { ...state, game, uncertain: false, retryAI: false, notice: null,
       message: game.gameOver
         ? game.winner === 'Draw' ? "It's a draw! Start a new game to play again."
-          : `${game.winner === 'Player 1' ? 'You win' : 'The AI wins'}! Start a new game to play again.`
+          : `${winnerLabel(game)}! Start a new game to play again.`
         : humanTurn(game) ? 'Your turn — choose a column.' : 'AI turn.' };
   }
   return { ...state, ...action.value };
@@ -54,7 +61,7 @@ export function useConnect4Game(http) {
     dispatch(action);
   }
   const patch = (value, lifetime) => send({ type: 'patch', value }, lifetime);
-  const accept = (data, lifetime) => send({ type: 'accept', game: validateSnapshot(data) }, lifetime);
+  const accept = (data, lifetime, expected) => send({ type: 'accept', game: validateSnapshot(data, expected) }, lifetime);
 
   async function recover(error, lifetime, options) {
     if (!lifetime.active) return;
@@ -68,7 +75,7 @@ export function useConnect4Game(http) {
       try {
         const response = await http.get(`/v1/connect4/games/${game.game_id}`, options);
         if (!lifetime.active) return;
-        accept(response.data, lifetime);
+        accept(response.data, lifetime, { game_id: game.game_id, minRevision: game.revision });
         const latest = current.current.game;
         patch({ retryAI: !latest.gameOver && !humanTurn(latest) }, lifetime);
       } catch (refreshError) {
@@ -103,7 +110,7 @@ export function useConnect4Game(http) {
     const response = await http.post('/v1/connect4/make_move', {
       game_id: game.game_id, revision: game.revision,
     }, options);
-    if (lifetime.active) accept(response.data, lifetime);
+    if (lifetime.active) accept(response.data, lifetime, { game_id: game.game_id, revision: game.revision + 1 });
   }
 
   function start() {
@@ -112,10 +119,16 @@ export function useConnect4Game(http) {
       const opponent = { type: selection.type };
       if (selection.type === 'negamax') opponent.depth = selection.depth;
       if (selection.type === 'mcts') opponent.simulation_limit = selection.simulations;
-      const body = { player1: { type: 'human' }, player2: opponent };
+      const human = { type: 'human' };
+      const body = selection.first === 'human'
+        ? { player1: human, player2: opponent } : { player1: opponent, player2: human };
       if (game) body.replace_game_id = game.game_id;
       const response = await http.post('/v1/connect4/start_game', body, options);
-      if (lifetime.active) accept(response.data, lifetime);
+      if (!lifetime.active) return;
+      accept(response.data, lifetime, { revision: 0 });
+      // A separate, single revision-0 mutation uses the normal AI recovery path.
+      // Keep the same busy lock across start acceptance and the opening request.
+      await botMove(lifetime, options);
     });
   }
 
@@ -127,7 +140,7 @@ export function useConnect4Game(http) {
         game_id: game.game_id, revision: game.revision, column,
       }, options);
       if (!lifetime.active) return;
-      accept(response.data, lifetime);
+      accept(response.data, lifetime, { game_id: game.game_id, revision: game.revision + 1 });
       // Accept the human snapshot before initiating a separate AI request.
       await botMove(lifetime, options);
     });
@@ -139,7 +152,7 @@ export function useConnect4Game(http) {
       if (!game) return;
       const response = await http.get(`/v1/connect4/games/${game.game_id}`, options);
       if (!lifetime.active) return;
-      accept(response.data, lifetime);
+      accept(response.data, lifetime, { game_id: game.game_id, minRevision: game.revision });
       await botMove(lifetime, options);
     });
   }

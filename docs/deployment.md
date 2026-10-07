@@ -135,6 +135,23 @@ Render's [rollback documentation](https://render.com/docs/rollbacks) explains en
 
 [Run 37034008283](https://github.com/andrewcukierwar/board-game-ai-lab/actions/runs/37034008283) for `830bfdc` succeeded at image build/push and hook invocation. Read-only inspection confirmed those step outcomes. The workflow still does not run regression suites or deploy the UI; local checks should precede future deployments. No hook was invoked during Phase 2 implementation.
 
+## Public search presets and turn order
+
+The current source offers human-first (default) or AI-first play. Settings apply
+only at start/restart; Player 1 is always red. An AI opener is a separate move
+POST after accepting revision 0, with the same GET reconciliation and explicit
+retry behavior as later AI turns.
+
+Corrected Negamax accepts integer depths 1–8; UI presets are 1/2/4/6/8, default 2.
+MCTS accepts only 50/100/250/400/800 simulations; the UI offers 100/400/800, default
+100. The old 50/250 API budgets remain compatible. MCTS still uses full terminal
+random rollouts, with the same process-wide nonblocking reservation and no queue.
+Both searches are synchronous. [Local latency measurements](public-agent-strength-and-turn-order.md)
+justify conservative caps but do not establish Render latency. After an authorized
+deploy, measure warm and cold move latency at depth 8 and 800 simulations, both
+player orders and concurrent independent games. Reduce caps if service latency
+is unacceptable; do not widen timeouts to mask CPU contention.
+
 ## Network behavior and session limits
 
 The frontend waits up to **90 seconds per request**, shows a wake-up message, and locks controls while waiting. Render free services can take about a minute to wake after idle; proxies/platform errors can still arrive sooner. See [Render free-service behavior](https://render.com/docs/free#spinning-down-on-idle).
@@ -179,9 +196,9 @@ Phase 2 public gameplay and CORS have been manually verified by the user. The bo
 - [ ] API health responds 200/`OK`; image digest matches the intended build; one Gunicorn worker and one instance are running.
 - [ ] Homepage loads over HTTPS; **Play Connect 4**, direct `/connect4`, and refresh at `/connect4` all work. JS/CSS assets load correctly.
 - [ ] DevTools shows API calls to the actual HTTPS API origin, not the Static Site's `/v1` route. JSON POST preflights and game/error responses allow only the exact frontend origin; no wildcard, credentials or mixed-content errors.
-- [ ] Start and finish games against Random and Negamax. Verify terminal result and disabled board; restart mid-game and switch opponent/depth.
+- [ ] Start and finish games against Random, Negamax and MCTS in both player orders. Verify exactly one AI opener, human-yellow winner copy, terminal result and disabled board; restart mid-game and switch opponent, budget and side. Measure depth-8/800-simulation latency on the actual instance.
 - [ ] Open two independent browser contexts; moves/restarts in one do not alter the other. Double-click a column; only one human move and one AI reply occur.
 - [ ] Try a first request after the API has been idle. The wake-up message is visible and controls stay locked; if it fails, explicit retry recovers without reloading.
-- [ ] Use DevTools offline mode during a move. Reconnect and use **Refresh game**/**Retry AI move** as offered; verify the board against its revision and no duplicate human/AI move. Also test a failed start.
+- [ ] Use DevTools offline mode during a move. Reconnect and use **Refresh game**/**Retry AI move** as offered; verify the board against its revision and no duplicate human/AI move. Also test a failed start, a failed AI opener and an opening response lost after server commit.
 - [ ] After an intentional API restart/redeploy (only when approved), an old game offers a fresh start and new games work. Check natural 30-minute expiry when feasible.
 - [ ] Check browser console and API logs for unexpected errors. Record frontend/API URLs, tested image digest, date and any failures for each smoke-test run.

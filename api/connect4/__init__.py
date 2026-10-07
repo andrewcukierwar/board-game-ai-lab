@@ -12,8 +12,8 @@ from games.connect4.grounding.history import record_move
 from .state import GameError
 
 bp = Blueprint('connect4', __name__)
-MAX_DEPTH = 4
-MCTS_SIMULATION_LIMITS = (50, 100, 250)
+MAX_DEPTH = 8
+MCTS_SIMULATION_LIMITS = (50, 100, 250, 400, 800)
 # Shared by all app instances in this process; never wait/queue for a search.
 _mcts_reservation = BoundedSemaphore(1)
 
@@ -57,7 +57,7 @@ def player_config(value):
     elif kind == 'mcts':
         limit = value.get('simulation_limit', 100)
         if type(limit) is not int or limit not in MCTS_SIMULATION_LIMITS:
-            raise GameError('invalid_agent', 'MCTS simulation_limit must be an integer: 50, 100, or 250.')
+            raise GameError('invalid_agent', f'MCTS simulation_limit must be an integer in {MCTS_SIMULATION_LIMITS}.')
         config['simulation_limit'] = limit
     return config
 

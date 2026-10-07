@@ -5,7 +5,8 @@ const agents = [
 ];
 
 export default function AgentSelector({ selection, select, busy, game }) {
-  const activeOpponent = agents.find(agent => agent.type === game?.players[1].type)?.name;
+  const activeConfig = game?.players.find(player => player.type !== 'human');
+  const activeOpponent = agents.find(agent => agent.type === activeConfig?.type)?.name;
   return <div className="agent-selection">
     <p className="eyebrow">Choose an approach</p><h2>Opponent</h2>
     <fieldset id="opponent-type" disabled={busy}>
@@ -17,18 +18,26 @@ export default function AgentSelector({ selection, select, busy, game }) {
       </label>)}
     </fieldset>
     <p className="agent-description">{agents.find(agent => agent.type === selection.type).description}</p>
+    <fieldset className="turn-order" disabled={busy}>
+      <legend>Who moves first?</legend>
+      {['human', 'ai'].map(first => <label className={`turn-option ${selection.first === first ? 'is-selected' : ''}`} key={first}>
+        <input id={`first-${first}`} type="radio" name="first-player" value={first} checked={selection.first === first}
+          onChange={() => select({ first })} />
+        <span>{first === 'human' ? 'You go first' : 'AI goes first'}</span>
+      </label>)}
+    </fieldset>
     <div id="negamax-options" hidden={selection.type !== 'negamax'} className="agent-setting">
       <label htmlFor="opponent-depth">Search depth:</label>
       <select id="opponent-depth" value={selection.depth} disabled={busy} onChange={event => select({ depth: Number(event.target.value) })}>
-        <option value="1">1 — Quick</option><option value="2">2 — Balanced (default)</option><option value="3">3</option><option value="4">4 — Deeper</option>
+        <option value="1">1 — Quick</option><option value="2">2 — Balanced (default)</option><option value="4">4 — Stronger</option><option value="6">6 — Deep</option><option value="8">8 — Very deep</option>
       </select>
     </div>
     <div id="mcts-options" hidden={selection.type !== 'mcts'} className="agent-setting">
       <label htmlFor="opponent-simulations">Search simulations:</label>
       <select id="opponent-simulations" value={selection.simulations} disabled={busy} onChange={event => select({ simulations: Number(event.target.value) })}>
-        <option value="50">50 — Quick</option><option value="100">100 — Balanced (default)</option><option value="250">250 — Deeper</option>
+        <option value="100">100 — Quick (default)</option><option value="400">400 — Balanced</option><option value="800">800 — Deep</option>
       </select>
     </div>
-    <p className="settings-note">Settings apply when you start a new game.{activeOpponent && <span>Current game: <strong>{activeOpponent}</strong>{game.players[1].depth ? ` · depth ${game.players[1].depth}` : game.players[1].simulation_limit ? ` · ${game.players[1].simulation_limit} simulations` : ''}.</span>}</p>
+    <p className="settings-note">Settings apply when you start a new game.{activeOpponent && <span>Current game: <strong>{activeOpponent}</strong>{activeConfig.depth ? ` · depth ${activeConfig.depth}` : activeConfig.simulation_limit ? ` · ${activeConfig.simulation_limit} simulations` : ''} · {game.players[0].type === 'human' ? 'You move first' : 'AI moves first'}.</span>}</p>
   </div>;
 }

@@ -1,0 +1,1377 @@
+{
+  "runtime": "3.11.17",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "hardware": [
+    "Model Name: MacBook Pro",
+    "Model Identifier: Mac17,2",
+    "Chip: Apple M5",
+    "Total Number of Cores: 10 (4 Performance and 6 Efficiency)",
+    "Memory: 32 GB"
+  ],
+  "positions": {
+    "empty": [],
+    "near-opening": [
+      3,
+      2,
+      4,
+      3
+    ],
+    "midgame": [
+      3,
+      2,
+      4,
+      3,
+      2,
+      4,
+      1,
+      5,
+      5,
+      1,
+      3,
+      2,
+      4,
+      3,
+      2,
+      4
+    ],
+    "late": [
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      6,
+      4,
+      4,
+      4,
+      4,
+      4
+    ],
+    "midgame-wide": [
+      5,
+      6,
+      6,
+      5,
+      4,
+      3,
+      0,
+      1,
+      0,
+      2,
+      4,
+      6,
+      6,
+      2,
+      3,
+      0
+    ]
+  },
+  "samples": 3,
+  "warmups_per_row": 1,
+  "source_hashes": {
+    "games/connect4/agents/negamax_agent.py": "9616457bfc6af33d1696e0373d6fb5ef1dffff0f495390be8b5891cb3fbcf6f7",
+    "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594"
+  },
+  "rows": [
+    {
+      "agent": "negamax",
+      "position": "empty",
+      "budget": 4,
+      "seconds": [
+        0.0024949589278548956,
+        0.0024683750234544277,
+        0.0024603328201919794
+      ],
+      "median": 0.0024683750234544277,
+      "maximum": 0.0024949589278548956,
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "stats": [
+        {
+          "nodes": 594,
+          "entries": 143,
+          "hits": 15,
+          "cutoffs": 71
+        },
+        {
+          "nodes": 594,
+          "entries": 143,
+          "hits": 15,
+          "cutoffs": 71
+        },
+        {
+          "nodes": 594,
+          "entries": 143,
+          "hits": 15,
+          "cutoffs": 71
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "empty",
+      "budget": 6,
+      "seconds": [
+        0.017552541103214025,
+        0.017293957993388176,
+        0.017527749994769692
+      ],
+      "median": 0.017527749994769692,
+      "maximum": 0.017552541103214025,
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "stats": [
+        {
+          "nodes": 5059,
+          "entries": 1447,
+          "hits": 396,
+          "cutoffs": 914
+        },
+        {
+          "nodes": 5059,
+          "entries": 1447,
+          "hits": 396,
+          "cutoffs": 914
+        },
+        {
+          "nodes": 5059,
+          "entries": 1447,
+          "hits": 396,
+          "cutoffs": 914
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "empty",
+      "budget": 8,
+      "seconds": [
+        0.10293158399872482,
+        0.10327137494459748,
+        0.10512358299456537
+      ],
+      "median": 0.10327137494459748,
+      "maximum": 0.10512358299456537,
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "stats": [
+        {
+          "nodes": 31207,
+          "entries": 8768,
+          "hits": 2875,
+          "cutoffs": 5886
+        },
+        {
+          "nodes": 31207,
+          "entries": 8768,
+          "hits": 2875,
+          "cutoffs": 5886
+        },
+        {
+          "nodes": 31207,
+          "entries": 8768,
+          "hits": 2875,
+          "cutoffs": 5886
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "empty",
+      "budget": 10,
+      "seconds": [
+        0.5302969159092754,
+        0.5309142919722944,
+        0.5303424161393195
+      ],
+      "median": 0.5303424161393195,
+      "maximum": 0.5309142919722944,
+      "moves": [
+        2,
+        2,
+        2
+      ],
+      "stats": [
+        {
+          "nodes": 172590,
+          "entries": 48142,
+          "hits": 21038,
+          "cutoffs": 35485
+        },
+        {
+          "nodes": 172590,
+          "entries": 48142,
+          "hits": 21038,
+          "cutoffs": 35485
+        },
+        {
+          "nodes": 172590,
+          "entries": 48142,
+          "hits": 21038,
+          "cutoffs": 35485
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "near-opening",
+      "budget": 4,
+      "seconds": [
+        0.0028207909781485796,
+        0.0028689999599009752,
+        0.0029117080848664045
+      ],
+      "median": 0.0028689999599009752,
+      "maximum": 0.0029117080848664045,
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "stats": [
+        {
+          "nodes": 768,
+          "entries": 194,
+          "hits": 24,
+          "cutoffs": 114
+        },
+        {
+          "nodes": 768,
+          "entries": 194,
+          "hits": 24,
+          "cutoffs": 114
+        },
+        {
+          "nodes": 768,
+          "entries": 194,
+          "hits": 24,
+          "cutoffs": 114
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "near-opening",
+      "budget": 6,
+      "seconds": [
+        0.025705541018396616,
+        0.025968374917283654,
+        0.0548821659758687
+      ],
+      "median": 0.025968374917283654,
+      "maximum": 0.0548821659758687,
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "stats": [
+        {
+          "nodes": 8347,
+          "entries": 2303,
+          "hits": 1182,
+          "cutoffs": 1775
+        },
+        {
+          "nodes": 8347,
+          "entries": 2303,
+          "hits": 1182,
+          "cutoffs": 1775
+        },
+        {
+          "nodes": 8347,
+          "entries": 2303,
+          "hits": 1182,
+          "cutoffs": 1775
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "near-opening",
+      "budget": 8,
+      "seconds": [
+        0.21565587515942752,
+        0.21796991722658277,
+        0.21694262488745153
+      ],
+      "median": 0.21694262488745153,
+      "maximum": 0.21796991722658277,
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "stats": [
+        {
+          "nodes": 80742,
+          "entries": 22621,
+          "hits": 18667,
+          "cutoffs": 19722
+        },
+        {
+          "nodes": 80742,
+          "entries": 22621,
+          "hits": 18667,
+          "cutoffs": 19722
+        },
+        {
+          "nodes": 80742,
+          "entries": 22621,
+          "hits": 18667,
+          "cutoffs": 19722
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "near-opening",
+      "budget": 10,
+      "seconds": [
+        1.5465994158294052,
+        1.5431531670037657,
+        1.54812274989672
+      ],
+      "median": 1.5465994158294052,
+      "maximum": 1.54812274989672,
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "stats": [
+        {
+          "nodes": 646784,
+          "entries": 178705,
+          "hits": 188329,
+          "cutoffs": 162963
+        },
+        {
+          "nodes": 646784,
+          "entries": 178705,
+          "hits": 188329,
+          "cutoffs": 162963
+        },
+        {
+          "nodes": 646784,
+          "entries": 178705,
+          "hits": 188329,
+          "cutoffs": 162963
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "midgame",
+      "budget": 4,
+      "seconds": [
+        0.0017379999626427889,
+        0.0016552088782191277,
+        0.0016794588882476091
+      ],
+      "median": 0.0016794588882476091,
+      "maximum": 0.0017379999626427889,
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "stats": [
+        {
+          "nodes": 610,
+          "entries": 127,
+          "hits": 16,
+          "cutoffs": 73
+        },
+        {
+          "nodes": 610,
+          "entries": 127,
+          "hits": 16,
+          "cutoffs": 73
+        },
+        {
+          "nodes": 610,
+          "entries": 127,
+          "hits": 16,
+          "cutoffs": 73
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "midgame",
+      "budget": 6,
+      "seconds": [
+        0.012403958942741156,
+        0.012320667039602995,
+        0.012179958168417215
+      ],
+      "median": 0.012320667039602995,
+      "maximum": 0.012403958942741156,
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "stats": [
+        {
+          "nodes": 4583,
+          "entries": 909,
+          "hits": 390,
+          "cutoffs": 630
+        },
+        {
+          "nodes": 4583,
+          "entries": 909,
+          "hits": 390,
+          "cutoffs": 630
+        },
+        {
+          "nodes": 4583,
+          "entries": 909,
+          "hits": 390,
+          "cutoffs": 630
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "midgame",
+      "budget": 8,
+      "seconds": [
+        0.05831333412788808,
+        0.05807045800611377,
+        0.05797854205593467
+      ],
+      "median": 0.05807045800611377,
+      "maximum": 0.05831333412788808,
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "stats": [
+        {
+          "nodes": 22981,
+          "entries": 4792,
+          "hits": 3311,
+          "cutoffs": 3523
+        },
+        {
+          "nodes": 22981,
+          "entries": 4792,
+          "hits": 3311,
+          "cutoffs": 3523
+        },
+        {
+          "nodes": 22981,
+          "entries": 4792,
+          "hits": 3311,
+          "cutoffs": 3523
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "midgame",
+      "budget": 10,
+      "seconds": [
+        0.19300291710533202,
+        0.1943624580744654,
+        0.19324274989776313
+      ],
+      "median": 0.19324274989776313,
+      "maximum": 0.1943624580744654,
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "stats": [
+        {
+          "nodes": 82766,
+          "entries": 18868,
+          "hits": 16073,
+          "cutoffs": 14087
+        },
+        {
+          "nodes": 82766,
+          "entries": 18868,
+          "hits": 16073,
+          "cutoffs": 14087
+        },
+        {
+          "nodes": 82766,
+          "entries": 18868,
+          "hits": 16073,
+          "cutoffs": 14087
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "late",
+      "budget": 4,
+      "seconds": [
+        9.695906192064285e-05,
+        9.433296509087086e-05,
+        9.479094296693802e-05
+      ],
+      "median": 9.479094296693802e-05,
+      "maximum": 9.695906192064285e-05,
+      "moves": [
+        4,
+        4,
+        4
+      ],
+      "stats": [
+        {
+          "nodes": 41,
+          "entries": 20,
+          "hits": 3,
+          "cutoffs": 4
+        },
+        {
+          "nodes": 41,
+          "entries": 20,
+          "hits": 3,
+          "cutoffs": 4
+        },
+        {
+          "nodes": 41,
+          "entries": 20,
+          "hits": 3,
+          "cutoffs": 4
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "late",
+      "budget": 6,
+      "seconds": [
+        0.00025287503376603127,
+        0.00025270902551710606,
+        0.00025887484662234783
+      ],
+      "median": 0.00025287503376603127,
+      "maximum": 0.00025887484662234783,
+      "moves": [
+        4,
+        4,
+        4
+      ],
+      "stats": [
+        {
+          "nodes": 120,
+          "entries": 63,
+          "hits": 6,
+          "cutoffs": 17
+        },
+        {
+          "nodes": 120,
+          "entries": 63,
+          "hits": 6,
+          "cutoffs": 17
+        },
+        {
+          "nodes": 120,
+          "entries": 63,
+          "hits": 6,
+          "cutoffs": 17
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "late",
+      "budget": 8,
+      "seconds": [
+        0.0005148330237716436,
+        0.0005172078963369131,
+        0.0005114590749144554
+      ],
+      "median": 0.0005148330237716436,
+      "maximum": 0.0005172078963369131,
+      "moves": [
+        4,
+        4,
+        4
+      ],
+      "stats": [
+        {
+          "nodes": 284,
+          "entries": 169,
+          "hits": 11,
+          "cutoffs": 72
+        },
+        {
+          "nodes": 284,
+          "entries": 169,
+          "hits": 11,
+          "cutoffs": 72
+        },
+        {
+          "nodes": 284,
+          "entries": 169,
+          "hits": 11,
+          "cutoffs": 72
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "late",
+      "budget": 10,
+      "seconds": [
+        0.0009396669920533895,
+        0.0009527918882668018,
+        0.0009543749038130045
+      ],
+      "median": 0.0009527918882668018,
+      "maximum": 0.0009543749038130045,
+      "moves": [
+        6,
+        6,
+        6
+      ],
+      "stats": [
+        {
+          "nodes": 600,
+          "entries": 378,
+          "hits": 40,
+          "cutoffs": 195
+        },
+        {
+          "nodes": 600,
+          "entries": 378,
+          "hits": 40,
+          "cutoffs": 195
+        },
+        {
+          "nodes": 600,
+          "entries": 378,
+          "hits": 40,
+          "cutoffs": 195
+        }
+      ]
+    },
+    {
+      "agent": "mcts",
+      "position": "empty",
+      "budget": 50,
+      "seconds": [
+        0.04556679190136492,
+        0.04518441599793732,
+        0.04313925001770258
+      ],
+      "median": 0.04518441599793732,
+      "maximum": 0.04556679190136492,
+      "moves": [
+        0,
+        4,
+        3
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "empty",
+      "budget": 100,
+      "seconds": [
+        0.08708520792424679,
+        0.08294641715474427,
+        0.08430770901031792
+      ],
+      "median": 0.08430770901031792,
+      "maximum": 0.08708520792424679,
+      "moves": [
+        0,
+        3,
+        3
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "empty",
+      "budget": 250,
+      "seconds": [
+        0.2084027079399675,
+        0.20647775009274483,
+        0.20531483320519328
+      ],
+      "median": 0.20647775009274483,
+      "maximum": 0.2084027079399675,
+      "moves": [
+        1,
+        3,
+        3
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "empty",
+      "budget": 400,
+      "seconds": [
+        0.3254230001475662,
+        0.32760629104450345,
+        0.32670812495052814
+      ],
+      "median": 0.32670812495052814,
+      "maximum": 0.32760629104450345,
+      "moves": [
+        1,
+        3,
+        3
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "empty",
+      "budget": 800,
+      "seconds": [
+        0.6536902918014675,
+        0.6509986671153456,
+        0.6514974997844547
+      ],
+      "median": 0.6514974997844547,
+      "maximum": 0.6536902918014675,
+      "moves": [
+        1,
+        3,
+        3
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "empty",
+      "budget": 1000,
+      "seconds": [
+        0.8194724170025438,
+        0.8055082908831537,
+        0.8139563750009984
+      ],
+      "median": 0.8139563750009984,
+      "maximum": 0.8194724170025438,
+      "moves": [
+        1,
+        3,
+        3
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "near-opening",
+      "budget": 50,
+      "seconds": [
+        0.03532729111611843,
+        0.031848707934841514,
+        0.033652584068477154
+      ],
+      "median": 0.033652584068477154,
+      "maximum": 0.03532729111611843,
+      "moves": [
+        4,
+        6,
+        4
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "near-opening",
+      "budget": 100,
+      "seconds": [
+        0.06557708396576345,
+        0.06210420886054635,
+        0.0688006249256432
+      ],
+      "median": 0.06557708396576345,
+      "maximum": 0.0688006249256432,
+      "moves": [
+        6,
+        2,
+        4
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "near-opening",
+      "budget": 250,
+      "seconds": [
+        0.15955095901153982,
+        0.15092704189009964,
+        0.16236941702663898
+      ],
+      "median": 0.15955095901153982,
+      "maximum": 0.16236941702663898,
+      "moves": [
+        5,
+        2,
+        6
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "near-opening",
+      "budget": 400,
+      "seconds": [
+        0.25963166588917375,
+        0.2432749590370804,
+        0.24847900005988777
+      ],
+      "median": 0.24847900005988777,
+      "maximum": 0.25963166588917375,
+      "moves": [
+        6,
+        5,
+        5
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "near-opening",
+      "budget": 800,
+      "seconds": [
+        0.5110404998995364,
+        0.4985006251372397,
+        0.49644029093906283
+      ],
+      "median": 0.4985006251372397,
+      "maximum": 0.5110404998995364,
+      "moves": [
+        6,
+        5,
+        6
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "near-opening",
+      "budget": 1000,
+      "seconds": [
+        0.6374363340437412,
+        0.6196977500803769,
+        0.6191792080644518
+      ],
+      "median": 0.6196977500803769,
+      "maximum": 0.6374363340437412,
+      "moves": [
+        6,
+        5,
+        6
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "midgame",
+      "budget": 50,
+      "seconds": [
+        0.023006583098322153,
+        0.022791874827817082,
+        0.023902874905616045
+      ],
+      "median": 0.023006583098322153,
+      "maximum": 0.023902874905616045,
+      "moves": [
+        4,
+        5,
+        0
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "midgame",
+      "budget": 100,
+      "seconds": [
+        0.04168608388863504,
+        0.04365504207089543,
+        0.043685332871973515
+      ],
+      "median": 0.04365504207089543,
+      "maximum": 0.043685332871973515,
+      "moves": [
+        4,
+        4,
+        0
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "midgame",
+      "budget": 250,
+      "seconds": [
+        0.10025720787234604,
+        0.09959449991583824,
+        0.0956891670357436
+      ],
+      "median": 0.09959449991583824,
+      "maximum": 0.10025720787234604,
+      "moves": [
+        0,
+        5,
+        0
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "midgame",
+      "budget": 400,
+      "seconds": [
+        0.16130174999125302,
+        0.14933704119175673,
+        0.15106320893391967
+      ],
+      "median": 0.15106320893391967,
+      "maximum": 0.16130174999125302,
+      "moves": [
+        0,
+        5,
+        0
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "midgame",
+      "budget": 800,
+      "seconds": [
+        0.29800679185427725,
+        0.2915001669898629,
+        0.2965172501280904
+      ],
+      "median": 0.2965172501280904,
+      "maximum": 0.29800679185427725,
+      "moves": [
+        0,
+        0,
+        0
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "midgame",
+      "budget": 1000,
+      "seconds": [
+        0.3688239168841392,
+        0.3639007080346346,
+        0.3651717498432845
+      ],
+      "median": 0.3651717498432845,
+      "maximum": 0.3688239168841392,
+      "moves": [
+        0,
+        0,
+        0
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "late",
+      "budget": 50,
+      "seconds": [
+        0.02183287520892918,
+        0.02169795800000429,
+        0.0233467910438776
+      ],
+      "median": 0.02183287520892918,
+      "maximum": 0.0233467910438776,
+      "moves": [
+        6,
+        6,
+        6
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "late",
+      "budget": 100,
+      "seconds": [
+        0.0433854169677943,
+        0.042209416162222624,
+        0.0447647909168154
+      ],
+      "median": 0.0433854169677943,
+      "maximum": 0.0447647909168154,
+      "moves": [
+        6,
+        6,
+        6
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "late",
+      "budget": 250,
+      "seconds": [
+        0.10502374987117946,
+        0.10520600015297532,
+        0.11667008395306766
+      ],
+      "median": 0.10520600015297532,
+      "maximum": 0.11667008395306766,
+      "moves": [
+        6,
+        6,
+        6
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "late",
+      "budget": 400,
+      "seconds": [
+        0.16476779198274016,
+        0.16442304104566574,
+        0.1711086251307279
+      ],
+      "median": 0.16476779198274016,
+      "maximum": 0.1711086251307279,
+      "moves": [
+        6,
+        6,
+        6
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "late",
+      "budget": 800,
+      "seconds": [
+        0.3187665829900652,
+        0.3205112919677049,
+        0.32716829190030694
+      ],
+      "median": 0.3205112919677049,
+      "maximum": 0.32716829190030694,
+      "moves": [
+        6,
+        6,
+        6
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "late",
+      "budget": 1000,
+      "seconds": [
+        0.39020154206082225,
+        0.3958174588624388,
+        0.3996863749343902
+      ],
+      "median": 0.3958174588624388,
+      "maximum": 0.3996863749343902,
+      "moves": [
+        6,
+        6,
+        6
+      ],
+      "stats": []
+    },
+    {
+      "agent": "negamax",
+      "position": "midgame-wide",
+      "budget": 4,
+      "seconds": [
+        0.002968040993437171,
+        0.002919208025559783,
+        0.0029024158138781786
+      ],
+      "median": 0.002919208025559783,
+      "maximum": 0.002968040993437171,
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "stats": [
+        {
+          "nodes": 784,
+          "entries": 176,
+          "hits": 25,
+          "cutoffs": 99
+        },
+        {
+          "nodes": 784,
+          "entries": 176,
+          "hits": 25,
+          "cutoffs": 99
+        },
+        {
+          "nodes": 784,
+          "entries": 176,
+          "hits": 25,
+          "cutoffs": 99
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "midgame-wide",
+      "budget": 6,
+      "seconds": [
+        0.012575959088280797,
+        0.012380708009004593,
+        0.012480332981795073
+      ],
+      "median": 0.012480332981795073,
+      "maximum": 0.012575959088280797,
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "stats": [
+        {
+          "nodes": 4286,
+          "entries": 1062,
+          "hits": 350,
+          "cutoffs": 733
+        },
+        {
+          "nodes": 4286,
+          "entries": 1062,
+          "hits": 350,
+          "cutoffs": 733
+        },
+        {
+          "nodes": 4286,
+          "entries": 1062,
+          "hits": 350,
+          "cutoffs": 733
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "midgame-wide",
+      "budget": 8,
+      "seconds": [
+        0.043150041019544005,
+        0.043361667077988386,
+        0.042865792056545615
+      ],
+      "median": 0.043150041019544005,
+      "maximum": 0.043361667077988386,
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "stats": [
+        {
+          "nodes": 17450,
+          "entries": 4656,
+          "hits": 2312,
+          "cutoffs": 3393
+        },
+        {
+          "nodes": 17450,
+          "entries": 4656,
+          "hits": 2312,
+          "cutoffs": 3393
+        },
+        {
+          "nodes": 17450,
+          "entries": 4656,
+          "hits": 2312,
+          "cutoffs": 3393
+        }
+      ]
+    },
+    {
+      "agent": "negamax",
+      "position": "midgame-wide",
+      "budget": 10,
+      "seconds": [
+        0.11562754213809967,
+        0.11375429108738899,
+        0.11406979104503989
+      ],
+      "median": 0.11406979104503989,
+      "maximum": 0.11562754213809967,
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "stats": [
+        {
+          "nodes": 52881,
+          "entries": 14872,
+          "hits": 9163,
+          "cutoffs": 11434
+        },
+        {
+          "nodes": 52881,
+          "entries": 14872,
+          "hits": 9163,
+          "cutoffs": 11434
+        },
+        {
+          "nodes": 52881,
+          "entries": 14872,
+          "hits": 9163,
+          "cutoffs": 11434
+        }
+      ]
+    },
+    {
+      "agent": "mcts",
+      "position": "midgame-wide",
+      "budget": 50,
+      "seconds": [
+        0.027492624940350652,
+        0.025990959024056792,
+        0.024921625154092908
+      ],
+      "median": 0.025990959024056792,
+      "maximum": 0.027492624940350652,
+      "moves": [
+        5,
+        6,
+        2
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "midgame-wide",
+      "budget": 100,
+      "seconds": [
+        0.052754333009943366,
+        0.04787650005891919,
+        0.04824091703630984
+      ],
+      "median": 0.04824091703630984,
+      "maximum": 0.052754333009943366,
+      "moves": [
+        2,
+        3,
+        2
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "midgame-wide",
+      "budget": 250,
+      "seconds": [
+        0.12112762499600649,
+        0.111885332968086,
+        0.11666300008073449
+      ],
+      "median": 0.11666300008073449,
+      "maximum": 0.12112762499600649,
+      "moves": [
+        2,
+        4,
+        2
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "midgame-wide",
+      "budget": 400,
+      "seconds": [
+        0.186940458137542,
+        0.17531591607257724,
+        0.1789895419497043
+      ],
+      "median": 0.1789895419497043,
+      "maximum": 0.186940458137542,
+      "moves": [
+        2,
+        4,
+        2
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "midgame-wide",
+      "budget": 800,
+      "seconds": [
+        0.3700645000208169,
+        0.34902149997651577,
+        0.3493933330755681
+      ],
+      "median": 0.3493933330755681,
+      "maximum": 0.3700645000208169,
+      "moves": [
+        3,
+        4,
+        4
+      ],
+      "stats": []
+    },
+    {
+      "agent": "mcts",
+      "position": "midgame-wide",
+      "budget": 1000,
+      "seconds": [
+        0.4581718340050429,
+        0.43430850002914667,
+        0.43209124985150993
+      ],
+      "median": 0.43430850002914667,
+      "maximum": 0.4581718340050429,
+      "moves": [
+        3,
+        4,
+        4
+      ],
+      "stats": []
+    }
+  ],
+  "supplemental_note": "midgame-wide rows measured separately after browser/testing activity stopped; same hardware, runtime, algorithm hashes, warmup and seeds."
+}

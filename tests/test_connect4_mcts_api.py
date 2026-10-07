@@ -44,7 +44,7 @@ def history(app, state):
 
 
 @pytest.mark.parametrize('player', [0, 1])
-@pytest.mark.parametrize('limit', [None, 50, 100, 250])
+@pytest.mark.parametrize('limit', [None, 50, 100, 250, 400, 800])
 def test_presets_normalization_dispatch_and_detached_input(app, monkeypatch, player, limit):
     config = {'type': 'mcts', **({} if limit is None else {'simulation_limit': limit})}
     state = start(app, player, config)
@@ -66,7 +66,7 @@ def test_presets_normalization_dispatch_and_detached_input(app, monkeypatch, pla
 
 @pytest.mark.parametrize('config', [
     *[{'type': 'mcts', 'simulation_limit': v} for v in
-      [True, False, 50.0, '100', None, 0, -50, 1, 51, 1000, [], {}]],
+      [True, False, 50.0, '100', None, 0, -50, 1, 51, 500, 801, 1000, 1000000, [], {}]],
     {'type': 'mcts', 'depth': 2}, {'type': 'mcts', 'extra': 1},
     *[{'type': kind, 'simulation_limit': 100} for kind in ['human', 'random', 'negamax']],
 ])
@@ -198,3 +198,12 @@ def test_draw_with_mcts_history_replays_and_rejects_further_search(app, monkeypa
     context = get_explanation_context(app.extensions['connect4_games'], state['game_id'], 42)
     assert len(context['move_history']) == 42
     assert context['position']['outcome']['status'] == 'draw'
+
+
+def test_highest_budget_real_opening_is_legal(app):
+    state = start(app, config={'type': 'mcts', 'simulation_limit': 800})
+    result = move(app, state)
+    assert result.status_code == 200
+    assert result.json['revision'] == 1 and result.json['currentPlayer'] == 1
+    assert sum(piece == 'X' for row in result.json['board'] for piece in row) == 1
+    assert history(app, state)[0].agent_type == 'mcts'

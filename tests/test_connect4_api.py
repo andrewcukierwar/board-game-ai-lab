@@ -49,8 +49,8 @@ def test_independent_sessions_and_app_instances(client, app):
 
 
 @pytest.mark.parametrize('config', [None, [], 'random', {}, {'type': []},
-    {'type': 'mcts_nn'}, {'type': 'negamax', 'depth': True},
-    {'type': 'negamax', 'depth': 0}, {'type': 'negamax', 'depth': 5},
+    {'type': 'mcts_nn'}, {'type': 'negamax', 'depth': True}, {'type': 'negamax', 'depth': False},
+    {'type': 'negamax', 'depth': 0}, {'type': 'negamax', 'depth': 9}, {'type': 'negamax', 'depth': 10}, {'type': 'negamax', 'depth': None}, {'type': 'negamax', 'depth': 1000000},
     {'type': 'negamax', 'depth': 2.0}, {'type': 'negamax', 'depth': '2'},
     {'type': 'random', 'depth': 2}, {'type': 'human', 'extra': 1}])
 def test_invalid_configuration_does_not_replace_game(client, config):
@@ -229,7 +229,7 @@ def test_concurrent_moves_and_restart_are_locked(app, client, monkeypatch):
     assert read(client, state).json['revision'] == 2
 
 
-@pytest.mark.parametrize('depth', [1, 2, 3, 4])
+@pytest.mark.parametrize('depth', range(1, 9))
 def test_supported_negamax_depths(client, depth):
     state = start(client, player2={'type': 'negamax', 'depth': depth})
     state = move(client, state, 3).json
@@ -273,3 +273,40 @@ def test_active_session_is_not_expired_or_evicted():
 def test_game_snapshots_are_not_cacheable(client):
     state = start(client)
     assert read(client, state).headers['Cache-Control'] == 'no-store'
+
+
+def test_default_start_keeps_human_first(client):
+    result = client.post(BASE + '/start_game', json={})
+    assert result.status_code == 201
+    assert result.json['players'] == [{'type': 'human'}, {'type': 'negamax', 'depth': 2}]
+    assert result.json['revision'] == 0 and result.json['currentPlayer'] == 0
+
+
+@pytest.mark.parametrize('config', [{'type': 'random'}, {'type': 'negamax', 'depth': 8},
+                                    {'type': 'mcts', 'simulation_limit': 800}])
+@pytest.mark.parametrize('human_first', [True, False])
+def test_both_orders_separate_atomic_opener_and_human_move(client, config, human_first):
+    players = [{'type': 'human'}, config] if human_first else [config, {'type': 'human'}]
+    result = client.post(BASE + '/start_game', json=dict(zip(('player1', 'player2'), players)))
+    assert result.status_code == 201
+    state = result.json
+    assert state['players'] == players and state['revision'] == 0 and state['currentPlayer'] == 0
+    assert all(piece == ' ' for row in state['board'] for piece in row)
+    first = move(client, state, 3 if human_first else None)
+    assert first.status_code == 200
+    assert first.json['revision'] == 1 and first.json['currentPlayer'] == 1
+    assert sum(piece == 'X' for row in first.json['board'] for piece in row) == 1
+    assert move(client, state, 3 if human_first else None).json['code'] == 'stale_revision'
+    second = move(client, first.json, None if human_first else 3)
+    assert second.status_code == 200 and second.json['revision'] == 2
+    assert sum(piece == 'O' for row in second.json['board'] for piece in row) == 1
+
+
+def test_failed_ai_opener_keeps_revision_zero_and_recovers(client, monkeypatch):
+    state = client.post(BASE + '/start_game', json={
+        'player1': {'type': 'random'}, 'player2': {'type': 'human'}}).json
+    with monkeypatch.context() as patch:
+        patch.setattr(RandomAgent, 'choose_move', lambda self, game: -1)
+        assert move(client, state).json['code'] == 'agent_failed'
+        assert read(client, state).json == state
+    assert move(client, state).json['revision'] == 1
