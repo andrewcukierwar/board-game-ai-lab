@@ -58,18 +58,11 @@ body { margin: 0; }
 .section-number { color: var(--muted); margin-right: 16px; }
 .section-intro { color: var(--muted); font-size: 16px; line-height: 1.75; max-width: 600px; margin: 0; }
 
-/* Preserve the existing light gameplay surface and its native form controls.
-   The legacy board, explanation, loading and hidden-state rules stay untouched. */
-.site-content > .connect4-wrapper { color-scheme: light; color: #192535; background: #f5f7fb; border-radius: var(--radius); max-width: 960px; margin: 40px auto; width: calc(100% - 80px); box-sizing: border-box; }
-.connect4-wrapper > a { color: #18528d; }
-.connect4-wrapper :is(button:not(.cell), select, textarea, summary):focus-visible { outline: 3px solid #18528d; outline-offset: 3px; }
-
 @media (max-width: 760px) {
   .site-container { width: calc(100% - 40px); }
   .header-inner { flex-direction: column; align-items: flex-start; gap: 12px; padding-block: 20px 12px; }
   .site-nav { gap: 28px; flex-wrap: wrap; }
   .footer-inner { align-items: flex-start; flex-direction: column; padding-block: 28px; }
-  .site-content > .connect4-wrapper { width: 100%; border-radius: 0; margin-block: 24px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

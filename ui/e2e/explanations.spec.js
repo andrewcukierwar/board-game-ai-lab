@@ -149,6 +149,11 @@ test('revision 36 summary, expandable evidence and square highlighting preserve 
   await expect(page.locator('#explanation-result > section')).toHaveCount(3);
   await expect(page.locator('.explanation-square')).toHaveCount(2);
   await expect(page.locator('.square-label')).toHaveText(['b2', 'b1']);
+  // React settings rerenders must preserve the legacy highlighter's DOM edits.
+  await page.locator('input[name="opponent"][value="random"]').check();
+  await expect(page.locator('.explanation-square')).toHaveCount(2);
+  await expect(page.locator('.square-label')).toHaveText(['b2', 'b1']);
+  await expect(page.locator('.cell:enabled')).toHaveCount(6);
   await expect(page.locator('.cell[data-square="b1"]')).toBeEnabled();
   const detailed = page.locator('details').filter({ has: page.getByText('Detailed analysis', { exact: true }) });
   const methodology = page.locator('details').filter({ has: page.getByText('Methodology and limitations', { exact: true }) });

@@ -35,7 +35,7 @@ for (const [name, width, height] of [['desktop', 1440, 1000], ['tablet', 820, 11
     await expect(page).toHaveURL(/\/connect4$/);
     await expect(page.getByRole('heading', { level: 1, name: 'Connect 4' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Start game', exact: true })).toBeVisible();
-    await expect(page.getByLabel('Opponent:', { exact: true })).toHaveValue('negamax');
+    await expect(page.locator('input[name="opponent"][value="negamax"]')).toBeChecked();
     await expect(page.getByLabel('Search depth:')).toBeVisible();
     await expect(page.locator('#analyze-position')).toBeDisabled();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
@@ -77,7 +77,7 @@ for (const width of [820, 375, 320]) {
     page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
     await page.route('**/v1/connect4/explain', route => route.abort());
     await page.goto('/connect4');
-    await page.getByLabel('Opponent:', { exact: true }).selectOption('random');
+    await page.locator('input[name="opponent"][value="random"]').check();
     await page.getByRole('button', { name: 'Start game', exact: true }).click();
     await expect(page.locator('#message')).toContainText('Your turn');
     await expect(page.locator('#game-board .cell')).toHaveCount(42);

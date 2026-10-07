@@ -1,7 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { JSDOM } from 'jsdom';
-import { mountConnect4 } from '../legacy/connect4.js';
+import React, { act } from 'react';
+import { createRoot } from 'react-dom/client';
+import { MemoryRouter } from 'react-router-dom';
+import Connect4Page from '../src/pages/Connect4.jsx';
+
+globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 
 function state(revision = 0, overrides = {}) {
   const board = Array.from({ length: 6 }, () => Array(7).fill(' '));
@@ -12,17 +17,17 @@ function state(revision = 0, overrides = {}) {
 }
 const response = data => ({ data });
 const failure = (status, error = 'Request failed') => Object.assign(new Error(error), { response: { status, data: { error } } });
-const flush = () => new Promise(resolve => setImmediate(resolve));
+const flush = () => act(async () => { await new Promise(resolve => setImmediate(resolve)); });
 function setup(http) {
-  const dom = new JSDOM(`<select id="opponent-type"><option value="random">Random</option><option value="negamax">Negamax</option><option value="mcts">MCTS</option></select>
-    <select id="opponent-depth"><option value="2">2</option></select><div id="negamax-options"></div><div id="mcts-options"></div>
-    <select id="opponent-simulations"><option value="50">Quick</option><option value="100" selected>Standard</option><option value="250">Deeper</option></select>
-    <button id="start-button"></button><button id="restart-button"></button><button id="retry-button"></button>
-    <div id="message"></div><div id="loading"></div><div id="game-board"></div>`);
+  const dom = new JSDOM('<div id="root"></div>', { url: 'http://localhost/connect4' });
+  globalThis.window = dom.window;
+  globalThis.document = dom.window.document;
   const doc = dom.window.document;
-  const cleanup = mountConnect4({ document: doc, http });
+  const root = createRoot(doc.getElementById('root'));
+  act(() => root.render(React.createElement(MemoryRouter, { future: { v7_startTransition: true, v7_relativeSplatPath: true } }, React.createElement(Connect4Page, { http }))));
+  const cleanup = () => { act(() => root.unmount()); dom.window.close(); };
   return { doc, cleanup, el: id => doc.getElementById(id),
-    click: id => doc.getElementById(id).click(),
+    click: id => act(() => doc.getElementById(id).click()),
     column: () => doc.querySelector('[data-column="3"]') };
 }
 
@@ -54,7 +59,7 @@ test('a cold-start HTML success response keeps initialization recoverable', asyn
 test('a non-JSON move response preserves the game for snapshot recovery', async () => {
   const ui = setup({ get: async () => response(state(1)), post: async url =>
     response(url.endsWith('start_game') ? state() : '<html>Gateway page</html>') });
-  ui.click('start-button'); await flush(); ui.column().click(); await flush();
+  ui.click('start-button'); await flush(); act(() => ui.column().click()); await flush();
   assert.equal(ui.doc.querySelectorAll('.circle.x').length, 1);
   assert.equal(ui.el('retry-button').textContent, 'Retry AI move');
   assert.equal(ui.column().disabled, true);
@@ -71,7 +76,7 @@ test('double click cannot issue concurrent human or AI requests', async () => {
     return response(state(2));
   } });
   ui.click('start-button'); await flush();
-  const oldCell = ui.column(); oldCell.click(); oldCell.click();
+  const oldCell = ui.column(); act(() => { oldCell.click(); oldCell.click(); });
   assert.equal(calls.length, 2);
   assert.equal(ui.el('restart-button').disabled, true);
   release(); await flush();
@@ -90,7 +95,7 @@ test('AI failure stops and offers explicit retry using the latest revision', asy
     assert.equal(body.revision, 1);
     return response(state(2));
   } });
-  ui.click('start-button'); await flush(); ui.column().click(); await flush();
+  ui.click('start-button'); await flush(); act(() => ui.column().click()); await flush();
   assert.equal(aiCalls, 1);
   assert.equal(ui.el('retry-button').hidden, false);
   assert.equal(ui.column().disabled, true);
@@ -108,7 +113,7 @@ test('lost move response is reconciled without replaying the human move', async 
     if ('column' in body) { humanCalls++; throw new Error('Response lost'); }
     aiCalls++; return response(state(2));
   } });
-  ui.click('start-button'); await flush(); ui.column().click(); await flush();
+  ui.click('start-button'); await flush(); act(() => ui.column().click()); await flush();
   assert.equal(humanCalls, 1); assert.equal(aiCalls, 0);
   ui.click('retry-button'); await flush();
   assert.equal(humanCalls, 1); assert.equal(aiCalls, 1);
@@ -123,7 +128,7 @@ test('AI timeout after commit reads the new board and never repeats the AI move'
     aiCalls++;
     throw Object.assign(new Error('Timeout'), { code: 'ECONNABORTED' });
   } });
-  ui.click('start-button'); await flush(); ui.column().click(); await flush();
+  ui.click('start-button'); await flush(); act(() => ui.column().click()); await flush();
   assert.equal(aiCalls, 1);
   assert.equal(ui.doc.querySelectorAll('.circle.x').length, 1);
   assert.equal(ui.doc.querySelectorAll('.circle.o').length, 1);
@@ -141,7 +146,7 @@ test('failed refresh blocks moves until explicit recovery, including terminal re
     if (url.endsWith('start_game')) return response(state());
     throw new Error('Offline');
   } });
-  ui.click('start-button'); await flush(); ui.column().click(); await flush();
+  ui.click('start-button'); await flush(); act(() => ui.column().click()); await flush();
   assert.equal(ui.column().disabled, true);
   assert.equal(ui.el('retry-button').textContent, 'Refresh game');
   ui.click('retry-button'); await flush();
@@ -156,7 +161,7 @@ test('expired session returns to a usable Start screen', async () => {
     if (url.endsWith('start_game')) return response(state());
     throw failure(404);
   } });
-  ui.click('start-button'); await flush(); ui.column().click(); await flush();
+  ui.click('start-button'); await flush(); act(() => ui.column().click()); await flush();
   assert.match(ui.el('message').textContent, /expired/);
   assert.equal(ui.el('start-button').hidden, false);
   assert.equal(ui.el('start-button').disabled, false);
@@ -172,8 +177,9 @@ test('restart applies changed opponent and replaces the old session', async () =
     bodies.push(body);
     return response(state(0, { game_id: `game-${bodies.length}` }));
   } });
+  select(ui, 'opponent-type', 'random');
   ui.click('start-button'); await flush();
-  ui.el('opponent-type').value = 'negamax';
+  select(ui, 'opponent-type', 'negamax');
   ui.click('restart-button'); await flush();
   assert.deepEqual(bodies[1], { player1: { type: 'human' }, player2: { type: 'negamax', depth: 2 }, replace_game_id: 'game-1' });
   assert.equal(ui.column().disabled, false);
@@ -206,8 +212,13 @@ test('navigation aborts requests and late responses cannot update an unmounted p
 });
 
 function select(ui, id, value) {
-  ui.el(id).value = value;
-  ui.el(id).dispatchEvent(new ui.doc.defaultView.Event('change'));
+  act(() => {
+    if (id === 'opponent-type') ui.doc.querySelector(`input[name="opponent"][value="${value}"]`).click();
+    else {
+      ui.el(id).value = value;
+      ui.el(id).dispatchEvent(new ui.doc.defaultView.Event('change', { bubbles: true }));
+    }
+  });
 }
 
 for (const limit of [50, 100, 250]) {
@@ -259,7 +270,7 @@ for (const committed of [false, true]) {
     } });
     select(ui, 'opponent-type', 'mcts');
     ui.click('start-button'); await flush();
-    ui.column().click(); await flush();
+    act(() => ui.column().click()); await flush();
     assert.equal(aiCalls, 1);
     assert.equal(ui.el('retry-button').hidden, committed);
     assert.equal(ui.column().disabled, !committed);
@@ -268,6 +279,68 @@ for (const committed of [false, true]) {
       assert.equal(aiCalls, 2);
       assert.equal(ui.column().disabled, false);
     }
+    ui.cleanup();
+  });
+}
+
+test('slow initialization locks every start and opponent control without retrying', async () => {
+  let release, calls = 0;
+  const ui = setup({ post: () => { calls++; return new Promise(resolve => { release = resolve; }); } });
+  ui.click('start-button'); ui.click('start-button');
+  assert.equal(calls, 1);
+  assert.equal(ui.el('start-button').disabled, true);
+  assert.ok([...ui.doc.querySelectorAll('input[name="opponent"]')].every(input => input.matches(':disabled')));
+  assert.equal(ui.el('opponent-depth').disabled, true);
+  assert.equal(ui.el('opponent-simulations').disabled, true);
+  assert.equal(ui.el('analyze-position').disabled, true);
+  release(response(state())); await flush();
+  assert.equal(ui.el('start-button').hidden, true);
+  assert.equal(ui.el('restart-button').disabled, false);
+  ui.cleanup();
+});
+
+for (const stage of ['human', 'ai', 'refresh']) {
+  test(`unmount during ${stage} request aborts and ignores late snapshots`, async () => {
+    let release, signal, aiCalls = 0;
+    const pending = options => {
+      signal = options.signal;
+      return new Promise(resolve => { release = resolve; });
+    };
+    const ui = setup({ get: (url, options) => pending(options), post: async (url, body, options) => {
+      if (url.endsWith('start_game')) return response(state());
+      if ('column' in body) {
+        if (stage === 'human') return pending(options);
+        if (stage === 'refresh') throw new Error('Offline');
+        return response(state(1));
+      }
+      aiCalls++;
+      return pending(options);
+    } });
+    ui.click('start-button'); await flush();
+    act(() => ui.column().click()); await flush();
+    const before = aiCalls;
+    ui.cleanup();
+    assert.equal(signal.aborted, true);
+    release(response(state(stage === 'human' ? 1 : 2))); await flush();
+    assert.equal(aiCalls, before);
+    assert.equal(ui.doc.querySelectorAll('.cell').length, 0);
+  });
+}
+
+for (const [winner, wording] of [['Player 1', 'You win'], ['Player 2', 'The AI wins'], ['Draw', "It's a draw"]]) {
+  test(`${winner} terminal snapshot stops the move chain and disables the board`, async () => {
+    let moves = 0;
+    const ui = setup({ post: async url => {
+      if (url.endsWith('start_game')) return response(state());
+      moves++;
+      return response(state(1, { gameOver: true, winner, legalMoves: [] }));
+    } });
+    ui.click('start-button'); await flush();
+    act(() => ui.column().click()); await flush();
+    assert.equal(moves, 1);
+    assert.ok([...ui.doc.querySelectorAll('.cell')].every(cell => cell.disabled));
+    assert.ok(ui.el('message').textContent.includes(wording));
+    assert.equal(ui.el('restart-button').disabled, false);
     ui.cleanup();
   });
 }

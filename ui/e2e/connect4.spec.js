@@ -5,7 +5,7 @@ const api = path => (process.env.PLAYWRIGHT_API_URL || '') + path;
 async function start(page, opponent = 'negamax') {
   await page.goto('/');
   await page.getByRole('link', { name: 'Play Connect 4' }).click();
-  await page.getByLabel('Opponent:').selectOption(opponent);
+  await page.locator(`input[name="opponent"][value="${opponent}"]`).check();
   if (opponent === 'mcts') {
     await expect(page.locator('#mcts-options')).toBeVisible();
     await expect(page.locator('#negamax-options')).toBeHidden();
@@ -42,7 +42,7 @@ for (const opponent of ['random', 'negamax', 'mcts']) {
     await expect(page.getByRole('status')).toContainText(/wins|win|draw/);
     const previousId = state.game_id;
     const nextOpponent = opponent === 'random' ? 'negamax' : 'random';
-    await page.getByLabel('Opponent:').selectOption(nextOpponent);
+    await page.locator(`input[name="opponent"][value="${nextOpponent}"]`).check();
     const restarted = page.waitForResponse(r => r.url().endsWith('/start_game') && r.request().method() === 'POST');
     await page.getByRole('button', { name: 'Start new game' }).click();
     state = await (await restarted).json();
