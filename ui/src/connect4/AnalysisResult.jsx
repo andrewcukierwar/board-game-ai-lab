@@ -32,14 +32,14 @@ export function StrategicContext({ entries }) {
 export function AnalysisDetails({ explanation }) {
   return <>
     <details className="analysis-disclosure"><summary>Detailed analysis</summary>
-      <div><h4>Complete verified tactical facts</h4>
+      <div><h3>Complete verified tactical facts</h3>
         <ul>{explanation.facts.map(fact => <li key={fact.id}>{fact.text}</li>)}</ul>
-        {explanation.additional_context.length > 0 && <h4>Additional reference context</h4>}
+        {explanation.additional_context.length > 0 && <h3>Additional reference context</h3>}
         {explanation.additional_context.map((entry, index) => <Concept key={index} entry={entry} />)}
       </div>
     </details>
     <details className="analysis-disclosure"><summary>Methodology and limitations</summary>
-      <div><p>This is post-hoc analysis of verified consequences. Agent intent, private reasoning, and search traces are not exposed.</p>
+      <div><h3>Analysis methodology</h3><p>This is post-hoc analysis of verified consequences. Agent intent, private reasoning, and search traces are not exposed.</p>
         <ul>{explanation.limitations.map((text, index) => <li key={index}>{text}</li>)}</ul>
         {[...explanation.strategic_context, ...explanation.additional_context].map((entry, index) =>
           <section key={index}><h4>{entry.title}</h4>

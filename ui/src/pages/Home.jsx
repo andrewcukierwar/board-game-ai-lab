@@ -32,7 +32,7 @@ export default function Home() {
         <div className="hero-copy">
           <p className="eyebrow"><span className="accent-dash" />Play · compare · understand</p>
           <h1 id="hero-title">Board Game<br /><span>AI Lab</span><span className="title-period">.</span></h1>
-          <p className="hero-statement">Explore how game-playing AI thinks.</p>
+          <p className="hero-statement">Explore how game-playing AI chooses moves.</p>
           <p className="hero-description">Play Connect 4 against different AI approaches. Compare how they choose moves and inspect grounded analysis of the board.</p>
           <div className="action-row"><ActionLink to="/connect4">Play Connect 4</ActionLink><ActionLink to="/#agents" variant="secondary">Explore the agents</ActionLink></div>
           <p className="hero-note"><span className="piece-dot piece-dot--red" /><span className="piece-dot piece-dot--yellow" />You play red. The AI plays yellow.</p>

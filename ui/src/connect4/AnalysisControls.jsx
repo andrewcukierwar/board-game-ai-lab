@@ -19,7 +19,7 @@ export default function AnalysisControls({ analysis }) {
         <textarea id="explanation-question" maxLength={500} rows={2} value={question}
           onChange={event => setQuestion(event.target.value)} disabled={disabled}
           aria-describedby="question-help question-count" placeholder="What should I look for in this position?" />
-        <p id="question-help" className="analysis-helper">Guide the focus within verified facts and reference concepts.</p>
+        <p id="question-help" className="analysis-helper">Ask about this board. Answers stay within verified facts and reference context.</p>
       </div>
       {mode === 'what_if' && <div className="what-if-controls">
         <label htmlFor="what-if-column">Hypothetical move:</label>

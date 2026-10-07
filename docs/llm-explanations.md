@@ -4,6 +4,8 @@
 
 Implemented locally on `phase3b-llm-explanations`; the preceding `d35b9f0` documentation commit is preserved. Nothing has been pushed or deployed. The user reports successful local GPT-6 Luna tests of both the initial feature and the revised Phase 3B.1 implementation at `45894d1`; development/Phase 3C verification uses mocks and makes no paid model calls. Random/Negamax gameplay and existing game responses are unchanged. The feature is disabled by default. See [the production profile, rollout and rollback](deployment.md) and [final readiness verification](phase3c-readiness.md).
 
+**Current frontend architecture:** UI-2/UI-3 replaced the historical controllers below with React components and independent gameplay/analysis hooks under `ui/src/connect4/`. Both `ui/legacy` controllers are removed. See [UI-3](ui-3-analysis-migration.md) and [UI-4](ui-4-final-polish.md). The file list below records the original Phase 3 changes.
+
 ## Files changed
 
 - Backend: `api/app.py`, `api/connect4/__init__.py`, `api/connect4/state.py`, `api/connect4/evidence.py`, new `api/connect4/explanations.py` and `api/connect4/openai_provider.py`.

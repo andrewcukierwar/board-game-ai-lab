@@ -11,9 +11,13 @@ export default defineConfig({
   fullyParallel: false,
   workers: 1,
   timeout: 60000,
+  projects: [
+    { name: 'chromium', use: { browserName: 'chromium' } },
+    { name: 'firefox', testMatch: '**/polish.spec.js', use: { browserName: 'firefox' } },
+    { name: 'webkit', testMatch: '**/polish.spec.js', use: { browserName: 'webkit' } },
+  ],
   use: {
     baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3000',
-    browserName: 'chromium',
     trace: 'retain-on-failure',
   },
 });

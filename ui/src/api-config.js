@@ -1,5 +1,5 @@
 // An empty base uses the local /v1 proxy. Deployment values are origins,
-// not endpoint paths: the controller already includes /v1/connect4.
+// not endpoint paths: the React request hooks already include /v1/connect4.
 export function apiBase(value = '', { development = false, render = false } = {}) {
   if (development) return '';
   const base = value.trim().replace(/\/$/, '');

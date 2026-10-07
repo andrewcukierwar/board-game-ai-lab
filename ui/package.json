@@ -1,8 +1,7 @@
 {
-  "name": "ui",
+  "name": "board-game-ai-lab-ui",
   "version": "1.0.0",
   "type": "module",
-  "main": "index.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -29,5 +28,11 @@
   },
   "engines": {
     "node": "^20.19.0 || >=22.12.0"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewcukierwar/board-game-ai-lab.git",
+    "directory": "ui"
   }
 }

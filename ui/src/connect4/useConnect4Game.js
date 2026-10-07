@@ -4,7 +4,7 @@ export const humanTurn = game => game?.players[game.currentPlayer].type === 'hum
 
 function validateSnapshot(data) {
   // Waking proxies can return HTML with HTTP 200. Never discard a valid board
-  // until the response passes the same snapshot contract as the old controller.
+  // until the response passes the game snapshot contract.
   if (!data || typeof data.game_id !== 'string' || !Number.isInteger(data.revision) ||
       !Array.isArray(data.board) || data.board.length !== 6 ||
       !data.board.every(row => Array.isArray(row) && row.length === 7) ||

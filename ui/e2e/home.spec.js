@@ -17,7 +17,7 @@ for (const [name, width, height] of [['desktop', 1440, 1000], ['tablet', 820, 11
     await page.goto('/');
     await expect(page).toHaveTitle('Board Game AI Lab');
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Board GameAI Lab.');
-    await expect(page.getByText('Explore how game-playing AI thinks.')).toBeVisible();
+    await expect(page.getByText('Explore how game-playing AI chooses moves.')).toBeVisible();
     for (const agent of ['Random', 'Negamax', 'MCTS']) {
       await expect(page.locator('#agents').getByRole('heading', { name: agent, exact: true })).toBeVisible();
     }
@@ -77,7 +77,7 @@ test('keyboard skip link and brand support navigation after a direct game refres
 });
 
 for (const width of [820, 375, 320]) {
-  test(`existing board fits and supports keyboard play at ${width}px`, async ({ page }, testInfo) => {
+  test(`React board fits and supports keyboard play at ${width}px`, async ({ page }, testInfo) => {
     await page.setViewportSize({ width, height: 900 });
     const errors = [];
     page.on('pageerror', error => errors.push(error.message));

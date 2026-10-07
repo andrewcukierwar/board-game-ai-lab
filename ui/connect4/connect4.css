@@ -1,12 +1,11 @@
 /* React gameplay and analysis share the UI-1 design tokens. */
 .connect4-wrapper { padding-block: 42px 64px; }
-.connect4-wrapper *, .connect4-wrapper *::before, .connect4-wrapper *::after { box-sizing: border-box; }
 .connect4-wrapper [hidden] { display: none !important; }
 .connect4-wrapper :is(button, input, select, textarea, summary):focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
 .connect4-wrapper button, .connect4-wrapper select, .connect4-wrapper textarea { font: inherit; }
 .connect4-wrapper button { cursor: pointer; }
 .connect4-wrapper button:disabled { cursor: not-allowed; }
-.connect4-wrapper :is(select, textarea) { color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 11px 12px; max-width: 100%; }
+.connect4-wrapper :is(select, textarea) { color: var(--text); background: var(--bg); border: 1px solid var(--control-border); border-radius: 6px; padding: 11px 12px; max-width: 100%; }
 .connect4-wrapper label { font-size: 13px; color: var(--muted); }
 .connect4-wrapper button:disabled:not(.cell) { opacity: .5; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
@@ -17,7 +16,7 @@
 .game-workspace { display: grid; grid-template-columns: minmax(0, 1fr) 350px; grid-template-rows: auto 1fr; gap: 24px 32px; align-items: start; }
 .board-surface { grid-column: 1; grid-row: 1; min-width: 0; padding: 24px; border: 1px solid var(--border); background: var(--surface); border-radius: var(--radius); }
 .board-topline { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
-.board-revision { font-family: ui-monospace, monospace; font-size: 11px; color: var(--muted); }
+.board-revision { font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
 .column-guide { display: grid; grid-template-columns: repeat(7, 1fr); padding: 0 12px; margin-top: 24px; text-align: center; font-size: 12px; color: var(--muted); }
 .column-guide span { display: flex; flex-direction: column; gap: 6px; }
 .column-guide i { font-style: normal; color: var(--accent); padding-bottom: 10px; }
@@ -45,6 +44,9 @@
 .agent-option { display: flex; align-items: center; gap: 12px; border: 1px solid var(--border); border-radius: 8px; padding: 14px; cursor: pointer; }
 .agent-option:hover { background: var(--surface-raised); }
 .agent-option.is-selected { border-color: var(--accent); background: #91d5ed0b; }
+.agent-option:has(input:focus-visible) { outline: 3px solid var(--accent); outline-offset: 4px; }
+.agent-selection fieldset:disabled .agent-option { opacity: .5; cursor: not-allowed; }
+.agent-selection fieldset:disabled .agent-option:hover { background: transparent; }
 .agent-option input { margin: 0; accent-color: var(--accent); width: 16px; height: 16px; flex-shrink: 0; }
 .agent-option strong { display: block; font-size: 15px; font-weight: 650; color: var(--text); }
 .agent-option small { display: block; margin-top: 5px; font-size: 11px; line-height: 1.5; }
@@ -79,7 +81,7 @@
 .analysis-fields > div { min-width: 0; }
 .analysis-question:only-child { grid-column: 1 / -1; }
 .question-label { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; align-items: center; }
-#question-count { color: var(--muted); font-size: 11px; font-family: ui-monospace, monospace; }
+#question-count { color: var(--muted); font-size: 11px; font-family: var(--font-mono); }
 #explanation-question { display: block; width: 100%; margin: 10px 0 8px; resize: vertical; font-size: 14px; line-height: 1.6; }
 #explanation-question::placeholder { color: var(--muted); opacity: .7; }
 .what-if-controls label { display: block; margin-bottom: 10px; }
