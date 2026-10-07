@@ -59,11 +59,13 @@ test('disabled before start, all modes explicit, legal columns and sources displ
   assert.equal(ui.el('analyze-position').disabled, true);
   ui.panel.update(state(), false);
   assert.equal(calls.length, 0);
-  assert.deepEqual([...ui.el('what-if-column').options].map(o => o.value), ['0', '2', '3']);
+  assert.equal(ui.el('what-if-column'), null);
   for (const [id, mode] of [['explain-last', 'last_move'], ['analyze-position', 'position'], ['what-if', 'what_if']]) {
     ui.click(id); await flush();
     assert.equal(calls.at(-1).url, '/v1/connect4/explain');
     assert.equal(calls.at(-1).body.mode, mode);
+    if (mode === 'what_if') assert.deepEqual([...ui.el('what-if-column').options].map(o => o.value), ['0', '2', '3']);
+    else assert.equal(ui.el('what-if-column'), null);
     assert.match(ui.el('explanation-result').textContent, /Verified tactical evidence/);
     assert.match(ui.el('explanation-result').textContent, /not a proven rule application/);
     assert.match(ui.el('explanation-result').textContent, /§3.4, thesis\/PDF pp. 21–24/);
@@ -166,6 +168,7 @@ test('React unmount safely removes the analysis panel', () => {
 test('a mismatched hypothetical column never renders under the requested column', async () => {
   const ui = setup({ post: async (url, body) => response(body, { column: 3 }) });
   ui.panel.update(state(), false);
+  ui.click('what-if'); await flush();
   ui.set('what-if-column', '2');
   ui.click('what-if'); await flush();
   assert.equal(ui.el('explanation-result').textContent, '');
@@ -305,6 +308,7 @@ test('question payload, character count and legal column fallback remain React o
   const ui = setup({ post: async (url, request) => { body = request; return response(request); } });
   ui.panel.update(state(), false);
   ui.set('explanation-question', 'Is this safe?');
+  ui.click('what-if'); await flush();
   ui.set('what-if-column', '3'); ui.click('what-if'); await flush();
   assert.deepEqual(body, { game_id: 'game-a', revision: 0, mode: 'what_if', column: 3, question: 'Is this safe?' });
   assert.equal(ui.el('question-count').textContent, '13/500');
@@ -358,5 +362,31 @@ test('a failed replacement clears completed highlights immediately and preserves
   assert.equal(ui.doc.querySelectorAll('.explanation-square').length, 0);
   assert.equal(ui.doc.querySelector('.cell[data-column="3"]').disabled, false);
   assert.deepEqual(game, original);
+  ui.panel.cleanup();
+});
+
+test('hypothetical controls only mount in what-if mode and retain a still-legal selection', async () => {
+  const requests = [];
+  const ui = setup({ post: async (url, body) => { requests.push(body); return response(body); } });
+  ui.panel.update(state(), false);
+  assert.equal(ui.el('what-if-column'), null);
+  assert.equal(ui.el('column-help'), null);
+  ui.click('what-if'); await flush();
+  ui.set('what-if-column', '3');
+  for (const action of ['explain-last', 'analyze-position']) {
+    ui.click(action); await flush();
+    assert.equal(ui.el('what-if-column'), null);
+    assert.equal(ui.el('column-help'), null);
+    assert.equal(requests.at(-1).column, undefined);
+    ui.click('what-if'); await flush();
+    assert.equal(ui.el('what-if-column').value, '3');
+    assert.equal(requests.at(-1).column, 3);
+  }
+  ui.click('analyze-position'); await flush();
+  ui.panel.update(state(2, { legalMoves: [2] }), false);
+  assert.equal(ui.el('what-if-column'), null);
+  ui.click('what-if'); await flush();
+  assert.equal(ui.el('what-if-column').value, '2');
+  assert.equal(requests.at(-1).column, 2);
   ui.panel.cleanup();
 });

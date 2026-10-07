@@ -77,6 +77,7 @@
 .analysis-modes button:enabled:hover { border-color: var(--accent); }
 .analysis-fields { display: grid; grid-template-columns: minmax(0, 2fr) minmax(180px, 1fr); gap: 24px; margin-top: 22px; }
 .analysis-fields > div { min-width: 0; }
+.analysis-question:only-child { grid-column: 1 / -1; }
 .question-label { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; align-items: center; }
 #question-count { color: var(--muted); font-size: 11px; font-family: ui-monospace, monospace; }
 #explanation-question { display: block; width: 100%; margin: 10px 0 8px; resize: vertical; font-size: 14px; line-height: 1.6; }

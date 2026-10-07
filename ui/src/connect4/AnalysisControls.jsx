@@ -21,7 +21,7 @@ export default function AnalysisControls({ analysis }) {
           aria-describedby="question-help question-count" placeholder="What should I look for in this position?" />
         <p id="question-help" className="analysis-helper">Guide the focus within verified facts and reference concepts.</p>
       </div>
-      <div className="what-if-controls">
+      {mode === 'what_if' && <div className="what-if-controls">
         <label htmlFor="what-if-column">Hypothetical move:</label>
         <select id="what-if-column" value={column ?? ''} onChange={event => setColumn(Number(event.target.value))}
           disabled={disabled || !legalColumns.length} aria-describedby="column-help">
@@ -29,7 +29,7 @@ export default function AnalysisControls({ analysis }) {
           {legalColumns.map(c => <option key={c} value={c}>Column {c + 1}</option>)}
         </select>
         <p id="column-help" className="analysis-helper">Choose a column, then select What if? The game stays unchanged.</p>
-      </div>
+      </div>}
     </div>
   </div>;
 }

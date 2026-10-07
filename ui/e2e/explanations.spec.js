@@ -32,11 +32,15 @@ test('all explanation modes, sources and explicit failure retry with gameplay av
   await expect(page.locator('#explanation-result a')).toContainText('§3.4, thesis/PDF pp. 21–24');
   await page.getByRole('button', { name: 'Analyze Position', exact: true }).click();
   await expect(page.locator('#explanation-panel')).toHaveAttribute('aria-busy', 'false');
+  await page.getByRole('button', { name: 'What If?', exact: true }).click();
+  await expect(page.locator('#explanation-panel')).toHaveAttribute('aria-busy', 'false');
+  const defaultColumn = Number(await page.getByLabel('Hypothetical move:').inputValue());
   await page.getByLabel('Hypothetical move:').selectOption('3');
   await page.getByRole('button', { name: 'What If?', exact: true }).click();
   await expect(page.locator('#explanation-status')).toContainText('Hypothetical Column 4');
-  expect(requests.map(r => r.mode)).toEqual(['last_move', 'position', 'what_if']);
-  expect(requests[2].column).toBe(3);
+  expect(requests.map(r => r.mode)).toEqual(['last_move', 'position', 'what_if', 'what_if']);
+  expect(requests[2].column).toBe(defaultColumn);
+  expect(requests[3].column).toBe(3);
   await page.unroute('**/v1/connect4/explain');
   await page.route('**/v1/connect4/explain', route => route.fulfill({ status: 503, json: { error: 'Explanations are unavailable.' } }), { times: 1 });
   await page.getByRole('button', { name: 'Analyze Position', exact: true }).click();
@@ -103,6 +107,8 @@ test('a response for another hypothetical column is rejected without affecting p
     json: { ...explained(route.request().postDataJSON()), column: 0 },
   }));
   await start(page);
+  await page.getByRole('button', { name: 'What If?', exact: true }).click();
+  await expect(page.locator('#explanation-panel')).toHaveAttribute('aria-busy', 'false');
   await page.getByLabel('Hypothetical move:').selectOption('3');
   await page.getByRole('button', { name: 'What If?', exact: true }).click();
   await expect(page.locator('#explanation-status')).toContainText('could not be loaded');
@@ -227,8 +233,11 @@ for (const [name, width, height] of [['desktop', 1440, 1100], ['tablet', 820, 11
     await expect(page.getByText('Reference only', { exact: true })).toBeVisible();
     await expect(page.getByText('Reference precondition: The reference applies to a legal position with gravity.', { exact: true })).toHaveCount(2);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    expect(await page.locator('.skip-link').evaluate(node => node.getBoundingClientRect().bottom)).toBeLessThanOrEqual(0);
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.locator('#explanation-panel').screenshot({ path: testInfo.outputPath(`analysis-${name}-expanded.png`) });
+    await page.locator('#what-if').click();
+    await expect(page.locator('#explanation-panel')).toHaveAttribute('aria-busy', 'false');
     await page.locator('#what-if-column').selectOption('3');
     await page.locator('#what-if').focus(); await page.keyboard.press('Space');
     await expect(page.locator('#what-if')).toHaveAttribute('aria-pressed', 'true');
@@ -319,4 +328,37 @@ test('loading, disabled service and long unavailable error fit at 320px while ga
   await page.locator('.cell[data-column="3"]:enabled').first().click();
   await expect(page.locator('.circle.x')).toHaveCount(1);
   await expect(page.locator('.circle.o')).toHaveCount(1);
+});
+
+test('what-if selector leaves the form and layout in other modes but retains its legal selection', async ({ page }) => {
+  const requests = [];
+  await page.route('**/v1/connect4/explain', route => {
+    const body = route.request().postDataJSON();
+    requests.push(body);
+    return route.fulfill({ json: explained(body) });
+  });
+  await start(page);
+  for (const action of ['#analyze-position', '#explain-last']) {
+    await page.locator(action).click();
+    await expect(page.locator('#explanation-panel')).toHaveAttribute('aria-busy', 'false');
+    await expect(page.getByLabel('Hypothetical move:')).toHaveCount(0);
+    await expect(page.locator('#column-help')).toHaveCount(0);
+    const fields = await page.locator('.analysis-fields').boundingBox();
+    const question = await page.locator('.analysis-question').boundingBox();
+    expect(question.width).toBeCloseTo(fields.width, 0);
+    expect(requests.at(-1)).not.toHaveProperty('column');
+  }
+  await page.locator('#what-if').click();
+  await expect(page.locator('#explanation-panel')).toHaveAttribute('aria-busy', 'false');
+  await page.getByLabel('Hypothetical move:').selectOption('3');
+  for (const action of ['#explain-last', '#analyze-position']) {
+    await page.locator(action).click();
+    await expect(page.locator('#explanation-panel')).toHaveAttribute('aria-busy', 'false');
+    await expect(page.getByLabel('Hypothetical move:')).toHaveCount(0);
+    await page.locator('#what-if').click();
+    await expect(page.locator('#explanation-panel')).toHaveAttribute('aria-busy', 'false');
+    await expect(page.getByLabel('Hypothetical move:')).toHaveValue('3');
+    await expect(page.locator('#explanation-status')).toContainText('Hypothetical Column 4');
+    expect(requests.at(-1).column).toBe(3);
+  }
 });

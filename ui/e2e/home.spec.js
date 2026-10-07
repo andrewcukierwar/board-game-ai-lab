@@ -60,10 +60,17 @@ test('keyboard skip link and brand support navigation after a direct game refres
   await page.goto('/connect4');
   await page.reload();
   await expect(page.getByRole('button', { name: 'Start game', exact: true })).toBeVisible();
+  const skip = page.getByRole('link', { name: 'Skip to content' });
+  expect(await skip.evaluate(node => node.getBoundingClientRect().bottom)).toBeLessThanOrEqual(0);
   await page.keyboard.press('Tab');
-  await expect(page.getByRole('link', { name: 'Skip to content' })).toBeFocused();
+  await expect(skip).toBeFocused();
+  await expect(skip).toBeInViewport();
+  const bounds = await skip.boundingBox();
+  expect(bounds.x).toBe(12);
+  expect(bounds.y).toBe(12);
   await page.keyboard.press('Enter');
   await expect(page.locator('#main-content')).toBeFocused();
+  expect(await skip.evaluate(node => node.getBoundingClientRect().bottom)).toBeLessThanOrEqual(0);
   await page.getByRole('link', { name: 'Board Game AI Lab home', exact: true }).click();
   await expect(page.getByRole('heading', { level: 1 })).toBeVisible();
   await expect(page.locator('meta[name="description"]')).toHaveAttribute('content', /grounded position analysis/);

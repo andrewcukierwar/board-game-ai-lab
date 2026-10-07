@@ -26,7 +26,8 @@ for (const [name, width, height] of [['desktop', 1440, 1100], ['tablet', 820, 11
     await expect(page.locator('.circle.o')).toHaveCount(1);
     await expect(page.locator('#message')).toContainText('Your turn');
     await expect(page.locator('#restart-button')).toBeEnabled();
-    await expect(page.locator('#what-if-column option:checked')).toHaveCount(1);
+    await expect(page.locator('#what-if-column')).toHaveCount(0);
+    await expect(page.locator('#column-help')).toHaveCount(0);
     await page.evaluate(() => window.scrollTo(0, 0));
     expect(await fits(page)).toBe(true);
     const board = await page.locator('#game-board').boundingBox();
