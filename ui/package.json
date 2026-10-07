@@ -11,10 +11,10 @@
     "test": "node --test tests/*.test.js",
     "test:e2e": "playwright test"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["board-games", "artificial-intelligence", "connect-four", "negamax", "mcts", "explainability", "react"],
+  "author": "Andrew Cukierwar",
   "license": "ISC",
-  "description": "",
+  "description": "An interactive laboratory for building, comparing, and explaining game-playing AI.",
   "dependencies": {
     "axios": "^1.11.0",
     "react": "^19.1.0",

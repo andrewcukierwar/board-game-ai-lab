@@ -1,0 +1,77 @@
+:root {
+  color-scheme: dark;
+  --bg: #10161f;
+  --surface: #171f2b;
+  --surface-raised: #1c2735;
+  --border: #303e50;
+  --text: #f0f4fa;
+  --muted: #aebccc;
+  --accent: #91d5ed;
+  --blue: #459ac0;
+  --red: #f06b6d;
+  --yellow: #f4ca65;
+  --radius: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body { margin: 0; }
+.app-shell { min-height: 100vh; display: flex; flex-direction: column; }
+.site-content { flex: 1; min-width: 0; }
+.site-container { width: min(1160px, calc(100% - 80px)); margin-inline: auto; }
+.site-header { border-bottom: 1px solid var(--border); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 90px; }
+.brand { display: inline-flex; align-items: center; gap: 13px; color: var(--text); font-size: 18px; text-decoration: none; white-space: nowrap; }
+.brand strong { font-weight: 700; }
+.brand-mark { display: grid; grid-template-columns: repeat(2, 7px); gap: 4px; border: 1px solid var(--border); border-radius: 7px; padding: 9px; }
+.brand-mark i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.brand-mark i:nth-child(2) { background: var(--red); }
+.brand-mark i:nth-child(3) { background: var(--yellow); }
+.site-nav { display: flex; gap: 30px; align-items: center; }
+.site-nav a, .footer-links a { color: var(--muted); text-decoration: none; font-size: 14px; font-weight: 600; padding-block: 10px; }
+.site-nav a:hover, .site-nav a.active, .footer-links a:hover { color: var(--accent); }
+.site-nav a.active { text-decoration: underline; text-underline-offset: 8px; }
+.site-footer { border-top: 1px solid var(--border); }
+.footer-inner { padding-block: 36px; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.footer-brand { color: var(--text); font-size: 16px; font-weight: 650; text-decoration: none; }
+.footer-inner p { color: var(--muted); font-size: 13px; line-height: 1.6; margin: 9px 0 0; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 24px; }
+.skip-link { position: fixed; top: 12px; left: 12px; transform: translateY(-200%); z-index: 10; background: var(--accent); color: var(--bg); border-radius: 6px; padding: 12px 18px; font-weight: 600; }
+.skip-link:focus { transform: translateY(0); }
+.app-shell a:focus-visible, .home-page [tabindex]:focus-visible { outline: 3px solid var(--accent); outline-offset: 5px; border-radius: 3px; }
+.site-content:focus { outline: none; }
+
+.action-link { display: inline-flex; align-items: center; justify-content: center; gap: 24px; padding: 15px 21px; border: 1px solid transparent; border-radius: 7px; font-size: 14px; font-weight: 700; text-decoration: none; min-height: 48px; box-sizing: border-box; }
+.action-link--primary { background: var(--accent); color: #101e2b; }
+.action-link--primary:hover { background: #b9e9f7; }
+.action-link--secondary { background: transparent; color: var(--text); border-color: var(--border); }
+.action-link--secondary:hover { background: var(--surface-raised); border-color: var(--muted); }
+.action-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.eyebrow { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 11px; font-weight: 500; letter-spacing: 1.6px; text-transform: uppercase; line-height: 1.6; color: var(--accent); margin: 0; }
+.badge { display: inline-block; border: 1px solid #426171; border-radius: 4px; padding: 3px 7px; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10px; line-height: 1.5; color: #b1ddea; white-space: nowrap; }
+.badge--research { color: #c4c4d9; border-color: #51536b; }
+.section-heading h2 { font-size: clamp(28px, 3vw, 38px); line-height: 1.2; letter-spacing: -1.1px; font-weight: 650; margin: 18px 0; }
+.section-number { color: var(--muted); margin-right: 16px; }
+.section-intro { color: var(--muted); font-size: 16px; line-height: 1.75; max-width: 600px; margin: 0; }
+
+/* Preserve the existing light gameplay surface and its native form controls.
+   The legacy board, explanation, loading and hidden-state rules stay untouched. */
+.site-content > .connect4-wrapper { color-scheme: light; color: #192535; background: #f5f7fb; border-radius: var(--radius); max-width: 960px; margin: 40px auto; width: calc(100% - 80px); box-sizing: border-box; }
+.connect4-wrapper > a { color: #18528d; }
+.connect4-wrapper :is(button:not(.cell), select, textarea, summary):focus-visible { outline: 3px solid #18528d; outline-offset: 3px; }
+
+@media (max-width: 760px) {
+  .site-container { width: calc(100% - 40px); }
+  .header-inner { flex-direction: column; align-items: flex-start; gap: 12px; padding-block: 20px 12px; }
+  .site-nav { gap: 28px; flex-wrap: wrap; }
+  .footer-inner { align-items: flex-start; flex-direction: column; padding-block: 28px; }
+  .site-content > .connect4-wrapper { width: 100%; border-radius: 0; margin-block: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-shell { scroll-behavior: auto; }
+}
