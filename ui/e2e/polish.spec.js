@@ -72,6 +72,8 @@ for (const width of [1440, 1024, 820, 768, 375, 320]) {
     // Keyboard focus on navigation and the hero CTA uses the shared link style.
     await nav.getByRole('link', { name: 'Play', exact: true }).focus();
     await page.keyboard.press(tabKey);
+    await expect(nav.getByRole('link', { name: 'Match Lab', exact: true })).toBeFocused();
+    await page.keyboard.press(tabKey);
     await expect(nav.getByRole('link', { name: 'Agents', exact: true })).toBeFocused();
     expect(await nav.getByRole('link', { name: 'Agents', exact: true }).evaluate(node => getComputedStyle(node).outlineStyle)).toBe('solid');
     const cta = page.getByRole('link', { name: 'Play Connect 4', exact: true });

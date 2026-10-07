@@ -53,6 +53,11 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="match-lab-discovery site-container" aria-label="Match Lab">
+        <div><p className="eyebrow">Competition Lab</p><h2>Watch strategies collide.</h2><p>Configure any two competitors and compare their play move by move.</p></div>
+        <ActionLink to="/connect4/match-lab" variant="secondary">Open Match Lab</ActionLink>
+      </section>
+
       <section className="explain-section" aria-label="Explainability">
         <div className="site-container explain-layout">
           <div><SectionHeading number="02" eyebrow="Beyond the move" title="Make the position understandable.">A move is only the beginning. Explore verified board facts and their connection to Connect 4 strategy.</SectionHeading>

@@ -1,16 +1,16 @@
 import { humanTurn, playerLabel } from './useConnect4Game.js';
 
-export default function GameBoard({ game, busy, uncertain, move, highlights = [] }) {
+export default function GameBoard({ game, busy, uncertain, move, highlights = [], interactive, labels }) {
   const squareNames = new Set(highlights.map(square => square.name));
   return <div className="board-surface">
     <div className="board-topline"><span className="eyebrow">The playing field</span><span className="board-revision">{game ? `Move ${game.revision}` : 'Ready when you are'}</span></div>
     <div className="column-guide" aria-hidden="true">{[1, 2, 3, 4, 5, 6, 7].map(column => <span key={column}>{column}<i>↓</i></span>)}</div>
-    <div id="game-board" className={game && game.players[1].type === 'human' ? 'human-yellow' : 'human-red'} role="group" aria-label="Connect 4 board" aria-busy={busy}>
+    <div id="game-board" className={game && (interactive === undefined ? game.players[1].type === 'human' : game.currentPlayer === 1) ? 'human-yellow' : 'human-red'} role="group" aria-label="Connect 4 board" aria-busy={busy}>
       {game ? game.board.flatMap((row, rowIndex) => row.map((piece, column) => {
         const name = `${String.fromCharCode(97 + column)}${6 - rowIndex}`;
         const highlighted = squareNames.has(name);
         return <button key={`${game.game_id}:${rowIndex}:${column}`} type="button" className={`cell${highlighted ? ' explanation-square' : ''}`}
-          disabled={busy || uncertain || game.gameOver || !humanTurn(game) || !game.legalMoves.includes(column)}
+          disabled={busy || uncertain || game.gameOver || (interactive === undefined ? !humanTurn(game) : !interactive) || !game.legalMoves.includes(column)}
           aria-label={`Column ${column + 1}, row ${rowIndex + 1}: ${piece === 'X' ? 'red' : piece === 'O' ? 'yellow' : 'empty'}`}
           data-column={column} data-square={name}
           onClick={() => move(column)}>
@@ -19,6 +19,6 @@ export default function GameBoard({ game, busy, uncertain, move, highlights = []
         </button>;
       })) : Array.from({ length: 42 }, (_, index) => <span key={index} className="board-preview-slot" aria-hidden="true"><span className="circle empty" /></span>)}
     </div>
-    <div className="board-legend"><span><i className="legend-piece legend-piece--red" />{game ? playerLabel(game, 0) : 'Player 1'} · red</span><span><i className="legend-piece legend-piece--yellow" />{game ? playerLabel(game, 1) : 'Player 2'} · yellow</span><span>Four in a row wins</span></div>
+    <div className="board-legend"><span><i className="legend-piece legend-piece--red" />{labels?.[0] ?? (game ? playerLabel(game, 0) : 'Player 1')} · red</span><span><i className="legend-piece legend-piece--yellow" />{labels?.[1] ?? (game ? playerLabel(game, 1) : 'Player 2')} · yellow</span><span>Four in a row wins</span></div>
   </div>;
 }

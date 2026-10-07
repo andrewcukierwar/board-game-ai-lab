@@ -6,7 +6,7 @@ Play Connect 4 against Random, depth-limited Negamax or bounded MCTS in a Flask 
 
 Backend API origin: [https://board-game-ai-lab.onrender.com](https://board-game-ai-lab.onrender.com) · [API health endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/health).
 
-**Status:** Phases 1–3 are complete; the user confirms explanations have been enabled and manually tested publicly, following the earlier local Phase 3C readiness review. Source defaults remain disabled and key-free. Phase 4A.1 standalone MCTS correctness is complete at `c213ddf`. Phase 4A.2 API/UI integration is implemented locally, pending review and deployment; public MCTS availability is not yet verified. See [MCTS integration and verification](docs/phase4a2-mcts-integration.md), [the explanation contract](docs/llm-explanations.md), and [deployment guidance](docs/deployment.md).
+**Status:** Public Play is stable and deployed at verified main commit `1d0874102c8a78935ab68d8cd470f24f66431e9f`, with Random, corrected Negamax, MCTS, both turn orders, and grounded AI Analysis. Phase 5A adds a separate **Match Lab** locally at `/connect4/match-lab`, pending review and deployment. It supports any two public competitors, manual stepping, safe autoplay/pause, and read-only timeline replay. See [Match Lab architecture and verification](docs/phase5a-match-lab.md), [the explanation contract](docs/llm-explanations.md), and [deployment guidance](docs/deployment.md).
 
 ## Run locally with Docker
 
@@ -20,6 +20,8 @@ Open **http://localhost:3000** and select **Play Connect 4**. No `.env` file, AP
 
 Choose Random, Negamax (depth presets 1/2/4/6/8, default 2), or MCTS (Quick — 100 simulations, default; Balanced — 400; Deep — 800), then **Start game**. Choose **You go first** (default, red) or **AI goes first** (you play yellow). AI-first games automatically make one opening move. Use **Start new game** at any time to restart; choose another opponent first to switch. Two tabs have independent games. Failed requests show recovery controls instead of automatically repeating moves.
 
+Open **http://localhost:3000/connect4/match-lab** to configure Red and Yellow independently. **Start match** leaves the empty board paused; use **Next move** for one AI ply or **Autoplay** to watch sequential moves. Human turns wait for a board click. **Previous**, **Next**, the move list, and **Return to live** inspect history without undoing the server game.
+
 Stop the stack with `Ctrl+C`, then `docker compose down` to remove its containers/network.
 
 ## Development and tests
@@ -30,7 +32,7 @@ Use Python **3.11** and Node **22.12+** (Vite also supports Node 20.19+).
 python3.11 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements-dev.txt
-EXPLANATIONS_ENABLED=false OPENAI_API_KEY= python -m pytest -q
+EXPLANATIONS_ENABLED=false OPENAI_API_KEY= python -m pytest tests -q
 EXPLANATIONS_ENABLED=false OPENAI_API_KEY= gunicorn api.app:app --bind 127.0.0.1:8000 --workers 1 --threads 4
 ```
 
@@ -62,14 +64,14 @@ For Vite instead, set `PLAYWRIGHT_BASE_URL=http://localhost:5173` when running `
 
 ## Scope and limitations
 
-- The local web API exposes Human, Random, Negamax and MCTS; the UI is human-versus-AI. Corrected Negamax is capped at depth 8 (API integers 1–8; UI presets 1/2/4/6/8). It uses exact dominant terminal values, zero draws, center-first ties and bound-typed transposition entries. MCTS uses UCT selection, random rollouts, alternating-player reward backpropagation and final visit-count selection, with immediate-win and immediate-loss-avoidance root guards. UI simulation presets are 100/400/800 (default 100); the API also retains benchmarked 50/250 for compatibility. Local latency measurements selected these caps; playing strength is not formally benchmarked. See [the performance and turn-order report](docs/public-agent-strength-and-turn-order.md).
+- The local web API exposes Human, Random, Negamax and MCTS; Play is human-versus-AI; Match Lab supports Human/Human, Human/AI, and AI/AI. Corrected Negamax is capped at depth 8 (API integers 1–8; UI presets 1/2/4/6/8). It uses exact dominant terminal values, zero draws, center-first ties and bound-typed transposition entries. MCTS uses UCT selection, random rollouts, alternating-player reward backpropagation and final visit-count selection, with immediate-win and immediate-loss-avoidance root guards. UI simulation presets are 100/400/800 (default 100); the API also retains benchmarked 50/250 for compatibility. Local latency measurements selected these caps; playing strength is not formally benchmarked. See [the performance and turn-order report](docs/public-agent-strength-and-turn-order.md).
 - At most one MCTS search runs per process. A competing request immediately receives HTTP 503 `agent_busy` without changing its board, revision or history; recovery refreshes the board before an explicit retry. Human, Random and Negamax do not use this guard. Searches are synchronous; simulation limits bound work, not a strict wall-clock deadline. Retain one worker/four threads and one instance on Render Free; this is not a distributed limit or fairness queue.
 - Sessions have random game IDs, per-game locks and revision checks. The server retains at most 128 sessions, with 30-minute idle expiry. Expired sessions are reclaimed on subsequent requests. At capacity it rejects new sessions; restarting your existing game replaces it without consuming another slot.
 - Games disappear on server restart. Reloading or leaving the gameplay page starts a new browser interaction; abandoned server sessions expire. Game IDs isolate games but are not authentication credentials for an account system.
 - Separate-host frontend builds use `VITE_API_BASE`; Render uses `npm run build:render` and an explicit HTTPS API origin. Docker builds and Vite development retain their local `/v1` proxies. API CORS uses an exact `CORS_ALLOWED_ORIGINS` allowlist; no wildcard is enabled by default.
 - Frontend requests allow 90 seconds for cold starts and never automatically repeat a POST. Recovery reads the authoritative board before another move. Deployments/free-service spin-down lose sessions; keep one API instance and one Gunicorn worker.
 - API inference requires only `requirements-api.txt`. The optional `requirements.txt` retains dependencies for historical ML/training code. MCTS, Random and Negamax require neither PyTorch nor neural checkpoints. MCTS-NN, VictorAgent and historical DQN remain experimental and unavailable through the web API; neural correctness/training is deferred.
-- The backend records immutable session move history and can build deterministic, revision-bound evidence internally. Formal Allis rule applications are not implemented; the thesis rules are curated reference knowledge.
+- The backend records immutable session move history and can build deterministic, revision-bound evidence internally and exposes a read-only history endpoint for Match Lab replay. Formal Allis rule applications are not implemented; the thesis rules are curated reference knowledge.
 - Phase 3B.1 explanations use constrained model selections over verified relationships, supporting facts and relevant thesis concepts, with per-game/client/global limits, bounded concurrency and caching. Formal rules remain reference-only; freeform strategic reasoning is not generated. The user confirms successful public explanation testing; current automated verification uses mocks and makes no provider calls. Mancala web play remains deferred. Pushing to `main` or manually dispatching the image workflow builds/publishes the API image and invokes its Render deploy hook.
 
 See [the quickstart](docs/quickstart.md) for the API contract and manual checks, and [the project plan](project_plan.md) for project status and resume acceptance criteria.

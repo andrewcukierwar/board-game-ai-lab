@@ -101,6 +101,17 @@ def get_game(gid):
         return jsonify(snapshot(gid, session))
 
 
+@bp.route('/games/<gid>/history', methods=['GET'])
+def get_history(gid):
+    # Capture game and immutable records under the same existing session lock.
+    # Only safe game evidence is serialized, never an agent/search object.
+    with store().access(game_id(gid)) as session:
+        state = snapshot(gid, session)
+        return jsonify(game_id=gid, revision=session.revision,
+                       players=state['players'], state=state,
+                       moves=[record.to_dict() for record in session.history])
+
+
 @bp.route('/make_move', methods=['POST'])
 def make_move():
     data = json_object()

@@ -32,7 +32,8 @@ export default function AppShell() {
             <span>Board Game <strong>AI Lab</strong></span>
           </Link>
           <nav className="site-nav" aria-label="Main navigation">
-            <NavLink to="/connect4">Play</NavLink>
+            <NavLink end to="/connect4">Play</NavLink>
+            <NavLink to="/connect4/match-lab">Match Lab</NavLink>
             <Link to="/#agents">Agents</Link>
             <Link to="/#research">Research</Link>
             <a href={REPOSITORY_URL}>GitHub <span aria-hidden="true">↗</span></a>

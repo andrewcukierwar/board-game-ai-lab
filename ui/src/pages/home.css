@@ -104,3 +104,7 @@
   .illustration-board { gap: 6px; padding: 12px; }
   .card-topline .eyebrow { letter-spacing: .6px; }
 }
+
+.match-lab-discovery { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; padding: 28px; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 72px; background: var(--surface); }
+.match-lab-discovery h2 { font-size: 26px; font-weight: 600; margin: 12px 0; letter-spacing: -.6px; }
+.match-lab-discovery p:last-child { color: var(--muted); line-height: 1.7; font-size: 14px; margin: 0; }
