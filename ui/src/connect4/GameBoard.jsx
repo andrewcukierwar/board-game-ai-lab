@@ -1,10 +1,15 @@
 import { humanTurn, playerLabel } from './useConnect4Game.js';
 
-export default function GameBoard({ game, busy, uncertain, move, highlights = [], interactive, labels }) {
+export default function GameBoard({ game, busy, uncertain, move, highlights = [], interactive, labels, columnControls = false }) {
+  const canMove = Boolean(game && !busy && !uncertain && !game.gameOver && (interactive === undefined ? humanTurn(game) : interactive));
   const squareNames = new Set(highlights.map(square => square.name));
   return <div className="board-surface">
     <div className="board-topline"><span className="eyebrow">The playing field</span><span className="board-revision">{game ? `Move ${game.revision}` : 'Ready when you are'}</span></div>
-    <div className="column-guide" aria-hidden="true">{[1, 2, 3, 4, 5, 6, 7].map(column => <span key={column}>{column}<i>↓</i></span>)}</div>
+    <div className={`column-guide ${columnControls ? 'column-guide--controls' : ''}`} aria-hidden={columnControls ? undefined : true}
+      role={columnControls ? 'group' : undefined} aria-label={columnControls ? 'Choose a legal column' : undefined}>
+      {[1, 2, 3, 4, 5, 6, 7].map(column => columnControls ? <button key={column} type="button" aria-label={`Drop in column ${column}`}
+        disabled={!canMove || !game.legalMoves.includes(column - 1)} onClick={() => move(column - 1)}>{column}<i aria-hidden="true">↓</i></button> : <span key={column}>{column}<i>↓</i></span>)}
+    </div>
     <div id="game-board" className={game && (interactive === undefined ? game.players[1].type === 'human' : game.currentPlayer === 1) ? 'human-yellow' : 'human-red'} role="group" aria-label="Connect 4 board" aria-busy={busy}>
       {game ? game.board.flatMap((row, rowIndex) => row.map((piece, column) => {
         const name = `${String.fromCharCode(97 + column)}${6 - rowIndex}`;

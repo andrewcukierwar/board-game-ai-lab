@@ -72,3 +72,47 @@ def test_ply_seed_stable_and_independent():
     assert ply_seed(1234, 0, 0) == ply_seed(1234, 0, 0)
     assert len({ply_seed(1234, i, i % 2) for i in range(42)}) == 42
     assert all(0 <= ply_seed(4294967295, i, i % 2) <= 4294967295 for i in range(42))
+
+@pytest.mark.parametrize('ai', [{'type': 'random'}, {'type': 'mcts', 'simulation_limit': 100}])
+@pytest.mark.parametrize('human_index', [0, 1])
+def test_seeded_ai_reproduces_for_recorded_human_columns(app, ai, human_index):
+    """The seed determines AI choices given explicit Human decisions, in either color."""
+    client = app.test_client()
+    players = [dict(ai), dict(ai)]
+    players[human_index] = {'type': 'human'}
+    before = random.getstate()
+    human_columns = []
+
+    def run(replay=False, replace=None):
+        response = client.post(BASE + '/start_game', json={
+            'player1': players[0], 'player2': players[1], 'rng_seed': 1234,
+            **({'replace_game_id': replace} if replace else {})})
+        assert response.status_code == 201
+        state = response.json
+        assert state['revision'] == 0
+        human_ply = 0
+        while not state['gameOver']:
+            payload = {'game_id': state['game_id'], 'revision': state['revision']}
+            if state['currentPlayer'] == human_index:
+                column = (human_columns[human_ply] if replay else
+                          next(c for c in [3, 2, 4, 1, 5, 0, 6] if c in state['legalMoves']))
+                assert column in state['legalMoves']
+                payload['column'] = column
+                if not replay:
+                    human_columns.append(column)
+                human_ply += 1
+            moved = client.post(BASE + '/make_move', json=payload)
+            assert moved.status_code == 200
+            assert moved.json['revision'] == state['revision'] + 1
+            state = moved.json
+        history = client.get(BASE + '/games/' + state['game_id'] + '/history').json
+        return state, history
+
+    first, h1 = run()
+    second, h2 = run(replay=True, replace=first['game_id'])
+    assert human_columns
+    assert first['board'] == second['board'] and first['winner'] == second['winner']
+    assert h1['moves'] == h2['moves']
+    assert h2['rng_seed'] == 1234
+    assert random.getstate() == before
+    assert client.get(BASE + '/games/' + first['game_id'] + '/history').status_code == 404

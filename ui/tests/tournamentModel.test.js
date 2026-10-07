@@ -52,8 +52,8 @@ test('seeded bracket and game provenance reproducible including uint32 edges', (
   assert.ok(colors.includes(true) && colors.includes(false));
   assert.equal(deriveSeed(1234, 'r1-m1:game:1'), 1845687796);
 });
-test('reject human, unsupported public presets, missing budget and extra config fields', () => {
-  for (const config of [{ type: 'human' }, { type: 'negamax', depth: 3 }, { type: 'mcts', simulations: 50 },
+test('reject unsupported public presets, missing budget and extra config fields', () => {
+  for (const config of [{ type: 'human', depth: 2 }, { type: 'negamax', depth: 3 }, { type: 'mcts', simulations: 50 },
     { type: 'mcts' }, { type: 'random', depth: 2 }, null]) {
     assert.throws(() => createTournament([config, ...defaultField(8).slice(1)], 1));
   }

@@ -29,7 +29,9 @@ export async function mockTournament(page, sequence = WIN) {
       s.maxFlight = Math.max(s.maxFlight, ++s.inFlight);
       const body = route.request().postDataJSON(); s.moves.push(body);
       if (body.revision !== s.active.columns.length) throw new Error('Stale revision or duplicate POST');
-      s.active.columns.push(sequence[s.active.columns.length]);
+      const human = s.active.players[s.active.columns.length % 2].type === 'human';
+      if (('column' in body) !== human) throw new Error('Wrong Human/AI mutation path');
+      s.active.columns.push(human ? body.column : sequence[s.active.columns.length]);
       await route.fulfill({ json: s.fixture().state }); s.inFlight--;
     } else if (s.expire) await route.fulfill({ status: 404, json: { code: 'session_not_found', error: 'Session expired' } });
     else await route.fulfill({ json: s.fixture() });

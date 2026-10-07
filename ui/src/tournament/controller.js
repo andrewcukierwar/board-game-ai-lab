@@ -1,7 +1,7 @@
 import { requestMatchPly } from '../connect4/matchTransport.js';
 import { validateMatchHistory } from '../connect4/matchRecord.js';
 import { PLAYBACK_SPEEDS } from '../connect4/useConnect4Match.js';
-import { createTournament, findMatchup, nextMatchup, gamePlan, compactHistory, recordGame, replayColumns } from './model.js';
+import { createTournament, findMatchup, nextMatchup, gamePlan, compactHistory, recordGame, replayColumns, matchupHasHuman } from './model.js';
 import { loadTournament, saveTournament } from './storage.js';
 
 // Sole mutation owner. React is a subscriber; bracket transitions remain pure.
@@ -10,8 +10,11 @@ export class TournamentController {
   constructor(http, storage, schedule = (callback, delay) => setTimeout(callback, delay), cancel = timer => clearTimeout(timer)) {
     this.http = http; this.storage = storage; this.schedule = schedule; this.cancel = cancel;
     const saved = loadTournament(storage);
-    this.state = { tournament: saved.tournament, error: saved.error, storageAvailable: saved.available,
-      busy: false, uncertain: Boolean(saved.tournament?.active), mode: 'paused', speed: 'normal', waiting: false };
+    const interruptedHuman = saved.tournament?.active?.status === 'interrupted' &&
+      matchupHasHuman(saved.tournament, findMatchup(saved.tournament, saved.tournament.active.matchupId));
+    this.state = { tournament: saved.tournament, error: saved.error || (interruptedHuman ?
+      'This game was interrupted. Prior tournament results are safe, but this game must restart from the beginning.' : ''), storageAvailable: saved.available,
+      busy: false, uncertain: Boolean(saved.tournament?.active), mode: 'paused', speed: 'normal', waiting: false, waitingForHuman: false, reviewing: false };
     this.listeners = new Set(); this.timer = null; this.attached = false; this.minRevision = 0;
     this.snapshot = () => this.state;
     this.subscribe = listener => { this.listeners.add(listener); return () => this.listeners.delete(listener); };
@@ -25,12 +28,20 @@ export class TournamentController {
   detach() { this.attached = false; this.pause(); }
   clearTimer() { if (this.timer !== null) this.cancel(this.timer); this.timer = null; }
   pause() { this.clearTimer(); this.patch({ mode: 'paused' }); }
+  review() { this.pause(); this.patch({ reviewing: true }); }
+  returnLive() { this.patch({ reviewing: false }); }
+  humanTurn() {
+    const t = this.state.tournament, a = t?.active;
+    if (!a || a.status !== 'running' || !matchupHasHuman(t, findMatchup(t, a.matchupId))) return false;
+    const { game } = replayColumns(a.columns, gamePlan(t, findMatchup(t, a.matchupId)).playerConfigs);
+    return !game.gameOver && game.players[game.currentPlayer].type === 'human';
+  }
   create(configs, seed) {
     if (this.state.busy) return;
     const fresh = createTournament(configs, seed);
     fresh.retainedGameId = this.state.tournament?.active?.gameId ?? this.state.tournament?.retainedGameId ?? null;
     this.pause(); this.minRevision = 0;
-    this.persist(fresh); this.patch({ error: '', uncertain: false, waiting: false });
+    this.persist(fresh); this.patch({ error: '', uncertain: false, waiting: false, waitingForHuman: false, reviewing: false });
   }
   setSpeed(speed) { if (!Object.hasOwn(PLAYBACK_SPEEDS, speed)) return; this.clearTimer(); this.patch({ speed }); this.queue(); }
   async locked(action) {
@@ -55,7 +66,9 @@ export class TournamentController {
     }
     try { await this.sync(); this.patch({ error: reason }); }
     catch (readError) {
-      if (readError.response?.status === 404) this.interrupted('The active session expired or the server restarted. Prior results are safe. Explicitly restart this seeded game.');
+      if (readError.response?.status === 404) this.interrupted(matchupHasHuman(this.state.tournament, findMatchup(this.state.tournament, active.matchupId)) ?
+        'The server session expired. Prior tournament results are safe, but this game must restart from the beginning.' :
+        'The active session expired or the server restarted. Prior results are safe. Explicitly restart this seeded game.');
       else this.patch({ uncertain: true, error: `${reason} Refresh history before continuing.` });
     }
     finally { this.patch({ waiting: false }); }
@@ -76,8 +89,8 @@ export class TournamentController {
       const compact = compactHistory(copy, findMatchup(copy, a.matchupId), response.data);
       const finished = recordGame(copy, a.matchupId, compact);
       finished.retainedGameId = a.gameId;
-      this.persist(finished); this.minRevision = 0;
-      if (finished.status === 'complete' || this.scope?.mode === 'matchup' && findMatchup(finished, this.scope.matchupId).status === 'complete' ||
+      this.persist(finished); this.minRevision = 0; this.patch({ waitingForHuman: false });
+      if (matchupHasHuman(copy, findMatchup(copy, a.matchupId)) || finished.status === 'complete' || this.scope?.mode === 'matchup' && findMatchup(finished, this.scope.matchupId).status === 'complete' ||
           this.scope?.mode === 'round' && finished.rounds[this.scope.round].every(m => m.status === 'complete') || this.scope?.mode === 'game') this.pause();
     }
   }
@@ -103,11 +116,11 @@ export class TournamentController {
   }
   watch() {
     if (!this.state.tournament || this.state.uncertain || this.state.error) return;
-    this.pause(); return this.locked(() => this.startGame());
+    this.pause(); this.patch({ waitingForHuman: false, reviewing: false }); return this.locked(() => this.startGame());
   }
   restart() {
     if (this.state.tournament?.active?.status !== 'interrupted') return;
-    this.pause(); return this.locked(() => this.startGame(true));
+    this.pause(); this.patch({ waitingForHuman: false, reviewing: false }); return this.locked(() => this.startGame(true));
   }
   refresh() {
     this.pause();
@@ -116,29 +129,41 @@ export class TournamentController {
     }
     return this.locked(async () => { this.patch({ waiting: true }); await this.sync(); this.patch({ waiting: false }); });
   }
-  async ply() {
+  async ply(column) {
     const t = this.state.tournament, a = t?.active;
     if (!a || a.status !== 'running' || this.state.uncertain || this.state.error) return;
     const plan = gamePlan(t, findMatchup(t, a.matchupId));
     const { game } = replayColumns(a.columns, plan.playerConfigs, a.gameId);
     if (game.gameOver) { await this.sync(); return; }
-    const accepted = await requestMatchPly(this.http, game, undefined);
+    const human = game.players[game.currentPlayer].type === 'human';
+    if (human ? column === undefined || this.state.reviewing || !game.legalMoves.includes(column) : column !== undefined) return;
+    const accepted = await requestMatchPly(this.http, game, column);
     this.minRevision = accepted.revision; this.patch({ uncertain: true });
     await this.sync();
   }
+  humanMove(column) {
+    if (this.state.busy || this.state.uncertain || this.state.error || this.state.reviewing || !this.humanTurn()) return;
+    return this.locked(() => this.ply(column));
+  }
   nextMove() {
-    if (this.state.mode !== 'paused' || !this.state.tournament?.active || this.state.uncertain || this.state.error) return;
+    if (this.humanTurn() || this.state.reviewing || this.state.mode !== 'paused' || !this.state.tournament?.active || this.state.uncertain || this.state.error) return;
     return this.locked(() => this.ply());
   }
   run(mode) {
     if (!['game', 'matchup', 'round', 'tournament'].includes(mode) || this.state.busy || this.state.uncertain || this.state.error) return;
     const m = nextMatchup(this.state.tournament); if (!m) return;
     this.scope = { mode, matchupId: m.matchupId, round: m.round };
-    this.patch({ mode }); this.queue();
+    this.patch({ mode, reviewing: false }); this.queue();
   }
   queue() {
     if (!this.attached || this.timer !== null || this.state.mode === 'paused' || this.state.busy || this.state.uncertain || this.state.error) return;
-    if (!nextMatchup(this.state.tournament)) { this.pause(); return; }
+    const next = nextMatchup(this.state.tournament);
+    if (!next) { this.pause(); return; }
+    if (!this.state.tournament.active && matchupHasHuman(this.state.tournament, next)) {
+      this.pause(); this.patch({ waitingForHuman: true }); return;
+    }
+    // Autoplay stays armed while waiting for a person, but never schedules a Human POST.
+    if (this.humanTurn()) return;
     this.timer = this.schedule(() => {
       this.timer = null;
       if (this.state.mode !== 'paused') void this.locked(() => this.state.tournament.active ? this.ply() : this.startGame());

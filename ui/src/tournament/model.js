@@ -1,4 +1,4 @@
-import { toPlayerPayload, NEGAMAX_DEPTHS, MCTS_SIMULATIONS } from '../connect4/competitorConfig.js';
+import { toPlayerPayload, competitorLabel, NEGAMAX_DEPTHS, MCTS_SIMULATIONS } from '../connect4/competitorConfig.js';
 import { emptyBoard, validateMatchHistory } from '../connect4/matchRecord.js';
 
 export const SIZES = [8, 16, 32, 64];
@@ -9,11 +9,11 @@ export const defaultField = size => Array.from({ length: size }, (_, i) => ({ ..
 const check = (condition, message = 'Invalid tournament record.') => { if (!condition) throw new Error(message); };
 const equal = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 export function validSeed(seed) { return Number.isInteger(seed) && seed >= 0 && seed <= 0xffffffff; }
-export function aiConfig(config) {
-  check(config && ['random', 'negamax', 'mcts'].includes(config.type), 'Choose an AI entrant.');
+export function entrantConfig(config) {
+  check(config && ['human', 'random', 'negamax', 'mcts'].includes(config.type), 'Choose a public entrant.');
   check(config.type !== 'negamax' || NEGAMAX_DEPTHS.includes(config.depth));
   check(config.type !== 'mcts' || MCTS_SIMULATIONS.includes(config.simulations));
-  check(equal(Object.keys(config).sort(), (config.type === 'random' ? ['type'] : config.type === 'negamax' ? ['depth', 'type'] : ['simulations', 'type'])));
+  check(equal(Object.keys(config).sort(), (['human', 'random'].includes(config.type) ? ['type'] : config.type === 'negamax' ? ['depth', 'type'] : ['simulations', 'type'])));
   toPlayerPayload(config);
   return { ...config };
 }
@@ -46,8 +46,9 @@ export function createTournament(configs, seed, tournamentId = `tournament-${see
   check(Array.isArray(configs) && SIZES.includes(configs.length), 'Choose 8, 16, 32 or 64 entrants.');
   check(validSeed(seed), 'Tournament seed must be an unsigned 32-bit integer.');
   check(typeof tournamentId === 'string' && tournamentId.length > 0 && tournamentId.length <= 100);
+  check(configs.filter(c => c?.type === 'human').length <= 1, 'Add yourself to at most one entrant slot.');
   const size = configs.length, order = bracketOrder(size, seed);
-  const entrants = configs.map((config, i) => ({ entrantId: `entrant-${i + 1}`, seedNumber: i + 1, config: aiConfig(config) }));
+  const entrants = configs.map((config, i) => ({ entrantId: `entrant-${i + 1}`, seedNumber: i + 1, config: entrantConfig(config) }));
   const rounds = Array.from({ length: Math.log2(size) }, (_, round) =>
     Array.from({ length: size / 2 ** (round + 1) }, (_, index) => ({ matchupId: `r${round + 1}-m${index + 1}`, round, index,
       entrantAId: round ? null : order[index * 2], entrantBId: round ? null : order[index * 2 + 1],
@@ -59,6 +60,28 @@ export const allMatchups = t => t.rounds.flat();
 export const findMatchup = (t, id) => allMatchups(t).find(m => m.matchupId === id);
 export const entrant = (t, id) => t.entrants.find(e => e.entrantId === id);
 export const nextMatchup = t => allMatchups(t).find(m => m.status !== 'complete' && m.entrantAId && m.entrantBId);
+// Local participant identity/status are derived, keeping the version-1 schema intact.
+export const humanEntrant = t => t?.entrants.find(e => e.config.type === 'human') ?? null;
+export const matchupHasHuman = (t, m) => Boolean(m && humanEntrant(t) &&
+  [m.entrantAId, m.entrantBId].includes(humanEntrant(t).entrantId));
+export function humanTournamentStatus(t) {
+  const h = humanEntrant(t); if (!h) return null;
+  const path = allMatchups(t).filter(m => matchupHasHuman(t, m));
+  const last = path.filter(m => m.status === 'complete').at(-1);
+  const tie = last?.resolution === 'seeded_draw_tiebreak' ? ` Advanced by seeded tiebreak after three draws. ${last.winnerEntrantId === h.entrantId ? 'You advance.' : competitorLabel(entrant(t, last.winnerEntrantId).config) + ' advances.'}` : '';
+  if (t.championEntrantId === h.entrantId) return { kind: 'champion', message: `You are the Tournament Champion.${tie}` };
+  if (last && last.winnerEntrantId !== h.entrantId) return { kind: 'eliminated', message: `You were eliminated in the ${roundLabel(t.size, last.round)}.${tie}` };
+  const next = nextMatchup(t);
+  if (matchupHasHuman(t, next)) {
+    const active = t.active?.matchupId === next.matchupId;
+    return { kind: active ? 'active' : 'ready', matchupId: next.matchupId,
+      message: active ? `Your ${roundLabel(t.size, next.round)} match is active.` :
+        `${last ? `You advanced to the ${roundLabel(t.size, next.round)}.${tie} ` : ''}${next.games.length ? 'Your rematch is ready.' : 'Your match is ready.'}` };
+  }
+  return { kind: last ? 'advanced' : 'waiting', message: last ?
+    `You advanced to the ${roundLabel(t.size, last.round + 1)}.${tie} Run the AI matchups to reach your next match.` :
+    'Run the AI matchups until your bracket path reaches you.' };
+}
 export function gamePlan(t, matchup, number = matchup.games.length + 1) {
   check(matchup.entrantAId && matchup.entrantBId && number >= 1 && number <= 3);
   const gameSeed = deriveSeed(t.tournamentSeed, `${matchup.matchupId}:game:${number}`);
