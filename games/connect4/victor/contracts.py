@@ -1,4 +1,4 @@
-"""Future proof-system vocabulary ONLY; no compatibility or verification algorithm.
+"""Future proof-system vocabulary; no game-theoretic certificate acceptance.
 
 Every draft below is untrusted input. None confers a proof status or computes an
 outcome. These internal interfaces may evolve with the six remaining rules.
@@ -13,7 +13,7 @@ from .rules import RuleCandidate, ThesisReference
 
 
 class CompatibilityConstraint(IntEnum):
-    """Codes from Allis §7.4, p.50. The pair-specific dispatch is not implemented."""
+    """Codes from Allis §7.4, p.50; compatibility.py implements only CL/BI/VE."""
 
     DISJOINT_SQUARES = 1
     NO_CLAIMEVEN_BELOW_INVERSE = 2
