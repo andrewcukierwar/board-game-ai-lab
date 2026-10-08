@@ -49,14 +49,32 @@ def test_thesis_section_5_3_conflicting_responses_use_claimeven_lower_trigger():
     assert not compatible(cl, ve)
 
 
-@pytest.mark.parametrize('first,second', [
-    (a, b) for a, b in combinations_with_replacement(RuleName, 2)
-    if a not in (CL, BI, VE) or b not in (CL, BI, VE)
-])
-def test_all_unimplemented_matrix_entries_fail_closed(first, second):
-    for a, b in ((first, second), (second, first)):
-        with pytest.raises(ValueError, match='not implemented'):
-            required_constraints(a, b)
+# Allis §7.4 p.50, visually checked; formerly these 39 entries failed closed.
+THESIS_TABLE = """
+CL 1
+BI 1 1
+VE 1 1 1
+AE 1 1 1 3
+LI 2 1 1 1&2 4
+HI 2 1 1 1&2 4 4
+BC 1 1 1 1 1&2 1&2 1
+BE 1 1 1 3 2&3 1&2 1 3
+SB 1 1 1 3 2&3 1&2 1 3 3
+"""
+ABBREVIATIONS = dict(zip('CL BI VE AE LI HI BC BE SB'.split(), RuleName))
+
+
+@pytest.mark.parametrize('first,second', list(combinations_with_replacement(RuleName, 2)))
+def test_full_matrix_matches_independent_thesis_transcription(first, second):
+    expected = {}
+    rows = [line.split() for line in THESIS_TABLE.strip().splitlines()]
+    for row in rows:
+        for column, code in zip((r[0] for r in rows), row[1:]):
+            pair = frozenset((ABBREVIATIONS[row[0]], ABBREVIATIONS[column]))
+            expected[pair] = tuple(CompatibilityConstraint(int(c)) for c in code.split('&'))
+    assert len(expected) == 45
+    assert required_constraints(first, second) == required_constraints(second, first)
+    assert required_constraints(first, second) == expected[frozenset((first, second))]
 
 
 def test_corrupted_or_untyped_candidates_rejected():

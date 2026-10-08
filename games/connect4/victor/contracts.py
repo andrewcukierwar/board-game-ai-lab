@@ -1,7 +1,7 @@
 """Future proof-system vocabulary; no game-theoretic certificate acceptance.
 
 Every draft below is untrusted input. None confers a proof status or computes an
-outcome. These internal interfaces may evolve with the six remaining rules.
+outcome. The nine-rule research pipeline lives in nine_rules.py.
 """
 from dataclasses import dataclass, field
 from enum import IntEnum
@@ -13,7 +13,7 @@ from .rules import RuleCandidate, ThesisReference
 
 
 class CompatibilityConstraint(IntEnum):
-    """Codes from Allis §7.4, p.50; compatibility.py implements only CL/BI/VE."""
+    """Codes from Allis §7.4, p.50; compatibility.py implements all nine rules."""
 
     DISJOINT_SQUARES = 1
     NO_CLAIMEVEN_BELOW_INVERSE = 2

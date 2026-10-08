@@ -211,6 +211,12 @@ These are bounded CPU tests, not exhaustive position solving.
 
 ## All nine rules and planned extensions
 
+> **Status update (2026-10-08):** all six remaining rules, the full §7.4 matrix,
+> nine-rule cover search and independent witness verification are now
+> implemented as research evidence. See
+> [victor-nine-rule-implementation.md](victor-nine-rule-implementation.md). The
+> table below is the original Phase 6A plan, kept as a historical record.
+
 The following remaining definitions describe intended work, not implemented
 capabilities. The enum rejects attempts to construct candidates for these six
 rules today.

@@ -83,7 +83,7 @@ The actual PDF was read for this implementation, including nomenclature; threat 
 
 ## Curated knowledge and formal-rule boundary
 
-`games/connect4/grounding/knowledge.py` contains 15 short paraphrased entries, each with a stable ID, name, explanation, preconditions, limitations, chapter/section/page references, source URL, evidence mapping, and applicability status. The six conceptual entries cover coordinates, winning squares, tactics, parity, Zugzwang, and the rule framework. The nine rule entries are **reference-only**, with implementation status `not_implemented`.
+`games/connect4/grounding/knowledge.py` contains 15 short paraphrased entries, each with a stable ID, name, explanation, preconditions, limitations, chapter/section/page references, source URL, evidence mapping, and applicability status. The six conceptual entries cover coordinates, winning squares, tactics, parity, Zugzwang, and the rule framework. The nine rule entries are **reference-only**, with implementation status `not_implemented`. That status describes the explanation catalog, which deliberately does not use the separate research implementation of all nine rules in `games/connect4/victor/` ([report](victor-nine-rule-implementation.md)).
 
 | Rule | Thesis / 1-based PDF pages | Key local requirement; see catalog for solutions and limitations |
 | --- | --- | --- |

@@ -82,6 +82,11 @@ extension. Unsupported rule pairs and untyped identifiers raise `ValueError`;
 missing matrix entries never mean compatibility. Constraints 2-4, composite
 component equality and Specialbefore exceptions are not implemented.
 
+> **Superseded (2026-10-08):** the complete matrix and constraints 2–4,
+> including N.B.(ii), are now implemented; see
+> [victor-nine-rule-implementation.md](victor-nine-rule-implementation.md) §4.
+> The CL/BI/VE entries and their behaviour are unchanged.
+
 ## Black target inventory
 
 `black_evaluation_context(position, defender=1)` revalidates and snapshots the

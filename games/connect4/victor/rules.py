@@ -1,4 +1,7 @@
-"""Allis §§6.1–6.3 geometric candidates, never position-level certification."""
+"""Allis §§6.1–6.3 geometric candidates, never position-level certification.
+
+The six composite rules (§§6.4–6.9) live in ``composite.py``.
+"""
 from dataclasses import dataclass
 from enum import Enum
 from itertools import combinations
@@ -51,7 +54,8 @@ class RuleCandidate:
         if not isinstance(self.rule, RuleName):
             raise ValueError('rule must be a RuleName')
         if self.rule not in (RuleName.CLAIMEVEN, RuleName.BASEINVERSE, RuleName.VERTICAL):
-            raise ValueError('rule is not implemented in Phase 6A')
+            raise ValueError('composite rule is not implemented as a two-square '
+                             'RuleCandidate; use composite.CompositeCandidate')
         squares = tuple(self.squares)
         if len(squares) != 2 or len(set(squares)) != 2:
             raise ValueError('these rules require two distinct squares')
