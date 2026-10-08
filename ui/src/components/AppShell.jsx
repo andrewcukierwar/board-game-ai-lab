@@ -35,6 +35,7 @@ export default function AppShell() {
             <NavLink end to="/connect4">Play</NavLink>
             <NavLink to="/connect4/match-lab">Match Lab</NavLink>
             <NavLink to="/connect4/tournament">Tournament Lab</NavLink>
+            <NavLink to="/connect4/season">Season Lab</NavLink>
             <Link to="/#agents">Agents</Link>
             <Link to="/#research">Research</Link>
             <a href={REPOSITORY_URL}>GitHub <span aria-hidden="true">↗</span></a>

@@ -59,8 +59,13 @@ export default function Home() {
       </section>
 
       <section className="match-lab-discovery site-container" aria-label="Tournament Lab">
-        <div><p className="eyebrow">Tournament Lab</p><h2>Build a field. Crown a champion.</h2><p>Seed an AI bracket, run matchups sequentially, and replay every game.</p></div>
+        <div><p className="eyebrow">Tournament Lab</p><h2>Build a field. Crown a champion.</h2><p>Single-elimination bracket competition. Enter yourself or watch the AI field compete.</p></div>
         <ActionLink to="/connect4/tournament" variant="secondary">Open Tournament Lab</ActionLink>
+      </section>
+
+      <section className="match-lab-discovery site-container" aria-label="Season Lab">
+        <div><p className="eyebrow">Season Lab</p><h2>Compare a field over a full season.</h2><p>Balanced repeated matchups, standings, and ratings for comparative agent evaluation.</p></div>
+        <ActionLink to="/connect4/season" variant="secondary">Open Season Lab</ActionLink>
       </section>
 
       <section className="explain-section" aria-label="Explainability">

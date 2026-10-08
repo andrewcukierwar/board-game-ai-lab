@@ -1,0 +1,64 @@
+/* Share the established lab controls, setup and match layout; only season-specific visuals live here. */
+.season-scroll-hint { display: none; }
+.season-turn { font-size: 13px; color: var(--accent); line-height: 1.7; }
+.season-table-scroll:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.season-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; margin-bottom: 24px; min-width: 0; }
+.season-setup-fields { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.season-workload { background: var(--surface-band); border-left: 3px solid var(--accent); padding: 16px; font-size: 13px; line-height: 1.8; }
+.season-sections { display: flex; flex-wrap: wrap; gap: 10px 24px; padding: 0 0 20px; }
+.season-sections a { color: var(--accent); font-size: 13px; min-height: 44px; display: flex; align-items: center; }
+.season-round-nav { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 18px 0; font-size: 13px; }
+.season-round-nav select { flex: 1; max-width: 310px; }
+.season-schedule progress { width: 100%; height: 6px; accent-color: var(--accent); }
+.season-fixtures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.season-lab .season-fixture { display: grid; gap: 8px; min-width: 0; background: var(--surface-band); text-align: left; border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
+.season-fixture > span { font-size: 12px; line-height: 1.7; overflow-wrap: anywhere; }
+.season-fixture .card-round { font: 10px var(--font-mono); color: var(--muted); text-transform: uppercase; }
+.season-fixture .piece-dot { display: inline-block; width: 8px; height: 8px; margin-right: 8px; }
+.season-fixture-footer { color: var(--accent); border-top: 1px solid var(--border); padding-top: 8px; }
+.season-lab .season-fixture.is-selected { border-color: var(--accent); box-shadow: inset 3px 0 var(--accent); }
+.season-viewer .match-workspace { grid-template-columns: minmax(0, 1fr) 300px; }
+.season-table-scroll { max-width: 100%; overflow: auto; overscroll-behavior-x: contain; scrollbar-gutter: stable; }
+.season-lab table { width: 100%; border-collapse: collapse; font-size: 12px; line-height: 1.6; text-align: left; }
+.season-lab caption { text-align: left; padding: 8px 0 16px; color: var(--muted); font-size: 12px; }
+.season-lab th, .season-lab td { padding: 13px 12px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+.season-lab thead th { color: var(--accent); font-weight: 500; font-size: 11px; }
+.season-lab tbody th { font-weight: 500; }
+.season-lab tbody tr:nth-child(odd) { background: var(--surface-band); }
+.season-lab tbody tr:hover { background: #91d5ed0a; }
+.season-lab td small { display: block; color: var(--muted); }
+.season-leaders { border-color: #8d7943; background: linear-gradient(120deg, #302b1c, var(--surface)); }
+.season-leaders > div { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.season-leaders .eyebrow { color: var(--yellow); }
+.season-leaders h3 { font-size: 20px; line-height: 1.5; }
+.season-leaders p:last-child { color: var(--muted); font: 14px var(--font-mono); }
+.chart-choices { border: 0; padding: 0; margin: 16px 0; display: flex; flex-wrap: wrap; gap: 8px 16px; }
+.chart-choices legend { font-size: 12px; margin-bottom: 12px; color: var(--muted); }
+.chart-choices label { display: flex; align-items: center; gap: 8px; font-size: 11px; min-height: 44px; }
+.season-lab .chart-choices input { min-height: auto; width: 16px; height: 16px; accent-color: var(--accent); }
+.chart-choices span { border-bottom: 2px solid; padding: 4px 0; }
+.season-history svg { width: 100%; height: auto; color: var(--muted); font: 11px var(--font-mono); }
+.season-history svg text { fill: currentColor; }
+.season-history details { margin-top: 20px; }
+.season-history summary { cursor: pointer; min-height: 44px; font-size: 12px; color: var(--accent); }
+.season-history details .season-table-scroll { max-height: 400px; }
+.pairwise-mobile { display: none; }
+.season-lab [id$="heading"] { scroll-margin-top: 20px; }
+@media (max-width: 1000px) { .season-viewer .match-workspace { grid-template-columns: minmax(0, 1fr) 260px; gap: 16px; } }
+@media (max-width: 760px) {
+  .season-panel { padding: 18px; }
+  .season-scroll-hint { display: block; color: var(--muted); font-size: 11px; line-height: 1.7; }
+  .season-setup-fields, .season-fixtures, .season-viewer .match-workspace, .season-leaders > div { grid-template-columns: minmax(0, 1fr); }
+  .season-round-nav { gap: 8px; }
+  .season-round-nav label { width: 100%; }
+  .season-round-nav select { max-width: none; width: 0; }
+  .season-round-nav button { font-size: 11px; }
+  .pairwise-desktop { display: none; }
+  .pairwise-mobile { display: block; }
+  .pairwise-mobile label { display: block; font-size: 12px; margin: 16px 0 8px; }
+  .pairwise-mobile select { width: 100%; font-size: 12px; }
+  .pairwise-mobile ul { list-style: none; padding: 0; }
+  .pairwise-mobile li { display: grid; gap: 8px; border-bottom: 1px solid var(--border); padding: 16px 0; font-size: 12px; line-height: 1.7; }
+  .pairwise-mobile li span { color: var(--muted); }
+  .season-lab .season-table-scroll { margin: 0; }
+}

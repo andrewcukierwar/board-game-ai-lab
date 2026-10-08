@@ -70,6 +70,6 @@ export default function TournamentLabPage({ http = tournamentHttp, storage }) {
       {shown && <MatchViewer key={`${shown.matchupId}:${playbackEpoch}`} tournament={t} matchup={shown} controller={c} state={state} start={() => { setSelected(shown.matchupId); c.watch(); }} />}
       <details className="tournament-provenance"><summary>Reproducibility · field and bracket order</summary><p>Size {t.size} · Seed {t.tournamentSeed}</p><ol>{t.bracketOrder.map(id => <li key={id}>{entrantLabel(t, id)}</li>)}</ol></details>
     </>}
-    <p className="tournament-method">Single elimination is sensitive to bracket path and color assignment. One-game matchups are not rigorous strength estimates. Seeded AI behavior is reproducible for a fixed Human move sequence; Human decisions themselves are not determined by the tournament seed; future seasons and ratings will use repeated, balanced comparisons.</p>
+    <p className="tournament-method">Single elimination is sensitive to bracket path and color assignment. One-game matchups are not rigorous strength estimates. Seeded AI behavior is reproducible for a fixed Human move sequence; Human decisions themselves are not determined by the tournament seed; Season Lab uses repeated, balanced comparisons and pool-relative ratings.</p>
   </main>;
 }
