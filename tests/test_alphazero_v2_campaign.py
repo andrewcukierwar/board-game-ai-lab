@@ -614,7 +614,7 @@ def test_preflight_is_a_launch_gate(tmp_path, tiny_packages, launch_runtime):
     report = json.loads(failed.stdout)
     assert failed.returncode == C.EXIT_REFUSED and not report['ok']
     assert {g['name'] for g in report['gates'] if not g['ok']} >= {'thread_environment', 'runtime_identity'}
-    other = dict(launch_runtime, cpu_model='Apple M4')
+    other = dict(launch_runtime, cpu_model='nonexistent-test-cpu')
     path, _ = write_declaration(tiny_packages, declaration_document(tiny_packages, other), 'm4.json')
     report = json.loads(subprocess.run(command[:-1] + [str(path)], capture_output=True, text=True, timeout=180,
                                        cwd=ROOT, env=pinned_env()).stdout)
