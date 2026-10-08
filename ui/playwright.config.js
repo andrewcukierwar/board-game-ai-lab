@@ -13,8 +13,8 @@ export default defineConfig({
   timeout: 60000,
   projects: [
     { name: 'chromium', use: { browserName: 'chromium' } },
-    { name: 'firefox', testMatch: ['**/polish.spec.js', '**/match-lab.smoke.spec.js', '**/tournament.smoke.spec.js', '**/human-tournament.smoke.spec.js', '**/season.smoke.spec.js'], use: { browserName: 'firefox' } },
-    { name: 'webkit', testMatch: ['**/polish.spec.js', '**/match-lab.smoke.spec.js', '**/tournament.smoke.spec.js', '**/human-tournament.smoke.spec.js', '**/season.smoke.spec.js'], use: { browserName: 'webkit' } },
+    { name: 'firefox', testMatch: ['**/polish.spec.js', '**/match-lab.smoke.spec.js', '**/tournament.smoke.spec.js', '**/human-tournament.smoke.spec.js', '**/season.smoke.spec.js', '**/evaluation.smoke.spec.js'], use: { browserName: 'firefox' } },
+    { name: 'webkit', testMatch: ['**/polish.spec.js', '**/match-lab.smoke.spec.js', '**/tournament.smoke.spec.js', '**/human-tournament.smoke.spec.js', '**/season.smoke.spec.js', '**/evaluation.smoke.spec.js'], use: { browserName: 'webkit' } },
   ],
   use: {
     baseURL: process.env.PLAYWRIGHT_BASE_URL || 'http://localhost:3000',

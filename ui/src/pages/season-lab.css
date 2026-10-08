@@ -44,6 +44,19 @@
 .season-history details .season-table-scroll { max-height: 400px; }
 .pairwise-mobile { display: none; }
 .season-lab [id$="heading"] { scroll-margin-top: 20px; }
+.evaluation-state { font-size: 14px; line-height: 1.8; }
+.evaluation-versions { display: flex; flex-wrap: wrap; gap: 12px 32px; font: 12px var(--font-mono); }
+.evaluation-versions div { min-width: 0; max-width: 100%; }
+.evaluation-versions dt { color: var(--muted); margin-bottom: 8px; }
+.evaluation-versions dd { margin: 0; overflow-wrap: anywhere; }
+.evaluation-export #evidence-digest-label { font-size: 12px; color: var(--muted); margin-top: 20px; }
+.evidence-digest { display: block; overflow-wrap: anywhere; user-select: all; background: var(--surface-band); padding: 12px; font: 12px/1.8 var(--font-mono); border: 1px solid var(--border); border-radius: 6px; }
+.evaluation-actions { margin-top: 16px; }
+.evaluation-feedback { min-height: 1.8em; font-size: 12px; color: var(--muted); }
+.evaluation-details { font-size: 12px; line-height: 1.8; }
+.evaluation-details summary { cursor: pointer; min-height: 44px; color: var(--accent); }
+.evaluation-details p, .evaluation-details code { overflow-wrap: anywhere; }
+@media (max-width: 760px) { .evaluation-actions button { width: 100%; } }
 @media (max-width: 1000px) { .season-viewer .match-workspace { grid-template-columns: minmax(0, 1fr) 260px; gap: 16px; } }
 @media (max-width: 760px) {
   .season-panel { padding: 18px; }

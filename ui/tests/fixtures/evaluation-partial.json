@@ -1,0 +1,1129 @@
+{
+  "format": "connect4-season-evaluation",
+  "schema_version": 1,
+  "exported_at": "2026-10-07T12:00:00.000Z",
+  "provenance": {
+    "api_provenance_version": 1,
+    "api_contract_version": 2,
+    "connect4_engine_version": 1,
+    "agents": {
+      "random": 2,
+      "negamax": 2,
+      "mcts": 2
+    },
+    "stochastic_seed_version": 1,
+    "season_schedule_version": 1,
+    "evaluation_methodology_version": 1,
+    "export_schema_version": 1,
+    "source_commit": null,
+    "execution_capture": {
+      "recorded_games": 8,
+      "unrecorded_games": 0,
+      "scope": "per-game-history-response",
+      "declared_versions": "reference-implementation-identifiers-not-authentication"
+    }
+  },
+  "methodology": {
+    "version": 1,
+    "schedule_version": 1,
+    "scoring": {
+      "win": 1,
+      "draw": 0.5,
+      "loss": 0
+    },
+    "standings_sort": "points-desc_score-rate-desc_seed-number-asc",
+    "side_balance": "each-pair-half-red-half-yellow_completed-season",
+    "elo": {
+      "initial": 1500,
+      "k_factor": 24,
+      "scale": 400,
+      "expected_score": "1/(1+10^((opponent-self)/400))",
+      "update_order": "completion-index-ascending",
+      "version": 1
+    },
+    "bootstrap": {
+      "samples": 1000,
+      "minimum_games": 8,
+      "lower_percentile": 0.025,
+      "upper_percentile": 0.975,
+      "percentile": "linear-interpolation-(n-1)*p",
+      "resampling": "iid-observed-game-scores-with-replacement",
+      "prng": "mulberry32-v1",
+      "seed_derivation": "fnv1a-avalanche-v1",
+      "seed_domain": "season:bootstrap:{entrant_id}",
+      "version": 1
+    },
+    "schedule": {
+      "pairing": "seeded-circle-mirrored-halves-v1",
+      "seed_derivation": "fnv1a-avalanche-v1",
+      "shuffle_domain": "season:schedule:v1",
+      "color_domain": "season:color:{cycle}:{round-index}:{fixture-index}",
+      "game_seed_domain": "season:game:v1:{fixture_id}",
+      "move_columns": "zero-based-0-through-6"
+    }
+  },
+  "evidence": {
+    "season_seed": 1234,
+    "field_size": 4,
+    "games_per_pairing": 4,
+    "state": {
+      "status": "partial",
+      "scheduled_games": 24,
+      "completed_games": 8
+    },
+    "entrants": [
+      {
+        "entrant_id": "entrant-1",
+        "seed_number": 1,
+        "config": {
+          "type": "random"
+        }
+      },
+      {
+        "entrant_id": "entrant-2",
+        "seed_number": 2,
+        "config": {
+          "type": "negamax",
+          "depth": 2
+        }
+      },
+      {
+        "entrant_id": "entrant-3",
+        "seed_number": 3,
+        "config": {
+          "type": "negamax",
+          "depth": 4
+        }
+      },
+      {
+        "entrant_id": "entrant-4",
+        "seed_number": 4,
+        "config": {
+          "type": "negamax",
+          "depth": 6
+        }
+      }
+    ],
+    "schedule": [
+      {
+        "fixture_id": "c1-h1-r1-f1",
+        "round": 1,
+        "cycle": 1,
+        "red_entrant_id": "entrant-1",
+        "yellow_entrant_id": "entrant-4",
+        "game_seed": 1088132448
+      },
+      {
+        "fixture_id": "c1-h1-r1-f2",
+        "round": 1,
+        "cycle": 1,
+        "red_entrant_id": "entrant-2",
+        "yellow_entrant_id": "entrant-3",
+        "game_seed": 2448875248
+      },
+      {
+        "fixture_id": "c1-h1-r2-f1",
+        "round": 2,
+        "cycle": 1,
+        "red_entrant_id": "entrant-4",
+        "yellow_entrant_id": "entrant-2",
+        "game_seed": 4178453906
+      },
+      {
+        "fixture_id": "c1-h1-r2-f2",
+        "round": 2,
+        "cycle": 1,
+        "red_entrant_id": "entrant-1",
+        "yellow_entrant_id": "entrant-3",
+        "game_seed": 629732261
+      },
+      {
+        "fixture_id": "c1-h1-r3-f1",
+        "round": 3,
+        "cycle": 1,
+        "red_entrant_id": "entrant-4",
+        "yellow_entrant_id": "entrant-3",
+        "game_seed": 1012856330
+      },
+      {
+        "fixture_id": "c1-h1-r3-f2",
+        "round": 3,
+        "cycle": 1,
+        "red_entrant_id": "entrant-2",
+        "yellow_entrant_id": "entrant-1",
+        "game_seed": 3031308803
+      },
+      {
+        "fixture_id": "c1-h2-r1-f1",
+        "round": 4,
+        "cycle": 1,
+        "red_entrant_id": "entrant-4",
+        "yellow_entrant_id": "entrant-1",
+        "game_seed": 356127294
+      },
+      {
+        "fixture_id": "c1-h2-r1-f2",
+        "round": 4,
+        "cycle": 1,
+        "red_entrant_id": "entrant-3",
+        "yellow_entrant_id": "entrant-2",
+        "game_seed": 741055665
+      },
+      {
+        "fixture_id": "c1-h2-r2-f1",
+        "round": 5,
+        "cycle": 1,
+        "red_entrant_id": "entrant-2",
+        "yellow_entrant_id": "entrant-4",
+        "game_seed": 3303201034
+      },
+      {
+        "fixture_id": "c1-h2-r2-f2",
+        "round": 5,
+        "cycle": 1,
+        "red_entrant_id": "entrant-3",
+        "yellow_entrant_id": "entrant-1",
+        "game_seed": 3434850893
+      },
+      {
+        "fixture_id": "c1-h2-r3-f1",
+        "round": 6,
+        "cycle": 1,
+        "red_entrant_id": "entrant-3",
+        "yellow_entrant_id": "entrant-4",
+        "game_seed": 3532813938
+      },
+      {
+        "fixture_id": "c1-h2-r3-f2",
+        "round": 6,
+        "cycle": 1,
+        "red_entrant_id": "entrant-1",
+        "yellow_entrant_id": "entrant-2",
+        "game_seed": 2410810541
+      },
+      {
+        "fixture_id": "c2-h1-r1-f1",
+        "round": 7,
+        "cycle": 2,
+        "red_entrant_id": "entrant-4",
+        "yellow_entrant_id": "entrant-1",
+        "game_seed": 4067094038
+      },
+      {
+        "fixture_id": "c2-h1-r1-f2",
+        "round": 7,
+        "cycle": 2,
+        "red_entrant_id": "entrant-2",
+        "yellow_entrant_id": "entrant-3",
+        "game_seed": 1622600433
+      },
+      {
+        "fixture_id": "c2-h1-r2-f1",
+        "round": 8,
+        "cycle": 2,
+        "red_entrant_id": "entrant-2",
+        "yellow_entrant_id": "entrant-4",
+        "game_seed": 1531177399
+      },
+      {
+        "fixture_id": "c2-h1-r2-f2",
+        "round": 8,
+        "cycle": 2,
+        "red_entrant_id": "entrant-1",
+        "yellow_entrant_id": "entrant-3",
+        "game_seed": 1899409372
+      },
+      {
+        "fixture_id": "c2-h1-r3-f1",
+        "round": 9,
+        "cycle": 2,
+        "red_entrant_id": "entrant-4",
+        "yellow_entrant_id": "entrant-3",
+        "game_seed": 510338150
+      },
+      {
+        "fixture_id": "c2-h1-r3-f2",
+        "round": 9,
+        "cycle": 2,
+        "red_entrant_id": "entrant-2",
+        "yellow_entrant_id": "entrant-1",
+        "game_seed": 4222811124
+      },
+      {
+        "fixture_id": "c2-h2-r1-f1",
+        "round": 10,
+        "cycle": 2,
+        "red_entrant_id": "entrant-1",
+        "yellow_entrant_id": "entrant-4",
+        "game_seed": 420144595
+      },
+      {
+        "fixture_id": "c2-h2-r1-f2",
+        "round": 10,
+        "cycle": 2,
+        "red_entrant_id": "entrant-3",
+        "yellow_entrant_id": "entrant-2",
+        "game_seed": 2137508596
+      },
+      {
+        "fixture_id": "c2-h2-r2-f1",
+        "round": 11,
+        "cycle": 2,
+        "red_entrant_id": "entrant-4",
+        "yellow_entrant_id": "entrant-2",
+        "game_seed": 1909238503
+      },
+      {
+        "fixture_id": "c2-h2-r2-f2",
+        "round": 11,
+        "cycle": 2,
+        "red_entrant_id": "entrant-3",
+        "yellow_entrant_id": "entrant-1",
+        "game_seed": 4036533502
+      },
+      {
+        "fixture_id": "c2-h2-r3-f1",
+        "round": 12,
+        "cycle": 2,
+        "red_entrant_id": "entrant-3",
+        "yellow_entrant_id": "entrant-4",
+        "game_seed": 1427068642
+      },
+      {
+        "fixture_id": "c2-h2-r3-f2",
+        "round": 12,
+        "cycle": 2,
+        "red_entrant_id": "entrant-1",
+        "yellow_entrant_id": "entrant-2",
+        "game_seed": 1961332628
+      }
+    ],
+    "completed_games": [
+      {
+        "fixture_id": "c1-h1-r1-f1",
+        "completion_index": 0,
+        "red_entrant_id": "entrant-1",
+        "yellow_entrant_id": "entrant-4",
+        "game_seed": 1088132448,
+        "player_configs": [
+          {
+            "type": "random"
+          },
+          {
+            "type": "negamax",
+            "depth": 6
+          }
+        ],
+        "move_columns": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ],
+        "move_count": 7,
+        "terminal_result": {
+          "status": "win",
+          "winner_index": 0
+        },
+        "backend_provenance": {
+          "api_provenance_version": 1,
+          "api_contract_version": 2,
+          "connect4_engine_version": 1,
+          "agents": {
+            "random": 2,
+            "negamax": 2,
+            "mcts": 2
+          },
+          "stochastic_seed_version": 1,
+          "source_commit": null
+        }
+      },
+      {
+        "fixture_id": "c1-h1-r1-f2",
+        "completion_index": 1,
+        "red_entrant_id": "entrant-2",
+        "yellow_entrant_id": "entrant-3",
+        "game_seed": 2448875248,
+        "player_configs": [
+          {
+            "type": "negamax",
+            "depth": 2
+          },
+          {
+            "type": "negamax",
+            "depth": 4
+          }
+        ],
+        "move_columns": [
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          6,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          6,
+          6,
+          6,
+          6,
+          6
+        ],
+        "move_count": 42,
+        "terminal_result": {
+          "status": "draw",
+          "winner_index": null
+        },
+        "backend_provenance": {
+          "api_provenance_version": 1,
+          "api_contract_version": 2,
+          "connect4_engine_version": 1,
+          "agents": {
+            "random": 2,
+            "negamax": 2,
+            "mcts": 2
+          },
+          "stochastic_seed_version": 1,
+          "source_commit": null
+        }
+      },
+      {
+        "fixture_id": "c1-h1-r2-f1",
+        "completion_index": 2,
+        "red_entrant_id": "entrant-4",
+        "yellow_entrant_id": "entrant-2",
+        "game_seed": 4178453906,
+        "player_configs": [
+          {
+            "type": "negamax",
+            "depth": 6
+          },
+          {
+            "type": "negamax",
+            "depth": 2
+          }
+        ],
+        "move_columns": [
+          0,
+          1,
+          0,
+          1,
+          2,
+          1,
+          2,
+          1
+        ],
+        "move_count": 8,
+        "terminal_result": {
+          "status": "win",
+          "winner_index": 1
+        },
+        "backend_provenance": {
+          "api_provenance_version": 1,
+          "api_contract_version": 2,
+          "connect4_engine_version": 1,
+          "agents": {
+            "random": 2,
+            "negamax": 2,
+            "mcts": 2
+          },
+          "stochastic_seed_version": 1,
+          "source_commit": null
+        }
+      },
+      {
+        "fixture_id": "c1-h1-r2-f2",
+        "completion_index": 3,
+        "red_entrant_id": "entrant-1",
+        "yellow_entrant_id": "entrant-3",
+        "game_seed": 629732261,
+        "player_configs": [
+          {
+            "type": "random"
+          },
+          {
+            "type": "negamax",
+            "depth": 4
+          }
+        ],
+        "move_columns": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ],
+        "move_count": 7,
+        "terminal_result": {
+          "status": "win",
+          "winner_index": 0
+        },
+        "backend_provenance": {
+          "api_provenance_version": 1,
+          "api_contract_version": 2,
+          "connect4_engine_version": 1,
+          "agents": {
+            "random": 2,
+            "negamax": 2,
+            "mcts": 2
+          },
+          "stochastic_seed_version": 1,
+          "source_commit": null
+        }
+      },
+      {
+        "fixture_id": "c1-h1-r3-f1",
+        "completion_index": 4,
+        "red_entrant_id": "entrant-4",
+        "yellow_entrant_id": "entrant-3",
+        "game_seed": 1012856330,
+        "player_configs": [
+          {
+            "type": "negamax",
+            "depth": 6
+          },
+          {
+            "type": "negamax",
+            "depth": 4
+          }
+        ],
+        "move_columns": [
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          6,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          6,
+          6,
+          6,
+          6,
+          6
+        ],
+        "move_count": 42,
+        "terminal_result": {
+          "status": "draw",
+          "winner_index": null
+        },
+        "backend_provenance": {
+          "api_provenance_version": 1,
+          "api_contract_version": 2,
+          "connect4_engine_version": 1,
+          "agents": {
+            "random": 2,
+            "negamax": 2,
+            "mcts": 2
+          },
+          "stochastic_seed_version": 1,
+          "source_commit": null
+        }
+      },
+      {
+        "fixture_id": "c1-h1-r3-f2",
+        "completion_index": 5,
+        "red_entrant_id": "entrant-2",
+        "yellow_entrant_id": "entrant-1",
+        "game_seed": 3031308803,
+        "player_configs": [
+          {
+            "type": "negamax",
+            "depth": 2
+          },
+          {
+            "type": "random"
+          }
+        ],
+        "move_columns": [
+          0,
+          1,
+          0,
+          1,
+          2,
+          1,
+          2,
+          1
+        ],
+        "move_count": 8,
+        "terminal_result": {
+          "status": "win",
+          "winner_index": 1
+        },
+        "backend_provenance": {
+          "api_provenance_version": 1,
+          "api_contract_version": 2,
+          "connect4_engine_version": 1,
+          "agents": {
+            "random": 2,
+            "negamax": 2,
+            "mcts": 2
+          },
+          "stochastic_seed_version": 1,
+          "source_commit": null
+        }
+      },
+      {
+        "fixture_id": "c1-h2-r1-f1",
+        "completion_index": 6,
+        "red_entrant_id": "entrant-4",
+        "yellow_entrant_id": "entrant-1",
+        "game_seed": 356127294,
+        "player_configs": [
+          {
+            "type": "negamax",
+            "depth": 6
+          },
+          {
+            "type": "random"
+          }
+        ],
+        "move_columns": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          0
+        ],
+        "move_count": 7,
+        "terminal_result": {
+          "status": "win",
+          "winner_index": 0
+        },
+        "backend_provenance": {
+          "api_provenance_version": 1,
+          "api_contract_version": 2,
+          "connect4_engine_version": 1,
+          "agents": {
+            "random": 2,
+            "negamax": 2,
+            "mcts": 2
+          },
+          "stochastic_seed_version": 1,
+          "source_commit": null
+        }
+      },
+      {
+        "fixture_id": "c1-h2-r1-f2",
+        "completion_index": 7,
+        "red_entrant_id": "entrant-3",
+        "yellow_entrant_id": "entrant-2",
+        "game_seed": 741055665,
+        "player_configs": [
+          {
+            "type": "negamax",
+            "depth": 4
+          },
+          {
+            "type": "negamax",
+            "depth": 2
+          }
+        ],
+        "move_columns": [
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          6,
+          4,
+          4,
+          4,
+          4,
+          4,
+          4,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          6,
+          6,
+          6,
+          6,
+          6
+        ],
+        "move_count": 42,
+        "terminal_result": {
+          "status": "draw",
+          "winner_index": null
+        },
+        "backend_provenance": {
+          "api_provenance_version": 1,
+          "api_contract_version": 2,
+          "connect4_engine_version": 1,
+          "agents": {
+            "random": 2,
+            "negamax": 2,
+            "mcts": 2
+          },
+          "stochastic_seed_version": 1,
+          "source_commit": null
+        }
+      }
+    ]
+  },
+  "derived": {
+    "standings": [
+      {
+        "entrant_id": "entrant-1",
+        "seed_number": 1,
+        "played": 4,
+        "wins": 3,
+        "draws": 0,
+        "losses": 1,
+        "points": 3,
+        "score_rate": 0.75,
+        "red": {
+          "played": 2,
+          "wins": 2,
+          "draws": 0,
+          "losses": 0,
+          "points": 2,
+          "score_rate": 1
+        },
+        "yellow": {
+          "played": 2,
+          "wins": 1,
+          "draws": 0,
+          "losses": 1,
+          "points": 1,
+          "score_rate": 0.5
+        }
+      },
+      {
+        "entrant_id": "entrant-2",
+        "seed_number": 2,
+        "played": 4,
+        "wins": 1,
+        "draws": 2,
+        "losses": 1,
+        "points": 2,
+        "score_rate": 0.5,
+        "red": {
+          "played": 2,
+          "wins": 0,
+          "draws": 1,
+          "losses": 1,
+          "points": 0.5,
+          "score_rate": 0.25
+        },
+        "yellow": {
+          "played": 2,
+          "wins": 1,
+          "draws": 1,
+          "losses": 0,
+          "points": 1.5,
+          "score_rate": 0.75
+        }
+      },
+      {
+        "entrant_id": "entrant-3",
+        "seed_number": 3,
+        "played": 4,
+        "wins": 0,
+        "draws": 3,
+        "losses": 1,
+        "points": 1.5,
+        "score_rate": 0.375,
+        "red": {
+          "played": 1,
+          "wins": 0,
+          "draws": 1,
+          "losses": 0,
+          "points": 0.5,
+          "score_rate": 0.5
+        },
+        "yellow": {
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "points": 1,
+          "score_rate": 0.3333333333333333
+        }
+      },
+      {
+        "entrant_id": "entrant-4",
+        "seed_number": 4,
+        "played": 4,
+        "wins": 1,
+        "draws": 1,
+        "losses": 2,
+        "points": 1.5,
+        "score_rate": 0.375,
+        "red": {
+          "played": 3,
+          "wins": 1,
+          "draws": 1,
+          "losses": 1,
+          "points": 1.5,
+          "score_rate": 0.5
+        },
+        "yellow": {
+          "played": 1,
+          "wins": 0,
+          "draws": 0,
+          "losses": 1,
+          "points": 0,
+          "score_rate": 0
+        }
+      }
+    ],
+    "ratings": [
+      {
+        "entrant_id": "entrant-1",
+        "final_elo": 1521.1750395777256,
+        "elo_change": 21.175039577725556,
+        "peak_elo": 1535.1713988272459,
+        "low_elo": 1500,
+        "history": [
+          1500,
+          1512,
+          1512,
+          1512,
+          1523.585699413623,
+          1523.585699413623,
+          1535.1713988272459,
+          1521.1750395777256,
+          1521.1750395777256
+        ]
+      },
+      {
+        "entrant_id": "entrant-2",
+        "final_elo": 1499.585699413623,
+        "elo_change": -0.4143005863770668,
+        "peak_elo": 1511.585699413623,
+        "low_elo": 1499.585699413623,
+        "history": [
+          1500,
+          1500,
+          1500,
+          1511.585699413623,
+          1511.585699413623,
+          1511.585699413623,
+          1500,
+          1500,
+          1499.585699413623
+        ]
+      },
+      {
+        "entrant_id": "entrant-4",
+        "final_elo": 1490.8249604222744,
+        "elo_change": -9.175039577725556,
+        "peak_elo": 1500,
+        "low_elo": 1476.414300586377,
+        "history": [
+          1500,
+          1488,
+          1488,
+          1476.414300586377,
+          1476.414300586377,
+          1476.8286011727541,
+          1476.8286011727541,
+          1490.8249604222744,
+          1490.8249604222744
+        ]
+      },
+      {
+        "entrant_id": "entrant-3",
+        "final_elo": 1488.414300586377,
+        "elo_change": -11.585699413622933,
+        "peak_elo": 1500,
+        "low_elo": 1488,
+        "history": [
+          1500,
+          1500,
+          1500,
+          1500,
+          1488.414300586377,
+          1488,
+          1488,
+          1488,
+          1488.414300586377
+        ]
+      }
+    ],
+    "side_splits": [
+      {
+        "entrant_id": "entrant-1",
+        "red": {
+          "played": 2,
+          "wins": 2,
+          "draws": 0,
+          "losses": 0,
+          "points": 2,
+          "score_rate": 1
+        },
+        "yellow": {
+          "played": 2,
+          "wins": 1,
+          "draws": 0,
+          "losses": 1,
+          "points": 1,
+          "score_rate": 0.5
+        }
+      },
+      {
+        "entrant_id": "entrant-2",
+        "red": {
+          "played": 2,
+          "wins": 0,
+          "draws": 1,
+          "losses": 1,
+          "points": 0.5,
+          "score_rate": 0.25
+        },
+        "yellow": {
+          "played": 2,
+          "wins": 1,
+          "draws": 1,
+          "losses": 0,
+          "points": 1.5,
+          "score_rate": 0.75
+        }
+      },
+      {
+        "entrant_id": "entrant-3",
+        "red": {
+          "played": 1,
+          "wins": 0,
+          "draws": 1,
+          "losses": 0,
+          "points": 0.5,
+          "score_rate": 0.5
+        },
+        "yellow": {
+          "played": 3,
+          "wins": 0,
+          "draws": 2,
+          "losses": 1,
+          "points": 1,
+          "score_rate": 0.3333333333333333
+        }
+      },
+      {
+        "entrant_id": "entrant-4",
+        "red": {
+          "played": 3,
+          "wins": 1,
+          "draws": 1,
+          "losses": 1,
+          "points": 1.5,
+          "score_rate": 0.5
+        },
+        "yellow": {
+          "played": 1,
+          "wins": 0,
+          "draws": 0,
+          "losses": 1,
+          "points": 0,
+          "score_rate": 0
+        }
+      }
+    ],
+    "pairwise": {
+      "entrant-1": {
+        "entrant-2": {
+          "played": 1,
+          "wins": 1,
+          "draws": 0,
+          "losses": 0,
+          "points": 1,
+          "score_rate": 1
+        },
+        "entrant-3": {
+          "played": 1,
+          "wins": 1,
+          "draws": 0,
+          "losses": 0,
+          "points": 1,
+          "score_rate": 1
+        },
+        "entrant-4": {
+          "played": 2,
+          "wins": 1,
+          "draws": 0,
+          "losses": 1,
+          "points": 1,
+          "score_rate": 0.5
+        }
+      },
+      "entrant-2": {
+        "entrant-1": {
+          "played": 1,
+          "wins": 0,
+          "draws": 0,
+          "losses": 1,
+          "points": 0,
+          "score_rate": 0
+        },
+        "entrant-3": {
+          "played": 2,
+          "wins": 0,
+          "draws": 2,
+          "losses": 0,
+          "points": 1,
+          "score_rate": 0.5
+        },
+        "entrant-4": {
+          "played": 1,
+          "wins": 1,
+          "draws": 0,
+          "losses": 0,
+          "points": 1,
+          "score_rate": 1
+        }
+      },
+      "entrant-3": {
+        "entrant-1": {
+          "played": 1,
+          "wins": 0,
+          "draws": 0,
+          "losses": 1,
+          "points": 0,
+          "score_rate": 0
+        },
+        "entrant-2": {
+          "played": 2,
+          "wins": 0,
+          "draws": 2,
+          "losses": 0,
+          "points": 1,
+          "score_rate": 0.5
+        },
+        "entrant-4": {
+          "played": 1,
+          "wins": 0,
+          "draws": 1,
+          "losses": 0,
+          "points": 0.5,
+          "score_rate": 0.5
+        }
+      },
+      "entrant-4": {
+        "entrant-1": {
+          "played": 2,
+          "wins": 1,
+          "draws": 0,
+          "losses": 1,
+          "points": 1,
+          "score_rate": 0.5
+        },
+        "entrant-2": {
+          "played": 1,
+          "wins": 0,
+          "draws": 0,
+          "losses": 1,
+          "points": 0,
+          "score_rate": 0
+        },
+        "entrant-3": {
+          "played": 1,
+          "wins": 0,
+          "draws": 1,
+          "losses": 0,
+          "points": 0.5,
+          "score_rate": 0.5
+        }
+      }
+    },
+    "bootstrap_intervals": {
+      "entrant-1": null,
+      "entrant-2": null,
+      "entrant-3": null,
+      "entrant-4": null
+    }
+  },
+  "integrity": {
+    "algorithm": "SHA-256",
+    "canonicalization": "sorted-json-ecmascript-v1",
+    "coverage": "format,schema_version,provenance,methodology,evidence",
+    "evidence_sha256": "f252d65c6ac4d8e667eec6836c776e6208c22872678b4af82956cd35904a8e0f"
+  }
+}

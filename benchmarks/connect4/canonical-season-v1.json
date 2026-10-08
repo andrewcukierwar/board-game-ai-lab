@@ -1,0 +1,18 @@
+{
+  "format": "connect4-season-benchmark",
+  "version": 1,
+  "name": "canonical-season-v1",
+  "field_size": 8,
+  "season_seed": 20261008,
+  "games_per_pairing": 4,
+  "entrants": [
+    { "type": "random" },
+    { "type": "negamax", "depth": 2 },
+    { "type": "negamax", "depth": 4 },
+    { "type": "negamax", "depth": 6 },
+    { "type": "negamax", "depth": 8 },
+    { "type": "mcts", "simulations": 100 },
+    { "type": "mcts", "simulations": 400 },
+    { "type": "mcts", "simulations": 800 }
+  ]
+}

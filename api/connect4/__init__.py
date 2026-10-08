@@ -11,6 +11,7 @@ from games.connect4.agents.mcts_agent import MCTSAgent
 from games.connect4.connect4 import Connect4
 from games.connect4.grounding.history import record_move
 from .state import GameError
+from .provenance import public_provenance
 
 bp = Blueprint('connect4', __name__)
 MAX_DEPTH = 8
@@ -120,6 +121,7 @@ def get_history(gid):
     with store().access(game_id(gid)) as session:
         state = snapshot(gid, session)
         return jsonify(game_id=gid, revision=session.revision,
+                       provenance=public_provenance(current_app.config.get('SOURCE_COMMIT')),
                        **({'rng_seed': session.rng_seed} if session.rng_seed is not None else {}),
                        players=state['players'], state=state,
                        moves=[record.to_dict() for record in session.history])
@@ -189,6 +191,11 @@ def make_move():
 @bp.route('/health')
 def health():
     return 'OK', 200
+
+
+@bp.route('/provenance', methods=['GET'])
+def provenance():
+    return jsonify(public_provenance(current_app.config.get('SOURCE_COMMIT')))
 
 
 @bp.route('/explain', methods=['POST'])

@@ -1,6 +1,7 @@
 import { toPlayerPayload, competitorLabel } from '../connect4/competitorConfig.js';
 import { validateMatchHistory } from '../connect4/matchRecord.js';
 import { deriveSeed, validSeed, bracketOrder, entrantConfig, defaultField, replayColumns } from '../tournament/model.js';
+import { validateBackendProvenance } from '../evaluation/provenance.js';
 export { deriveSeed, validSeed, defaultField, replayColumns };
 export const FIELD_SIZES = [4, 6, 8, 10, 12];
 export const GAMES_PER_PAIRING = [2, 4, 8];
@@ -51,11 +52,14 @@ export function compactHistory(s, history) {
   const record = validateMatchHistory(history, { players: plan.playerConfigs, rng_seed: plan.gameSeed });
   check(record.game.gameOver, 'Only confirmed terminal games count in a season.');
   const columns = record.moves.map(m => m.column), { result } = replayColumns(columns, plan.playerConfigs);
-  return { ...plan, columns, result, moveCount: columns.length, completedIndex: s.currentGameIndex };
+  return { ...plan, columns, result, moveCount: columns.length, completedIndex: s.currentGameIndex,
+    ...(history.provenance ? { backendProvenance: validateBackendProvenance(history.provenance) } : {}) };
 }
 function validateGame(s, game, index) {
   const plan = gamePlan(s, s.schedule[index]);
-  check(game && equal(Object.keys(game).sort(), [...Object.keys(plan), 'columns', 'result', 'moveCount', 'completedIndex'].sort()));
+  check(game && equal(Object.keys(game).sort(), [...Object.keys(plan), 'columns', 'result', 'moveCount', 'completedIndex',
+    ...(Object.hasOwn(game, 'backendProvenance') ? ['backendProvenance'] : [])].sort()));
+  if (Object.hasOwn(game, 'backendProvenance')) validateBackendProvenance(game.backendProvenance);
   for (const key of Object.keys(plan)) check(equal(game[key], plan[key]), 'Game seed, colors or configuration do not match the schedule.');
   const { result } = replayColumns(game.columns, plan.playerConfigs);
   check(result.status !== 'ongoing' && equal(result, game.result) && game.moveCount === game.columns.length && game.completedIndex === index, 'Malformed completed result.');

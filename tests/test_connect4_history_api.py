@@ -40,7 +40,8 @@ def test_atomic_ordered_detached_history_and_terminal_replay(app, sequence):
     assert response.status_code == 200
     assert response.headers['Cache-Control'] == 'no-store'
     data = response.json
-    assert set(data) == {'game_id', 'revision', 'players', 'state', 'moves'}
+    assert set(data) == {'game_id', 'revision', 'players', 'state', 'moves', 'provenance'}
+    assert data['provenance'] == app.test_client().get(BASE + '/provenance').json
     assert data['state'] == state
     assert data['revision'] == len(data['moves']) == len(sequence)
     replay = Connect4()

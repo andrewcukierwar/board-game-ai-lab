@@ -6,7 +6,7 @@ Play Connect 4 against Random, depth-limited Negamax or bounded MCTS in a Flask 
 
 Backend API origin: [https://board-game-ai-lab.onrender.com](https://board-game-ai-lab.onrender.com) · [API health endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/health).
 
-**Status:** Phase 5C Human Tournament participation is reviewed and merged into `main` at `ba2ac9b70f9cdb049adbba7e9cb19c8d2b3376ae`. Phase 5D adds local Season Lab at `/connect4/season`: AI-only balanced round robins, repeated fixtures, standings, pairwise results, Elo history, and observed score-rate bootstrap intervals. Phase 5D remains uncommitted and undeployed pending review. The last recorded public deployment is the Phase 5B baseline `8807f40eb17bd73fc4219635cc393b4ecbac044c`. See [Season Lab](docs/phase5d-season-ratings-lab.md), [Human tournament participation](docs/phase5c-human-tournament-participation.md), [Tournament Lab](docs/phase5b-tournament-lab.md), [Match Lab](docs/phase5a-match-lab.md), and [deployment guidance](docs/deployment.md).
+**Status:** Phase 5D Season Lab is reviewed and merged into `main` at `58a88ad2f397ea388b1f98032241ed26eafef197`: balanced AI round robins, standings, Elo/history, pairwise results and observed-score bootstrap intervals. Phase 5E adds portable JSON/CSV evaluation exports, SHA-256 evidence integrity, implementation provenance, a CLI verifier and a safe benchmark runner; it remains uncommitted pending review. The [canonical benchmark](benchmarks/connect4/canonical-season-v1.md) freezes 8 agents, 112 games and seed 20261008; it has not been run. The last recorded public deployment is Phase 5B `8807f40eb17bd73fc4219635cc393b4ecbac044c`. See [Season Lab](docs/phase5d-season-ratings-lab.md), [provenance](docs/evaluation-provenance.md), [Human tournament participation](docs/phase5c-human-tournament-participation.md), [Tournament Lab](docs/phase5b-tournament-lab.md), [Match Lab](docs/phase5a-match-lab.md) and [deployment guidance](docs/deployment.md).
 
 ## Run locally with Docker
 
@@ -23,6 +23,19 @@ Choose Random, Negamax (depth presets 1/2/4/6/8, default 2), or MCTS (Quick — 
 Open **http://localhost:3000/connect4/match-lab** to configure Red and Yellow independently. **Start match** leaves the empty board paused; use **Next move** for one AI ply or **Autoplay** to watch sequential moves. Human turns wait for a board click. **Previous**, **Next**, the move list, and **Return to live** inspect history without undoing the server game.
 
 Stop the stack with `Ctrl+C`, then `docker compose down` to remove its containers/network.
+
+Season Lab at `/connect4/season` includes **Evaluation export**: verified evaluation
+JSON, games CSV, summary CSV and a copyable SHA-256 digest. Partial evaluations show
+completed/scheduled counts and provisional analytics. From the repository root:
+
+```sh
+node ui/scripts/verify-evaluation-export.mjs path/to/evaluation.json
+node ui/scripts/run-connect4-benchmark.mjs --config benchmarks/connect4/canonical-season-v1.json
+```
+
+The runner defaults to dry-run with no API requests. Execution requires `--execute`
+and should target a local backend; nonlocal origins require an intentional override.
+A full canonical run requires separate authorization after Phase 5E review.
 
 ## Development and tests
 

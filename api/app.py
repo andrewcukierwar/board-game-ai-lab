@@ -16,7 +16,8 @@ def create_app(config=None):
     load_dotenv(Path(__file__).resolve().parent.parent / '.env', override=False)
     app = Flask(__name__)
     app.config.from_mapping(MAX_CONTENT_LENGTH=4096, GAME_SESSION_CAPACITY=128, GAME_SESSION_TTL=1800,
-                            CORS_ALLOWED_ORIGINS=os.environ.get('CORS_ALLOWED_ORIGINS', ''))
+                            CORS_ALLOWED_ORIGINS=os.environ.get('CORS_ALLOWED_ORIGINS', ''),
+                            SOURCE_COMMIT=os.environ.get('EVALUATION_SOURCE_COMMIT'))
     app.config.update(environment_config())
     if config:
         app.config.update(config)
