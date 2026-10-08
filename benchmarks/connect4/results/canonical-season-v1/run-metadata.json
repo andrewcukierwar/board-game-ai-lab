@@ -1,0 +1,592 @@
+{
+  "run_id": "canonical-season-v1-2026-10-08T03-38-38-499Z-82b7a4b5",
+  "status": "complete",
+  "started_at": "2026-10-08T03:38:38.504Z",
+  "finished_at": "2026-10-08T03:43:31.978Z",
+  "wall_time_ms": 293562.79775,
+  "host_platform": "darwin",
+  "host_release": "25.6.0",
+  "host_arch": "arm64",
+  "cpu": "Apple M5",
+  "cpu_count": 10,
+  "node_version": "v25.9.0",
+  "backend_runtime": null,
+  "api_base": "http://127.0.0.1:8000",
+  "source_commit": "c7d0ce65e0a2a23dc6f398164429bd1f2162228f",
+  "backend_provenance": {
+    "api_provenance_version": 1,
+    "api_contract_version": 2,
+    "connect4_engine_version": 1,
+    "agents": {
+      "random": 2,
+      "negamax": 2,
+      "mcts": 2
+    },
+    "stochastic_seed_version": 1,
+    "source_commit": "c7d0ce65e0a2a23dc6f398164429bd1f2162228f"
+  },
+  "game_wall_times_ms": [
+    {
+      "completion_index": 0,
+      "fixture_id": "c1-h1-r1-f1",
+      "wall_time_ms": 233.40820799999997
+    },
+    {
+      "completion_index": 1,
+      "fixture_id": "c1-h1-r1-f2",
+      "wall_time_ms": 310.050417
+    },
+    {
+      "completion_index": 2,
+      "fixture_id": "c1-h1-r1-f3",
+      "wall_time_ms": 2981.770375
+    },
+    {
+      "completion_index": 3,
+      "fixture_id": "c1-h1-r1-f4",
+      "wall_time_ms": 8859.324875
+    },
+    {
+      "completion_index": 4,
+      "fixture_id": "c1-h1-r2-f1",
+      "wall_time_ms": 55.350916999999754
+    },
+    {
+      "completion_index": 5,
+      "fixture_id": "c1-h1-r2-f2",
+      "wall_time_ms": 3438.782625
+    },
+    {
+      "completion_index": 6,
+      "fixture_id": "c1-h1-r2-f3",
+      "wall_time_ms": 6260.8618750000005
+    },
+    {
+      "completion_index": 7,
+      "fixture_id": "c1-h1-r2-f4",
+      "wall_time_ms": 831.0461249999971
+    },
+    {
+      "completion_index": 8,
+      "fixture_id": "c1-h1-r3-f1",
+      "wall_time_ms": 3947.81725
+    },
+    {
+      "completion_index": 9,
+      "fixture_id": "c1-h1-r3-f2",
+      "wall_time_ms": 3130.3586250000008
+    },
+    {
+      "completion_index": 10,
+      "fixture_id": "c1-h1-r3-f3",
+      "wall_time_ms": 907.9117079999996
+    },
+    {
+      "completion_index": 11,
+      "fixture_id": "c1-h1-r3-f4",
+      "wall_time_ms": 1037.038457999999
+    },
+    {
+      "completion_index": 12,
+      "fixture_id": "c1-h1-r4-f1",
+      "wall_time_ms": 5043.813416000001
+    },
+    {
+      "completion_index": 13,
+      "fixture_id": "c1-h1-r4-f2",
+      "wall_time_ms": 4185.835375000002
+    },
+    {
+      "completion_index": 14,
+      "fixture_id": "c1-h1-r4-f3",
+      "wall_time_ms": 18.50250000000233
+    },
+    {
+      "completion_index": 15,
+      "fixture_id": "c1-h1-r4-f4",
+      "wall_time_ms": 465.3487499999974
+    },
+    {
+      "completion_index": 16,
+      "fixture_id": "c1-h1-r5-f1",
+      "wall_time_ms": 983.775250000006
+    },
+    {
+      "completion_index": 17,
+      "fixture_id": "c1-h1-r5-f2",
+      "wall_time_ms": 7063.256457999996
+    },
+    {
+      "completion_index": 18,
+      "fixture_id": "c1-h1-r5-f3",
+      "wall_time_ms": 1096.9488339999953
+    },
+    {
+      "completion_index": 19,
+      "fixture_id": "c1-h1-r5-f4",
+      "wall_time_ms": 64.33620800000062
+    },
+    {
+      "completion_index": 20,
+      "fixture_id": "c1-h1-r6-f1",
+      "wall_time_ms": 188.88758300000336
+    },
+    {
+      "completion_index": 21,
+      "fixture_id": "c1-h1-r6-f2",
+      "wall_time_ms": 1892.094041999997
+    },
+    {
+      "completion_index": 22,
+      "fixture_id": "c1-h1-r6-f3",
+      "wall_time_ms": 5220.176791000005
+    },
+    {
+      "completion_index": 23,
+      "fixture_id": "c1-h1-r6-f4",
+      "wall_time_ms": 873.8790420000005
+    },
+    {
+      "completion_index": 24,
+      "fixture_id": "c1-h1-r7-f1",
+      "wall_time_ms": 604.2122080000045
+    },
+    {
+      "completion_index": 25,
+      "fixture_id": "c1-h1-r7-f2",
+      "wall_time_ms": 82.79550000000017
+    },
+    {
+      "completion_index": 26,
+      "fixture_id": "c1-h1-r7-f3",
+      "wall_time_ms": 825.4979999999996
+    },
+    {
+      "completion_index": 27,
+      "fixture_id": "c1-h1-r7-f4",
+      "wall_time_ms": 9356.049167000005
+    },
+    {
+      "completion_index": 28,
+      "fixture_id": "c1-h2-r1-f1",
+      "wall_time_ms": 232.19691600000078
+    },
+    {
+      "completion_index": 29,
+      "fixture_id": "c1-h2-r1-f2",
+      "wall_time_ms": 312.14512500001
+    },
+    {
+      "completion_index": 30,
+      "fixture_id": "c1-h2-r1-f3",
+      "wall_time_ms": 3022.3929999999964
+    },
+    {
+      "completion_index": 31,
+      "fixture_id": "c1-h2-r1-f4",
+      "wall_time_ms": 8678.457041000001
+    },
+    {
+      "completion_index": 32,
+      "fixture_id": "c1-h2-r2-f1",
+      "wall_time_ms": 166.76070899999468
+    },
+    {
+      "completion_index": 33,
+      "fixture_id": "c1-h2-r2-f2",
+      "wall_time_ms": 3275.382165999996
+    },
+    {
+      "completion_index": 34,
+      "fixture_id": "c1-h2-r2-f3",
+      "wall_time_ms": 5205.406166000001
+    },
+    {
+      "completion_index": 35,
+      "fixture_id": "c1-h2-r2-f4",
+      "wall_time_ms": 892.5045420000097
+    },
+    {
+      "completion_index": 36,
+      "fixture_id": "c1-h2-r3-f1",
+      "wall_time_ms": 2872.7477079999953
+    },
+    {
+      "completion_index": 37,
+      "fixture_id": "c1-h2-r3-f2",
+      "wall_time_ms": 1687.8802499999874
+    },
+    {
+      "completion_index": 38,
+      "fixture_id": "c1-h2-r3-f3",
+      "wall_time_ms": 842.9472499999974
+    },
+    {
+      "completion_index": 39,
+      "fixture_id": "c1-h2-r3-f4",
+      "wall_time_ms": 848.9973750000063
+    },
+    {
+      "completion_index": 40,
+      "fixture_id": "c1-h2-r4-f1",
+      "wall_time_ms": 6907.223333999995
+    },
+    {
+      "completion_index": 41,
+      "fixture_id": "c1-h2-r4-f2",
+      "wall_time_ms": 3568.4209160000028
+    },
+    {
+      "completion_index": 42,
+      "fixture_id": "c1-h2-r4-f3",
+      "wall_time_ms": 19.66816599998856
+    },
+    {
+      "completion_index": 43,
+      "fixture_id": "c1-h2-r4-f4",
+      "wall_time_ms": 1024.5667920000124
+    },
+    {
+      "completion_index": 44,
+      "fixture_id": "c1-h2-r5-f1",
+      "wall_time_ms": 978.1417500000098
+    },
+    {
+      "completion_index": 45,
+      "fixture_id": "c1-h2-r5-f2",
+      "wall_time_ms": 6320.27283300001
+    },
+    {
+      "completion_index": 46,
+      "fixture_id": "c1-h2-r5-f3",
+      "wall_time_ms": 4909.863167000003
+    },
+    {
+      "completion_index": 47,
+      "fixture_id": "c1-h2-r5-f4",
+      "wall_time_ms": 17.719167000002926
+    },
+    {
+      "completion_index": 48,
+      "fixture_id": "c1-h2-r6-f1",
+      "wall_time_ms": 227.22820800000045
+    },
+    {
+      "completion_index": 49,
+      "fixture_id": "c1-h2-r6-f2",
+      "wall_time_ms": 1622.1227080000099
+    },
+    {
+      "completion_index": 50,
+      "fixture_id": "c1-h2-r6-f3",
+      "wall_time_ms": 7566.882874999996
+    },
+    {
+      "completion_index": 51,
+      "fixture_id": "c1-h2-r6-f4",
+      "wall_time_ms": 1465.3247499999998
+    },
+    {
+      "completion_index": 52,
+      "fixture_id": "c1-h2-r7-f1",
+      "wall_time_ms": 686.0032080000092
+    },
+    {
+      "completion_index": 53,
+      "fixture_id": "c1-h2-r7-f2",
+      "wall_time_ms": 89.34579099999974
+    },
+    {
+      "completion_index": 54,
+      "fixture_id": "c1-h2-r7-f3",
+      "wall_time_ms": 251.15608299997984
+    },
+    {
+      "completion_index": 55,
+      "fixture_id": "c1-h2-r7-f4",
+      "wall_time_ms": 7452.074250000005
+    },
+    {
+      "completion_index": 56,
+      "fixture_id": "c2-h1-r1-f1",
+      "wall_time_ms": 235.2481250000128
+    },
+    {
+      "completion_index": 57,
+      "fixture_id": "c2-h1-r1-f2",
+      "wall_time_ms": 223.25158400001237
+    },
+    {
+      "completion_index": 58,
+      "fixture_id": "c2-h1-r1-f3",
+      "wall_time_ms": 3840.1098749999946
+    },
+    {
+      "completion_index": 59,
+      "fixture_id": "c2-h1-r1-f4",
+      "wall_time_ms": 7596.082833000022
+    },
+    {
+      "completion_index": 60,
+      "fixture_id": "c2-h1-r2-f1",
+      "wall_time_ms": 125.76075000001583
+    },
+    {
+      "completion_index": 61,
+      "fixture_id": "c2-h1-r2-f2",
+      "wall_time_ms": 2406.180624999979
+    },
+    {
+      "completion_index": 62,
+      "fixture_id": "c2-h1-r2-f3",
+      "wall_time_ms": 6288.514083999995
+    },
+    {
+      "completion_index": 63,
+      "fixture_id": "c2-h1-r2-f4",
+      "wall_time_ms": 896.2447089999914
+    },
+    {
+      "completion_index": 64,
+      "fixture_id": "c2-h1-r3-f1",
+      "wall_time_ms": 3612.7666660000104
+    },
+    {
+      "completion_index": 65,
+      "fixture_id": "c2-h1-r3-f2",
+      "wall_time_ms": 1805.043875000003
+    },
+    {
+      "completion_index": 66,
+      "fixture_id": "c2-h1-r3-f3",
+      "wall_time_ms": 925.0337499999732
+    },
+    {
+      "completion_index": 67,
+      "fixture_id": "c2-h1-r3-f4",
+      "wall_time_ms": 875.3351250000123
+    },
+    {
+      "completion_index": 68,
+      "fixture_id": "c2-h1-r4-f1",
+      "wall_time_ms": 7235.874624999997
+    },
+    {
+      "completion_index": 69,
+      "fixture_id": "c2-h1-r4-f2",
+      "wall_time_ms": 4227.552374999999
+    },
+    {
+      "completion_index": 70,
+      "fixture_id": "c2-h1-r4-f3",
+      "wall_time_ms": 11.88287499998114
+    },
+    {
+      "completion_index": 71,
+      "fixture_id": "c2-h1-r4-f4",
+      "wall_time_ms": 837.3492090000072
+    },
+    {
+      "completion_index": 72,
+      "fixture_id": "c2-h1-r5-f1",
+      "wall_time_ms": 982.7277499999909
+    },
+    {
+      "completion_index": 73,
+      "fixture_id": "c2-h1-r5-f2",
+      "wall_time_ms": 6145.549582999985
+    },
+    {
+      "completion_index": 74,
+      "fixture_id": "c2-h1-r5-f3",
+      "wall_time_ms": 3752.743583000003
+    },
+    {
+      "completion_index": 75,
+      "fixture_id": "c2-h1-r5-f4",
+      "wall_time_ms": 29.600333999987924
+    },
+    {
+      "completion_index": 76,
+      "fixture_id": "c2-h1-r6-f1",
+      "wall_time_ms": 210.08829200000037
+    },
+    {
+      "completion_index": 77,
+      "fixture_id": "c2-h1-r6-f2",
+      "wall_time_ms": 1857.90625
+    },
+    {
+      "completion_index": 78,
+      "fixture_id": "c2-h1-r6-f3",
+      "wall_time_ms": 6871.047374999995
+    },
+    {
+      "completion_index": 79,
+      "fixture_id": "c2-h1-r6-f4",
+      "wall_time_ms": 1635.2519590000156
+    },
+    {
+      "completion_index": 80,
+      "fixture_id": "c2-h1-r7-f1",
+      "wall_time_ms": 778.9139579999901
+    },
+    {
+      "completion_index": 81,
+      "fixture_id": "c2-h1-r7-f2",
+      "wall_time_ms": 87.57629100000486
+    },
+    {
+      "completion_index": 82,
+      "fixture_id": "c2-h1-r7-f3",
+      "wall_time_ms": 1074.6725410000072
+    },
+    {
+      "completion_index": 83,
+      "fixture_id": "c2-h1-r7-f4",
+      "wall_time_ms": 10823.411999999982
+    },
+    {
+      "completion_index": 84,
+      "fixture_id": "c2-h2-r1-f1",
+      "wall_time_ms": 235.55058300000383
+    },
+    {
+      "completion_index": 85,
+      "fixture_id": "c2-h2-r1-f2",
+      "wall_time_ms": 236.47020799998427
+    },
+    {
+      "completion_index": 86,
+      "fixture_id": "c2-h2-r1-f3",
+      "wall_time_ms": 3046.320584000001
+    },
+    {
+      "completion_index": 87,
+      "fixture_id": "c2-h2-r1-f4",
+      "wall_time_ms": 7695.819625000004
+    },
+    {
+      "completion_index": 88,
+      "fixture_id": "c2-h2-r2-f1",
+      "wall_time_ms": 82.54191700002411
+    },
+    {
+      "completion_index": 89,
+      "fixture_id": "c2-h2-r2-f2",
+      "wall_time_ms": 3561.829458000022
+    },
+    {
+      "completion_index": 90,
+      "fixture_id": "c2-h2-r2-f3",
+      "wall_time_ms": 6943.809500000003
+    },
+    {
+      "completion_index": 91,
+      "fixture_id": "c2-h2-r2-f4",
+      "wall_time_ms": 826.9052089999896
+    },
+    {
+      "completion_index": 92,
+      "fixture_id": "c2-h2-r3-f1",
+      "wall_time_ms": 4064.6131250000035
+    },
+    {
+      "completion_index": 93,
+      "fixture_id": "c2-h2-r3-f2",
+      "wall_time_ms": 1710.175333000021
+    },
+    {
+      "completion_index": 94,
+      "fixture_id": "c2-h2-r3-f3",
+      "wall_time_ms": 852.9645840000012
+    },
+    {
+      "completion_index": 95,
+      "fixture_id": "c2-h2-r3-f4",
+      "wall_time_ms": 824.3379579999892
+    },
+    {
+      "completion_index": 96,
+      "fixture_id": "c2-h2-r4-f1",
+      "wall_time_ms": 6550.014292000007
+    },
+    {
+      "completion_index": 97,
+      "fixture_id": "c2-h2-r4-f2",
+      "wall_time_ms": 3539.5369579999824
+    },
+    {
+      "completion_index": 98,
+      "fixture_id": "c2-h2-r4-f3",
+      "wall_time_ms": 16.233582999993814
+    },
+    {
+      "completion_index": 99,
+      "fixture_id": "c2-h2-r4-f4",
+      "wall_time_ms": 668.1213339999958
+    },
+    {
+      "completion_index": 100,
+      "fixture_id": "c2-h2-r5-f1",
+      "wall_time_ms": 954.9206659999909
+    },
+    {
+      "completion_index": 101,
+      "fixture_id": "c2-h2-r5-f2",
+      "wall_time_ms": 7484.741959000006
+    },
+    {
+      "completion_index": 102,
+      "fixture_id": "c2-h2-r5-f3",
+      "wall_time_ms": 3999.3151659999858
+    },
+    {
+      "completion_index": 103,
+      "fixture_id": "c2-h2-r5-f4",
+      "wall_time_ms": 47.136499999964144
+    },
+    {
+      "completion_index": 104,
+      "fixture_id": "c2-h2-r6-f1",
+      "wall_time_ms": 190.98200000001816
+    },
+    {
+      "completion_index": 105,
+      "fixture_id": "c2-h2-r6-f2",
+      "wall_time_ms": 1663.857250000001
+    },
+    {
+      "completion_index": 106,
+      "fixture_id": "c2-h2-r6-f3",
+      "wall_time_ms": 6709.6895830000285
+    },
+    {
+      "completion_index": 107,
+      "fixture_id": "c2-h2-r6-f4",
+      "wall_time_ms": 876.2344579999917
+    },
+    {
+      "completion_index": 108,
+      "fixture_id": "c2-h2-r7-f1",
+      "wall_time_ms": 942.7774590000045
+    },
+    {
+      "completion_index": 109,
+      "fixture_id": "c2-h2-r7-f2",
+      "wall_time_ms": 84.70437499997206
+    },
+    {
+      "completion_index": 110,
+      "fixture_id": "c2-h2-r7-f3",
+      "wall_time_ms": 247.73479200003203
+    },
+    {
+      "completion_index": 111,
+      "fixture_id": "c2-h2-r7-f4",
+      "wall_time_ms": 9329.05683299998
+    }
+  ],
+  "max_concurrent_posts": 1,
+  "mutation_requests": 3169
+}

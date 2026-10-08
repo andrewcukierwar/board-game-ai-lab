@@ -1,5 +1,11 @@
 # Canonical Connect 4 season v1
 
+**Completed canonical run:** all 112 games verified against frozen source
+`c7d0ce65e0a2a23dc6f398164429bd1f2162228f`. See the [preserved results,
+intervals, runtime, provenance, and verification command](results/canonical-season-v1/README.md).
+The planning and Phase 5E smoke notes below retain their original historical context;
+the canonical run occurred after that source was frozen.
+
 A practical portfolio benchmark, not proof of solved playing strength. The JSON
 freezes slot order and exact settings:
 
@@ -114,7 +120,7 @@ Publish reviewed evidence, CSVs, metadata, source/environment details and a sepa
 trusted digest. See [provenance](../../docs/evaluation-provenance.md) for hash coverage
 and source/version limitations.
 
-## Phase 5E verification and runtime planning
+## Historical Phase 5E verification and runtime planning
 
 Only `smoke-season-v1.json` was executed: Random / Negamax 1 / Negamax 2 / Random,
 seed 1234, **12 games / 210 plies**, about **357 ms** on the local host. This

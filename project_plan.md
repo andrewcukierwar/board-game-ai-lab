@@ -1,9 +1,25 @@
 # Board Game AI Lab — Project Plan
 
 **Repository:** https://github.com/andrewcukierwar/board-game-ai-lab  
-**Plan updated:** October 3, 2026
-**Status:** Phases 1–3 completed; the user confirms explanations are enabled and manually tested publicly. Phase 4A.1 standalone MCTS correctness completed at `c213ddf` (311 backend tests, including 71 deterministic MCTS cases). Phase 4A.2 public MCTS API/UI integration is implemented locally, pending review and deployment. Source explanation defaults remain disabled; no production settings changed during this assignment.
-**Guiding objective:** Build a polished, publicly playable AI game laboratory and make the three intended resume bullets accurate and defensible. Prefer shipping a compelling hands-on application over expanding infrastructure or running formal agent benchmarks.
+**Plan updated:** October 8, 2026
+**Current status:** The public Connect 4 system and competition/evaluation system are feature-complete on `main` at `c7d0ce65e0a2a23dc6f398164429bd1f2162228f`. The canonical benchmark is complete and verified: 8 agents, 112 games, seed 20261008. Final portfolio packaging is complete locally on `final-portfolio-packaging`, pending review/merge and deployment checks; no commit or push is part of this assignment.
+**Current objective:** Present the completed public search/evaluation system clearly, retain reproducible evidence and scientific caveats, and keep experimental research separate.
+
+## Current delivery status
+
+- [x] Public Connect 4: Random, corrected Negamax, bounded MCTS, grounded post-hoc explanations.
+- [x] Match Lab, Tournament Lab (including human participation), Season Lab, and evaluation exports/verifier complete.
+- [x] Canonical benchmark against the frozen source completed; [preserved evidence and results](benchmarks/connect4/results/canonical-season-v1/README.md).
+- [x] Final README, architecture diagram, curated application screenshots, and detailed benchmark report packaged.
+- [x] Local backend/frontend, production builds, browser regression, and canonical integrity verification completed; [verification record](docs/final-portfolio-packaging.md).
+- [ ] Review and merge packaging; check deployed application freshness and complete release smoke verification separately.
+- [ ] Resume wording is a subsequent task; no resume edits in this packaging assignment.
+
+**Research boundary:** AlphaZero/neural checkpoints and other historical agents remain experimental, outside the public API and canonical benchmark. `phase4d3b-alphazero-v2-preflight` and frozen campaign artifacts are not modified. No new training, agent, opening suite, benchmark, Mancala integration, or feature phase is scheduled here.
+
+## Historical plan and development records
+
+The sections below preserve earlier objectives, acceptance criteria, phase reports, and approval boundaries as historical context. Their older “current assignment,” deferred-feature lists, agent budgets, and pending statuses do not supersede the delivery status above. In particular, tournaments/Elo/benchmarking were later delivered, and Mancala remains outside the completed public scope. Detailed subsequent implementation and research records also remain in `docs/`.
 
 ## 1. Product vision
 
@@ -274,7 +290,7 @@ Additional guardrails:
 - [ ] Portfolio screenshots added.
 - [ ] Final resume wording revalidated against shipped features.
 
-## 8. Current assignment and approval boundary
+## 8. Historical assignment and approval boundary (Phase 4A.2)
 
 The current assignment implements **Phase 4A.2 — Public Connect 4 MCTS integration** on local branch `phase4a2-mcts-integration`, based on freshly fetched `origin/main` at `c213ddfbe2e39ec29a5f4f013d5a49b800643e88`. The starting tree was clean. Phase 4A.1 is complete at that commit. Phases 1–3 are preserved; the user confirms explanations have been enabled and manually tested publicly.
 
