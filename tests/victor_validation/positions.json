@@ -1,0 +1,4757 @@
+{
+  "inputs": {
+    "schema": "exploratory-6b2-v1",
+    "generator_specs": [
+      {
+        "seed": 1988,
+        "attempts": 64,
+        "plies": 34
+      },
+      {
+        "seed": 1988,
+        "attempts": 256,
+        "plies": 36
+      },
+      {
+        "seed": 6202,
+        "attempts": 256,
+        "plies": 34
+      }
+    ],
+    "cases": [
+      {
+        "id": "6b1-cover-black-win",
+        "moves": [
+          1,
+          4,
+          5,
+          4,
+          6,
+          6,
+          0,
+          0,
+          2,
+          6,
+          6,
+          5,
+          1,
+          1,
+          5,
+          2,
+          4,
+          2,
+          2,
+          5,
+          1,
+          1,
+          2,
+          5,
+          5,
+          3,
+          4,
+          2,
+          0,
+          4,
+          3,
+          6,
+          1,
+          6
+        ]
+      },
+      {
+        "id": "6b1-no-cover-black-win",
+        "moves": [
+          3,
+          2,
+          0,
+          0,
+          4,
+          1,
+          5,
+          3,
+          0,
+          3,
+          1,
+          0,
+          2,
+          4,
+          5,
+          5,
+          5,
+          3,
+          4,
+          1,
+          5,
+          0,
+          4,
+          4,
+          5,
+          6,
+          2,
+          6,
+          0,
+          6,
+          6,
+          6,
+          3,
+          1,
+          3,
+          1
+        ]
+      },
+      {
+        "id": "claim-draw",
+        "moves": [
+          1,
+          2,
+          0,
+          3,
+          6,
+          6,
+          3,
+          3,
+          0,
+          5,
+          4,
+          0,
+          3,
+          3,
+          4,
+          4,
+          3,
+          2,
+          6,
+          4,
+          1,
+          6,
+          6,
+          2,
+          6,
+          4,
+          2,
+          0,
+          1,
+          5,
+          5,
+          5,
+          2,
+          1,
+          4,
+          2
+        ]
+      },
+      {
+        "id": "claim-base-draw",
+        "moves": [
+          2,
+          0,
+          4,
+          5,
+          0,
+          3,
+          6,
+          2,
+          3,
+          0,
+          1,
+          1,
+          4,
+          0,
+          2,
+          5,
+          5,
+          6,
+          0,
+          4,
+          5,
+          0,
+          5,
+          3,
+          4,
+          4,
+          3,
+          5,
+          6,
+          2,
+          4,
+          6,
+          6,
+          6,
+          1,
+          1
+        ]
+      },
+      {
+        "id": "base-black-win",
+        "moves": [
+          6,
+          0,
+          5,
+          1,
+          4,
+          1,
+          5,
+          0,
+          4,
+          3,
+          0,
+          3,
+          0,
+          1,
+          3,
+          0,
+          2,
+          5,
+          6,
+          5,
+          6,
+          6,
+          1,
+          5,
+          2,
+          0,
+          6,
+          4,
+          1,
+          3,
+          3,
+          3,
+          2,
+          1,
+          4,
+          2
+        ]
+      },
+      {
+        "id": "vertical-black-win",
+        "moves": [
+          0,
+          2,
+          3,
+          5,
+          1,
+          4,
+          2,
+          1,
+          6,
+          1,
+          3,
+          3,
+          6,
+          4,
+          1,
+          4,
+          6,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          4,
+          3,
+          3,
+          3,
+          2,
+          4,
+          1,
+          1,
+          5,
+          4,
+          5,
+          6
+        ]
+      },
+      {
+        "id": "claim-vertical-black-win",
+        "moves": [
+          4,
+          3,
+          0,
+          1,
+          3,
+          3,
+          3,
+          6,
+          1,
+          4,
+          1,
+          6,
+          5,
+          0,
+          3,
+          2,
+          6,
+          3,
+          4,
+          5,
+          6,
+          6,
+          0,
+          6,
+          2,
+          0,
+          5,
+          4,
+          4,
+          2,
+          2,
+          4,
+          5,
+          2
+        ]
+      },
+      {
+        "id": "zero-target-black-win",
+        "moves": [
+          0,
+          6,
+          5,
+          6,
+          1,
+          3,
+          3,
+          1,
+          6,
+          3,
+          2,
+          5,
+          3,
+          3,
+          1,
+          0,
+          0,
+          6,
+          2,
+          0,
+          4,
+          5,
+          6,
+          3,
+          2,
+          2,
+          4,
+          5,
+          5,
+          2,
+          2,
+          5,
+          0,
+          4,
+          6,
+          1
+        ]
+      },
+      {
+        "id": "immediate-white-win",
+        "moves": [
+          6,
+          4,
+          0,
+          4,
+          4,
+          1,
+          0,
+          1,
+          3,
+          3,
+          5,
+          4,
+          2,
+          3,
+          0,
+          0,
+          4,
+          3,
+          2,
+          4,
+          5,
+          0,
+          6,
+          1,
+          5,
+          2,
+          1,
+          1,
+          0,
+          1,
+          3,
+          5,
+          6,
+          5,
+          2,
+          3
+        ]
+      },
+      {
+        "id": "no-cover-forced-draw",
+        "moves": [
+          2,
+          1,
+          5,
+          1,
+          2,
+          6,
+          3,
+          1,
+          3,
+          3,
+          3,
+          0,
+          1,
+          5,
+          3,
+          2,
+          3,
+          6,
+          2,
+          5,
+          6,
+          0,
+          1,
+          2,
+          0,
+          4,
+          4,
+          2,
+          6,
+          1,
+          4,
+          4,
+          4,
+          0,
+          4,
+          5
+        ]
+      },
+      {
+        "id": "odd-threat-forced-loss",
+        "moves": [
+          2,
+          5,
+          6,
+          3,
+          6,
+          0,
+          6,
+          5,
+          5,
+          6,
+          0,
+          4,
+          0,
+          0,
+          4,
+          5,
+          6,
+          4,
+          4,
+          6,
+          4,
+          0,
+          4,
+          2,
+          3,
+          1,
+          0,
+          2,
+          5,
+          1,
+          1,
+          1,
+          5,
+          1,
+          1,
+          2
+        ]
+      },
+      {
+        "id": "odd-threat-white-win",
+        "moves": [
+          4,
+          5,
+          1,
+          0,
+          1,
+          6,
+          6,
+          1,
+          5,
+          1,
+          0,
+          4,
+          6,
+          4,
+          3,
+          5,
+          1,
+          6,
+          3,
+          5,
+          5,
+          4,
+          5,
+          1,
+          4,
+          4,
+          0,
+          3,
+          3,
+          3,
+          6,
+          2,
+          3,
+          0,
+          6,
+          0
+        ]
+      },
+      {
+        "id": "source-6-1-extension",
+        "moves": [
+          2,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          4,
+          2,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          4,
+          4,
+          4,
+          4,
+          5,
+          5,
+          5,
+          5
+        ]
+      }
+    ]
+  },
+  "expected": {
+    "generated_batches": [
+      {
+        "spec": {
+          "seed": 1988,
+          "attempts": 64,
+          "plies": 34
+        },
+        "summary": {
+          "positions": 59,
+          "unique_boards": 59,
+          "counts": [
+            {
+              "cover_status": "compatible_covering_set_found",
+              "white_value": -1,
+              "count": 2
+            },
+            {
+              "cover_status": "no_cover_in_supported_universe",
+              "white_value": -1,
+              "count": 8
+            },
+            {
+              "cover_status": "no_cover_in_supported_universe",
+              "white_value": 0,
+              "count": 2
+            },
+            {
+              "cover_status": "no_cover_in_supported_universe",
+              "white_value": 1,
+              "count": 47
+            }
+          ],
+          "potential_counterexamples": [],
+          "execution_statuses": {
+            "bounded_execution_checked_outcome_uncertified": 2
+          },
+          "max_oracle_positions": 456,
+          "max_execution_positions": 77,
+          "execution_edges": {
+            "white_edges": 59,
+            "forced_reply_edges": 13,
+            "spare_reply_edges": 61,
+            "proactive_pair_edges": 0
+          },
+          "records_sha256": "68415c70786da4d9eb63d4dea93cdad5fa0f152d734ce450a577d9cee18d3af8"
+        }
+      },
+      {
+        "spec": {
+          "seed": 1988,
+          "attempts": 256,
+          "plies": 36
+        },
+        "summary": {
+          "positions": 214,
+          "unique_boards": 214,
+          "counts": [
+            {
+              "cover_status": "compatible_covering_set_found",
+              "white_value": -1,
+              "count": 16
+            },
+            {
+              "cover_status": "compatible_covering_set_found",
+              "white_value": 0,
+              "count": 6
+            },
+            {
+              "cover_status": "no_cover_in_supported_universe",
+              "white_value": -1,
+              "count": 10
+            },
+            {
+              "cover_status": "no_cover_in_supported_universe",
+              "white_value": 0,
+              "count": 3
+            },
+            {
+              "cover_status": "no_cover_in_supported_universe",
+              "white_value": 1,
+              "count": 179
+            }
+          ],
+          "potential_counterexamples": [],
+          "execution_statuses": {
+            "bounded_execution_checked_outcome_uncertified": 22
+          },
+          "max_oracle_positions": 134,
+          "max_execution_positions": 88,
+          "execution_edges": {
+            "white_edges": 507,
+            "forced_reply_edges": 112,
+            "spare_reply_edges": 444,
+            "proactive_pair_edges": 17
+          },
+          "records_sha256": "365a7385929d608b4a52c499e2cca859883ea744048bd6ef9cdd63f34039595a"
+        }
+      },
+      {
+        "spec": {
+          "seed": 6202,
+          "attempts": 256,
+          "plies": 34
+        },
+        "summary": {
+          "positions": 240,
+          "unique_boards": 240,
+          "counts": [
+            {
+              "cover_status": "compatible_covering_set_found",
+              "white_value": -1,
+              "count": 11
+            },
+            {
+              "cover_status": "compatible_covering_set_found",
+              "white_value": 0,
+              "count": 4
+            },
+            {
+              "cover_status": "no_cover_in_supported_universe",
+              "white_value": -1,
+              "count": 17
+            },
+            {
+              "cover_status": "no_cover_in_supported_universe",
+              "white_value": 1,
+              "count": 208
+            }
+          ],
+          "potential_counterexamples": [],
+          "execution_statuses": {
+            "bounded_execution_checked_outcome_uncertified": 15
+          },
+          "max_oracle_positions": 546,
+          "max_execution_positions": 450,
+          "execution_edges": {
+            "white_edges": 1068,
+            "forced_reply_edges": 302,
+            "spare_reply_edges": 892,
+            "proactive_pair_edges": 70
+          },
+          "records_sha256": "b35c3d9492802c10f7794ca5cd2a87029306a7fdb00d4c7ca5281d6f38778681"
+        }
+      }
+    ],
+    "generated_summary": {
+      "positions": 513,
+      "unique_boards": 513,
+      "counts": [
+        {
+          "cover_status": "compatible_covering_set_found",
+          "white_value": -1,
+          "count": 29
+        },
+        {
+          "cover_status": "compatible_covering_set_found",
+          "white_value": 0,
+          "count": 10
+        },
+        {
+          "cover_status": "no_cover_in_supported_universe",
+          "white_value": -1,
+          "count": 35
+        },
+        {
+          "cover_status": "no_cover_in_supported_universe",
+          "white_value": 0,
+          "count": 5
+        },
+        {
+          "cover_status": "no_cover_in_supported_universe",
+          "white_value": 1,
+          "count": 434
+        }
+      ],
+      "potential_counterexamples": [],
+      "execution_statuses": {
+        "bounded_execution_checked_outcome_uncertified": 39
+      },
+      "max_oracle_positions": 546,
+      "max_execution_positions": 450,
+      "execution_edges": {
+        "white_edges": 1634,
+        "forced_reply_edges": 427,
+        "spare_reply_edges": 1397,
+        "proactive_pair_edges": 87
+      },
+      "records_sha256": "502cc9f9c96a4379493d6ca50a879fd2bf1e18e2c299a50afe4e4b9273fcdbbb"
+    },
+    "curated": [
+      {
+        "id": "6b1-cover-black-win",
+        "moves": [
+          1,
+          4,
+          5,
+          4,
+          6,
+          6,
+          0,
+          0,
+          2,
+          6,
+          6,
+          5,
+          1,
+          1,
+          5,
+          2,
+          4,
+          2,
+          2,
+          5,
+          1,
+          1,
+          2,
+          5,
+          5,
+          3,
+          4,
+          2,
+          0,
+          4,
+          3,
+          6,
+          1,
+          6
+        ],
+        "board": [
+          " XO  XO",
+          " OX OOO",
+          " XX XOX",
+          "XOO XXO",
+          "OXOXOOO",
+          "XXXOOXX"
+        ],
+        "turn": 0,
+        "remaining": 8,
+        "oracle_status": "exact",
+        "white_value": -1,
+        "black_value": 1,
+        "move_values_for_white": [
+          [
+            0,
+            -1
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            -1
+          ]
+        ],
+        "oracle_positions": 100,
+        "oracle_cache_hits": 24,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 4,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "claimeven",
+            "squares": [
+              "a5",
+              "a6"
+            ],
+            "covered_groups": [
+              [
+                "a6",
+                "a5",
+                "a4",
+                "a3"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "d3",
+              "d4"
+            ],
+            "covered_groups": [
+              [
+                "b6",
+                "c5",
+                "d4",
+                "e3"
+              ],
+              [
+                "d6",
+                "d5",
+                "d4",
+                "d3"
+              ],
+              [
+                "d5",
+                "d4",
+                "d3",
+                "d2"
+              ],
+              [
+                "a4",
+                "b4",
+                "c4",
+                "d4"
+              ],
+              [
+                "b4",
+                "c4",
+                "d4",
+                "e4"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "d5",
+              "d6"
+            ],
+            "covered_groups": [
+              [
+                "d6",
+                "c5",
+                "b4",
+                "a3"
+              ],
+              [
+                "d6",
+                "d5",
+                "d4",
+                "d3"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 23,
+          "white_edges": 12,
+          "forced_reply_edges": 8,
+          "spare_reply_edges": 4,
+          "proactive_pair_edges": 0,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "6b1-cover-black-win-reflected",
+        "moves": [
+          5,
+          2,
+          1,
+          2,
+          0,
+          0,
+          6,
+          6,
+          4,
+          0,
+          0,
+          1,
+          5,
+          5,
+          1,
+          4,
+          2,
+          4,
+          4,
+          1,
+          5,
+          5,
+          4,
+          1,
+          1,
+          3,
+          2,
+          4,
+          6,
+          2,
+          3,
+          0,
+          5,
+          0
+        ],
+        "board": [
+          "OX  OX ",
+          "OOO XO ",
+          "XOX XX ",
+          "OXX OOX",
+          "OOOXOXO",
+          "XXOOXXX"
+        ],
+        "turn": 0,
+        "remaining": 8,
+        "oracle_status": "exact",
+        "white_value": -1,
+        "black_value": 1,
+        "move_values_for_white": [
+          [
+            2,
+            -1
+          ],
+          [
+            3,
+            -1
+          ],
+          [
+            6,
+            -1
+          ]
+        ],
+        "oracle_positions": 100,
+        "oracle_cache_hits": 24,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 4,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "claimeven",
+            "squares": [
+              "d3",
+              "d4"
+            ],
+            "covered_groups": [
+              [
+                "d6",
+                "d5",
+                "d4",
+                "d3"
+              ],
+              [
+                "f6",
+                "e5",
+                "d4",
+                "c3"
+              ],
+              [
+                "d5",
+                "d4",
+                "d3",
+                "d2"
+              ],
+              [
+                "c4",
+                "d4",
+                "e4",
+                "f4"
+              ],
+              [
+                "d4",
+                "e4",
+                "f4",
+                "g4"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "d5",
+              "d6"
+            ],
+            "covered_groups": [
+              [
+                "d6",
+                "d5",
+                "d4",
+                "d3"
+              ],
+              [
+                "d6",
+                "e5",
+                "f4",
+                "g3"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "g5",
+              "g6"
+            ],
+            "covered_groups": [
+              [
+                "g6",
+                "g5",
+                "g4",
+                "g3"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 23,
+          "white_edges": 12,
+          "forced_reply_edges": 8,
+          "spare_reply_edges": 4,
+          "proactive_pair_edges": 0,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "6b1-no-cover-black-win",
+        "moves": [
+          3,
+          2,
+          0,
+          0,
+          4,
+          1,
+          5,
+          3,
+          0,
+          3,
+          1,
+          0,
+          2,
+          4,
+          5,
+          5,
+          5,
+          3,
+          4,
+          1,
+          5,
+          0,
+          4,
+          4,
+          5,
+          6,
+          2,
+          6,
+          0,
+          6,
+          6,
+          6,
+          3,
+          1,
+          3,
+          1
+        ],
+        "board": [
+          "X  X X ",
+          "OO XOXO",
+          "OO OXXX",
+          "XOXOXOO",
+          "OXXOOXO",
+          "XOOXXXO"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": -1,
+        "black_value": 1,
+        "move_values_for_white": [
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            6,
+            -1
+          ]
+        ],
+        "oracle_positions": 60,
+        "oracle_cache_hits": 26,
+        "cover_status": "no_cover_in_supported_universe",
+        "cover_nodes": 2,
+        "cover_budget": 1000,
+        "verification": null,
+        "selected_rules": [],
+        "execution": null,
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "6b1-no-cover-black-win-reflected",
+        "moves": [
+          3,
+          4,
+          6,
+          6,
+          2,
+          5,
+          1,
+          3,
+          6,
+          3,
+          5,
+          6,
+          4,
+          2,
+          1,
+          1,
+          1,
+          3,
+          2,
+          5,
+          1,
+          6,
+          2,
+          2,
+          1,
+          0,
+          4,
+          0,
+          6,
+          0,
+          0,
+          0,
+          3,
+          5,
+          3,
+          5
+        ],
+        "board": [
+          " X X  X",
+          "OXOX OO",
+          "XXXO OO",
+          "OOXOXOX",
+          "OXOOXXO",
+          "OXXXOOX"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": -1,
+        "black_value": 1,
+        "move_values_for_white": [
+          [
+            0,
+            -1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            5,
+            -1
+          ]
+        ],
+        "oracle_positions": 60,
+        "oracle_cache_hits": 26,
+        "cover_status": "no_cover_in_supported_universe",
+        "cover_nodes": 3,
+        "cover_budget": 1000,
+        "verification": null,
+        "selected_rules": [],
+        "execution": null,
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "claim-draw",
+        "moves": [
+          1,
+          2,
+          0,
+          3,
+          6,
+          6,
+          3,
+          3,
+          0,
+          5,
+          4,
+          0,
+          3,
+          3,
+          4,
+          4,
+          3,
+          2,
+          6,
+          4,
+          1,
+          6,
+          6,
+          2,
+          6,
+          4,
+          2,
+          0,
+          1,
+          5,
+          5,
+          5,
+          2,
+          1,
+          4,
+          2
+        ],
+        "board": [
+          "  OXX X",
+          "  XOO X",
+          "OOXXOOO",
+          "OXOOOXX",
+          "XXOXXOO",
+          "XXOOXOX"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": 0,
+        "black_value": 0,
+        "move_values_for_white": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            5,
+            0
+          ]
+        ],
+        "oracle_positions": 74,
+        "oracle_cache_hits": 23,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 2,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "claimeven",
+            "squares": [
+              "f5",
+              "f6"
+            ],
+            "covered_groups": [
+              [
+                "d6",
+                "e6",
+                "f6",
+                "g6"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 45,
+          "white_edges": 25,
+          "forced_reply_edges": 9,
+          "spare_reply_edges": 20,
+          "proactive_pair_edges": 0,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "claim-draw-reflected",
+        "moves": [
+          5,
+          4,
+          6,
+          3,
+          0,
+          0,
+          3,
+          3,
+          6,
+          1,
+          2,
+          6,
+          3,
+          3,
+          2,
+          2,
+          3,
+          4,
+          0,
+          2,
+          5,
+          0,
+          0,
+          4,
+          0,
+          2,
+          4,
+          6,
+          5,
+          1,
+          1,
+          1,
+          4,
+          5,
+          2,
+          4
+        ],
+        "board": [
+          "X XXO  ",
+          "X OOX  ",
+          "OOOXXOO",
+          "XXOOOXO",
+          "OOXXOXX",
+          "XOXOOXX"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": 0,
+        "black_value": 0,
+        "move_values_for_white": [
+          [
+            1,
+            0
+          ],
+          [
+            5,
+            -1
+          ],
+          [
+            6,
+            -1
+          ]
+        ],
+        "oracle_positions": 74,
+        "oracle_cache_hits": 23,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 2,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "claimeven",
+            "squares": [
+              "b5",
+              "b6"
+            ],
+            "covered_groups": [
+              [
+                "a6",
+                "b6",
+                "c6",
+                "d6"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 45,
+          "white_edges": 25,
+          "forced_reply_edges": 9,
+          "spare_reply_edges": 20,
+          "proactive_pair_edges": 0,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "claim-base-draw",
+        "moves": [
+          2,
+          0,
+          4,
+          5,
+          0,
+          3,
+          6,
+          2,
+          3,
+          0,
+          1,
+          1,
+          4,
+          0,
+          2,
+          5,
+          5,
+          6,
+          0,
+          4,
+          5,
+          0,
+          5,
+          3,
+          4,
+          4,
+          3,
+          5,
+          6,
+          2,
+          4,
+          6,
+          6,
+          6,
+          1,
+          1
+        ],
+        "board": [
+          "O   XOO",
+          "X   OXX",
+          "OOOXXXO",
+          "OXXOOXX",
+          "XOOXXOO",
+          "OXXOXOX"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": 0,
+        "black_value": 0,
+        "move_values_for_white": [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            3,
+            -1
+          ]
+        ],
+        "oracle_positions": 77,
+        "oracle_cache_hits": 27,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 3,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "claimeven",
+            "squares": [
+              "c5",
+              "c6"
+            ],
+            "covered_groups": [
+              [
+                "b6",
+                "c6",
+                "d6",
+                "e6"
+              ],
+              [
+                "c6",
+                "d5",
+                "e4",
+                "f3"
+              ]
+            ]
+          },
+          {
+            "rule": "baseinverse",
+            "squares": [
+              "b5",
+              "d5"
+            ],
+            "covered_groups": [
+              [
+                "a5",
+                "b5",
+                "c5",
+                "d5"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 22,
+          "white_edges": 12,
+          "forced_reply_edges": 8,
+          "spare_reply_edges": 4,
+          "proactive_pair_edges": 0,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "claim-base-draw-reflected",
+        "moves": [
+          4,
+          6,
+          2,
+          1,
+          6,
+          3,
+          0,
+          4,
+          3,
+          6,
+          5,
+          5,
+          2,
+          6,
+          4,
+          1,
+          1,
+          0,
+          6,
+          2,
+          1,
+          6,
+          1,
+          3,
+          2,
+          2,
+          3,
+          1,
+          0,
+          4,
+          2,
+          0,
+          0,
+          0,
+          5,
+          5
+        ],
+        "board": [
+          "OOX   O",
+          "XXO   X",
+          "OXXXOOO",
+          "XXOOXXO",
+          "OOXXOOX",
+          "XOXOXXO"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": 0,
+        "black_value": 0,
+        "move_values_for_white": [
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            5,
+            0
+          ]
+        ],
+        "oracle_positions": 77,
+        "oracle_cache_hits": 27,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 3,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "claimeven",
+            "squares": [
+              "e5",
+              "e6"
+            ],
+            "covered_groups": [
+              [
+                "c6",
+                "d6",
+                "e6",
+                "f6"
+              ],
+              [
+                "e6",
+                "d5",
+                "c4",
+                "b3"
+              ]
+            ]
+          },
+          {
+            "rule": "baseinverse",
+            "squares": [
+              "d5",
+              "f5"
+            ],
+            "covered_groups": [
+              [
+                "d5",
+                "e5",
+                "f5",
+                "g5"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 22,
+          "white_edges": 12,
+          "forced_reply_edges": 8,
+          "spare_reply_edges": 4,
+          "proactive_pair_edges": 0,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "base-black-win",
+        "moves": [
+          6,
+          0,
+          5,
+          1,
+          4,
+          1,
+          5,
+          0,
+          4,
+          3,
+          0,
+          3,
+          0,
+          1,
+          3,
+          0,
+          2,
+          5,
+          6,
+          5,
+          6,
+          6,
+          1,
+          5,
+          2,
+          0,
+          6,
+          4,
+          1,
+          3,
+          3,
+          3,
+          2,
+          1,
+          4,
+          2
+        ],
+        "board": [
+          "OO O   ",
+          "OX X OX",
+          "XXOOXOO",
+          "XOXXOOX",
+          "OOXOXXX",
+          "OOXOXXX"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": -1,
+        "black_value": 1,
+        "move_values_for_white": [
+          [
+            2,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            5,
+            -1
+          ],
+          [
+            6,
+            -1
+          ]
+        ],
+        "oracle_positions": 73,
+        "oracle_cache_hits": 22,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 2,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "baseinverse",
+            "squares": [
+              "c5",
+              "e5"
+            ],
+            "covered_groups": [
+              [
+                "b5",
+                "c5",
+                "d5",
+                "e5"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 52,
+          "white_edges": 30,
+          "forced_reply_edges": 4,
+          "spare_reply_edges": 30,
+          "proactive_pair_edges": 4,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "base-black-win-reflected",
+        "moves": [
+          0,
+          6,
+          1,
+          5,
+          2,
+          5,
+          1,
+          6,
+          2,
+          3,
+          6,
+          3,
+          6,
+          5,
+          3,
+          6,
+          4,
+          1,
+          0,
+          1,
+          0,
+          0,
+          5,
+          1,
+          4,
+          6,
+          0,
+          2,
+          5,
+          3,
+          3,
+          3,
+          4,
+          5,
+          2,
+          4
+        ],
+        "board": [
+          "   O OO",
+          "XO X XO",
+          "OOXOOXX",
+          "XOOXXOX",
+          "XXXOXOO",
+          "XXXOXOO"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": -1,
+        "black_value": 1,
+        "move_values_for_white": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            4,
+            -1
+          ]
+        ],
+        "oracle_positions": 73,
+        "oracle_cache_hits": 22,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 2,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "baseinverse",
+            "squares": [
+              "c5",
+              "e5"
+            ],
+            "covered_groups": [
+              [
+                "c5",
+                "d5",
+                "e5",
+                "f5"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 52,
+          "white_edges": 30,
+          "forced_reply_edges": 4,
+          "spare_reply_edges": 30,
+          "proactive_pair_edges": 4,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "vertical-black-win",
+        "moves": [
+          0,
+          2,
+          3,
+          5,
+          1,
+          4,
+          2,
+          1,
+          6,
+          1,
+          3,
+          3,
+          6,
+          4,
+          1,
+          4,
+          6,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          5,
+          4,
+          3,
+          3,
+          3,
+          2,
+          4,
+          1,
+          1,
+          5,
+          4,
+          5,
+          6
+        ],
+        "board": [
+          "XO OO  ",
+          "OX XOX ",
+          "XX OXXO",
+          "OOXOOOX",
+          "XOXXOOX",
+          "XXOXOOX"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": -1,
+        "black_value": 1,
+        "move_values_for_white": [
+          [
+            2,
+            -1
+          ],
+          [
+            5,
+            -1
+          ],
+          [
+            6,
+            -1
+          ]
+        ],
+        "oracle_positions": 33,
+        "oracle_cache_hits": 6,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 2,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "vertical",
+            "squares": [
+              "c4",
+              "c5"
+            ],
+            "covered_groups": [
+              [
+                "c6",
+                "c5",
+                "c4",
+                "c3"
+              ],
+              [
+                "c5",
+                "c4",
+                "c3",
+                "c2"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 22,
+          "white_edges": 9,
+          "forced_reply_edges": 4,
+          "spare_reply_edges": 8,
+          "proactive_pair_edges": 5,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "vertical-black-win-reflected",
+        "moves": [
+          6,
+          4,
+          3,
+          1,
+          5,
+          2,
+          4,
+          5,
+          0,
+          5,
+          3,
+          3,
+          0,
+          2,
+          5,
+          2,
+          0,
+          1,
+          6,
+          6,
+          6,
+          6,
+          6,
+          1,
+          2,
+          3,
+          3,
+          3,
+          4,
+          2,
+          5,
+          5,
+          1,
+          2,
+          1,
+          0
+        ],
+        "board": [
+          "  OO OX",
+          " XOX XO",
+          "OXXO XX",
+          "XOOOXOO",
+          "XOOXXOX",
+          "XOOXOXX"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": -1,
+        "black_value": 1,
+        "move_values_for_white": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            4,
+            -1
+          ]
+        ],
+        "oracle_positions": 33,
+        "oracle_cache_hits": 6,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 2,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "vertical",
+            "squares": [
+              "e4",
+              "e5"
+            ],
+            "covered_groups": [
+              [
+                "e6",
+                "e5",
+                "e4",
+                "e3"
+              ],
+              [
+                "e5",
+                "e4",
+                "e3",
+                "e2"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 22,
+          "white_edges": 9,
+          "forced_reply_edges": 4,
+          "spare_reply_edges": 8,
+          "proactive_pair_edges": 5,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "claim-vertical-black-win",
+        "moves": [
+          4,
+          3,
+          0,
+          1,
+          3,
+          3,
+          3,
+          6,
+          1,
+          4,
+          1,
+          6,
+          5,
+          0,
+          3,
+          2,
+          6,
+          3,
+          4,
+          5,
+          6,
+          6,
+          0,
+          6,
+          2,
+          0,
+          5,
+          4,
+          4,
+          2,
+          2,
+          4,
+          5,
+          2
+        ],
+        "board": [
+          "   OO O",
+          "  OXX O",
+          "O XXOXX",
+          "XXOOXXX",
+          "OXXXOOO",
+          "XOOOXXO"
+        ],
+        "turn": 0,
+        "remaining": 8,
+        "oracle_status": "exact",
+        "white_value": -1,
+        "black_value": 1,
+        "move_values_for_white": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            5,
+            -1
+          ]
+        ],
+        "oracle_positions": 317,
+        "oracle_cache_hits": 106,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 3,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "claimeven",
+            "squares": [
+              "f5",
+              "f6"
+            ],
+            "covered_groups": [
+              [
+                "f6",
+                "f5",
+                "f4",
+                "f3"
+              ]
+            ]
+          },
+          {
+            "rule": "vertical",
+            "squares": [
+              "b4",
+              "b5"
+            ],
+            "covered_groups": [
+              [
+                "b6",
+                "b5",
+                "b4",
+                "b3"
+              ],
+              [
+                "b5",
+                "b4",
+                "b3",
+                "b2"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 146,
+          "white_edges": 81,
+          "forced_reply_edges": 40,
+          "spare_reply_edges": 44,
+          "proactive_pair_edges": 5,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "claim-vertical-black-win-reflected",
+        "moves": [
+          2,
+          3,
+          6,
+          5,
+          3,
+          3,
+          3,
+          0,
+          5,
+          2,
+          5,
+          0,
+          1,
+          6,
+          3,
+          4,
+          0,
+          3,
+          2,
+          1,
+          0,
+          0,
+          6,
+          0,
+          4,
+          6,
+          1,
+          2,
+          2,
+          4,
+          4,
+          2,
+          1,
+          4
+        ],
+        "board": [
+          "O OO   ",
+          "O XXO  ",
+          "XXOXX O",
+          "XXXOOXX",
+          "OOOXXXO",
+          "OXXOOOX"
+        ],
+        "turn": 0,
+        "remaining": 8,
+        "oracle_status": "exact",
+        "white_value": -1,
+        "black_value": 1,
+        "move_values_for_white": [
+          [
+            1,
+            -1
+          ],
+          [
+            4,
+            -1
+          ],
+          [
+            5,
+            -1
+          ],
+          [
+            6,
+            -1
+          ]
+        ],
+        "oracle_positions": 317,
+        "oracle_cache_hits": 106,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 3,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "claimeven",
+            "squares": [
+              "b5",
+              "b6"
+            ],
+            "covered_groups": [
+              [
+                "b6",
+                "b5",
+                "b4",
+                "b3"
+              ]
+            ]
+          },
+          {
+            "rule": "vertical",
+            "squares": [
+              "f4",
+              "f5"
+            ],
+            "covered_groups": [
+              [
+                "f6",
+                "f5",
+                "f4",
+                "f3"
+              ],
+              [
+                "f5",
+                "f4",
+                "f3",
+                "f2"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 146,
+          "white_edges": 81,
+          "forced_reply_edges": 40,
+          "spare_reply_edges": 44,
+          "proactive_pair_edges": 5,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "zero-target-black-win",
+        "moves": [
+          0,
+          6,
+          5,
+          6,
+          1,
+          3,
+          3,
+          1,
+          6,
+          3,
+          2,
+          5,
+          3,
+          3,
+          1,
+          0,
+          0,
+          6,
+          2,
+          0,
+          4,
+          5,
+          6,
+          3,
+          2,
+          2,
+          4,
+          5,
+          5,
+          2,
+          2,
+          5,
+          0,
+          4,
+          6,
+          1
+        ],
+        "board": [
+          "  XO OX",
+          "X OO XX",
+          "OOOX OO",
+          "XXXOOOX",
+          "OOXXXOO",
+          "XXXOXXO"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": -1,
+        "black_value": 1,
+        "move_values_for_white": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            4,
+            -1
+          ]
+        ],
+        "oracle_positions": 61,
+        "oracle_cache_hits": 18,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 1,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 61,
+          "white_edges": 32,
+          "forced_reply_edges": 0,
+          "spare_reply_edges": 43,
+          "proactive_pair_edges": 0,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "zero-target-black-win-reflected",
+        "moves": [
+          6,
+          0,
+          1,
+          0,
+          5,
+          3,
+          3,
+          5,
+          0,
+          3,
+          4,
+          1,
+          3,
+          3,
+          5,
+          6,
+          6,
+          0,
+          4,
+          6,
+          2,
+          1,
+          0,
+          3,
+          4,
+          4,
+          2,
+          1,
+          1,
+          4,
+          4,
+          1,
+          6,
+          2,
+          0,
+          5
+        ],
+        "board": [
+          "XO OX  ",
+          "XX OO X",
+          "OO XOOO",
+          "XOOOXXX",
+          "OOXXXOO",
+          "OXXOXXX"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": -1,
+        "black_value": 1,
+        "move_values_for_white": [
+          [
+            2,
+            -1
+          ],
+          [
+            5,
+            -1
+          ],
+          [
+            6,
+            -1
+          ]
+        ],
+        "oracle_positions": 61,
+        "oracle_cache_hits": 18,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 1,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 61,
+          "white_edges": 32,
+          "forced_reply_edges": 0,
+          "spare_reply_edges": 43,
+          "proactive_pair_edges": 0,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "immediate-white-win",
+        "moves": [
+          6,
+          4,
+          0,
+          4,
+          4,
+          1,
+          0,
+          1,
+          3,
+          3,
+          5,
+          4,
+          2,
+          3,
+          0,
+          0,
+          4,
+          3,
+          2,
+          4,
+          5,
+          0,
+          6,
+          1,
+          5,
+          2,
+          1,
+          1,
+          0,
+          1,
+          3,
+          5,
+          6,
+          5,
+          2,
+          3
+        ],
+        "board": [
+          "XO OO  ",
+          "OO XXO ",
+          "OXXOOO ",
+          "XOOOXXX",
+          "XOXOOXX",
+          "XOXXOXX"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": 1,
+        "black_value": -1,
+        "move_values_for_white": [
+          [
+            2,
+            -1
+          ],
+          [
+            5,
+            -1
+          ],
+          [
+            6,
+            1
+          ]
+        ],
+        "oracle_positions": 15,
+        "oracle_cache_hits": 3,
+        "cover_status": "no_cover_in_supported_universe",
+        "cover_nodes": 1,
+        "cover_budget": 1000,
+        "verification": null,
+        "selected_rules": [],
+        "execution": null,
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "immediate-white-win-reflected",
+        "moves": [
+          0,
+          2,
+          6,
+          2,
+          2,
+          5,
+          6,
+          5,
+          3,
+          3,
+          1,
+          2,
+          4,
+          3,
+          6,
+          6,
+          2,
+          3,
+          4,
+          2,
+          1,
+          6,
+          0,
+          5,
+          1,
+          4,
+          5,
+          5,
+          6,
+          5,
+          3,
+          1,
+          0,
+          1,
+          4,
+          3
+        ],
+        "board": [
+          "  OO OX",
+          " OXX OO",
+          " OOOXXO",
+          "XXXOOOX",
+          "XXOOXOX",
+          "XXOXXOX"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": 1,
+        "black_value": -1,
+        "move_values_for_white": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            -1
+          ],
+          [
+            4,
+            -1
+          ]
+        ],
+        "oracle_positions": 15,
+        "oracle_cache_hits": 3,
+        "cover_status": "no_cover_in_supported_universe",
+        "cover_nodes": 1,
+        "cover_budget": 1000,
+        "verification": null,
+        "selected_rules": [],
+        "execution": null,
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "no-cover-forced-draw",
+        "moves": [
+          2,
+          1,
+          5,
+          1,
+          2,
+          6,
+          3,
+          1,
+          3,
+          3,
+          3,
+          0,
+          1,
+          5,
+          3,
+          2,
+          3,
+          6,
+          2,
+          5,
+          6,
+          0,
+          1,
+          2,
+          0,
+          4,
+          4,
+          2,
+          6,
+          1,
+          4,
+          4,
+          4,
+          0,
+          4,
+          5
+        ],
+        "board": [
+          " OOXX  ",
+          " XOXX  ",
+          "OXXXOOX",
+          "XOOOXOX",
+          "OOXXXOO",
+          "OOXXOXO"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": 0,
+        "black_value": 0,
+        "move_values_for_white": [
+          [
+            0,
+            -1
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            6,
+            -1
+          ]
+        ],
+        "oracle_positions": 68,
+        "oracle_cache_hits": 20,
+        "cover_status": "no_cover_in_supported_universe",
+        "cover_nodes": 2,
+        "cover_budget": 1000,
+        "verification": null,
+        "selected_rules": [],
+        "execution": null,
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "no-cover-forced-draw-reflected",
+        "moves": [
+          4,
+          5,
+          1,
+          5,
+          4,
+          0,
+          3,
+          5,
+          3,
+          3,
+          3,
+          6,
+          5,
+          1,
+          3,
+          4,
+          3,
+          0,
+          4,
+          1,
+          0,
+          6,
+          5,
+          4,
+          6,
+          2,
+          2,
+          4,
+          0,
+          5,
+          2,
+          2,
+          2,
+          6,
+          2,
+          1
+        ],
+        "board": [
+          "  XXOO ",
+          "  XXOX ",
+          "XOOXXXO",
+          "XOXOOOX",
+          "OOXXXOO",
+          "OXOXXOO"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": 0,
+        "black_value": 0,
+        "move_values_for_white": [
+          [
+            0,
+            -1
+          ],
+          [
+            1,
+            0
+          ],
+          [
+            6,
+            -1
+          ]
+        ],
+        "oracle_positions": 68,
+        "oracle_cache_hits": 20,
+        "cover_status": "no_cover_in_supported_universe",
+        "cover_nodes": 2,
+        "cover_budget": 1000,
+        "verification": null,
+        "selected_rules": [],
+        "execution": null,
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "odd-threat-forced-loss",
+        "moves": [
+          2,
+          5,
+          6,
+          3,
+          6,
+          0,
+          6,
+          5,
+          5,
+          6,
+          0,
+          4,
+          0,
+          0,
+          4,
+          5,
+          6,
+          4,
+          4,
+          6,
+          4,
+          0,
+          4,
+          2,
+          3,
+          1,
+          0,
+          2,
+          5,
+          1,
+          1,
+          1,
+          5,
+          1,
+          1,
+          2
+        ],
+        "board": [
+          "XX  XXO",
+          "OO  XXX",
+          "OOO XOO",
+          "XXO OXX",
+          "XOOXXOX",
+          "OOXOOOX"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": -1,
+        "black_value": 1,
+        "move_values_for_white": [
+          [
+            2,
+            -1
+          ],
+          [
+            3,
+            -1
+          ]
+        ],
+        "oracle_positions": 19,
+        "oracle_cache_hits": 2,
+        "cover_status": "no_cover_in_supported_universe",
+        "cover_nodes": 1,
+        "cover_budget": 1000,
+        "verification": null,
+        "selected_rules": [],
+        "execution": null,
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "odd-threat-forced-loss-reflected",
+        "moves": [
+          4,
+          1,
+          0,
+          3,
+          0,
+          6,
+          0,
+          1,
+          1,
+          0,
+          6,
+          2,
+          6,
+          6,
+          2,
+          1,
+          0,
+          2,
+          2,
+          0,
+          2,
+          6,
+          2,
+          4,
+          3,
+          5,
+          6,
+          4,
+          1,
+          5,
+          5,
+          5,
+          1,
+          5,
+          5,
+          4
+        ],
+        "board": [
+          "OXX  XX",
+          "XXX  OO",
+          "OOX OOO",
+          "XXO OXX",
+          "XOXXOOX",
+          "XOOOXOO"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": -1,
+        "black_value": 1,
+        "move_values_for_white": [
+          [
+            3,
+            -1
+          ],
+          [
+            4,
+            -1
+          ]
+        ],
+        "oracle_positions": 19,
+        "oracle_cache_hits": 2,
+        "cover_status": "no_cover_in_supported_universe",
+        "cover_nodes": 1,
+        "cover_budget": 1000,
+        "verification": null,
+        "selected_rules": [],
+        "execution": null,
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "odd-threat-white-win",
+        "moves": [
+          4,
+          5,
+          1,
+          0,
+          1,
+          6,
+          6,
+          1,
+          5,
+          1,
+          0,
+          4,
+          6,
+          4,
+          3,
+          5,
+          1,
+          6,
+          3,
+          5,
+          5,
+          4,
+          5,
+          1,
+          4,
+          4,
+          0,
+          3,
+          3,
+          3,
+          6,
+          2,
+          3,
+          0,
+          6,
+          0
+        ],
+        "board": [
+          " O XOXX",
+          "OX OXXX",
+          "OO XOOO",
+          "XO OOOX",
+          "XX XOXX",
+          "OXOXXOO"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": 1,
+        "black_value": -1,
+        "move_values_for_white": [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            1
+          ]
+        ],
+        "oracle_positions": 5,
+        "oracle_cache_hits": 2,
+        "cover_status": "no_cover_in_supported_universe",
+        "cover_nodes": 1,
+        "cover_budget": 1000,
+        "verification": null,
+        "selected_rules": [],
+        "execution": null,
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "odd-threat-white-win-reflected",
+        "moves": [
+          2,
+          1,
+          5,
+          6,
+          5,
+          0,
+          0,
+          5,
+          1,
+          5,
+          6,
+          2,
+          0,
+          2,
+          3,
+          1,
+          5,
+          0,
+          3,
+          1,
+          1,
+          2,
+          1,
+          5,
+          2,
+          2,
+          6,
+          3,
+          3,
+          3,
+          0,
+          4,
+          3,
+          6,
+          0,
+          6
+        ],
+        "board": [
+          "XXOX O ",
+          "XXXO XO",
+          "OOOX OO",
+          "XOOO OX",
+          "XXOX XX",
+          "OOXXOXO"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": 1,
+        "black_value": -1,
+        "move_values_for_white": [
+          [
+            4,
+            1
+          ],
+          [
+            6,
+            1
+          ]
+        ],
+        "oracle_positions": 5,
+        "oracle_cache_hits": 2,
+        "cover_status": "no_cover_in_supported_universe",
+        "cover_nodes": 1,
+        "cover_budget": 1000,
+        "verification": null,
+        "selected_rules": [],
+        "execution": null,
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "source-6-1-extension",
+        "moves": [
+          2,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          4,
+          2,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          2,
+          2,
+          4,
+          4,
+          4,
+          4,
+          5,
+          5,
+          5,
+          5
+        ],
+        "board": [
+          "OOOXO  ",
+          "XXXOX  ",
+          "OOOXOO ",
+          "XXXOXX ",
+          "OOXXOO ",
+          "XXXOOX "
+        ],
+        "turn": 0,
+        "remaining": 8,
+        "oracle_status": "exact",
+        "white_value": 0,
+        "black_value": 0,
+        "move_values_for_white": [
+          [
+            5,
+            0
+          ],
+          [
+            6,
+            0
+          ]
+        ],
+        "oracle_positions": 82,
+        "oracle_cache_hits": 5,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 3,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "claimeven",
+            "squares": [
+              "f5",
+              "f6"
+            ],
+            "covered_groups": [
+              [
+                "f6",
+                "e5",
+                "d4",
+                "c3"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "g3",
+              "g4"
+            ],
+            "covered_groups": [
+              [
+                "g6",
+                "g5",
+                "g4",
+                "g3"
+              ],
+              [
+                "g5",
+                "g4",
+                "g3",
+                "g2"
+              ],
+              [
+                "g4",
+                "g3",
+                "g2",
+                "g1"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 18,
+          "white_edges": 10,
+          "forced_reply_edges": 6,
+          "spare_reply_edges": 4,
+          "proactive_pair_edges": 0,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "source-6-1-extension-reflected",
+        "moves": [
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          2,
+          4,
+          2,
+          6,
+          6,
+          6,
+          6,
+          6,
+          6,
+          5,
+          5,
+          5,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4,
+          4,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        "board": [
+          "  OXOOO",
+          "  XOXXX",
+          " OOXOOO",
+          " XXOXXX",
+          " OOXXOO",
+          " XOOXXX"
+        ],
+        "turn": 0,
+        "remaining": 8,
+        "oracle_status": "exact",
+        "white_value": 0,
+        "black_value": 0,
+        "move_values_for_white": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            0
+          ]
+        ],
+        "oracle_positions": 82,
+        "oracle_cache_hits": 5,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 3,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "claimeven",
+            "squares": [
+              "a3",
+              "a4"
+            ],
+            "covered_groups": [
+              [
+                "a6",
+                "a5",
+                "a4",
+                "a3"
+              ],
+              [
+                "a5",
+                "a4",
+                "a3",
+                "a2"
+              ],
+              [
+                "a4",
+                "a3",
+                "a2",
+                "a1"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "b5",
+              "b6"
+            ],
+            "covered_groups": [
+              [
+                "b6",
+                "c5",
+                "d4",
+                "e3"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 18,
+          "white_edges": 10,
+          "forced_reply_edges": 6,
+          "spare_reply_edges": 4,
+          "proactive_pair_edges": 0,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      }
+    ],
+    "curated_summary": {
+      "positions": 26,
+      "unique_boards": 26,
+      "counts": [
+        {
+          "cover_status": "compatible_covering_set_found",
+          "white_value": -1,
+          "count": 10
+        },
+        {
+          "cover_status": "compatible_covering_set_found",
+          "white_value": 0,
+          "count": 6
+        },
+        {
+          "cover_status": "no_cover_in_supported_universe",
+          "white_value": -1,
+          "count": 4
+        },
+        {
+          "cover_status": "no_cover_in_supported_universe",
+          "white_value": 0,
+          "count": 2
+        },
+        {
+          "cover_status": "no_cover_in_supported_universe",
+          "white_value": 1,
+          "count": 4
+        }
+      ],
+      "potential_counterexamples": [],
+      "execution_statuses": {
+        "bounded_execution_checked_outcome_uncertified": 16
+      },
+      "max_oracle_positions": 317,
+      "max_execution_positions": 146,
+      "execution_edges": {
+        "white_edges": 422,
+        "forced_reply_edges": 158,
+        "spare_reply_edges": 314,
+        "proactive_pair_edges": 28
+      },
+      "records_sha256": "f9d20c729b91f0382975a0b2d33180c010691f099c14f6ba5a9b2c6be1df80f4"
+    },
+    "source_checks": [
+      {
+        "moves": [
+          2,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          4
+        ],
+        "board": [
+          "   X   ",
+          "   O   ",
+          "   X   ",
+          "   O   ",
+          "   X   ",
+          "  XOO  "
+        ],
+        "turn": 0,
+        "remaining": 34,
+        "oracle_status": "unknown_remaining_cap",
+        "white_value": null,
+        "black_value": null,
+        "move_values_for_white": [],
+        "oracle_positions": 0,
+        "oracle_cache_hits": 0,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 11,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "claimeven",
+            "squares": [
+              "a3",
+              "a4"
+            ],
+            "covered_groups": [
+              [
+                "a6",
+                "a5",
+                "a4",
+                "a3"
+              ],
+              [
+                "a5",
+                "a4",
+                "a3",
+                "a2"
+              ],
+              [
+                "a4",
+                "b4",
+                "c4",
+                "d4"
+              ],
+              [
+                "a4",
+                "a3",
+                "a2",
+                "a1"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "b1",
+              "b2"
+            ],
+            "covered_groups": [
+              [
+                "b5",
+                "b4",
+                "b3",
+                "b2"
+              ],
+              [
+                "e5",
+                "d4",
+                "c3",
+                "b2"
+              ],
+              [
+                "b4",
+                "b3",
+                "b2",
+                "b1"
+              ],
+              [
+                "d4",
+                "c3",
+                "b2",
+                "a1"
+              ],
+              [
+                "a2",
+                "b2",
+                "c2",
+                "d2"
+              ],
+              [
+                "b2",
+                "c2",
+                "d2",
+                "e2"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "b3",
+              "b4"
+            ],
+            "covered_groups": [
+              [
+                "b6",
+                "b5",
+                "b4",
+                "b3"
+              ],
+              [
+                "d6",
+                "c5",
+                "b4",
+                "a3"
+              ],
+              [
+                "a5",
+                "b4",
+                "c3",
+                "d2"
+              ],
+              [
+                "b5",
+                "b4",
+                "b3",
+                "b2"
+              ],
+              [
+                "a4",
+                "b4",
+                "c4",
+                "d4"
+              ],
+              [
+                "b4",
+                "c4",
+                "d4",
+                "e4"
+              ],
+              [
+                "b4",
+                "b3",
+                "b2",
+                "b1"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "b5",
+              "b6"
+            ],
+            "covered_groups": [
+              [
+                "a6",
+                "b6",
+                "c6",
+                "d6"
+              ],
+              [
+                "b6",
+                "c6",
+                "d6",
+                "e6"
+              ],
+              [
+                "b6",
+                "b5",
+                "b4",
+                "b3"
+              ],
+              [
+                "b6",
+                "c5",
+                "d4",
+                "e3"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "c3",
+              "c4"
+            ],
+            "covered_groups": [
+              [
+                "c6",
+                "c5",
+                "c4",
+                "c3"
+              ],
+              [
+                "c5",
+                "c4",
+                "c3",
+                "c2"
+              ],
+              [
+                "a4",
+                "b4",
+                "c4",
+                "d4"
+              ],
+              [
+                "b4",
+                "c4",
+                "d4",
+                "e4"
+              ],
+              [
+                "c4",
+                "d4",
+                "e4",
+                "f4"
+              ],
+              [
+                "c4",
+                "c3",
+                "c2",
+                "c1"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "e3",
+              "e4"
+            ],
+            "covered_groups": [
+              [
+                "e6",
+                "e5",
+                "e4",
+                "e3"
+              ],
+              [
+                "e5",
+                "e4",
+                "e3",
+                "e2"
+              ],
+              [
+                "b4",
+                "c4",
+                "d4",
+                "e4"
+              ],
+              [
+                "c4",
+                "d4",
+                "e4",
+                "f4"
+              ],
+              [
+                "d4",
+                "e4",
+                "f4",
+                "g4"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "f1",
+              "f2"
+            ],
+            "covered_groups": [
+              [
+                "c5",
+                "d4",
+                "e3",
+                "f2"
+              ],
+              [
+                "f5",
+                "f4",
+                "f3",
+                "f2"
+              ],
+              [
+                "d4",
+                "e3",
+                "f2",
+                "g1"
+              ],
+              [
+                "f4",
+                "f3",
+                "f2",
+                "f1"
+              ],
+              [
+                "c2",
+                "d2",
+                "e2",
+                "f2"
+              ],
+              [
+                "d2",
+                "e2",
+                "f2",
+                "g2"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "f3",
+              "f4"
+            ],
+            "covered_groups": [
+              [
+                "d6",
+                "e5",
+                "f4",
+                "g3"
+              ],
+              [
+                "f6",
+                "f5",
+                "f4",
+                "f3"
+              ],
+              [
+                "f5",
+                "f4",
+                "f3",
+                "f2"
+              ],
+              [
+                "g5",
+                "f4",
+                "e3",
+                "d2"
+              ],
+              [
+                "c4",
+                "d4",
+                "e4",
+                "f4"
+              ],
+              [
+                "d4",
+                "e4",
+                "f4",
+                "g4"
+              ],
+              [
+                "f4",
+                "e3",
+                "d2",
+                "c1"
+              ],
+              [
+                "f4",
+                "f3",
+                "f2",
+                "f1"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "f5",
+              "f6"
+            ],
+            "covered_groups": [
+              [
+                "c6",
+                "d6",
+                "e6",
+                "f6"
+              ],
+              [
+                "d6",
+                "e6",
+                "f6",
+                "g6"
+              ],
+              [
+                "f6",
+                "e5",
+                "d4",
+                "c3"
+              ],
+              [
+                "f6",
+                "f5",
+                "f4",
+                "f3"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "g3",
+              "g4"
+            ],
+            "covered_groups": [
+              [
+                "g6",
+                "g5",
+                "g4",
+                "g3"
+              ],
+              [
+                "g5",
+                "g4",
+                "g3",
+                "g2"
+              ],
+              [
+                "d4",
+                "e4",
+                "f4",
+                "g4"
+              ],
+              [
+                "g4",
+                "g3",
+                "g2",
+                "g1"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "unknown_remaining_cap",
+          "visited_positions": 0,
+          "white_edges": 0,
+          "forced_reply_edges": 0,
+          "spare_reply_edges": 0,
+          "proactive_pair_edges": 0,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "moves": [
+          4,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          2
+        ],
+        "board": [
+          "   X   ",
+          "   O   ",
+          "   X   ",
+          "   O   ",
+          "   X   ",
+          "  OOX  "
+        ],
+        "turn": 0,
+        "remaining": 34,
+        "oracle_status": "unknown_remaining_cap",
+        "white_value": null,
+        "black_value": null,
+        "move_values_for_white": [],
+        "oracle_positions": 0,
+        "oracle_cache_hits": 0,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 11,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "claimeven",
+            "squares": [
+              "a3",
+              "a4"
+            ],
+            "covered_groups": [
+              [
+                "a6",
+                "a5",
+                "a4",
+                "a3"
+              ],
+              [
+                "a5",
+                "a4",
+                "a3",
+                "a2"
+              ],
+              [
+                "a4",
+                "b4",
+                "c4",
+                "d4"
+              ],
+              [
+                "a4",
+                "a3",
+                "a2",
+                "a1"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "b1",
+              "b2"
+            ],
+            "covered_groups": [
+              [
+                "b5",
+                "b4",
+                "b3",
+                "b2"
+              ],
+              [
+                "e5",
+                "d4",
+                "c3",
+                "b2"
+              ],
+              [
+                "b4",
+                "b3",
+                "b2",
+                "b1"
+              ],
+              [
+                "d4",
+                "c3",
+                "b2",
+                "a1"
+              ],
+              [
+                "a2",
+                "b2",
+                "c2",
+                "d2"
+              ],
+              [
+                "b2",
+                "c2",
+                "d2",
+                "e2"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "b3",
+              "b4"
+            ],
+            "covered_groups": [
+              [
+                "b6",
+                "b5",
+                "b4",
+                "b3"
+              ],
+              [
+                "d6",
+                "c5",
+                "b4",
+                "a3"
+              ],
+              [
+                "a5",
+                "b4",
+                "c3",
+                "d2"
+              ],
+              [
+                "b5",
+                "b4",
+                "b3",
+                "b2"
+              ],
+              [
+                "a4",
+                "b4",
+                "c4",
+                "d4"
+              ],
+              [
+                "b4",
+                "c4",
+                "d4",
+                "e4"
+              ],
+              [
+                "b4",
+                "b3",
+                "b2",
+                "b1"
+              ],
+              [
+                "b4",
+                "c3",
+                "d2",
+                "e1"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "b5",
+              "b6"
+            ],
+            "covered_groups": [
+              [
+                "a6",
+                "b6",
+                "c6",
+                "d6"
+              ],
+              [
+                "b6",
+                "c6",
+                "d6",
+                "e6"
+              ],
+              [
+                "b6",
+                "b5",
+                "b4",
+                "b3"
+              ],
+              [
+                "b6",
+                "c5",
+                "d4",
+                "e3"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "c3",
+              "c4"
+            ],
+            "covered_groups": [
+              [
+                "c6",
+                "c5",
+                "c4",
+                "c3"
+              ],
+              [
+                "c5",
+                "c4",
+                "c3",
+                "c2"
+              ],
+              [
+                "a4",
+                "b4",
+                "c4",
+                "d4"
+              ],
+              [
+                "b4",
+                "c4",
+                "d4",
+                "e4"
+              ],
+              [
+                "c4",
+                "d4",
+                "e4",
+                "f4"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "e3",
+              "e4"
+            ],
+            "covered_groups": [
+              [
+                "e6",
+                "e5",
+                "e4",
+                "e3"
+              ],
+              [
+                "e5",
+                "e4",
+                "e3",
+                "e2"
+              ],
+              [
+                "b4",
+                "c4",
+                "d4",
+                "e4"
+              ],
+              [
+                "c4",
+                "d4",
+                "e4",
+                "f4"
+              ],
+              [
+                "d4",
+                "e4",
+                "f4",
+                "g4"
+              ],
+              [
+                "e4",
+                "e3",
+                "e2",
+                "e1"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "f1",
+              "f2"
+            ],
+            "covered_groups": [
+              [
+                "c5",
+                "d4",
+                "e3",
+                "f2"
+              ],
+              [
+                "f5",
+                "f4",
+                "f3",
+                "f2"
+              ],
+              [
+                "d4",
+                "e3",
+                "f2",
+                "g1"
+              ],
+              [
+                "f4",
+                "f3",
+                "f2",
+                "f1"
+              ],
+              [
+                "c2",
+                "d2",
+                "e2",
+                "f2"
+              ],
+              [
+                "d2",
+                "e2",
+                "f2",
+                "g2"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "f3",
+              "f4"
+            ],
+            "covered_groups": [
+              [
+                "d6",
+                "e5",
+                "f4",
+                "g3"
+              ],
+              [
+                "f6",
+                "f5",
+                "f4",
+                "f3"
+              ],
+              [
+                "f5",
+                "f4",
+                "f3",
+                "f2"
+              ],
+              [
+                "g5",
+                "f4",
+                "e3",
+                "d2"
+              ],
+              [
+                "c4",
+                "d4",
+                "e4",
+                "f4"
+              ],
+              [
+                "d4",
+                "e4",
+                "f4",
+                "g4"
+              ],
+              [
+                "f4",
+                "f3",
+                "f2",
+                "f1"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "f5",
+              "f6"
+            ],
+            "covered_groups": [
+              [
+                "c6",
+                "d6",
+                "e6",
+                "f6"
+              ],
+              [
+                "d6",
+                "e6",
+                "f6",
+                "g6"
+              ],
+              [
+                "f6",
+                "e5",
+                "d4",
+                "c3"
+              ],
+              [
+                "f6",
+                "f5",
+                "f4",
+                "f3"
+              ]
+            ]
+          },
+          {
+            "rule": "claimeven",
+            "squares": [
+              "g3",
+              "g4"
+            ],
+            "covered_groups": [
+              [
+                "g6",
+                "g5",
+                "g4",
+                "g3"
+              ],
+              [
+                "g5",
+                "g4",
+                "g3",
+                "g2"
+              ],
+              [
+                "d4",
+                "e4",
+                "f4",
+                "g4"
+              ],
+              [
+                "g4",
+                "g3",
+                "g2",
+                "g1"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "unknown_remaining_cap",
+          "visited_positions": 0,
+          "white_edges": 0,
+          "forced_reply_edges": 0,
+          "spare_reply_edges": 0,
+          "proactive_pair_edges": 0,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      }
+    ],
+    "resource_checks": [
+      {
+        "id": "cover-positive-cutoff",
+        "moves": [
+          2,
+          0,
+          4,
+          5,
+          0,
+          3,
+          6,
+          2,
+          3,
+          0,
+          1,
+          1,
+          4,
+          0,
+          2,
+          5,
+          5,
+          6,
+          0,
+          4,
+          5,
+          0,
+          5,
+          3,
+          4,
+          4,
+          3,
+          5,
+          6,
+          2,
+          4,
+          6,
+          6,
+          6,
+          1,
+          1
+        ],
+        "board": [
+          "O   XOO",
+          "X   OXX",
+          "OOOXXXO",
+          "OXXOOXX",
+          "XOOXXOO",
+          "OXXOXOX"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": 0,
+        "black_value": 0,
+        "move_values_for_white": [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            3,
+            -1
+          ]
+        ],
+        "oracle_positions": 77,
+        "oracle_cache_hits": 27,
+        "cover_status": "unknown_budget_exhausted",
+        "cover_nodes": 1,
+        "cover_budget": 1,
+        "verification": null,
+        "selected_rules": [],
+        "execution": null,
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "cover-zero-cutoff",
+        "moves": [
+          6,
+          4,
+          0,
+          4,
+          4,
+          1,
+          0,
+          1,
+          3,
+          3,
+          5,
+          4,
+          2,
+          3,
+          0,
+          0,
+          4,
+          3,
+          2,
+          4,
+          5,
+          0,
+          6,
+          1,
+          5,
+          2,
+          1,
+          1,
+          0,
+          1,
+          3,
+          5,
+          6,
+          5,
+          2,
+          3
+        ],
+        "board": [
+          "XO OO  ",
+          "OO XXO ",
+          "OXXOOO ",
+          "XOOOXXX",
+          "XOXOOXX",
+          "XOXXOXX"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": 1,
+        "black_value": -1,
+        "move_values_for_white": [
+          [
+            2,
+            -1
+          ],
+          [
+            5,
+            -1
+          ],
+          [
+            6,
+            1
+          ]
+        ],
+        "oracle_positions": 15,
+        "oracle_cache_hits": 3,
+        "cover_status": "unknown_budget_exhausted",
+        "cover_nodes": 0,
+        "cover_budget": 0,
+        "verification": null,
+        "selected_rules": [],
+        "execution": null,
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "oracle-cutoff",
+        "moves": [
+          2,
+          0,
+          4,
+          5,
+          0,
+          3,
+          6,
+          2,
+          3,
+          0,
+          1,
+          1,
+          4,
+          0,
+          2,
+          5,
+          5,
+          6,
+          0,
+          4,
+          5,
+          0,
+          5,
+          3,
+          4,
+          4,
+          3,
+          5,
+          6,
+          2,
+          4,
+          6,
+          6,
+          6,
+          1,
+          1
+        ],
+        "board": [
+          "O   XOO",
+          "X   OXX",
+          "OOOXXXO",
+          "OXXOOXX",
+          "XOOXXOO",
+          "OXXOXOX"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "unknown_position_budget",
+        "white_value": null,
+        "black_value": null,
+        "move_values_for_white": [],
+        "oracle_positions": 1,
+        "oracle_cache_hits": 0,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 3,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "claimeven",
+            "squares": [
+              "c5",
+              "c6"
+            ],
+            "covered_groups": [
+              [
+                "b6",
+                "c6",
+                "d6",
+                "e6"
+              ],
+              [
+                "c6",
+                "d5",
+                "e4",
+                "f3"
+              ]
+            ]
+          },
+          {
+            "rule": "baseinverse",
+            "squares": [
+              "b5",
+              "d5"
+            ],
+            "covered_groups": [
+              [
+                "a5",
+                "b5",
+                "c5",
+                "d5"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "bounded_execution_checked_outcome_uncertified",
+          "visited_positions": 22,
+          "white_edges": 12,
+          "forced_reply_edges": 8,
+          "spare_reply_edges": 4,
+          "proactive_pair_edges": 0,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      },
+      {
+        "id": "execution-cutoff",
+        "moves": [
+          2,
+          0,
+          4,
+          5,
+          0,
+          3,
+          6,
+          2,
+          3,
+          0,
+          1,
+          1,
+          4,
+          0,
+          2,
+          5,
+          5,
+          6,
+          0,
+          4,
+          5,
+          0,
+          5,
+          3,
+          4,
+          4,
+          3,
+          5,
+          6,
+          2,
+          4,
+          6,
+          6,
+          6,
+          1,
+          1
+        ],
+        "board": [
+          "O   XOO",
+          "X   OXX",
+          "OOOXXXO",
+          "OXXOOXX",
+          "XOOXXOO",
+          "OXXOXOX"
+        ],
+        "turn": 0,
+        "remaining": 6,
+        "oracle_status": "exact",
+        "white_value": 0,
+        "black_value": 0,
+        "move_values_for_white": [
+          [
+            1,
+            0
+          ],
+          [
+            2,
+            -1
+          ],
+          [
+            3,
+            -1
+          ]
+        ],
+        "oracle_positions": 77,
+        "oracle_cache_hits": 27,
+        "cover_status": "compatible_covering_set_found",
+        "cover_nodes": 3,
+        "cover_budget": 1000,
+        "verification": "coverage_verified_outcome_uncertified",
+        "selected_rules": [
+          {
+            "rule": "claimeven",
+            "squares": [
+              "c5",
+              "c6"
+            ],
+            "covered_groups": [
+              [
+                "b6",
+                "c6",
+                "d6",
+                "e6"
+              ],
+              [
+                "c6",
+                "d5",
+                "e4",
+                "f3"
+              ]
+            ]
+          },
+          {
+            "rule": "baseinverse",
+            "squares": [
+              "b5",
+              "d5"
+            ],
+            "covered_groups": [
+              [
+                "a5",
+                "b5",
+                "c5",
+                "d5"
+              ]
+            ]
+          }
+        ],
+        "execution": {
+          "status": "unknown_position_budget",
+          "visited_positions": 1,
+          "white_edges": 1,
+          "forced_reply_edges": 0,
+          "spare_reply_edges": 0,
+          "proactive_pair_edges": 0,
+          "suffix": [],
+          "observation": ""
+        },
+        "potential_counterexample": false,
+        "interpretation": "exploratory_implication_check_outcome_uncertified"
+      }
+    ]
+  }
+}
