@@ -43,7 +43,8 @@ NINE_RULE_OBLIGATIONS = (
     'argument, not a reviewed proof',
     'global composition: pairwise 7.4 compatibility is not proved to imply that '
     'all selected rules can be executed simultaneously',
-    'no executable Black response strategy exists for composite rules',
+    'the conditional composite response policy has no general non-loss theorem; '
+    'a complete adversarial replay establishes only the particular board and policy',
     'Allis 9.2\'s "an Aftereven in the cover means Black wins" is not inferred',
     'historical reachability of the position is not checked',
 )

@@ -88,6 +88,13 @@ Bounded in-memory sessions and one active MCTS search semaphore require one Guni
 
 Random and MCTS use seeded local RNGs in competitions. Public agents need neither PyTorch nor neural checkpoints. **Experimental research**—DQN, neural MCTS, AlphaZero-style self-play, VictorAgent, and historical Mancala work—is separate from the public API and benchmark. Frozen AlphaZero campaign artifacts remain research records.
 
+The [functional Victor research solver](docs/victor-functional-solver.md) adds bounded exact endgame solving, executable conditional nine-rule Black responses, restricted White threat contexts and complete CLI games. It labels exact results, established bounds and exploratory moves separately; it does not claim perfect play or change the public VictorAgent.
+
+```sh
+.venv/bin/python -m games.connect4.victor.cli --white victor --black negamax:4
+.venv/bin/python -m games.connect4.victor.cli --white human --black victor
+```
+
 ## Reproducibility & evaluation
 
 Season/game/per-ply seeds and implementation versions make experiments inspectable. Standings use points (win/draw/loss = 1/0.5/0), then score rate and slot seed. Elo starts at 1500, K=24. Deterministic bootstrap intervals use 1,000 resamples of each entrant's observed score vector; IID resampling does not account for deterministic repetitions or opponent dependence.

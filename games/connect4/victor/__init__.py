@@ -1,4 +1,4 @@
-"""Local Allis candidates and bounded compatible coverage, NOT a game solver.
+"""Allis coverage research and a bounded functional research solver.
 
 All nine Allis rules (§§6.1–6.9) and the full §7.4 matrix are available through
 ``analyze_nine_rules`` / ``search_nine_rule_cover`` / ``verify_nine_rule_witness``
@@ -29,6 +29,10 @@ from .nine_rules import (
     NineRuleWitness, RuleEvidence, analyze_nine_rules, search_nine_rule_cover,
 )
 from .nine_rule_verification import NineRuleVerification, verify_nine_rule_witness
+from .solver import SolverBudget, SolverResult, VictorSolver, analyze_position, select_move
+from .exact import ExactResult, SearchBudget, solve_exact
+from .white import WhiteContext, white_evaluation_contexts, search_white_covers
+from .execution import NineRulePolicy, PolicyAudit
 
 __all__ = [
     'ALL_GROUPS', 'CandidateEvidence', 'CandidateReport', 'Group', 'Player', 'Position',
@@ -43,4 +47,7 @@ __all__ = [
     'NINE_RULE_OBLIGATIONS', 'NineRuleAssignment', 'NineRuleReport', 'NineRuleSearchResult',
     'NineRuleWitness', 'NineRuleVerification', 'RuleEvidence', 'analyze_nine_rules',
     'search_nine_rule_cover', 'verify_nine_rule_witness',
+    'SolverBudget', 'SolverResult', 'VictorSolver', 'analyze_position', 'select_move',
+    'ExactResult', 'SearchBudget', 'solve_exact', 'WhiteContext',
+    'white_evaluation_contexts', 'search_white_covers', 'NineRulePolicy', 'PolicyAudit',
 ]
