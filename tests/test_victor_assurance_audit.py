@@ -1,7 +1,6 @@
-"""Phase 6B.5 independent assurance probes; production is intentionally unchanged.
+"""Phase 6B.5 independent assurance probes, closed by Phase 6B.5A hardening.
 
-Strict xfails preserve confirmed boundary defects, not theorem counterexamples.
-Run with --runxfail to reproduce their original failures.
+All seven boundary defect probes run as ordinary regressions.
 """
 from dataclasses import replace
 from itertools import combinations
@@ -212,7 +211,6 @@ def test_strategy_snapshots_optional_containers_before_verification(monkeypatch)
     assert verify(cert).status is C.CertificateStatus.REJECTED
 
 
-@pytest.mark.xfail(strict=True, reason='F1: mapping constructs every rule before cardinality/budget checks')
 def test_mapping_rejects_impossible_rule_count_before_constructing_rules(monkeypatch):
     data = C.certificate_to_mapping(certificate())
     data['rules'] = [data['rules'][0]] * 22
@@ -229,7 +227,6 @@ def test_mapping_rejects_impossible_rule_count_before_constructing_rules(monkeyp
     assert not built
 
 
-@pytest.mark.xfail(strict=True, reason='F1: digest traverses oversized replay before budget/shape rejection')
 def test_oversized_optional_data_is_rejected_before_digest_traversal(monkeypatch):
     calls = []
     plain = C._plain
@@ -245,7 +242,6 @@ def test_oversized_optional_data_is_rejected_before_digest_traversal(monkeypatch
 
 
 @pytest.mark.parametrize('field', ['replay', 'assignments'])
-@pytest.mark.xfail(strict=True, reason='F2: optional containers are digested and checked at different times')
 def test_optional_snapshot_digest_binds_what_was_verified(monkeypatch, field):
     original = certificate()
     if field == 'replay':
@@ -277,7 +273,6 @@ class ExplodingRepr:
 
 
 @pytest.mark.parametrize('entrypoint', ['verifier', 'strategy', 'mapping'])
-@pytest.mark.xfail(strict=True, raises=RuntimeError, reason='F3: invalid optional leaf executes repr and escapes')
 def test_invalid_object_leaf_returns_rejection_without_running_repr(entrypoint):
     cert = replace(certificate(), replay=(ExplodingRepr(),))
     if entrypoint == 'strategy':

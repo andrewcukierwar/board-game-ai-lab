@@ -270,14 +270,25 @@ _FIELDS = ('schema', 'theorem', 'ruleset', 'rule_model', 'compatibility_model', 
 
 
 def certificate_to_mapping(certificate: StrategicCertificate) -> dict:
-    """JSON-ready canonical form of a well-formed certificate."""
-    data = {name: getattr(certificate, name) for name in _FIELDS}
-    data['board'] = [list(row) for row in certificate.board]
-    data['rules'] = [{'kind': r.kind, 'squares': list(r.squares)} for r in certificate.rules]
-    if certificate.replay is not None:
-        data['replay'] = list(certificate.replay)
-    if certificate.assignments is not None:
-        data['assignments'] = [list(a) for a in certificate.assignments]
+    """Bounded shape adapter; JSON-ready only for well-formed scalar inputs.
+
+    This producer aid neither serializes nor formats leaves. Malformed scalar
+    claims remain data for ``verify_certificate_mapping`` to reject safely.
+    """
+    try:
+        if type(certificate) is not StrategicCertificate:
+            raise _reject('schema.type', 'expected exact StrategicCertificate')
+        data = {name: getattr(certificate, name) for name in _FIELDS}
+        board, rules, replay, assignments = _copy_containers(data)
+    except _Stop as stop:
+        finding = stop.findings[0]
+        raise ValueError(f'{finding.code}: {finding.detail}') from None
+    except AttributeError:
+        raise ValueError('schema.malformed: incomplete certificate record') from None
+    data['board'] = [list(row) for row in board]
+    data['rules'] = [{'kind': kind, 'squares': list(squares)} for kind, squares in rules]
+    data['replay'] = None if replay is None else list(replay)
+    data['assignments'] = None if assignments is None else [list(a) for a in assignments]
     return data
 
 
@@ -291,44 +302,156 @@ def _reject(code: str, detail: str) -> _Stop:
     return _Stop(CertificateStatus.REJECTED, [Finding(code, detail)])
 
 
-def certificate_from_mapping(data: object) -> StrategicCertificate:
-    """Strict parse. Unknown keys, including forged ``status``/``outcome``, are rejected.
+def _is_sequence(value):
+    # Tuple membership on types can invoke a hostile metaclass __eq__.
+    return type(value) is list or type(value) is tuple
 
-    Raises ``ValueError`` with a finding code prefix; ``verify_certificate_mapping``
-    turns that into a REJECTED verdict.
-    """
+
+def _sequence(value, limit, code, detail, *, exact=False):
+    """Bounded indexed copy of exact built-ins, even if a list grows while copied."""
+    if not _is_sequence(value):
+        raise _reject(code, detail)
+    size = len(value)
+    wrong_size = size != limit if exact else size > limit
+    if wrong_size:
+        raise _reject(code, detail)
+    try:
+        return tuple(value[i] for i in range(size))
+    except IndexError:
+        raise _reject('schema.input_changed', 'sequence shrank during snapshot') from None
+
+
+def _mapping_fields(data, allowed, required):
+    """Reject sizes/keys before lookup, hashing, sorting or formatting caller keys."""
     if type(data) is not dict:
-        raise ValueError('schema.mapping_type: certificate must be a JSON object')
-    extra = sorted(k if type(k) is str else repr(k) for k in data if k not in _FIELDS)
-    if extra:
-        raise ValueError(f'schema.unknown_field: unrecognized field(s) {extra}')
-    # Versions/context are never defaulted from a mapping: they must be stated.
-    required = tuple(k for k in _FIELDS if k not in ('replay', 'assignments'))
-    missing = [k for k in required if k not in data]
-    if missing:
-        raise ValueError(f'schema.missing_field: {missing}')
-    rules = data['rules']
-    if type(rules) is not list:
-        raise ValueError('schema.rules: rules must be a list')
-    parsed = []
-    for entry in rules:
-        if type(entry) is not dict or set(entry) != {'kind', 'squares'}:
-            raise ValueError('schema.rule_entry: each rule is exactly {"kind", "squares"}')
-        squares = entry['squares']
-        parsed.append(RuleInstance(entry['kind'],
-                                   tuple(squares) if type(squares) is list else squares))
-    board = data['board']
+        raise _reject('schema.mapping_type', 'expected an exact dict')
+    size = len(data)
+    if size > len(allowed):
+        raise _reject('schema.unknown_field', 'too many mapping fields')
+    # Exact dict iteration calls no key hooks. A fixed iteration count bounds
+    # copying; concurrent size changes are rejected without formatting objects.
+    items, iterator = [], iter(data.items())
+    try:
+        for _ in range(size):
+            key, value = next(iterator)
+            if type(key) is not str or len(key) > max(map(len, allowed)) or key not in allowed:
+                raise _reject('schema.unknown_field', 'unrecognized mapping field')
+            items.append((key, value))
+    except (RuntimeError, StopIteration):
+        raise _reject('schema.input_changed', 'mapping changed during snapshot') from None
+    copied = dict(items)  # Only bounded exact strings are hashed here.
+    if any(key not in copied for key in required):
+        raise _reject('schema.missing_field', 'required mapping field missing')
+    return copied
+
+
+def _copy_containers(data, *, mapping_rules=False):
+    """Fixed-depth, size-bounded copy; never recurse into a scalar or unknown object."""
+    board = tuple(_sequence(row, COLUMNS, 'H1.shape', 'board rows need exactly 7 cells',
+                            exact=True)
+                  for row in _sequence(data['board'], ROWS, 'H1.shape',
+                                       'board needs exactly 6 rows', exact=True))
+    if not _is_sequence(data['rules']):
+        raise _reject('schema.rules', 'rules need an exact list or tuple')
+    rules = []
+    for index, rule in enumerate(_sequence(data['rules'], MAX_RULES, 'H3.cardinality',
+                                          'rules need at most 21 instances')):
+        if mapping_rules:
+            entry = _mapping_fields(rule, ('kind', 'squares'), ('kind', 'squares'))
+            kind, squares = entry['kind'], entry['squares']
+        else:
+            if type(rule) is not RuleInstance:
+                raise _reject('schema.rule_type', f'rule {index} needs an exact RuleInstance')
+            kind, squares = rule.kind, rule.squares
+        rules.append((kind, _sequence(squares, 2, 'rules.square',
+                                      f'rule {index} needs exactly two squares', exact=True)))
     replay, assignments = data.get('replay'), data.get('assignments')
+    if replay is not None:
+        if not _is_sequence(replay):
+            raise _reject('replay.type', 'replay needs an exact list or tuple')
+        replay = _sequence(replay, ROWS * COLUMNS, 'replay.too_long',
+                           'replay needs at most 42 moves')
+    if assignments is not None:
+        if not _is_sequence(assignments):
+            raise _reject('H4.assignment_type', 'assignments need an exact list or tuple')
+        assignments = tuple(_sequence(entry, 2, 'H4.assignment_entry',
+                                      f'assignment {index} needs exactly two fields', exact=True)
+                            for index, entry in enumerate(_sequence(
+                                assignments, len(GROUPS), 'H4.assignment_cardinality',
+                                'assignments need at most 69 entries')))
+    return board, tuple(rules), replay, assignments
+
+
+def _snapshot_data(data, *, mapping_rules=False):
+    """Copy then validate ALL leaves before constructing records or hashing data.
+
+    Strings and integers have domain-derived size/range bounds too. Snapshotting
+    a concurrently edited graph is not atomic; checks and digest use only this
+    private immutable result, never the caller graph again.
+    """
+    board, rules, replay, assignments = _copy_containers(data, mapping_rules=mapping_rules)
+    for name in ('schema', 'theorem', 'ruleset', 'rule_model', 'compatibility_model'):
+        value = data[name]
+        if type(value) is not str or len(value) > 128:
+            raise _reject('schema.version_type',
+                          f'{name} needs an exact str of at most 128 characters')
+    for name, code in (('defender', 'schema.defender'),
+                       ('player_to_move', 'schema.player_to_move')):
+        value = data[name]
+        if type(value) is not int or value not in (0, 1):
+            raise _reject(code, f'{name} needs an exact int 0 or 1')
+    value = data['board_digest']
+    if type(value) is not str or len(value) > 71:
+        raise _reject('binding.board_digest',
+                      'board_digest needs an exact str of at most 71 characters')
+    if any(type(cell) is not str or cell not in (EMPTY, WHITE, BLACK)
+           for row in board for cell in row):
+        raise _reject('H1.shape', 'board cells need exact strings " ", "X", "O"')
+    for index, (kind, squares) in enumerate(rules):
+        if type(kind) is not str:
+            raise _reject('rules.kind_type', f'rule {index} kind needs an exact str')
+        if len(kind) > 32:
+            raise _reject('rules.unknown_kind', f'rule {index} kind exceeds 32 characters')
+        if any(type(square) is not str or len(square) != 2 for square in squares):
+            raise _reject('rules.square', f'rule {index} needs two exact two-character strings')
+    if replay is not None:
+        for ply, column in enumerate(replay):
+            if type(column) is not int or not 0 <= column < COLUMNS:
+                raise _reject('replay.column', f'ply {ply} needs an exact int column 0..6')
+    if assignments is not None:
+        for index, (group, rule_index) in enumerate(assignments):
+            if type(group) is not str or len(group) > 11 or type(rule_index) is not int:
+                raise _reject('H4.assignment_entry',
+                              f'assignment {index} needs a bounded str and exact int')
+            if not 0 <= rule_index < MAX_RULES:
+                raise _reject('H4.assignment_rule_index', f'assignment {index} needs a rule index 0..20')
     return StrategicCertificate(
-        board=tuple(tuple(r) if type(r) is list else r for r in board)
-        if type(board) is list else board,
-        rules=tuple(parsed), board_digest=data['board_digest'],
-        player_to_move=data['player_to_move'], defender=data['defender'],
-        replay=tuple(replay) if type(replay) is list else replay,
-        assignments=(tuple(tuple(a) if type(a) is list else a for a in assignments)
-                     if type(assignments) is list else assignments),
-        schema=data['schema'], theorem=data['theorem'], ruleset=data['ruleset'],
-        rule_model=data['rule_model'], compatibility_model=data['compatibility_model'])
+        **{name: data[name] for name in _FIELDS
+           if name not in ('board', 'rules', 'replay', 'assignments')},
+        board=board, rules=tuple(RuleInstance(kind, squares) for kind, squares in rules),
+        replay=replay, assignments=assignments)
+
+
+def certificate_from_mapping(data: object) -> StrategicCertificate:
+    """Bounded strict parse; only replay/assignments are optional.
+
+    Raises ``ValueError`` with a stable finding code, without caller callbacks.
+    Exact dicts and list/tuple arrays are supported; no authority fields are.
+    """
+    try:
+        required = tuple(k for k in _FIELDS if k not in ('replay', 'assignments'))
+        copied = _mapping_fields(data, _FIELDS, required)
+        return _snapshot_data(copied, mapping_rules=True)
+    except _Stop as stop:
+        finding = stop.findings[0]
+        raise ValueError(f'{finding.code}: {finding.detail}') from None
+
+
+def _snapshot_certificate(certificate):
+    if type(certificate) is not StrategicCertificate:
+        raise _reject('schema.type', 'certificate must be an exact StrategicCertificate')
+    data = {name: getattr(certificate, name) for name in _FIELDS}
+    return _snapshot_data(data)
 
 
 # ---------------------------------------------------------------- verifier
@@ -349,16 +472,14 @@ class _Budget:
 
 def _freeze_board(board) -> tuple[tuple[str, ...], ...] | None:
     """Exact list/tuple 6x7 of exact ``str`` cells; no subclasses, bools or ints."""
-    if type(board) not in (list, tuple) or len(board) != ROWS:
+    try:
+        rows = tuple(_sequence(row, COLUMNS, 'H1.shape', 'invalid board row', exact=True)
+                     for row in _sequence(board, ROWS, 'H1.shape', 'invalid board', exact=True))
+    except _Stop:
         return None
-    rows = []
-    for row in board:
-        if type(row) not in (list, tuple) or len(row) != COLUMNS:
-            return None
-        if any(type(c) is not str or c not in (EMPTY, WHITE, BLACK) for c in row):
-            return None
-        rows.append(tuple(row))
-    return tuple(rows)
+    if any(type(c) is not str or c not in (EMPTY, WHITE, BLACK) for row in rows for c in row):
+        return None
+    return rows
 
 
 def _cell(board, square: tuple[int, int]) -> str:
@@ -393,7 +514,7 @@ def _versions(cert) -> list[Finding]:
 
 def _snapshot_rules(raw) -> tuple[list[tuple], list[Finding], list[Finding]]:
     """Read every claimed instance exactly once; never trust its constructor."""
-    if type(raw) not in (list, tuple):
+    if not _is_sequence(raw):
         raise _reject('schema.rules', 'rules must be a list or tuple')
     if len(raw) > MAX_RULES:
         raise _reject('H3.cardinality', f'{len(raw)} two-square instances cannot be pairwise '
@@ -414,13 +535,13 @@ def _snapshot_rules(raw) -> tuple[list[tuple], list[Finding], list[Finding]]:
             rejected.append(Finding('rules.unknown_kind',
                                     f'rule {index}: unrecognized kind {kind!r}'))
             continue
-        if type(squares) not in (list, tuple) or len(squares) != 2:
+        if not _is_sequence(squares) or len(squares) != 2:
             rejected.append(Finding('rules.square', f'rule {index} needs exactly two squares'))
             continue
         parsed = tuple(_parse_square(s) for s in squares)
         if None in parsed:
             rejected.append(Finding('rules.square',
-                                    f'rule {index}: invalid square name in {squares!r}'))
+                                    f'rule {index}: invalid square name'))
             continue
         key = (kind, frozenset(parsed))
         if key in seen:
@@ -498,16 +619,17 @@ def _h4(board, rules: list[tuple], raw_assignments, budget: _Budget):
 
 def _assignments(raw, targets, covered_by, rule_count, budget) -> list[Finding]:
     """Optional producer assignments must match recomputed coverage EXACTLY."""
-    if type(raw) not in (list, tuple):
+    if not _is_sequence(raw):
         return [Finding('H4.assignment_type', 'assignments must be a list or tuple')]
     if len(raw) > len(GROUPS):
         return [Finding('H4.assignment_cardinality', f'{len(raw)} assignments exceed 69 groups')]
     budget.charge(len(raw))
     findings, assigned, target_set = [], set(), set(targets)
     for entry in raw:
-        if (type(entry) not in (list, tuple) or len(entry) != 2 or type(entry[0]) is not str
+        if (not _is_sequence(entry) or len(entry) != 2 or type(entry[0]) is not str
                 or type(entry[1]) is not int):
-            findings.append(Finding('H4.assignment_entry', f'malformed assignment {entry!r}'))
+            findings.append(Finding('H4.assignment_entry',
+                                    'assignment needs an exact group string and int index'))
             continue
         group, index = entry
         if group not in _GROUP_INDEX:
@@ -532,7 +654,7 @@ def _assignments(raw, targets, covered_by, rule_count, budget) -> list[Finding]:
 
 def _replay(board, raw, budget: _Budget) -> list[Finding]:
     """Replay from empty with gravity, alternation and terminal stopping; bind exactly."""
-    if type(raw) not in (list, tuple):
+    if not _is_sequence(raw):
         return [Finding('replay.type', 'replay must be a list or tuple of columns')]
     if len(raw) > ROWS * COLUMNS:
         return [Finding('replay.too_long', f'{len(raw)} moves exceed 42 squares')]
@@ -541,7 +663,7 @@ def _replay(board, raw, budget: _Budget) -> list[Finding]:
     over = False
     for ply, column in enumerate(raw):
         if type(column) is not int or not 0 <= column < COLUMNS:
-            return [Finding('replay.column', f'ply {ply}: {column!r} is not a column 0..6')]
+            return [Finding('replay.column', f'ply {ply}: expected an exact int column 0..6')]
         if over:
             return [Finding('replay.move_after_terminal', f'ply {ply} follows a completed four')]
         square = _landing(grid, column)
@@ -560,9 +682,11 @@ def _replay(board, raw, budget: _Budget) -> list[Finding]:
 
 
 def _plain(value: object) -> object:
-    if type(value) in (list, tuple):
+    if _is_sequence(value):
         return [_plain(v) for v in value]
-    return value if type(value) in (int, str) or value is None else repr(value)
+    if type(value) is int or type(value) is str or value is None:
+        return value
+    raise _reject('schema.scalar', 'unsupported digest scalar')
 
 
 def _certificate_digest(cert, board, rules) -> str:
@@ -581,12 +705,13 @@ def verify_certificate(certificate: object, *,
                        work_budget: int = DEFAULT_WORK_BUDGET) -> CertificateVerification:
     """Independently verify H1-H4 (and any replay) of an UNTRUSTED certificate.
 
-    Stages run in order: schema, versions, context, board shape and digest
+    Bounded structural/type snapshotting precedes all work charges and hashing.
+    Subsequent stages run in order: versions, context, board digest
     binding, the remaining H1 predicates, rule parsing, H2, H3, H4 (with any
     assignments), then replay. The first stage with findings
-    decides the status, reporting all of that stage's findings. A replay is
-    checked only after H1-H4 pass; a bad replay rejects the whole certificate,
-    while ``hypotheses`` still records that H1-H4 held.
+    decides the status, reporting all of that stage's findings. Replay structure
+    is checked at ingress; its game predicates run only after H1-H4 pass. A
+    well-formed bad replay rejects while recording that H1-H4 held.
     """
     if type(work_budget) is not int or work_budget < 0:
         raise ValueError('work_budget must be a nonnegative integer')
@@ -600,8 +725,7 @@ def verify_certificate(certificate: object, *,
                                        replay_status, evidence, digest)
 
     try:
-        if type(certificate) is not StrategicCertificate:
-            raise _reject('schema.type', 'certificate must be an exact StrategicCertificate')
+        certificate = _snapshot_certificate(certificate)
         unsupported = _versions(certificate)
         if unsupported:
             raise _Stop(CertificateStatus.UNSUPPORTED, unsupported)
@@ -616,10 +740,7 @@ def verify_certificate(certificate: object, *,
 
         # H1 on a private snapshot; the caller's containers are never consulted again.
         budget.charge(len(GROUPS))
-        board = _freeze_board(certificate.board)
-        if board is None:
-            states['H1'] = 'failed'
-            raise _reject('H1.shape', 'board must be an exact 6x7 list/tuple of " ", "X", "O"')
+        board = certificate.board
         # Bind the exact cells and side to move before interpreting them any further.
         computed = _digest(board, to_move)
         if type(certificate.board_digest) is not str or certificate.board_digest != computed:
@@ -687,12 +808,17 @@ def verify_certificate(certificate: object, *,
                 raise _Stop(CertificateStatus.REJECTED, replay_findings)
             replay_status = ReplayStatus.VERIFIED
     except _Stop as stop:
+        if stop.findings[0].code == 'H1.shape':
+            states['H1'] = 'failed'
+        if stop.findings[0].code.startswith('replay.'):
+            replay_status = ReplayStatus.REJECTED
         return result(stop.status, stop.findings)
     except _Cutoff:
         return result(CertificateStatus.UNKNOWN, (Finding(
             'resource.work_budget', f'work budget {work_budget} exhausted; no verdict'),))
-    except (TypeError, ValueError, AttributeError, IndexError, KeyError, RecursionError) as exc:
-        return result(CertificateStatus.REJECTED, (Finding('schema.malformed', repr(exc)),))
+    except (TypeError, ValueError, AttributeError, IndexError, KeyError):
+        return result(CertificateStatus.REJECTED, (Finding(
+            'schema.malformed', 'malformed certificate structure'),))
 
     evidence = RecomputedEvidence(
         board_digest=computed, white_stones=whites, black_stones=blacks,
@@ -710,11 +836,14 @@ def verify_certificate(certificate: object, *,
 def verify_certificate_mapping(data: object, *,
                                work_budget: int = DEFAULT_WORK_BUDGET) -> CertificateVerification:
     """Parse untrusted JSON-like input strictly, then verify; parse errors reject."""
+    if type(work_budget) is not int or work_budget < 0:
+        raise ValueError('work_budget must be a nonnegative integer')
     try:
         certificate = certificate_from_mapping(data)
     except (TypeError, ValueError) as exc:
         code, _, detail = str(exc).partition(': ')
-        code = code if code.startswith('schema.') else 'schema.malformed'
+        code = code if code.startswith(('schema.', 'H1.', 'H3.', 'H4.', 'rules.',
+                                        'replay.', 'binding.')) else 'schema.malformed'
         return CertificateVerification(
             CertificateStatus.REJECTED, (Finding(code, detail or str(exc)),),
             tuple((h, 'not_evaluated') for h in ('H1', 'H2', 'H3', 'H4')),

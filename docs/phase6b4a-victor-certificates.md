@@ -69,9 +69,13 @@ draft_certificate / mapping JSON           |   verify_certificate(...) -> Certif
   assignments. It ignores the witness's coverage claims, its
   `VerificationStatus` and its `outcome_certification`. The verifier never
   imports it.
-- The verifier reads every caller field once into a private snapshot (tuples
-  of exact `str`/`int`). Mutating the caller's lists afterwards cannot change a
-  verdict. Re-verifying the mutated certificate fails the digest binding.
+- As corrected in [Phase 6B.5A](phase6b5a-victor-boundary-hardening.md), the
+  verifier snapshots every bounded caller field, including replay and nested
+  assignments, before mathematical checks or hashing. Validation and the returned
+  digest use only private tuples of exact scalars. Copying concurrently edited
+  inputs is not atomic; later mutations cannot alter the verified snapshot.
+  Re-verifying a changed input checks the new claim from scratch. The original
+  implementation violated this boundary, as recorded in the historical 6B.5 audit.
 - Exact-type checks (`type(x) is ...`) reject `bool`-for-`int`, `str`
   subclasses (for example a `RuleName` enum value used as a kind), forged
   subclasses and stray containers.
@@ -132,10 +136,10 @@ defaults a version or context field.
 ### Statuses and stage order
 
 Stages run in a fixed order:
-1. type
+1. exact type and complete bounded structural/scalar snapshot
 2. versions
 3. context
-4. board shape and digest binding
+4. board digest binding
 5. remaining H1 predicates
 6. rule parsing
 7. H2
@@ -146,6 +150,10 @@ Stages run in a fixed order:
 The first stage with findings decides the verdict and reports all of that
 stage's findings with stable codes (for example `H3.overlap`).
 `hypotheses` records each H as `verified`, `failed` or `not_evaluated`.
+Structural replay errors now reject before mathematical work, leaving H1-H4
+`not_evaluated`; well-formed replay game errors still follow H1-H4 verification.
+Ingress size/type rejection precedes the work budget. Genuine verification
+cutoffs remain UNKNOWN. See 6B.5A for the complete size and scalar limits.
 
 | Status | When |
 | --- | --- |

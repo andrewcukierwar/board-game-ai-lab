@@ -85,9 +85,12 @@ class StrategyResult:
 
 
 def _sequence(value, limit):
-    if type(value) not in (list, tuple) or len(value) > limit:
-        raise ValueError(f'expected list/tuple with at most {limit} entries')
-    return tuple(value)
+    if type(value) is not list and type(value) is not tuple:
+        raise ValueError('expected exact list/tuple')
+    size = len(value)
+    if size > limit:
+        raise ValueError(f'expected at most {limit} entries')
+    return tuple(value[i] for i in range(size))
 
 
 def _snapshot(cert):
@@ -193,9 +196,9 @@ def select_black_move(request: StrategyRequest, *,
                               (C.Finding('request.type', 'expected exact StrategyRequest'),))
     try:
         cert = _snapshot(request.certificate)
-    except (ValueError, TypeError, AttributeError) as exc:
+    except (ValueError, TypeError, AttributeError, IndexError):
         return StrategyResult(StrategyStatus.INVALID_CERTIFICATE,
-                              (C.Finding('certificate.snapshot', str(exc)),))
+                              (C.Finding('certificate.snapshot', 'invalid bounded certificate structure'),))
     verification = C.verify_certificate(cert, work_budget=certificate_work_budget)
     if verification.status is not C.CertificateStatus.HYPOTHESES_VERIFIED:
         status = {C.CertificateStatus.REJECTED: StrategyStatus.INVALID_CERTIFICATE,

@@ -616,7 +616,10 @@ def test_incorrect_replays_reject_but_hypotheses_are_reported_separately(replay,
     result = verify_certificate(replace(cert_for(*MIXED3), replay=replay(history)))
     assert result.status is S.REJECTED and codes(result) == (code,)
     assert result.replay_status is ReplayStatus.REJECTED
-    assert dict(result.hypotheses) == dict.fromkeys(('H1', 'H2', 'H3', 'H4'), 'verified')
+    # Unsafe replay structure/scalars reject at ingress, before mathematical work.
+    state = ('not_evaluated' if code in ('replay.column', 'replay.too_long', 'replay.type')
+             else 'verified')
+    assert dict(result.hypotheses) == dict.fromkeys(('H1', 'H2', 'H3', 'H4'), state)
     assert not result.history_backed and result.provisional_bound is None
 
 

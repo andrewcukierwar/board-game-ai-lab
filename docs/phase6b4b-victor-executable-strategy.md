@@ -33,6 +33,10 @@ The following consumer hazards were addressed before relying on its verdict:
 
 The snapshot is data-input protection, not isolation against arbitrary Python
 code modifying module globals or using `object.__setattr__` concurrently.
+Copying concurrently edited containers is not atomic. Phase 6B.5A uses fixed
+indexed copy lengths, so list growth cannot extend a copy beyond its checked
+limit; shrinkage rejects. The verifier also takes its own complete snapshot and
+rejects unsupported scalar leaves before hashing or diagnostics.
 Digests identify content; they are not signatures or transferable authorities.
 Neither execution nor its tests are imported by the independent verifier.
 
