@@ -195,7 +195,13 @@ def select_black_move(request: StrategyRequest, *,
         return StrategyResult(StrategyStatus.UNSUPPORTED,
                               (C.Finding('request.type', 'expected exact StrategyRequest'),))
     try:
-        cert = _snapshot(request.certificate)
+        # Read both slots once; an exact record built without __init__ may lack either.
+        certificate, history = request.certificate, request.continuation
+    except AttributeError:
+        return StrategyResult(StrategyStatus.UNSUPPORTED,
+                              (C.Finding('request.type', 'expected a complete StrategyRequest'),))
+    try:
+        cert = _snapshot(certificate)
     except (ValueError, TypeError, AttributeError, IndexError):
         return StrategyResult(StrategyStatus.INVALID_CERTIFICATE,
                               (C.Finding('certificate.snapshot', 'invalid bounded certificate structure'),))
@@ -220,7 +226,6 @@ def select_black_move(request: StrategyRequest, *,
             initial_board_digest=verification.evidence.board_digest,
             starting_history_backed=verification.history_backed, **kwargs)
 
-    history = request.continuation
     if (type(history) is not tuple or len(history) > verification.evidence.empty_squares
             or any(type(c) is not int or not 0 <= c <= 6 for c in history)):
         return result(StrategyStatus.ILLEGAL_CONTINUATION, 'continuation.schema',
