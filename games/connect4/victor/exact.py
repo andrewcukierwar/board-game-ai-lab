@@ -122,6 +122,122 @@ class Work:
         self.nodes += 1
 
 
+# Integer bitboards for the search core: ``pos`` holds the mover's stones,
+# ``mask`` all stones, same seven-bit column layout as ``Bits``.
+BOTTOM = sum(1 << (7 * c) for c in range(7))
+BOARD = BOTTOM * 63
+COLUMN = tuple(63 << (7 * c) for c in range(7))
+EXACT, LOWER, UPPER = 0, 1, 2
+
+
+def winning_squares(pos, mask):
+    """Empty board cells on which the stones in ``pos`` would complete a four."""
+    r = (pos << 1) & (pos << 2) & (pos << 3)
+    for d in (7, 6, 8):
+        p = (pos << d) & (pos << 2 * d)
+        r |= p & (pos << 3 * d)
+        r |= p & (pos >> d)
+        p = (pos >> d) & (pos >> 2 * d)
+        r |= p & (pos << d)
+        r |= p & (pos >> 3 * d)
+    return r & (BOARD ^ mask)
+
+
+def _mirror(b):
+    return (((b & 127) << 42) | (((b >> 7) & 127) << 35) | (((b >> 14) & 127) << 28)
+            | (b & (127 << 21)) | (((b >> 28) & 127) << 14) | (((b >> 35) & 127) << 7)
+            | ((b >> 42) & 127))
+
+
+class _Search:
+    """Terminal-only WDL negamax; every pruning rule below is a game-rule fact.
+
+    - A player who cannot stop two immediate opponent wins, or whose every move
+      lets the opponent win at once, loses (value -1).
+    - A move directly below an opponent winning square loses at once (the
+      mover cannot win immediately), so it is skipped; with no other move the
+      player loses.
+    - With at most two empty cells, no immediate win for either side means draw.
+    - A position and its mirror image have the same value (shared table key).
+    Move ordering (most new own threats, then centre) affects only speed.
+    """
+    def __init__(self, work, budget):
+        self.work, self.budget, self.table, self.hits = work, budget, {}, 0
+
+    def visit(self, pos, mask, played, alpha, beta):
+        """Precondition: the player to move cannot complete four immediately."""
+        self.work.enter()
+        possible = (mask + BOTTOM) & BOARD
+        threats = winning_squares(pos ^ mask, mask)
+        forced = possible & threats
+        if forced:
+            if forced & (forced - 1):
+                return -1
+            possible = forced
+        moves = possible & ~(threats >> 1)
+        if not moves:
+            return -1
+        if played >= 40:
+            return 0
+        key = min(pos + mask, _mirror(pos) + _mirror(mask))
+        a0, b0 = alpha, beta
+        entry = self.table.get(key)
+        if entry is not None:
+            self.hits += 1
+            flag, score = entry
+            if flag == EXACT:
+                return score
+            if flag == LOWER:
+                alpha = max(alpha, score)
+            else:
+                beta = min(beta, score)
+            if alpha >= beta:
+                return score
+        ordered = []
+        for c in CENTER_ORDER:
+            move = moves & COLUMN[c]
+            if move:
+                ordered.append((-winning_squares(pos | move, mask | move).bit_count(),
+                                len(ordered), move))
+        ordered.sort()
+        best, opponent = -2, pos ^ mask
+        for _, _, move in ordered:
+            value = -self.visit(opponent, mask | move, played + 1, -beta, -alpha)
+            if value > best:
+                best = value
+                if value > alpha:
+                    alpha = value
+                    if alpha >= beta:
+                        break
+        flag = UPPER if best <= a0 else LOWER if best >= b0 else EXACT
+        if key not in self.table and len(self.table) >= self.budget.table_entries:
+            raise Cutoff('unknown_table_budget')
+        self.table[key] = (flag, best)
+        return best
+
+    def child_value(self, pos, mask, played, column):
+        """Exact value, for the root mover, of dropping in ``column``."""
+        self.work.enter()
+        move = (mask + (1 << (7 * column))) & COLUMN[column]
+        if four(pos | move):
+            return 1
+        if played + 1 == 42:
+            return 0
+        opponent, mask = pos ^ mask, mask | move
+        if winning_squares(opponent, mask) & (mask + BOTTOM) & BOARD:
+            return -1
+        # Null windows: does the opponent win? does the opponent avoid losing?
+        if self.visit(opponent, mask, played + 1, 0, 1) >= 1:
+            return -1
+        return 1 if self.visit(opponent, mask, played + 1, -1, 0) <= -1 else 0
+
+
+def _root(position):
+    root = Bits.from_position(position)
+    pos, mask = root.pieces[root.turn], root.pieces[0] | root.pieces[1]
+    return root, pos, mask, 42 - root.remaining
+
+
 def solve_exact(position: Position, budget: SearchBudget = SearchBudget()):
     """Exact mover-relative {-1,0,+1}; interruption discards ALL partial values.
 
@@ -131,57 +247,22 @@ def solve_exact(position: Position, budget: SearchBudget = SearchBudget()):
     """
     if type(budget) is not SearchBudget:
         raise ValueError('budget must be SearchBudget')
-    root = Bits.from_position(position)
-    work, table, hits = Work(budget), {}, 0
+    root, pos, mask, played = _root(position)
+    work = Work(budget)
+    search = _Search(work, budget)
 
     def result(status, value=None, moves=()):
-        return ExactResult(status, value, moves, work.nodes, hits, len(table),
+        return ExactResult(status, value, moves, work.nodes, search.hits, len(search.table),
                            monotonic() - work.start)
 
     if root.value is None and root.remaining > budget.max_remaining:
         return result('unknown_remaining_cap')
-
-    def visit(p, alpha, beta):
-        nonlocal hits
-        work.enter()
-        if p.value is not None:
-            return p.value
-        key = (*p.pieces, p.turn)
-        a0, b0 = alpha, beta
-        if key in table:
-            flag, score = table[key]
-            hits += 1
-            if flag == 'exact':
-                return score
-            if flag == 'lower':
-                alpha = max(alpha, score)
-            else:
-                beta = min(beta, score)
-            if alpha >= beta:
-                return score
-        wins = p.winning(p.turn)
-        if wins:
-            return 1  # existential terminal witness; maximal possible WDL
-        threats = p.winning(1 - p.turn)
-        order = sorted(p.legal(), key=lambda c: c not in threats)
-        best = -2
-        for c in order:
-            best = max(best, -visit(p.drop(c), -beta, -alpha))
-            alpha = max(alpha, best)
-            if alpha >= beta or best == 1:
-                break
-        flag = 'upper' if best <= a0 else 'lower' if best >= b0 else 'exact'
-        if key not in table and len(table) >= budget.table_entries:
-            raise Cutoff('unknown_table_budget')
-        table[key] = (flag, best)
-        return best
-
     try:
-        work.enter()  # root and every recursive entry count, including TT hits
+        work.enter()  # root, each root child and every recursive entry count, including TT hits
         if root.value is not None:
             return result('exact', root.value)
-        # Each child gets a full window, so every returned root move value is exact.
-        moves = tuple((c, -visit(root.drop(c), -2, 2)) for c in root.legal())
+        # Every root child is solved completely, so every returned move value is exact.
+        moves = tuple((c, search.child_value(pos, mask, played, c)) for c in root.legal())
         return result('exact', max(v for _, v in moves), moves)
     except Cutoff as exc:
         return result(str(exc))

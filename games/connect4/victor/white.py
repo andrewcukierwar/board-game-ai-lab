@@ -11,7 +11,7 @@ from .compatibility import footprint
 from .composite import SolutionClause
 from .coverage import SearchStatus, backtrack_cover
 from .geometry import Group, Square
-from .nine_rules import RuleEvidence, analyze_nine_rules, conflict_masks
+from .nine_rules import ALL_RULES, RuleEvidence, analyze_nine_rules, conflict_masks
 from .position import Position
 
 
@@ -126,7 +126,7 @@ class WhiteCover:
 
 
 def search_white_covers(position: Position, *, node_budget=10_000,
-                        context_budget=8) -> tuple[WhiteCover, ...]:
+                        context_budget=8, rules=ALL_RULES) -> tuple[WhiteCover, ...]:
     """Same enumerator and §7.4 search; restricted regions and Black targets.
 
     Context truncation is explicit: callers can compare with the complete
@@ -137,7 +137,7 @@ def search_white_covers(position: Position, *, node_budget=10_000,
     contexts = white_evaluation_contexts(position)[:context_budget]
     if not contexts:
         return ()
-    report = analyze_nine_rules(position, defender=0)
+    report = analyze_nine_rules(position, defender=0, rules=rules)
     results = []
     for context in contexts:
         useful = tuple(RuleEvidence(e.candidate, e.clauses, solved)

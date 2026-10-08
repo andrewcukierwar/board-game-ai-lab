@@ -82,7 +82,7 @@ def main():
     parser.add_argument('--moves', default='', help='comma separated ZERO-based opening columns')
     parser.add_argument('--nodes', type=int, default=200_000)
     parser.add_argument('--seconds', type=float, default=1.0)
-    parser.add_argument('--remaining', type=int, default=14)
+    parser.add_argument('--remaining', type=int, default=24)
     parser.add_argument('--cover-nodes', type=int, default=10_000)
     parser.add_argument('--fallback-depth', type=int, default=4)
     args = parser.parse_args()

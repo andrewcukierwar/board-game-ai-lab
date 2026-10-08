@@ -90,6 +90,8 @@ Random and MCTS use seeded local RNGs in competitions. Public agents need neithe
 
 The [functional Victor research solver](docs/victor-functional-solver.md) adds bounded exact endgame solving, executable conditional nine-rule Black responses, restricted White threat contexts and complete CLI games. It labels exact results, established bounds and exploratory moves separately; it does not claim perfect play or change the public VictorAgent.
 
+[Victor benchmarking and integration](docs/victor-performance-and-integration.md) evaluates it against an independent C oracle on 371 decisive positions and 1,120 adjudicated games. Exact search now reaches 24 empty cells; optimal-move accuracy rose from 70.4% to 79.0% and the game score from 0.790 to 0.844. Ablations show that exact search, CL/BI/VE and the composite rules each add measurable strength. An opt-in `victor_research` API agent (experimental, not perfect play) exists behind `VICTOR_RESEARCH_ENABLED`, which is **off by default** and not deployed.
+
 ```sh
 .venv/bin/python -m games.connect4.victor.cli --white victor --black negamax:4
 .venv/bin/python -m games.connect4.victor.cli --white human --black victor

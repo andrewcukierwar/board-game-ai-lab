@@ -75,6 +75,8 @@ The following source defaults can remain unset. If existing backend overrides ar
 | `EXPLANATION_CACHE_TTL_SECONDS` | `1800` |
 | `EXPLANATION_CLIENT_CAPACITY` | `1024` |
 
+`VICTOR_RESEARCH_ENABLED` (October 2026) gates the opt-in `victor_research` API agent and defaults to `false`. Leave it **unset** in production: it has not been enabled, deployed or measured on Render. See [the integration report](victor-performance-and-integration.md#application-integration) before any separately approved trial.
+
 Keep `GUNICORN_CMD_ARGS` unset, the Docker command override empty, one worker/four threads and one instance. `GAME_SESSION_CAPACITY` and `GAME_SESSION_TTL` are application config entries, **not environment overrides read by this code**; retain 128 sessions/1800 seconds.
 
 Do not put `OPENAI_API_KEY` or any other explanation setting in the Static Site configuration, a `VITE_*` variable, a tracked file, a build argument, an image layer or documentation examples. The frontend only needs the API origin and Node version listed below. An already provisioned backend key may remain private; the disabled flag prevents its use.

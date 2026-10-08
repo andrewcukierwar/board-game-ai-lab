@@ -149,6 +149,68 @@ def failed_constraints(first, second) -> tuple[CompatibilityConstraint, ...]:
     return tuple(code for code in required_constraints(a.rule, b.rule) if not _CHECKS[code](a, b))
 
 
+_COLUMN = tuple(63 << (6 * c) for c in range(7))
+
+
+def _mask(squares) -> int:
+    return sum(1 << (6 * s.column + s.row_index) for s in squares)
+
+
+@dataclass(frozen=True)
+class CompactFootprint:
+    """Integer form of a ``Footprint`` for bulk pairwise checks (same semantics).
+
+    ``inverse_top`` maps each inverse column to its highest inverse row (§7.4
+    constraint 2); ``claimevens`` holds (column, lower row) of every Claimeven part.
+    """
+
+    rule: RuleName
+    squares: int
+    special: int
+    claimevens: tuple[tuple[int, int], ...]
+    inverse_top: MappingProxyType
+    inverse_columns: int
+
+
+def compact(fp: Footprint) -> CompactFootprint:
+    tops = {c: max(s.row for s in squares) for c, squares in fp.inverse_columns.items()}
+    return CompactFootprint(fp.rule, _mask(fp.squares), _mask(fp.special),
+                            tuple((lower.column, lower.row) for lower, _ in fp.claimevens),
+                            MappingProxyType(tops), sum(1 << c for c in tops))
+
+
+def _c2(a: CompactFootprint, b: CompactFootprint) -> bool:
+    inverse, other = (a, b) if a.rule in INVERSES else (b, a)
+    if inverse.rule not in INVERSES or other.rule in INVERSES:
+        raise ValueError('constraint 2 needs exactly one inverse')
+    tops = inverse.inverse_top
+    return not any(c in tops and row <= tops[c] for c, row in other.claimevens)
+
+
+def _c3(a: CompactFootprint, b: CompactFootprint) -> bool:
+    shared, special = a.squares & b.squares, a.special | b.special
+    for column in _COLUMN:
+        if shared & column:
+            part = a.squares & column
+            if part != b.squares & column or part & special:
+                return False
+    return True
+
+
+def _c4(a: CompactFootprint, b: CompactFootprint) -> bool:
+    return not a.squares & b.squares and (a.inverse_columns == b.inverse_columns
+                                          or not a.inverse_columns & b.inverse_columns)
+
+
+_COMPACT_CHECKS = MappingProxyType({C1: lambda a, b: not a.squares & b.squares,
+                                    C2: _c2, C3: _c3, C4: _c4})
+
+
+def compact_conflict(a: CompactFootprint, b: CompactFootprint) -> bool:
+    """True iff ``failed_constraints`` is nonempty for the underlying candidates."""
+    return any(not _COMPACT_CHECKS[code](a, b) for code in _CONSTRAINTS[frozenset((a.rule, b.rule))])
+
+
 def compatible(first, second) -> bool:
     """Symmetric; duplicates conflict. Unsupported or malformed shapes raise ValueError."""
     first, second = checked_candidate(first), checked_candidate(second)
