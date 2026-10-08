@@ -1,0 +1,358 @@
+{
+ "budgets": {
+  "campaign_seconds": 86400,
+  "evaluation_games_ceiling": 6400,
+  "per_run_training_seconds": 28800,
+  "planned_evaluation_games": 6272
+ },
+ "champion": {
+  "arena_openings": 100,
+  "baseline_opponents": [
+   "random",
+   "negamax1",
+   "negamax2"
+  ],
+  "baseline_rows": [
+   "development-empty-00",
+   "development-empty-01",
+   "development-empty-02",
+   "development-empty-03",
+   "development-prefix-00-base",
+   "development-prefix-00-mirror",
+   "development-prefix-01-base",
+   "development-prefix-01-mirror",
+   "development-prefix-02-base",
+   "development-prefix-02-mirror",
+   "development-prefix-03-base",
+   "development-prefix-03-mirror",
+   "development-prefix-04-base",
+   "development-prefix-04-mirror",
+   "development-prefix-05-base",
+   "development-prefix-05-mirror",
+   "development-prefix-06-base",
+   "development-prefix-06-mirror",
+   "development-prefix-07-base",
+   "development-prefix-07-mirror"
+  ],
+  "gate": {
+   "lower_bound": 0.5,
+   "max_tactical_regression": 0.02,
+   "score": 0.55
+  },
+  "schedule": [
+   5,
+   10,
+   15,
+   20
+  ],
+  "tactical_package": "tactical-development"
+ },
+ "config": {
+  "adam_betas": [
+   0.9,
+   0.999
+  ],
+  "adam_eps": 1e-08,
+  "batch_size": 128,
+  "evaluation_simulations": 512,
+  "exploratory_plies": 8,
+  "games_per_generation": 256,
+  "interactive_simulations": 512,
+  "learning_rate": 0.0003,
+  "max_generations": 20,
+  "max_grad_norm": 5.0,
+  "reflection_probability": 0.5,
+  "replay_generations": 8,
+  "replay_max_games": 2048,
+  "root_dirichlet_alpha": 1.0,
+  "root_noise_epsilon": 0.25,
+  "samples_per_new_position": 4,
+  "self_play_simulations": 256,
+  "weight_decay": 0.0001
+ },
+ "evaluation": {
+  "root_noise": false,
+  "simulations": 512,
+  "tactical_guard": false,
+  "tactical_seeds": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "temperature": 0,
+  "ties": "seeded uniform"
+ },
+ "execution_source": {
+  "files": {
+   "games/connect4/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+   "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+   "games/connect4/agents/mcts_nn_agent.py": "721b7ffe0b146d127641656e54219d55af2a52ce9a68e182df80fe202763df9f",
+   "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
+   "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
+   "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
+   "games/connect4/alphazero_v2/campaign.py": "111365d403db0e14d70ae91fc272c53028eefae30f96e4d45f280d78e34ea0ab",
+   "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
+   "games/connect4/alphazero_v2/data.py": "98cf69f75773eeef21ef6126dcba344deefb9f4d609efefd9ad4cfdf2f2a2c87",
+   "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
+   "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
+   "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
+   "games/connect4/alphazero_v2/launch_control.py": "b5b9e405c823cc976e0e7202d9b03175acf88c429919d4a597304736936820bd",
+   "games/connect4/alphazero_v2/network.py": "764ef18fc0e60e91538b94e167a6f4edf7d7538ec3f75ac8c61a1730c4c0f217",
+   "games/connect4/alphazero_v2/official_evidence.py": "eaa94dced355c10dc204fa196f6a65cde2adfb5339a8f14ffcf0f8c500720d74",
+   "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+   "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+   "games/connect4/alphazero_v2/profiling.py": "1a8fc4e7c0554dfe1b2fec5aefcaad965504939a7344daab33eb5c4be3669e46",
+   "games/connect4/alphazero_v2/provenance.py": "5988074b8aaeb32964bcb1a4faf59d67d963594f3d6d3a37e4807335ae3e6609",
+   "games/connect4/alphazero_v2/reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2",
+   "games/connect4/alphazero_v2/search.py": "8d48c20a251b54099b4efd4c643a4608586f980c4bb58afad4da9805b31fbd6b",
+   "games/connect4/alphazero_v2/selfplay.py": "351b6bdf14e8a9a368b53795c1b9ccff5db02cb4975a3635a901d8143ff2df17",
+   "games/connect4/alphazero_v2/statistics.py": "72943fb3d8b8e039787e1d5c1db5e67837066818051a084e7ad4c4170df66cdf",
+   "games/connect4/alphazero_v2/training.py": "fa43a7b58707699b01d75128a8701ad0cd65d06ada07bafcfdde77701ff29b21",
+   "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+   "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+   "games/connect4/neural_mcts.py": "3cb50524922d42672c3d66f497a2e7491c503e9d22b8f53f17ac7f1703a881ec"
+  },
+  "groups": {
+   "evaluation_and_launch": {
+    "files": [
+     "games/connect4/alphazero_v2/arena.py",
+     "games/connect4/alphazero_v2/campaign.py",
+     "games/connect4/alphazero_v2/evaluation.py",
+     "games/connect4/alphazero_v2/launch_control.py",
+     "games/connect4/alphazero_v2/official_evidence.py",
+     "games/connect4/alphazero_v2/packages.py",
+     "games/connect4/alphazero_v2/profiling.py",
+     "games/connect4/alphazero_v2/reference_negamax.py",
+     "games/connect4/alphazero_v2/statistics.py"
+    ],
+    "sha256": "f6444ff21dfa4e6215766038c8177eecc95bf96fbafdebe47668a8f092708a70"
+   },
+   "training": {
+    "files": [
+     "games/connect4/__init__.py",
+     "games/connect4/agents/mcts_agent.py",
+     "games/connect4/agents/mcts_nn_agent.py",
+     "games/connect4/alphazero_v2/__init__.py",
+     "games/connect4/alphazero_v2/artifacts.py",
+     "games/connect4/alphazero_v2/config.py",
+     "games/connect4/alphazero_v2/data.py",
+     "games/connect4/alphazero_v2/diagnostics.py",
+     "games/connect4/alphazero_v2/generation.py",
+     "games/connect4/alphazero_v2/network.py",
+     "games/connect4/alphazero_v2/oracle.py",
+     "games/connect4/alphazero_v2/provenance.py",
+     "games/connect4/alphazero_v2/search.py",
+     "games/connect4/alphazero_v2/selfplay.py",
+     "games/connect4/alphazero_v2/training.py",
+     "games/connect4/board.py",
+     "games/connect4/connect4.py",
+     "games/connect4/neural_mcts.py"
+    ],
+    "sha256": "22678c4b1c056f4b2b61a94fdc2eaaa0cd67de884a82c558ab15324406899e35"
+   }
+  },
+  "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
+  "sha256": "bbc74893998e1971dcb245611b5ac94d6266fcf9b339f3750aa3c545fc03fa29"
+ },
+ "final": {
+  "calibration_constant": null,
+  "calibration_games": 256,
+  "ladder": [
+   "random",
+   "negamax1",
+   "negamax2",
+   "negamax4",
+   "guarded_uct_800",
+   "initial_v2_512",
+   "phase4d2f_512"
+  ],
+  "ladder_openings": 100,
+  "one_time": true
+ },
+ "format": "connect4-alphazero-v2-campaign-declaration",
+ "format_version": 3,
+ "frozen_records": {
+  "build-provenance.json": {
+   "path": "build-provenance.json",
+   "sha256": "09e352db84b03080719e9afb0c7160f636ec2b9f7ee99abaf218d59ae7b29a77"
+  },
+  "exclusions.json": {
+   "path": "exclusions.json",
+   "sha256": "73c0f5a581a42a508e444c16e465239bad4de5be69d26d8caeec021e5b6de044"
+  },
+  "manifest.json": {
+   "path": "manifest.json",
+   "sha256": "d1f0d4df44536346b7f326f88fd0f926af8d34a96f5e03dc9c2e5151ca3f06db"
+  }
+ },
+ "generations": 20,
+ "kind": "research",
+ "launch_control": {
+  "acceptance": "Official results require a COMPLETE record whose every certified artifact satisfies one authoritative evidence contract (official_evidence). The same validators run before started.json and each sealed result are published, before the completion barrier on the files read back from disk, and in official_results. Every required field must be present, of its type and in its domain; objects have exactly their keys; every per-seed mapping covers exactly the declared seeds (the research declaration's are exactly 42 and 314159). Sealed evidence covers exactly the declared ladder opponents, the sealed tactical and solved package rows, the paired games of the declared sealed openings (each replayed through the engine) and every declared calibration game; every summary and gate must equal what the one result producer derives from that evidence. Every evidence-unit count equals the count the declaration and packages determine. Quantities stored more than once must agree. Duplicate JSON keys and NaN/Infinity are refused. The campaign directory holds a hash-verified copy of every declared package.",
+  "counters": "Live provenance snapshotted into state.json. After a crash they are lower bounds and authorize nothing.",
+  "deadlines": "Monotonic seconds of the owning process. Per seed, collection+optimization stays within per_run_training_seconds; the whole campaign stays within campaign_seconds. A check refuses to start any unit, search, move or update at a limit. Work that finishes past a limit is never accepted. Reaching any limit ends the campaign INCOMPLETE. Limits are inclusive at completion: COMPLETE needs elapsed seconds at the completion barrier <= campaign_seconds and each seed's training seconds <= per_run_training_seconds.",
+  "evaluation_games": "Reserved before a game's first move. No game starts once evaluation_games_ceiling games have started.",
+  "final_evaluation": "Both selections are recorded durably in RUNNING_FINAL_EVALUATION before any sealed inference. An interrupted sealed evaluation ends the campaign INCOMPLETE and is never restarted under this declaration.",
+  "identity": "Declared execution sources and runtime identity are revalidated at launch, around every generation and evaluation unit, and before every transition. Any difference ends the campaign INCOMPLETE.",
+  "interruption": "An owner that ends without a terminal state leaves the campaign INCOMPLETE. A later invocation records INCOMPLETE, reports that the campaign cannot be resumed and exits nonzero.",
+  "rejected_declaration_tokens": [
+   "2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8",
+   "8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39",
+   "ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb",
+   "34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390",
+   "9f7259827e8abee6db81113147e48c2a3420248296d09df559f2783c5d7d85f4"
+  ],
+  "resume": "Forbidden. An official campaign never resumes after a crash, reboot or drift, never repairs state to continue, never retries interrupted work and never reuses partial evidence. Generation resume artifacts are diagnostic only; the official launcher never loads them.",
+  "single_owner": "One orchestrator process holds an exclusive flock on campaign.lock for the whole campaign and runs every seed, the development selection and the sealed final evaluation sequentially. A second process is refused. A campaign always starts in a new directory.",
+  "state_file": "connect4-alphazero-v2-official-campaign-state-v2",
+  "states": "CREATED -> RUNNING_SEED_<seed> for each declared seed in order -> DEVELOPMENT_SELECTION_COMPLETE -> RUNNING_FINAL_EVALUATION -> COMPLETE. INCOMPLETE may follow any non-terminal state. COMPLETE and INCOMPLETE are terminal. Each transition atomically replaces state.json.",
+  "terminal_commit": "Every result file is published, flushed and re-validated, identity is re-verified and every count is checked before one completion barrier. The barrier latches one monotonic reading before reading the stop flag; that reading is the campaign's authoritative endpoint. A stop handled or a limit exceeded at the barrier ends the campaign INCOMPLETE. After it, only the atomic COMPLETE write remains: the scientific campaign is complete at the barrier, and the write certifies it. A later signal is recorded but cannot change the outcome. INCOMPLETE is written only if the visible state is non-terminal, so no error path can replace a visible COMPLETE. A write that fails before COMPLETE is visible ends INCOMPLETE.",
+  "version": "connect4-alphazero-v2-launch-control-v3-terminal-commit"
+ },
+ "name": "phase4d3c-alphazero-v2-two-seed",
+ "notes": [
+  "Phase 4D.3B.5 frozen declaration (format 3) for the Milestone 3 two-seed campaign; running it needs separate authorization.",
+  "The authorization token is the SHA-256 of this exact file. The Phase 4D.3B token 2741314399741c1b20510b8a2beb42e0938b0aeafc9dd0c487201e57208867d8, the Phase 4D.3B.1 token 8a8a52b100c7e32aa5e3e5b05469578084c8e12f37750ba81fee071990ff5e39, the Phase 4D.3B.2 token ed641aea2fef86a29000df55d1e46d9a32bf48dc3ec8f5dbcc0f8449668d0bbb, the Phase 4D.3B.3 token 34b4d899639d59d1bd4408ecc505b7eb20cb4d9c2fdc12095402c246887ac390 and the Phase 4D.3B.4 token 9f7259827e8abee6db81113147e48c2a3420248296d09df559f2783c5d7d85f4 are REJECTED / NOT AUTHORIZED.",
+  "The official campaign is NON-RESUMABLE: one owning process runs both seeds, the development selection and the sealed final evaluation; any interruption, limit or identity drift before the completion barrier makes it INCOMPLETE.",
+  "COMPLETE is a one-way terminal commit: all evidence is published and validated before one completion barrier, whose monotonic reading is the authoritative endpoint; nothing after it can downgrade a visible COMPLETE.",
+  "Official results require a COMPLETE record whose every certified artifact satisfies the one official evidence contract (official_evidence), with exact coverage of seeds 42 and 314159, the declared ladder, the sealed package rows, the declared openings and calibration games, and every summary re-derived from its evidence.",
+  "It binds execution-source content, the complete runtime identity, frozen packages and records, the retained 4D.2f checkpoint and the launch-control semantics; any difference refuses the launch.",
+  "Seed 42 is primary; seed 314159 is replication, not a second chance.",
+  "Package and frozen-record paths are relative to this file; the Phase 4D.2f checkpoint path is relative to the repository root."
+ ],
+ "packages": {
+  "openings-development": {
+   "path": "openings-development.json",
+   "sha256": "3990bc230084bd5c9293c15a44eae05f35749d2a3a18e66566461dae98f82f72"
+  },
+  "openings-sealed": {
+   "path": "openings-sealed.json",
+   "sha256": "d30683aa300fb7fe095da3f867c8bb9b301d387532aebe751660b90fb8aa34eb"
+  },
+  "solved-development": {
+   "path": "solved-development.json",
+   "sha256": "41ffd4dfcdd85b939c8afaea692566339e612224f16d2a62797c2960192f37b9"
+  },
+  "solved-sealed": {
+   "path": "solved-sealed.json",
+   "sha256": "2c5f70dcbb9bd0e3242a760e240eec3ca52cd075a066eedaf5fa39472376394b"
+  },
+  "tactical-development": {
+   "path": "tactical-development.json",
+   "sha256": "106cc315c7e8d9b44a260df1a3407578ce1197411a6e614be3a7c38a5b9e6d9d"
+  },
+  "tactical-sealed": {
+   "path": "tactical-sealed.json",
+   "sha256": "cb4e2e1e4ef1b877d8ecce840e04b04e8522df08747ba765c0d5608134af6f47"
+  }
+ },
+ "phase4d2f_checkpoint": {
+  "path": "experiment-output/phase4d2f-neural-value-anchoring-seed42-20261005/candidate.pt",
+  "sha256": "78276912bdef5f1b1b53ac6b2ec3ede2eed20a8ebb5796a9bdcbb57e4cb28c51"
+ },
+ "primary_seed": 42,
+ "retention": {
+  "archived_games": "all",
+  "inference_snapshots": "all",
+  "resume_boundaries": 2
+ },
+ "runtime": {
+  "deterministic_algorithms": true,
+  "threads": 1
+ },
+ "runtime_identity": {
+  "cpu_capability": "DEFAULT",
+  "cpu_model": "Apple M4",
+  "deterministic_algorithms": true,
+  "deterministic_warn_only": false,
+  "float32_matmul_precision": "highest",
+  "inter_op_threads": 1,
+  "intra_op_threads": 1,
+  "machine": "arm64",
+  "mkldnn_enabled": true,
+  "numpy": "1.26.4",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.11.17",
+  "python_implementation": "CPython",
+  "thread_environment": {
+   "MKL_NUM_THREADS": "1",
+   "NUMEXPR_NUM_THREADS": "1",
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1",
+   "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "torch": "2.10.0",
+  "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+  "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+ },
+ "seeds": [
+  42,
+  314159
+ ],
+ "thresholds": {
+  "arena": {
+   "initial_v2_512": {
+    "lower_bound": 0.5,
+    "lower_bound_strict": true,
+    "score": 0.6
+   },
+   "negamax1": {
+    "lower_bound": 0.7,
+    "lower_bound_strict": true,
+    "score": 0.8
+   },
+   "negamax2": {
+    "lower_bound": 0.55,
+    "lower_bound_strict": true,
+    "min_color_score": 0.5,
+    "score": 0.65
+   },
+   "nn_only_vs_random": {
+    "lower_bound": 0.75,
+    "lower_bound_strict": true,
+    "score": 0.85
+   },
+   "phase4d2f_512": {
+    "lower_bound": 0.5,
+    "lower_bound_strict": true,
+    "score": 0.6
+   },
+   "random": {
+    "lower_bound": 0.9,
+    "lower_bound_strict": false,
+    "score": 0.95
+   }
+  },
+  "calibration": {
+   "bins": 5,
+   "max_bin_gap": 0.15,
+   "min_games_per_bin": 30
+  },
+  "readiness": {
+   "min_positions": 500,
+   "p95_ms": 500.0
+  },
+  "reported_only": [
+   "negamax4",
+   "guarded_uct_800"
+  ],
+  "solved": {
+   "avoidable_loss_max": 0.05,
+   "optimal_preserving": 0.8
+  },
+  "tactical": {
+   "immediate_win": 0.99,
+   "per_actor_immediate_win": 0.97,
+   "per_actor_safe_response": 0.9,
+   "safe_response": 0.95
+  },
+  "value": {
+   "class_balanced_mse_max": 0.6,
+   "decisive_sign_min": 0.85,
+   "draw_mae_max": 0.35,
+   "saturation": 0.95,
+   "wrong_sign_saturated_max": 0.05
+  }
+ }
+}
