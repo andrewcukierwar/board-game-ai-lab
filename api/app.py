@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from threading import BoundedSemaphore
 
 from dotenv import load_dotenv
 
@@ -9,6 +10,7 @@ from api.connect4 import bp as connect4_bp
 from api.connect4.state import GameStore
 from api.connect4.explanations import ExplanationService, environment_config
 from api.cors import configure_cors
+from api.public_limits import PublicApiLimiter, environment_config as public_limit_config
 
 
 def victor_research_enabled():
@@ -28,13 +30,33 @@ def create_app(config=None):
                             SOURCE_COMMIT=os.environ.get('EVALUATION_SOURCE_COMMIT'),
                             VICTOR_RESEARCH_ENABLED=victor_research_enabled())
     app.config.update(environment_config())
+    app.config.update(public_limit_config())
     if config:
         app.config.update(config)
+    app.extensions['public_api_limiter'] = PublicApiLimiter(app.config)
+    app.extensions['connect4_search_gate'] = BoundedSemaphore(
+        app.config['PUBLIC_SEARCH_CONCURRENCY'])
     app.extensions['connect4_games'] = GameStore(
         capacity=app.config['GAME_SESSION_CAPACITY'], ttl=app.config['GAME_SESSION_TTL'])
     app.extensions['connect4_explanations'] = ExplanationService(app.config)
     app.register_blueprint(connect4_bp, url_prefix='/v1/connect4')
     configure_cors(app)
+
+    @app.before_request
+    def guard_public_api():
+        from flask import request
+        if not request.path.startswith('/v1/connect4/'):
+            return None
+        retry_after = app.extensions['public_api_limiter'].check(request.method, request.path)
+        if retry_after is None:
+            return None
+        response = jsonify(
+            error='The game API is handling too many requests. Try again shortly.',
+            code='rate_limited')
+        response.status_code = 429
+        response.headers['Retry-After'] = str(retry_after)
+        response.headers['Cache-Control'] = 'no-store'
+        return response
 
     @app.errorhandler(RequestEntityTooLarge)
     def too_large(error):
