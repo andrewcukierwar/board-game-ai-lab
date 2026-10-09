@@ -19,6 +19,7 @@ from .exact import Bits, ExactResult, SearchBudget, solve_exact
 from .execution import NineRulePolicy, PolicyAudit
 from .nine_rule_verification import verify_nine_rule_witness
 from .nine_rules import ALL_RULES, NineRuleSearchResult, _checked_rules, search_nine_rule_cover
+from .native import MoveProof, NativeBudget, available as native_available, prove_moves
 from . import opening_book
 from .opening_book import preferred_move
 from .rules import RuleName
@@ -58,9 +59,13 @@ class SolverBudget:
     opening_book: bool = True
     book_exclude: tuple = ()
     white_refutation: str = 'first_unrefuted'
+    # Optional build-time native accelerator; None preserves the original solver.
+    native: NativeBudget | None = None
 
     def __post_init__(self):
         object.__setattr__(self, 'rules', _checked_rules(self.rules))
+        if self.native is not None and type(self.native) is not NativeBudget:
+            raise ValueError('native must be NativeBudget or None')
         if type(self.exact) is not SearchBudget or type(self.policy_audit) is not SearchBudget:
             raise ValueError('search budgets must be SearchBudget')
         for name in ('cover_nodes', 'white_contexts', 'strategic_children'):
@@ -104,11 +109,12 @@ class SolverResult:
     # (exploratory cover only) or 'unrefuted' (none found within budgets).
     white_refutations: tuple[tuple[int, str], ...] = ()
     deadline_reached: bool = False
+    move_proof: MoveProof | None = None
 
     @property
     def justified_move(self):
         return self.move_kind in ('exact', 'opening_book', 'terminal_win', 'forced_defense',
-                                  'strategic_nonloss', 'verified_policy_nonloss')
+                                  'strategic_nonloss', 'verified_policy_nonloss', 'search_nonloss')
 
 
 def _certificate(position, budget):
@@ -195,6 +201,31 @@ def analyze_position(board, player_to_move, budget: SolverBudget = SolverBudget(
     limit = budget.exact
     if budget.deadline is not None and (limit.seconds is None or limit.seconds > budget.deadline):
         limit = replace(limit, seconds=budget.deadline)
+    proof, scores = None, None
+    if exact is None and budget.native is not None and not p.terminal:
+        scores = NegamaxAgent(budget.fallback_depth).score_moves(
+            SimpleNamespace(board=p.board, current_player=player_to_move))
+        order = tuple(sorted(range(7), key=lambda c: (-scores.get(c, -float('inf')),
+                                                    (3, 2, 4, 1, 5, 0, 6).index(c))))
+        native_limit = budget.native
+        if budget.deadline is not None:
+            available = max(0.0, budget.deadline - (monotonic() - started))
+            if native_limit.seconds is None or native_limit.seconds > available:
+                native_limit = replace(native_limit, seconds=available)
+        proof = prove_moves(p, native_limit, order)
+        if proof.intervals:
+            # Native bounds replace, rather than duplicate, the Python exact pass.
+            # Only singleton intervals become exact move values; unknowns stay unknown.
+            exact = ExactResult('unknown_native_partial', None, (), 0, 0, 0, 0.0)
+            if proof.optimal_moves:
+                move = next(c for c in order if c in proof.optimal_moves)
+                if proof.status == 'all_moves':
+                    exact = ExactResult('exact', proof.lower,
+                        tuple((c, lo) for c, lo, _ in proof.intervals),
+                        proof.nodes, proof.cache_hits, native_limit.table_entries, proof.elapsed)
+                return SolverResult(p, move, 'exact', proof.lower, None,
+                    'completed bounded proof of an optimal move (tactics and established CL bounds); '
+                    'unresolved alternatives retain explicit bounds', exact, move_proof=proof)
     if exact is None:
         exact = solve_exact(p, limit)
     if p.terminal:
@@ -216,8 +247,11 @@ def analyze_position(board, player_to_move, budget: SolverBudget = SolverBudget(
     forced = len(safe) == 1 and bool(bits.winning(1 - player_to_move))
     # Reuse the established bounded non-neural heuristic agent. Scores are
     # ordering/fallback evidence ONLY, never exact or strategic proof leaves.
-    scores = NegamaxAgent(budget.fallback_depth).score_moves(
-        SimpleNamespace(board=p.board, current_player=player_to_move))
+    if scores is None:
+        scores = NegamaxAgent(budget.fallback_depth).score_moves(
+            SimpleNamespace(board=p.board, current_player=player_to_move))
+    if proof is not None and proof.intervals:
+        safe = tuple(c for c in safe if c in proof.admissible_moves)
     safe = tuple(sorted(safe, key=lambda c: -scores[c]))
     # A score below -WIN_SCORE is a completed forced loss inside the horizon
     # (terminal leaves only); strategic preferences never choose such a move.
@@ -292,11 +326,15 @@ def analyze_position(board, player_to_move, budget: SolverBudget = SolverBudget(
                         kind = 'verified_policy_nonloss'
                         bound = 'Black >= draw (move reaches completely audited concrete policy)'
                     break
+    if proof is not None and proof.intervals and proof.lower >= 0:
+        kind = 'search_nonloss'
+        bound = 'mover >= draw (completed move proof; a win may remain unresolved)'
+        reason = 'selection restricted to moves with a proved non-loss lower bound'
     if late:
         reason += '; analysis deadline reached, remaining strategic checks skipped'
     return SolverResult(p, move, kind, None, bound, reason, exact, black_cover,
                         white_covers, white_count, cert, audit, child_cover, white_child_covers,
-                        refutations, late)
+                        refutations, late, proof)
 
 
 def _acceptable(status, policy):
@@ -390,6 +428,11 @@ class VictorSolver:
         self.last_result = None
 
     def select_move(self, board, player_to_move):
+        if self.budget.native is not None and native_available():
+            # Native mode re-proves each position, as the stateless public adapter
+            # does. Original certificate/policy retention is unchanged when off.
+            self.last_result = analyze_position(board, player_to_move, self.budget)
+            return self.last_result
         p = Position.from_board(board, player_to_move)
         bits = Bits.from_position(p)
         continuation = None

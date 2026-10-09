@@ -2,6 +2,7 @@
 import argparse
 import json
 from collections import Counter
+from dataclasses import asdict
 from random import Random
 from time import monotonic
 
@@ -9,6 +10,7 @@ from games.connect4.connect4 import Connect4
 from games.connect4.agents.negamax_agent import NegamaxAgent
 from games.connect4.agents.mcts_agent import MCTSAgent
 from .exact import SearchBudget
+from .native import NativeBudget
 from .solver import SolverBudget, VictorSolver
 
 
@@ -66,6 +68,8 @@ def play_game(white, black, *, moves=(), budget=SolverBudget(), seed=0):
                                   kind=r.move_kind, exact_value=r.exact_value,
                                   bound=r.bound, reason=r.reason,
                                   exact_nodes=r.exact.nodes, exact_seconds=r.exact.elapsed))
+            if r.move_proof is not None:
+                decisions[-1]['move_proof'] = asdict(r.move_proof)
         assert game.make_move(column)
         history.append(column)
     return dict(white=white, black=black, seed=seed, moves=history,
@@ -85,10 +89,13 @@ def main():
     parser.add_argument('--remaining', type=int, default=24)
     parser.add_argument('--cover-nodes', type=int, default=10_000)
     parser.add_argument('--fallback-depth', type=int, default=4)
+    parser.add_argument('--native', action='store_true', help='use optional compiled move-proof search')
+    parser.add_argument('--native-nodes', type=int, default=10_000_000)
     args = parser.parse_args()
     budget = SolverBudget(exact=SearchBudget(nodes=args.nodes, seconds=args.seconds,
                                            max_remaining=args.remaining),
-                          cover_nodes=args.cover_nodes, fallback_depth=args.fallback_depth)
+                          cover_nodes=args.cover_nodes, fallback_depth=args.fallback_depth,
+                          native=NativeBudget(nodes=args.native_nodes, seconds=args.seconds) if args.native else None)
     moves = tuple(int(c) for c in args.moves.split(',')) if args.moves else ()
     print(json.dumps(play_game(args.white, args.black, moves=moves, budget=budget,
                                seed=args.seed), indent=2))

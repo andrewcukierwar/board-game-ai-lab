@@ -7,6 +7,7 @@ certified, exploratory, heuristic) stay on ``last_decision`` for logs and tests
 and are never part of public game outcomes.
 """
 from games.connect4.victor import SearchBudget, SolverBudget, analyze_position
+from games.connect4.victor.native import NativeBudget
 
 from .negamax_agent import NegamaxAgent
 
@@ -22,6 +23,7 @@ PUBLIC_BUDGET = SolverBudget(
     fallback_depth=4,
     policy_audit=SearchBudget(nodes=10_000, seconds=0.1, max_remaining=10, table_entries=10_000),
     deadline=1.0,
+    native=NativeBudget(),  # optional compiled accelerator; Python fallback if unavailable
 )
 
 
