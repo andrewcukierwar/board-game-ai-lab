@@ -9,8 +9,9 @@ This procedure changes ONLY a separate `~/Services/board-game-ai-lab-api`
 checkout and the `bgai-api` Docker container. **Do not modify, fetch into,
 rebase, merge, or run builds in the AlphaZero training worktree**. Do not alter
 `benchmarks/connect4/results/canonical-season-v1` or other frozen research
-evidence. Do not push `main` during rollout: the existing
-`.github/workflows/docker-lite.yml` still deploys Render on a main push.
+evidence. Do not push `main` before merging the workflow replacement on this branch.
+The workflow currently on `main` still deploys Render; the replacement becomes
+active on `main` only after the new workflow is merged.
 
 ## Protections
 
@@ -147,10 +148,26 @@ An unexpected public outage can also be mitigated by restoring Render UI's
 `VITE_API_BASE` to `https://board-game-ai-lab.onrender.com` and rebuilding
 the Static Site, provided the old Render backend is still active.
 
-## Follow-up work
+## CI/CD and external monitoring
 
-Add independent uptime checks, evaluate latency and memory under ordinary
-traffic, then replace the legacy Render deploy hook in
-`.github/workflows/docker-lite.yml` in a separately reviewed change.
-Do not automatically pull/rebuild/restart the Mac Mini on every main push while
-it also runs long experiments.
+The proposed replacement for `.github/workflows/docker-lite.yml` on
+`hardening/mac-mini-public-api` performs:
+- Python 3.11 backend regression tests and Node 22 frontend unit tests/build.
+- Native ARM64 Docker build and isolated health, provenance, and game-creation
+  smoke checks using a GitHub-hosted ARM runner.
+- On **green pushes to main only**, publishes the immutable GHCR tag
+  `ghcr.io/andrewcukierwar/board-game-ai-lab:mac-arm64-sha-<full-git-sha>`.
+  It does **not** update the legacy AMD64 `:main`/`:latest` image tags,
+  trigger Render deployments, contact the Mac Mini, or alter Tailscale.
+
+The change is staged until PR #5 merges. Check the PR Actions status before
+merging. After merge, the public Mac Mini backend remains at its deliberately
+deployed commit until this local script is run on a reviewed checkout.
+
+Configure free independent external checks and verified email alert delivery
+as described in [external-monitoring.md](external-monitoring.md).
+The monitoring account and notification confirmations require owner action;
+secrets must not be stored in this repository.
+
+Do not automatically pull/rebuild/restart the Mac Mini on each main push
+while it also runs long experiments.
