@@ -76,7 +76,7 @@ flowchart TD
 
 The browser owns scheduling and local replay/evaluation state. The API commits one legal ply at an exact revision under a per-game lock and records immutable history. Tournaments and seasons retain **one live server game**, replacing it between fixtures and keeping completed replay locally.
 
-Bounded in-memory sessions and separate nonblocking MCTS/Victor search reservations require one Gunicorn worker and one API instance. Docker Compose serves the UI through Nginx with a `/v1` proxy; Render hosts the static UI and containerized API separately with an exact CORS allowlist. [Deployment](docs/deployment.md) · [API health](https://board-game-ai-lab.onrender.com/v1/connect4/health) · [provenance endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/provenance).
+Bounded in-memory sessions, global public API token-bucket budgets, and nonblocking shared/MCTS/Victor search reservations require one Gunicorn worker and one API instance. Docker Compose serves the UI through Nginx with a `/v1` proxy; Render hosts the static UI and containerized API separately with an exact CORS allowlist. [Render deployment history](docs/deployment.md) · [Mac Mini hosting, hardening, and rollback](docs/mac-mini-deployment.md) · [API health](https://board-game-ai-lab.onrender.com/v1/connect4/health) · [provenance endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/provenance).
 
 ## Agents
 
@@ -174,6 +174,13 @@ npm test
 npm run build
 VITE_API_BASE=https://board-game-ai-lab.onrender.com npm run build:render
 ```
+
+The proposed GitHub Actions workflow runs backend pytest, frontend unit
+tests/build, and a native ARM64 Docker smoke test on pull requests; `main`
+also publishes an immutable ARM64 image without deploying it. Public Mac Mini
+rollouts remain manual, as described in [Mac Mini deployment and rollback](docs/mac-mini-deployment.md).
+Set up independent [external uptime monitoring](docs/external-monitoring.md)
+for both the Funnel API and Render frontend.
 
 Packaging verification: **501 backend passed**, with 14 existing optional PyTorch skips; **398 frontend passed**; **122 Chromium**, **33 Firefox**, **33 WebKit** passed. The final export smoke covers 12 executions across three browsers. Automated provider responses are mocked. [Verification record and local browser commands](docs/final-portfolio-packaging.md).
 
