@@ -1,0 +1,12 @@
+{
+  "command": "PYTHON_DOTENV_DISABLED=1 EXPLANATIONS_ENABLED=false OPENAI_API_KEY= .venv/bin/python -m pytest tests -q -rs",
+  "passed": 1926,
+  "skipped": 15,
+  "skip_reason": "PyTorch unavailable",
+  "seconds": 92.46,
+  "provider_calls": 0,
+  "source_hashes_match_manifest": true,
+  "branch": "search/negamax-v2",
+  "parent_commit": "93ee943d8744651064dcf9a3a79108d6ca73af53",
+  "backend_log_sha256": "39ff78086af1899eec5f1b03551a4945c8e0ca8b955413c4352675f1bf255a19"
+}

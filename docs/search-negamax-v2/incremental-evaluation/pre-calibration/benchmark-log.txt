@@ -1,0 +1,155 @@
+empty d4: baseline=2.311ms, compact-stack=0.814ms, compact-inverse=0.854ms, arrays-stack=0.906ms
+empty d6: baseline=17.432ms, compact-stack=7.146ms, compact-inverse=7.585ms, arrays-stack=8.026ms
+empty d8: baseline=99.401ms, compact-stack=45.251ms, compact-inverse=47.522ms, arrays-stack=50.241ms
+empty d10: baseline=412.501ms, compact-stack=209.221ms, compact-inverse=219.978ms, arrays-stack=232.550ms
+near-opening d4: baseline=2.146ms, compact-stack=0.912ms, compact-inverse=0.965ms, arrays-stack=1.023ms
+near-opening d6: baseline=14.638ms, compact-stack=6.941ms, compact-inverse=7.303ms, arrays-stack=7.713ms
+near-opening d8: baseline=78.184ms, compact-stack=39.926ms, compact-inverse=42.053ms, arrays-stack=44.406ms
+near-opening d10: baseline=301.336ms, compact-stack=169.188ms, compact-inverse=178.127ms, arrays-stack=187.396ms
+midgame d4: baseline=0.980ms, compact-stack=0.551ms, compact-inverse=0.574ms, arrays-stack=0.609ms
+midgame d6: baseline=2.953ms, compact-stack=1.930ms, compact-inverse=2.013ms, arrays-stack=2.103ms
+midgame d8: baseline=6.547ms, compact-stack=4.771ms, compact-inverse=4.940ms, arrays-stack=5.172ms
+midgame d10: baseline=12.125ms, compact-stack=9.547ms, compact-inverse=9.888ms, arrays-stack=10.305ms
+midgame-wide d4: baseline=2.655ms, compact-stack=1.218ms, compact-inverse=1.274ms, arrays-stack=1.391ms
+midgame-wide d6: baseline=9.514ms, compact-stack=5.413ms, compact-inverse=5.697ms, arrays-stack=6.139ms
+midgame-wide d8: baseline=21.970ms, compact-stack=15.224ms, compact-inverse=16.040ms, arrays-stack=16.812ms
+midgame-wide d10: baseline=45.742ms, compact-stack=36.289ms, compact-inverse=37.838ms, arrays-stack=39.885ms
+late d4: baseline=0.114ms, compact-stack=0.094ms, compact-inverse=0.095ms, arrays-stack=0.099ms
+late d6: baseline=0.306ms, compact-stack=0.243ms, compact-inverse=0.250ms, arrays-stack=0.259ms
+late d8: baseline=0.631ms, compact-stack=0.577ms, compact-inverse=0.593ms, arrays-stack=0.604ms
+late d10: baseline=1.084ms, compact-stack=1.095ms, compact-inverse=1.118ms, arrays-stack=1.149ms
+immediate-win d4: baseline=0.998ms, compact-stack=0.549ms, compact-inverse=0.572ms, arrays-stack=0.609ms
+immediate-win d6: baseline=6.835ms, compact-stack=3.273ms, compact-inverse=3.437ms, arrays-stack=3.597ms
+immediate-win d8: baseline=40.592ms, compact-stack=20.690ms, compact-inverse=21.696ms, arrays-stack=22.835ms
+immediate-win d10: baseline=183.839ms, compact-stack=101.895ms, compact-inverse=107.741ms, arrays-stack=113.035ms
+forced-reply d4: baseline=1.223ms, compact-stack=0.570ms, compact-inverse=0.585ms, arrays-stack=0.620ms
+forced-reply d6: baseline=4.956ms, compact-stack=2.587ms, compact-inverse=2.718ms, arrays-stack=2.856ms
+forced-reply d8: baseline=26.335ms, compact-stack=13.844ms, compact-inverse=14.570ms, arrays-stack=15.411ms
+forced-reply d10: baseline=87.632ms, compact-stack=52.071ms, compact-inverse=54.825ms, arrays-stack=57.652ms
+double-threat-loss d4: baseline=0.149ms, compact-stack=0.200ms, compact-inverse=0.203ms, arrays-stack=0.214ms
+double-threat-loss d6: baseline=0.149ms, compact-stack=0.201ms, compact-inverse=0.204ms, arrays-stack=0.218ms
+double-threat-loss d8: baseline=0.158ms, compact-stack=0.203ms, compact-inverse=0.204ms, arrays-stack=0.220ms
+double-threat-loss d10: baseline=0.152ms, compact-stack=0.202ms, compact-inverse=0.207ms, arrays-stack=0.217ms
+dense-endgame d4: baseline=0.015ms, compact-stack=0.024ms, compact-inverse=0.024ms, arrays-stack=0.025ms
+dense-endgame d6: baseline=0.016ms, compact-stack=0.025ms, compact-inverse=0.025ms, arrays-stack=0.027ms
+dense-endgame d8: baseline=0.016ms, compact-stack=0.025ms, compact-inverse=0.025ms, arrays-stack=0.027ms
+dense-endgame d10: baseline=0.016ms, compact-stack=0.024ms, compact-inverse=0.024ms, arrays-stack=0.026ms
+quiet-5 d4: baseline=1.234ms, compact-stack=0.647ms, compact-inverse=0.668ms, arrays-stack=0.702ms
+quiet-5 d6: baseline=6.040ms, compact-stack=3.758ms, compact-inverse=3.876ms, arrays-stack=4.022ms
+quiet-5 d8: baseline=15.549ms, compact-stack=11.510ms, compact-inverse=11.882ms, arrays-stack=12.255ms
+quiet-5 d10: baseline=21.976ms, compact-stack=19.721ms, compact-inverse=20.322ms, arrays-stack=20.860ms
+supplement-main-003 d4: baseline=2.562ms, compact-stack=1.144ms, compact-inverse=1.195ms, arrays-stack=1.249ms
+supplement-main-003 d6: baseline=17.570ms, compact-stack=9.020ms, compact-inverse=9.425ms, arrays-stack=9.727ms
+supplement-main-003 d8: baseline=70.265ms, compact-stack=41.935ms, compact-inverse=43.912ms, arrays-stack=45.119ms
+supplement-main-003 d10: baseline=231.008ms, compact-stack=154.113ms, compact-inverse=161.333ms, arrays-stack=165.490ms
+seeded-00 d4: baseline=3.490ms, compact-stack=1.377ms, compact-inverse=1.450ms, arrays-stack=1.560ms
+seeded-00 d6: baseline=25.001ms, compact-stack=11.311ms, compact-inverse=11.966ms, arrays-stack=12.697ms
+seeded-00 d8: baseline=114.477ms, compact-stack=57.091ms, compact-inverse=60.332ms, arrays-stack=63.798ms
+seeded-00 d10: baseline=425.825ms, compact-stack=237.346ms, compact-inverse=250.590ms, arrays-stack=264.177ms
+seeded-01 d4: baseline=0.339ms, compact-stack=0.306ms, compact-inverse=0.314ms, arrays-stack=0.336ms
+seeded-01 d6: baseline=1.292ms, compact-stack=0.861ms, compact-inverse=0.891ms, arrays-stack=0.970ms
+seeded-01 d8: baseline=5.560ms, compact-stack=3.266ms, compact-inverse=3.429ms, arrays-stack=3.629ms
+seeded-01 d10: baseline=14.135ms, compact-stack=9.699ms, compact-inverse=10.168ms, arrays-stack=10.720ms
+seeded-02 d4: baseline=0.510ms, compact-stack=0.486ms, compact-inverse=0.498ms, arrays-stack=0.528ms
+seeded-02 d6: baseline=1.675ms, compact-stack=1.059ms, compact-inverse=1.103ms, arrays-stack=1.189ms
+seeded-02 d8: baseline=3.838ms, compact-stack=2.616ms, compact-inverse=2.733ms, arrays-stack=2.891ms
+seeded-02 d10: baseline=5.314ms, compact-stack=4.879ms, compact-inverse=4.923ms, arrays-stack=5.307ms
+seeded-03 d4: baseline=0.391ms, compact-stack=0.324ms, compact-inverse=0.333ms, arrays-stack=0.359ms
+seeded-03 d6: baseline=1.294ms, compact-stack=0.950ms, compact-inverse=0.994ms, arrays-stack=1.039ms
+seeded-03 d8: baseline=4.714ms, compact-stack=3.475ms, compact-inverse=3.564ms, arrays-stack=3.647ms
+seeded-03 d10: baseline=14.189ms, compact-stack=11.174ms, compact-inverse=11.683ms, arrays-stack=11.857ms
+seeded-04 d4: baseline=4.172ms, compact-stack=1.581ms, compact-inverse=1.657ms, arrays-stack=1.778ms
+seeded-04 d6: baseline=31.261ms, compact-stack=13.821ms, compact-inverse=14.538ms, arrays-stack=15.471ms
+seeded-04 d8: baseline=177.870ms, compact-stack=89.881ms, compact-inverse=95.074ms, arrays-stack=100.026ms
+seeded-04 d10: baseline=796.224ms, compact-stack=436.561ms, compact-inverse=459.653ms, arrays-stack=484.217ms
+seeded-05 d4: baseline=1.633ms, compact-stack=0.770ms, compact-inverse=0.815ms, arrays-stack=0.871ms
+seeded-05 d6: baseline=8.643ms, compact-stack=4.386ms, compact-inverse=4.625ms, arrays-stack=4.887ms
+seeded-05 d8: baseline=23.795ms, compact-stack=14.710ms, compact-inverse=15.391ms, arrays-stack=16.086ms
+seeded-05 d10: baseline=76.414ms, compact-stack=50.795ms, compact-inverse=53.156ms, arrays-stack=55.652ms
+seeded-06 d4: baseline=0.900ms, compact-stack=0.516ms, compact-inverse=0.536ms, arrays-stack=0.580ms
+seeded-06 d6: baseline=2.645ms, compact-stack=1.682ms, compact-inverse=1.756ms, arrays-stack=1.897ms
+seeded-06 d8: baseline=6.796ms, compact-stack=4.484ms, compact-inverse=4.693ms, arrays-stack=5.016ms
+seeded-06 d10: baseline=14.587ms, compact-stack=10.489ms, compact-inverse=10.890ms, arrays-stack=11.662ms
+seeded-07 d4: baseline=0.269ms, compact-stack=0.283ms, compact-inverse=0.293ms, arrays-stack=0.307ms
+seeded-07 d6: baseline=0.521ms, compact-stack=0.575ms, compact-inverse=0.594ms, arrays-stack=0.623ms
+seeded-07 d8: baseline=0.859ms, compact-stack=0.988ms, compact-inverse=1.023ms, arrays-stack=1.089ms
+seeded-07 d10: baseline=1.243ms, compact-stack=1.419ms, compact-inverse=1.469ms, arrays-stack=1.546ms
+post-hoc-tail d4: baseline=4.993ms, compact-stack=1.798ms, compact-inverse=1.889ms, arrays-stack=2.010ms
+post-hoc-tail d6: baseline=40.327ms, compact-stack=16.819ms, compact-inverse=17.765ms, arrays-stack=18.738ms
+post-hoc-tail d8: baseline=276.196ms, compact-stack=127.702ms, compact-inverse=134.526ms, arrays-stack=141.691ms
+post-hoc-tail d10: baseline=1403.529ms, compact-stack=716.097ms, compact-inverse=754.130ms, arrays-stack=793.194ms
+{
+  "comparisons": {
+    "compact-stack": {
+      "eligible": false,
+      "checks": {
+        "broad_speedup": true,
+        "broad_improved_fraction": true,
+        "distribution_speedup": true,
+        "workload_reduction": true,
+        "per_condition_overhead": true,
+        "peak_memory": true,
+        "tt_equal": false
+      },
+      "broad_conditions": 28,
+      "broad_geometric_speedup": 1.8379700787255027,
+      "broad_improved_fraction": 1.0,
+      "geometric_speedup": 1.475913292350399,
+      "summed_median_ratio": 0.5604463325749073,
+      "depth_geometric_speedups": {
+        "4": 1.6054196898712023,
+        "6": 1.5603727963974094,
+        "8": 1.447068043625037,
+        "10": 1.308993434272102
+      }
+    },
+    "compact-inverse": {
+      "eligible": false,
+      "checks": {
+        "broad_speedup": true,
+        "broad_improved_fraction": true,
+        "distribution_speedup": true,
+        "workload_reduction": true,
+        "per_condition_overhead": true,
+        "peak_memory": true,
+        "tt_equal": false
+      },
+      "broad_conditions": 28,
+      "broad_geometric_speedup": 1.7484587299645775,
+      "broad_improved_fraction": 1.0,
+      "geometric_speedup": 1.4206300249591441,
+      "summed_median_ratio": 0.5893444247321528,
+      "depth_geometric_speedups": {
+        "4": 1.5490457895029945,
+        "6": 1.4993864558835683,
+        "8": 1.392301617670364,
+        "10": 1.2595423951595333
+      }
+    },
+    "arrays-stack": {
+      "eligible": false,
+      "checks": {
+        "broad_speedup": true,
+        "broad_improved_fraction": true,
+        "distribution_speedup": true,
+        "workload_reduction": true,
+        "per_condition_overhead": true,
+        "peak_memory": true,
+        "tt_equal": false
+      },
+      "broad_conditions": 28,
+      "broad_geometric_speedup": 1.6620487848227874,
+      "broad_improved_fraction": 1.0,
+      "geometric_speedup": 1.3456010943015646,
+      "summed_median_ratio": 0.6190759585697387,
+      "depth_geometric_speedups": {
+        "4": 1.45703799915875,
+        "6": 1.4170058013299829,
+        "8": 1.3233441184265318,
+        "10": 1.199913746030505
+      }
+    }
+  },
+  "selected": null,
+  "correctness": "Every run asserted exact ordered scores, moves and counters; leaf counts matched"
+}

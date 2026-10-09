@@ -1,8 +1,9 @@
 """Production depth-limited Negamax with exact terminals and bound-typed caching.
 
 Adapted from the read-only Phase 4 corrected reference, with compact bitboards
-for synchronous public play. The legacy open-window heuristic is unchanged on
-nonterminal leaves. No research module, checkpoint, or neural dependency is used.
+for synchronous public play. The legacy open-window heuristic is maintained
+incrementally and unchanged on nonterminal leaves. No research module,
+checkpoint, or neural dependency is used.
 """
 from math import inf
 
@@ -18,6 +19,17 @@ WINDOWS = tuple(
     for dc, dr in ((1, 0), (0, 1), (1, 1), (1, -1))
     for col in range(7) for row in range(6)
     if 0 <= col + 3 * dc < 7 and 0 <= row + 3 * dr < 6)
+# Index by the same seven-bit cell address used by the bitboards (sentinels
+# have no memberships). A window code is X_count + 5 * O_count: counts 0..4
+# are represented exactly, including blocked and both-empty windows.
+CELL_WINDOWS = tuple(tuple(i for i, window in enumerate(WINDOWS)
+                           if window & (1 << cell)) for cell in range(49))
+WINDOW_SCORES = tuple(WEIGHTS[code % 5] if code // 5 == 0 else
+                      -WEIGHTS[code // 5] if code % 5 == 0 else 0
+                      for code in range(25))
+PLAY_DELTAS = tuple(tuple(WINDOW_SCORES[code + step] - WINDOW_SCORES[code]
+                         if code % 5 + code // 5 < 4 else 0
+                         for code in range(25)) for step in (1, 5))
 
 
 def has_four(bits):
@@ -47,7 +59,8 @@ def winning_squares(pieces, occupied):
 
 class SearchState:
     """Detached engine position; play/undo never touches the caller's board."""
-    __slots__ = ('pieces', 'heights', 'mover', 'count')
+    __slots__ = ('pieces', 'heights', 'mover', 'count', 'window_counts',
+                 'score', 'score_history')
 
     def __init__(self, game):
         self.pieces = [0, 0]
@@ -60,6 +73,11 @@ class SearchState:
                     self.pieces[0 if piece == 'X' else 1] |= 1 << (7 * col + row)
                     self.heights[col] += 1
         self.count = sum(self.heights)
+        self.window_counts = [(self.pieces[0] & window).bit_count() +
+                              5 * (self.pieces[1] & window).bit_count()
+                              for window in WINDOWS]
+        self.score = sum(WINDOW_SCORES[code] for code in self.window_counts)
+        self.score_history = []
 
     def legal(self):
         return [col for col in CENTER_ORDER if self.heights[col] < 6]
@@ -95,7 +113,17 @@ class SearchState:
         return [item[3] for item in ranked]
 
     def play(self, col):
-        self.pieces[self.mover] |= 1 << (7 * col + self.heights[col])
+        cell = 7 * col + self.heights[col]
+        counts, deltas = self.window_counts, PLAY_DELTAS[self.mover]
+        step = 1 if self.mover == 0 else 5
+        score = self.score
+        self.score_history.append(score)
+        for window in CELL_WINDOWS[cell]:
+            code = counts[window]
+            score += deltas[code]
+            counts[window] = code + step
+        self.score = score
+        self.pieces[self.mover] |= 1 << cell
         self.heights[col] += 1
         self.count += 1
         self.mover = 1 - self.mover
@@ -104,7 +132,13 @@ class SearchState:
         self.mover = 1 - self.mover
         self.count -= 1
         self.heights[col] -= 1
-        self.pieces[self.mover] ^= 1 << (7 * col + self.heights[col])
+        cell = 7 * col + self.heights[col]
+        counts = self.window_counts
+        step = 1 if self.mover == 0 else 5
+        for window in CELL_WINDOWS[cell]:
+            counts[window] -= step
+        self.score = self.score_history.pop()
+        self.pieces[self.mover] ^= 1 << cell
 
     def terminal_value(self, depth):
         if has_four(self.pieces[self.mover]):
@@ -116,15 +150,7 @@ class SearchState:
         return None
 
     def heuristic(self):
-        own, other = self.pieces[self.mover], self.pieces[1 - self.mover]
-        score = 0
-        for window in WINDOWS:
-            mine, theirs = own & window, other & window
-            if not theirs:
-                score += WEIGHTS[mine.bit_count()]
-            if not mine:
-                score -= WEIGHTS[theirs.bit_count()]
-        return score
+        return self.score if self.mover == 0 else -self.score
 
 
 class SearchTable:
