@@ -76,7 +76,7 @@ flowchart TD
 
 The browser owns scheduling and local replay/evaluation state. The API commits one legal ply at an exact revision under a per-game lock and records immutable history. Tournaments and seasons retain **one live server game**, replacing it between fixtures and keeping completed replay locally.
 
-Bounded in-memory sessions and separate nonblocking MCTS/Victor search reservations require one Gunicorn worker and one API instance. Docker Compose serves the UI through Nginx with a `/v1` proxy; Render hosts the static UI and containerized API separately with an exact CORS allowlist. [Deployment](docs/deployment.md) · [API health](https://board-game-ai-lab.onrender.com/v1/connect4/health) · [provenance endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/provenance).
+Bounded in-memory sessions, global public API token-bucket budgets, and nonblocking shared/MCTS/Victor search reservations require one Gunicorn worker and one API instance. Docker Compose serves the UI through Nginx with a `/v1` proxy; Render hosts the static UI and containerized API separately with an exact CORS allowlist. [Render deployment history](docs/deployment.md) · [Mac Mini hosting, hardening, and rollback](docs/mac-mini-deployment.md) · [API health](https://board-game-ai-lab.onrender.com/v1/connect4/health) · [provenance endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/provenance).
 
 ## Agents
 
