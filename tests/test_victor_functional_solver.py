@@ -112,9 +112,13 @@ def test_no_cover_and_exact_no_cover_draw_are_different():
     r = select_move(p.board, p.turn, FAST)
     assert r.move == 5 and r.exact_value == 0
     empty = replay(())
-    r = select_move(empty.board, 0, SolverBudget(strategic_children=0))
+    # Without the opening book the empty board is beyond exact search: no value.
+    r = select_move(empty.board, 0, SolverBudget(strategic_children=0, opening_book=False))
     assert r.move in empty.legal_columns and r.exact_value is None and r.bound is None
     assert r.black_cover.witness is None
+    # The exact opening book proves it a White win; only the centre wins.
+    r = select_move(empty.board, 0, SolverBudget(strategic_children=0))
+    assert r.move_kind == 'opening_book' and r.exact_value == 1 and r.move == 3
 
 
 def test_exact_avoids_a_quiet_tactical_trap_that_greedy_fallback_loses():

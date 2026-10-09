@@ -53,15 +53,29 @@ def configure(exact_remaining):
     """Same exact search, fallback depth, cover node budget and child limit throughout."""
     exact = SearchBudget(nodes=200_000, seconds=None, max_remaining=exact_remaining,
                          table_entries=200_000)
-    base = SolverBudget(exact=exact, policy_audit=AUDIT)
+    current = SolverBudget(exact=exact, policy_audit=AUDIT)
+    # The ablation ladder keeps its October 2026 meaning: no opening book and the
+    # previous White policy, so 'previous_full' reproduces the earlier victor_full.
+    fields = SolverBudget.__dataclass_fields__
+    base = replace(current, **{k: v for k, v in (('opening_book', False),
+                                                  ('white_refutation', 'first_unrefuted'))
+                               if k in fields})
     CONFIGS.clear()
     CONFIGS.update({
         'negamax4': None,
         'exact_fallback': replace(base, cover_nodes=0, white_contexts=0),
         'three_rule': replace(base, rules=THREE_RULES, white_contexts=0),
         'nine_rule': replace(base, white_contexts=0),
-        'victor_full': base,
+        'victor_full': base if 'opening_book' not in fields else current,
     })
+    if 'opening_book' in fields:  # opening-book milestone configurations
+        CONFIGS.update({
+            'previous_full': base,
+            'book_only': replace(base, opening_book=True),
+            'heldout_book': replace(current, book_exclude=('benchmark',)),
+            'no_book': replace(current, opening_book=False),
+            'certified_only': replace(current, white_refutation='certified_only'),
+        })
 
 
 configure(24)
@@ -299,7 +313,8 @@ def describe_configs():
                              white_contexts=b.white_contexts, strategic_children=b.strategic_children,
                              fallback_depth=b.fallback_depth, policy_audit=vars(b.policy_audit),
                              rules=[r.value for r in b.rules],
-                             **({k: getattr(b, k) for k in ('deadline',) if hasattr(b, k)}))
+                             **({k: getattr(b, k) for k in ('deadline', 'opening_book', 'book_exclude',
+                                                            'white_refutation') if hasattr(b, k)}))
     return out
 
 

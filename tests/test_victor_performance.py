@@ -21,7 +21,8 @@ from victor_validation import performance_benchmark as bench
 
 SUITE = Path(__file__).resolve().parent.parent / 'docs' / 'victor-performance' / 'suite.json'
 EXACT = SearchBudget(nodes=400_000, seconds=None, max_remaining=24, table_entries=400_000)
-NINE = SolverBudget(exact=replace(EXACT, nodes=200_000), white_contexts=0,
+# Strategic-path tests bypass the opening book (several suite positions are entries).
+NINE = SolverBudget(exact=replace(EXACT, nodes=200_000), white_contexts=0, opening_book=False,
                     policy_audit=SearchBudget(nodes=20_000, seconds=None, max_remaining=10))
 
 
@@ -145,6 +146,44 @@ def test_white_refutation_avoidance_is_exploratory_and_pinned():
     assert result.exact_value is None and result.bound is None and not result.justified_move
 
 
+def test_e0_006_refutation_avoidance_failure_is_preserved_and_labelled(suite, oracle):
+    """Known failure of the default policy, kept because it wins on balance.
+
+    Suite e0-006 is a draw; only column 1 draws. A Black reply to 1 reaches an
+    exploratory nine-rule cover (consistent with a draw), so the default policy
+    plays unrefuted column 6, which loses. 'certified_only' keeps 1 here but was
+    worse overall on the fresh development set (334 vs 362 of 449) and on both
+    suites, so it is not the default. The move is never a proof claim.
+    """
+    position = next(p for p in suite['positions'] if p['id'] == 'e0-006')
+    game = bench.game_from(position['history'])
+    result = analyze_position(game.board, 0, NINE)
+    assert result.move == 6 and result.move_kind == 'exploratory_unrefuted'
+    assert result.white_refutations[0] == (1, 'nine_rule')  # exploratory, not certified
+    assert result.exact_value is None and result.bound is None and not result.justified_move
+    assert position['move_values']['6'] == -1 and position['move_values']['1'] == 0
+    certified_only = analyze_position(game.board, 0, replace(NINE, white_refutation='certified_only'))
+    assert certified_only.move == 1 and certified_only.move_kind == 'heuristic'
+    assert analyze_position(game.board, 0, replace(NINE, white_refutation='off')).move == 1
+    with pytest.raises(ValueError):
+        replace(NINE, white_refutation='always')
+    fresh = oracle([position['history'] + [1]])[0]
+    assert fresh.status == 'exact' and fresh.value == 0  # Black-relative: a draw after 1
+
+
+def test_white_choice_policies_on_a_fixed_scan():
+    from games.connect4.victor.solver import white_choice_from_scan
+    scan = [(1, 'nine_rule', False), (2, 'certified', False), (6, 'unrefuted', False),
+            (4, 'unrefuted', True)]
+    assert white_choice_from_scan(scan, 1, 'off') == (1, None)
+    assert white_choice_from_scan(scan, 1, 'first_unrefuted') == (4, 'exploratory_white_context')
+    assert white_choice_from_scan(scan[:3], 1, 'first_unrefuted') == (6, 'exploratory_unrefuted')
+    assert white_choice_from_scan(scan[:3], 1, 'certified_only') == (1, None)
+    assert white_choice_from_scan(scan[:3], 1, 'positive_evidence') == (1, None)
+    assert white_choice_from_scan(scan, 1, 'positive_evidence') == (4, 'exploratory_white_context')
+    assert white_choice_from_scan([(1, 'unchecked', False)], 1, 'first_unrefuted') == (1, None)
+
+
 def test_certified_refutations_never_mark_a_winning_white_move(suite):
     # Suite e0-016: every White move is refuted by a CL/BI/VE certificate; the
     # native oracle confirms none of them wins (position value is a draw).
@@ -222,7 +261,10 @@ def test_baseclaim_policy_spare_gap_is_preserved_and_not_a_cover_contradiction()
 
     The native oracle values this White-to-move position as a Black win, so the
     Baseclaim+Claimeven cover is not contradicted. After White g4, Black's spare
-    g5 and White g6, every playable square is a forbidden rule square.
+    g5 and White g6, every playable square is a forbidden rule square. The legacy
+    policy (no retiring spares) is preserved here; the current policy retires the
+    Baseclaim with b5 (both of its groups contain b5) and the complete adversarial
+    replay then verifies the concrete policy non-losing on this board.
     """
     from games.connect4.victor.execution import NineRulePolicy
     from games.connect4.victor.nine_rules import search_nine_rule_cover
@@ -231,11 +273,41 @@ def test_baseclaim_policy_spare_gap_is_preserved_and_not_a_cover_contradiction()
     game = bench.game_from(history)
     witness = search_nine_rule_cover(Position.from_board(game.board, 0)).witness
     assert {e.candidate.rule.value for e in witness.evidence} == {'baseclaim', 'claimeven'}
+    audit_budget = SearchBudget(nodes=100_000, seconds=None, max_remaining=12)
+    legacy = NineRulePolicy(witness, retiring_spares=False)
+    assert legacy.select((6,)).column == 6
+    stuck = legacy.select((6, 6, 6))
+    assert stuck.status == 'no_permitted_spare' and stuck.column is None
+    audit = legacy.audit(audit_budget)
+    assert audit.status == 'unsupported_policy' and audit.detail == 'no_permitted_spare'
     policy = NineRulePolicy(witness)
     assert policy.select((6,)).column == 6
-    stuck = policy.select((6, 6, 6))
-    assert stuck.status == 'no_permitted_spare' and stuck.column is None
-    audit = policy.audit(SearchBudget(nodes=100_000, seconds=None, max_remaining=12))
-    assert audit.status == 'unsupported_policy' and audit.detail == 'no_permitted_spare'
+    retiring = policy.select((6, 6, 6))
+    assert retiring.status == 'selected' and retiring.kind == 'retiring_spare'
+    assert retiring.column == 1  # b5: blocks a6-b5-c4-d3 and a5-b5-c5-d5
+    assert policy.audit(audit_budget).status == 'verified_policy_nonloss'
     exact = solve_exact(Position.from_board(game.board, 0), EXACT)
     assert exact.status == 'exact' and exact.value == -1  # Black wins; cover not contradicted.
+
+
+def test_retiring_spare_requires_every_owning_rule_to_retire():
+    """c4 blocks only one Baseclaim group, a5 neither: neither may be a retiring spare."""
+    from games.connect4.victor.execution import NineRulePolicy
+    from games.connect4.victor.nine_rules import search_nine_rule_cover
+    history = [0, 1, 1, 1, 4, 6, 1, 4, 3, 3, 3, 3, 5, 2, 4, 4, 0, 4, 0, 4, 3, 5, 5, 0,
+               6, 6, 2, 2, 5, 3]
+    witness = search_nine_rule_cover(
+        Position.from_board(bench.game_from(history).board, 0)).witness
+    policy = NineRulePolicy(witness)
+    state = policy.select((6, 6, 6)).state
+    allowed = []
+    for c in state.board.legal():
+        decision_board = state.board.drop(c)
+        pruned = policy._prune(type(state)(decision_board, state.rules))
+        owners = [i for i, r in enumerate(state.rules)
+                  if any(sq.column == c for o in r.obligations for sq in o.squares)]
+        if owners and all(pruned.rules[i].phase == 'retired' for i in owners):
+            allowed.append(c)
+    assert sorted(allowed) == [1, 5]  # b5 (Baseclaim) and f5 (Claimeven f5/f6)
+    with pytest.raises(ValueError):
+        NineRulePolicy(witness, retiring_spares='yes')

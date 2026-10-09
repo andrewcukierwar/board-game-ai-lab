@@ -19,6 +19,8 @@ from .exact import Bits, ExactResult, SearchBudget, solve_exact
 from .execution import NineRulePolicy, PolicyAudit
 from .nine_rule_verification import verify_nine_rule_witness
 from .nine_rules import ALL_RULES, NineRuleSearchResult, _checked_rules, search_nine_rule_cover
+from . import opening_book
+from .opening_book import preferred_move
 from .rules import RuleName
 from .position import Position
 from .strategy import StrategyRequest, StrategyStatus, select_black_move
@@ -27,6 +29,13 @@ from .white import WhiteCover, search_white_covers, white_evaluation_contexts
 
 
 THREE_RULES = (RuleName.CLAIMEVEN, RuleName.BASEINVERSE, RuleName.VERTICAL)
+# White refutation-avoidance policies (see docs/victor-opening-and-app-readiness.md):
+#   off               keep the Negamax-ranked move
+#   first_unrefuted   skip any refuted move; first unrefuted wins (previous default)
+#   certified_only    only a verified CL/BI/VE refutation can skip a move
+#   positive_evidence leave the Negamax move only for an unrefuted move that
+#                     reaches a restricted White threat cover
+WHITE_POLICIES = ('off', 'first_unrefuted', 'certified_only', 'positive_evidence')
 
 
 @dataclass(frozen=True)
@@ -44,6 +53,11 @@ class SolverBudget:
     # Optional wall-clock limit for one whole analysis. Strategic work is skipped
     # once it passes; a legal move is always returned. None = node budgets only.
     deadline: float | None = None
+    # Exact opening book (completed offline oracle searches) consulted first.
+    # ``book_exclude`` drops entries whose ONLY sources are listed (held-out runs).
+    opening_book: bool = True
+    book_exclude: tuple = ()
+    white_refutation: str = 'first_unrefuted'
 
     def __post_init__(self):
         object.__setattr__(self, 'rules', _checked_rules(self.rules))
@@ -56,6 +70,13 @@ class SolverBudget:
             raise ValueError('strategic_children must be <=7')
         if type(self.fallback_depth) is not int or not 1 <= self.fallback_depth <= 6:
             raise ValueError('fallback_depth must be integer 1..6')
+        if self.white_refutation not in WHITE_POLICIES:
+            raise ValueError(f'white_refutation must be one of {WHITE_POLICIES}')
+        if type(self.opening_book) is not bool:
+            raise ValueError('opening_book must be a bool')
+        if type(self.book_exclude) is not tuple or not all(
+                s in ('shallow', 'closure', 'benchmark') for s in self.book_exclude):
+            raise ValueError('book_exclude must be a tuple of opening-book source names')
         if self.deadline is not None and (type(self.deadline) not in (int, float)
                                           or not isfinite(self.deadline) or self.deadline <= 0):
             raise ValueError('deadline must be a positive finite number of seconds, or None')
@@ -86,7 +107,7 @@ class SolverResult:
 
     @property
     def justified_move(self):
-        return self.move_kind in ('exact', 'terminal_win', 'forced_defense',
+        return self.move_kind in ('exact', 'opening_book', 'terminal_win', 'forced_defense',
                                   'strategic_nonloss', 'verified_policy_nonloss')
 
 
@@ -115,6 +136,8 @@ def _refutation(child, budget, expired):
         position = Position.from_board(grandchild.board, 0)
         if _certificate(position, budget):
             return 'certified'
+        if expired():  # finer deadline granularity: one cover search per check
+            return 'unchecked' if found == 'unrefuted' else found
         if found == 'unrefuted' and set(budget.rules) - set(THREE_RULES):
             cover = search_nine_rule_cover(position, node_budget=budget.cover_nodes,
                                            rules=budget.rules)
@@ -130,12 +153,26 @@ def _exact_choice(p, exact, budget):
     In lost or drawn positions this prefers resilient moves against fallible
     opponents instead of the first column in centre order.
     """
-    best = [c for c, v in exact.move_values if v == exact.value]
-    if len(best) == 1:
-        return best[0]
-    scores = NegamaxAgent(budget.fallback_depth).score_moves(
-        SimpleNamespace(board=p.board, current_player=p.player_to_move))
-    return max(best, key=lambda c: scores[c])  # max keeps the first (centre) tie.
+    return preferred_move(p.board, p.player_to_move, exact.move_values, exact.value,
+                          budget.fallback_depth)
+
+
+def _book_result(p, budget, started):
+    """A SolverResult from an exact opening-book entry, or None (normal policy).
+
+    Entries are completed offline oracle searches; absent, unresolved, invalid
+    or disabled lookups never influence the move.
+    """
+    if not budget.opening_book or p.terminal:
+        return None
+    hit = opening_book.lookup(p, exclude_sources=budget.book_exclude)
+    if hit.status != 'exact':
+        return None
+    exact = ExactResult('opening_book', hit.value, hit.move_values, 0, 0, 0,
+                        monotonic() - started)
+    return SolverResult(p, _exact_choice(p, exact, budget), 'opening_book', hit.value, None,
+                        'exact opening-book entry (completed independent oracle search); '
+                        'Negamax ranks equal-value moves', exact)
 
 
 def analyze_position(board, player_to_move, budget: SolverBudget = SolverBudget(), *,
@@ -151,6 +188,9 @@ def analyze_position(board, player_to_move, budget: SolverBudget = SolverBudget(
         raise ValueError('budget must be SolverBudget')
     started = monotonic()
     p = Position.from_board(board, player_to_move)
+    book = _book_result(p, budget, started)
+    if book is not None:
+        return book
     bits = Bits.from_position(p)
     limit = budget.exact
     if budget.deadline is not None and (limit.seconds is None or limit.seconds > budget.deadline):
@@ -203,7 +243,7 @@ def analyze_position(board, player_to_move, budget: SolverBudget = SolverBudget(
                 verdict = verify_nine_rule_witness(p, black_cover.witness)
                 if verdict.status is not VerificationStatus.VERIFIED_UNCERTIFIED:
                     raise RuntimeError('producer/verifier disagreement')
-                cert = _certificate(p, budget)
+                cert = None if expired() else _certificate(p, budget)
                 if cert:
                     bound = 'Black >= draw (established CL/BI/VE theorem on this position)'
                 elif not expired():
@@ -259,45 +299,73 @@ def analyze_position(board, player_to_move, budget: SolverBudget = SolverBudget(
                         refutations, late)
 
 
-def _white_choice(bits, candidates, budget, expired, fallback):
-    """White prefers moves after which no Black reply reaches a Black cover.
+def _acceptable(status, policy):
+    return status == 'unrefuted' or (policy == 'certified_only' and status == 'nine_rule')
 
-    Scan candidates in Negamax order. A refuted move is skipped (a certified
-    refutation proves it cannot win). The first unrefuted move is chosen,
-    preferring one whose child also has a restricted White threat cover.
-    Every choice here is exploratory; nothing becomes an outcome claim.
+
+def white_choice_from_scan(scan, fallback, policy):
+    """(column, label) from [(column, refutation status, White cover found)] in Negamax order.
+
+    ``label`` is None when the fallback stands. A refutation proves at most that
+    a move cannot WIN; it says nothing about whether an alternative avoids
+    losing, so a move chosen here never carries an outcome claim.
+    """
+    if policy == 'off':
+        return fallback, None
+    first = None
+    for c, status, cover in scan:
+        if not _acceptable(status, policy):
+            continue
+        if cover:
+            return c, 'exploratory_white_context'
+        if first is None:
+            first = c
+    if policy != 'positive_evidence' and first is not None and first != fallback:
+        return first, 'exploratory_unrefuted'
+    return fallback, None
+
+
+def _white_choice(bits, candidates, budget, expired, fallback):
+    """White may leave the Negamax move after a refutation scan (policy-dependent).
+
+    Scan candidates in Negamax order: does some Black reply reach a Black cover
+    (a certified refutation proves the move cannot win)? Restricted White threat
+    covers are searched for acceptable candidates. Every choice here is
+    exploratory; nothing becomes an outcome claim.
     """
     move, kind, reason = fallback
-    refutations, first, covers = [], None, ()
+    policy = budget.white_refutation
+    if policy == 'off' or (policy == 'positive_evidence' and not budget.white_contexts):
+        return move, kind, reason, (), ()
+    scan, covers = [], {}
     for c in candidates:
         if expired():
             break
         child = bits.drop(c)
         status = _refutation(child, budget, expired)
-        refutations.append((c, status))
-        if status != 'unrefuted':
-            continue
-        if budget.white_contexts and white_evaluation_contexts(
-                Position.from_board(child.board, 1)):
+        found = ()
+        if (_acceptable(status, policy) and budget.white_contexts and
+                white_evaluation_contexts(Position.from_board(child.board, 1))):
             found = search_white_covers(Position.from_board(child.board, 1),
                                         node_budget=budget.cover_nodes,
                                         context_budget=budget.white_contexts,
                                         rules=budget.rules)
-            if any(cover.status is SearchStatus.FOUND for cover in found):
-                return (c, 'exploratory_white_context',
-                        'unrefuted move reaches a restricted White threat cover; '
-                        'outcome remains conditional', found, tuple(refutations))
-        if first is None:
-            first = c
-            # Without White contexts there is nothing further to prefer.
-            if not budget.white_contexts:
-                break
-    if first is not None and first != move:
-        return (first, 'exploratory_unrefuted',
-                'higher-ranked moves let Black reach a Black cover; no reply to this '
-                'move reaches one within budgets (not an outcome claim)', covers,
-                tuple(refutations))
-    return move, kind, reason, covers, tuple(refutations)
+        has_cover = any(cover.status is SearchStatus.FOUND for cover in found)
+        scan.append((c, status, has_cover))
+        if has_cover:
+            covers[c] = found
+            break  # the first acceptable move with a White cover decides
+        if _acceptable(status, policy) and not budget.white_contexts:
+            break  # without White contexts there is nothing further to prefer
+    choice, label = white_choice_from_scan(scan, move, policy)
+    refutations = tuple((c, status) for c, status, _ in scan)
+    if label == 'exploratory_white_context':
+        return (choice, label, 'unrefuted move reaches a restricted White threat cover; '
+                'outcome remains conditional', covers[choice], refutations)
+    if label == 'exploratory_unrefuted':
+        return (choice, label, 'higher-ranked moves let Black reach a Black cover; no reply '
+                'to this move reaches one within budgets (not an outcome claim)', (), refutations)
+    return move, kind, reason, (), refutations
 
 
 def select_move(board, player_to_move, budget: SolverBudget = SolverBudget()):
@@ -325,6 +393,12 @@ class VictorSolver:
         p = Position.from_board(board, player_to_move)
         bits = Bits.from_position(p)
         continuation = None
+        # Exact book entries, like exact search, take precedence over a retained plan.
+        book = _book_result(p, self.budget, monotonic())
+        if book is not None:
+            self.cert = self.policy = self.expected = self.audit = None
+            self.last_result = book
+            return book
         if player_to_move == 1 and self.expected is not None:
             continuation = next((self.history + (c,) for c in self.expected.legal()
                                  if self.expected.drop(c) == bits), None)

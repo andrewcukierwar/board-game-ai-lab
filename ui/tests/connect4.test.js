@@ -6,6 +6,8 @@ import { createRoot } from 'react-dom/client';
 import { MemoryRouter } from 'react-router-dom';
 import Connect4Page from '../src/pages/Connect4.jsx';
 import { explained } from '../e2e/fixtures/analysis.js';
+import { validateSnapshot } from '../src/connect4/gameSnapshot.js';
+import { opponentPayload, playerTypes, researchAgentEnabled } from '../src/connect4/researchAgent.js';
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -19,13 +21,13 @@ function state(revision = 0, overrides = {}) {
 const response = data => ({ data });
 const failure = (status, error = 'Request failed') => Object.assign(new Error(error), { response: { status, data: { error } } });
 const flush = () => act(async () => { await new Promise(resolve => setImmediate(resolve)); });
-function setup(http) {
+function setup(http, props = {}) {
   const dom = new JSDOM('<div id="root"></div>', { url: 'http://localhost/connect4' });
   globalThis.window = dom.window;
   globalThis.document = dom.window.document;
   const doc = dom.window.document;
   const root = createRoot(doc.getElementById('root'));
-  act(() => root.render(React.createElement(MemoryRouter, { future: { v7_startTransition: true, v7_relativeSplatPath: true } }, React.createElement(Connect4Page, { http }))));
+  act(() => root.render(React.createElement(MemoryRouter, { future: { v7_startTransition: true, v7_relativeSplatPath: true } }, React.createElement(Connect4Page, { http, ...props }))));
   const cleanup = () => { act(() => root.unmount()); dom.window.close(); };
   return { doc, cleanup, el: id => doc.getElementById(id),
     click: id => act(() => doc.getElementById(id).click()),
@@ -551,6 +553,93 @@ for (const depth of [1, 2, 4, 6, 8]) {
     assert.deepEqual([...ui.el('opponent-depth').options].map(option => Number(option.value)), [1, 2, 4, 6, 8]);
     select(ui, 'opponent-depth', String(depth)); ui.click('start-button'); await flush();
     assert.equal(body.player2.depth, depth);
+    ui.cleanup();
+  });
+}
+
+// ------------------------------------------------ Victor research (opt-in)
+
+const researchPlayers = [{ type: 'human' }, { type: 'victor_research' }];
+const coded = (status, code, error) => Object.assign(new Error(error), { response: { status, data: { error, code } } });
+
+test('the Victor research option is hidden and its snapshots rejected by default', async () => {
+  assert.equal(researchAgentEnabled(undefined), false);
+  for (const value of ['', 'false', '0', 'TRUE', 'yes', ' true']) assert.equal(researchAgentEnabled(value), false);
+  assert.equal(researchAgentEnabled('true'), true);
+  assert.equal(researchAgentEnabled('1'), true);
+  assert.throws(() => validateSnapshot(state(0, { players: researchPlayers })), /did not return a game snapshot/);
+  assert.equal(validateSnapshot(state(0, { players: researchPlayers }), {}, playerTypes(true)).players[1].type, 'victor_research');
+  assert.throws(() => opponentPayload({ type: 'victor_research' }, false), /Unsupported competitor/);
+  const ui = setup({ post: async () => response(state()) });
+  assert.equal(ui.doc.querySelector('input[value="victor_research"]'), null);
+  assert.deepEqual([...ui.doc.querySelectorAll('input[name="opponent"]')].map(input => input.value), ['random', 'negamax', 'mcts']);
+  assert.doesNotMatch(ui.doc.body.textContent, /Victor/);
+  ui.cleanup();
+});
+
+test('enabled Victor research is labelled experimental and sends only its type', async () => {
+  const calls = [];
+  const ui = setup({ post: async (url, body) => {
+    calls.push(body);
+    if (url.endsWith('start_game')) return response(state(0, { players: researchPlayers }));
+    if ('column' in body) return response(state(1, { players: researchPlayers }));
+    return response(state(2, { players: researchPlayers }));
+  } }, { researchEnabled: true });
+  const option = ui.doc.querySelector('input[value="victor_research"]').closest('label');
+  assert.match(option.textContent, /^Victor Research \(Experimental\)/);
+  select(ui, 'opponent-type', 'victor_research');
+  const description = ui.doc.querySelector('.agent-description').textContent;
+  assert.match(description, /experimental/i);
+  assert.match(description, /not perfect play/);
+  assert.doesNotMatch(ui.doc.body.textContent, /unbeatable|always wins|perfect solver/i);
+  assert.equal(ui.el('negamax-options').hidden, true);
+  assert.equal(ui.el('mcts-options').hidden, true);
+  ui.click('start-button'); await flush();
+  assert.deepEqual(calls[0], { player1: { type: 'human' }, player2: { type: 'victor_research' } });
+  act(() => ui.column().click()); await flush();
+  assert.deepEqual(calls.slice(1), [{ game_id: 'game-a', revision: 0, column: 3 }, { game_id: 'game-a', revision: 1 }]);
+  assert.match(ui.el('message').textContent, /Your turn/);
+  assert.match(ui.doc.querySelector('.settings-note').textContent, /Victor Research \(Experimental\)/);
+  ui.cleanup();
+});
+
+test('a server without the research flag is reported without breaking the page', async () => {
+  let starts = 0;
+  const ui = setup({ post: async (url, body) => {
+    if (++starts === 1) throw coded(400, 'invalid_agent', 'Supported player types are human, random, negamax, and mcts.');
+    return response(state(0, { players: [body.player1, body.player2] }));
+  } }, { researchEnabled: true });
+  select(ui, 'opponent-type', 'victor_research');
+  ui.click('start-button'); await flush();
+  assert.match(ui.el('message').textContent, /not enabled on this game server/);
+  assert.equal(ui.el('start-button').disabled, false);
+  select(ui, 'opponent-type', 'random');
+  ui.click('start-button'); await flush();
+  assert.equal(ui.doc.querySelectorAll('.cell').length, 42);
+  ui.cleanup();
+});
+
+for (const [code, status, pattern] of [['agent_busy', 503, /busy with another game/], ['invalid_agent', 409, /not enabled on this game server/],
+  ['agent_failed', 503, /could not make a legal move/]]) {
+  test(`research ${code} reconciles the board and offers an explicit retry`, async () => {
+    let aiCalls = 0, gets = 0;
+    const snapshot = revision => state(revision, { players: researchPlayers });
+    const ui = setup({ get: async () => { gets++; return response(snapshot(1)); }, post: async (url, body) => {
+      if (url.endsWith('start_game')) return response(snapshot(0));
+      if ('column' in body) return response(snapshot(1));
+      if (++aiCalls === 1) throw coded(status, code, code === 'agent_failed' ? 'The AI could not make a legal move. Retry or start a new game.' : 'server text');
+      return response(snapshot(2));
+    } }, { researchEnabled: true });
+    select(ui, 'opponent-type', 'victor_research');
+    ui.click('start-button'); await flush();
+    act(() => ui.column().click()); await flush();
+    assert.equal(aiCalls, 1);
+    assert.equal(gets, 1);
+    assert.match(ui.el('message').textContent, pattern);
+    assert.equal(ui.el('retry-button').hidden, false);
+    ui.click('retry-button'); await flush();
+    assert.equal(aiCalls, 2);
+    assert.equal(ui.column().disabled, false);
     ui.cleanup();
   });
 }

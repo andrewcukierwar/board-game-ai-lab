@@ -81,7 +81,12 @@ class NineRulePolicy:
     Rule retirement requires actual blocking of all original target groups;
     timing rules can stay active until a terminal win instead of retiring early.
     """
-    def __init__(self, witness: NineRuleWitness):
+    retiring_spares = True  # class default; False restores the pre-October policy
+
+    def __init__(self, witness: NineRuleWitness, *, retiring_spares: bool = True):
+        if type(retiring_spares) is not bool:
+            raise ValueError('retiring_spares must be a bool')
+        self.retiring_spares = retiring_spares
         if type(witness) is not NineRuleWitness:
             raise ValueError('expected a NineRuleWitness')
         try:
@@ -202,6 +207,23 @@ class NineRulePolicy:
                 elif o.kind == BC:
                     forbidden.update(o.squares)
         choices = [c for c in p.legal() if Square(5 - p.heights[c], c) not in forbidden]
+        if not choices and self.retiring_spares:
+            # Last resort, a retiring spare: a Black stone on a rule square cannot
+            # hurt that rule if afterwards every group the rule must solve
+            # already contains a Black stone (the rule retires, as in _prune).
+            # Every active rule whose obligations use the square must retire;
+            # rule squares are disjoint (§7.4 C1), so no other rule is touched.
+            # Global soundness stays conditional: only the audit can verify it.
+            for c in p.legal():
+                s = Square(5 - p.heights[c], c)
+                owners = [i for i, r in enumerate(state.rules)
+                          if any(s in o.squares for o in r.obligations)]
+                after = self._prune(PolicyState(p.drop(c), state.rules))
+                if owners and all(after.rules[i].phase == 'retired' for i in owners):
+                    choices.append(c)
+            if choices:
+                choices.sort(key=lambda c: (p.heights[c] + 1) % 2)
+                return PolicyDecision('selected', choices[0], 'retiring_spare', state)
         if not choices:
             return PolicyDecision('no_permitted_spare', state=state)
         # Prefer the established even-row convention. Mixed Before Verticals

@@ -80,7 +80,8 @@ def test_moves_are_legal_bounded_and_labelled(history):
     assert perf_counter() - started < PUBLIC_BUDGET.deadline + 2.0  # Generous CI margin.
     assert agent.last_decision['move'] == column and agent.last_decision['kind']
     if history == (0, 1, 0, 1, 0):
-        assert column == 0 and agent.last_decision['kind'] in ('exact', 'forced_defense')
+        assert column == 0 and agent.last_decision['kind'] in ('exact', 'forced_defense',
+                                                               'opening_book')
 
 
 def test_complete_game_against_random_is_legal():
@@ -188,3 +189,49 @@ def test_disabling_after_start_blocks_research_moves(enabled):
     enabled.config['VICTOR_RESEARCH_ENABLED'] = False
     result = move(enabled, state)
     assert result.status_code == 409 and result.json['code'] == 'invalid_agent'
+
+
+def test_opening_moves_come_from_the_exact_book_quickly():
+    agent = VictorResearchAgent()
+    started = perf_counter()
+    assert agent.choose_move(game()) == 3  # the unique winning first move
+    assert agent.last_decision['kind'] == 'opening_book'
+    assert agent.last_decision['exact_value'] == 1
+    assert perf_counter() - started < 0.5
+
+
+def test_api_game_history_replays_exactly(enabled):
+    """A complete research-agent game: every record replays from the empty board."""
+    rng = Random(9)
+    state = start(enabled, research_player=0).json
+    client = enabled.test_client()
+    while not state['gameOver']:
+        if state['players'][state['currentPlayer']]['type'] == 'human':
+            result = move(enabled, state, rng.choice(state['legalMoves']))
+        else:
+            result = move(enabled, state)
+        assert result.status_code == 200
+        assert result.json['revision'] == state['revision'] + 1
+        state = result.json
+    records = client.get(BASE + '/games/' + state['game_id'] + '/history').json
+    replay = Connect4()
+    for number, record in enumerate(records['moves'], 1):
+        assert record['revision'] == number
+        assert [list(r) for r in replay.board] == record['board_before']
+        assert replay.make_move(record['column'])
+        assert [list(r) for r in replay.board] == record['board_after']
+        assert record['agent'] in ({'type': 'human'}, {'type': 'victor_research'})
+    assert [list(r) for r in replay.board] == state['board']
+    assert not set(walk(records)) & set(RESEARCH_FIELDS)
+
+
+def test_flag_off_app_never_imports_or_runs_the_research_agent(monkeypatch):
+    import sys
+    monkeypatch.delenv('VICTOR_RESEARCH_ENABLED', raising=False)
+    monkeypatch.delitem(sys.modules, 'games.connect4.agents.victor_research_agent', raising=False)
+    app = create_app({'TESTING': True, 'EXPLANATIONS_ENABLED': False})
+    client = app.test_client()
+    state = client.post(BASE + '/start_game', json={'player1': {'type': 'human'},
+                                                    'player2': {'type': 'mcts', 'simulation_limit': 50}}).json
+    assert move(app, move(app, state, 3).json).status_code == 200
+    assert 'games.connect4.agents.victor_research_agent' not in sys.modules

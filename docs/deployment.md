@@ -75,7 +75,7 @@ The following source defaults can remain unset. If existing backend overrides ar
 | `EXPLANATION_CACHE_TTL_SECONDS` | `1800` |
 | `EXPLANATION_CLIENT_CAPACITY` | `1024` |
 
-`VICTOR_RESEARCH_ENABLED` (October 2026) gates the opt-in `victor_research` API agent and defaults to `false`. Leave it **unset** in production: it has not been enabled, deployed or measured on Render. See [the integration report](victor-performance-and-integration.md#application-integration) before any separately approved trial.
+`VICTOR_RESEARCH_ENABLED` (October 2026) gates the opt-in `victor_research` API agent and defaults to `false`. Leave it **unset** in production: it has not been enabled, deployed or measured on Render. The Static Site has a matching build-time flag, `VITE_VICTOR_RESEARCH_ENABLED` (default off), which only shows the "Victor Research (Experimental)" opponent on the Connect 4 page. Both must be `true` for the option to work; with only the UI flag set, the page reports that the server has not enabled it. See the [readiness checklist](victor-opening-and-app-readiness.md#controlled-render-trial-readiness-checklist) before any separately approved trial.
 
 Keep `GUNICORN_CMD_ARGS` unset, the Docker command override empty, one worker/four threads and one instance. `GAME_SESSION_CAPACITY` and `GAME_SESSION_TTL` are application config entries, **not environment overrides read by this code**; retain 128 sessions/1800 seconds.
 
