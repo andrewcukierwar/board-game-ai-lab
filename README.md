@@ -18,9 +18,9 @@ The engineering problem: keep gameplay, recovery, replay, and evaluation consist
 | Interface | What a visitor can do |
 | --- | --- |
 | **Play** | Choose an agent and who moves first, play a game, and inspect grounded analysis. |
-| **Match Lab** | Configure both competitors, step or autoplay, and review the timeline. Supports Human/Human, Human/AI, and AI/AI. |
-| **Tournament Lab** | Build a single-elimination bracket, watch AI matches, or enter as a human competitor. |
-| **Season Lab** | Run balanced AI round robins; inspect standings, ratings, color splits, pairwise results, and exports. |
+| **Match Lab** | Configure both competitors, step or autoplay, and review the timeline. Supports Human/Human, Human/AI, and AI/AI, including opt-in Victor on either color. |
+| **Tournament Lab** | Build a single-elimination bracket, watch AI matches, or enter as a human competitor. Optional duplicate Victor entrants are supported. |
+| **Season Lab** | Run balanced AI round robins; inspect standings, ratings, color splits, pairwise results, and exports, including optional Victor entrants. |
 
 <details>
 <summary>Application screenshots: Play and Match Lab replay</summary>
@@ -65,7 +65,7 @@ flowchart TD
     UI[React / Vite browser UI] --> Labs[Play / Match / Tournament / Season]
     Labs --> API[Flask / Gunicorn one-ply API]
     API --> Session[Bounded game sessions / revision lock]
-    Session --> Agents[Random / Negamax / bounded UCT MCTS]
+    Session --> Agents[Random / Negamax / bounded UCT MCTS / optional Victor Research]
     Agents --> Evidence[Immutable move evidence]
     Evidence --> Replay[Browser compact replay / validated persistence]
     Evidence --> Grounding[Verified board facts / curated references]
@@ -76,7 +76,7 @@ flowchart TD
 
 The browser owns scheduling and local replay/evaluation state. The API commits one legal ply at an exact revision under a per-game lock and records immutable history. Tournaments and seasons retain **one live server game**, replacing it between fixtures and keeping completed replay locally.
 
-Bounded in-memory sessions and one active MCTS search semaphore require one Gunicorn worker and one API instance. Docker Compose serves the UI through Nginx with a `/v1` proxy; Render hosts the static UI and containerized API separately with an exact CORS allowlist. [Deployment](docs/deployment.md) · [API health](https://board-game-ai-lab.onrender.com/v1/connect4/health) · [provenance endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/provenance).
+Bounded in-memory sessions and separate nonblocking MCTS/Victor search reservations require one Gunicorn worker and one API instance. Docker Compose serves the UI through Nginx with a `/v1` proxy; Render hosts the static UI and containerized API separately with an exact CORS allowlist. [Deployment](docs/deployment.md) · [API health](https://board-game-ai-lab.onrender.com/v1/connect4/health) · [provenance endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/provenance).
 
 ## Agents
 
@@ -85,19 +85,22 @@ Bounded in-memory sessions and one active MCTS search semaphore require one Guni
 | **Random** | Uniform choice among legal columns; a baseline with no lookahead. |
 | **Negamax** | Depth-limited adversarial search, terminal dominance, zero draws, deterministic center-first ordering, and corrected transposition-table bound semantics. Public depths reach 8; depth 8 is not optimal Connect 4. |
 | **MCTS** | UCT, stochastic rollouts, alternating-player rewards, and final visit-count selection, with immediate-win and immediate-loss-avoidance root guards. Public UI budgets: 100/400/800 simulations; these do not establish theoretical convergence. |
+| **Victor Research (Experimental)** | Allis-inspired strategy, an exact selected-position opening book, native bounded optimal-move proof search, and heuristic fallback. Publicly playable when enabled; it can lose. |
 
-Random and MCTS use seeded local RNGs in competitions. Public agents need neither PyTorch nor neural checkpoints. **Experimental research**—DQN, neural MCTS, AlphaZero-style self-play, VictorAgent, and historical Mancala work—is separate from the public API and benchmark. Frozen AlphaZero campaign artifacts remain research records.
+Random and MCTS use seeded local RNGs in competitions. Public agents need neither PyTorch nor neural checkpoints. **Experimental research**—DQN, neural MCTS, AlphaZero-style self-play, the historical VictorAgent, and historical Mancala work—is separate from the public API and benchmark. Frozen AlphaZero campaign artifacts remain research records.
 
-The [functional Victor research solver](docs/victor-functional-solver.md) adds bounded exact endgame solving, executable conditional nine-rule Black responses, restricted White threat contexts and complete CLI games. It labels exact results, established bounds and exploratory moves separately; it does not claim perfect play or change the public VictorAgent.
+The [functional Victor research solver](docs/victor-functional-solver.md) adds bounded exact endgame solving, executable conditional nine-rule Black responses, restricted White threat contexts and complete CLI games. It labels exact results, established bounds and exploratory moves separately; it does not claim perfect play or establish a complete executable non-loss theorem for arbitrary nine-rule combinations.
 
-[Victor benchmarking and integration](docs/victor-performance-and-integration.md) evaluates it against an independent C oracle on 371 decisive positions and 1,120 adjudicated games. Exact search now reaches 24 empty cells; optimal-move accuracy rose from 70.4% to 79.0% and the game score from 0.790 to 0.844. Ablations show that exact search, CL/BI/VE and the composite rules each add measurable strength. An opt-in `victor_research` API agent (experimental, not perfect play) exists behind `VICTOR_RESEARCH_ENABLED`, which is **off by default** and not deployed.
+[Victor benchmarking and integration](docs/victor-performance-and-integration.md) evaluates it against an independent C oracle on 371 decisive positions and 1,120 adjudicated games. Exact search now reaches 24 empty cells; optimal-move accuracy rose from 70.4% to 79.0% and the game score from 0.790 to 0.844. Ablations show that exact search, CL/BI/VE and the composite rules each add measurable strength. An opt-in `victor_research` API agent (experimental, not perfect play) exists behind `VICTOR_RESEARCH_ENABLED`, which defaults off in an unconfigured environment. Victor Research is now publicly enabled on Play; this integration adds the same optional agent to the competition labs.
 
-[Victor opening strength and app readiness](docs/victor-opening-and-app-readiness.md) adds an exact opening book: 1,722 positions solved offline by the independent C oracle in 13.5 minutes. It covers every position with at most two stones and every position Victor can face through eight stones from the empty board, as either colour, against any reply. It is verified, mirror-aware and pure Python at runtime, but **not a complete opening book**. Victor now makes no errors inside the book and half as many errors overall in empty-board games, and the public agent's p95 move time fell from 1.01 s to 0.32 s. Game scores did not measurably change, and the frozen-suite accuracy gain (79.0% → 84.1%) is in-sample; held-out openings are unchanged. A "Victor Research (Experimental)" option on the Connect 4 page appears only when both `VITE_VICTOR_RESEARCH_ENABLED` (UI build) and `VICTOR_RESEARCH_ENABLED` (API) are set. Both are off by default and have not been deployed.
+[Victor opening strength and app readiness](docs/victor-opening-and-app-readiness.md) adds an exact opening book: 1,722 positions solved offline by the independent C oracle in 13.5 minutes. It covers every position with at most two stones and every position Victor can face through eight stones from the empty board, as either colour, against any reply. It is verified, mirror-aware and pure Python at runtime, but **not a complete opening book**. In that finite sampled campaign, Victor made no errors inside the book and half as many errors overall in empty-board games, and the measured agent's p95 move time fell from 1.01 s to 0.32 s on that test machine. Game scores did not measurably change, and the frozen-suite accuracy gain (79.0% → 84.1%) is in-sample; held-out openings are unchanged. The frontend exposes Victor only with `VITE_VICTOR_RESEARCH_ENABLED=true` (or `1`); the server also requires `VICTOR_RESEARCH_ENABLED=true`. Both are already enabled in production. This change preserves those settings and adds Victor to Match, Tournament and Season Labs without adding it to default fields. See [lab integration and compatibility](docs/victor-labs-integration.md).
 
 ```sh
 .venv/bin/python -m games.connect4.victor.cli --white victor --black negamax:4
 .venv/bin/python -m games.connect4.victor.cli --white human --black victor
 ```
+
+[Native bounded optimal-move proof search and the second-pass audit](docs/victor-astra-second-pass.md) distinguish completed exact proofs from incomplete bounds and heuristic choices. Independent exact-oracle results cover finite sampled positions, not all Connect 4 states. Seeds determine brackets, schedules, colors and seeded agents’ randomness; Victor uses wall-clock budgets, so CPU contention and hosting performance can change future moves. Stored move records are historical evidence rather than a promise of identical re-execution. On Render’s Free-tier CPU, large Victor seasons may take considerable time. All labs serialize moves and pause for explicit recovery after busy or uncertain requests.
 
 ## Reproducibility & evaluation
 

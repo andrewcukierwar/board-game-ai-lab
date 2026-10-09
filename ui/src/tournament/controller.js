@@ -1,3 +1,4 @@
+import { assertResearchExecution, researchAgentEnabled, researchErrorMessage, VICTOR_RESEARCH } from '../connect4/researchAgent.js';
 import { requestMatchPly } from '../connect4/matchTransport.js';
 import { validateMatchHistory } from '../connect4/matchRecord.js';
 import { PLAYBACK_SPEEDS } from '../connect4/useConnect4Match.js';
@@ -7,8 +8,8 @@ import { loadTournament, saveTournament } from './storage.js';
 // Sole mutation owner. React is a subscriber; bracket transitions remain pure.
 // Pausing/unmounting never aborts a POST. Reconciliation and persistence still finish.
 export class TournamentController {
-  constructor(http, storage, schedule = (callback, delay) => setTimeout(callback, delay), cancel = timer => clearTimeout(timer)) {
-    this.http = http; this.storage = storage; this.schedule = schedule; this.cancel = cancel;
+  constructor(http, storage, schedule = (callback, delay) => setTimeout(callback, delay), cancel = timer => clearTimeout(timer), researchEnabled = researchAgentEnabled()) {
+    this.researchEnabled = researchEnabled; this.http = http; this.storage = storage; this.schedule = schedule; this.cancel = cancel;
     const saved = loadTournament(storage);
     const interruptedHuman = saved.tournament?.active?.status === 'interrupted' &&
       matchupHasHuman(saved.tournament, findMatchup(saved.tournament, saved.tournament.active.matchupId));
@@ -38,7 +39,7 @@ export class TournamentController {
   }
   create(configs, seed) {
     if (this.state.busy) return;
-    const fresh = createTournament(configs, seed);
+    const fresh = createTournament(configs, seed, undefined, this.researchEnabled);
     fresh.retainedGameId = this.state.tournament?.active?.gameId ?? this.state.tournament?.retainedGameId ?? null;
     this.pause(); this.minRevision = 0;
     this.persist(fresh); this.patch({ error: '', uncertain: false, waiting: false, waitingForHuman: false, reviewing: false });
@@ -58,11 +59,14 @@ export class TournamentController {
   }
   async recover(error) {
     this.pause();
-    const reason = error.response?.data?.error || error.message || 'Request could not be confirmed.';
-    this.patch({ error: reason, uncertain: true, waiting: true });
     const active = this.state.tournament?.active;
+    const configs = active ? gamePlan(this.state.tournament, findMatchup(this.state.tournament, active.matchupId)).playerConfigs : [];
+    const selection = active?.gameId ? configs[active.columns.length % 2] : configs.find(p => p.type === VICTOR_RESEARCH);
+    const reason = researchErrorMessage(error, selection, true) || error.response?.data?.error || error.message || 'Request could not be confirmed.';
+    this.patch({ error: reason, uncertain: true, waiting: true });
+    if (!active) { this.patch({ uncertain: false, waiting: false }); return; }
     if (!active?.gameId || active.status === 'starting') {
-      this.interrupted('Start could not be confirmed. Explicitly restart this seeded game; an unknown session may expire normally.'); return;
+      this.interrupted(reason + ' Start could not be confirmed. Explicitly restart this seeded game; an unknown session may expire normally.'); return;
     }
     try { await this.sync(); this.patch({ error: reason }); }
     catch (readError) {
@@ -99,6 +103,7 @@ export class TournamentController {
     if (!m) return;
     if (t.active && !restart) return;
     const plan = gamePlan(t, m), replaceId = t.active?.gameId ?? t.retainedGameId;
+    assertResearchExecution(plan.playerConfigs, this.researchEnabled);
     const copy = structuredClone(t);
     copy.active = { matchupId: m.matchupId, gameNumber: plan.gameNumber, gameId: null, status: 'starting', columns: [] };
     findMatchup(copy, m.matchupId).status = 'active'; this.persist(copy); this.minRevision = 0;
@@ -124,6 +129,7 @@ export class TournamentController {
   }
   refresh() {
     this.pause();
+    if (!this.state.tournament?.active) { if (!this.state.uncertain) this.patch({ error: '' }); return; }
     if (this.state.tournament?.active?.status === 'starting' || this.state.tournament?.active?.status === 'interrupted' && !this.state.tournament.active.gameId) {
       this.interrupted('Start was interrupted. Explicitly restart this seeded game.'); return;
     }
@@ -137,6 +143,7 @@ export class TournamentController {
     if (game.gameOver) { await this.sync(); return; }
     const human = game.players[game.currentPlayer].type === 'human';
     if (human ? column === undefined || this.state.reviewing || !game.legalMoves.includes(column) : column !== undefined) return;
+    assertResearchExecution(game.players, this.researchEnabled);
     const accepted = await requestMatchPly(this.http, game, column);
     this.minRevision = accepted.revision; this.patch({ uncertain: true });
     await this.sync();

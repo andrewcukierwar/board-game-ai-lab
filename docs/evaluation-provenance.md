@@ -146,3 +146,30 @@ and direct standings/Elo calculations supplement shared exporter/verifier tests.
 
 See [benchmark methodology](../benchmarks/connect4/canonical-season-v1.md),
 [quickstart](quickstart.md) and [Phase 5E report](phase5e-evaluation-provenance-export.md).
+
+## Victor competition extension (October 9, 2026)
+
+Ordinary seasons still emit the frozen schema 1 / methodology 1 envelope. Victor
+seasons emit schema 2 / methodology 2, retaining the same schedule, scoring,
+analytics, canonicalization and integrity coverage. Neither old canonical results
+nor their hashes are changed. Persistence remains Season v1 / Tournament v1.
+
+The v2 top-level reference registry adds `victor_research: 1`: the bounded public
+hybrid policy released at `31da353143c69c7e5ab4efd0fb6788a62e22e0ff`, merged at
+`8a3c3e0e1e0d612ae121819d5fde4341aee8e3ab`. This identifies a reference policy,
+not an exact replay promise. Methodology 2 adds explicit wall-clock budget,
+seed-scope, historical replay and captured-provenance limitations. Engine 1
+continues to identify board/replay semantics; it does not identify Victor.
+
+The current API manifest in `api/connect4/provenance.py` identifies the core
+engine and classical agents only. It is preserved verbatim per game and is not
+silently upgraded to include Victor. Both the verifier and export panel explain
+that the declared Victor reference version does not authenticate which algorithm
+executed historical moves. Capture a backend source commit and runtime details
+when conducting a real campaign. Do not infer missing historical identity.
+
+The verifier accepts exactly Victor's `{type: 'victor_research'}` configuration,
+rejects unknown agents and extra fields, and requires v2 for Victor evidence.
+It independently reconstructs the schedule and boards and recomputes analytics.
+The same CLI verifies both versions, including completed Victor seasons while
+the UI research flag is disabled. See [integration report](victor-labs-integration.md).

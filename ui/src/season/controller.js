@@ -1,3 +1,4 @@
+import { assertResearchExecution, researchAgentEnabled, researchErrorMessage, VICTOR_RESEARCH } from '../connect4/researchAgent.js';
 import { requestMatchPly } from '../connect4/matchTransport.js';
 import { validateMatchHistory } from '../connect4/matchRecord.js';
 import { PLAYBACK_SPEEDS } from '../connect4/useConnect4Match.js';
@@ -8,8 +9,8 @@ const activeCopy = s => ({ ...s, active: s.active && { ...s.active }, schedule: 
 
 // One mutation owner survives route remounts. Never abort or retry a mutation.
 export class SeasonController {
-  constructor(http, storage, schedule = (fn, delay) => setTimeout(fn, delay), cancel = id => clearTimeout(id)) {
-    this.http = http; this.storage = storage; this.schedule = schedule; this.cancel = cancel;
+  constructor(http, storage, schedule = (fn, delay) => setTimeout(fn, delay), cancel = id => clearTimeout(id), researchEnabled = researchAgentEnabled()) {
+    this.researchEnabled = researchEnabled; this.http = http; this.storage = storage; this.schedule = schedule; this.cancel = cancel;
     const saved = loadSeason(storage);
     this.state = { season: saved.season, error: saved.error, storageAvailable: saved.available, busy: false,
       uncertain: Boolean(saved.season?.active), mode: 'paused', speed: 'normal', waiting: false, reviewing: false };
@@ -27,7 +28,7 @@ export class SeasonController {
   returnLive() { this.patch({ reviewing: false }); }
   create(configs, seed, games) {
     if (this.state.busy) return;
-    const fresh = createSeason(configs, seed, games);
+    const fresh = createSeason(configs, seed, games, undefined, this.researchEnabled);
     fresh.retainedGameId = this.state.season?.active?.gameId ?? this.state.season?.retainedGameId ?? null;
     this.pause(); this.minRevision = 0; this.persist(fresh);
     this.patch({ error: '', uncertain: false, waiting: false, reviewing: false });
@@ -46,11 +47,14 @@ export class SeasonController {
   }
   async recover(error) {
     this.pause();
-    const reason = error.response?.data?.error || error.message || 'Request could not be confirmed.';
-    this.patch({ error: reason, uncertain: true, waiting: true });
     const a = this.state.season?.active;
+    const configs = a ? gamePlan(this.state.season).playerConfigs : [];
+    const selection = a?.gameId ? configs[a.columns.length % 2] : configs.find(p => p.type === VICTOR_RESEARCH);
+    const reason = researchErrorMessage(error, selection, true) || error.response?.data?.error || error.message || 'Request could not be confirmed.';
+    this.patch({ error: reason, uncertain: true, waiting: true });
+    if (!a) { this.patch({ uncertain: false, waiting: false }); return; }
     if (!a?.gameId || a.status === 'starting') {
-      this.interrupted('Start could not be confirmed. Explicitly restart this seeded fixture; an unknown session may expire normally.'); return;
+      this.interrupted(reason + ' Start could not be confirmed. Explicitly restart this seeded fixture; an unknown session may expire normally.'); return;
     }
     try { await this.sync(); this.patch({ error: reason }); }
     catch (readError) {
@@ -77,6 +81,7 @@ export class SeasonController {
     const s = this.state.season, f = currentFixture(s);
     if (!f || s.active && !restart) return;
     const plan = gamePlan(s), replaceId = s.active?.gameId ?? s.retainedGameId, copy = activeCopy(s);
+    assertResearchExecution(plan.playerConfigs, this.researchEnabled);
     copy.active = { fixtureId: f.fixtureId, gameId: null, status: 'starting', columns: [] }; currentFixture(copy).status = 'active';
     this.persist(copy); this.minRevision = 0;
     const response = await this.http.post('/v1/connect4/start_game', { player1: plan.playerConfigs[0], player2: plan.playerConfigs[1], rng_seed: plan.gameSeed, ...(replaceId ? { replace_game_id: replaceId } : {}) });
@@ -112,7 +117,7 @@ export class SeasonController {
     const s = this.state.season, a = s?.active;
     if (!a || a.status !== 'running' || this.state.uncertain || this.state.error) return;
     const { game } = replayColumns(a.columns, gamePlan(s).playerConfigs, a.gameId);
-    if (!game.gameOver) { const accepted = await requestMatchPly(this.http, game); this.minRevision = accepted.revision; this.patch({ uncertain: true }); }
+    if (!game.gameOver) { assertResearchExecution(game.players, this.researchEnabled); const accepted = await requestMatchPly(this.http, game); this.minRevision = accepted.revision; this.patch({ uncertain: true }); }
     await this.sync();
   }
   nextMove() {

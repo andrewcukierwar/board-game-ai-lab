@@ -1,9 +1,11 @@
+import { KNOWN_PLAYER_TYPES, VICTOR_RESEARCH, validResearchConfig } from './researchAgent.js';
 import { validateSnapshot } from './gameSnapshot.js';
 import { competitorLabel, playerColor } from './competitorConfig.js';
 
 export const emptyBoard = () => Array.from({ length: 6 }, () => Array(7).fill(' '));
 const equal = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 export const samePlayers = (a, b) => a?.length === 2 && b?.length === 2 && a.every((p, i) =>
+  (p.type !== VICTOR_RESEARCH || validResearchConfig(p) && validResearchConfig(b[i])) &&
   p.type === b[i].type && p.depth === b[i].depth && p.simulation_limit === b[i].simulation_limit);
 
 function outcome(board) {
@@ -22,7 +24,7 @@ function outcome(board) {
 // revision and outcome. A partial/mismatched history never unlocks execution.
 export function validateMatchHistory(data, expected = {}) {
   const invalid = () => { throw new Error('The match history does not agree with the authoritative board.'); };
-  const game = validateSnapshot(data?.state, expected);
+  const game = validateSnapshot(data?.state, expected, KNOWN_PLAYER_TYPES);
   if ((data.rng_seed !== undefined && (!Number.isInteger(data.rng_seed) || data.rng_seed < 0 || data.rng_seed > 4294967295)) ||
       (expected.rng_seed !== undefined && data.rng_seed !== expected.rng_seed)) invalid();
   if (data.game_id !== game.game_id || data.revision !== game.revision ||
@@ -36,6 +38,7 @@ export function validateMatchHistory(data, expected = {}) {
     if (!record || result.status !== 'ongoing' || record.revision_before !== i || record.revision !== i + 1 ||
         record.move_number !== i + 1 || record.player !== i % 2 || !Number.isInteger(record.column) ||
         record.column < 0 || record.column > 6 || record.agent?.type !== game.players[i % 2].type ||
+        (record.agent.type === VICTOR_RESEARCH && !validResearchConfig(record.agent)) ||
         record.agent.depth !== game.players[i % 2].depth || !equal(record.board_before, board)) invalid();
     const row = board.findLastIndex(r => r[record.column] === ' ');
     if (row === -1) invalid();

@@ -1,4 +1,5 @@
-export const PUBLIC_PLAYER_TYPES = ['human', 'random', 'negamax', 'mcts'];
+import { PUBLIC_PLAYER_TYPES, KNOWN_PLAYER_TYPES, VICTOR_RESEARCH, validResearchConfig } from './researchAgent.js';
+export { PUBLIC_PLAYER_TYPES };
 
 // ``playerTypes`` widens the accepted agents only where a caller opts in.
 export function validateSnapshot(data, expected = {}, playerTypes = PUBLIC_PLAYER_TYPES) {
@@ -8,7 +9,7 @@ export function validateSnapshot(data, expected = {}, playerTypes = PUBLIC_PLAYE
       !Array.isArray(data.board) || data.board.length !== 6 ||
       !data.board.every(row => Array.isArray(row) && row.length === 7 && row.every(piece => ['X', 'O', ' '].includes(piece))) ||
       !Array.isArray(data.players) || data.players.length !== 2 ||
-      !data.players.every(player => player && playerTypes.includes(player.type)) ||
+      !data.players.every(player => player && KNOWN_PLAYER_TYPES.includes(player.type) && playerTypes.includes(player.type) && (player.type !== VICTOR_RESEARCH || validResearchConfig(player))) ||
       ![0, 1].includes(data.currentPlayer) || data.currentPlayer !== data.revision % 2 || typeof data.gameOver !== 'boolean' ||
       !Array.isArray(data.legalMoves) || !data.legalMoves.every(col => Number.isInteger(col) && col >= 0 && col < 7) ||
       (expected.game_id !== undefined && data.game_id !== expected.game_id) ||

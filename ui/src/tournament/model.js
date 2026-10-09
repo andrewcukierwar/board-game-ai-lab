@@ -1,3 +1,4 @@
+import { KNOWN_PLAYER_TYPES, VICTOR_RESEARCH, assertResearchExecution, researchAgentEnabled } from '../connect4/researchAgent.js';
 import { toPlayerPayload, competitorLabel, NEGAMAX_DEPTHS, MCTS_SIMULATIONS } from '../connect4/competitorConfig.js';
 import { emptyBoard, validateMatchHistory } from '../connect4/matchRecord.js';
 
@@ -10,11 +11,11 @@ const check = (condition, message = 'Invalid tournament record.') => { if (!cond
 const equal = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 export function validSeed(seed) { return Number.isInteger(seed) && seed >= 0 && seed <= 0xffffffff; }
 export function entrantConfig(config) {
-  check(config && ['human', 'random', 'negamax', 'mcts'].includes(config.type), 'Choose a public entrant.');
+  check(config && KNOWN_PLAYER_TYPES.includes(config.type), 'Choose a public entrant.');
   check(config.type !== 'negamax' || NEGAMAX_DEPTHS.includes(config.depth));
   check(config.type !== 'mcts' || MCTS_SIMULATIONS.includes(config.simulations));
-  check(equal(Object.keys(config).sort(), (['human', 'random'].includes(config.type) ? ['type'] : config.type === 'negamax' ? ['depth', 'type'] : ['simulations', 'type'])));
-  toPlayerPayload(config);
+  check(equal(Object.keys(config).sort(), (['human', 'random', VICTOR_RESEARCH].includes(config.type) ? ['type'] : config.type === 'negamax' ? ['depth', 'type'] : ['simulations', 'type'])));
+  toPlayerPayload(config, true);
   return { ...config };
 }
 // Domain-separated FNV-1a over ASCII, followed by an unsigned 32-bit avalanche.
@@ -42,11 +43,12 @@ export function roundLabel(size, round) {
   const remaining = size / 2 ** round;
   return ({ 2: 'Final', 4: 'Semifinals', 8: 'Quarterfinals' })[remaining] ?? `Round of ${remaining}`;
 }
-export function createTournament(configs, seed, tournamentId = `tournament-${seed}`) {
+export function createTournament(configs, seed, tournamentId = `tournament-${seed}`, researchEnabled = researchAgentEnabled()) {
   check(Array.isArray(configs) && SIZES.includes(configs.length), 'Choose 8, 16, 32 or 64 entrants.');
   check(validSeed(seed), 'Tournament seed must be an unsigned 32-bit integer.');
   check(typeof tournamentId === 'string' && tournamentId.length > 0 && tournamentId.length <= 100);
   check(configs.filter(c => c?.type === 'human').length <= 1, 'Add yourself to at most one entrant slot.');
+  assertResearchExecution(configs, researchEnabled);
   const size = configs.length, order = bracketOrder(size, seed);
   const entrants = configs.map((config, i) => ({ entrantId: `entrant-${i + 1}`, seedNumber: i + 1, config: entrantConfig(config) }));
   const rounds = Array.from({ length: Math.log2(size) }, (_, round) =>
@@ -89,7 +91,7 @@ export function gamePlan(t, matchup, number = matchup.games.length + 1) {
   const reversed = Boolean(colorSeed & 1) !== (number === 2);
   const playerEntrantIds = reversed ? [matchup.entrantBId, matchup.entrantAId] : [matchup.entrantAId, matchup.entrantBId];
   return { gameNumber: number, gameSeed, playerEntrantIds,
-    playerConfigs: playerEntrantIds.map(id => toPlayerPayload(entrant(t, id).config)) };
+    playerConfigs: playerEntrantIds.map(id => toPlayerPayload(entrant(t, id).config, true)) };
 }
 function boardOutcome(board) {
   for (let r = 0; r < 6; r++) for (let c = 0; c < 7; c++) if (board[r][c] !== ' ') {
@@ -157,7 +159,7 @@ function validateCompletedGame(t, m, game, number) {
 export function validateTournament(value) {
   check(value && value.version === VERSION, 'Unsupported or malformed tournament storage.');
   check(SIZES.includes(value.size) && Array.isArray(value.entrants) && value.entrants.length === value.size);
-  const rebuilt = createTournament(value.entrants.map(e => e.config), value.tournamentSeed, value.tournamentId);
+  const rebuilt = createTournament(value.entrants.map(e => e.config), value.tournamentSeed, value.tournamentId, true);
   check(equal(rebuilt.entrants, value.entrants) && equal(rebuilt.bracketOrder, value.bracketOrder), 'Invalid entrant field or bracket order.');
   check(Array.isArray(value.rounds) && value.rounds.length === rebuilt.rounds.length);
   let gap = false;

@@ -5,7 +5,7 @@ import { create, mockSeason, seedSeason, seasonFixture, accelerate, finish, KEY,
 test.beforeEach(async ({ page }) => page.on('pageerror', error => { throw error; }));
 test('homepage/navigation, representative 8-player setup, strict seed, workload, all lengths/sizes and no Human', async ({ page }) => {
   const mock = await mockSeason(page); await page.goto('/'); await page.getByRole('link', { name: 'Open Season Lab' }).click();
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Season Lab'); await expect(page.locator('.entrant-row')).toHaveCount(8); await expect(page.locator('#season-entrant-1 option')).toHaveCount(9);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Season Lab'); await expect(page.locator('.entrant-row')).toHaveCount(8); await expect(page.locator('#season-entrant-1 option')).toHaveCount(9 + Number((process.env.VICTOR_LABS_UI ?? process.env.VICTOR_RELEASE_UI) === 'true'));
   await expect(page.locator('#season-entrant-1')).not.toContainText('Human');
   for (const [games, count] of [[2, 56], [4, 112], [8, 224]]) { await page.locator('#season-games').selectOption(String(games)); await expect(page.locator('.season-workload')).toContainText(`${count} scheduled games`); }
   await page.locator('#season-size').selectOption('12'); await expect(page.locator('.season-workload')).toContainText('528 scheduled games');

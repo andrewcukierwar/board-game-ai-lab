@@ -1,3 +1,4 @@
+import { RESEARCH_DISABLED } from '../connect4/researchAgent.js';
 import { useState } from 'react';
 import { entrantLabel, gamePlan, currentFixture, replayColumns } from './model.js';
 import { replaySnapshot } from '../connect4/matchRecord.js';
@@ -5,7 +6,7 @@ import GameBoard from '../connect4/GameBoard.jsx';
 import MatchControls from '../connect4/MatchControls.jsx';
 import MatchTimeline from '../connect4/MatchTimeline.jsx';
 import { resultLabel } from './Schedule.jsx';
-export default function MatchViewer({ season: s, fixture: f, state, controller: c }) {
+export default function MatchViewer({ season: s, fixture: f, state, controller: c, researchBlocked = false }) {
   const [viewed, setViewed] = useState(null);
   const completed = s.completedGames.find(g => g.fixtureId === f.fixtureId), a = s.active?.fixtureId === f.fixtureId ? s.active : null;
   const plan = completed ?? gamePlan(s, f), live = viewed === null;
@@ -22,10 +23,10 @@ export default function MatchViewer({ season: s, fixture: f, state, controller: 
       <GameBoard game={game && !live ? replaySnapshot(game, moves, viewed) : game} busy={state.busy} uncertain={state.uncertain} interactive={false} labels={labels} />
       <p className="game-instructions">Red: {labels[0]}. Yellow: {labels[1]}. Game seed: {f.gameSeed}.</p>
     </div><aside className="match-sidebar" aria-label="Season game playback and replay">
-      {!a && !completed && currentFixture(s)?.fixtureId === f.fixtureId && <button id="season-watch" className="action-link action-link--primary" disabled={state.busy || state.uncertain || Boolean(state.error)} onClick={() => c.watch()}>Start current fixture</button>}
-      {a?.status === 'running' && <MatchControls game={game} busy={state.busy} uncertain={state.uncertain} error={state.error} live={live} autoplay={state.mode !== 'paused'}
+      {!a && !completed && currentFixture(s)?.fixtureId === f.fixtureId && <button id="season-watch" className="action-link action-link--primary" disabled={researchBlocked || state.busy || state.uncertain || Boolean(state.error)} onClick={() => c.watch()}>Start current fixture</button>}
+      {a?.status === 'running' && <MatchControls game={game} busy={state.busy} uncertain={state.uncertain} error={state.error || (researchBlocked ? RESEARCH_DISABLED : '')} live={live} autoplay={state.mode !== 'paused'}
         nextMove={() => c.nextMove()} enableAutoplay={() => { setViewed(null); c.run('game'); }} pause={() => c.pause()} speed={state.speed} setSpeed={v => c.setSpeed(v)} refresh={() => c.refresh()} />}
-      {a?.status === 'interrupted' && <button id="season-restart" disabled={state.busy} onClick={() => c.restart()}>Restart interrupted fixture</button>}
+      {a?.status === 'interrupted' && <button id="season-restart" disabled={researchBlocked || state.busy} onClick={() => c.restart()}>Restart interrupted fixture</button>}
       {!a && !completed && currentFixture(s)?.fixtureId !== f.fixtureId && <p className="analysis-helper">Upcoming fixture. Execution follows the saved schedule in order.</p>}
       <MatchTimeline game={game} moves={moves} live={live} viewedRevision={viewed} review={review} returnLive={returnLive} endLabel={completed ? 'Return to end' : 'Return to live'} />
     </aside></div>

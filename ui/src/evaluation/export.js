@@ -1,7 +1,8 @@
+import { hasResearch } from '../connect4/researchAgent.js';
 import { createSeason, validateSeason, SCHEDULE_VERSION, totalGames } from '../season/model.js';
 import { seasonAnalytics, INITIAL_ELO, K_FACTOR, BOOTSTRAP_SAMPLES, MIN_INTERVAL_GAMES } from '../season/analytics.js';
 import { canonicalJSON, evidenceDigest } from './canonical.js';
-import { FORMAT, SCHEMA_VERSION, METHODOLOGY_VERSION, BACKEND_VERSIONS, sourceCommit, validateBackendProvenance } from './provenance.js';
+import { FORMAT, SCHEMA_VERSION, METHODOLOGY_VERSION, BACKEND_VERSIONS, RESEARCH_SCHEMA_VERSION, RESEARCH_METHODOLOGY_VERSION, VICTOR_REFERENCE_VERSION, sourceCommit, validateBackendProvenance } from './provenance.js';
 
 export const METHODOLOGY = Object.freeze({
   version: METHODOLOGY_VERSION, schedule_version: SCHEDULE_VERSION,
@@ -18,6 +19,15 @@ export const METHODOLOGY = Object.freeze({
     shuffle_domain: 'season:schedule:v1', color_domain: 'season:color:{cycle}:{round-index}:{fixture-index}',
     game_seed_domain: 'season:game:v1:{fixture_id}', move_columns: 'zero-based-0-through-6' }),
 });
+export const RESEARCH_METHODOLOGY = Object.freeze({ ...METHODOLOGY, version: RESEARCH_METHODOLOGY_VERSION,
+  victor_execution: Object.freeze({ policy: 'native-bounded-optimal-move-proof-with-strategic-and-heuristic-fallback-v1',
+    budget: 'wall-clock-runtime-dependent', replay: 'historical-columns-not-deterministic-agent-reexecution',
+    seed_scope: 'schedule-colors-and-seeded-agent-randomness',
+    captured_backend_scope: 'core-engine-and-classical-agents-not-victor-algorithm' }),
+});
+export const evidenceHasResearch = e => hasResearch(e.entrants.map(row => row.config));
+export const evaluationSchema = e => evidenceHasResearch(e) ? RESEARCH_SCHEMA_VERSION : SCHEMA_VERSION;
+export const evaluationMethodology = e => evidenceHasResearch(e) ? RESEARCH_METHODOLOGY : METHODOLOGY;
 const equal = (a, b) => canonicalJSON(a) === canonicalJSON(b);
 const requireEqual = (a, b, message) => { if (!equal(a, b)) throw new Error(message); };
 
@@ -50,7 +60,7 @@ function apiConfig(p) {
 export function reconstructEvidence(e) {
   if (!e || !Array.isArray(e.entrants) || !Array.isArray(e.schedule) || !Array.isArray(e.completed_games)) throw new Error('Missing canonical Season evidence arrays.');
   if (e.entrants.length > 12 || e.schedule.length > 528 || e.completed_games.length > 528) throw new Error('Season evidence exceeds supported schedule bounds.');
-  let s = createSeason(e.entrants.map(row => internalConfig(row.config)), e.season_seed, e.games_per_pairing);
+  let s = createSeason(e.entrants.map(row => internalConfig(row.config)), e.season_seed, e.games_per_pairing, undefined, true);
   for (const [index, g] of e.completed_games.entries()) {
     try {
       s.completedGames.push({ fixtureId: g.fixture_id, completedIndex: g.completion_index,
@@ -87,8 +97,8 @@ export function derivedAnalytics(s) {
 }
 export function evaluationProvenance(evidence, commit = null) {
   const captured = evidence.completed_games.filter(g => g.backend_provenance !== null).length;
-  return { ...BACKEND_VERSIONS, agents: { ...BACKEND_VERSIONS.agents }, season_schedule_version: SCHEDULE_VERSION,
-    evaluation_methodology_version: METHODOLOGY_VERSION, export_schema_version: SCHEMA_VERSION,
+  return { ...BACKEND_VERSIONS, agents: { ...BACKEND_VERSIONS.agents, ...(evidenceHasResearch(evidence) ? { victor_research: VICTOR_REFERENCE_VERSION } : {}) }, season_schedule_version: SCHEDULE_VERSION,
+    evaluation_methodology_version: evaluationMethodology(evidence).version, export_schema_version: evaluationSchema(evidence),
     source_commit: sourceCommit(commit), execution_capture: { recorded_games: captured,
       unrecorded_games: evidence.completed_games.length - captured, scope: 'per-game-history-response',
       declared_versions: 'reference-implementation-identifiers-not-authentication' } };
@@ -101,8 +111,8 @@ export function canonicalPayload(artifact) {
 export async function createEvaluationExport(season, { digest, exportedAt = new Date().toISOString(), sourceCommit: commit = null } = {}) {
   const evidence = seasonEvidence(season), s = reconstructEvidence(evidence);
   if (typeof exportedAt !== 'string' || !/^\d{4}-\d{2}-\d{2}T.*Z$/.test(exportedAt) || !Number.isFinite(Date.parse(exportedAt))) throw new Error('Export timestamp must be an ISO-8601 UTC timestamp.');
-  const artifact = { format: FORMAT, schema_version: SCHEMA_VERSION, exported_at: exportedAt,
-    provenance: evaluationProvenance(evidence, commit), methodology: structuredClone(METHODOLOGY), evidence, derived: derivedAnalytics(s) };
+  const artifact = { format: FORMAT, schema_version: evaluationSchema(evidence), exported_at: exportedAt,
+    provenance: evaluationProvenance(evidence, commit), methodology: structuredClone(evaluationMethodology(evidence)), evidence, derived: derivedAnalytics(s) };
   artifact.integrity = { algorithm: 'SHA-256', canonicalization: 'sorted-json-ecmascript-v1',
     coverage: 'format,schema_version,provenance,methodology,evidence', evidence_sha256: await evidenceDigest(canonicalPayload(artifact), digest) };
   return artifact;

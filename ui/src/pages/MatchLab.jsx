@@ -11,8 +11,8 @@ import '../../connect4/connect4.css';
 import './match-lab.css';
 
 const matchHttp = axios.create({ baseURL: import.meta.env?.VITE_API_BASE, timeout: 90000 });
-export default function MatchLabPage({ http = matchHttp }) {
-  const match = useConnect4Match(http);
+export default function MatchLabPage({ http = matchHttp, researchEnabled }) {
+  const match = useConnect4Match(http, researchEnabled);
   const labels = (match.game?.players ?? match.selections).map(competitorLabel);
   return <main className="connect4-wrapper match-lab site-container">
     <header className="game-page-heading">

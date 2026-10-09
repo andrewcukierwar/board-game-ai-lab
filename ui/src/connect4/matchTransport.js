@@ -1,3 +1,4 @@
+import { KNOWN_PLAYER_TYPES } from './researchAgent.js';
 import { validateSnapshot } from './gameSnapshot.js';
 import { samePlayers } from './matchRecord.js';
 
@@ -11,7 +12,7 @@ export async function requestMatchPly(http, game, column, options) {
   const response = await http.post('/v1/connect4/make_move', {
     game_id: game.game_id, revision: game.revision, ...(human ? { column } : {}),
   }, options);
-  const accepted = validateSnapshot(response.data, { game_id: game.game_id, revision: game.revision + 1 });
+  const accepted = validateSnapshot(response.data, { game_id: game.game_id, revision: game.revision + 1 }, KNOWN_PLAYER_TYPES);
   if (!samePlayers(accepted.players, game.players)) throw new Error('The match players changed.');
   return accepted;
 }

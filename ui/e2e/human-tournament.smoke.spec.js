@@ -26,7 +26,7 @@ for (const color of [0, 1]) test(`Human ${color ? 'Yellow' : 'Red'} keyboard sta
 for (const width of [375, 320]) test(`mobile ${width}px Human setup, turn, replay, path navigation and champion`, async ({ page }) => {
   await page.setViewportSize({ width, height: 900 }); const s = await mockTournament(page);
   await page.goto('/connect4/tournament'); await page.locator('#entrant-1').selectOption({ label: 'You · Human' });
-  await expect(page.locator('#entrant-2 option').last()).toBeDisabled();
+  await expect(page.locator('#entrant-2').getByRole('option', { name: 'You · Human', exact: true })).toBeDisabled();
   await page.locator('#tournament-seed').fill('1234'); await page.locator('#tournament-create').click();
   await expect(page.locator('.mobile-round-list .has-human')).toContainText('You');
   const ready = humanFixture(0); await page.evaluate(({ key, t }) => localStorage.setItem(key, JSON.stringify(t)), { key: KEY, t: ready }); await page.reload();

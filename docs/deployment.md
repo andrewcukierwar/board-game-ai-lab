@@ -75,9 +75,24 @@ The following source defaults can remain unset. If existing backend overrides ar
 | `EXPLANATION_CACHE_TTL_SECONDS` | `1800` |
 | `EXPLANATION_CLIENT_CAPACITY` | `1024` |
 
-`VICTOR_RESEARCH_ENABLED` (October 2026) gates the opt-in `victor_research` API agent and defaults to `false`. Leave it **unset** in production: it has not been enabled, deployed or measured on Render. The Static Site has a matching build-time flag, `VITE_VICTOR_RESEARCH_ENABLED` (default off), which only shows the "Victor Research (Experimental)" opponent on the Connect 4 page. Both must be `true` for the option to work; with only the UI flag set, the page reports that the server has not enabled it. See the [readiness checklist](victor-opening-and-app-readiness.md#controlled-render-trial-readiness-checklist) before any separately approved trial.
+**Current Victor status (October 9, 2026):** Victor Research is publicly deployed
+and enabled on Play. Preserve `VICTOR_RESEARCH_ENABLED=true` on the backend and
+`VITE_VICTOR_RESEARCH_ENABLED=true` on the frontend, along with existing
+explanations, API origin, CORS, rewrite, and all other settings. Source defaults
+remain off in unconfigured environments. This milestone adds opt-in Victor to
+Match, Tournament and Season Labs; no Render or feature-flag changes are needed.
 
-For the Victor release, use the [release readiness report](victor-release-readiness.md) and its staged rollout. Stage A requires both Victor flags off and preserves the existing explanation configuration; the older Phase 3C explanation rollout below is not part of this release. Linux container validation is complete locally; current Render configuration and hosted Victor performance still require verification before live changes.
+The current API is one Render Free instance (roughly 0.15 CPU cores and 512 MiB).
+Victor retains its dedicated nonblocking concurrency reservation; competition
+labs run sequentially, pause/reconcile busy or uncertain requests, and warn about
+large-season workloads. Disabling the UI flag in a future build hides new choices
+and blocks Victor execution while retaining saved replay and export evidence.
+See [lab integration and validation](victor-labs-integration.md) and
+[evaluation v1/v2 compatibility](evaluation-provenance.md). The earlier
+[release readiness report](victor-release-readiness.md) is a historical staging
+record; its pre-enablement recommendations do not describe current availability.
+The older Phase 3C explanation rollout below is also historical and is not part
+of this UI milestone.
 
 Keep `GUNICORN_CMD_ARGS` unset, the Docker command override empty, one worker/four threads and one instance. `GAME_SESSION_CAPACITY` and `GAME_SESSION_TTL` are application config entries, **not environment overrides read by this code**; retain 128 sessions/1800 seconds.
 

@@ -1,3 +1,4 @@
+import { assertResearchExecution, researchAgentEnabled } from '../connect4/researchAgent.js';
 import { toPlayerPayload, competitorLabel } from '../connect4/competitorConfig.js';
 import { validateMatchHistory } from '../connect4/matchRecord.js';
 import { deriveSeed, validSeed, bracketOrder, entrantConfig, defaultField, replayColumns } from '../tournament/model.js';
@@ -13,11 +14,12 @@ export const totalGames = (size, games) => size * (size - 1) / 2 * games;
 export const entrant = (s, id) => s.entrants.find(e => e.entrantId === id);
 export const entrantLabel = (s, id) => { const e = entrant(s, id); return e ? `#${e.seedNumber} ${competitorLabel(e.config)}` : 'Unknown entrant'; };
 export const currentFixture = s => s?.schedule[s.currentGameIndex] ?? null;
-export function createSeason(configs, seed, gamesPerPairing = 2, seasonId = `season-${seed}`) {
+export function createSeason(configs, seed, gamesPerPairing = 2, seasonId = `season-${seed}`, researchEnabled = researchAgentEnabled()) {
   check(Array.isArray(configs) && FIELD_SIZES.includes(configs.length), 'Choose 4, 6, 8, 10 or 12 entrants.');
   check(GAMES_PER_PAIRING.includes(gamesPerPairing), 'Choose 2, 4 or 8 games per pairing.');
   check(validSeed(seed), 'Season seed must be a whole number from 0 to 4294967295.');
   check(typeof seasonId === 'string' && seasonId.length > 0 && seasonId.length <= 100);
+  assertResearchExecution(configs, researchEnabled);
   const entrants = configs.map((config, i) => {
     check(config?.type !== 'human', 'Season Lab supports AI entrants only.');
     return { entrantId: `entrant-${i + 1}`, seedNumber: i + 1, config: entrantConfig(config) };
@@ -45,7 +47,7 @@ export function createSeason(configs, seed, gamesPerPairing = 2, seasonId = `sea
 export function gamePlan(s, fixture = currentFixture(s)) {
   check(fixture);
   return { fixtureId: fixture.fixtureId, gameSeed: fixture.gameSeed, redEntrantId: fixture.redEntrantId, yellowEntrantId: fixture.yellowEntrantId,
-    playerConfigs: [fixture.redEntrantId, fixture.yellowEntrantId].map(id => toPlayerPayload(entrant(s, id).config)) };
+    playerConfigs: [fixture.redEntrantId, fixture.yellowEntrantId].map(id => toPlayerPayload(entrant(s, id).config, true)) };
 }
 export function compactHistory(s, history) {
   const plan = gamePlan(s);
@@ -77,7 +79,7 @@ const validId = id => id === null || typeof id === 'string' && id.length > 0 && 
 export function validateSeason(value) {
   check(value && value.version === VERSION && value.scheduleVersion === SCHEDULE_VERSION, 'Unsupported season schema.');
   check(Array.isArray(value.entrants) && value.entrants.length === value.fieldSize);
-  const rebuilt = createSeason(value.entrants.map(e => e.config), value.seasonSeed, value.gamesPerPairing, value.seasonId);
+  const rebuilt = createSeason(value.entrants.map(e => e.config), value.seasonSeed, value.gamesPerPairing, value.seasonId, true);
   check(equal(rebuilt.entrants, value.entrants), 'Invalid entrant identities.');
   check(Array.isArray(value.completedGames) && value.completedGames.length <= rebuilt.schedule.length);
   for (const [i, game] of value.completedGames.entries()) { validateGame(rebuilt, game, i); appendGame(rebuilt, game); }

@@ -1,3 +1,4 @@
+import { researchAgentEnabled, assertResearchExecution, researchErrorMessage, VICTOR_RESEARCH } from './researchAgent.js';
 import { useEffect, useReducer, useRef } from 'react';
 import { DEFAULT_COMPETITOR, matchStartPayload } from './competitorConfig.js';
 import { requestMatchPly } from './matchTransport.js';
@@ -10,7 +11,7 @@ const initial = { game: null, moves: [], viewedRevision: null, phase: 'idle', au
 const reducer = (state, patch) => ({ ...state, ...patch });
 const isHuman = game => game.players[game.currentPlayer].type === 'human';
 
-export function useConnect4Match(http) {
+export function useConnect4Match(http, researchEnabled = researchAgentEnabled()) {
   const [state, dispatch] = useReducer(reducer, initial);
   const current = useRef(state), session = useRef(null), timer = useRef(null);
   const clearTimer = () => { clearTimeout(timer.current); timer.current = null; };
@@ -36,7 +37,7 @@ export function useConnect4Match(http) {
   async function recover(error, lifetime, options) {
     if (!lifetime.active) return;
     clearTimer();
-    const reason = error.response?.data?.error || 'The request could not be confirmed. The server may be waking up; wait a moment before continuing.';
+    const reason = researchErrorMessage(error, current.current.game?.players.find(p => p.type === VICTOR_RESEARCH) ?? current.current.selections.find(p => p.type === VICTOR_RESEARCH)) || error.response?.data?.error || 'The request could not be confirmed. The server may be waking up; wait a moment before continuing.';
     patch({ autoplay: false, error: reason }, lifetime);
     const game = current.current.game;
     if (!game) return; // Lost start IDs cannot be recovered; never replay start.
@@ -65,7 +66,7 @@ export function useConnect4Match(http) {
     pause();
     return run('starting', async (lifetime, options) => {
       const { game, selections } = current.current;
-      const body = matchStartPayload(...selections, game?.game_id);
+      const body = matchStartPayload(...selections, game?.game_id, researchEnabled);
       const response = await http.post('/v1/connect4/start_game', body, options);
       if (!lifetime.active) return;
       const data = response.data;
@@ -84,6 +85,7 @@ export function useConnect4Match(http) {
     const game = current.current.game;
     if (isHuman(game) ? !game.legalMoves.includes(column) : column !== undefined) return;
     return run(isHuman(game) ? 'human-move' : 'ai-move', async (lifetime, options) => {
+      assertResearchExecution(game.players, researchEnabled);
       const accepted = await requestMatchPly(http, game, column, options);
       if (!lifetime.active) return;
       // Retain the accepted revision even if the subsequent history read fails.
@@ -114,7 +116,7 @@ export function useConnect4Match(http) {
   function returnLive() { pause(); patch({ viewedRevision: null }); }
   function select(index, value) {
     if (current.current.phase !== 'idle') return;
-    patch({ selections: current.current.selections.map((config, i) => i === index ? { ...config, ...value } : config) });
+    patch({ selections: current.current.selections.map((config, i) => i === index ? (value.type === VICTOR_RESEARCH ? { type: VICTOR_RESEARCH } : { ...DEFAULT_COMPETITOR, ...config, ...value }) : config) });
   }
   function setSpeed(speed) { if (Object.hasOwn(PLAYBACK_SPEEDS, speed) && current.current.speed !== speed) { clearTimer(); patch({ speed }); } }
 
@@ -133,7 +135,7 @@ export function useConnect4Match(http) {
   const live = state.viewedRevision === null;
   // History may be temporarily older while an accepted ply's GET is pending.
   const displayedGame = state.game && !live ? replaySnapshot(state.game, state.moves, state.viewedRevision) : state.game;
-  return { ...state, live, displayedGame, result: matchResult(state.game), busy: state.phase !== 'idle',
+  return { ...state, researchEnabled, live, displayedGame, result: matchResult(state.game), busy: state.phase !== 'idle',
     humanTurn: Boolean(state.game && isHuman(state.game)),
     interactive: Boolean(live && playable() && isHuman(state.game)),
     start, move: ply, nextMove, autoplay: state.autoplay, enableAutoplay: autoplay, pause, refresh,

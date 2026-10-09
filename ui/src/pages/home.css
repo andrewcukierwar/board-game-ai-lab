@@ -108,3 +108,17 @@
 .match-lab-discovery { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; padding: 28px; border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 72px; background: var(--surface); }
 .match-lab-discovery h2 { font-size: 26px; font-weight: 600; margin: 12px 0; letter-spacing: -.6px; }
 .match-lab-discovery p:last-child { color: var(--muted); line-height: 1.7; font-size: 14px; margin: 0; }
+
+.agent-grid--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.agent-grid--four .card-topline { flex-direction: column; align-items: flex-start; gap: 8px; }
+.agent-grid--four h3 { min-height: 2.5em; }
+.approach-glyph--victor { fill: var(--yellow); }
+.approach-glyph--victor path { fill: none; stroke: #65b2ce; stroke-width: 2; }
+.victor-research-entry { margin-top: 24px; padding: 28px; }
+.victor-research-entry h3 { margin: 14px 0; }
+.victor-research-entry p:not(.eyebrow) { color: var(--muted); font-size: 14px; line-height: 1.8; }
+.victor-research-entry .badge { margin-top: 18px; }
+@media (max-width: 1200px) { .agent-grid--four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .agent-grid--four { grid-template-columns: 1fr; } }
+
+@media (max-width: 600px) { .agent-grid--four h3 { min-height: 0; } }

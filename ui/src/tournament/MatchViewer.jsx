@@ -1,3 +1,4 @@
+import { RESEARCH_DISABLED } from '../connect4/researchAgent.js';
 import { useEffect, useRef, useState } from 'react';
 import { gamePlan, nextMatchup, replayColumns, roundLabel, matchupHasHuman } from './model.js';
 import { entrantLabel } from './Bracket.jsx';
@@ -5,7 +6,7 @@ import { replaySnapshot } from '../connect4/matchRecord.js';
 import GameBoard from '../connect4/GameBoard.jsx';
 import MatchControls from '../connect4/MatchControls.jsx';
 import MatchTimeline from '../connect4/MatchTimeline.jsx';
-export default function MatchViewer({ tournament: t, matchup: m, controller: c, state, start = () => c.watch() }) {
+export default function MatchViewer({ tournament: t, matchup: m, controller: c, state, researchBlocked = false, start = () => c.watch() }) {
   const viewerRef = useRef(null), previousActive = useRef(null);
   const [number, setNumber] = useState(1), [viewed, setViewed] = useState(null);
   const a = t.active?.matchupId === m.matchupId ? t.active : null;
@@ -49,16 +50,16 @@ export default function MatchViewer({ tournament: t, matchup: m, controller: c, 
         {!live && <button onClick={returnLive}>{completed ? 'Return to end' : 'Return to live'}</button>}
       </div>
       {human && <p className="human-match-status" role="status" aria-live="polite" aria-atomic="true">{status}</p>}
-      <GameBoard game={game && !live ? replaySnapshot(game, moves, viewed) : game} busy={state.busy} uncertain={state.uncertain} interactive={isActive && live && yourTurn && !state.error && !state.reviewing} move={column => { if (live && isActive) c.humanMove(column); }} labels={labels} columnControls={human} />
+      <GameBoard game={game && !live ? replaySnapshot(game, moves, viewed) : game} busy={state.busy} uncertain={state.uncertain} interactive={!researchBlocked && isActive && live && yourTurn && !state.error && !state.reviewing} move={column => { if (live && isActive) c.humanMove(column); }} labels={labels} columnControls={human} />
       {human && plan && <p className="human-color-assignment">You are {color} · {humanIndex === 0 ? 'You move first.' : `${labels[0]} moves first.`}</p>}
       <p className="game-instructions">{plan ? `Red: ${labels[0]}. Yellow: ${labels[1]}. Game seed: ${plan.gameSeed}.` : 'Entrants arrive after their preceding matchups finish.'}</p>
       </div>
       <aside className="match-sidebar" aria-label="Tournament match playback and replay">
-        {!completed && next && !a && <button id="tournament-watch" className="action-link action-link--primary" disabled={state.busy || state.uncertain || Boolean(state.error)} onClick={start}>{human ? m.games.length ? 'Play rematch' : 'Play your match' : 'Start / Watch matchup'}</button>}
-        {isActive && <MatchControls game={game} busy={state.busy} uncertain={state.uncertain} error={state.error} live={live} humanTurn={yourTurn}
+        {!completed && next && !a && <button id="tournament-watch" className="action-link action-link--primary" disabled={researchBlocked || state.busy || state.uncertain || Boolean(state.error)} onClick={start}>{human ? m.games.length ? 'Play rematch' : 'Play your match' : 'Start / Watch matchup'}</button>}
+        {isActive && <MatchControls game={game} busy={state.busy} uncertain={state.uncertain} error={state.error || (researchBlocked ? RESEARCH_DISABLED : '')} live={live} humanTurn={yourTurn}
           autoplay={state.mode !== 'paused'} nextMove={() => c.nextMove()} enableAutoplay={() => c.run('game')} pause={() => c.pause()}
           speed={state.speed} setSpeed={s => c.setSpeed(s)} refresh={() => c.refresh()} />}
-        {!completed && a?.status === 'interrupted' && <button id="tournament-restart" className="action-link action-link--primary" disabled={state.busy} onClick={() => c.restart()}>{human ? 'Restart this game' : 'Restart interrupted game'}</button>}
+        {!completed && a?.status === 'interrupted' && <button id="tournament-restart" className="action-link action-link--primary" disabled={researchBlocked || state.busy} onClick={() => c.restart()}>{human ? 'Restart this game' : 'Restart interrupted game'}</button>}
         <MatchTimeline game={game} moves={moves} live={live} viewedRevision={viewed} review={review} returnLive={returnLive} endLabel={completed ? 'Return to end' : 'Return to live'} />
       </aside>
     </div>
