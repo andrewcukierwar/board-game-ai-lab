@@ -1,0 +1,441 @@
+{
+  "experiment_sha256": "e6c6ee93d7f75ffe3349e4c08e0fda44f7c0c0245a10e96a0318707b3853be3e",
+  "source_sha256": "37353cbf15ac8415d0497bc8964fc2cf5c7817bdab43ad522b45455d5f752073",
+  "selection": "Post hoc largest observed depth-10 node count and elapsed time; no outcome filter",
+  "excluded_from_strength_and_predeclared_profile_aggregates": true,
+  "rows": [
+    {
+      "id": "n10-vs-n8/main-034/1/5",
+      "selection_rules": [
+        "max_nodes",
+        "max_elapsed"
+      ],
+      "history": [
+        1,
+        4,
+        6,
+        0,
+        6
+      ],
+      "labels": {
+        "stage": "early",
+        "tactics": "quiet",
+        "immediate_wins": [],
+        "safe_moves": [
+          3,
+          2,
+          4,
+          1,
+          5,
+          0,
+          6
+        ],
+        "board_sha256": "5faa3bf7964d1d792cbf87203fabbc965656676b43a0d44d32de95f254a63f44"
+      },
+      "original_move": {
+        "ply": 5,
+        "color": 1,
+        "role": "challenger",
+        "column": 4,
+        "wall_seconds": 1.4134271249640733,
+        "cpu_seconds": 1.411970999999994,
+        "negamax_stats": {
+          "nodes": 423857,
+          "entries": 119958,
+          "hits": 47944,
+          "cutoffs": 93664
+        }
+      },
+      "normal": {
+        "move": 4,
+        "scores": {
+          "3": -15,
+          "2": -10,
+          "4": -4,
+          "1": -7,
+          "5": -11,
+          "0": -8,
+          "6": -7
+        },
+        "stats": {
+          "nodes": 423857,
+          "entries": 119958,
+          "hits": 47944,
+          "cutoffs": 93664
+        },
+        "wall_seconds": 1.4293862499762326,
+        "cpu_seconds": 1.426886
+      },
+      "memory": {
+        "move": 4,
+        "scores": {
+          "3": -15,
+          "2": -10,
+          "4": -4,
+          "1": -7,
+          "5": -11,
+          "0": -8,
+          "6": -7
+        },
+        "stats": {
+          "nodes": 423857,
+          "entries": 119958,
+          "hits": 47944,
+          "cutoffs": 93664
+        },
+        "wall_seconds": 12.848156000021845,
+        "cpu_seconds": 12.821846,
+        "retained_bytes": 29209308,
+        "peak_bytes": 29211876,
+        "tt_bytes": 28946008,
+        "entries": 119958,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 12920208,
+            "count": 119959
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 8637104,
+            "count": 119960
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 3845696,
+            "count": 120178
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 2602272,
+            "count": 81321
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 1201008,
+            "count": 37536
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 504,
+            "count": 9
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 480,
+            "count": 7
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 312,
+            "count": 2
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      },
+      "profile": {
+        "move": 4,
+        "scores": {
+          "3": -15,
+          "2": -10,
+          "4": -4,
+          "1": -7,
+          "5": -11,
+          "0": -8,
+          "6": -7
+        },
+        "stats": {
+          "nodes": 423857,
+          "entries": 119958,
+          "hits": 47944,
+          "cutoffs": 93664
+        },
+        "wall_seconds": 3.391088915988803,
+        "cpu_seconds": 3.389126000000001,
+        "profile_total_seconds": 3.391101209,
+        "functions": [
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'insert' of 'list' objects>",
+            "primitive_calls": 7739,
+            "calls": 7739,
+            "self_seconds": 0.000327794,
+            "cumulative_seconds": 0.000327794
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'remove' of 'list' objects>",
+            "primitive_calls": 7739,
+            "calls": 7739,
+            "self_seconds": 0.000445987,
+            "cumulative_seconds": 0.000445987
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'sort' of 'list' objects>",
+            "primitive_calls": 10106,
+            "calls": 10106,
+            "self_seconds": 0.005516183,
+            "cumulative_seconds": 0.013763297
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'bit_count' of 'int' objects>",
+            "primitive_calls": 16127072,
+            "calls": 16127072,
+            "self_seconds": 0.35977933,
+            "cumulative_seconds": 0.35977933
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.len>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 3.3300000000000003e-07,
+            "cumulative_seconds": 3.3300000000000003e-07
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.max>",
+            "primitive_calls": 463975,
+            "calls": 463975,
+            "self_seconds": 0.029815971,
+            "cumulative_seconds": 0.029815971
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.min>",
+            "primitive_calls": 6230,
+            "calls": 6230,
+            "self_seconds": 0.00047554000000000004,
+            "cumulative_seconds": 0.00047554000000000004
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.sum>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 5.41e-07,
+            "cumulative_seconds": 5.41e-07
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method time.process_time>",
+            "primitive_calls": 2,
+            "calls": 2,
+            "self_seconds": 6.333e-06,
+            "cumulative_seconds": 6.333e-06
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method time.perf_counter>",
+            "primitive_calls": 2,
+            "calls": 2,
+            "self_seconds": 4.16e-07,
+            "cumulative_seconds": 4.16e-07
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 131,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 6.660000000000001e-07,
+            "cumulative_seconds": 6.660000000000001e-07
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 84,
+            "function": "<lambda>",
+            "primitive_calls": 70563,
+            "calls": 70563,
+            "self_seconds": 0.008247114,
+            "cumulative_seconds": 0.008247114
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 64,
+            "function": "legal",
+            "primitive_calls": 127698,
+            "calls": 127698,
+            "self_seconds": 0.032138574,
+            "cumulative_seconds": 0.070944899
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 65,
+            "function": "<listcomp>",
+            "primitive_calls": 127698,
+            "calls": 127698,
+            "self_seconds": 0.038806325,
+            "cumulative_seconds": 0.038806325
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 118,
+            "function": "heuristic",
+            "primitive_calls": 236149,
+            "calls": 236149,
+            "self_seconds": 1.8381498040000002,
+            "cumulative_seconds": 2.196332717
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'disable' of '_lsprof.Profiler' objects>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 4.1700000000000004e-07,
+            "cumulative_seconds": 4.1700000000000004e-07
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 191,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.6250000000000001e-06,
+            "cumulative_seconds": 1.6250000000000001e-06
+          },
+          {
+            "file": "profile_negamax_depths.py",
+            "line": 22,
+            "function": "decision",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.0584e-05,
+            "cumulative_seconds": 3.391100792
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 31,
+            "function": "winning_squares",
+            "primitive_calls": 54944,
+            "calls": 54944,
+            "self_seconds": 0.061385743000000006,
+            "cumulative_seconds": 0.061385743000000006
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 220,
+            "function": "choose_move",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 0.003663084,
+            "cumulative_seconds": 3.3910818340000004
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 97,
+            "function": "play",
+            "primitive_calls": 423857,
+            "calls": 423857,
+            "self_seconds": 0.099532805,
+            "cumulative_seconds": 0.099532805
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 103,
+            "function": "undo",
+            "primitive_calls": 423857,
+            "calls": 423857,
+            "self_seconds": 0.09852468800000001,
+            "cumulative_seconds": 0.09852468800000001
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 109,
+            "function": "terminal_value",
+            "primitive_calls": 423858,
+            "calls": 423858,
+            "self_seconds": 0.105848601,
+            "cumulative_seconds": 0.376946624
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 23,
+            "function": "has_four",
+            "primitive_calls": 847716,
+            "calls": 847716,
+            "self_seconds": 0.271098023,
+            "cumulative_seconds": 0.271098023
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 52,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.1959e-05,
+            "cumulative_seconds": 1.25e-05
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 67,
+            "function": "ordered_moves",
+            "primitive_calls": 127697,
+            "calls": 127697,
+            "self_seconds": 0.04934343,
+            "cumulative_seconds": 0.19780602600000002
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 141,
+            "function": "negamax",
+            "primitive_calls": 7,
+            "calls": 423857,
+            "self_seconds": 0.387948628,
+            "cumulative_seconds": 3.387373333
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 203,
+            "function": "score_moves",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 2.0711000000000002e-05,
+            "cumulative_seconds": 3.3874155000000004
+          }
+        ],
+        "categories_seconds": {
+          "heuristic": 2.196332717,
+          "terminal": 0.376946624,
+          "legal_ordering": 0.19780602600000002,
+          "state_play_undo": 0.19805749300000003,
+          "tt_and_recursive_other": 0.42195834900000007
+        },
+        "leaf_evaluations": 236149
+      }
+    }
+  ]
+}

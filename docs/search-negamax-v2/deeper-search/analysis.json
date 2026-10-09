@@ -1,0 +1,2277 @@
+{
+  "experiment_sha256": "e6c6ee93d7f75ffe3349e4c08e0fda44f7c0c0245a10e96a0318707b3853be3e",
+  "matchups": [
+    {
+      "matchup": "n8-vs-n6",
+      "primary": true,
+      "planned_pairs": 64,
+      "games": 128,
+      "wins": 59,
+      "draws": 16,
+      "losses": 53,
+      "score": 0.5234375,
+      "red": 0.4765625,
+      "yellow": 0.5703125,
+      "complete_pairs": 64,
+      "unpaired_games": 0,
+      "strata": {
+        "cohort": {
+          "agent": {
+            "games": 64,
+            "wins": 33,
+            "draws": 6,
+            "losses": 25,
+            "score": 0.5625,
+            "red": 0.453125,
+            "yellow": 0.671875,
+            "paired": {
+              "mean": 0.5625,
+              "ci95": [
+                0.4921875,
+                0.6328125
+              ],
+              "ci97_5": [
+                0.484375,
+                0.640625
+              ],
+              "conservative97_5": [
+                0.039167730149269775,
+                1
+              ],
+              "openings": 32,
+              "clusters": 8,
+              "clusters_by_cohort": {
+                "agent": 8
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "random": {
+            "games": 64,
+            "wins": 26,
+            "draws": 10,
+            "losses": 28,
+            "score": 0.484375,
+            "red": 0.5,
+            "yellow": 0.46875,
+            "paired": {
+              "mean": 0.484375,
+              "ci95": [
+                0.40625,
+                0.5625
+              ],
+              "ci97_5": [
+                0.390625,
+                0.578125
+              ],
+              "conservative97_5": [
+                0.2227088650746349,
+                0.7460411349253651
+              ],
+              "openings": 32,
+              "clusters": 32,
+              "clusters_by_cohort": {
+                "random": 32
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        },
+        "stage": {
+          "early": {
+            "games": 40,
+            "wins": 15,
+            "draws": 11,
+            "losses": 14,
+            "score": 0.5125,
+            "red": 0.475,
+            "yellow": 0.55,
+            "paired": {
+              "mean": 0.5125,
+              "ci95": [
+                0.3875,
+                0.6378124999999955
+              ],
+              "ci97_5": [
+                0.3625,
+                0.6625
+              ],
+              "conservative97_5": [
+                0.18151561084116502,
+                0.8434843891588348
+              ],
+              "openings": 20,
+              "clusters": 20,
+              "clusters_by_cohort": {
+                "random": 12,
+                "agent": 8
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "late": {
+            "games": 16,
+            "wins": 8,
+            "draws": 0,
+            "losses": 8,
+            "score": 0.5,
+            "red": 0.375,
+            "yellow": 0.625,
+            "paired": {
+              "mean": 0.5,
+              "ci95": [
+                0.5,
+                0.5
+              ],
+              "ci97_5": [
+                0.5,
+                0.5
+              ],
+              "conservative97_5": [
+                0,
+                1
+              ],
+              "openings": 8,
+              "clusters": 8,
+              "clusters_by_cohort": {
+                "agent": 8
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "midgame": {
+            "games": 72,
+            "wins": 36,
+            "draws": 5,
+            "losses": 31,
+            "score": 0.5347222222222222,
+            "red": 0.5,
+            "yellow": 0.5694444444444444,
+            "paired": {
+              "mean": 0.5347222222222222,
+              "ci95": [
+                0.4861111111111111,
+                0.5833333333333334
+              ],
+              "ci97_5": [
+                0.4791666666666667,
+                0.5902777777777778
+              ],
+              "conservative97_5": [
+                0.23822428265981332,
+                0.8312201617846311
+              ],
+              "openings": 36,
+              "clusters": 28,
+              "clusters_by_cohort": {
+                "agent": 8,
+                "random": 20
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        },
+        "tactics": {
+          "quiet": {
+            "games": 68,
+            "wins": 30,
+            "draws": 13,
+            "losses": 25,
+            "score": 0.5367647058823529,
+            "red": 0.5294117647058824,
+            "yellow": 0.5441176470588235,
+            "paired": {
+              "mean": 0.5367647058823529,
+              "ci95": [
+                0.44696969696969696,
+                0.6287878787878788
+              ],
+              "ci97_5": [
+                0.4338235294117647,
+                0.6439393939393939
+              ],
+              "conservative97_5": [
+                0.21684538330994907,
+                0.8566840284547568
+              ],
+              "openings": 34,
+              "clusters": 25,
+              "clusters_by_cohort": {
+                "random": 17,
+                "agent": 8
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "tactical": {
+            "games": 60,
+            "wins": 29,
+            "draws": 3,
+            "losses": 28,
+            "score": 0.5083333333333333,
+            "red": 0.4166666666666667,
+            "yellow": 0.6,
+            "paired": {
+              "mean": 0.5083333333333333,
+              "ci95": [
+                0.47580645161290325,
+                0.5483870967741935
+              ],
+              "ci97_5": [
+                0.475,
+                0.5517241379310345
+              ],
+              "conservative97_5": [
+                0.1810472098490622,
+                0.8356194568176044
+              ],
+              "openings": 30,
+              "clusters": 23,
+              "clusters_by_cohort": {
+                "random": 15,
+                "agent": 8
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        }
+      },
+      "cohort_stage": {
+        "random/early": {
+          "games": 24,
+          "wins": 8,
+          "draws": 7,
+          "losses": 9,
+          "score": 0.4791666666666667,
+          "red": 0.4583333333333333,
+          "yellow": 0.5
+        },
+        "random/midgame": {
+          "games": 40,
+          "wins": 18,
+          "draws": 3,
+          "losses": 19,
+          "score": 0.4875,
+          "red": 0.525,
+          "yellow": 0.45
+        },
+        "random/late": {
+          "games": 0,
+          "wins": 0,
+          "draws": 0,
+          "losses": 0,
+          "score": null,
+          "red": null,
+          "yellow": null
+        },
+        "agent/early": {
+          "games": 16,
+          "wins": 7,
+          "draws": 4,
+          "losses": 5,
+          "score": 0.5625,
+          "red": 0.5,
+          "yellow": 0.625
+        },
+        "agent/midgame": {
+          "games": 32,
+          "wins": 18,
+          "draws": 2,
+          "losses": 12,
+          "score": 0.59375,
+          "red": 0.46875,
+          "yellow": 0.71875
+        },
+        "agent/late": {
+          "games": 16,
+          "wins": 8,
+          "draws": 0,
+          "losses": 8,
+          "score": 0.5,
+          "red": 0.375,
+          "yellow": 0.625
+        }
+      },
+      "paired_score": {
+        "mean": 0.5234375,
+        "ci95": [
+          0.47265625,
+          0.57421875
+        ],
+        "ci97_5": [
+          0.46484375,
+          0.58203125
+        ],
+        "conservative97_5": [
+          0.23088586744862583,
+          0.8159891325513742
+        ],
+        "openings": 64,
+        "clusters": 40,
+        "clusters_by_cohort": {
+          "random": 32,
+          "agent": 8
+        },
+        "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+      },
+      "pair_scores": {
+        "main-000": 0.0,
+        "main-001": 0.25,
+        "main-002": 0.75,
+        "main-003": 0.5,
+        "main-004": 0.5,
+        "main-005": 0.5,
+        "main-006": 0.5,
+        "main-007": 0.5,
+        "main-008": 0.5,
+        "main-009": 0.5,
+        "main-010": 0.5,
+        "main-011": 1.0,
+        "main-012": 0.5,
+        "main-013": 0.5,
+        "main-014": 0.5,
+        "main-015": 0.5,
+        "main-016": 0.25,
+        "main-017": 0.25,
+        "main-018": 0.5,
+        "main-019": 0.5,
+        "main-020": 1.0,
+        "main-021": 0.5,
+        "main-022": 0.5,
+        "main-023": 0.5,
+        "main-024": 0.5,
+        "main-025": 0.75,
+        "main-026": 0.75,
+        "main-027": 1.0,
+        "main-028": 0.5,
+        "main-029": 0.5,
+        "main-030": 0.5,
+        "main-031": 0.5,
+        "main-032": 0.25,
+        "main-033": 1.0,
+        "main-034": 0.0,
+        "main-035": 0.5,
+        "main-036": 0.5,
+        "main-037": 0.5,
+        "main-038": 0.5,
+        "main-039": 0.5,
+        "main-040": 0.5,
+        "main-041": 0.5,
+        "main-042": 0.5,
+        "main-043": 0.5,
+        "main-044": 0.5,
+        "main-045": 0.5,
+        "main-046": 0.5,
+        "main-047": 0.5,
+        "main-048": 0.75,
+        "main-049": 0.5,
+        "main-050": 0.25,
+        "main-051": 0.5,
+        "main-052": 1.0,
+        "main-053": 0.5,
+        "main-054": 0.5,
+        "main-055": 0.5,
+        "main-056": 0.5,
+        "main-057": 0.75,
+        "main-058": 0.0,
+        "main-059": 1.0,
+        "main-060": 0.5,
+        "main-061": 0.5,
+        "main-062": 0.5,
+        "main-063": 0.5
+      },
+      "primary_bootstrap_improvement": false,
+      "primary_conservative_improvement": false
+    },
+    {
+      "matchup": "n10-vs-n8",
+      "primary": true,
+      "planned_pairs": 64,
+      "games": 128,
+      "wins": 65,
+      "draws": 10,
+      "losses": 53,
+      "score": 0.546875,
+      "red": 0.515625,
+      "yellow": 0.578125,
+      "complete_pairs": 64,
+      "unpaired_games": 0,
+      "strata": {
+        "cohort": {
+          "agent": {
+            "games": 64,
+            "wins": 33,
+            "draws": 5,
+            "losses": 26,
+            "score": 0.5546875,
+            "red": 0.484375,
+            "yellow": 0.625,
+            "paired": {
+              "mean": 0.5546875,
+              "ci95": [
+                0.484375,
+                0.6328125
+              ],
+              "ci97_5": [
+                0.4765625,
+                0.640625
+              ],
+              "conservative97_5": [
+                0.031355230149269775,
+                1
+              ],
+              "openings": 32,
+              "clusters": 8,
+              "clusters_by_cohort": {
+                "agent": 8
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "random": {
+            "games": 64,
+            "wins": 32,
+            "draws": 5,
+            "losses": 27,
+            "score": 0.5390625,
+            "red": 0.546875,
+            "yellow": 0.53125,
+            "paired": {
+              "mean": 0.5390625,
+              "ci95": [
+                0.46875,
+                0.609375
+              ],
+              "ci97_5": [
+                0.4609375,
+                0.6171875
+              ],
+              "conservative97_5": [
+                0.2773963650746349,
+                0.8007286349253651
+              ],
+              "openings": 32,
+              "clusters": 32,
+              "clusters_by_cohort": {
+                "random": 32
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        },
+        "stage": {
+          "early": {
+            "games": 40,
+            "wins": 21,
+            "draws": 6,
+            "losses": 13,
+            "score": 0.6,
+            "red": 0.575,
+            "yellow": 0.625,
+            "paired": {
+              "mean": 0.6,
+              "ci95": [
+                0.4996875000000003,
+                0.7
+              ],
+              "ci97_5": [
+                0.475,
+                0.7125
+              ],
+              "conservative97_5": [
+                0.26901561084116504,
+                0.930984389158835
+              ],
+              "openings": 20,
+              "clusters": 20,
+              "clusters_by_cohort": {
+                "random": 12,
+                "agent": 8
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "late": {
+            "games": 16,
+            "wins": 8,
+            "draws": 0,
+            "losses": 8,
+            "score": 0.5,
+            "red": 0.375,
+            "yellow": 0.625,
+            "paired": {
+              "mean": 0.5,
+              "ci95": [
+                0.5,
+                0.5
+              ],
+              "ci97_5": [
+                0.5,
+                0.5
+              ],
+              "conservative97_5": [
+                0,
+                1
+              ],
+              "openings": 8,
+              "clusters": 8,
+              "clusters_by_cohort": {
+                "agent": 8
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "midgame": {
+            "games": 72,
+            "wins": 36,
+            "draws": 4,
+            "losses": 32,
+            "score": 0.5277777777777778,
+            "red": 0.5138888888888888,
+            "yellow": 0.5416666666666666,
+            "paired": {
+              "mean": 0.5277777777777778,
+              "ci95": [
+                0.4722222222222222,
+                0.5833333333333334
+              ],
+              "ci97_5": [
+                0.4652777777777778,
+                0.5902777777777778
+              ],
+              "conservative97_5": [
+                0.2312798382153689,
+                0.8242757173401867
+              ],
+              "openings": 36,
+              "clusters": 28,
+              "clusters_by_cohort": {
+                "agent": 8,
+                "random": 20
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        },
+        "tactics": {
+          "quiet": {
+            "games": 68,
+            "wins": 35,
+            "draws": 8,
+            "losses": 25,
+            "score": 0.5735294117647058,
+            "red": 0.5735294117647058,
+            "yellow": 0.5735294117647058,
+            "paired": {
+              "mean": 0.5735294117647058,
+              "ci95": [
+                0.47794117647058826,
+                0.6617647058823529
+              ],
+              "ci97_5": [
+                0.4696969696969697,
+                0.6764705882352942
+              ],
+              "conservative97_5": [
+                0.253610089192302,
+                0.8934487343371097
+              ],
+              "openings": 34,
+              "clusters": 25,
+              "clusters_by_cohort": {
+                "random": 17,
+                "agent": 8
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "tactical": {
+            "games": 60,
+            "wins": 30,
+            "draws": 2,
+            "losses": 28,
+            "score": 0.5166666666666667,
+            "red": 0.45,
+            "yellow": 0.5833333333333334,
+            "paired": {
+              "mean": 0.5166666666666667,
+              "ci95": [
+                0.5,
+                0.5517241379310345
+              ],
+              "ci97_5": [
+                0.5,
+                0.5645161290322581
+              ],
+              "conservative97_5": [
+                0.1893805431823956,
+                0.8439527901509378
+              ],
+              "openings": 30,
+              "clusters": 23,
+              "clusters_by_cohort": {
+                "random": 15,
+                "agent": 8
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        }
+      },
+      "cohort_stage": {
+        "random/early": {
+          "games": 24,
+          "wins": 13,
+          "draws": 3,
+          "losses": 8,
+          "score": 0.6041666666666666,
+          "red": 0.5416666666666666,
+          "yellow": 0.6666666666666666
+        },
+        "random/midgame": {
+          "games": 40,
+          "wins": 19,
+          "draws": 2,
+          "losses": 19,
+          "score": 0.5,
+          "red": 0.55,
+          "yellow": 0.45
+        },
+        "random/late": {
+          "games": 0,
+          "wins": 0,
+          "draws": 0,
+          "losses": 0,
+          "score": null,
+          "red": null,
+          "yellow": null
+        },
+        "agent/early": {
+          "games": 16,
+          "wins": 8,
+          "draws": 3,
+          "losses": 5,
+          "score": 0.59375,
+          "red": 0.625,
+          "yellow": 0.5625
+        },
+        "agent/midgame": {
+          "games": 32,
+          "wins": 17,
+          "draws": 2,
+          "losses": 13,
+          "score": 0.5625,
+          "red": 0.46875,
+          "yellow": 0.65625
+        },
+        "agent/late": {
+          "games": 16,
+          "wins": 8,
+          "draws": 0,
+          "losses": 8,
+          "score": 0.5,
+          "red": 0.375,
+          "yellow": 0.625
+        }
+      },
+      "paired_score": {
+        "mean": 0.546875,
+        "ci95": [
+          0.49609375,
+          0.59765625
+        ],
+        "ci97_5": [
+          0.48828125,
+          0.60546875
+        ],
+        "conservative97_5": [
+          0.2543233674486258,
+          0.8394266325513742
+        ],
+        "openings": 64,
+        "clusters": 40,
+        "clusters_by_cohort": {
+          "random": 32,
+          "agent": 8
+        },
+        "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+      },
+      "pair_scores": {
+        "main-000": 0.75,
+        "main-001": 0.75,
+        "main-002": 0.5,
+        "main-003": 0.5,
+        "main-004": 0.5,
+        "main-005": 0.5,
+        "main-006": 0.5,
+        "main-007": 0.5,
+        "main-008": 0.5,
+        "main-009": 0.5,
+        "main-010": 0.5,
+        "main-011": 0.5,
+        "main-012": 0.5,
+        "main-013": 0.5,
+        "main-014": 0.5,
+        "main-015": 0.5,
+        "main-016": 0.25,
+        "main-017": 0.75,
+        "main-018": 0.5,
+        "main-019": 0.5,
+        "main-020": 0.5,
+        "main-021": 0.5,
+        "main-022": 0.5,
+        "main-023": 0.5,
+        "main-024": 0.5,
+        "main-025": 0.0,
+        "main-026": 0.75,
+        "main-027": 0.5,
+        "main-028": 0.5,
+        "main-029": 0.5,
+        "main-030": 0.5,
+        "main-031": 0.5,
+        "main-032": 0.5,
+        "main-033": 1.0,
+        "main-034": 1.0,
+        "main-035": 1.0,
+        "main-036": 0.5,
+        "main-037": 0.5,
+        "main-038": 0.5,
+        "main-039": 0.5,
+        "main-040": 0.0,
+        "main-041": 0.5,
+        "main-042": 0.5,
+        "main-043": 0.5,
+        "main-044": 0.5,
+        "main-045": 0.5,
+        "main-046": 0.5,
+        "main-047": 0.5,
+        "main-048": 0.75,
+        "main-049": 0.75,
+        "main-050": 1.0,
+        "main-051": 1.0,
+        "main-052": 0.5,
+        "main-053": 0.5,
+        "main-054": 0.25,
+        "main-055": 0.5,
+        "main-056": 0.5,
+        "main-057": 0.5,
+        "main-058": 1.0,
+        "main-059": 0.5,
+        "main-060": 0.5,
+        "main-061": 0.5,
+        "main-062": 0.5,
+        "main-063": 0.5
+      },
+      "primary_bootstrap_improvement": false,
+      "primary_conservative_improvement": false
+    },
+    {
+      "matchup": "n10-vs-n6",
+      "primary": false,
+      "planned_pairs": 32,
+      "games": 64,
+      "wins": 33,
+      "draws": 5,
+      "losses": 26,
+      "score": 0.5546875,
+      "red": 0.578125,
+      "yellow": 0.53125,
+      "complete_pairs": 32,
+      "unpaired_games": 0,
+      "strata": {
+        "cohort": {
+          "agent": {
+            "games": 32,
+            "wins": 18,
+            "draws": 2,
+            "losses": 12,
+            "score": 0.59375,
+            "red": 0.46875,
+            "yellow": 0.71875,
+            "paired": {
+              "mean": 0.59375,
+              "ci95": [
+                0.4375,
+                0.75
+              ],
+              "ci97_5": [
+                0.40625,
+                0.75
+              ],
+              "conservative97_5": [
+                0,
+                1
+              ],
+              "openings": 16,
+              "clusters": 4,
+              "clusters_by_cohort": {
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "random": {
+            "games": 32,
+            "wins": 15,
+            "draws": 3,
+            "losses": 14,
+            "score": 0.515625,
+            "red": 0.6875,
+            "yellow": 0.34375,
+            "paired": {
+              "mean": 0.515625,
+              "ci95": [
+                0.46875,
+                0.5625
+              ],
+              "ci97_5": [
+                0.453125,
+                0.578125
+              ],
+              "conservative97_5": [
+                0.14557320317480044,
+                0.8856767968251995
+              ],
+              "openings": 16,
+              "clusters": 16,
+              "clusters_by_cohort": {
+                "random": 16
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        },
+        "stage": {
+          "early": {
+            "games": 20,
+            "wins": 9,
+            "draws": 2,
+            "losses": 9,
+            "score": 0.5,
+            "red": 0.6,
+            "yellow": 0.4,
+            "paired": {
+              "mean": 0.5,
+              "ci95": [
+                0.35,
+                0.65
+              ],
+              "ci97_5": [
+                0.325,
+                0.675
+              ],
+              "conservative97_5": [
+                0.03191738791780124,
+                0.9680826120821988
+              ],
+              "openings": 10,
+              "clusters": 10,
+              "clusters_by_cohort": {
+                "random": 6,
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "late": {
+            "games": 8,
+            "wins": 4,
+            "draws": 0,
+            "losses": 4,
+            "score": 0.5,
+            "red": 0.25,
+            "yellow": 0.75,
+            "paired": {
+              "mean": 0.5,
+              "ci95": [
+                0.5,
+                0.5
+              ],
+              "ci97_5": [
+                0.5,
+                0.5
+              ],
+              "conservative97_5": [
+                0,
+                1
+              ],
+              "openings": 4,
+              "clusters": 4,
+              "clusters_by_cohort": {
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "midgame": {
+            "games": 36,
+            "wins": 20,
+            "draws": 3,
+            "losses": 13,
+            "score": 0.5972222222222222,
+            "red": 0.6388888888888888,
+            "yellow": 0.5555555555555556,
+            "paired": {
+              "mean": 0.5972222222222222,
+              "ci95": [
+                0.5138888888888888,
+                0.6944444444444444
+              ],
+              "ci97_5": [
+                0.5,
+                0.7083333333333334
+              ],
+              "conservative97_5": [
+                0.17791081487738553,
+                1
+              ],
+              "openings": 18,
+              "clusters": 14,
+              "clusters_by_cohort": {
+                "agent": 4,
+                "random": 10
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        },
+        "tactics": {
+          "quiet": {
+            "games": 30,
+            "wins": 16,
+            "draws": 3,
+            "losses": 11,
+            "score": 0.5833333333333334,
+            "red": 0.6,
+            "yellow": 0.5666666666666667,
+            "paired": {
+              "mean": 0.5833333333333334,
+              "ci95": [
+                0.43333333333333335,
+                0.7333333333333333
+              ],
+              "ci97_5": [
+                0.4166666666666667,
+                0.7666666666666667
+              ],
+              "conservative97_5": [
+                0.11007838067391845,
+                1
+              ],
+              "openings": 15,
+              "clusters": 11,
+              "clusters_by_cohort": {
+                "random": 7,
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "tactical": {
+            "games": 34,
+            "wins": 17,
+            "draws": 2,
+            "losses": 15,
+            "score": 0.5294117647058824,
+            "red": 0.5588235294117647,
+            "yellow": 0.5,
+            "paired": {
+              "mean": 0.5294117647058824,
+              "ci95": [
+                0.5,
+                0.5882352941176471
+              ],
+              "ci97_5": [
+                0.5,
+                0.5882352941176471
+              ],
+              "conservative97_5": [
+                0.09405670961741219,
+                0.9647668197943525
+              ],
+              "openings": 17,
+              "clusters": 13,
+              "clusters_by_cohort": {
+                "random": 9,
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        }
+      },
+      "cohort_stage": {
+        "random/early": {
+          "games": 12,
+          "wins": 5,
+          "draws": 2,
+          "losses": 5,
+          "score": 0.5,
+          "red": 0.5,
+          "yellow": 0.5
+        },
+        "random/midgame": {
+          "games": 20,
+          "wins": 10,
+          "draws": 1,
+          "losses": 9,
+          "score": 0.525,
+          "red": 0.8,
+          "yellow": 0.25
+        },
+        "random/late": {
+          "games": 0,
+          "wins": 0,
+          "draws": 0,
+          "losses": 0,
+          "score": null,
+          "red": null,
+          "yellow": null
+        },
+        "agent/early": {
+          "games": 8,
+          "wins": 4,
+          "draws": 0,
+          "losses": 4,
+          "score": 0.5,
+          "red": 0.75,
+          "yellow": 0.25
+        },
+        "agent/midgame": {
+          "games": 16,
+          "wins": 10,
+          "draws": 2,
+          "losses": 4,
+          "score": 0.6875,
+          "red": 0.4375,
+          "yellow": 0.9375
+        },
+        "agent/late": {
+          "games": 8,
+          "wins": 4,
+          "draws": 0,
+          "losses": 4,
+          "score": 0.5,
+          "red": 0.25,
+          "yellow": 0.75
+        }
+      },
+      "paired_score": {
+        "mean": 0.5546875,
+        "ci95": [
+          0.46875,
+          0.640625
+        ],
+        "ci97_5": [
+          0.4609375,
+          0.6484375
+        ],
+        "conservative97_5": [
+          0.14095701355145646,
+          0.9684179864485436
+        ],
+        "openings": 32,
+        "clusters": 20,
+        "clusters_by_cohort": {
+          "random": 16,
+          "agent": 4
+        },
+        "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+      },
+      "pair_scores": {
+        "main-000": 0.75,
+        "main-001": 0.5,
+        "main-002": 0.5,
+        "main-003": 0.5,
+        "main-004": 0.5,
+        "main-005": 0.5,
+        "main-006": 0.5,
+        "main-007": 0.5,
+        "main-008": 0.5,
+        "main-009": 0.5,
+        "main-010": 0.5,
+        "main-011": 1.0,
+        "main-012": 0.5,
+        "main-013": 1.0,
+        "main-014": 0.5,
+        "main-015": 0.5,
+        "main-016": 0.25,
+        "main-017": 0.0,
+        "main-018": 0.5,
+        "main-019": 0.5,
+        "main-020": 0.5,
+        "main-021": 0.5,
+        "main-022": 0.5,
+        "main-023": 0.5,
+        "main-024": 0.5,
+        "main-025": 1.0,
+        "main-026": 0.75,
+        "main-027": 1.0,
+        "main-028": 0.5,
+        "main-029": 0.5,
+        "main-030": 0.5,
+        "main-031": 0.5
+      },
+      "primary_bootstrap_improvement": false,
+      "primary_conservative_improvement": false
+    },
+    {
+      "matchup": "n8-vs-m2000",
+      "primary": false,
+      "planned_pairs": 32,
+      "games": 64,
+      "wins": 34,
+      "draws": 4,
+      "losses": 26,
+      "score": 0.5625,
+      "red": 0.578125,
+      "yellow": 0.546875,
+      "complete_pairs": 32,
+      "unpaired_games": 0,
+      "strata": {
+        "cohort": {
+          "agent": {
+            "games": 32,
+            "wins": 17,
+            "draws": 3,
+            "losses": 12,
+            "score": 0.578125,
+            "red": 0.4375,
+            "yellow": 0.71875,
+            "paired": {
+              "mean": 0.578125,
+              "ci95": [
+                0.484375,
+                0.65625
+              ],
+              "ci97_5": [
+                0.46875,
+                0.671875
+              ],
+              "conservative97_5": [
+                0,
+                1
+              ],
+              "openings": 16,
+              "clusters": 4,
+              "clusters_by_cohort": {
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "random": {
+            "games": 32,
+            "wins": 17,
+            "draws": 1,
+            "losses": 14,
+            "score": 0.546875,
+            "red": 0.71875,
+            "yellow": 0.375,
+            "paired": {
+              "mean": 0.546875,
+              "ci95": [
+                0.390625,
+                0.6875
+              ],
+              "ci97_5": [
+                0.375,
+                0.71875
+              ],
+              "conservative97_5": [
+                0.17682320317480044,
+                0.9169267968251995
+              ],
+              "openings": 16,
+              "clusters": 16,
+              "clusters_by_cohort": {
+                "random": 16
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        },
+        "stage": {
+          "early": {
+            "games": 20,
+            "wins": 15,
+            "draws": 1,
+            "losses": 4,
+            "score": 0.775,
+            "red": 0.9,
+            "yellow": 0.65,
+            "paired": {
+              "mean": 0.775,
+              "ci95": [
+                0.575,
+                0.95
+              ],
+              "ci97_5": [
+                0.525,
+                0.975
+              ],
+              "conservative97_5": [
+                0.30691738791780127,
+                1
+              ],
+              "openings": 10,
+              "clusters": 10,
+              "clusters_by_cohort": {
+                "random": 6,
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "late": {
+            "games": 8,
+            "wins": 4,
+            "draws": 0,
+            "losses": 4,
+            "score": 0.5,
+            "red": 0.25,
+            "yellow": 0.75,
+            "paired": {
+              "mean": 0.5,
+              "ci95": [
+                0.5,
+                0.5
+              ],
+              "ci97_5": [
+                0.5,
+                0.5
+              ],
+              "conservative97_5": [
+                0,
+                1
+              ],
+              "openings": 4,
+              "clusters": 4,
+              "clusters_by_cohort": {
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "midgame": {
+            "games": 36,
+            "wins": 15,
+            "draws": 3,
+            "losses": 18,
+            "score": 0.4583333333333333,
+            "red": 0.4722222222222222,
+            "yellow": 0.4444444444444444,
+            "paired": {
+              "mean": 0.4583333333333333,
+              "ci95": [
+                0.3888888888888889,
+                0.5138888888888888
+              ],
+              "ci97_5": [
+                0.375,
+                0.5277777777777778
+              ],
+              "conservative97_5": [
+                0.03902192598849663,
+                0.87764474067817
+              ],
+              "openings": 18,
+              "clusters": 14,
+              "clusters_by_cohort": {
+                "agent": 4,
+                "random": 10
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        },
+        "tactics": {
+          "quiet": {
+            "games": 30,
+            "wins": 17,
+            "draws": 3,
+            "losses": 10,
+            "score": 0.6166666666666667,
+            "red": 0.7,
+            "yellow": 0.5333333333333333,
+            "paired": {
+              "mean": 0.6166666666666667,
+              "ci95": [
+                0.45,
+                0.7833333333333333
+              ],
+              "ci97_5": [
+                0.43333333333333335,
+                0.8
+              ],
+              "conservative97_5": [
+                0.14341171400725178,
+                1
+              ],
+              "openings": 15,
+              "clusters": 11,
+              "clusters_by_cohort": {
+                "random": 7,
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "tactical": {
+            "games": 34,
+            "wins": 17,
+            "draws": 1,
+            "losses": 16,
+            "score": 0.5147058823529411,
+            "red": 0.47058823529411764,
+            "yellow": 0.5588235294117647,
+            "paired": {
+              "mean": 0.5147058823529411,
+              "ci95": [
+                0.47058823529411764,
+                0.5882352941176471
+              ],
+              "ci97_5": [
+                0.45588235294117646,
+                0.5882352941176471
+              ],
+              "conservative97_5": [
+                0.07935082726447096,
+                0.9500609374414113
+              ],
+              "openings": 17,
+              "clusters": 13,
+              "clusters_by_cohort": {
+                "random": 9,
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        }
+      },
+      "cohort_stage": {
+        "random/early": {
+          "games": 12,
+          "wins": 9,
+          "draws": 0,
+          "losses": 3,
+          "score": 0.75,
+          "red": 0.8333333333333334,
+          "yellow": 0.6666666666666666
+        },
+        "random/midgame": {
+          "games": 20,
+          "wins": 8,
+          "draws": 1,
+          "losses": 11,
+          "score": 0.425,
+          "red": 0.65,
+          "yellow": 0.2
+        },
+        "random/late": {
+          "games": 0,
+          "wins": 0,
+          "draws": 0,
+          "losses": 0,
+          "score": null,
+          "red": null,
+          "yellow": null
+        },
+        "agent/early": {
+          "games": 8,
+          "wins": 6,
+          "draws": 1,
+          "losses": 1,
+          "score": 0.8125,
+          "red": 1.0,
+          "yellow": 0.625
+        },
+        "agent/midgame": {
+          "games": 16,
+          "wins": 7,
+          "draws": 2,
+          "losses": 7,
+          "score": 0.5,
+          "red": 0.25,
+          "yellow": 0.75
+        },
+        "agent/late": {
+          "games": 8,
+          "wins": 4,
+          "draws": 0,
+          "losses": 4,
+          "score": 0.5,
+          "red": 0.25,
+          "yellow": 0.75
+        }
+      },
+      "paired_score": {
+        "mean": 0.5625,
+        "ci95": [
+          0.4765625,
+          0.6484375
+        ],
+        "ci97_5": [
+          0.4609375,
+          0.6640625
+        ],
+        "conservative97_5": [
+          0.14876951355145646,
+          0.9762304864485436
+        ],
+        "openings": 32,
+        "clusters": 20,
+        "clusters_by_cohort": {
+          "random": 16,
+          "agent": 4
+        },
+        "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+      },
+      "pair_scores": {
+        "main-000": 0.0,
+        "main-001": 1.0,
+        "main-002": 1.0,
+        "main-003": 0.5,
+        "main-004": 0.5,
+        "main-005": 0.5,
+        "main-006": 0.5,
+        "main-007": 0.5,
+        "main-008": 0.5,
+        "main-009": 1.0,
+        "main-010": 0.5,
+        "main-011": 0.75,
+        "main-012": 0.5,
+        "main-013": 0.5,
+        "main-014": 0.5,
+        "main-015": 0.5,
+        "main-016": 1.0,
+        "main-017": 0.5,
+        "main-018": 1.0,
+        "main-019": 0.5,
+        "main-020": 1.0,
+        "main-021": 0.25,
+        "main-022": 0.25,
+        "main-023": 0.5,
+        "main-024": 0.5,
+        "main-025": 0.75,
+        "main-026": 0.0,
+        "main-027": 0.5,
+        "main-028": 0.5,
+        "main-029": 0.5,
+        "main-030": 0.5,
+        "main-031": 0.5
+      },
+      "primary_bootstrap_improvement": false,
+      "primary_conservative_improvement": false
+    },
+    {
+      "matchup": "n10-vs-m2000",
+      "primary": false,
+      "planned_pairs": 32,
+      "games": 64,
+      "wins": 35,
+      "draws": 4,
+      "losses": 25,
+      "score": 0.578125,
+      "red": 0.5625,
+      "yellow": 0.59375,
+      "complete_pairs": 32,
+      "unpaired_games": 0,
+      "strata": {
+        "cohort": {
+          "agent": {
+            "games": 32,
+            "wins": 17,
+            "draws": 2,
+            "losses": 13,
+            "score": 0.5625,
+            "red": 0.375,
+            "yellow": 0.75,
+            "paired": {
+              "mean": 0.5625,
+              "ci95": [
+                0.46875,
+                0.65625
+              ],
+              "ci97_5": [
+                0.453125,
+                0.671875
+              ],
+              "conservative97_5": [
+                0,
+                1
+              ],
+              "openings": 16,
+              "clusters": 4,
+              "clusters_by_cohort": {
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "random": {
+            "games": 32,
+            "wins": 18,
+            "draws": 2,
+            "losses": 12,
+            "score": 0.59375,
+            "red": 0.75,
+            "yellow": 0.4375,
+            "paired": {
+              "mean": 0.59375,
+              "ci95": [
+                0.484375,
+                0.71875
+              ],
+              "ci97_5": [
+                0.46875,
+                0.734375
+              ],
+              "conservative97_5": [
+                0.22369820317480044,
+                0.9638017968251995
+              ],
+              "openings": 16,
+              "clusters": 16,
+              "clusters_by_cohort": {
+                "random": 16
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        },
+        "stage": {
+          "early": {
+            "games": 20,
+            "wins": 15,
+            "draws": 0,
+            "losses": 5,
+            "score": 0.75,
+            "red": 0.7,
+            "yellow": 0.8,
+            "paired": {
+              "mean": 0.75,
+              "ci95": [
+                0.6,
+                0.9
+              ],
+              "ci97_5": [
+                0.6,
+                0.9
+              ],
+              "conservative97_5": [
+                0.28191738791780124,
+                1
+              ],
+              "openings": 10,
+              "clusters": 10,
+              "clusters_by_cohort": {
+                "random": 6,
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "late": {
+            "games": 8,
+            "wins": 4,
+            "draws": 0,
+            "losses": 4,
+            "score": 0.5,
+            "red": 0.25,
+            "yellow": 0.75,
+            "paired": {
+              "mean": 0.5,
+              "ci95": [
+                0.5,
+                0.5
+              ],
+              "ci97_5": [
+                0.5,
+                0.5
+              ],
+              "conservative97_5": [
+                0,
+                1
+              ],
+              "openings": 4,
+              "clusters": 4,
+              "clusters_by_cohort": {
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "midgame": {
+            "games": 36,
+            "wins": 16,
+            "draws": 4,
+            "losses": 16,
+            "score": 0.5,
+            "red": 0.5555555555555556,
+            "yellow": 0.4444444444444444,
+            "paired": {
+              "mean": 0.5,
+              "ci95": [
+                0.4305555555555556,
+                0.5694444444444444
+              ],
+              "ci97_5": [
+                0.4166666666666667,
+                0.5694444444444444
+              ],
+              "conservative97_5": [
+                0.08068859265516332,
+                0.9193114073448367
+              ],
+              "openings": 18,
+              "clusters": 14,
+              "clusters_by_cohort": {
+                "agent": 4,
+                "random": 10
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        },
+        "tactics": {
+          "quiet": {
+            "games": 30,
+            "wins": 18,
+            "draws": 3,
+            "losses": 9,
+            "score": 0.65,
+            "red": 0.6666666666666666,
+            "yellow": 0.6333333333333333,
+            "paired": {
+              "mean": 0.65,
+              "ci95": [
+                0.5166666666666667,
+                0.7833333333333333
+              ],
+              "ci97_5": [
+                0.5,
+                0.8
+              ],
+              "conservative97_5": [
+                0.1767450473405851,
+                1
+              ],
+              "openings": 15,
+              "clusters": 11,
+              "clusters_by_cohort": {
+                "random": 7,
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "tactical": {
+            "games": 34,
+            "wins": 17,
+            "draws": 1,
+            "losses": 16,
+            "score": 0.5147058823529411,
+            "red": 0.47058823529411764,
+            "yellow": 0.5588235294117647,
+            "paired": {
+              "mean": 0.5147058823529411,
+              "ci95": [
+                0.47058823529411764,
+                0.5882352941176471
+              ],
+              "ci97_5": [
+                0.45588235294117646,
+                0.5882352941176471
+              ],
+              "conservative97_5": [
+                0.07935082726447096,
+                0.9500609374414113
+              ],
+              "openings": 17,
+              "clusters": 13,
+              "clusters_by_cohort": {
+                "random": 9,
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        }
+      },
+      "cohort_stage": {
+        "random/early": {
+          "games": 12,
+          "wins": 10,
+          "draws": 0,
+          "losses": 2,
+          "score": 0.8333333333333334,
+          "red": 0.8333333333333334,
+          "yellow": 0.8333333333333334
+        },
+        "random/midgame": {
+          "games": 20,
+          "wins": 8,
+          "draws": 2,
+          "losses": 10,
+          "score": 0.45,
+          "red": 0.7,
+          "yellow": 0.2
+        },
+        "random/late": {
+          "games": 0,
+          "wins": 0,
+          "draws": 0,
+          "losses": 0,
+          "score": null,
+          "red": null,
+          "yellow": null
+        },
+        "agent/early": {
+          "games": 8,
+          "wins": 5,
+          "draws": 0,
+          "losses": 3,
+          "score": 0.625,
+          "red": 0.5,
+          "yellow": 0.75
+        },
+        "agent/midgame": {
+          "games": 16,
+          "wins": 8,
+          "draws": 2,
+          "losses": 6,
+          "score": 0.5625,
+          "red": 0.375,
+          "yellow": 0.75
+        },
+        "agent/late": {
+          "games": 8,
+          "wins": 4,
+          "draws": 0,
+          "losses": 4,
+          "score": 0.5,
+          "red": 0.25,
+          "yellow": 0.75
+        }
+      },
+      "paired_score": {
+        "mean": 0.578125,
+        "ci95": [
+          0.5,
+          0.65625
+        ],
+        "ci97_5": [
+          0.4921875,
+          0.671875
+        ],
+        "conservative97_5": [
+          0.16439451355145646,
+          0.9918554864485436
+        ],
+        "openings": 32,
+        "clusters": 20,
+        "clusters_by_cohort": {
+          "random": 16,
+          "agent": 4
+        },
+        "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+      },
+      "pair_scores": {
+        "main-000": 0.5,
+        "main-001": 0.5,
+        "main-002": 1.0,
+        "main-003": 1.0,
+        "main-004": 0.5,
+        "main-005": 0.5,
+        "main-006": 0.5,
+        "main-007": 0.5,
+        "main-008": 0.5,
+        "main-009": 1.0,
+        "main-010": 0.5,
+        "main-011": 0.75,
+        "main-012": 0.5,
+        "main-013": 0.5,
+        "main-014": 0.5,
+        "main-015": 0.5,
+        "main-016": 1.0,
+        "main-017": 0.5,
+        "main-018": 1.0,
+        "main-019": 0.5,
+        "main-020": 1.0,
+        "main-021": 0.25,
+        "main-022": 0.25,
+        "main-023": 0.5,
+        "main-024": 0.5,
+        "main-025": 0.5,
+        "main-026": 0.25,
+        "main-027": 0.5,
+        "main-028": 0.5,
+        "main-029": 0.5,
+        "main-030": 0.5,
+        "main-031": 0.5
+      },
+      "primary_bootstrap_improvement": false,
+      "primary_conservative_improvement": false
+    },
+    {
+      "matchup": "n10-vs-m5000",
+      "primary": false,
+      "planned_pairs": 32,
+      "games": 64,
+      "wins": 32,
+      "draws": 2,
+      "losses": 30,
+      "score": 0.515625,
+      "red": 0.515625,
+      "yellow": 0.515625,
+      "complete_pairs": 32,
+      "unpaired_games": 0,
+      "strata": {
+        "cohort": {
+          "agent": {
+            "games": 32,
+            "wins": 16,
+            "draws": 1,
+            "losses": 15,
+            "score": 0.515625,
+            "red": 0.3125,
+            "yellow": 0.71875,
+            "paired": {
+              "mean": 0.515625,
+              "ci95": [
+                0.40625,
+                0.625
+              ],
+              "ci97_5": [
+                0.390625,
+                0.625
+              ],
+              "conservative97_5": [
+                0,
+                1
+              ],
+              "openings": 16,
+              "clusters": 4,
+              "clusters_by_cohort": {
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "random": {
+            "games": 32,
+            "wins": 16,
+            "draws": 1,
+            "losses": 15,
+            "score": 0.515625,
+            "red": 0.71875,
+            "yellow": 0.3125,
+            "paired": {
+              "mean": 0.515625,
+              "ci95": [
+                0.453125,
+                0.59375
+              ],
+              "ci97_5": [
+                0.453125,
+                0.609375
+              ],
+              "conservative97_5": [
+                0.14557320317480044,
+                0.8856767968251995
+              ],
+              "openings": 16,
+              "clusters": 16,
+              "clusters_by_cohort": {
+                "random": 16
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        },
+        "stage": {
+          "early": {
+            "games": 20,
+            "wins": 13,
+            "draws": 0,
+            "losses": 7,
+            "score": 0.65,
+            "red": 0.6,
+            "yellow": 0.7,
+            "paired": {
+              "mean": 0.65,
+              "ci95": [
+                0.55,
+                0.8
+              ],
+              "ci97_5": [
+                0.5,
+                0.8
+              ],
+              "conservative97_5": [
+                0.18191738791780127,
+                1
+              ],
+              "openings": 10,
+              "clusters": 10,
+              "clusters_by_cohort": {
+                "random": 6,
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "late": {
+            "games": 8,
+            "wins": 4,
+            "draws": 0,
+            "losses": 4,
+            "score": 0.5,
+            "red": 0.25,
+            "yellow": 0.75,
+            "paired": {
+              "mean": 0.5,
+              "ci95": [
+                0.5,
+                0.5
+              ],
+              "ci97_5": [
+                0.5,
+                0.5
+              ],
+              "conservative97_5": [
+                0,
+                1
+              ],
+              "openings": 4,
+              "clusters": 4,
+              "clusters_by_cohort": {
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "midgame": {
+            "games": 36,
+            "wins": 15,
+            "draws": 2,
+            "losses": 19,
+            "score": 0.4444444444444444,
+            "red": 0.5277777777777778,
+            "yellow": 0.3611111111111111,
+            "paired": {
+              "mean": 0.4444444444444444,
+              "ci95": [
+                0.3888888888888889,
+                0.4861111111111111
+              ],
+              "ci97_5": [
+                0.3888888888888889,
+                0.5
+              ],
+              "conservative97_5": [
+                0.025133037099607736,
+                0.8637558517892812
+              ],
+              "openings": 18,
+              "clusters": 14,
+              "clusters_by_cohort": {
+                "agent": 4,
+                "random": 10
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        },
+        "tactics": {
+          "quiet": {
+            "games": 30,
+            "wins": 16,
+            "draws": 1,
+            "losses": 13,
+            "score": 0.55,
+            "red": 0.5666666666666667,
+            "yellow": 0.5333333333333333,
+            "paired": {
+              "mean": 0.55,
+              "ci95": [
+                0.4166666666666667,
+                0.6666666666666666
+              ],
+              "ci97_5": [
+                0.4,
+                0.7
+              ],
+              "conservative97_5": [
+                0.07674504734058513,
+                1
+              ],
+              "openings": 15,
+              "clusters": 11,
+              "clusters_by_cohort": {
+                "random": 7,
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          },
+          "tactical": {
+            "games": 34,
+            "wins": 16,
+            "draws": 1,
+            "losses": 17,
+            "score": 0.4852941176470588,
+            "red": 0.47058823529411764,
+            "yellow": 0.5,
+            "paired": {
+              "mean": 0.4852941176470588,
+              "ci95": [
+                0.45588235294117646,
+                0.5
+              ],
+              "ci97_5": [
+                0.45588235294117646,
+                0.5
+              ],
+              "conservative97_5": [
+                0.049939062558588654,
+                0.920649172735529
+              ],
+              "openings": 17,
+              "clusters": 13,
+              "clusters_by_cohort": {
+                "random": 9,
+                "agent": 4
+              },
+              "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+            }
+          }
+        }
+      },
+      "cohort_stage": {
+        "random/early": {
+          "games": 12,
+          "wins": 7,
+          "draws": 0,
+          "losses": 5,
+          "score": 0.5833333333333334,
+          "red": 0.6666666666666666,
+          "yellow": 0.5
+        },
+        "random/midgame": {
+          "games": 20,
+          "wins": 9,
+          "draws": 1,
+          "losses": 10,
+          "score": 0.475,
+          "red": 0.75,
+          "yellow": 0.2
+        },
+        "random/late": {
+          "games": 0,
+          "wins": 0,
+          "draws": 0,
+          "losses": 0,
+          "score": null,
+          "red": null,
+          "yellow": null
+        },
+        "agent/early": {
+          "games": 8,
+          "wins": 6,
+          "draws": 0,
+          "losses": 2,
+          "score": 0.75,
+          "red": 0.5,
+          "yellow": 1.0
+        },
+        "agent/midgame": {
+          "games": 16,
+          "wins": 6,
+          "draws": 1,
+          "losses": 9,
+          "score": 0.40625,
+          "red": 0.25,
+          "yellow": 0.5625
+        },
+        "agent/late": {
+          "games": 8,
+          "wins": 4,
+          "draws": 0,
+          "losses": 4,
+          "score": 0.5,
+          "red": 0.25,
+          "yellow": 0.75
+        }
+      },
+      "paired_score": {
+        "mean": 0.515625,
+        "ci95": [
+          0.453125,
+          0.578125
+        ],
+        "ci97_5": [
+          0.4453125,
+          0.5859375
+        ],
+        "conservative97_5": [
+          0.10189451355145646,
+          0.9293554864485436
+        ],
+        "openings": 32,
+        "clusters": 20,
+        "clusters_by_cohort": {
+          "random": 16,
+          "agent": 4
+        },
+        "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+      },
+      "pair_scores": {
+        "main-000": 1.0,
+        "main-001": 0.5,
+        "main-002": 0.5,
+        "main-003": 0.0,
+        "main-004": 0.5,
+        "main-005": 0.5,
+        "main-006": 0.5,
+        "main-007": 0.5,
+        "main-008": 0.5,
+        "main-009": 1.0,
+        "main-010": 0.5,
+        "main-011": 0.5,
+        "main-012": 0.5,
+        "main-013": 0.5,
+        "main-014": 0.5,
+        "main-015": 0.5,
+        "main-016": 0.5,
+        "main-017": 0.5,
+        "main-018": 0.5,
+        "main-019": 0.5,
+        "main-020": 0.5,
+        "main-021": 0.25,
+        "main-022": 0.5,
+        "main-023": 0.5,
+        "main-024": 0.5,
+        "main-025": 1.0,
+        "main-026": 0.25,
+        "main-027": 0.5,
+        "main-028": 0.5,
+        "main-029": 0.5,
+        "main-030": 0.5,
+        "main-031": 0.5
+      },
+      "primary_bootstrap_improvement": false,
+      "primary_conservative_improvement": false
+    }
+  ],
+  "contrasts": [
+    {
+      "lower": "n8-vs-m2000",
+      "higher": "n10-vs-m2000",
+      "paired_score_difference": {
+        "mean": 0.015625,
+        "ci95": [
+          -0.015625,
+          0.0546875
+        ],
+        "ci97_5": [
+          -0.015625,
+          0.0625
+        ],
+        "conservative97_5": [
+          -0.8118359728970871,
+          0.8430859728970872
+        ],
+        "openings": 32,
+        "clusters": 20,
+        "clusters_by_cohort": {
+          "agent": 4,
+          "random": 16
+        },
+        "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+      }
+    },
+    {
+      "lower": "n10-vs-m2000",
+      "higher": "n10-vs-m5000",
+      "paired_score_difference": {
+        "mean": -0.0625,
+        "ci95": [
+          -0.15625,
+          0.03125
+        ],
+        "ci97_5": [
+          -0.171875,
+          0.0390625
+        ],
+        "conservative97_5": [
+          -0.8899609728970871,
+          0.7649609728970872
+        ],
+        "openings": 32,
+        "clusters": 20,
+        "clusters_by_cohort": {
+          "agent": 4,
+          "random": 16
+        },
+        "caution": "Approximate percentile coverage; small/degenerate strata can understate uncertainty"
+      }
+    }
+  ],
+  "compute": {
+    "n8": {
+      "calls": 2837,
+      "wall_seconds": 74.10747085767798,
+      "cpu_seconds": 75.38304700000026,
+      "median_ms": 4.437291994690895,
+      "p95_ms": 119.21130800619721,
+      "maximum_ms": 278.99129199795425,
+      "max_nodes": 79711,
+      "max_tt_entries": 20755
+    },
+    "n6": {
+      "calls": 1705,
+      "wall_seconds": 10.063767169136554,
+      "cpu_seconds": 10.074518000000115,
+      "median_ms": 1.7683329060673714,
+      "p95_ms": 23.486608639359464,
+      "maximum_ms": 43.85933396406472,
+      "max_nodes": 13032,
+      "max_tt_entries": 2931
+    },
+    "n10": {
+      "calls": 2665,
+      "wall_seconds": 227.75317411543801,
+      "cpu_seconds": 228.53057099999873,
+      "median_ms": 7.389000151306391,
+      "p95_ms": 444.0254908986387,
+      "maximum_ms": 1413.4271249640733,
+      "max_nodes": 423857,
+      "max_tt_entries": 119958
+    },
+    "m2000": {
+      "calls": 998,
+      "wall_seconds": 12.061975175514817,
+      "cpu_seconds": 12.031373000000203,
+      "median_ms": 12.968854513019323,
+      "p95_ms": 22.173449932597578,
+      "maximum_ms": 35.56508314795792,
+      "max_nodes": 0,
+      "max_tt_entries": 0
+    },
+    "m5000": {
+      "calls": 470,
+      "wall_seconds": 14.207280322210863,
+      "cpu_seconds": 14.18524700000033,
+      "median_ms": 32.35162456985563,
+      "p95_ms": 57.29492062237114,
+      "maximum_ms": 69.75295906886458,
+      "max_nodes": 0,
+      "max_tt_entries": 0
+    }
+  },
+  "games": 512,
+  "game_seconds": 343.33948900620453
+}

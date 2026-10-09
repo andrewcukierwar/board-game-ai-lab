@@ -1,0 +1,2551 @@
+{
+  "candidate_sha256": "15719ab77e846dd3e56150c070c0fc167b3cef9f0129a727aa10bd6fcd6710fa",
+  "rows": [
+    {
+      "position": "supplement-main-003",
+      "depth": 4,
+      "samples": [
+        {
+          "move": 4,
+          "scores": {
+            "3": 3,
+            "2": -5,
+            "4": 7,
+            "1": -2,
+            "5": 1,
+            "0": -3,
+            "6": -3
+          },
+          "stats": {
+            "nodes": 746,
+            "entries": 158,
+            "hits": 46,
+            "cutoffs": 89
+          },
+          "wall_seconds": 0.0026027089916169643,
+          "cpu_seconds": 0.0025999999999997137
+        },
+        {
+          "move": 4,
+          "scores": {
+            "3": 3,
+            "2": -5,
+            "4": 7,
+            "1": -2,
+            "5": 1,
+            "0": -3,
+            "6": -3
+          },
+          "stats": {
+            "nodes": 746,
+            "entries": 158,
+            "hits": 46,
+            "cutoffs": 89
+          },
+          "wall_seconds": 0.0027112499810755253,
+          "cpu_seconds": 0.002707000000000015
+        },
+        {
+          "move": 4,
+          "scores": {
+            "3": 3,
+            "2": -5,
+            "4": 7,
+            "1": -2,
+            "5": 1,
+            "0": -3,
+            "6": -3
+          },
+          "stats": {
+            "nodes": 746,
+            "entries": 158,
+            "hits": 46,
+            "cutoffs": 89
+          },
+          "wall_seconds": 0.0028235421050339937,
+          "cpu_seconds": 0.002809999999999757
+        }
+      ],
+      "median_wall_seconds": 0.0027112499810755253,
+      "maximum_wall_seconds": 0.0028235421050339937,
+      "median_cpu_seconds": 0.002707000000000015,
+      "nodes_per_second": 275149.8405558566,
+      "memory": {
+        "move": 4,
+        "scores": {
+          "3": 3,
+          "2": -5,
+          "4": 7,
+          "1": -2,
+          "5": 1,
+          "0": -3,
+          "6": -3
+        },
+        "stats": {
+          "nodes": 746,
+          "entries": 158,
+          "hits": 46,
+          "cutoffs": 89
+        },
+        "wall_seconds": 0.013615000061690807,
+        "cpu_seconds": 0.013610000000000344,
+        "retained_bytes": 37960,
+        "peak_bytes": 39976,
+        "tt_bytes": 37020,
+        "entries": 158,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 14736,
+            "count": 159
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 11376,
+            "count": 158
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 5056,
+            "count": 158
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 3968,
+            "count": 124
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 680,
+            "count": 23
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 288,
+            "count": 1
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 224,
+            "count": 4
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 168,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      },
+      "profile": {
+        "move": 4,
+        "scores": {
+          "3": 3,
+          "2": -5,
+          "4": 7,
+          "1": -2,
+          "5": 1,
+          "0": -3,
+          "6": -3
+        },
+        "stats": {
+          "nodes": 746,
+          "entries": 158,
+          "hits": 46,
+          "cutoffs": 89
+        },
+        "wall_seconds": 0.005908209132030606,
+        "cpu_seconds": 0.005902999999999992,
+        "profile_total_seconds": 0.005912624999999999,
+        "functions": [
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'disable' of '_lsprof.Profiler' objects>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 8.3e-08,
+            "cumulative_seconds": 8.3e-08
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'insert' of 'list' objects>",
+            "primitive_calls": 20,
+            "calls": 20,
+            "self_seconds": 9.58e-07,
+            "cumulative_seconds": 9.58e-07
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'remove' of 'list' objects>",
+            "primitive_calls": 20,
+            "calls": 20,
+            "self_seconds": 1.3800000000000001e-06,
+            "cumulative_seconds": 1.3800000000000001e-06
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'sort' of 'list' objects>",
+            "primitive_calls": 2,
+            "calls": 2,
+            "self_seconds": 1.7500000000000002e-06,
+            "cumulative_seconds": 3.958e-06
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'bit_count' of 'int' objects>",
+            "primitive_calls": 21588,
+            "calls": 21588,
+            "self_seconds": 0.000512773,
+            "cumulative_seconds": 0.000512773
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.len>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.2500000000000002e-07,
+            "cumulative_seconds": 1.2500000000000002e-07
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.max>",
+            "primitive_calls": 774,
+            "calls": 774,
+            "self_seconds": 5.4538000000000005e-05,
+            "cumulative_seconds": 5.4538000000000005e-05
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.min>",
+            "primitive_calls": 3,
+            "calls": 3,
+            "self_seconds": 3.75e-07,
+            "cumulative_seconds": 3.75e-07
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.sum>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 2.08e-07,
+            "cumulative_seconds": 2.08e-07
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method time.process_time>",
+            "primitive_calls": 2,
+            "calls": 2,
+            "self_seconds": 1.916e-06,
+            "cumulative_seconds": 1.916e-06
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method time.perf_counter>",
+            "primitive_calls": 2,
+            "calls": 2,
+            "self_seconds": 2.08e-07,
+            "cumulative_seconds": 2.08e-07
+          },
+          {
+            "file": "profile_negamax_depths.py",
+            "line": 22,
+            "function": "decision",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 3.8350000000000006e-06,
+            "cumulative_seconds": 0.005912542000000001
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 131,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 3.75e-07,
+            "cumulative_seconds": 3.75e-07
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 118,
+            "function": "heuristic",
+            "primitive_calls": 540,
+            "calls": 540,
+            "self_seconds": 0.003327586,
+            "cumulative_seconds": 0.003838689
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 191,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 4.5800000000000005e-07,
+            "cumulative_seconds": 4.5800000000000005e-07
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 31,
+            "function": "winning_squares",
+            "primitive_calls": 54,
+            "calls": 54,
+            "self_seconds": 6.4956e-05,
+            "cumulative_seconds": 6.4956e-05
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 84,
+            "function": "<lambda>",
+            "primitive_calls": 14,
+            "calls": 14,
+            "self_seconds": 2.2080000000000003e-06,
+            "cumulative_seconds": 2.2080000000000003e-06
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 220,
+            "function": "choose_move",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 4.209e-06,
+            "cumulative_seconds": 0.005906125000000001
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 65,
+            "function": "<listcomp>",
+            "primitive_calls": 179,
+            "calls": 179,
+            "self_seconds": 5.7913000000000006e-05,
+            "cumulative_seconds": 5.7913000000000006e-05
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 64,
+            "function": "legal",
+            "primitive_calls": 179,
+            "calls": 179,
+            "self_seconds": 3.2630000000000004e-05,
+            "cumulative_seconds": 9.0543e-05
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 23,
+            "function": "has_four",
+            "primitive_calls": 1494,
+            "calls": 1494,
+            "self_seconds": 0.000519386,
+            "cumulative_seconds": 0.000519386
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 97,
+            "function": "play",
+            "primitive_calls": 746,
+            "calls": 746,
+            "self_seconds": 0.000183551,
+            "cumulative_seconds": 0.000183551
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 103,
+            "function": "undo",
+            "primitive_calls": 746,
+            "calls": 746,
+            "self_seconds": 0.00018261000000000002,
+            "cumulative_seconds": 0.00018261000000000002
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 109,
+            "function": "terminal_value",
+            "primitive_calls": 747,
+            "calls": 747,
+            "self_seconds": 0.000197631,
+            "cumulative_seconds": 0.000717017
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 52,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 7.5e-06,
+            "cumulative_seconds": 7.708e-06
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 203,
+            "function": "score_moves",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 6.792e-06,
+            "cumulative_seconds": 0.005900791000000001
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 141,
+            "function": "negamax",
+            "primitive_calls": 7,
+            "calls": 746,
+            "self_seconds": 0.00067442,
+            "cumulative_seconds": 0.005878333
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 67,
+            "function": "ordered_moves",
+            "primitive_calls": 178,
+            "calls": 178,
+            "self_seconds": 7.225100000000001e-05,
+            "cumulative_seconds": 0.000234507
+          }
+        ],
+        "categories_seconds": {
+          "heuristic": 0.003838689,
+          "terminal": 0.000717017,
+          "legal_ordering": 0.000234507,
+          "state_play_undo": 0.00036616100000000005,
+          "tt_and_recursive_other": 0.0007562509999999977
+        },
+        "leaf_evaluations": 540
+      },
+      "line_profile": null
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 6,
+      "samples": [
+        {
+          "move": 4,
+          "scores": {
+            "3": 6,
+            "2": -6,
+            "4": 13,
+            "1": 0,
+            "5": 5,
+            "0": -1,
+            "6": -1
+          },
+          "stats": {
+            "nodes": 5647,
+            "entries": 1422,
+            "hits": 711,
+            "cutoffs": 1027
+          },
+          "wall_seconds": 0.01766266697086394,
+          "cpu_seconds": 0.01766000000000023
+        },
+        {
+          "move": 4,
+          "scores": {
+            "3": 6,
+            "2": -6,
+            "4": 13,
+            "1": 0,
+            "5": 5,
+            "0": -1,
+            "6": -1
+          },
+          "stats": {
+            "nodes": 5647,
+            "entries": 1422,
+            "hits": 711,
+            "cutoffs": 1027
+          },
+          "wall_seconds": 0.019317666068673134,
+          "cpu_seconds": 0.019292999999999783
+        },
+        {
+          "move": 4,
+          "scores": {
+            "3": 6,
+            "2": -6,
+            "4": 13,
+            "1": 0,
+            "5": 5,
+            "0": -1,
+            "6": -1
+          },
+          "stats": {
+            "nodes": 5647,
+            "entries": 1422,
+            "hits": 711,
+            "cutoffs": 1027
+          },
+          "wall_seconds": 0.019001375185325742,
+          "cpu_seconds": 0.018971999999999767
+        }
+      ],
+      "median_wall_seconds": 0.019001375185325742,
+      "maximum_wall_seconds": 0.019317666068673134,
+      "median_cpu_seconds": 0.018971999999999767,
+      "nodes_per_second": 297189.0163171468,
+      "memory": {
+        "move": 4,
+        "scores": {
+          "3": 6,
+          "2": -6,
+          "4": 13,
+          "1": 0,
+          "5": 5,
+          "0": -1,
+          "6": -1
+        },
+        "stats": {
+          "nodes": 5647,
+          "entries": 1422,
+          "hits": 711,
+          "cutoffs": 1027
+        },
+        "wall_seconds": 0.11507775005884469,
+        "cpu_seconds": 0.10432400000000008,
+        "retained_bytes": 359148,
+        "peak_bytes": 387536,
+        "tt_bytes": 356036,
+        "entries": 1422,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 164752,
+            "count": 1423
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 102384,
+            "count": 1422
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 45536,
+            "count": 1423
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 33216,
+            "count": 1038
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 10824,
+            "count": 340
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 336,
+            "count": 6
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 320,
+            "count": 2
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 152,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      },
+      "profile": {
+        "move": 4,
+        "scores": {
+          "3": 6,
+          "2": -6,
+          "4": 13,
+          "1": 0,
+          "5": 5,
+          "0": -1,
+          "6": -1
+        },
+        "stats": {
+          "nodes": 5647,
+          "entries": 1422,
+          "hits": 711,
+          "cutoffs": 1027
+        },
+        "wall_seconds": 0.039430208038538694,
+        "cpu_seconds": 0.039371000000000045,
+        "profile_total_seconds": 0.039438292,
+        "functions": [
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'disable' of '_lsprof.Profiler' objects>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 4.1700000000000004e-07,
+            "cumulative_seconds": 4.1700000000000004e-07
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'insert' of 'list' objects>",
+            "primitive_calls": 227,
+            "calls": 227,
+            "self_seconds": 1.0281e-05,
+            "cumulative_seconds": 1.0281e-05
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'remove' of 'list' objects>",
+            "primitive_calls": 227,
+            "calls": 227,
+            "self_seconds": 1.3672e-05,
+            "cumulative_seconds": 1.3672e-05
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'sort' of 'list' objects>",
+            "primitive_calls": 89,
+            "calls": 89,
+            "self_seconds": 5.1994000000000004e-05,
+            "cumulative_seconds": 0.000128971
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'bit_count' of 'int' objects>",
+            "primitive_calls": 119955,
+            "calls": 119955,
+            "self_seconds": 0.0028438620000000004,
+            "cumulative_seconds": 0.0028438620000000004
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.len>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.67e-07,
+            "cumulative_seconds": 1.67e-07
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.max>",
+            "primitive_calls": 6164,
+            "calls": 6164,
+            "self_seconds": 0.000415231,
+            "cumulative_seconds": 0.000415231
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.min>",
+            "primitive_calls": 86,
+            "calls": 86,
+            "self_seconds": 7.3360000000000006e-06,
+            "cumulative_seconds": 7.3360000000000006e-06
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.sum>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 2.5000000000000004e-07,
+            "cumulative_seconds": 2.5000000000000004e-07
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method time.process_time>",
+            "primitive_calls": 2,
+            "calls": 2,
+            "self_seconds": 5.874e-06,
+            "cumulative_seconds": 5.874e-06
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method time.perf_counter>",
+            "primitive_calls": 2,
+            "calls": 2,
+            "self_seconds": 5.000000000000001e-07,
+            "cumulative_seconds": 5.000000000000001e-07
+          },
+          {
+            "file": "profile_negamax_depths.py",
+            "line": 22,
+            "function": "decision",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 6.126e-06,
+            "cumulative_seconds": 0.039437875000000004
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 131,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 5.84e-07,
+            "cumulative_seconds": 5.84e-07
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 118,
+            "function": "heuristic",
+            "primitive_calls": 3399,
+            "calls": 3399,
+            "self_seconds": 0.020169031,
+            "cumulative_seconds": 0.022992928000000003
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 191,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.4590000000000001e-06,
+            "cumulative_seconds": 1.4590000000000001e-06
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 31,
+            "function": "winning_squares",
+            "primitive_calls": 642,
+            "calls": 642,
+            "self_seconds": 0.0007762820000000001,
+            "cumulative_seconds": 0.0007762820000000001
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 84,
+            "function": "<lambda>",
+            "primitive_calls": 562,
+            "calls": 562,
+            "self_seconds": 7.6977e-05,
+            "cumulative_seconds": 7.6977e-05
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 220,
+            "function": "choose_move",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 3.175e-05,
+            "cumulative_seconds": 0.039423916
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 65,
+            "function": "<listcomp>",
+            "primitive_calls": 1650,
+            "calls": 1650,
+            "self_seconds": 0.0005309430000000001,
+            "cumulative_seconds": 0.0005309430000000001
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 64,
+            "function": "legal",
+            "primitive_calls": 1650,
+            "calls": 1650,
+            "self_seconds": 0.000299929,
+            "cumulative_seconds": 0.0008308720000000001
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 23,
+            "function": "has_four",
+            "primitive_calls": 11296,
+            "calls": 11296,
+            "self_seconds": 0.0038854180000000003,
+            "cumulative_seconds": 0.0038854180000000003
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 97,
+            "function": "play",
+            "primitive_calls": 5647,
+            "calls": 5647,
+            "self_seconds": 0.001386876,
+            "cumulative_seconds": 0.001386876
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 103,
+            "function": "undo",
+            "primitive_calls": 5647,
+            "calls": 5647,
+            "self_seconds": 0.001414441,
+            "cumulative_seconds": 0.001414441
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 109,
+            "function": "terminal_value",
+            "primitive_calls": 5648,
+            "calls": 5648,
+            "self_seconds": 0.001487842,
+            "cumulative_seconds": 0.00537326
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 52,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.2916000000000001e-05,
+            "cumulative_seconds": 1.3166e-05
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 203,
+            "function": "score_moves",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.1204000000000001e-05,
+            "cumulative_seconds": 0.039391
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 141,
+            "function": "negamax",
+            "primitive_calls": 7,
+            "calls": 5647,
+            "self_seconds": 0.005298534000000001,
+            "cumulative_seconds": 0.039357835
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 67,
+            "function": "ordered_moves",
+            "primitive_calls": 1649,
+            "calls": 1649,
+            "self_seconds": 0.000698396,
+            "cumulative_seconds": 0.002477064
+          }
+        ],
+        "categories_seconds": {
+          "heuristic": 0.022992928000000003,
+          "terminal": 0.00537326,
+          "legal_ordering": 0.002477064,
+          "state_play_undo": 0.002801317,
+          "tt_and_recursive_other": 0.005793722999999994
+        },
+        "leaf_evaluations": 3399
+      },
+      "line_profile": {
+        "move": 4,
+        "scores": {
+          "3": 6,
+          "2": -6,
+          "4": 13,
+          "1": 0,
+          "5": 5,
+          "0": -1,
+          "6": -1
+        },
+        "stats": {
+          "nodes": 5647,
+          "entries": 1422,
+          "hits": 711,
+          "cutoffs": 1027
+        },
+        "wall_seconds": 0.3158922081347555,
+        "cpu_seconds": 0.3153509999999997,
+        "depth": 6,
+        "categories_seconds": {
+          "heuristic": 0.08198237488977611,
+          "terminal": 0.017559696454554796,
+          "legal_ordering": 0.005620308918878436,
+          "tt": 0.0032895333133637905,
+          "state_play_undo": 0.006559634814038873,
+          "recursive_other": 0.00934164016507566
+        },
+        "tt_lines": [
+          150,
+          151,
+          152,
+          153,
+          154,
+          155,
+          156,
+          157,
+          158,
+          159,
+          160,
+          161,
+          163,
+          164,
+          165,
+          178,
+          179,
+          184,
+          186
+        ],
+        "lines": [
+          {
+            "function": "<lambda>",
+            "line": 84,
+            "seconds": 0.00015344703570008278
+          },
+          {
+            "function": "<listcomp>",
+            "line": 65,
+            "seconds": 0.0015375029761344194
+          },
+          {
+            "function": "__init__",
+            "line": 52,
+            "seconds": 8.288770914077759e-08
+          },
+          {
+            "function": "__init__",
+            "line": 53,
+            "seconds": 2.919696271419525e-07
+          },
+          {
+            "function": "__init__",
+            "line": 54,
+            "seconds": 5.830079317092896e-07
+          },
+          {
+            "function": "__init__",
+            "line": 55,
+            "seconds": 4.169996827840805e-07
+          },
+          {
+            "function": "__init__",
+            "line": 56,
+            "seconds": 1.416308805346489e-06
+          },
+          {
+            "function": "__init__",
+            "line": 57,
+            "seconds": 3.541586920619011e-06
+          },
+          {
+            "function": "__init__",
+            "line": 58,
+            "seconds": 5.798414349555969e-06
+          },
+          {
+            "function": "__init__",
+            "line": 59,
+            "seconds": 3.375578671693802e-06
+          },
+          {
+            "function": "__init__",
+            "line": 60,
+            "seconds": 2.9578804969787598e-06
+          },
+          {
+            "function": "__init__",
+            "line": 61,
+            "seconds": 1.7103739082813263e-06
+          },
+          {
+            "function": "__init__",
+            "line": 62,
+            "seconds": 1.00000761449337e-06
+          },
+          {
+            "function": "__init__",
+            "line": 131,
+            "seconds": 4.190951585769653e-08
+          },
+          {
+            "function": "__init__",
+            "line": 133,
+            "seconds": 2.919696271419525e-07
+          },
+          {
+            "function": "__init__",
+            "line": 134,
+            "seconds": 2.0791776478290558e-07
+          },
+          {
+            "function": "__init__",
+            "line": 135,
+            "seconds": 1.25030055642128e-07
+          },
+          {
+            "function": "__init__",
+            "line": 136,
+            "seconds": 2.0791776478290558e-07
+          },
+          {
+            "function": "__init__",
+            "line": 137,
+            "seconds": 1.25030055642128e-07
+          },
+          {
+            "function": "__init__",
+            "line": 138,
+            "seconds": 2.9103830456733704e-07
+          },
+          {
+            "function": "__init__",
+            "line": 191,
+            "seconds": 8.405186235904694e-08
+          },
+          {
+            "function": "__init__",
+            "line": 192,
+            "seconds": 7.909256964921951e-07
+          },
+          {
+            "function": "__init__",
+            "line": 194,
+            "seconds": 7.078051567077637e-07
+          },
+          {
+            "function": "__init__",
+            "line": 195,
+            "seconds": 2.0884908735752106e-07
+          },
+          {
+            "function": "__init__",
+            "line": 196,
+            "seconds": 1.3329554349184036e-06
+          },
+          {
+            "function": "choose_move",
+            "line": 220,
+            "seconds": 8.288770914077759e-08
+          },
+          {
+            "function": "choose_move",
+            "line": 221,
+            "seconds": 5.8791134506464005e-05
+          },
+          {
+            "function": "choose_move",
+            "line": 223,
+            "seconds": 2.00001522898674e-06
+          },
+          {
+            "function": "has_four",
+            "line": 23,
+            "seconds": 0.0005828060675412416
+          },
+          {
+            "function": "has_four",
+            "line": 24,
+            "seconds": 0.003488256363198161
+          },
+          {
+            "function": "has_four",
+            "line": 25,
+            "seconds": 0.004652169067412615
+          },
+          {
+            "function": "has_four",
+            "line": 26,
+            "seconds": 0.004798048175871372
+          },
+          {
+            "function": "has_four",
+            "line": 27,
+            "seconds": 8.53557139635086e-06
+          },
+          {
+            "function": "has_four",
+            "line": 28,
+            "seconds": 0.0006731909234076738
+          },
+          {
+            "function": "heuristic",
+            "line": 118,
+            "seconds": 0.00016968371346592903
+          },
+          {
+            "function": "heuristic",
+            "line": 119,
+            "seconds": 0.0005043242126703262
+          },
+          {
+            "function": "heuristic",
+            "line": 120,
+            "seconds": 0.00020549003966152668
+          },
+          {
+            "function": "heuristic",
+            "line": 121,
+            "seconds": 0.013710855273529887
+          },
+          {
+            "function": "heuristic",
+            "line": 122,
+            "seconds": 0.025743115227669477
+          },
+          {
+            "function": "heuristic",
+            "line": 123,
+            "seconds": 0.013577669858932495
+          },
+          {
+            "function": "heuristic",
+            "line": 124,
+            "seconds": 0.00749049661681056
+          },
+          {
+            "function": "heuristic",
+            "line": 125,
+            "seconds": 0.013652026187628508
+          },
+          {
+            "function": "heuristic",
+            "line": 126,
+            "seconds": 0.006736209848895669
+          },
+          {
+            "function": "heuristic",
+            "line": 127,
+            "seconds": 0.0001925039105117321
+          },
+          {
+            "function": "legal",
+            "line": 64,
+            "seconds": 8.276919834315777e-05
+          },
+          {
+            "function": "legal",
+            "line": 65,
+            "seconds": 0.00037022773176431656
+          },
+          {
+            "function": "negamax",
+            "line": 141,
+            "seconds": 0.0002764004748314619
+          },
+          {
+            "function": "negamax",
+            "line": 143,
+            "seconds": 0.0003543549682945013
+          },
+          {
+            "function": "negamax",
+            "line": 144,
+            "seconds": 0.0006093131378293037
+          },
+          {
+            "function": "negamax",
+            "line": 145,
+            "seconds": 0.0009172279387712479
+          },
+          {
+            "function": "negamax",
+            "line": 146,
+            "seconds": 0.0003722414840012789
+          },
+          {
+            "function": "negamax",
+            "line": 147,
+            "seconds": 7.0373062044382095e-06
+          },
+          {
+            "function": "negamax",
+            "line": 148,
+            "seconds": 0.0004016812890768051
+          },
+          {
+            "function": "negamax",
+            "line": 149,
+            "seconds": 0.0006547113880515099
+          },
+          {
+            "function": "negamax",
+            "line": 150,
+            "seconds": 0.00032048975117504597
+          },
+          {
+            "function": "negamax",
+            "line": 151,
+            "seconds": 0.00014977646060287952
+          },
+          {
+            "function": "negamax",
+            "line": 152,
+            "seconds": 0.000133647583425045
+          },
+          {
+            "function": "negamax",
+            "line": 153,
+            "seconds": 0.0003707937430590391
+          },
+          {
+            "function": "negamax",
+            "line": 154,
+            "seconds": 0.00013455585576593876
+          },
+          {
+            "function": "negamax",
+            "line": 155,
+            "seconds": 5.4833944886922836e-05
+          },
+          {
+            "function": "negamax",
+            "line": 156,
+            "seconds": 4.04934398829937e-05
+          },
+          {
+            "function": "negamax",
+            "line": 157,
+            "seconds": 7.572351023554802e-05
+          },
+          {
+            "function": "negamax",
+            "line": 158,
+            "seconds": 6.378511898219585e-05
+          },
+          {
+            "function": "negamax",
+            "line": 159,
+            "seconds": 5.504582077264786e-06
+          },
+          {
+            "function": "negamax",
+            "line": 160,
+            "seconds": 4.6337489038705826e-05
+          },
+          {
+            "function": "negamax",
+            "line": 161,
+            "seconds": 7.855636067688465e-05
+          },
+          {
+            "function": "negamax",
+            "line": 163,
+            "seconds": 1.5044352039694786e-05
+          },
+          {
+            "function": "negamax",
+            "line": 164,
+            "seconds": 4.936102777719498e-05
+          },
+          {
+            "function": "negamax",
+            "line": 165,
+            "seconds": 2.124439924955368e-05
+          },
+          {
+            "function": "negamax",
+            "line": 166,
+            "seconds": 0.0001360061578452587
+          },
+          {
+            "function": "negamax",
+            "line": 169,
+            "seconds": 0.0001499471254646778
+          },
+          {
+            "function": "negamax",
+            "line": 170,
+            "seconds": 0.0007270937785506248
+          },
+          {
+            "function": "negamax",
+            "line": 171,
+            "seconds": 0.0008732646238058805
+          },
+          {
+            "function": "negamax",
+            "line": 172,
+            "seconds": 0.0003055776469409466
+          },
+          {
+            "function": "negamax",
+            "line": 173,
+            "seconds": 0.0014047541189938784
+          },
+          {
+            "function": "negamax",
+            "line": 175,
+            "seconds": 0.0009287935681641102
+          },
+          {
+            "function": "negamax",
+            "line": 176,
+            "seconds": 0.0004549012519419193
+          },
+          {
+            "function": "negamax",
+            "line": 177,
+            "seconds": 0.00022723502479493618
+          },
+          {
+            "function": "negamax",
+            "line": 178,
+            "seconds": 0.0007761290762573481
+          },
+          {
+            "function": "negamax",
+            "line": 179,
+            "seconds": 0.0004244348965585232
+          },
+          {
+            "function": "negamax",
+            "line": 180,
+            "seconds": 6.129755638539791e-05
+          },
+          {
+            "function": "negamax",
+            "line": 181,
+            "seconds": 0.00011349259875714779
+          },
+          {
+            "function": "negamax",
+            "line": 182,
+            "seconds": 7.659452967345715e-05
+          },
+          {
+            "function": "negamax",
+            "line": 183,
+            "seconds": 9.232177399098873e-05
+          },
+          {
+            "function": "negamax",
+            "line": 184,
+            "seconds": 0.0001941185910254717
+          },
+          {
+            "function": "negamax",
+            "line": 186,
+            "seconds": 0.0003347031306475401
+          },
+          {
+            "function": "negamax",
+            "line": 187,
+            "seconds": 9.005633182823658e-05
+          },
+          {
+            "function": "ordered_moves",
+            "line": 67,
+            "seconds": 8.355313912034035e-05
+          },
+          {
+            "function": "ordered_moves",
+            "line": 69,
+            "seconds": 0.0003137353342026472
+          },
+          {
+            "function": "ordered_moves",
+            "line": 70,
+            "seconds": 0.00016017514280974865
+          },
+          {
+            "function": "ordered_moves",
+            "line": 71,
+            "seconds": 0.00019809161312878132
+          },
+          {
+            "function": "ordered_moves",
+            "line": 72,
+            "seconds": 0.00011227885261178017
+          },
+          {
+            "function": "ordered_moves",
+            "line": 73,
+            "seconds": 2.041878178715706e-05
+          },
+          {
+            "function": "ordered_moves",
+            "line": 74,
+            "seconds": 1.7395243048667908e-05
+          },
+          {
+            "function": "ordered_moves",
+            "line": 75,
+            "seconds": 5.764118395745754e-05
+          },
+          {
+            "function": "ordered_moves",
+            "line": 76,
+            "seconds": 8.114846423268318e-05
+          },
+          {
+            "function": "ordered_moves",
+            "line": 77,
+            "seconds": 0.00014618062414228916
+          },
+          {
+            "function": "ordered_moves",
+            "line": 78,
+            "seconds": 5.258573219180107e-05
+          },
+          {
+            "function": "ordered_moves",
+            "line": 79,
+            "seconds": 6.774323992431164e-05
+          },
+          {
+            "function": "ordered_moves",
+            "line": 80,
+            "seconds": 1.2998469173908234e-05
+          },
+          {
+            "function": "ordered_moves",
+            "line": 81,
+            "seconds": 1.1336756870150566e-05
+          },
+          {
+            "function": "ordered_moves",
+            "line": 83,
+            "seconds": 0.00010307459160685539
+          },
+          {
+            "function": "ordered_moves",
+            "line": 84,
+            "seconds": 8.88302456587553e-05
+          },
+          {
+            "function": "ordered_moves",
+            "line": 85,
+            "seconds": 5.405861884355545e-06
+          },
+          {
+            "function": "ordered_moves",
+            "line": 86,
+            "seconds": 3.964104689657688e-05
+          },
+          {
+            "function": "play",
+            "line": 97,
+            "seconds": 0.00028680916875600815
+          },
+          {
+            "function": "play",
+            "line": 98,
+            "seconds": 0.0011652754619717598
+          },
+          {
+            "function": "play",
+            "line": 99,
+            "seconds": 0.0006360136903822422
+          },
+          {
+            "function": "play",
+            "line": 100,
+            "seconds": 0.0005335866007953882
+          },
+          {
+            "function": "play",
+            "line": 101,
+            "seconds": 0.000595086021348834
+          },
+          {
+            "function": "score_moves",
+            "line": 203,
+            "seconds": 4.190951585769653e-08
+          },
+          {
+            "function": "score_moves",
+            "line": 205,
+            "seconds": 1.750187948346138e-06
+          },
+          {
+            "function": "score_moves",
+            "line": 206,
+            "seconds": 1.0409858077764511e-06
+          },
+          {
+            "function": "score_moves",
+            "line": 208,
+            "seconds": 1.166015863418579e-06
+          },
+          {
+            "function": "score_moves",
+            "line": 209,
+            "seconds": 1.1657830327749252e-06
+          },
+          {
+            "function": "score_moves",
+            "line": 210,
+            "seconds": 1.7907004803419113e-06
+          },
+          {
+            "function": "score_moves",
+            "line": 211,
+            "seconds": 4.1676685214042664e-07
+          },
+          {
+            "function": "score_moves",
+            "line": 212,
+            "seconds": 9.084818884730339e-06
+          },
+          {
+            "function": "score_moves",
+            "line": 214,
+            "seconds": 1.9150320440530777e-06
+          },
+          {
+            "function": "score_moves",
+            "line": 215,
+            "seconds": 4.591420292854309e-07
+          },
+          {
+            "function": "score_moves",
+            "line": 216,
+            "seconds": 1.791166141629219e-06
+          },
+          {
+            "function": "score_moves",
+            "line": 217,
+            "seconds": 1.6600824892520905e-07
+          },
+          {
+            "function": "score_moves",
+            "line": 218,
+            "seconds": 8.312053978443146e-08
+          },
+          {
+            "function": "terminal_value",
+            "line": 109,
+            "seconds": 0.00028854236006736755
+          },
+          {
+            "function": "terminal_value",
+            "line": 110,
+            "seconds": 0.001057533547282219
+          },
+          {
+            "function": "terminal_value",
+            "line": 112,
+            "seconds": 0.0011594519019126892
+          },
+          {
+            "function": "terminal_value",
+            "line": 113,
+            "seconds": 1.1748634278774261e-05
+          },
+          {
+            "function": "terminal_value",
+            "line": 114,
+            "seconds": 0.0005187417846173048
+          },
+          {
+            "function": "terminal_value",
+            "line": 116,
+            "seconds": 0.00032067205756902695
+          },
+          {
+            "function": "undo",
+            "line": 103,
+            "seconds": 0.00030928757041692734
+          },
+          {
+            "function": "undo",
+            "line": 104,
+            "seconds": 0.0005988720804452896
+          },
+          {
+            "function": "undo",
+            "line": 105,
+            "seconds": 0.0005651176907122135
+          },
+          {
+            "function": "undo",
+            "line": 106,
+            "seconds": 0.0006910644005984068
+          },
+          {
+            "function": "undo",
+            "line": 107,
+            "seconds": 0.001178522128611803
+          },
+          {
+            "function": "winning_squares",
+            "line": 31,
+            "seconds": 3.431597724556923e-05
+          },
+          {
+            "function": "winning_squares",
+            "line": 37,
+            "seconds": 0.00011605001054704189
+          },
+          {
+            "function": "winning_squares",
+            "line": 38,
+            "seconds": 0.00017091119661927223
+          },
+          {
+            "function": "winning_squares",
+            "line": 39,
+            "seconds": 0.0002640909515321255
+          },
+          {
+            "function": "winning_squares",
+            "line": 40,
+            "seconds": 0.0002632737159729004
+          },
+          {
+            "function": "winning_squares",
+            "line": 41,
+            "seconds": 0.0002325002569705248
+          },
+          {
+            "function": "winning_squares",
+            "line": 42,
+            "seconds": 0.00026881624944508076
+          },
+          {
+            "function": "winning_squares",
+            "line": 43,
+            "seconds": 0.00022500776685774326
+          },
+          {
+            "function": "winning_squares",
+            "line": 44,
+            "seconds": 0.00025472440756857395
+          },
+          {
+            "function": "winning_squares",
+            "line": 45,
+            "seconds": 7.443712092936039e-05
+          }
+        ],
+        "method": "intrusive exclusive line-event attribution; depth 6 diagnostic, not latency"
+      }
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 8,
+      "samples": [
+        {
+          "move": 4,
+          "scores": {
+            "3": 3,
+            "2": -2,
+            "4": 10,
+            "1": 3,
+            "5": 7,
+            "0": 2,
+            "6": 1
+          },
+          "stats": {
+            "nodes": 24897,
+            "entries": 7303,
+            "hits": 4032,
+            "cutoffs": 5624
+          },
+          "wall_seconds": 0.07083850004710257,
+          "cpu_seconds": 0.07081599999999977
+        },
+        {
+          "move": 4,
+          "scores": {
+            "3": 3,
+            "2": -2,
+            "4": 10,
+            "1": 3,
+            "5": 7,
+            "0": 2,
+            "6": 1
+          },
+          "stats": {
+            "nodes": 24897,
+            "entries": 7303,
+            "hits": 4032,
+            "cutoffs": 5624
+          },
+          "wall_seconds": 0.07029429217800498,
+          "cpu_seconds": 0.07028200000000018
+        },
+        {
+          "move": 4,
+          "scores": {
+            "3": 3,
+            "2": -2,
+            "4": 10,
+            "1": 3,
+            "5": 7,
+            "0": 2,
+            "6": 1
+          },
+          "stats": {
+            "nodes": 24897,
+            "entries": 7303,
+            "hits": 4032,
+            "cutoffs": 5624
+          },
+          "wall_seconds": 0.0752114171627909,
+          "cpu_seconds": 0.07499600000000006
+        }
+      ],
+      "median_wall_seconds": 0.07083850004710257,
+      "maximum_wall_seconds": 0.0752114171627909,
+      "median_cpu_seconds": 0.07081599999999977,
+      "nodes_per_second": 351461.42258016847,
+      "memory": {
+        "move": 4,
+        "scores": {
+          "3": 3,
+          "2": -2,
+          "4": 10,
+          "1": 3,
+          "5": 7,
+          "0": 2,
+          "6": 1
+        },
+        "stats": {
+          "nodes": 24897,
+          "entries": 7303,
+          "hits": 4032,
+          "cutoffs": 5624
+        },
+        "wall_seconds": 0.4184256670996547,
+        "cpu_seconds": 0.4179320000000004,
+        "retained_bytes": 1762148,
+        "peak_bytes": 1764168,
+        "tt_bytes": 1748532,
+        "entries": 7303,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 762320,
+            "count": 7304
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 526016,
+            "count": 7306
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 234656,
+            "count": 7333
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 159392,
+            "count": 4981
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 77248,
+            "count": 2416
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 392,
+            "count": 7
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 288,
+            "count": 1
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          },
+          {
+            "line": 43,
+            "file": "profile_negamax_depths.py",
+            "bytes": 152,
+            "count": 1
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      },
+      "profile": {
+        "move": 4,
+        "scores": {
+          "3": 3,
+          "2": -2,
+          "4": 10,
+          "1": 3,
+          "5": 7,
+          "0": 2,
+          "6": 1
+        },
+        "stats": {
+          "nodes": 24897,
+          "entries": 7303,
+          "hits": 4032,
+          "cutoffs": 5624
+        },
+        "wall_seconds": 0.15455387509427965,
+        "cpu_seconds": 0.15444700000000022,
+        "profile_total_seconds": 0.15456212500000002,
+        "functions": [
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'disable' of '_lsprof.Profiler' objects>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 5.000000000000001e-07,
+            "cumulative_seconds": 5.000000000000001e-07
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'insert' of 'list' objects>",
+            "primitive_calls": 1024,
+            "calls": 1024,
+            "self_seconds": 4.5081000000000004e-05,
+            "cumulative_seconds": 4.5081000000000004e-05
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'remove' of 'list' objects>",
+            "primitive_calls": 1024,
+            "calls": 1024,
+            "self_seconds": 6.046300000000001e-05,
+            "cumulative_seconds": 6.046300000000001e-05
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'sort' of 'list' objects>",
+            "primitive_calls": 716,
+            "calls": 716,
+            "self_seconds": 0.000371881,
+            "cumulative_seconds": 0.000917699
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'bit_count' of 'int' objects>",
+            "primitive_calls": 382779,
+            "calls": 382779,
+            "self_seconds": 0.009154931,
+            "cumulative_seconds": 0.009154931
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.len>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 3.3300000000000003e-07,
+            "cumulative_seconds": 3.3300000000000003e-07
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.max>",
+            "primitive_calls": 27837,
+            "calls": 27837,
+            "self_seconds": 0.001835837,
+            "cumulative_seconds": 0.001835837
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.min>",
+            "primitive_calls": 644,
+            "calls": 644,
+            "self_seconds": 5.0577e-05,
+            "cumulative_seconds": 5.0577e-05
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.sum>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 2.08e-07,
+            "cumulative_seconds": 2.08e-07
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method time.process_time>",
+            "primitive_calls": 2,
+            "calls": 2,
+            "self_seconds": 5.166e-06,
+            "cumulative_seconds": 5.166e-06
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method time.perf_counter>",
+            "primitive_calls": 2,
+            "calls": 2,
+            "self_seconds": 5.000000000000001e-07,
+            "cumulative_seconds": 5.000000000000001e-07
+          },
+          {
+            "file": "profile_negamax_depths.py",
+            "line": 22,
+            "function": "decision",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 6e-06,
+            "cumulative_seconds": 0.154561625
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 131,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 5.84e-07,
+            "cumulative_seconds": 5.84e-07
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 118,
+            "function": "heuristic",
+            "primitive_calls": 12416,
+            "calls": 12416,
+            "self_seconds": 0.069891441,
+            "cumulative_seconds": 0.078924876
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 191,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 8.340000000000001e-07,
+            "cumulative_seconds": 8.340000000000001e-07
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 31,
+            "function": "winning_squares",
+            "primitive_calls": 3859,
+            "calls": 3859,
+            "self_seconds": 0.004510532,
+            "cumulative_seconds": 0.004510532
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 84,
+            "function": "<lambda>",
+            "primitive_calls": 4194,
+            "calls": 4194,
+            "self_seconds": 0.000545818,
+            "cumulative_seconds": 0.000545818
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 220,
+            "function": "choose_move",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 0.00020654200000000002,
+            "cumulative_seconds": 0.154549125
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 65,
+            "function": "<listcomp>",
+            "primitive_calls": 8328,
+            "calls": 8328,
+            "self_seconds": 0.0026213160000000003,
+            "cumulative_seconds": 0.0026213160000000003
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 64,
+            "function": "legal",
+            "primitive_calls": 8328,
+            "calls": 8328,
+            "self_seconds": 0.002177585,
+            "cumulative_seconds": 0.004798901
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 23,
+            "function": "has_four",
+            "primitive_calls": 49796,
+            "calls": 49796,
+            "self_seconds": 0.017030820000000002,
+            "cumulative_seconds": 0.017030820000000002
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 97,
+            "function": "play",
+            "primitive_calls": 24897,
+            "calls": 24897,
+            "self_seconds": 0.006084336,
+            "cumulative_seconds": 0.006084336
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 103,
+            "function": "undo",
+            "primitive_calls": 24897,
+            "calls": 24897,
+            "self_seconds": 0.006062184,
+            "cumulative_seconds": 0.006062184
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 109,
+            "function": "terminal_value",
+            "primitive_calls": 24898,
+            "calls": 24898,
+            "self_seconds": 0.006566129,
+            "cumulative_seconds": 0.023596949000000002
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 52,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.1334e-05,
+            "cumulative_seconds": 1.1542e-05
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 203,
+            "function": "score_moves",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.3168000000000002e-05,
+            "cumulative_seconds": 0.15434125
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 141,
+            "function": "negamax",
+            "primitive_calls": 7,
+            "calls": 24897,
+            "self_seconds": 0.023727546000000002,
+            "cumulative_seconds": 0.154308082
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 67,
+            "function": "ordered_moves",
+            "primitive_calls": 8327,
+            "calls": 8327,
+            "self_seconds": 0.003580479,
+            "cumulative_seconds": 0.014033359
+          }
+        ],
+        "categories_seconds": {
+          "heuristic": 0.078924876,
+          "terminal": 0.023596949000000002,
+          "legal_ordering": 0.014033359,
+          "state_play_undo": 0.012146520000000001,
+          "tt_and_recursive_other": 0.025860421000000022
+        },
+        "leaf_evaluations": 12416
+      },
+      "line_profile": null
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 10,
+      "samples": [
+        {
+          "move": 4,
+          "scores": {
+            "3": 10,
+            "2": -2,
+            "4": 14,
+            "1": 6,
+            "5": 9,
+            "0": -1,
+            "6": 4
+          },
+          "stats": {
+            "nodes": 87810,
+            "entries": 28395,
+            "hits": 16340,
+            "cutoffs": 22427
+          },
+          "wall_seconds": 0.23522920906543732,
+          "cpu_seconds": 0.23513099999999998
+        },
+        {
+          "move": 4,
+          "scores": {
+            "3": 10,
+            "2": -2,
+            "4": 14,
+            "1": 6,
+            "5": 9,
+            "0": -1,
+            "6": 4
+          },
+          "stats": {
+            "nodes": 87810,
+            "entries": 28395,
+            "hits": 16340,
+            "cutoffs": 22427
+          },
+          "wall_seconds": 0.2354471660219133,
+          "cpu_seconds": 0.23530499999999988
+        },
+        {
+          "move": 4,
+          "scores": {
+            "3": 10,
+            "2": -2,
+            "4": 14,
+            "1": 6,
+            "5": 9,
+            "0": -1,
+            "6": 4
+          },
+          "stats": {
+            "nodes": 87810,
+            "entries": 28395,
+            "hits": 16340,
+            "cutoffs": 22427
+          },
+          "wall_seconds": 0.24845933308824897,
+          "cpu_seconds": 0.24774299999999982
+        }
+      ],
+      "median_wall_seconds": 0.2354471660219133,
+      "maximum_wall_seconds": 0.24845933308824897,
+      "median_cpu_seconds": 0.23530499999999988,
+      "nodes_per_second": 372949.91264336323,
+      "memory": {
+        "move": 4,
+        "scores": {
+          "3": 10,
+          "2": -2,
+          "4": 14,
+          "1": 6,
+          "5": 9,
+          "0": -1,
+          "6": 4
+        },
+        "stats": {
+          "nodes": 87810,
+          "entries": 28395,
+          "hits": 16340,
+          "cutoffs": 22427
+        },
+        "wall_seconds": 1.485676791984588,
+        "cpu_seconds": 1.4848080000000001,
+        "retained_bytes": 7061116,
+        "peak_bytes": 7063416,
+        "tt_bytes": 7005676,
+        "entries": 28395,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 3128016,
+            "count": 28396
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 2044440,
+            "count": 28395
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 913216,
+            "count": 28538
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 590784,
+            "count": 18462
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 381960,
+            "count": 11939
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 560,
+            "count": 10
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 288,
+            "count": 1
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          },
+          {
+            "line": 166,
+            "file": "negamax_agent.py",
+            "bytes": 168,
+            "count": 7
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      },
+      "profile": {
+        "move": 4,
+        "scores": {
+          "3": 10,
+          "2": -2,
+          "4": 14,
+          "1": 6,
+          "5": 9,
+          "0": -1,
+          "6": 4
+        },
+        "stats": {
+          "nodes": 87810,
+          "entries": 28395,
+          "hits": 16340,
+          "cutoffs": 22427
+        },
+        "wall_seconds": 0.48664237512275577,
+        "cpu_seconds": 0.4864940000000004,
+        "profile_total_seconds": 0.486652083,
+        "functions": [
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'disable' of '_lsprof.Profiler' objects>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 3.3300000000000003e-07,
+            "cumulative_seconds": 3.3300000000000003e-07
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'insert' of 'list' objects>",
+            "primitive_calls": 3904,
+            "calls": 3904,
+            "self_seconds": 0.00016581400000000002,
+            "cumulative_seconds": 0.00016581400000000002
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'remove' of 'list' objects>",
+            "primitive_calls": 3904,
+            "calls": 3904,
+            "self_seconds": 0.00021445400000000002,
+            "cumulative_seconds": 0.00021445400000000002
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'sort' of 'list' objects>",
+            "primitive_calls": 3870,
+            "calls": 3870,
+            "self_seconds": 0.001774507,
+            "cumulative_seconds": 0.00441882
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<method 'bit_count' of 'int' objects>",
+            "primitive_calls": 984837,
+            "calls": 984837,
+            "self_seconds": 0.022745208000000003,
+            "cumulative_seconds": 0.022745208000000003
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.len>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 2.92e-07,
+            "cumulative_seconds": 2.92e-07
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.max>",
+            "primitive_calls": 100197,
+            "calls": 100197,
+            "self_seconds": 0.006349671,
+            "cumulative_seconds": 0.006349671
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.min>",
+            "primitive_calls": 2614,
+            "calls": 2614,
+            "self_seconds": 0.00019627200000000002,
+            "cumulative_seconds": 0.00019627200000000002
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method builtins.sum>",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 2.92e-07,
+            "cumulative_seconds": 2.92e-07
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method time.process_time>",
+            "primitive_calls": 2,
+            "calls": 2,
+            "self_seconds": 5.833000000000001e-06,
+            "cumulative_seconds": 5.833000000000001e-06
+          },
+          {
+            "file": "~",
+            "line": 0,
+            "function": "<built-in method time.perf_counter>",
+            "primitive_calls": 2,
+            "calls": 2,
+            "self_seconds": 5.84e-07,
+            "cumulative_seconds": 5.84e-07
+          },
+          {
+            "file": "profile_negamax_depths.py",
+            "line": 22,
+            "function": "decision",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 8.333000000000001e-06,
+            "cumulative_seconds": 0.48665175000000005
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 131,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 5.830000000000001e-07,
+            "cumulative_seconds": 5.830000000000001e-07
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 118,
+            "function": "heuristic",
+            "primitive_calls": 36833,
+            "calls": 36833,
+            "self_seconds": 0.195678449,
+            "cumulative_seconds": 0.217942233
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 191,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.083e-06,
+            "cumulative_seconds": 1.083e-06
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 31,
+            "function": "winning_squares",
+            "primitive_calls": 16879,
+            "calls": 16879,
+            "self_seconds": 0.019285448,
+            "cumulative_seconds": 0.019285448
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 84,
+            "function": "<lambda>",
+            "primitive_calls": 21419,
+            "calls": 21419,
+            "self_seconds": 0.002644313,
+            "cumulative_seconds": 0.002644313
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 220,
+            "function": "choose_move",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 0.000774542,
+            "cumulative_seconds": 0.48663591700000003
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 65,
+            "function": "<listcomp>",
+            "primitive_calls": 32300,
+            "calls": 32300,
+            "self_seconds": 0.00977799,
+            "cumulative_seconds": 0.00977799
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 64,
+            "function": "legal",
+            "primitive_calls": 32300,
+            "calls": 32300,
+            "self_seconds": 0.0076090540000000005,
+            "cumulative_seconds": 0.017387044
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 23,
+            "function": "has_four",
+            "primitive_calls": 175622,
+            "calls": 175622,
+            "self_seconds": 0.059166134,
+            "cumulative_seconds": 0.059166134
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 97,
+            "function": "play",
+            "primitive_calls": 87810,
+            "calls": 87810,
+            "self_seconds": 0.021022993,
+            "cumulative_seconds": 0.021022993
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 103,
+            "function": "undo",
+            "primitive_calls": 87810,
+            "calls": 87810,
+            "self_seconds": 0.02085418,
+            "cumulative_seconds": 0.02085418
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 109,
+            "function": "terminal_value",
+            "primitive_calls": 87811,
+            "calls": 87811,
+            "self_seconds": 0.022455271000000002,
+            "cumulative_seconds": 0.08162140500000001
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 52,
+            "function": "__init__",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.1458000000000001e-05,
+            "cumulative_seconds": 1.1750000000000001e-05
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 203,
+            "function": "score_moves",
+            "primitive_calls": 1,
+            "calls": 1,
+            "self_seconds": 1.3293000000000001e-05,
+            "cumulative_seconds": 0.48585970800000006
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 141,
+            "function": "negamax",
+            "primitive_calls": 7,
+            "calls": 87810,
+            "self_seconds": 0.082052579,
+            "cumulative_seconds": 0.48582583300000004
+          },
+          {
+            "file": "negamax_agent.py",
+            "line": 67,
+            "function": "ordered_moves",
+            "primitive_calls": 32299,
+            "calls": 32299,
+            "self_seconds": 0.01384312,
+            "cumulative_seconds": 0.055794874
+          }
+        ],
+        "categories_seconds": {
+          "heuristic": 0.217942233,
+          "terminal": 0.08162140500000001,
+          "legal_ordering": 0.055794874,
+          "state_play_undo": 0.041877173000000004,
+          "tt_and_recursive_other": 0.08941639800000001
+        },
+        "leaf_evaluations": 36833
+      },
+      "line_profile": null
+    }
+  ],
+  "depths": [
+    4,
+    6,
+    8,
+    10
+  ],
+  "samples": 3,
+  "warmups": 1,
+  "line_depth": 6,
+  "elapsed_seconds": 4.659001209074631
+}

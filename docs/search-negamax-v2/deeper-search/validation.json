@@ -1,0 +1,22 @@
+{
+  "utc": "2026-10-09T22:30:22.308269+00:00",
+  "experiment_sha256": "e6c6ee93d7f75ffe3349e4c08e0fda44f7c0c0245a10e96a0318707b3853be3e",
+  "main_games": 512,
+  "production_sources_unchanged": true,
+  "measured_sources_match": true,
+  "deterministic_analysis_sha256": "55fff6a8a732ba0a34d0d3e20d64c74fef010f4111700f7496b80e4d219c878f",
+  "analysis_pythonhashseed": "0",
+  "backend_tests": {
+    "passed": 1854,
+    "skipped": 15,
+    "skip_reason": "PyTorch unavailable",
+    "environment": "PYTHON_DOTENV_DISABLED=1 EXPLANATIONS_ENABLED=false OPENAI_API_KEY="
+  },
+  "compilation": "pass",
+  "host_end_load_average": [
+    5.248046875,
+    4.66455078125,
+    4.2802734375
+  ],
+  "frontend": "Not rerun: no frontend changes"
+}
