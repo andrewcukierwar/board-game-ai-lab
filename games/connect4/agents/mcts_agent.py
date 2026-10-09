@@ -2,7 +2,8 @@
 
 import math
 import random
-from copy import deepcopy
+
+from .mcts_bitboard import BitboardState, random_rollout
 
 
 class Node:
@@ -14,6 +15,9 @@ class Node:
     previous-player convention; only its visit count is used for selection.
     ``wins`` is total reward: win=1, draw=0.5, loss=0.
     """
+
+    __slots__ = ('game_state', 'parent', 'move', 'player_just_moved', 'children',
+                 'wins', 'visits', 'untried_moves')
 
     def __init__(self, game_state, parent=None, move=None):
         self.game_state = game_state
@@ -61,8 +65,11 @@ class MCTSAgent:
 
     def choose_move(self, game):
         """Return a legal column without modifying game; reject finished games."""
-        root = Node(deepcopy(game))
+        root = Node(BitboardState.from_game(game))
         if root.is_terminal() or not root.untried_moves:
+            raise ValueError('Cannot choose a move from a terminal position or without legal moves')
+        # Respect defensive engine adapters reporting legal-move exhaustion.
+        if not isinstance(game, BitboardState) and not game.get_valid_moves():
             raise ValueError('Cannot choose a move from a terminal position or without legal moves')
 
         winning_moves = self._winning_moves(root.game_state)
@@ -77,11 +84,10 @@ class MCTSAgent:
             while node.is_fully_expanded() and node.children and not node.is_terminal():
                 node = self._select_child(node)
 
-            # Expansion: own a detached state for each new tree node.
+            # Expansion: immutable compact state, with no engine copying.
             if not node.is_terminal() and node.untried_moves:
                 move = self.rng.choice(node.untried_moves)
-                game_copy = deepcopy(node.game_state)
-                game_copy.make_move(move)
+                game_copy = node.game_state.drop(move)
                 node.untried_moves.remove(move)
                 child = Node(game_copy, parent=node, move=move)
                 node.children[move] = child
@@ -99,39 +105,46 @@ class MCTSAgent:
         ])
 
     def _winning_moves(self, game):
+        game = BitboardState.from_game(game)
+        if game.is_game_over():
+            return []
         moves = []
         for move in game.get_valid_moves():
-            after = deepcopy(game)
-            after.make_move(move)
+            after = game.drop(move)
             if after.check_winner() == game.current_player:
                 moves.append(move)
         return moves
 
     def _safe_moves(self, game):
         """Keep moves with no winning opponent reply, including terminal draws."""
+        game = BitboardState.from_game(game)
+        if game.is_game_over():
+            return []
         moves = []
         for move in game.get_valid_moves():
-            after = deepcopy(game)
-            after.make_move(move)
+            after = game.drop(move)
             if after.is_game_over() or not self._winning_moves(after):
                 moves.append(move)
         return moves
 
     def _select_child(self, node):
-        scores = {move: child.ucb1() for move, child in node.children.items()}
-        best = max(scores.values())
-        return node.children[self.rng.choice([move for move, score in scores.items() if score == best])]
+        # All children share the same parent visits. Keep arithmetic and tie
+        # order identical to ucb1(), including an RNG call for singleton ties.
+        log_visits = math.log(node.visits) if node.visits else 0.0
+        best, ties = -math.inf, []
+        for move, child in node.children.items():
+            score = (child.wins / child.visits + 1.41 * math.sqrt(log_visits / child.visits)
+                     if child.visits else math.inf)
+            if score > best:
+                best, ties = score, [move]
+            elif score == best:
+                ties.append(move)
+        return node.children[self.rng.choice(ties)]
 
     def _simulate(self, game):
-        game_copy = deepcopy(game)
-        while not game_copy.is_game_over():
-            valid_moves = game_copy.get_valid_moves()
-            if not valid_moves:
-                break
-            game_copy.make_move(self.rng.choice(valid_moves))
-        # The engine reports -1 for a draw; it also uses -1 for ongoing play,
-        # so only inspect the outcome after termination / legal-move exhaustion.
-        return game_copy.check_winner()
+        if not isinstance(game, BitboardState) and not game.get_valid_moves():
+            return game.check_winner()
+        return random_rollout(BitboardState.from_game(game), self.rng)
 
     def _backpropagate(self, node, winner):
         while node is not None:
