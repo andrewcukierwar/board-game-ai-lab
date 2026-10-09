@@ -1,0 +1,2091 @@
+{
+  "experiment_sha256": "b05723a266fc590d740fa5d8b5acfcacd4ca9909fce47c3f38bf617cc24cdfe2",
+  "method": {
+    "bootstrap_seed": 24403054077767973181213656567804563559,
+    "replicates": 10000,
+    "primary_family": 4,
+    "interval": "stratified opening-pair percentile bootstrap"
+  },
+  "matchups": [
+    {
+      "matchup": "mcts-800-vs-mcts-400",
+      "primary": true,
+      "planned_pairs": 128,
+      "completed_games": 256,
+      "complete_pairs": 128,
+      "unpaired_games": 0,
+      "wins": 130,
+      "draws": 19,
+      "losses": 107,
+      "empirical_all_game_score": 0.544921875,
+      "color_score_rates": {
+        "0": 0.5859375,
+        "1": 0.50390625
+      },
+      "paired_score": {
+        "mean": 0.544921875,
+        "ci95": [
+          0.501953125,
+          0.587890625
+        ],
+        "ci98_75": [
+          0.490234375,
+          0.599609375
+        ],
+        "independent_openings": 128
+      },
+      "paired_advantage": {
+        "main-000": -1.0,
+        "main-001": 0.5,
+        "main-002": 0.5,
+        "main-003": 0.0,
+        "main-004": 0.0,
+        "main-005": -0.5,
+        "main-006": 0.0,
+        "main-007": 0.0,
+        "main-008": 0.5,
+        "main-009": 1.0,
+        "main-010": 0.0,
+        "main-011": 1.0,
+        "main-012": 0.0,
+        "main-013": 0.0,
+        "main-014": 0.0,
+        "main-015": 0.0,
+        "main-016": -1.0,
+        "main-017": 0.0,
+        "main-018": 0.0,
+        "main-019": -0.5,
+        "main-020": 0.0,
+        "main-021": 0.0,
+        "main-022": 0.0,
+        "main-023": 1.0,
+        "main-024": 0.0,
+        "main-025": 1.0,
+        "main-026": 0.5,
+        "main-027": 0.0,
+        "main-028": 0.0,
+        "main-029": 0.0,
+        "main-030": 0.0,
+        "main-031": 0.0,
+        "main-032": 0.0,
+        "main-033": -1.0,
+        "main-034": 0.0,
+        "main-035": 0.0,
+        "main-036": 0.0,
+        "main-037": -0.5,
+        "main-038": 0.0,
+        "main-039": 0.0,
+        "main-040": 1.0,
+        "main-041": 0.0,
+        "main-042": 1.0,
+        "main-043": 0.0,
+        "main-044": 0.0,
+        "main-045": 0.0,
+        "main-046": 0.0,
+        "main-047": 0.0,
+        "main-048": 1.0,
+        "main-049": -1.0,
+        "main-050": 1.0,
+        "main-051": 0.0,
+        "main-052": 0.0,
+        "main-053": 0.0,
+        "main-054": 0.0,
+        "main-055": 0.0,
+        "main-056": 0.0,
+        "main-057": 0.0,
+        "main-058": 0.0,
+        "main-059": 0.5,
+        "main-060": 0.0,
+        "main-061": 0.0,
+        "main-062": 0.0,
+        "main-063": 0.0,
+        "main-064": 0.0,
+        "main-065": 1.0,
+        "main-066": 0.0,
+        "main-067": 0.0,
+        "main-068": 0.0,
+        "main-069": 0.0,
+        "main-070": 0.0,
+        "main-071": 0.0,
+        "main-072": -1.0,
+        "main-073": 0.5,
+        "main-074": 0.0,
+        "main-075": 0.0,
+        "main-076": 1.0,
+        "main-077": 0.0,
+        "main-078": 0.0,
+        "main-079": 0.0,
+        "main-080": 0.0,
+        "main-081": 1.0,
+        "main-082": 1.0,
+        "main-083": -1.0,
+        "main-084": 0.0,
+        "main-085": 0.0,
+        "main-086": 0.0,
+        "main-087": -0.5,
+        "main-088": 0.0,
+        "main-089": 0.0,
+        "main-090": -1.0,
+        "main-091": 1.0,
+        "main-092": 1.0,
+        "main-093": 0.0,
+        "main-094": 0.0,
+        "main-095": 0.0,
+        "main-096": -1.0,
+        "main-097": 0.0,
+        "main-098": 0.0,
+        "main-099": -0.5,
+        "main-100": 0.0,
+        "main-101": 1.0,
+        "main-102": 0.0,
+        "main-103": 0.0,
+        "main-104": 1.0,
+        "main-105": 1.0,
+        "main-106": 0.5,
+        "main-107": 1.0,
+        "main-108": -0.5,
+        "main-109": 0.0,
+        "main-110": 0.0,
+        "main-111": 0.0,
+        "main-112": 1.0,
+        "main-113": -1.0,
+        "main-114": 0.0,
+        "main-115": -0.5,
+        "main-116": 0.0,
+        "main-117": 0.0,
+        "main-118": 0.0,
+        "main-119": 0.0,
+        "main-120": 1.0,
+        "main-121": 1.0,
+        "main-122": 0.0,
+        "main-123": 0.0,
+        "main-124": 0.0,
+        "main-125": 0.0,
+        "main-126": -0.5,
+        "main-127": 0.0
+      },
+      "paired_advantage_ci95": [
+        0.00390625,
+        0.17578125
+      ],
+      "primary_improvement_familywise": false,
+      "compute": {
+        "challenger": {
+          "search_calls": 2130,
+          "wall_seconds": 12.145451960619539,
+          "cpu_seconds": 12.294989999998613,
+          "median_ms": 5.9854170540347695,
+          "mean_ms": 5.702090122356591,
+          "p95_ms": 9.510976984165607,
+          "maximum_ms": 28.039666125550866,
+          "tactical_bypasses": 130,
+          "executed_simulations": 1600000
+        },
+        "opponent": {
+          "search_calls": 2119,
+          "wall_seconds": 6.222958141937852,
+          "cpu_seconds": 6.232692999998987,
+          "median_ms": 2.9802080243825912,
+          "mean_ms": 2.936742870192474,
+          "p95_ms": 4.660487524233758,
+          "maximum_ms": 55.91320781968534,
+          "tactical_bypasses": 107,
+          "executed_simulations": 804800
+        }
+      }
+    },
+    {
+      "matchup": "mcts-2000-vs-mcts-400",
+      "primary": true,
+      "planned_pairs": 128,
+      "completed_games": 256,
+      "complete_pairs": 128,
+      "unpaired_games": 0,
+      "wins": 148,
+      "draws": 16,
+      "losses": 92,
+      "empirical_all_game_score": 0.609375,
+      "color_score_rates": {
+        "0": 0.66015625,
+        "1": 0.55859375
+      },
+      "paired_score": {
+        "mean": 0.609375,
+        "ci95": [
+          0.568359375,
+          0.650390625
+        ],
+        "ci98_75": [
+          0.556640625,
+          0.66015625
+        ],
+        "independent_openings": 128
+      },
+      "paired_advantage": {
+        "main-000": 1.0,
+        "main-001": 1.0,
+        "main-002": 1.0,
+        "main-003": 0.0,
+        "main-004": -1.0,
+        "main-005": 1.0,
+        "main-006": 0.0,
+        "main-007": 0.0,
+        "main-008": 1.0,
+        "main-009": 0.0,
+        "main-010": -1.0,
+        "main-011": 1.0,
+        "main-012": 0.0,
+        "main-013": 0.0,
+        "main-014": 0.0,
+        "main-015": 0.0,
+        "main-016": 0.5,
+        "main-017": 0.0,
+        "main-018": 0.0,
+        "main-019": 0.0,
+        "main-020": 0.0,
+        "main-021": 0.0,
+        "main-022": 0.0,
+        "main-023": 0.0,
+        "main-024": 0.0,
+        "main-025": 1.0,
+        "main-026": 1.0,
+        "main-027": 0.0,
+        "main-028": 0.0,
+        "main-029": 0.0,
+        "main-030": 0.0,
+        "main-031": 0.0,
+        "main-032": 0.0,
+        "main-033": 0.5,
+        "main-034": 0.0,
+        "main-035": 0.0,
+        "main-036": 0.0,
+        "main-037": 0.0,
+        "main-038": 0.0,
+        "main-039": 0.0,
+        "main-040": -1.0,
+        "main-041": 0.5,
+        "main-042": 0.0,
+        "main-043": 0.0,
+        "main-044": 0.0,
+        "main-045": 0.0,
+        "main-046": 0.0,
+        "main-047": 0.0,
+        "main-048": 1.0,
+        "main-049": 1.0,
+        "main-050": 0.0,
+        "main-051": 0.0,
+        "main-052": 0.0,
+        "main-053": 0.0,
+        "main-054": 0.0,
+        "main-055": 0.5,
+        "main-056": 0.0,
+        "main-057": 1.0,
+        "main-058": 0.0,
+        "main-059": 0.5,
+        "main-060": 1.0,
+        "main-061": 0.0,
+        "main-062": 0.0,
+        "main-063": 0.0,
+        "main-064": 0.0,
+        "main-065": 1.0,
+        "main-066": 1.0,
+        "main-067": 0.5,
+        "main-068": 0.0,
+        "main-069": 0.0,
+        "main-070": 0.0,
+        "main-071": 0.0,
+        "main-072": 1.0,
+        "main-073": 1.0,
+        "main-074": 1.0,
+        "main-075": 0.0,
+        "main-076": 1.0,
+        "main-077": 0.0,
+        "main-078": 0.0,
+        "main-079": 0.0,
+        "main-080": 1.0,
+        "main-081": -0.5,
+        "main-082": 1.0,
+        "main-083": 0.0,
+        "main-084": 0.0,
+        "main-085": 0.0,
+        "main-086": 0.0,
+        "main-087": -0.5,
+        "main-088": 0.0,
+        "main-089": 0.0,
+        "main-090": 0.0,
+        "main-091": 1.0,
+        "main-092": 1.0,
+        "main-093": 0.0,
+        "main-094": 0.0,
+        "main-095": 0.0,
+        "main-096": 1.0,
+        "main-097": -0.5,
+        "main-098": 0.0,
+        "main-099": 0.5,
+        "main-100": 0.0,
+        "main-101": 1.0,
+        "main-102": 0.0,
+        "main-103": 0.0,
+        "main-104": 1.0,
+        "main-105": 1.0,
+        "main-106": 1.0,
+        "main-107": 1.0,
+        "main-108": 0.0,
+        "main-109": 0.0,
+        "main-110": 0.0,
+        "main-111": 0.0,
+        "main-112": -0.5,
+        "main-113": -1.0,
+        "main-114": 0.0,
+        "main-115": 1.0,
+        "main-116": 0.0,
+        "main-117": 0.0,
+        "main-118": 0.0,
+        "main-119": 0.0,
+        "main-120": 1.0,
+        "main-121": 1.0,
+        "main-122": 0.0,
+        "main-123": 0.0,
+        "main-124": 0.0,
+        "main-125": 0.0,
+        "main-126": -0.5,
+        "main-127": 0.0
+      },
+      "paired_advantage_ci95": [
+        0.13671875,
+        0.30078125
+      ],
+      "primary_improvement_familywise": true,
+      "compute": {
+        "challenger": {
+          "search_calls": 2096,
+          "wall_seconds": 28.918392340186983,
+          "cpu_seconds": 29.00847900000052,
+          "median_ms": 15.011291834525764,
+          "mean_ms": 13.796942910394552,
+          "p95_ms": 23.850812460295856,
+          "maximum_ms": 63.73208295553923,
+          "tactical_bypasses": 148,
+          "executed_simulations": 3896000
+        },
+        "opponent": {
+          "search_calls": 2069,
+          "wall_seconds": 5.935046596452594,
+          "cpu_seconds": 5.962776000001641,
+          "median_ms": 2.9494171030819416,
+          "mean_ms": 2.8685580456513264,
+          "p95_ms": 4.467832995578646,
+          "maximum_ms": 16.388541786000133,
+          "tactical_bypasses": 92,
+          "executed_simulations": 790800
+        }
+      }
+    },
+    {
+      "matchup": "mcts-5000-vs-mcts-400",
+      "primary": true,
+      "planned_pairs": 128,
+      "completed_games": 256,
+      "complete_pairs": 128,
+      "unpaired_games": 0,
+      "wins": 163,
+      "draws": 11,
+      "losses": 82,
+      "empirical_all_game_score": 0.658203125,
+      "color_score_rates": {
+        "0": 0.6796875,
+        "1": 0.63671875
+      },
+      "paired_score": {
+        "mean": 0.658203125,
+        "ci95": [
+          0.6171875,
+          0.69921875
+        ],
+        "ci98_75": [
+          0.607421875,
+          0.708984375
+        ],
+        "independent_openings": 128
+      },
+      "paired_advantage": {
+        "main-000": 1.0,
+        "main-001": 1.0,
+        "main-002": 0.0,
+        "main-003": 0.0,
+        "main-004": 0.0,
+        "main-005": 1.0,
+        "main-006": 0.0,
+        "main-007": 0.0,
+        "main-008": 1.0,
+        "main-009": 0.0,
+        "main-010": -1.0,
+        "main-011": 0.0,
+        "main-012": 0.0,
+        "main-013": 0.0,
+        "main-014": 0.0,
+        "main-015": 0.0,
+        "main-016": -0.5,
+        "main-017": 0.5,
+        "main-018": 1.0,
+        "main-019": 0.0,
+        "main-020": 0.0,
+        "main-021": 0.0,
+        "main-022": 0.0,
+        "main-023": 1.0,
+        "main-024": 0.5,
+        "main-025": 1.0,
+        "main-026": 1.0,
+        "main-027": 0.5,
+        "main-028": 0.0,
+        "main-029": 0.0,
+        "main-030": 0.0,
+        "main-031": 0.0,
+        "main-032": 0.0,
+        "main-033": 1.0,
+        "main-034": 0.0,
+        "main-035": 0.0,
+        "main-036": 0.0,
+        "main-037": 0.0,
+        "main-038": 0.0,
+        "main-039": 0.0,
+        "main-040": -0.5,
+        "main-041": 1.0,
+        "main-042": 1.0,
+        "main-043": 0.0,
+        "main-044": 0.0,
+        "main-045": 0.0,
+        "main-046": 0.0,
+        "main-047": 1.0,
+        "main-048": 1.0,
+        "main-049": 1.0,
+        "main-050": 1.0,
+        "main-051": 0.0,
+        "main-052": 0.0,
+        "main-053": 0.0,
+        "main-054": 0.0,
+        "main-055": 1.0,
+        "main-056": 1.0,
+        "main-057": 1.0,
+        "main-058": 0.0,
+        "main-059": 0.5,
+        "main-060": 1.0,
+        "main-061": 0.0,
+        "main-062": 0.0,
+        "main-063": 0.0,
+        "main-064": 0.0,
+        "main-065": 1.0,
+        "main-066": 1.0,
+        "main-067": 0.0,
+        "main-068": 0.0,
+        "main-069": 0.0,
+        "main-070": 0.0,
+        "main-071": 0.0,
+        "main-072": 1.0,
+        "main-073": -0.5,
+        "main-074": 1.0,
+        "main-075": 1.0,
+        "main-076": 1.0,
+        "main-077": 0.0,
+        "main-078": 0.0,
+        "main-079": 0.0,
+        "main-080": 1.0,
+        "main-081": 1.0,
+        "main-082": 1.0,
+        "main-083": -0.5,
+        "main-084": 0.0,
+        "main-085": 0.0,
+        "main-086": 0.0,
+        "main-087": 1.0,
+        "main-088": 1.0,
+        "main-089": 0.0,
+        "main-090": 0.0,
+        "main-091": 0.0,
+        "main-092": 1.0,
+        "main-093": 0.0,
+        "main-094": 0.0,
+        "main-095": 0.0,
+        "main-096": 1.0,
+        "main-097": 0.5,
+        "main-098": 0.0,
+        "main-099": 0.0,
+        "main-100": 0.0,
+        "main-101": 1.0,
+        "main-102": 0.0,
+        "main-103": 0.0,
+        "main-104": 1.0,
+        "main-105": 1.0,
+        "main-106": 1.0,
+        "main-107": 1.0,
+        "main-108": 0.0,
+        "main-109": 0.0,
+        "main-110": 0.0,
+        "main-111": 0.0,
+        "main-112": 1.0,
+        "main-113": -1.0,
+        "main-114": 1.0,
+        "main-115": 0.0,
+        "main-116": 0.0,
+        "main-117": 0.0,
+        "main-118": 0.0,
+        "main-119": 1.0,
+        "main-120": 1.0,
+        "main-121": 1.0,
+        "main-122": 0.0,
+        "main-123": 0.0,
+        "main-124": 0.0,
+        "main-125": 0.0,
+        "main-126": 0.0,
+        "main-127": 0.0
+      },
+      "paired_advantage_ci95": [
+        0.234375,
+        0.3984375
+      ],
+      "primary_improvement_familywise": true,
+      "compute": {
+        "challenger": {
+          "search_calls": 2080,
+          "wall_seconds": 73.41656219423749,
+          "cpu_seconds": 72.64779200000036,
+          "median_ms": 39.00006250478327,
+          "mean_ms": 35.296424131844944,
+          "p95_ms": 60.64099417999386,
+          "maximum_ms": 161.85520798899233,
+          "tactical_bypasses": 163,
+          "executed_simulations": 9585000
+        },
+        "opponent": {
+          "search_calls": 2042,
+          "wall_seconds": 5.904679804109037,
+          "cpu_seconds": 5.856657000000164,
+          "median_ms": 2.9486664570868015,
+          "mean_ms": 2.8916159667527115,
+          "p95_ms": 4.487471154425292,
+          "maximum_ms": 15.463375020772219,
+          "tactical_bypasses": 82,
+          "executed_simulations": 784000
+        }
+      }
+    },
+    {
+      "matchup": "mcts-10000-vs-mcts-400",
+      "primary": true,
+      "planned_pairs": 128,
+      "completed_games": 256,
+      "complete_pairs": 128,
+      "unpaired_games": 0,
+      "wins": 175,
+      "draws": 10,
+      "losses": 71,
+      "empirical_all_game_score": 0.703125,
+      "color_score_rates": {
+        "0": 0.703125,
+        "1": 0.703125
+      },
+      "paired_score": {
+        "mean": 0.703125,
+        "ci95": [
+          0.6640625,
+          0.740234375
+        ],
+        "ci98_75": [
+          0.65234375,
+          0.751953125
+        ],
+        "independent_openings": 128
+      },
+      "paired_advantage": {
+        "main-000": 0.5,
+        "main-001": 1.0,
+        "main-002": 0.0,
+        "main-003": 1.0,
+        "main-004": 0.0,
+        "main-005": 0.5,
+        "main-006": 0.0,
+        "main-007": 0.0,
+        "main-008": 1.0,
+        "main-009": 1.0,
+        "main-010": 1.0,
+        "main-011": 0.0,
+        "main-012": 0.0,
+        "main-013": 0.0,
+        "main-014": 0.0,
+        "main-015": 0.0,
+        "main-016": 1.0,
+        "main-017": 1.0,
+        "main-018": 1.0,
+        "main-019": 0.0,
+        "main-020": 0.0,
+        "main-021": 0.0,
+        "main-022": 0.0,
+        "main-023": 1.0,
+        "main-024": 1.0,
+        "main-025": 0.0,
+        "main-026": 1.0,
+        "main-027": 0.0,
+        "main-028": 0.0,
+        "main-029": 0.0,
+        "main-030": 0.0,
+        "main-031": 0.0,
+        "main-032": 1.0,
+        "main-033": -1.0,
+        "main-034": 0.0,
+        "main-035": 1.0,
+        "main-036": 0.0,
+        "main-037": 0.0,
+        "main-038": 0.0,
+        "main-039": 0.0,
+        "main-040": 1.0,
+        "main-041": 0.0,
+        "main-042": 0.0,
+        "main-043": 0.0,
+        "main-044": 0.0,
+        "main-045": 0.0,
+        "main-046": 0.0,
+        "main-047": 1.0,
+        "main-048": 1.0,
+        "main-049": 1.0,
+        "main-050": 1.0,
+        "main-051": 1.0,
+        "main-052": 0.0,
+        "main-053": 0.5,
+        "main-054": 0.0,
+        "main-055": 0.5,
+        "main-056": 1.0,
+        "main-057": 1.0,
+        "main-058": 0.0,
+        "main-059": 0.0,
+        "main-060": 0.0,
+        "main-061": 1.0,
+        "main-062": 0.0,
+        "main-063": 0.0,
+        "main-064": 0.0,
+        "main-065": 1.0,
+        "main-066": 1.0,
+        "main-067": 0.0,
+        "main-068": 0.0,
+        "main-069": 0.0,
+        "main-070": 0.0,
+        "main-071": 0.0,
+        "main-072": 1.0,
+        "main-073": 1.0,
+        "main-074": 1.0,
+        "main-075": 1.0,
+        "main-076": 1.0,
+        "main-077": 0.0,
+        "main-078": 0.0,
+        "main-079": 0.0,
+        "main-080": 0.5,
+        "main-081": 0.0,
+        "main-082": 1.0,
+        "main-083": 0.5,
+        "main-084": 0.0,
+        "main-085": 0.0,
+        "main-086": 0.0,
+        "main-087": 1.0,
+        "main-088": 1.0,
+        "main-089": 1.0,
+        "main-090": 1.0,
+        "main-091": 1.0,
+        "main-092": 1.0,
+        "main-093": 0.0,
+        "main-094": 0.0,
+        "main-095": 0.0,
+        "main-096": -1.0,
+        "main-097": 0.5,
+        "main-098": 0.0,
+        "main-099": 0.5,
+        "main-100": 0.0,
+        "main-101": 1.0,
+        "main-102": 0.0,
+        "main-103": 0.0,
+        "main-104": 1.0,
+        "main-105": 1.0,
+        "main-106": 1.0,
+        "main-107": 1.0,
+        "main-108": 1.0,
+        "main-109": 0.0,
+        "main-110": 0.0,
+        "main-111": 0.0,
+        "main-112": 1.0,
+        "main-113": 1.0,
+        "main-114": 1.0,
+        "main-115": 1.0,
+        "main-116": 0.0,
+        "main-117": 0.0,
+        "main-118": 0.0,
+        "main-119": 1.0,
+        "main-120": 1.0,
+        "main-121": 1.0,
+        "main-122": 1.0,
+        "main-123": 0.0,
+        "main-124": 0.0,
+        "main-125": 0.0,
+        "main-126": 0.0,
+        "main-127": 0.0
+      },
+      "paired_advantage_ci95": [
+        0.328125,
+        0.48046875
+      ],
+      "primary_improvement_familywise": true,
+      "compute": {
+        "challenger": {
+          "search_calls": 2000,
+          "wall_seconds": 144.42627958324738,
+          "cpu_seconds": 142.45749299999954,
+          "median_ms": 81.33741654455662,
+          "mean_ms": 72.21313979162369,
+          "p95_ms": 123.99295014329255,
+          "maximum_ms": 264.3785001710057,
+          "tactical_bypasses": 175,
+          "executed_simulations": 18250000
+        },
+        "opponent": {
+          "search_calls": 1951,
+          "wall_seconds": 6.0190644804388285,
+          "cpu_seconds": 5.864971000000858,
+          "median_ms": 2.9579580295830965,
+          "mean_ms": 3.08511762195737,
+          "p95_ms": 4.578875028528273,
+          "maximum_ms": 93.55095913633704,
+          "tactical_bypasses": 71,
+          "executed_simulations": 752000
+        }
+      }
+    },
+    {
+      "matchup": "mcts-400-vs-negamax-4",
+      "primary": false,
+      "planned_pairs": 32,
+      "completed_games": 64,
+      "complete_pairs": 32,
+      "unpaired_games": 0,
+      "wins": 24,
+      "draws": 1,
+      "losses": 39,
+      "empirical_all_game_score": 0.3828125,
+      "color_score_rates": {
+        "0": 0.390625,
+        "1": 0.375
+      },
+      "paired_score": {
+        "mean": 0.3828125,
+        "ci95": [
+          0.28125,
+          0.484375
+        ],
+        "ci98_75": [
+          0.2578125,
+          0.515625
+        ],
+        "independent_openings": 32
+      },
+      "paired_advantage": {
+        "main-000": -1.0,
+        "main-001": 1.0,
+        "main-002": 0.0,
+        "main-003": -1.0,
+        "main-004": -1.0,
+        "main-005": 1.0,
+        "main-006": 0.0,
+        "main-007": 0.0,
+        "main-008": 0.0,
+        "main-009": -1.0,
+        "main-010": 0.0,
+        "main-011": -1.0,
+        "main-012": 0.0,
+        "main-013": 0.0,
+        "main-014": 0.0,
+        "main-015": 0.0,
+        "main-016": -1.0,
+        "main-017": 0.0,
+        "main-018": 1.0,
+        "main-019": -1.0,
+        "main-020": 0.0,
+        "main-021": 0.0,
+        "main-022": 0.0,
+        "main-023": -1.0,
+        "main-024": -1.0,
+        "main-025": -1.0,
+        "main-026": -1.0,
+        "main-027": 1.0,
+        "main-028": 0.0,
+        "main-029": 0.0,
+        "main-030": 0.0,
+        "main-031": -0.5
+      },
+      "paired_advantage_ci95": [
+        -0.4375,
+        -0.03125
+      ],
+      "primary_improvement_familywise": false,
+      "compute": {
+        "challenger": {
+          "search_calls": 528,
+          "wall_seconds": 1.4564534248784184,
+          "cpu_seconds": 1.453114000000185,
+          "median_ms": 2.845000009983778,
+          "mean_ms": 2.7584345168151865,
+          "p95_ms": 4.387152288109063,
+          "maximum_ms": 16.335667110979557,
+          "tactical_bypasses": 24,
+          "executed_simulations": 201600
+        },
+        "opponent": {
+          "search_calls": 536,
+          "wall_seconds": 0.7574128424748778,
+          "cpu_seconds": 0.7558829999999173,
+          "median_ms": 1.1663543991744518,
+          "mean_ms": 1.4130836613337272,
+          "p95_ms": 3.5548852756619453,
+          "maximum_ms": 5.463625071570277,
+          "tactical_bypasses": 0,
+          "executed_simulations": 0
+        }
+      }
+    },
+    {
+      "matchup": "mcts-800-vs-negamax-4",
+      "primary": false,
+      "planned_pairs": 32,
+      "completed_games": 64,
+      "complete_pairs": 32,
+      "unpaired_games": 0,
+      "wins": 28,
+      "draws": 4,
+      "losses": 32,
+      "empirical_all_game_score": 0.46875,
+      "color_score_rates": {
+        "0": 0.484375,
+        "1": 0.453125
+      },
+      "paired_score": {
+        "mean": 0.46875,
+        "ci95": [
+          0.375,
+          0.5625
+        ],
+        "ci98_75": [
+          0.3515625,
+          0.59375
+        ],
+        "independent_openings": 32
+      },
+      "paired_advantage": {
+        "main-000": 1.0,
+        "main-001": 0.0,
+        "main-002": 0.0,
+        "main-003": 0.0,
+        "main-004": 0.5,
+        "main-005": 0.5,
+        "main-006": 0.0,
+        "main-007": 0.0,
+        "main-008": -1.0,
+        "main-009": -1.0,
+        "main-010": 1.0,
+        "main-011": -1.0,
+        "main-012": 0.0,
+        "main-013": 0.0,
+        "main-014": 0.0,
+        "main-015": 0.0,
+        "main-016": -1.0,
+        "main-017": -1.0,
+        "main-018": 1.0,
+        "main-019": 1.0,
+        "main-020": 1.0,
+        "main-021": 0.0,
+        "main-022": 0.0,
+        "main-023": -0.5,
+        "main-024": -1.0,
+        "main-025": 0.0,
+        "main-026": -1.0,
+        "main-027": 0.0,
+        "main-028": 0.0,
+        "main-029": 0.0,
+        "main-030": 0.0,
+        "main-031": -0.5
+      },
+      "paired_advantage_ci95": [
+        -0.25,
+        0.125
+      ],
+      "primary_improvement_familywise": false,
+      "compute": {
+        "challenger": {
+          "search_calls": 565,
+          "wall_seconds": 3.104179560439661,
+          "cpu_seconds": 3.081710000000096,
+          "median_ms": 5.7171250227838755,
+          "mean_ms": 5.494123115822409,
+          "p95_ms": 9.331057826057076,
+          "maximum_ms": 25.641625048592687,
+          "tactical_bypasses": 28,
+          "executed_simulations": 429600
+        },
+        "opponent": {
+          "search_calls": 568,
+          "wall_seconds": 0.7904846365563571,
+          "cpu_seconds": 0.7871000000002057,
+          "median_ms": 1.1939170071855187,
+          "mean_ms": 1.3916983037964035,
+          "p95_ms": 3.4446961828507483,
+          "maximum_ms": 5.031459033489227,
+          "tactical_bypasses": 0,
+          "executed_simulations": 0
+        }
+      }
+    },
+    {
+      "matchup": "mcts-2000-vs-negamax-4",
+      "primary": false,
+      "planned_pairs": 32,
+      "completed_games": 64,
+      "complete_pairs": 32,
+      "unpaired_games": 0,
+      "wins": 30,
+      "draws": 5,
+      "losses": 29,
+      "empirical_all_game_score": 0.5078125,
+      "color_score_rates": {
+        "0": 0.484375,
+        "1": 0.53125
+      },
+      "paired_score": {
+        "mean": 0.5078125,
+        "ci95": [
+          0.453125,
+          0.5625
+        ],
+        "ci98_75": [
+          0.4375,
+          0.5703125
+        ],
+        "independent_openings": 32
+      },
+      "paired_advantage": {
+        "main-000": 0.5,
+        "main-001": 0.0,
+        "main-002": 1.0,
+        "main-003": 0.0,
+        "main-004": 0.0,
+        "main-005": 0.0,
+        "main-006": 0.0,
+        "main-007": 0.0,
+        "main-008": 0.0,
+        "main-009": 0.0,
+        "main-010": 0.0,
+        "main-011": 0.0,
+        "main-012": 0.0,
+        "main-013": 0.0,
+        "main-014": 0.0,
+        "main-015": 0.0,
+        "main-016": -1.0,
+        "main-017": 0.0,
+        "main-018": 0.0,
+        "main-019": 0.0,
+        "main-020": 0.0,
+        "main-021": 0.0,
+        "main-022": 0.0,
+        "main-023": -1.0,
+        "main-024": 0.0,
+        "main-025": 0.0,
+        "main-026": 1.0,
+        "main-027": 0.5,
+        "main-028": 0.0,
+        "main-029": 0.0,
+        "main-030": 0.0,
+        "main-031": -0.5
+      },
+      "paired_advantage_ci95": [
+        -0.09375,
+        0.125
+      ],
+      "primary_improvement_familywise": false,
+      "compute": {
+        "challenger": {
+          "search_calls": 589,
+          "wall_seconds": 8.001572424313053,
+          "cpu_seconds": 7.836790000000023,
+          "median_ms": 14.247957849875093,
+          "mean_ms": 13.58501260494576,
+          "p95_ms": 23.485833406448364,
+          "maximum_ms": 131.1175839509815,
+          "tactical_bypasses": 30,
+          "executed_simulations": 1118000
+        },
+        "opponent": {
+          "search_calls": 589,
+          "wall_seconds": 0.8237643321044743,
+          "cpu_seconds": 0.81855200000021,
+          "median_ms": 1.0600830428302288,
+          "mean_ms": 1.3985812090058987,
+          "p95_ms": 3.5248997155576953,
+          "maximum_ms": 8.772582979872823,
+          "tactical_bypasses": 0,
+          "executed_simulations": 0
+        }
+      }
+    },
+    {
+      "matchup": "mcts-5000-vs-negamax-4",
+      "primary": false,
+      "planned_pairs": 32,
+      "completed_games": 64,
+      "complete_pairs": 32,
+      "unpaired_games": 0,
+      "wins": 35,
+      "draws": 3,
+      "losses": 26,
+      "empirical_all_game_score": 0.5703125,
+      "color_score_rates": {
+        "0": 0.515625,
+        "1": 0.625
+      },
+      "paired_score": {
+        "mean": 0.5703125,
+        "ci95": [
+          0.5,
+          0.6328125
+        ],
+        "ci98_75": [
+          0.484375,
+          0.6484375
+        ],
+        "independent_openings": 32
+      },
+      "paired_advantage": {
+        "main-000": 1.0,
+        "main-001": 0.0,
+        "main-002": 1.0,
+        "main-003": 0.0,
+        "main-004": 0.5,
+        "main-005": 0.0,
+        "main-006": 0.0,
+        "main-007": 0.0,
+        "main-008": 1.0,
+        "main-009": 0.0,
+        "main-010": 0.0,
+        "main-011": 1.0,
+        "main-012": 0.0,
+        "main-013": 0.0,
+        "main-014": 0.0,
+        "main-015": 0.0,
+        "main-016": 0.0,
+        "main-017": 0.0,
+        "main-018": 0.0,
+        "main-019": 1.0,
+        "main-020": 0.0,
+        "main-021": 0.0,
+        "main-022": 0.0,
+        "main-023": -0.5,
+        "main-024": -1.0,
+        "main-025": 0.0,
+        "main-026": 0.0,
+        "main-027": 1.0,
+        "main-028": 0.0,
+        "main-029": 0.0,
+        "main-030": 0.0,
+        "main-031": -0.5
+      },
+      "paired_advantage_ci95": [
+        0.0,
+        0.265625
+      ],
+      "primary_improvement_familywise": false,
+      "compute": {
+        "challenger": {
+          "search_calls": 562,
+          "wall_seconds": 19.125860545085743,
+          "cpu_seconds": 18.964903000000046,
+          "median_ms": 37.2503959806636,
+          "mean_ms": 34.03178032933406,
+          "p95_ms": 59.80651645222678,
+          "maximum_ms": 106.88545880839229,
+          "tactical_bypasses": 35,
+          "executed_simulations": 2635000
+        },
+        "opponent": {
+          "search_calls": 559,
+          "wall_seconds": 0.8365520446095616,
+          "cpu_seconds": 0.8306360000000428,
+          "median_ms": 1.2978750746697187,
+          "mean_ms": 1.496515285526944,
+          "p95_ms": 3.6923208506777883,
+          "maximum_ms": 6.079500075429678,
+          "tactical_bypasses": 0,
+          "executed_simulations": 0
+        }
+      }
+    },
+    {
+      "matchup": "mcts-10000-vs-negamax-4",
+      "primary": false,
+      "planned_pairs": 32,
+      "completed_games": 64,
+      "complete_pairs": 32,
+      "unpaired_games": 0,
+      "wins": 36,
+      "draws": 5,
+      "losses": 23,
+      "empirical_all_game_score": 0.6015625,
+      "color_score_rates": {
+        "0": 0.578125,
+        "1": 0.625
+      },
+      "paired_score": {
+        "mean": 0.6015625,
+        "ci95": [
+          0.5390625,
+          0.6640625
+        ],
+        "ci98_75": [
+          0.515625,
+          0.6796875
+        ],
+        "independent_openings": 32
+      },
+      "paired_advantage": {
+        "main-000": 0.0,
+        "main-001": 1.0,
+        "main-002": 0.0,
+        "main-003": 0.0,
+        "main-004": 0.0,
+        "main-005": 1.0,
+        "main-006": 0.0,
+        "main-007": 0.0,
+        "main-008": 0.0,
+        "main-009": 0.0,
+        "main-010": 1.0,
+        "main-011": 1.0,
+        "main-012": 0.0,
+        "main-013": 0.0,
+        "main-014": 0.0,
+        "main-015": 0.0,
+        "main-016": -1.0,
+        "main-017": 1.0,
+        "main-018": 1.0,
+        "main-019": 0.0,
+        "main-020": 0.0,
+        "main-021": 0.0,
+        "main-022": 0.0,
+        "main-023": 0.0,
+        "main-024": 0.0,
+        "main-025": 0.0,
+        "main-026": 1.0,
+        "main-027": 1.0,
+        "main-028": 0.0,
+        "main-029": 0.0,
+        "main-030": 0.0,
+        "main-031": -0.5
+      },
+      "paired_advantage_ci95": [
+        0.078125,
+        0.328125
+      ],
+      "primary_improvement_familywise": false,
+      "compute": {
+        "challenger": {
+          "search_calls": 560,
+          "wall_seconds": 39.32842612918466,
+          "cpu_seconds": 39.01718400000004,
+          "median_ms": 80.15643805265427,
+          "mean_ms": 70.22933237354405,
+          "p95_ms": 121.51576264295726,
+          "maximum_ms": 198.35320790298283,
+          "tactical_bypasses": 36,
+          "executed_simulations": 5240000
+        },
+        "opponent": {
+          "search_calls": 554,
+          "wall_seconds": 0.8648026385344565,
+          "cpu_seconds": 0.863250000000118,
+          "median_ms": 1.3561459491029382,
+          "mean_ms": 1.5610155930224847,
+          "p95_ms": 3.886475029867143,
+          "maximum_ms": 5.219915881752968,
+          "tactical_bypasses": 0,
+          "executed_simulations": 0
+        }
+      }
+    },
+    {
+      "matchup": "mcts-400-vs-negamax-6",
+      "primary": false,
+      "planned_pairs": 32,
+      "completed_games": 64,
+      "complete_pairs": 32,
+      "unpaired_games": 0,
+      "wins": 24,
+      "draws": 4,
+      "losses": 36,
+      "empirical_all_game_score": 0.40625,
+      "color_score_rates": {
+        "0": 0.390625,
+        "1": 0.421875
+      },
+      "paired_score": {
+        "mean": 0.40625,
+        "ci95": [
+          0.34375,
+          0.46875
+        ],
+        "ci98_75": [
+          0.3203125,
+          0.4921875
+        ],
+        "independent_openings": 32
+      },
+      "paired_advantage": {
+        "main-000": 1.0,
+        "main-001": 0.0,
+        "main-002": 0.0,
+        "main-003": 0.0,
+        "main-004": -0.5,
+        "main-005": 0.0,
+        "main-006": 0.0,
+        "main-007": 0.0,
+        "main-008": -1.0,
+        "main-009": 0.0,
+        "main-010": -1.0,
+        "main-011": 0.0,
+        "main-012": 0.0,
+        "main-013": 0.0,
+        "main-014": 0.0,
+        "main-015": 0.0,
+        "main-016": 0.0,
+        "main-017": -0.5,
+        "main-018": 0.0,
+        "main-019": -0.5,
+        "main-020": 0.0,
+        "main-021": 0.0,
+        "main-022": 0.0,
+        "main-023": -1.0,
+        "main-024": 0.0,
+        "main-025": -1.0,
+        "main-026": -1.0,
+        "main-027": 0.0,
+        "main-028": 0.0,
+        "main-029": 0.0,
+        "main-030": 0.0,
+        "main-031": -0.5
+      },
+      "paired_advantage_ci95": [
+        -0.3125,
+        -0.0625
+      ],
+      "primary_improvement_familywise": false,
+      "compute": {
+        "challenger": {
+          "search_calls": 504,
+          "wall_seconds": 1.4174985494464636,
+          "cpu_seconds": 1.4157379999998412,
+          "median_ms": 2.882395521737635,
+          "mean_ms": 2.8124971219175863,
+          "p95_ms": 4.465760500170289,
+          "maximum_ms": 14.56045894883573,
+          "tactical_bypasses": 24,
+          "executed_simulations": 192000
+        },
+        "opponent": {
+          "search_calls": 509,
+          "wall_seconds": 3.545303173130378,
+          "cpu_seconds": 3.541350000000268,
+          "median_ms": 3.991166828200221,
+          "mean_ms": 6.965232167250252,
+          "p95_ms": 22.620049724355333,
+          "maximum_ms": 44.28691603243351,
+          "tactical_bypasses": 0,
+          "executed_simulations": 0
+        }
+      }
+    },
+    {
+      "matchup": "mcts-800-vs-negamax-6",
+      "primary": false,
+      "planned_pairs": 32,
+      "completed_games": 64,
+      "complete_pairs": 32,
+      "unpaired_games": 0,
+      "wins": 22,
+      "draws": 5,
+      "losses": 37,
+      "empirical_all_game_score": 0.3828125,
+      "color_score_rates": {
+        "0": 0.34375,
+        "1": 0.421875
+      },
+      "paired_score": {
+        "mean": 0.3828125,
+        "ci95": [
+          0.3046875,
+          0.4609375
+        ],
+        "ci98_75": [
+          0.28125,
+          0.484375
+        ],
+        "independent_openings": 32
+      },
+      "paired_advantage": {
+        "main-000": 0.0,
+        "main-001": 0.5,
+        "main-002": 0.0,
+        "main-003": 0.0,
+        "main-004": -0.5,
+        "main-005": -1.0,
+        "main-006": 0.0,
+        "main-007": 0.0,
+        "main-008": -1.0,
+        "main-009": 0.0,
+        "main-010": -1.0,
+        "main-011": -1.0,
+        "main-012": 0.0,
+        "main-013": 0.0,
+        "main-014": 0.0,
+        "main-015": 0.0,
+        "main-016": -1.0,
+        "main-017": -1.0,
+        "main-018": 1.0,
+        "main-019": -1.0,
+        "main-020": 0.0,
+        "main-021": 0.0,
+        "main-022": 0.0,
+        "main-023": -0.5,
+        "main-024": 0.0,
+        "main-025": 0.0,
+        "main-026": -1.0,
+        "main-027": 0.0,
+        "main-028": 0.0,
+        "main-029": 0.0,
+        "main-030": 0.0,
+        "main-031": 0.0
+      },
+      "paired_advantage_ci95": [
+        -0.390625,
+        -0.078125
+      ],
+      "primary_improvement_familywise": false,
+      "compute": {
+        "challenger": {
+          "search_calls": 536,
+          "wall_seconds": 2.9147079028189182,
+          "cpu_seconds": 2.9100649999998947,
+          "median_ms": 5.749042029492557,
+          "mean_ms": 5.4378878783935045,
+          "p95_ms": 9.020875033456832,
+          "maximum_ms": 17.93220778927207,
+          "tactical_bypasses": 22,
+          "executed_simulations": 411200
+        },
+        "opponent": {
+          "search_calls": 543,
+          "wall_seconds": 3.667480065487325,
+          "cpu_seconds": 3.6598820000003016,
+          "median_ms": 3.7941671907901764,
+          "mean_ms": 6.754106934599125,
+          "p95_ms": 21.639186912216246,
+          "maximum_ms": 44.27062487229705,
+          "tactical_bypasses": 0,
+          "executed_simulations": 0
+        }
+      }
+    },
+    {
+      "matchup": "mcts-2000-vs-negamax-6",
+      "primary": false,
+      "planned_pairs": 32,
+      "completed_games": 64,
+      "complete_pairs": 32,
+      "unpaired_games": 0,
+      "wins": 28,
+      "draws": 4,
+      "losses": 32,
+      "empirical_all_game_score": 0.46875,
+      "color_score_rates": {
+        "0": 0.484375,
+        "1": 0.453125
+      },
+      "paired_score": {
+        "mean": 0.46875,
+        "ci95": [
+          0.390625,
+          0.546875
+        ],
+        "ci98_75": [
+          0.375,
+          0.5625
+        ],
+        "independent_openings": 32
+      },
+      "paired_advantage": {
+        "main-000": -1.0,
+        "main-001": 0.0,
+        "main-002": 1.0,
+        "main-003": 0.0,
+        "main-004": -0.5,
+        "main-005": 0.0,
+        "main-006": 0.0,
+        "main-007": 0.0,
+        "main-008": 1.0,
+        "main-009": 0.5,
+        "main-010": 0.0,
+        "main-011": 0.0,
+        "main-012": 0.0,
+        "main-013": 0.0,
+        "main-014": 0.0,
+        "main-015": 0.0,
+        "main-016": -1.0,
+        "main-017": -1.0,
+        "main-018": 0.0,
+        "main-019": 0.0,
+        "main-020": -1.0,
+        "main-021": 0.0,
+        "main-022": 0.0,
+        "main-023": -1.0,
+        "main-024": 0.0,
+        "main-025": 0.0,
+        "main-026": 1.0,
+        "main-027": 0.0,
+        "main-028": 0.0,
+        "main-029": 0.0,
+        "main-030": 0.0,
+        "main-031": 0.0
+      },
+      "paired_advantage_ci95": [
+        -0.21875,
+        0.09375
+      ],
+      "primary_improvement_familywise": false,
+      "compute": {
+        "challenger": {
+          "search_calls": 582,
+          "wall_seconds": 7.88214074796997,
+          "cpu_seconds": 7.864198000000014,
+          "median_ms": 14.663875102996826,
+          "mean_ms": 13.54319716146043,
+          "p95_ms": 23.074652173090726,
+          "maximum_ms": 31.22416604310274,
+          "tactical_bypasses": 28,
+          "executed_simulations": 1108000
+        },
+        "opponent": {
+          "search_calls": 583,
+          "wall_seconds": 4.06211995263584,
+          "cpu_seconds": 4.006381000000243,
+          "median_ms": 3.804875072091818,
+          "mean_ms": 6.967615699203842,
+          "p95_ms": 23.830591863952574,
+          "maximum_ms": 39.9363748729229,
+          "tactical_bypasses": 0,
+          "executed_simulations": 0
+        }
+      }
+    },
+    {
+      "matchup": "mcts-5000-vs-negamax-6",
+      "primary": false,
+      "planned_pairs": 32,
+      "completed_games": 64,
+      "complete_pairs": 32,
+      "unpaired_games": 0,
+      "wins": 32,
+      "draws": 5,
+      "losses": 27,
+      "empirical_all_game_score": 0.5390625,
+      "color_score_rates": {
+        "0": 0.46875,
+        "1": 0.609375
+      },
+      "paired_score": {
+        "mean": 0.5390625,
+        "ci95": [
+          0.46875,
+          0.6015625
+        ],
+        "ci98_75": [
+          0.453125,
+          0.6171875
+        ],
+        "independent_openings": 32
+      },
+      "paired_advantage": {
+        "main-000": 0.0,
+        "main-001": 1.0,
+        "main-002": 1.0,
+        "main-003": 0.0,
+        "main-004": -0.5,
+        "main-005": -0.5,
+        "main-006": 0.0,
+        "main-007": 0.0,
+        "main-008": 0.0,
+        "main-009": 0.0,
+        "main-010": 0.0,
+        "main-011": 0.5,
+        "main-012": 0.0,
+        "main-013": 0.0,
+        "main-014": 0.0,
+        "main-015": 0.0,
+        "main-016": 1.0,
+        "main-017": 1.0,
+        "main-018": 0.0,
+        "main-019": 0.0,
+        "main-020": 0.0,
+        "main-021": 0.0,
+        "main-022": 0.0,
+        "main-023": 0.0,
+        "main-024": 0.0,
+        "main-025": -1.0,
+        "main-026": 0.0,
+        "main-027": 0.0,
+        "main-028": 0.0,
+        "main-029": 0.0,
+        "main-030": 0.0,
+        "main-031": 0.0
+      },
+      "paired_advantage_ci95": [
+        -0.0625,
+        0.203125
+      ],
+      "primary_improvement_familywise": false,
+      "compute": {
+        "challenger": {
+          "search_calls": 604,
+          "wall_seconds": 20.055953497998416,
+          "cpu_seconds": 19.99444399999981,
+          "median_ms": 36.257813102565706,
+          "mean_ms": 33.205221023176186,
+          "p95_ms": 59.022654336877174,
+          "maximum_ms": 68.6243751551956,
+          "tactical_bypasses": 32,
+          "executed_simulations": 2860000
+        },
+        "opponent": {
+          "search_calls": 601,
+          "wall_seconds": 4.0964899335522205,
+          "cpu_seconds": 4.0834940000005115,
+          "median_ms": 3.775124903768301,
+          "mean_ms": 6.816123017557771,
+          "p95_ms": 22.434249985963106,
+          "maximum_ms": 40.99650005809963,
+          "tactical_bypasses": 0,
+          "executed_simulations": 0
+        }
+      }
+    },
+    {
+      "matchup": "mcts-10000-vs-negamax-6",
+      "primary": false,
+      "planned_pairs": 32,
+      "completed_games": 64,
+      "complete_pairs": 32,
+      "unpaired_games": 0,
+      "wins": 30,
+      "draws": 8,
+      "losses": 26,
+      "empirical_all_game_score": 0.53125,
+      "color_score_rates": {
+        "0": 0.484375,
+        "1": 0.578125
+      },
+      "paired_score": {
+        "mean": 0.53125,
+        "ci95": [
+          0.4609375,
+          0.6015625
+        ],
+        "ci98_75": [
+          0.4453125,
+          0.6171875
+        ],
+        "independent_openings": 32
+      },
+      "paired_advantage": {
+        "main-000": 0.0,
+        "main-001": 0.0,
+        "main-002": 0.0,
+        "main-003": 0.0,
+        "main-004": 0.0,
+        "main-005": -0.5,
+        "main-006": 0.0,
+        "main-007": 0.0,
+        "main-008": 0.0,
+        "main-009": 0.5,
+        "main-010": -1.0,
+        "main-011": 0.5,
+        "main-012": 0.0,
+        "main-013": 0.0,
+        "main-014": 0.0,
+        "main-015": 0.0,
+        "main-016": -1.0,
+        "main-017": 1.0,
+        "main-018": 0.5,
+        "main-019": 0.0,
+        "main-020": 0.0,
+        "main-021": 0.0,
+        "main-022": 0.0,
+        "main-023": 0.0,
+        "main-024": 1.0,
+        "main-025": 0.0,
+        "main-026": 1.0,
+        "main-027": 0.0,
+        "main-028": 0.0,
+        "main-029": 0.0,
+        "main-030": 0.0,
+        "main-031": 0.0
+      },
+      "paired_advantage_ci95": [
+        -0.078125,
+        0.203125
+      ],
+      "primary_improvement_familywise": false,
+      "compute": {
+        "challenger": {
+          "search_calls": 629,
+          "wall_seconds": 42.05489278095774,
+          "cpu_seconds": 41.89419499999978,
+          "median_ms": 74.99533309601247,
+          "mean_ms": 66.85992492998051,
+          "p95_ms": 118.34575016982853,
+          "maximum_ms": 194.13774996064603,
+          "tactical_bypasses": 30,
+          "executed_simulations": 5990000
+        },
+        "opponent": {
+          "search_calls": 626,
+          "wall_seconds": 4.539541590726003,
+          "cpu_seconds": 4.531539000000251,
+          "median_ms": 3.4827706404030323,
+          "mean_ms": 7.251663882948887,
+          "p95_ms": 24.505927111022174,
+          "maximum_ms": 41.46883403882384,
+          "tactical_bypasses": 0,
+          "executed_simulations": 0
+        }
+      }
+    }
+  ],
+  "budget_comparisons": [
+    {
+      "lower": "mcts-800-vs-mcts-400",
+      "higher": "mcts-2000-vs-mcts-400",
+      "paired_score_difference": {
+        "mean": 0.064453125,
+        "ci95": [
+          0.013671875,
+          0.1171875
+        ],
+        "ci98_75": [
+          -0.00390625,
+          0.1328125
+        ],
+        "independent_openings": 128
+      }
+    },
+    {
+      "lower": "mcts-800-vs-mcts-400",
+      "higher": "mcts-5000-vs-mcts-400",
+      "paired_score_difference": {
+        "mean": 0.11328125,
+        "ci95": [
+          0.064453125,
+          0.162109375
+        ],
+        "ci98_75": [
+          0.05078125,
+          0.17578125
+        ],
+        "independent_openings": 128
+      }
+    },
+    {
+      "lower": "mcts-800-vs-mcts-400",
+      "higher": "mcts-10000-vs-mcts-400",
+      "paired_score_difference": {
+        "mean": 0.158203125,
+        "ci95": [
+          0.10932617187500004,
+          0.208984375
+        ],
+        "ci98_75": [
+          0.09375,
+          0.224609375
+        ],
+        "independent_openings": 128
+      }
+    },
+    {
+      "lower": "mcts-2000-vs-mcts-400",
+      "higher": "mcts-5000-vs-mcts-400",
+      "paired_score_difference": {
+        "mean": 0.048828125,
+        "ci95": [
+          0.009765625,
+          0.087890625
+        ],
+        "ci98_75": [
+          0.0,
+          0.09765625
+        ],
+        "independent_openings": 128
+      }
+    },
+    {
+      "lower": "mcts-2000-vs-mcts-400",
+      "higher": "mcts-10000-vs-mcts-400",
+      "paired_score_difference": {
+        "mean": 0.09375,
+        "ci95": [
+          0.04296875,
+          0.146484375
+        ],
+        "ci98_75": [
+          0.025390625,
+          0.16015625
+        ],
+        "independent_openings": 128
+      }
+    },
+    {
+      "lower": "mcts-5000-vs-mcts-400",
+      "higher": "mcts-10000-vs-mcts-400",
+      "paired_score_difference": {
+        "mean": 0.044921875,
+        "ci95": [
+          -0.00390625,
+          0.09375
+        ],
+        "ci98_75": [
+          -0.01953125,
+          0.107421875
+        ],
+        "independent_openings": 128
+      }
+    },
+    {
+      "lower": "mcts-400-vs-negamax-4",
+      "higher": "mcts-800-vs-negamax-4",
+      "paired_score_difference": {
+        "mean": 0.0859375,
+        "ci95": [
+          -0.03125,
+          0.2109375
+        ],
+        "ci98_75": [
+          -0.0625,
+          0.2421875
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-400-vs-negamax-4",
+      "higher": "mcts-2000-vs-negamax-4",
+      "paired_score_difference": {
+        "mean": 0.125,
+        "ci95": [
+          0.015625,
+          0.234375
+        ],
+        "ci98_75": [
+          -0.015625,
+          0.265625
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-400-vs-negamax-4",
+      "higher": "mcts-5000-vs-negamax-4",
+      "paired_score_difference": {
+        "mean": 0.1875,
+        "ci95": [
+          0.078125,
+          0.296875
+        ],
+        "ci98_75": [
+          0.042919921875000044,
+          0.328125
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-400-vs-negamax-4",
+      "higher": "mcts-10000-vs-negamax-4",
+      "paired_score_difference": {
+        "mean": 0.21875,
+        "ci95": [
+          0.140625,
+          0.3125
+        ],
+        "ci98_75": [
+          0.109375,
+          0.328125
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-800-vs-negamax-4",
+      "higher": "mcts-2000-vs-negamax-4",
+      "paired_score_difference": {
+        "mean": 0.0390625,
+        "ci95": [
+          -0.0703125,
+          0.1484375
+        ],
+        "ci98_75": [
+          -0.09375,
+          0.171875
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-800-vs-negamax-4",
+      "higher": "mcts-5000-vs-negamax-4",
+      "paired_score_difference": {
+        "mean": 0.1015625,
+        "ci95": [
+          0.0,
+          0.203125
+        ],
+        "ci98_75": [
+          -0.0234375,
+          0.234375
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-800-vs-negamax-4",
+      "higher": "mcts-10000-vs-negamax-4",
+      "paired_score_difference": {
+        "mean": 0.1328125,
+        "ci95": [
+          0.0234375,
+          0.25
+        ],
+        "ci98_75": [
+          -0.011767578124999956,
+          0.28125
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-2000-vs-negamax-4",
+      "higher": "mcts-5000-vs-negamax-4",
+      "paired_score_difference": {
+        "mean": 0.0625,
+        "ci95": [
+          -0.0078125,
+          0.1171875
+        ],
+        "ci98_75": [
+          -0.0234375,
+          0.1328125
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-2000-vs-negamax-4",
+      "higher": "mcts-10000-vs-negamax-4",
+      "paired_score_difference": {
+        "mean": 0.09375,
+        "ci95": [
+          0.015625,
+          0.171875
+        ],
+        "ci98_75": [
+          -0.0078125,
+          0.1875
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-5000-vs-negamax-4",
+      "higher": "mcts-10000-vs-negamax-4",
+      "paired_score_difference": {
+        "mean": 0.03125,
+        "ci95": [
+          -0.0625,
+          0.125
+        ],
+        "ci98_75": [
+          -0.0859375,
+          0.1484375
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-400-vs-negamax-6",
+      "higher": "mcts-800-vs-negamax-6",
+      "paired_score_difference": {
+        "mean": -0.0234375,
+        "ci95": [
+          -0.09375,
+          0.0390625
+        ],
+        "ci98_75": [
+          -0.109375,
+          0.0625
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-400-vs-negamax-6",
+      "higher": "mcts-2000-vs-negamax-6",
+      "paired_score_difference": {
+        "mean": 0.0625,
+        "ci95": [
+          -0.046875,
+          0.1796875
+        ],
+        "ci98_75": [
+          -0.0703125,
+          0.203125
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-400-vs-negamax-6",
+      "higher": "mcts-5000-vs-negamax-6",
+      "paired_score_difference": {
+        "mean": 0.1328125,
+        "ci95": [
+          0.0546875,
+          0.203125
+        ],
+        "ci98_75": [
+          0.03125,
+          0.2265625
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-400-vs-negamax-6",
+      "higher": "mcts-10000-vs-negamax-6",
+      "paired_score_difference": {
+        "mean": 0.125,
+        "ci95": [
+          0.03125,
+          0.21875
+        ],
+        "ci98_75": [
+          0.0078125,
+          0.2421875
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-800-vs-negamax-6",
+      "higher": "mcts-2000-vs-negamax-6",
+      "paired_score_difference": {
+        "mean": 0.0859375,
+        "ci95": [
+          -0.0234375,
+          0.1953125
+        ],
+        "ci98_75": [
+          -0.0546875,
+          0.2265625
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-800-vs-negamax-6",
+      "higher": "mcts-5000-vs-negamax-6",
+      "paired_score_difference": {
+        "mean": 0.15625,
+        "ci95": [
+          0.046875,
+          0.265625
+        ],
+        "ci98_75": [
+          0.0234375,
+          0.29301757812500284
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-800-vs-negamax-6",
+      "higher": "mcts-10000-vs-negamax-6",
+      "paired_score_difference": {
+        "mean": 0.1484375,
+        "ci95": [
+          0.0546875,
+          0.25
+        ],
+        "ci98_75": [
+          0.03125,
+          0.28125
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-2000-vs-negamax-6",
+      "higher": "mcts-5000-vs-negamax-6",
+      "paired_score_difference": {
+        "mean": 0.0703125,
+        "ci95": [
+          -0.0390625,
+          0.17988281249999716
+        ],
+        "ci98_75": [
+          -0.0703125,
+          0.2109375
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-2000-vs-negamax-6",
+      "higher": "mcts-10000-vs-negamax-6",
+      "paired_score_difference": {
+        "mean": 0.0625,
+        "ci95": [
+          -0.03125,
+          0.15625
+        ],
+        "ci98_75": [
+          -0.046875,
+          0.18364257812500284
+        ],
+        "independent_openings": 32
+      }
+    },
+    {
+      "lower": "mcts-5000-vs-negamax-6",
+      "higher": "mcts-10000-vs-negamax-6",
+      "paired_score_difference": {
+        "mean": -0.0078125,
+        "ci95": [
+          -0.109375,
+          0.0859375
+        ],
+        "ci98_75": [
+          -0.1328125,
+          0.109375
+        ],
+        "independent_openings": 32
+      }
+    }
+  ],
+  "complete_games": 1664,
+  "total_search_calls": 27814,
+  "total_search_wall_seconds": 452.31407187413424,
+  "total_game_seconds": 454.05668882024474
+}

@@ -1,0 +1,1233 @@
+{
+  "experiment_sha256": "b05723a266fc590d740fa5d8b5acfcacd4ca9909fce47c3f38bf617cc24cdfe2",
+  "python": "3.11.17",
+  "diagnostic_source_sha256": "976fdcd920a4a0281be95658b5333e9a92c8ac26322be9d846905026ade9d984",
+  "rss": [
+    {
+      "position": "empty",
+      "budget": 400,
+      "seed": 269744838621662713686841060681662321668,
+      "kind": "mcts",
+      "move": 3,
+      "wall_seconds": 0.013174709165468812,
+      "maxrss_before_bytes": 39616512,
+      "maxrss_after_bytes": 39616512
+    },
+    {
+      "position": "empty",
+      "budget": 2000,
+      "seed": 268789625981803209409220432810435447487,
+      "kind": "mcts",
+      "move": 3,
+      "wall_seconds": 0.049117542104795575,
+      "maxrss_before_bytes": 39698432,
+      "maxrss_after_bytes": 40206336
+    },
+    {
+      "position": "empty",
+      "budget": 5000,
+      "seed": 292888038466592015475003222999772306507,
+      "kind": "mcts",
+      "move": 3,
+      "wall_seconds": 0.12455995799973607,
+      "maxrss_before_bytes": 39796736,
+      "maxrss_after_bytes": 41959424
+    },
+    {
+      "position": "empty",
+      "budget": 10000,
+      "seed": 186899272659134782643111698531467024329,
+      "kind": "mcts",
+      "move": 3,
+      "wall_seconds": 0.20389800006523728,
+      "maxrss_before_bytes": 39567360,
+      "maxrss_after_bytes": 44548096
+    },
+    {
+      "position": "near-opening",
+      "budget": 400,
+      "seed": 206530633131575130413376326977067032397,
+      "kind": "mcts",
+      "move": 6,
+      "wall_seconds": 0.0045569590292871,
+      "maxrss_before_bytes": 40468480,
+      "maxrss_after_bytes": 40468480
+    },
+    {
+      "position": "near-opening",
+      "budget": 2000,
+      "seed": 239437535101795513975810985151209947877,
+      "kind": "mcts",
+      "move": 5,
+      "wall_seconds": 0.035379666835069656,
+      "maxrss_before_bytes": 39567360,
+      "maxrss_after_bytes": 39976960
+    },
+    {
+      "position": "near-opening",
+      "budget": 5000,
+      "seed": 101455407058783451802837411062877761587,
+      "kind": "mcts",
+      "move": 4,
+      "wall_seconds": 0.09929983410984278,
+      "maxrss_before_bytes": 39845888,
+      "maxrss_after_bytes": 41910272
+    },
+    {
+      "position": "near-opening",
+      "budget": 10000,
+      "seed": 16613000254965742894795270238040250675,
+      "kind": "mcts",
+      "move": 4,
+      "wall_seconds": 0.19645383395254612,
+      "maxrss_before_bytes": 39583744,
+      "maxrss_after_bytes": 44351488
+    }
+  ],
+  "contention": [
+    {
+      "position": "empty",
+      "budget": 400,
+      "samples": [
+        {
+          "seed": 42775187700923222645140754839722924155,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.004751875065267086
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.01765258377417922
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.00481895892880857
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.01789125008508563
+            }
+          ]
+        },
+        {
+          "seed": 77165947247894333703486084014938558528,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.004996791947633028
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.01776983286254108
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.005324542056769133
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.017847499810159206
+            }
+          ]
+        },
+        {
+          "seed": 299125080269967754944490182565113740360,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.004836332984268665
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.017736249836161733
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.004833125043660402
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.01767487498000264
+            }
+          ]
+        },
+        {
+          "seed": 52519243516839928372855295167263877208,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.004868457792326808
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.017518165986984968
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.004830291960388422
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.018001042073592544
+            }
+          ]
+        },
+        {
+          "seed": 130561862859566681639012378804565653146,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.005441209068521857
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.017936167074367404
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.004986333893612027
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.01798429200425744
+            }
+          ]
+        }
+      ],
+      "median_mcts_isolated_seconds": 0.004836332984268665,
+      "median_mcts_contended_seconds": 0.004868457792326808
+    },
+    {
+      "position": "empty",
+      "budget": 2000,
+      "samples": [
+        {
+          "seed": 42775187700923222645140754839722924155,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.027987000066787004
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.01763274986296892
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.042679332895204425
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.03048949991352856
+            }
+          ]
+        },
+        {
+          "seed": 77165947247894333703486084014938558528,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.04330624989233911
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.03033283306285739
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.024930291110649705
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.017662416910752654
+            }
+          ]
+        },
+        {
+          "seed": 299125080269967754944490182565113740360,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 2,
+              "wall_seconds": 0.024876875104382634
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.017971042077988386
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 2,
+              "wall_seconds": 0.04293791693635285
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.024098000023514032
+            }
+          ]
+        },
+        {
+          "seed": 52519243516839928372855295167263877208,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.04299550014548004
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.024136750027537346
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.024734958074986935
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.017640915932133794
+            }
+          ]
+        },
+        {
+          "seed": 130561862859566681639012378804565653146,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.024879833916202188
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.017819499829784036
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.051267208997160196
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.031946875154972076
+            }
+          ]
+        }
+      ],
+      "median_mcts_isolated_seconds": 0.024879833916202188,
+      "median_mcts_contended_seconds": 0.04299550014548004
+    },
+    {
+      "position": "empty",
+      "budget": 5000,
+      "samples": [
+        {
+          "seed": 42775187700923222645140754839722924155,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.06233258289285004
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.017590707866474986
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.08874120796099305
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.024062833050265908
+            }
+          ]
+        },
+        {
+          "seed": 77165947247894333703486084014938558528,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.08040729095228016
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.024101250106468797
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.06271895882673562
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.01777824992313981
+            }
+          ]
+        },
+        {
+          "seed": 299125080269967754944490182565113740360,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.06325470795854926
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.017492375103756785
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.09040737501345575
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.02422841591760516
+            }
+          ]
+        },
+        {
+          "seed": 52519243516839928372855295167263877208,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.08085366594605148
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.023987333057448268
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.06294524995610118
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.01769104111008346
+            }
+          ]
+        },
+        {
+          "seed": 130561862859566681639012378804565653146,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.07005125004798174
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.01774337491951883
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.08094545803032815
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.024202416883781552
+            }
+          ]
+        }
+      ],
+      "median_mcts_isolated_seconds": 0.06294524995610118,
+      "median_mcts_contended_seconds": 0.08094545803032815
+    },
+    {
+      "position": "empty",
+      "budget": 10000,
+      "samples": [
+        {
+          "seed": 42775187700923222645140754839722924155,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.13354575005359948
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.017965791979804635
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.14494216605089605
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.023941542021930218
+            }
+          ]
+        },
+        {
+          "seed": 77165947247894333703486084014938558528,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.15848825010471046
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.024130875011906028
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.1276966668665409
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.017578250030055642
+            }
+          ]
+        },
+        {
+          "seed": 299125080269967754944490182565113740360,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.13776654214598238
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.017931249924004078
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.14541366696357727
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.023116250056773424
+            }
+          ]
+        },
+        {
+          "seed": 52519243516839928372855295167263877208,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.1565039160195738
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.024080999894067645
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.12820550007745624
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.018171583069488406
+            }
+          ]
+        },
+        {
+          "seed": 130561862859566681639012378804565653146,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.13749191700480878
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.017774708103388548
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.15318245813250542
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.024211084004491568
+            }
+          ]
+        }
+      ],
+      "median_mcts_isolated_seconds": 0.13354575005359948,
+      "median_mcts_contended_seconds": 0.15318245813250542
+    },
+    {
+      "position": "near-opening",
+      "budget": 400,
+      "samples": [
+        {
+          "seed": 170337902940890462195132065735154674880,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.003858082927763462
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014607083052396774
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.003869042033329606
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014613750157877803
+            }
+          ]
+        },
+        {
+          "seed": 171533663139262340628151074702672560606,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 5,
+              "wall_seconds": 0.003852624911814928
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014656041981652379
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 5,
+              "wall_seconds": 0.0038887502159923315
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014485625084489584
+            }
+          ]
+        },
+        {
+          "seed": 247167903382546577288775998723209330732,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 6,
+              "wall_seconds": 0.004488500067964196
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014484874904155731
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 6,
+              "wall_seconds": 0.004058999940752983
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014559166971594095
+            }
+          ]
+        },
+        {
+          "seed": 310165778467362900795947297494678130754,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 5,
+              "wall_seconds": 0.004079582868143916
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014899665955454111
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 5,
+              "wall_seconds": 0.00399954104796052
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014796708011999726
+            }
+          ]
+        },
+        {
+          "seed": 164320519570689970271496787647321671097,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 6,
+              "wall_seconds": 0.00394033407792449
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.01474266592413187
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 6,
+              "wall_seconds": 0.004420750075951219
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014583207899704576
+            }
+          ]
+        }
+      ],
+      "median_mcts_isolated_seconds": 0.00394033407792449,
+      "median_mcts_contended_seconds": 0.004058999940752983
+    },
+    {
+      "position": "near-opening",
+      "budget": 2000,
+      "samples": [
+        {
+          "seed": 170337902940890462195132065735154674880,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 5,
+              "wall_seconds": 0.019989500055089593
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014594374923035502
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 5,
+              "wall_seconds": 0.03497683396562934
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.027203124947845936
+            }
+          ]
+        },
+        {
+          "seed": 171533663139262340628151074702672560606,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 5,
+              "wall_seconds": 0.03488525003194809
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.020916667068377137
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 5,
+              "wall_seconds": 0.020068541867658496
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014702291926369071
+            }
+          ]
+        },
+        {
+          "seed": 247167903382546577288775998723209330732,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.020584915997460485
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014806458028033376
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.04448283417150378
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.030284124892205
+            }
+          ]
+        },
+        {
+          "seed": 310165778467362900795947297494678130754,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.03546033287420869
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.02733862493187189
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.02030091709457338
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014680416788905859
+            }
+          ]
+        },
+        {
+          "seed": 164320519570689970271496787647321671097,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 6,
+              "wall_seconds": 0.019880709005519748
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014561332995072007
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 6,
+              "wall_seconds": 0.03471558401361108
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.020893416134640574
+            }
+          ]
+        }
+      ],
+      "median_mcts_isolated_seconds": 0.020068541867658496,
+      "median_mcts_contended_seconds": 0.03497683396562934
+    },
+    {
+      "position": "near-opening",
+      "budget": 5000,
+      "samples": [
+        {
+          "seed": 170337902940890462195132065735154674880,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.05291020800359547
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014616708969697356
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.06788962497375906
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.020907083991914988
+            }
+          ]
+        },
+        {
+          "seed": 171533663139262340628151074702672560606,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.0673242078628391
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.020849624881520867
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.06163141597062349
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.0146636669524014
+            }
+          ]
+        },
+        {
+          "seed": 247167903382546577288775998723209330732,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.05332166701555252
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014675166923552752
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.06790695781819522
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.020908750128000975
+            }
+          ]
+        },
+        {
+          "seed": 310165778467362900795947297494678130754,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.06794424983672798
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.020875834161415696
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.06220816704444587
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.01473933388479054
+            }
+          ]
+        },
+        {
+          "seed": 164320519570689970271496787647321671097,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.05292245792225003
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.01450745901092887
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.06799554219469428
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.020892333006486297
+            }
+          ]
+        }
+      ],
+      "median_mcts_isolated_seconds": 0.05332166701555252,
+      "median_mcts_contended_seconds": 0.06790695781819522
+    },
+    {
+      "position": "near-opening",
+      "budget": 10000,
+      "samples": [
+        {
+          "seed": 170337902940890462195132065735154674880,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.118518500123173
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014772166963666677
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.12413650006055832
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.020852208137512207
+            }
+          ]
+        },
+        {
+          "seed": 171533663139262340628151074702672560606,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 2,
+              "wall_seconds": 0.13246933394111693
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.020999083062633872
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 2,
+              "wall_seconds": 0.1088122921064496
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.01468370808288455
+            }
+          ]
+        },
+        {
+          "seed": 247167903382546577288775998723209330732,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.1191736669279635
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014557834016159177
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.12429079203866422
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.02095687505789101
+            }
+          ]
+        },
+        {
+          "seed": 310165778467362900795947297494678130754,
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.1321090420242399
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.03949724999256432
+            }
+          ],
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 4,
+              "wall_seconds": 0.10861595906317234
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.014698334038257599
+            }
+          ]
+        },
+        {
+          "seed": 164320519570689970271496787647321671097,
+          "isolated": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.1187568751629442
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.01517604198306799
+            }
+          ],
+          "contended": [
+            {
+              "kind": "mcts",
+              "move": 3,
+              "wall_seconds": 0.1332980419974774
+            },
+            {
+              "kind": "negamax",
+              "move": 3,
+              "wall_seconds": 0.03374541597440839
+            }
+          ]
+        }
+      ],
+      "median_mcts_isolated_seconds": 0.118518500123173,
+      "median_mcts_contended_seconds": 0.1321090420242399
+    }
+  ]
+}
