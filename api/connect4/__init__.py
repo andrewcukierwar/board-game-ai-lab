@@ -165,7 +165,13 @@ def make_move():
             if reserved and not reservation.acquire(blocking=False):
                 name = 'MCTS' if config['type'] == 'mcts' else 'Victor research'
                 raise GameError('agent_busy', f'Another {name} search is running. Retry the AI move shortly.', 503)
+            search_gate = current_app.extensions['connect4_search_gate'] if config['type'] != 'random' else None
+            search_acquired = False
             try:
+                if search_gate is not None:
+                    search_acquired = search_gate.acquire(blocking=False)
+                    if not search_acquired:
+                        raise GameError('agent_busy', 'Too many AI searches are running. Try again shortly.', 503)
                 rng = (random.Random(ply_seed(session.rng_seed, session.revision, candidate.current_player))
                        if session.rng_seed is not None else None)
                 # Explicit production-safe imports; fresh search state per request.
@@ -185,10 +191,14 @@ def make_move():
                 column = agent.choose_move(Connect4(candidate.board, candidate.current_player))
                 if type(column) is not int or not candidate.is_valid_move(column):
                     raise ValueError('Agent returned an illegal move')
+            except GameError:
+                raise
             except Exception:
                 current_app.logger.exception('Connect 4 agent failed')
                 raise GameError('agent_failed', 'The AI could not make a legal move. Retry or start a new game.', 503)
             finally:
+                if search_acquired:
+                    search_gate.release()
                 if reserved:
                     reservation.release()
         if not candidate.make_move(column):
