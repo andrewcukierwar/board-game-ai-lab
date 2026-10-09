@@ -1,6 +1,6 @@
 /* Bounded move-proof search, ported from Victor's Python terminal-only core.
- * This is runtime code, NOT the independent test oracle. Only the established
- * CL-only sufficient condition below enters proof search; composite covers and
+ * This is runtime code, NOT the independent test oracle. Only the constructive
+ * CL-only sufficient conditions below enter proof search; composite covers and
  * heuristic scores never do. A cancelled invocation never stores a bound.
  * Full 49-bit position keys make TT replacement/collisions correctness-neutral.
  */
@@ -65,6 +65,19 @@ int victor_claimeven(Bits white, Bits mask) {
     Bits uppers=(bottom*42) & ~mask & ~(mask<<1);
     return !four(board & ~((white^mask)|uppers));
 }
+/* Stronger, constructive special case: Black eventually owns every CL upper.
+ * Pair each remaining odd/even vertical pair. The remaining cells are the
+ * playable even cells of odd-height columns; their number is even when White
+ * moves, so pair them across columns. Answer White in the same pair. All
+ * responses are playable. A full CL cover prevents White winning first; if
+ * Black's existing stones plus the guaranteed uppers contain four, Black wins
+ * by the time the board fills. No assertion about general composite covers is used.
+ * Precondition for using this as a game-value cutoff: White to move.
+ */
+int victor_claimeven_win(Bits white, Bits mask) {
+    Bits uppers=(bottom*42) & ~mask & ~(mask<<1);
+    return victor_claimeven(white,mask) && four((white^mask)|uppers);
+}
 /* Precondition: mover has no immediate winning move. */
 static int visit(Search *s, Bits p, Bits mask, int played, int alpha, int beta) {
     if (!enter(s)) return 0;
@@ -77,8 +90,10 @@ static int visit(Search *s, Bits p, Bits mask, int played, int alpha, int beta) 
     possible &= ~(threat>>1);
     if (!possible) return -1;
     if (played>=40) return 0;
-    if(s->claimeven && !(played&1) && alpha>=0 && victor_claimeven(p,mask)) {
-        s->bound_hits++; return 0;
+    if(s->claimeven && !(played&1) && victor_claimeven(p,mask)) {
+        Bits uppers=(bottom*42) & ~mask & ~(mask<<1);
+        if(four((p^mask)|uppers)) { s->bound_hits++; return -1; }
+        if(alpha>=0) { s->bound_hits++; return 0; }
     }
     Bits key=p+mask, reflected=mirror(p)+mirror(mask);
     if(reflected<key) key=reflected;
