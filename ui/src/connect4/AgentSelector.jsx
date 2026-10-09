@@ -1,10 +1,13 @@
-const agents = [
+import { researchAgent } from './researchAgent.js';
+
+const publicAgents = [
   { type: 'random', name: 'Random', label: 'Baseline', description: 'Chooses uniformly from available legal moves.' },
   { type: 'negamax', name: 'Negamax', label: 'Adversarial search', description: 'Searches future move sequences and scores resulting positions.' },
   { type: 'mcts', name: 'MCTS', label: 'Monte Carlo Tree Search', description: 'Builds a search tree using simulated games and UCT-style exploration.' },
 ];
 
-export default function AgentSelector({ selection, select, busy, game }) {
+export default function AgentSelector({ selection, select, busy, game, researchEnabled = false }) {
+  const agents = researchEnabled ? [...publicAgents, researchAgent] : publicAgents;
   const activeConfig = game?.players.find(player => player.type !== 'human');
   const activeOpponent = agents.find(agent => agent.type === activeConfig?.type)?.name;
   return <div className="agent-selection">

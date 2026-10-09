@@ -88,6 +88,17 @@ Bounded in-memory sessions and one active MCTS search semaphore require one Guni
 
 Random and MCTS use seeded local RNGs in competitions. Public agents need neither PyTorch nor neural checkpoints. **Experimental research**—DQN, neural MCTS, AlphaZero-style self-play, VictorAgent, and historical Mancala work—is separate from the public API and benchmark. Frozen AlphaZero campaign artifacts remain research records.
 
+The [functional Victor research solver](docs/victor-functional-solver.md) adds bounded exact endgame solving, executable conditional nine-rule Black responses, restricted White threat contexts and complete CLI games. It labels exact results, established bounds and exploratory moves separately; it does not claim perfect play or change the public VictorAgent.
+
+[Victor benchmarking and integration](docs/victor-performance-and-integration.md) evaluates it against an independent C oracle on 371 decisive positions and 1,120 adjudicated games. Exact search now reaches 24 empty cells; optimal-move accuracy rose from 70.4% to 79.0% and the game score from 0.790 to 0.844. Ablations show that exact search, CL/BI/VE and the composite rules each add measurable strength. An opt-in `victor_research` API agent (experimental, not perfect play) exists behind `VICTOR_RESEARCH_ENABLED`, which is **off by default** and not deployed.
+
+[Victor opening strength and app readiness](docs/victor-opening-and-app-readiness.md) adds an exact opening book: 1,722 positions solved offline by the independent C oracle in 13.5 minutes. It covers every position with at most two stones and every position Victor can face through eight stones from the empty board, as either colour, against any reply. It is verified, mirror-aware and pure Python at runtime, but **not a complete opening book**. Victor now makes no errors inside the book and half as many errors overall in empty-board games, and the public agent's p95 move time fell from 1.01 s to 0.32 s. Game scores did not measurably change, and the frozen-suite accuracy gain (79.0% → 84.1%) is in-sample; held-out openings are unchanged. A "Victor Research (Experimental)" option on the Connect 4 page appears only when both `VITE_VICTOR_RESEARCH_ENABLED` (UI build) and `VICTOR_RESEARCH_ENABLED` (API) are set. Both are off by default and have not been deployed.
+
+```sh
+.venv/bin/python -m games.connect4.victor.cli --white victor --black negamax:4
+.venv/bin/python -m games.connect4.victor.cli --white human --black victor
+```
+
 ## Reproducibility & evaluation
 
 Season/game/per-ply seeds and implementation versions make experiments inspectable. Standings use points (win/draw/loss = 1/0.5/0), then score rate and slot seed. Elo starts at 1500, K=24. Deterministic bootstrap intervals use 1,000 resamples of each entrant's observed score vector; IID resampling does not account for deterministic repetitions or opponent dependence.

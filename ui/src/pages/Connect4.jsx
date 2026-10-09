@@ -7,12 +7,13 @@ import GameStatus from '../connect4/GameStatus.jsx';
 import GameControls from '../connect4/GameControls.jsx';
 import AnalysisPanel from '../connect4/AnalysisPanel.jsx';
 import { useConnect4Analysis } from '../connect4/useConnect4Analysis.js';
+import { researchAgentEnabled } from '../connect4/researchAgent.js';
 import '../../connect4/connect4.css';
 
 const gameHttp = axios.create({ baseURL: import.meta.env?.VITE_API_BASE, timeout: 90000 });
 
-export default function Connect4Page({ http = gameHttp }) {
-  const gameplay = useConnect4Game(http);
+export default function Connect4Page({ http = gameHttp, researchEnabled = researchAgentEnabled() }) {
+  const gameplay = useConnect4Game(http, { researchEnabled });
   const analysis = useConnect4Analysis(http, gameplay.game, gameplay.busy || gameplay.uncertain);
   return <main className="connect4-wrapper site-container">
     <header className="game-page-heading">
@@ -25,7 +26,7 @@ export default function Connect4Page({ http = gameHttp }) {
       <GameStatus {...gameplay} />
       <GameBoard {...gameplay} highlights={analysis.highlights} />
       <aside className="opponent-panel" aria-label="Game setup">
-        <AgentSelector {...gameplay} />
+        <AgentSelector {...gameplay} researchEnabled={researchEnabled} />
         <GameControls {...gameplay} />
       </aside>
     </div>

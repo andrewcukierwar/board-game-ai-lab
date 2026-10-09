@@ -1,0 +1,1062 @@
+{
+  "dev": {
+    "oracle_unknown": 0,
+    "groups": {
+      "all": {
+        "baseline": {
+          "n": 300,
+          "errors": {
+            "optimal": 280,
+            "draw_to_loss": 8,
+            "missed_win_to_draw": 8,
+            "win_to_loss": 4
+          },
+          "kinds": {
+            "exact": 91,
+            "exploratory_white_context": 6,
+            "heuristic": 156,
+            "exploratory_nine_rule": 28,
+            "strategic_nonloss": 6,
+            "exploratory_unrefuted": 13
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.05496529152151197,
+          "p95_seconds": 0.6363735001068562,
+          "max_seconds": 1.0371637498028576
+        },
+        "hybrid": {
+          "n": 300,
+          "errors": {
+            "optimal": 299,
+            "draw_to_loss": 1
+          },
+          "kinds": {
+            "exact": 297,
+            "heuristic": 3
+          },
+          "proofs": {
+            "all_moves": 129,
+            "optimal_move": 168,
+            "partial": 3
+          },
+          "native_nodes": 118950657,
+          "median_seconds": 0.005019250093027949,
+          "p95_seconds": 0.07585691683925688,
+          "max_seconds": 0.9520933751482517
+        }
+      },
+      "9-18": {
+        "baseline": {
+          "n": 224,
+          "errors": {
+            "optimal": 204,
+            "draw_to_loss": 8,
+            "missed_win_to_draw": 8,
+            "win_to_loss": 4
+          },
+          "kinds": {
+            "exact": 15,
+            "exploratory_white_context": 6,
+            "heuristic": 156,
+            "exploratory_nine_rule": 28,
+            "strategic_nonloss": 6,
+            "exploratory_unrefuted": 13
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.09253731195349246,
+          "p95_seconds": 0.7057452909648418,
+          "max_seconds": 1.0371637498028576
+        },
+        "hybrid": {
+          "n": 224,
+          "errors": {
+            "optimal": 223,
+            "draw_to_loss": 1
+          },
+          "kinds": {
+            "exact": 221,
+            "heuristic": 3
+          },
+          "proofs": {
+            "all_moves": 95,
+            "optimal_move": 126,
+            "partial": 3
+          },
+          "native_nodes": 118883554,
+          "median_seconds": 0.007246292079798877,
+          "p95_seconds": 0.09179020812734962,
+          "max_seconds": 0.9520933751482517
+        }
+      },
+      "19-25": {
+        "baseline": {
+          "n": 43,
+          "errors": {
+            "optimal": 43
+          },
+          "kinds": {
+            "exact": 43
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.006275082938373089,
+          "p95_seconds": 0.03868958284147084,
+          "max_seconds": 0.08727804198861122
+        },
+        "hybrid": {
+          "n": 43,
+          "errors": {
+            "optimal": 43
+          },
+          "kinds": {
+            "exact": 43
+          },
+          "proofs": {
+            "all_moves": 19,
+            "optimal_move": 24
+          },
+          "native_nodes": 62003,
+          "median_seconds": 0.001694750040769577,
+          "p95_seconds": 0.0036125408951193094,
+          "max_seconds": 0.005281166872009635
+        }
+      },
+      "26+": {
+        "baseline": {
+          "n": 33,
+          "errors": {
+            "optimal": 33
+          },
+          "kinds": {
+            "exact": 33
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.0011305420193821192,
+          "p95_seconds": 0.006329541094601154,
+          "max_seconds": 0.014622374903410673
+        },
+        "hybrid": {
+          "n": 33,
+          "errors": {
+            "optimal": 33
+          },
+          "kinds": {
+            "exact": 33
+          },
+          "proofs": {
+            "all_moves": 15,
+            "optimal_move": 18
+          },
+          "native_nodes": 5100,
+          "median_seconds": 0.0008873338811099529,
+          "p95_seconds": 0.006134584080427885,
+          "max_seconds": 0.0074803330935537815
+        }
+      },
+      "white": {
+        "baseline": {
+          "n": 159,
+          "errors": {
+            "optimal": 148,
+            "draw_to_loss": 4,
+            "missed_win_to_draw": 5,
+            "win_to_loss": 2
+          },
+          "kinds": {
+            "exact": 57,
+            "exploratory_white_context": 6,
+            "heuristic": 83,
+            "exploratory_unrefuted": 13
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.14996262500062585,
+          "p95_seconds": 0.842464999994263,
+          "max_seconds": 1.0371637498028576
+        },
+        "hybrid": {
+          "n": 159,
+          "errors": {
+            "optimal": 158,
+            "draw_to_loss": 1
+          },
+          "kinds": {
+            "exact": 157,
+            "heuristic": 2
+          },
+          "proofs": {
+            "all_moves": 71,
+            "optimal_move": 86,
+            "partial": 2
+          },
+          "native_nodes": 65269325,
+          "median_seconds": 0.0042429170571267605,
+          "p95_seconds": 0.09458658285439014,
+          "max_seconds": 0.9520933751482517
+        }
+      },
+      "black": {
+        "baseline": {
+          "n": 141,
+          "errors": {
+            "optimal": 132,
+            "draw_to_loss": 4,
+            "missed_win_to_draw": 3,
+            "win_to_loss": 2
+          },
+          "kinds": {
+            "heuristic": 73,
+            "exact": 34,
+            "exploratory_nine_rule": 28,
+            "strategic_nonloss": 6
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.03880662494339049,
+          "p95_seconds": 0.15515583287924528,
+          "max_seconds": 0.22291904198937118
+        },
+        "hybrid": {
+          "n": 141,
+          "errors": {
+            "optimal": 141
+          },
+          "kinds": {
+            "exact": 140,
+            "heuristic": 1
+          },
+          "proofs": {
+            "all_moves": 58,
+            "optimal_move": 82,
+            "partial": 1
+          },
+          "native_nodes": 53681332,
+          "median_seconds": 0.0057245001662522554,
+          "p95_seconds": 0.07109529199078679,
+          "max_seconds": 0.4427600419148803
+        }
+      },
+      "decisive": {
+        "baseline": {
+          "n": 157,
+          "errors": {
+            "optimal": 137,
+            "draw_to_loss": 8,
+            "missed_win_to_draw": 8,
+            "win_to_loss": 4
+          },
+          "kinds": {
+            "heuristic": 76,
+            "exact": 43,
+            "exploratory_nine_rule": 23,
+            "strategic_nonloss": 5,
+            "exploratory_unrefuted": 6,
+            "exploratory_white_context": 4
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.06442974996753037,
+          "p95_seconds": 0.7057452909648418,
+          "max_seconds": 1.0371637498028576
+        },
+        "hybrid": {
+          "n": 157,
+          "errors": {
+            "optimal": 156,
+            "draw_to_loss": 1
+          },
+          "kinds": {
+            "exact": 156,
+            "heuristic": 1
+          },
+          "proofs": {
+            "all_moves": 19,
+            "optimal_move": 137,
+            "partial": 1
+          },
+          "native_nodes": 69005351,
+          "median_seconds": 0.0057245001662522554,
+          "p95_seconds": 0.07585691683925688,
+          "max_seconds": 0.9520933751482517
+        }
+      },
+      "winning": {
+        "baseline": {
+          "n": 156,
+          "errors": {
+            "optimal": 144,
+            "missed_win_to_draw": 8,
+            "win_to_loss": 4
+          },
+          "kinds": {
+            "exploratory_white_context": 6,
+            "heuristic": 69,
+            "exact": 49,
+            "exploratory_nine_rule": 24,
+            "strategic_nonloss": 5,
+            "exploratory_unrefuted": 3
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.04969104204792529,
+          "p95_seconds": 0.8054982500616461,
+          "max_seconds": 1.0371637498028576
+        },
+        "hybrid": {
+          "n": 156,
+          "errors": {
+            "optimal": 156
+          },
+          "kinds": {
+            "exact": 156
+          },
+          "proofs": {
+            "optimal_move": 156
+          },
+          "native_nodes": 29851707,
+          "median_seconds": 0.004336166428402066,
+          "p95_seconds": 0.05464758304879069,
+          "max_seconds": 0.09929374977946281
+        }
+      }
+    }
+  },
+  "heldout": {
+    "oracle_unknown": 2,
+    "groups": {
+      "all": {
+        "baseline": {
+          "n": 298,
+          "errors": {
+            "optimal": 277,
+            "win_to_loss": 8,
+            "draw_to_loss": 7,
+            "missed_win_to_draw": 6
+          },
+          "kinds": {
+            "exploratory_white_context": 9,
+            "heuristic": 158,
+            "exact": 91,
+            "exploratory_unrefuted": 9,
+            "exploratory_nine_rule": 27,
+            "strategic_nonloss": 4
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.09591497899964452,
+          "p95_seconds": 1.1625490000005811,
+          "max_seconds": 2.1026997501030564
+        },
+        "hybrid": {
+          "n": 298,
+          "errors": {
+            "optimal": 297,
+            "missed_win_to_draw": 1
+          },
+          "kinds": {
+            "exact": 296,
+            "search_nonloss": 1,
+            "heuristic": 1
+          },
+          "proofs": {
+            "optimal_move": 168,
+            "all_moves": 128,
+            "partial": 2
+          },
+          "native_nodes": 111048581,
+          "median_seconds": 0.004248229553923011,
+          "p95_seconds": 0.07053866679780185,
+          "max_seconds": 0.4490707090590149
+        }
+      },
+      "9-18": {
+        "baseline": {
+          "n": 233,
+          "errors": {
+            "optimal": 212,
+            "win_to_loss": 8,
+            "draw_to_loss": 7,
+            "missed_win_to_draw": 6
+          },
+          "kinds": {
+            "exploratory_white_context": 9,
+            "heuristic": 158,
+            "exploratory_unrefuted": 9,
+            "exact": 26,
+            "exploratory_nine_rule": 27,
+            "strategic_nonloss": 4
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.1581810829229653,
+          "p95_seconds": 1.314976125024259,
+          "max_seconds": 2.1026997501030564
+        },
+        "hybrid": {
+          "n": 233,
+          "errors": {
+            "optimal": 232,
+            "missed_win_to_draw": 1
+          },
+          "kinds": {
+            "exact": 231,
+            "search_nonloss": 1,
+            "heuristic": 1
+          },
+          "proofs": {
+            "optimal_move": 135,
+            "all_moves": 96,
+            "partial": 2
+          },
+          "native_nodes": 110936626,
+          "median_seconds": 0.00594841712154448,
+          "p95_seconds": 0.09432433405891061,
+          "max_seconds": 0.4490707090590149
+        }
+      },
+      "19-25": {
+        "baseline": {
+          "n": 37,
+          "errors": {
+            "optimal": 37
+          },
+          "kinds": {
+            "exact": 37
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.010135875083506107,
+          "p95_seconds": 0.24434312502853572,
+          "max_seconds": 0.3741814580280334
+        },
+        "hybrid": {
+          "n": 37,
+          "errors": {
+            "optimal": 37
+          },
+          "kinds": {
+            "exact": 37
+          },
+          "proofs": {
+            "optimal_move": 18,
+            "all_moves": 19
+          },
+          "native_nodes": 109420,
+          "median_seconds": 0.001474292017519474,
+          "p95_seconds": 0.004149874905124307,
+          "max_seconds": 0.008410416077822447
+        }
+      },
+      "26+": {
+        "baseline": {
+          "n": 28,
+          "errors": {
+            "optimal": 28
+          },
+          "kinds": {
+            "exact": 28
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.0015445625176653266,
+          "p95_seconds": 0.006026041926816106,
+          "max_seconds": 0.00811816705390811
+        },
+        "hybrid": {
+          "n": 28,
+          "errors": {
+            "optimal": 28
+          },
+          "kinds": {
+            "exact": 28
+          },
+          "proofs": {
+            "optimal_move": 15,
+            "all_moves": 13
+          },
+          "native_nodes": 2535,
+          "median_seconds": 0.0007921045180410147,
+          "p95_seconds": 0.0015119579620659351,
+          "max_seconds": 0.0015463330782949924
+        }
+      },
+      "white": {
+        "baseline": {
+          "n": 156,
+          "errors": {
+            "optimal": 142,
+            "win_to_loss": 6,
+            "draw_to_loss": 4,
+            "missed_win_to_draw": 4
+          },
+          "kinds": {
+            "exploratory_white_context": 9,
+            "heuristic": 81,
+            "exact": 57,
+            "exploratory_unrefuted": 9
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.22963672899641097,
+          "p95_seconds": 1.609901790972799,
+          "max_seconds": 2.1026997501030564
+        },
+        "hybrid": {
+          "n": 156,
+          "errors": {
+            "optimal": 156
+          },
+          "kinds": {
+            "exact": 156
+          },
+          "proofs": {
+            "optimal_move": 101,
+            "all_moves": 55
+          },
+          "native_nodes": 28757633,
+          "median_seconds": 0.003923499956727028,
+          "p95_seconds": 0.048421707935631275,
+          "max_seconds": 0.19670004188083112
+        }
+      },
+      "black": {
+        "baseline": {
+          "n": 142,
+          "errors": {
+            "draw_to_loss": 3,
+            "optimal": 135,
+            "missed_win_to_draw": 2,
+            "win_to_loss": 2
+          },
+          "kinds": {
+            "heuristic": 77,
+            "exact": 34,
+            "exploratory_nine_rule": 27,
+            "strategic_nonloss": 4
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.07289160450454801,
+          "p95_seconds": 0.22922270908020437,
+          "max_seconds": 0.32356754201464355
+        },
+        "hybrid": {
+          "n": 142,
+          "errors": {
+            "optimal": 141,
+            "missed_win_to_draw": 1
+          },
+          "kinds": {
+            "exact": 140,
+            "search_nonloss": 1,
+            "heuristic": 1
+          },
+          "proofs": {
+            "all_moves": 73,
+            "optimal_move": 67,
+            "partial": 2
+          },
+          "native_nodes": 82290948,
+          "median_seconds": 0.004797375062480569,
+          "p95_seconds": 0.14322237484157085,
+          "max_seconds": 0.4490707090590149
+        }
+      },
+      "decisive": {
+        "baseline": {
+          "n": 161,
+          "errors": {
+            "optimal": 140,
+            "win_to_loss": 8,
+            "draw_to_loss": 7,
+            "missed_win_to_draw": 6
+          },
+          "kinds": {
+            "exploratory_white_context": 5,
+            "heuristic": 80,
+            "exact": 46,
+            "exploratory_unrefuted": 5,
+            "exploratory_nine_rule": 22,
+            "strategic_nonloss": 3
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.10357824992388487,
+          "p95_seconds": 1.314976125024259,
+          "max_seconds": 2.1026997501030564
+        },
+        "hybrid": {
+          "n": 161,
+          "errors": {
+            "optimal": 160,
+            "missed_win_to_draw": 1
+          },
+          "kinds": {
+            "exact": 160,
+            "search_nonloss": 1
+          },
+          "proofs": {
+            "optimal_move": 132,
+            "all_moves": 28,
+            "partial": 1
+          },
+          "native_nodes": 69182712,
+          "median_seconds": 0.00480345799587667,
+          "p95_seconds": 0.09432433405891061,
+          "max_seconds": 0.3852227081079036
+        }
+      },
+      "winning": {
+        "baseline": {
+          "n": 158,
+          "errors": {
+            "optimal": 144,
+            "win_to_loss": 8,
+            "missed_win_to_draw": 6
+          },
+          "kinds": {
+            "exploratory_white_context": 9,
+            "heuristic": 67,
+            "exact": 51,
+            "exploratory_unrefuted": 5,
+            "exploratory_nine_rule": 23,
+            "strategic_nonloss": 3
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.09971410408616066,
+          "p95_seconds": 1.609901790972799,
+          "max_seconds": 2.1026997501030564
+        },
+        "hybrid": {
+          "n": 158,
+          "errors": {
+            "optimal": 157,
+            "missed_win_to_draw": 1
+          },
+          "kinds": {
+            "exact": 157,
+            "search_nonloss": 1
+          },
+          "proofs": {
+            "optimal_move": 157,
+            "partial": 1
+          },
+          "native_nodes": 48088408,
+          "median_seconds": 0.0036722710356116295,
+          "p95_seconds": 0.061252000043168664,
+          "max_seconds": 0.3852227081079036
+        }
+      }
+    }
+  },
+  "frozen": {
+    "oracle_unknown": 0,
+    "groups": {
+      "all": {
+        "baseline": {
+          "n": 371,
+          "errors": {
+            "optimal": 312,
+            "draw_to_loss": 17,
+            "win_to_loss": 24,
+            "missed_win_to_draw": 18
+          },
+          "kinds": {
+            "heuristic": 82,
+            "opening_book": 46,
+            "terminal_win": 16,
+            "exploratory_unrefuted": 8,
+            "exploratory_white_context": 2,
+            "exploratory_nine_rule": 20,
+            "forced_defense": 5,
+            "strategic_nonloss": 6,
+            "exact": 186
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.0057418751530349255,
+          "p95_seconds": 0.801460790913552,
+          "max_seconds": 1.7383342091925442
+        },
+        "hybrid": {
+          "n": 371,
+          "errors": {
+            "optimal": 370,
+            "draw_to_loss": 1
+          },
+          "kinds": {
+            "exact": 323,
+            "opening_book": 46,
+            "heuristic": 1,
+            "exploratory_nine_rule": 1
+          },
+          "proofs": {
+            "all_moves": 86,
+            "optimal_move": 237,
+            "partial": 2
+          },
+          "native_nodes": 136095791,
+          "median_seconds": 0.0026190830394625664,
+          "p95_seconds": 0.12149920803494751,
+          "max_seconds": 1.2097849170677364
+        }
+      },
+      "9-18": {
+        "baseline": {
+          "n": 149,
+          "errors": {
+            "optimal": 90,
+            "draw_to_loss": 17,
+            "win_to_loss": 24,
+            "missed_win_to_draw": 18
+          },
+          "kinds": {
+            "heuristic": 82,
+            "terminal_win": 16,
+            "exploratory_unrefuted": 8,
+            "exploratory_white_context": 2,
+            "exploratory_nine_rule": 20,
+            "forced_defense": 5,
+            "strategic_nonloss": 6,
+            "exact": 10
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.10951916594058275,
+          "p95_seconds": 1.2808257080614567,
+          "max_seconds": 1.7383342091925442
+        },
+        "hybrid": {
+          "n": 149,
+          "errors": {
+            "optimal": 148,
+            "draw_to_loss": 1
+          },
+          "kinds": {
+            "exact": 147,
+            "heuristic": 1,
+            "exploratory_nine_rule": 1
+          },
+          "proofs": {
+            "all_moves": 20,
+            "optimal_move": 127,
+            "partial": 2
+          },
+          "native_nodes": 135659370,
+          "median_seconds": 0.009828874841332436,
+          "p95_seconds": 0.2871912501286715,
+          "max_seconds": 1.2097849170677364
+        }
+      },
+      "19-25": {
+        "baseline": {
+          "n": 65,
+          "errors": {
+            "optimal": 65
+          },
+          "kinds": {
+            "exact": 65
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.018019249895587564,
+          "p95_seconds": 0.406496292212978,
+          "max_seconds": 0.9147424169350415
+        },
+        "hybrid": {
+          "n": 65,
+          "errors": {
+            "optimal": 65
+          },
+          "kinds": {
+            "exact": 65
+          },
+          "proofs": {
+            "optimal_move": 52,
+            "all_moves": 13
+          },
+          "native_nodes": 427462,
+          "median_seconds": 0.002308791968971491,
+          "p95_seconds": 0.0058199160266667604,
+          "max_seconds": 0.009312500013038516
+        }
+      },
+      "26+": {
+        "baseline": {
+          "n": 111,
+          "errors": {
+            "optimal": 111
+          },
+          "kinds": {
+            "exact": 111
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.0006694160401821136,
+          "p95_seconds": 0.0057418751530349255,
+          "max_seconds": 0.017473707906901836
+        },
+        "hybrid": {
+          "n": 111,
+          "errors": {
+            "optimal": 111
+          },
+          "kinds": {
+            "exact": 111
+          },
+          "proofs": {
+            "all_moves": 53,
+            "optimal_move": 58
+          },
+          "native_nodes": 8959,
+          "median_seconds": 0.0009782090783119202,
+          "p95_seconds": 0.002076416974887252,
+          "max_seconds": 0.003652541898190975
+        }
+      },
+      "white": {
+        "baseline": {
+          "n": 190,
+          "errors": {
+            "optimal": 159,
+            "draw_to_loss": 9,
+            "win_to_loss": 14,
+            "missed_win_to_draw": 8
+          },
+          "kinds": {
+            "heuristic": 44,
+            "opening_book": 30,
+            "terminal_win": 8,
+            "exploratory_unrefuted": 8,
+            "exploratory_white_context": 2,
+            "exact": 97,
+            "forced_defense": 1
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.004320083069615066,
+          "p95_seconds": 1.237993041984737,
+          "max_seconds": 1.7383342091925442
+        },
+        "hybrid": {
+          "n": 190,
+          "errors": {
+            "optimal": 189,
+            "draw_to_loss": 1
+          },
+          "kinds": {
+            "exact": 159,
+            "opening_book": 30,
+            "heuristic": 1
+          },
+          "proofs": {
+            "all_moves": 40,
+            "optimal_move": 119,
+            "partial": 1
+          },
+          "native_nodes": 51075466,
+          "median_seconds": 0.002169541548937559,
+          "p95_seconds": 0.0710338749922812,
+          "max_seconds": 1.2097849170677364
+        }
+      },
+      "black": {
+        "baseline": {
+          "n": 181,
+          "errors": {
+            "optimal": 153,
+            "missed_win_to_draw": 10,
+            "draw_to_loss": 8,
+            "win_to_loss": 10
+          },
+          "kinds": {
+            "exploratory_nine_rule": 20,
+            "forced_defense": 4,
+            "heuristic": 38,
+            "opening_book": 16,
+            "strategic_nonloss": 6,
+            "terminal_win": 8,
+            "exact": 89
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.008474209113046527,
+          "p95_seconds": 0.24855545908212662,
+          "max_seconds": 0.9147424169350415
+        },
+        "hybrid": {
+          "n": 181,
+          "errors": {
+            "optimal": 181
+          },
+          "kinds": {
+            "exact": 164,
+            "opening_book": 16,
+            "exploratory_nine_rule": 1
+          },
+          "proofs": {
+            "all_moves": 46,
+            "optimal_move": 118,
+            "partial": 1
+          },
+          "native_nodes": 85020325,
+          "median_seconds": 0.0030883329454809427,
+          "p95_seconds": 0.13300591707229614,
+          "max_seconds": 0.5547338749747723
+        }
+      },
+      "decisive": {
+        "baseline": {
+          "n": 371,
+          "errors": {
+            "optimal": 312,
+            "draw_to_loss": 17,
+            "win_to_loss": 24,
+            "missed_win_to_draw": 18
+          },
+          "kinds": {
+            "heuristic": 82,
+            "opening_book": 46,
+            "terminal_win": 16,
+            "exploratory_unrefuted": 8,
+            "exploratory_white_context": 2,
+            "exploratory_nine_rule": 20,
+            "forced_defense": 5,
+            "strategic_nonloss": 6,
+            "exact": 186
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.0057418751530349255,
+          "p95_seconds": 0.801460790913552,
+          "max_seconds": 1.7383342091925442
+        },
+        "hybrid": {
+          "n": 371,
+          "errors": {
+            "optimal": 370,
+            "draw_to_loss": 1
+          },
+          "kinds": {
+            "exact": 323,
+            "opening_book": 46,
+            "heuristic": 1,
+            "exploratory_nine_rule": 1
+          },
+          "proofs": {
+            "all_moves": 86,
+            "optimal_move": 237,
+            "partial": 2
+          },
+          "native_nodes": 136095791,
+          "median_seconds": 0.0026190830394625664,
+          "p95_seconds": 0.12149920803494751,
+          "max_seconds": 1.2097849170677364
+        }
+      },
+      "winning": {
+        "baseline": {
+          "n": 302,
+          "errors": {
+            "optimal": 260,
+            "win_to_loss": 24,
+            "missed_win_to_draw": 18
+          },
+          "kinds": {
+            "opening_book": 25,
+            "terminal_win": 16,
+            "heuristic": 63,
+            "exploratory_white_context": 2,
+            "exploratory_unrefuted": 6,
+            "forced_defense": 4,
+            "exploratory_nine_rule": 17,
+            "strategic_nonloss": 4,
+            "exact": 165
+          },
+          "proofs": {},
+          "native_nodes": 0,
+          "median_seconds": 0.0041928335558623075,
+          "p95_seconds": 0.801460790913552,
+          "max_seconds": 1.7383342091925442
+        },
+        "hybrid": {
+          "n": 302,
+          "errors": {
+            "optimal": 302
+          },
+          "kinds": {
+            "opening_book": 25,
+            "exact": 277
+          },
+          "proofs": {
+            "optimal_move": 226,
+            "all_moves": 51
+          },
+          "native_nodes": 70230673,
+          "median_seconds": 0.0022861879551783204,
+          "p95_seconds": 0.08500474994070828,
+          "max_seconds": 0.315087583148852
+        }
+      }
+    }
+  },
+  "games": {
+    "baseline": {
+      "wdl": {
+        "1.0": 83,
+        "0.5": 6,
+        "0.0": 7
+      },
+      "score": {
+        "mean": 0.8958,
+        "ci": [
+          0.8398,
+          0.9519
+        ],
+        "n": 96
+      },
+      "errors_from_ply9": {
+        "optimal": 1208,
+        "missed_win_to_draw": 19,
+        "draw_to_loss": 5,
+        "win_to_loss": 16
+      },
+      "oracle_unknown_decisions": 9
+    },
+    "hybrid": {
+      "wdl": {
+        "1.0": 88,
+        "0.0": 3,
+        "0.5": 5
+      },
+      "score": {
+        "mean": 0.9427,
+        "ci": [
+          0.902,
+          0.9834
+        ],
+        "n": 96
+      },
+      "errors_from_ply9": {
+        "optimal": 1140,
+        "draw_to_loss": 1
+      },
+      "oracle_unknown_decisions": 9
+    },
+    "paired": {
+      "mean": 0.0469,
+      "ci": [
+        0.0008,
+        0.0929
+      ],
+      "n": 96,
+      "better": 7,
+      "worse": 2,
+      "sign_flip_p": 0.078125
+    }
+  }
+}

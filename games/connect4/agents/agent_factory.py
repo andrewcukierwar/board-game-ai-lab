@@ -5,6 +5,7 @@ from .random_agent import RandomAgent
 from .mcts_agent import MCTSAgent
 from .mcts_nn_agent import MCTSNNAgent, load_pretrained_mcts_nn_agent
 from .victor_agent import VictorAgent
+from .victor_research_agent import VictorResearchAgent
 
 AGENT_TYPES = {
     'human': Human,
@@ -12,7 +13,8 @@ AGENT_TYPES = {
     'random': RandomAgent,
     'mcts': MCTSAgent,
     'mcts_nn': MCTSNNAgent,
-    'victor': VictorAgent,
+    'victor': VictorAgent,  # Legacy experimental prototype, unchanged.
+    'victor_research': VictorResearchAgent,  # Opt-in functional research solver.
     # Add new agents here
 }
 

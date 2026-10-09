@@ -1,0 +1,9 @@
+{
+  "dev_unique": 300,
+  "heldout_unique": 300,
+  "split_overlap": 0,
+  "book_overlap": 0,
+  "book_states": 1722,
+  "split_sha256": "183d98e1491ece973f16ff041469d2bf03782fc91db162ed26ea71ceeb493ee9",
+  "note": "Initial generic history walker did not decode compact book rows; explicit post-split audit finds zero overlap. Generator now decodes those rows."
+}

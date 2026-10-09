@@ -1,0 +1,21 @@
+{
+  "base_commit": "5afadfcd8db9a3771714b2acde1e3c27cc35e69b",
+  "native_algorithm": "fair WDL threshold search + CL-only upper bound",
+  "node_budget": 10000000,
+  "table_entries": 1048576,
+  "public_native_seconds": 0.4,
+  "public_deadline": 1.0,
+  "workers": 4,
+  "oracle_node_budget": 20000000,
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.11.17",
+  "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+  "sha256": {
+    "games/connect4/victor/native_search.c": "39cff875f677977841d14fd83cf0fc3da9eecf5aaab5859bd758d230a383874d",
+    "tests/victor_validation/c4_oracle.c": "b60dc839edebdcc92cee1a210b795956125bf10a5989dfa346d4e18e9525c942",
+    "docs/victor-astra/split.json": "183d98e1491ece973f16ff041469d2bf03782fc91db162ed26ea71ceeb493ee9",
+    "docs/victor-performance/suite.json": "59692af7affba6c202efd746545ff18691dd89f2ea60a236f9bcf597e7a9eab9",
+    "games/connect4/victor/data/opening_book.json": "e57add595ddacd27fd5e428a944144803346c11501929612b0076f43cc713847"
+  },
+  "note": "Final source hash; only numeric casts and comments changed after evaluation. Runtime compiles its own source, never imports the test oracle. Frozen labels and separate exhaustive Python validation supplement the related C algorithms."
+}

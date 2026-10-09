@@ -1,0 +1,48 @@
+{
+  "base": "ac02f237ee2c2518119e75255e359e1f08e7cbf5",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.11.17",
+  "compiler": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+  "sources": {
+    "baseline": "39cff875f677977841d14fd83cf0fc3da9eecf5aaab5859bd758d230a383874d",
+    "focus": "11456023e9373d13b6fc9e9ea469232a75b6278aedd056e54a1124138fc03bab",
+    "bucket": "b9e3aba19c2038b5ce3c1747054525de403ad32c62a2fefe205d107d49d5d6f7",
+    "focus_bucket": "0ba79b80f8437f3cad1c7c2b00f9ec7d9517661be9e50796ae8cb55f92efec64",
+    "depth": "157b154f11fa2c7286f5d2d3d620b7027c0e89d0502dcd9bb6762cda62342cba",
+    "focus_depth": "b47725ad51101dbe35e2ed3dfdc6020f7f6438bc70c987a2cc9d66991baeb422",
+    "resume": "548b43a1731a1c673b54b79ad255049d50a5a430a00f06cb0c8ef9a57d8e9e92",
+    "focus_resume": "1c8a8f0e500a7b5399b72f6f82a480368d75df4c0f091bc47dfc7f9953f7ba2d",
+    "resume_bucket": "f0deae709d957042f264355dcab48d59af6f09f81ca27443760171b18a3ea6cb",
+    "focus_resume_bucket": "1ea80208a03f3aef9d4782dd33fc75eed1719cf400961eb314e7f42f1bcd31d1",
+    "cl_win": "0e027746a34472d833a26d29a2255fe50b75b942bbb2695cdbab235852b7febd",
+    "safe_first": "9149fdc2d3438c719ee0b89172e9f03fb353907a5f2f542b361d4954c6787ee1",
+    "adaptive": "c4f4cf9e83cae19700e752255d62a2bcd64dfe3265051143b53bd8f7b27ffed4",
+    "current": "cfe87ab09edf7996ec857fa7cafcafd61d507cac7189f5d60f7a0316cf592d63"
+  },
+  "split_sha256": "929e608a7b4bedba67c132f455c19e73a898c3b20c5946c05b30febadb5998a1",
+  "oracle_sha256": "b60dc839edebdcc92cee1a210b795956125bf10a5989dfa346d4e18e9525c942",
+  "exhaustive_suffix_states": 4946,
+  "random_pairing_positions": 800,
+  "qualifying_winning_positions": 24,
+  "exhaustive_pairing_states": 75,
+  "coverage_necessary_white_wins": 374,
+  "sanitizer": {
+    "flags": "-O1 -g -std=c11 -D_POSIX_C_SOURCE=200809L -Wall -Wextra -Werror -fsanitize=address,undefined -fno-omit-frame-pointer",
+    "frozen_positions": 371,
+    "fresh_positions": 233,
+    "combinations_per_position": 20,
+    "findings": 0
+  },
+  "optimization_checks": [
+    "-O0",
+    "-O3"
+  ],
+  "backend_tests": {
+    "passed": 1473,
+    "skipped": 15,
+    "seconds": 94.98
+  },
+  "docker": "Daemon unavailable: socket missing; Linux image unverified",
+  "final_source_sha256": "587677594d9a0aa7006af8d9920bbdc0d4eb5921fd6f786171033a7b24f4e275",
+  "post_selection_source_change": "Comments only: clarify constructive scope and that a win may occur on the last move; source with comments removed is identical."
+}

@@ -1,6 +1,6 @@
 import { useEffect, useReducer, useRef } from 'react';
 import { validateSnapshot } from './gameSnapshot.js';
-import { toPlayerPayload } from './competitorConfig.js';
+import { opponentPayload, playerTypes, researchErrorMessage } from './researchAgent.js';
 
 export const humanTurn = game => game?.players[game.currentPlayer].type === 'human';
 export const playerLabel = (game, index) => game?.players[index].type === 'human' ? 'You' : 'AI';
@@ -26,8 +26,9 @@ function reducer(state, action) {
   return { ...state, ...action.value };
 }
 
-export function useConnect4Game(http) {
+export function useConnect4Game(http, { researchEnabled = false } = {}) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const types = playerTypes(researchEnabled);
   // A synchronous mirror of reducer transitions protects revisions and the busy
   // lock even before React commits a render (including two events in one tick).
   const current = useRef(state);
@@ -44,11 +45,15 @@ export function useConnect4Game(http) {
     dispatch(action);
   }
   const patch = (value, lifetime) => send({ type: 'patch', value }, lifetime);
-  const accept = (data, lifetime, expected) => send({ type: 'accept', game: validateSnapshot(data, expected) }, lifetime);
+  const accept = (data, lifetime, expected) => send({ type: 'accept', game: validateSnapshot(data, expected, types) }, lifetime);
 
   async function recover(error, lifetime, options) {
     if (!lifetime.active) return;
-    const reason = error.response?.data?.error ||
+    // A failed start concerns the selection; a failed move concerns the game's AI.
+    const failed = current.current.phase === 'starting' ? current.current.selection
+      : current.current.game?.players.find(player => player.type !== 'human');
+    const reason = researchErrorMessage(error, failed) ||
+      error.response?.data?.error ||
       'The game server could not be reached. It may be waking up; wait a moment and try again.';
     const game = current.current.game;
     if (game) {
@@ -99,7 +104,7 @@ export function useConnect4Game(http) {
   function start() {
     return run('starting', async (lifetime, options) => {
       const { selection, game } = current.current;
-      const opponent = toPlayerPayload(selection);
+      const opponent = opponentPayload(selection, researchEnabled);
       const human = { type: 'human' };
       const body = selection.first === 'human'
         ? { player1: human, player2: opponent } : { player1: opponent, player2: human };

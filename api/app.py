@@ -11,13 +11,22 @@ from api.connect4.explanations import ExplanationService, environment_config
 from api.cors import configure_cors
 
 
+def victor_research_enabled():
+    """Opt-in research agent flag; disabled unless explicitly true."""
+    value = os.environ.get('VICTOR_RESEARCH_ENABLED', 'false').lower()
+    if value not in ('true', 'false', '1', '0'):
+        raise ValueError('VICTOR_RESEARCH_ENABLED must be true or false')
+    return value in ('true', '1')
+
+
 def create_app(config=None):
     # Explicit backend root file; real environment variables always take precedence.
     load_dotenv(Path(__file__).resolve().parent.parent / '.env', override=False)
     app = Flask(__name__)
     app.config.from_mapping(MAX_CONTENT_LENGTH=4096, GAME_SESSION_CAPACITY=128, GAME_SESSION_TTL=1800,
                             CORS_ALLOWED_ORIGINS=os.environ.get('CORS_ALLOWED_ORIGINS', ''),
-                            SOURCE_COMMIT=os.environ.get('EVALUATION_SOURCE_COMMIT'))
+                            SOURCE_COMMIT=os.environ.get('EVALUATION_SOURCE_COMMIT'),
+                            VICTOR_RESEARCH_ENABLED=victor_research_enabled())
     app.config.update(environment_config())
     if config:
         app.config.update(config)

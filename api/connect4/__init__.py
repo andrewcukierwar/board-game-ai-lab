@@ -18,6 +18,9 @@ MAX_DEPTH = 8
 MCTS_SIMULATION_LIMITS = (50, 100, 250, 400, 800)
 # Shared by all app instances in this process; never wait/queue for a search.
 _mcts_reservation = BoundedSemaphore(1)
+# The opt-in research agent gets its own reservation, so it never blocks MCTS.
+_victor_reservation = BoundedSemaphore(1)
+VICTOR_RESEARCH = 'victor_research'
 
 
 def ply_seed(seed, revision, player):
@@ -49,7 +52,8 @@ def player_config(value):
     if not isinstance(value, dict):
         raise GameError('invalid_agent', 'Each player configuration must be an object.')
     kind = value.get('type')
-    if kind not in ('human', 'random', 'negamax', 'mcts'):
+    research = kind == VICTOR_RESEARCH and current_app.config.get('VICTOR_RESEARCH_ENABLED') is True
+    if kind not in ('human', 'random', 'negamax', 'mcts') and not research:
         raise GameError('invalid_agent', 'Supported player types are human, random, negamax, and mcts.')
     allowed = {'type'}
     if kind == 'negamax':
@@ -154,9 +158,13 @@ def make_move():
         else:
             if 'column' in data:
                 raise GameError('invalid_move', 'It is the AI turn. Request its move without a column.')
-            reserved = config['type'] == 'mcts'
-            if reserved and not _mcts_reservation.acquire(blocking=False):
-                raise GameError('agent_busy', 'Another MCTS search is running. Retry the AI move shortly.', 503)
+            if config['type'] == VICTOR_RESEARCH and current_app.config.get('VICTOR_RESEARCH_ENABLED') is not True:
+                raise GameError('invalid_agent', 'The Victor research agent is not enabled on this server.', 409)
+            reservation = {'mcts': _mcts_reservation, VICTOR_RESEARCH: _victor_reservation}.get(config['type'])
+            reserved = reservation is not None
+            if reserved and not reservation.acquire(blocking=False):
+                name = 'MCTS' if config['type'] == 'mcts' else 'Victor research'
+                raise GameError('agent_busy', f'Another {name} search is running. Retry the AI move shortly.', 503)
             try:
                 rng = (random.Random(ply_seed(session.rng_seed, session.revision, candidate.current_player))
                        if session.rng_seed is not None else None)
@@ -166,6 +174,11 @@ def make_move():
                              else MCTSAgent(config['simulation_limit']))
                 elif config['type'] == 'random':
                     agent = RandomAgent(rng=rng) if rng is not None else RandomAgent()
+                elif config['type'] == VICTOR_RESEARCH:
+                    # Imported only when enabled and used. Stateless, deterministic
+                    # under node budgets, deadline-bounded; always a legal move.
+                    from games.connect4.agents.victor_research_agent import VictorResearchAgent
+                    agent = VictorResearchAgent()
                 else:
                     agent = NegamaxAgent(config['depth'])
                 # Never expose the live game to agent code.
@@ -177,7 +190,7 @@ def make_move():
                 raise GameError('agent_failed', 'The AI could not make a legal move. Retry or start a new game.', 503)
             finally:
                 if reserved:
-                    _mcts_reservation.release()
+                    reservation.release()
         if not candidate.make_move(column):
             raise GameError('invalid_move', 'That move could not be played. Refresh the game.', 409)
         # Prepare the immutable evidence before committing; failed requests add nothing.
