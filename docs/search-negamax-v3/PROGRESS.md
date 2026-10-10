@@ -29,10 +29,7 @@ exact original-window TT semantics and all root scores. Same 32 histories,
 D4/6/8/10, seven warmed interleaved samples and two memory decisions. Fixed
 gates cannot change. Combination with mirror excluded because A failed.
 
-C/profile-guided PENDING: profile strongest validated engine after B checkpoint;
-select at most two bounded experiments from measured hotspots. During lock
-wait, prepared provisional terminal-parent-proof/trusted-TT transformations
-and independent small oracle/bound tests; not selected or performance-measured.
+C/profile-guided DESIGN FROZEN at ee9ec57; strongest direct profile complete and audited at92a272f. Selected independent terminal-parent-proof and trusted-TT hypotheses; tuning/DESIGN.md has fixed gates. Payload audit declarationf48401d. First two eight-position blocks queued in serial exec session18421; no candidate timing yet (MCTS pilot3c owns shared lock).
 
 D/deeper feasibility PENDING: D10/12 complete decisions and memory, no public cap
 change or strength inference. Additional research only if justified by evidence.
@@ -47,7 +44,7 @@ change or strength inference. Additional research only if justified by evidence.
 - B diagnostic design `923fbfd48aab5edd8ae4627316958e31e054cf42`.
 - Latest validation/preparation `a676a2697bd6d42a917696f39fd124bfda4674bf`.
 - Last validated Git SHA: `a676a2697bd6d42a917696f39fd124bfda4674bf` (focused/research validation; production still starting main).
-- Last pushed Git SHA: `e7723700da7b28b6cff952af28b7101c061e8558`, verified origin.
+- Last pushed Git SHA: `f48401d4bd77e5aba9f5ea309980fcb287dc9de4`, verified origin.
 - Full focused suite: 89 passed in 7.69s, under shared lock (pvs/focused-tests.txt).
 - Provisional tuning correctness: 14 passed in 1.01s (preparation/tuning-correctness.txt).
 - Earlier expanded PVS fixture precondition failed (empty D4 needed no re-search);
@@ -95,3 +92,5 @@ Phase B complete and audited: preserve rejection then commit/push before Phase C
 B completed checkpoint1e515a9; original direct strongest. Profile design/source/script hashes frozen; no profile measurements yet. Exact next action push profile declaration, then profile under shared lock and compare counters/vectors to frozen primary A.
 
 Profile COMPLETE: 8decisions match A counters/vectors,7.479s, declared92a272f. Selected two independent bounded per-node hypotheses: terminal-parent proof and trusted TT fast path. Final tuning DESIGN+manifest/source/test/generator hashes frozen; prepared22tests pass, no candidate performance timing yet. Next commit/push profile result+tuning declaration, then measured blocks under shared lock.
+
+Current exact next action: resume queued tuning session18421 (blocks0:8 then8:16). Then queue16:24 and24:32, audit/summarize/stability, scripts.audit_negamax_v3_payloads under lock. Pick eligible fastest only after all fixed gates and exact TT/tree audit. If eligible, integrate measured source in a separate production-path commit only after full backend suite. No candidate performance evidence yet; MCTS pid6236 pilot3c540s owns lock as of17:17UTC. Main REPORT updated through B and profile.
