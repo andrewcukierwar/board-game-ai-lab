@@ -1,0 +1,685 @@
+{
+  "runtime": {
+    "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "cpus": 10,
+    "load": [
+      3.39404296875,
+      3.90771484375,
+      3.8623046875
+    ],
+    "unix_seconds": 1791652245.7749078
+  },
+  "lock_owner": {
+    "pid": "6032",
+    "branch": "research/negamax-v3",
+    "start_utc": "2026-10-10T17:10:38Z",
+    "worktree": "/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab-negamax-v3"
+  },
+  "elapsed_seconds": 7.47919241595082,
+  "decisions": [
+    {
+      "position": "empty",
+      "wall_seconds": 0.6105889999307692,
+      "cpu_seconds": 2.308028,
+      "move": 2,
+      "scores": [
+        [
+          3,
+          -4
+        ],
+        [
+          2,
+          -3
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          1,
+          -5
+        ],
+        [
+          5,
+          -5
+        ],
+        [
+          0,
+          -6
+        ],
+        [
+          6,
+          -6
+        ]
+      ],
+      "stats": {
+        "nodes": 128308,
+        "entries": 38395,
+        "hits": 15828,
+        "cutoffs": 27477
+      }
+    },
+    {
+      "position": "empty",
+      "wall_seconds": 0.5062573330942541,
+      "cpu_seconds": 0.5058249999999997,
+      "move": 2,
+      "scores": [
+        [
+          3,
+          -4
+        ],
+        [
+          2,
+          -3
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          1,
+          -5
+        ],
+        [
+          5,
+          -5
+        ],
+        [
+          0,
+          -6
+        ],
+        [
+          6,
+          -6
+        ]
+      ],
+      "stats": {
+        "nodes": 128308,
+        "entries": 38395,
+        "hits": 15828,
+        "cutoffs": 27477
+      }
+    },
+    {
+      "position": "near-opening",
+      "wall_seconds": 0.4084791250061244,
+      "cpu_seconds": 0.4065129999999999,
+      "move": 3,
+      "scores": [
+        [
+          3,
+          -7
+        ],
+        [
+          2,
+          -11
+        ],
+        [
+          4,
+          -14
+        ],
+        [
+          1,
+          -17
+        ],
+        [
+          5,
+          -13
+        ],
+        [
+          0,
+          -18
+        ],
+        [
+          6,
+          -11
+        ]
+      ],
+      "stats": {
+        "nodes": 99441,
+        "entries": 28999,
+        "hits": 14340,
+        "cutoffs": 22095
+      }
+    },
+    {
+      "position": "near-opening",
+      "wall_seconds": 0.4070310420356691,
+      "cpu_seconds": 0.40656599999999976,
+      "move": 3,
+      "scores": [
+        [
+          3,
+          -7
+        ],
+        [
+          2,
+          -11
+        ],
+        [
+          4,
+          -14
+        ],
+        [
+          1,
+          -17
+        ],
+        [
+          5,
+          -13
+        ],
+        [
+          0,
+          -18
+        ],
+        [
+          6,
+          -11
+        ]
+      ],
+      "stats": {
+        "nodes": 99441,
+        "entries": 28999,
+        "hits": 14340,
+        "cutoffs": 22095
+      }
+    },
+    {
+      "position": "seeded-04",
+      "wall_seconds": 1.0487400831189007,
+      "cpu_seconds": 1.0476670000000006,
+      "move": 5,
+      "scores": [
+        [
+          3,
+          -13
+        ],
+        [
+          2,
+          -6
+        ],
+        [
+          4,
+          -9
+        ],
+        [
+          1,
+          -5
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          0,
+          -7
+        ],
+        [
+          6,
+          -5
+        ]
+      ],
+      "stats": {
+        "nodes": 253274,
+        "entries": 78484,
+        "hits": 29767,
+        "cutoffs": 61262
+      }
+    },
+    {
+      "position": "seeded-04",
+      "wall_seconds": 1.0529564158059657,
+      "cpu_seconds": 1.0501200000000006,
+      "move": 5,
+      "scores": [
+        [
+          3,
+          -13
+        ],
+        [
+          2,
+          -6
+        ],
+        [
+          4,
+          -9
+        ],
+        [
+          1,
+          -5
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          0,
+          -7
+        ],
+        [
+          6,
+          -5
+        ]
+      ],
+      "stats": {
+        "nodes": 253274,
+        "entries": 78484,
+        "hits": 29767,
+        "cutoffs": 61262
+      }
+    },
+    {
+      "position": "post-hoc-tail",
+      "wall_seconds": 1.718904291978106,
+      "cpu_seconds": 1.7177059999999997,
+      "move": 4,
+      "scores": [
+        [
+          3,
+          -15
+        ],
+        [
+          2,
+          -10
+        ],
+        [
+          4,
+          -4
+        ],
+        [
+          1,
+          -7
+        ],
+        [
+          5,
+          -11
+        ],
+        [
+          0,
+          -8
+        ],
+        [
+          6,
+          -7
+        ]
+      ],
+      "stats": {
+        "nodes": 423857,
+        "entries": 119958,
+        "hits": 47944,
+        "cutoffs": 93664
+      }
+    },
+    {
+      "position": "post-hoc-tail",
+      "wall_seconds": 1.712704624980688,
+      "cpu_seconds": 1.7112189999999998,
+      "move": 4,
+      "scores": [
+        [
+          3,
+          -15
+        ],
+        [
+          2,
+          -10
+        ],
+        [
+          4,
+          -4
+        ],
+        [
+          1,
+          -7
+        ],
+        [
+          5,
+          -11
+        ],
+        [
+          0,
+          -8
+        ],
+        [
+          6,
+          -7
+        ]
+      ],
+      "stats": {
+        "nodes": 423857,
+        "entries": 119958,
+        "hits": 47944,
+        "cutoffs": 93664
+      }
+    }
+  ],
+  "functions": [
+    {
+      "file": "profile-v3",
+      "line": 168,
+      "function": "negamax",
+      "primitive_calls": 56,
+      "calls": 1809760,
+      "self_seconds": 1.7614701190000002,
+      "cumulative_seconds": 7.461750707
+    },
+    {
+      "file": "profile-v3",
+      "line": 116,
+      "function": "play",
+      "primitive_calls": 1809760,
+      "calls": 1809760,
+      "self_seconds": 1.491376331,
+      "cumulative_seconds": 1.537675793
+    },
+    {
+      "file": "profile-v3",
+      "line": 36,
+      "function": "has_four",
+      "primitive_calls": 3619536,
+      "calls": 3619536,
+      "self_seconds": 1.1883325230000001,
+      "cumulative_seconds": 1.1883325230000001
+    },
+    {
+      "file": "profile-v3",
+      "line": 132,
+      "function": "undo",
+      "primitive_calls": 1809760,
+      "calls": 1809760,
+      "self_seconds": 1.1779325040000002,
+      "cumulative_seconds": 1.2293046970000001
+    },
+    {
+      "file": "profile-v3",
+      "line": 144,
+      "function": "terminal_value",
+      "primitive_calls": 1809768,
+      "calls": 1809768,
+      "self_seconds": 0.467036304,
+      "cumulative_seconds": 1.6553688270000002
+    },
+    {
+      "file": "profile-v3",
+      "line": 44,
+      "function": "winning_squares",
+      "primitive_calls": 255004,
+      "calls": 255004,
+      "self_seconds": 0.28805229400000004,
+      "cumulative_seconds": 0.28805229400000004
+    },
+    {
+      "file": "profile-v3",
+      "line": 86,
+      "function": "ordered_moves",
+      "primitive_calls": 565142,
+      "calls": 565142,
+      "self_seconds": 0.231995782,
+      "cumulative_seconds": 0.872010979
+    },
+    {
+      "file": "profile-v3",
+      "line": 84,
+      "function": "<listcomp>",
+      "primitive_calls": 565150,
+      "calls": 565150,
+      "self_seconds": 0.17413029500000002,
+      "cumulative_seconds": 0.17413029500000002
+    },
+    {
+      "file": "/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab-negamax-v3/games/connect4/agents/negamax_tt.py",
+      "line": 30,
+      "function": "pack_entry",
+      "primitive_calls": 565142,
+      "calls": 565142,
+      "self_seconds": 0.148044432,
+      "cumulative_seconds": 0.148044432
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.max>",
+      "primitive_calls": 1992388,
+      "calls": 1992388,
+      "self_seconds": 0.131272197,
+      "cumulative_seconds": 0.131272197
+    },
+    {
+      "file": "profile-v3",
+      "line": 83,
+      "function": "legal",
+      "primitive_calls": 565150,
+      "calls": 565150,
+      "self_seconds": 0.094780924,
+      "cumulative_seconds": 0.26891121900000003
+    },
+    {
+      "file": "profile-v3",
+      "line": 153,
+      "function": "heuristic",
+      "primitive_calls": 968780,
+      "calls": 968780,
+      "self_seconds": 0.067955733,
+      "cumulative_seconds": 0.067955733
+    },
+    {
+      "file": "/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab-negamax-v3/games/connect4/agents/negamax_tt.py",
+      "line": 43,
+      "function": "unpack_entry",
+      "primitive_calls": 215758,
+      "calls": 215758,
+      "self_seconds": 0.056771214,
+      "cumulative_seconds": 0.056771214
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'pop' of 'list' objects>",
+      "primitive_calls": 1809760,
+      "calls": 1809760,
+      "self_seconds": 0.051372193000000003,
+      "cumulative_seconds": 0.051372193000000003
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'append' of 'list' objects>",
+      "primitive_calls": 1809760,
+      "calls": 1809760,
+      "self_seconds": 0.046299462,
+      "cumulative_seconds": 0.046299462
+    },
+    {
+      "file": "profile-v3",
+      "line": 103,
+      "function": "<lambda>",
+      "primitive_calls": 353694,
+      "calls": 353694,
+      "self_seconds": 0.040963952000000005,
+      "cumulative_seconds": 0.040963952000000005
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'sort' of 'list' objects>",
+      "primitive_calls": 50910,
+      "calls": 50910,
+      "self_seconds": 0.028465535,
+      "cumulative_seconds": 0.069429487
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'bit_count' of 'int' objects>",
+      "primitive_calls": 258988,
+      "calls": 258988,
+      "self_seconds": 0.009856893,
+      "cumulative_seconds": 0.009856893
+    },
+    {
+      "file": "profile-v3",
+      "line": 248,
+      "function": "choose_move",
+      "primitive_calls": 8,
+      "calls": 8,
+      "self_seconds": 0.003407834,
+      "cumulative_seconds": 7.465640499
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'remove' of 'list' objects>",
+      "primitive_calls": 33470,
+      "calls": 33470,
+      "self_seconds": 0.002171815,
+      "cumulative_seconds": 0.002171815
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.min>",
+      "primitive_calls": 26296,
+      "calls": 26296,
+      "self_seconds": 0.002021967,
+      "cumulative_seconds": 0.002021967
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'insert' of 'list' objects>",
+      "primitive_calls": 33470,
+      "calls": 33470,
+      "self_seconds": 0.0016258560000000002,
+      "cumulative_seconds": 0.0016258560000000002
+    },
+    {
+      "file": "profile-v3",
+      "line": 77,
+      "function": "<listcomp>",
+      "primitive_calls": 8,
+      "calls": 8,
+      "self_seconds": 0.00010505100000000001,
+      "cumulative_seconds": 0.00013191800000000002
+    },
+    {
+      "file": "profile-v3",
+      "line": 231,
+      "function": "score_moves",
+      "primitive_calls": 8,
+      "calls": 8,
+      "self_seconds": 8.9919e-05,
+      "cumulative_seconds": 7.462218374000001
+    },
+    {
+      "file": "profile-v3",
+      "line": 66,
+      "function": "__init__",
+      "primitive_calls": 8,
+      "calls": 8,
+      "self_seconds": 4.9040000000000005e-05,
+      "cumulative_seconds": 0.000236166
+    },
+    {
+      "file": "/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab-negamax-v3/scripts/benchmark_negamax_v3.py",
+      "line": 99,
+      "function": "decision",
+      "primitive_calls": 8,
+      "calls": 8,
+      "self_seconds": 4.0953000000000006e-05,
+      "cumulative_seconds": 7.465724998000001
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.sum>",
+      "primitive_calls": 16,
+      "calls": 16,
+      "self_seconds": 2.7942e-05,
+      "cumulative_seconds": 5.5208000000000004e-05
+    },
+    {
+      "file": "profile-v3",
+      "line": 80,
+      "function": "<genexpr>",
+      "primitive_calls": 560,
+      "calls": 560,
+      "self_seconds": 2.7266000000000003e-05,
+      "cumulative_seconds": 2.7266000000000003e-05
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method time.process_time>",
+      "primitive_calls": 16,
+      "calls": 16,
+      "self_seconds": 2.5751e-05,
+      "cumulative_seconds": 2.5751e-05
+    },
+    {
+      "file": "/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab-negamax-v3/scripts/benchmark_negamax_v3.py",
+      "line": 105,
+      "function": "<listcomp>",
+      "primitive_calls": 8,
+      "calls": 8,
+      "self_seconds": 9.876e-06,
+      "cumulative_seconds": 9.876e-06
+    },
+    {
+      "file": "profile-v3",
+      "line": 219,
+      "function": "__init__",
+      "primitive_calls": 8,
+      "calls": 8,
+      "self_seconds": 3.3760000000000004e-06,
+      "cumulative_seconds": 3.3760000000000004e-06
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'disable' of '_lsprof.Profiler' objects>",
+      "primitive_calls": 8,
+      "calls": 8,
+      "self_seconds": 3.209e-06,
+      "cumulative_seconds": 3.209e-06
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method time.perf_counter>",
+      "primitive_calls": 16,
+      "calls": 16,
+      "self_seconds": 2.8350000000000004e-06,
+      "cumulative_seconds": 2.8350000000000004e-06
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<built-in method builtins.len>",
+      "primitive_calls": 8,
+      "calls": 8,
+      "self_seconds": 2.706e-06,
+      "cumulative_seconds": 2.706e-06
+    },
+    {
+      "file": "profile-v3",
+      "line": 158,
+      "function": "__init__",
+      "primitive_calls": 8,
+      "calls": 8,
+      "self_seconds": 2.4160000000000002e-06,
+      "cumulative_seconds": 2.4160000000000002e-06
+    },
+    {
+      "file": "~",
+      "line": 0,
+      "function": "<method 'items' of 'dict' objects>",
+      "primitive_calls": 8,
+      "calls": 8,
+      "self_seconds": 1.7080000000000002e-06,
+      "cumulative_seconds": 1.7080000000000002e-06
+    }
+  ]
+}

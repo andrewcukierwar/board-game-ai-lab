@@ -93,3 +93,5 @@ PVS blocks0:8 and8:16 complete; next serial command sequence handles remaining b
 Phase B complete and audited: preserve rejection then commit/push before Phase C. Exact next action: freeze profile design/source/script hashes for original direct; profile four declared costly D10 histories under shared lock; choose up to two hotspot-backed bounded experiments and push their final designs before timing.
 
 B completed checkpoint1e515a9; original direct strongest. Profile design/source/script hashes frozen; no profile measurements yet. Exact next action push profile declaration, then profile under shared lock and compare counters/vectors to frozen primary A.
+
+Profile COMPLETE: 8decisions match A counters/vectors,7.479s, declared92a272f. Selected two independent bounded per-node hypotheses: terminal-parent proof and trusted TT fast path. Final tuning DESIGN+manifest/source/test/generator hashes frozen; prepared22tests pass, no candidate performance timing yet. Next commit/push profile result+tuning declaration, then measured blocks under shared lock.
