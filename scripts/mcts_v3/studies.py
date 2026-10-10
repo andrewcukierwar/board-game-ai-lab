@@ -162,6 +162,34 @@ CONTRASTS = dict(confirm_negamax=[
      f'{name}-time-{b}-vs-negamax-{d}', f'base-{b}-vs-negamax-{d}')
     for name in FINALISTS for b in PRIMARY_BUDGETS for d in (4, 6, 8)])
 
+SCALING_BUDGETS = (100, 800, 5000)
+
+
+def pilot4():
+    """F1 at the secondary budgets, equal simulations, for equal-time calibration (dev set)."""
+    rows = [matchup(f'r2sc-{b}', research(b, R2S_C050), mcts(b)) for b in SCALING_BUDGETS]
+    return dict(opening_set='dev', matchups=rows, cap_seconds=600,
+                note='Development-set timing calibration for the declared scaling secondary; '
+                     'scores are exploratory.')
+
+
+def confirm_scaling():
+    """Held-out secondary: F1 at equal time across 100 / 800 / 5,000."""
+    rows = [matchup(f'f1-time-{b}', research(equal_time_budget('pilot4', f'r2sc-{b}', b), R2S_C050),
+                    mcts(b), pairs=128) for b in SCALING_BUDGETS]
+    return dict(opening_set='holdout', matchups=rows, cap_seconds=900,
+                note='Confirmatory secondary (exploratory): budget scaling of F1 at equal time, '
+                     'first 128 held-out openings.')
+
+
+def confirm_empty():
+    """Secondary: F1 at equal time from the empty board, 64 independent seed pairs."""
+    rows = [matchup(f'f1-time-{b}', finalist('f1', b, True), mcts(b)) for b in PRIMARY_BUDGETS]
+    return dict(opening_set='empty', matchups=rows, cap_seconds=600,
+                note='Secondary (exploratory): real starting position; clusters are seed pairs.')
+
+
 STUDIES = dict(preflight=preflight, pilot1=pilot1, pilot2=pilot2, pilot3a=pilot3a,
                pilot3b=pilot3b, pilot3c=pilot3c, pilot3d=pilot3d, pilot3e=pilot3e,
-               confirm_primary=confirm_primary, confirm_negamax=confirm_negamax)
+               confirm_primary=confirm_primary, confirm_negamax=confirm_negamax,
+               pilot4=pilot4, confirm_scaling=confirm_scaling, confirm_empty=confirm_empty)

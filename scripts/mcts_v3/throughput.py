@@ -19,7 +19,7 @@ from pathlib import Path
 from scripts.benchmark_public_agents import POSITIONS
 from scripts.evaluate_mcts_strength import atomic_json
 from scripts.mcts_v3.harness import ROOT, hardware, make_agent, mcts, negamax, position, source_hashes
-from scripts.mcts_v3.studies import SINGLES, research
+from scripts.mcts_v3.studies import FINALISTS, SINGLES, finalist, research
 
 BUDGETS = (400, 2000)
 SAMPLES = 5
@@ -93,11 +93,16 @@ def main():
     parser.add_argument('--output', required=True, type=Path)
     parser.add_argument('--samples', type=int, default=SAMPLES)
     parser.add_argument('--negamax', type=int, nargs='*', default=[])
+    parser.add_argument('--finalists', action='store_true')
     args = parser.parse_args()
     args.output.parent.mkdir(parents=True, exist_ok=True)
     load = os.getloadavg()
-    rows = run(SINGLES, BUDGETS, args.samples,
-               {f'negamax-{d}': negamax(d) for d in args.negamax})
+    extra = {f'negamax-{d}': negamax(d) for d in args.negamax}
+    if args.finalists:
+        # Frozen finalists at the baseline budget and at their equal-time budget.
+        extra.update({f'{name}-{mode}-{b}': finalist(name, b, mode == 'time')
+                      for name in FINALISTS for b in BUDGETS for mode in ('sims', 'time')})
+    rows = run({} if args.finalists else SINGLES, BUDGETS, args.samples, extra)
     atomic_json(args.output, dict(
         python=platform.python_version(), platform=platform.platform(), hardware=hardware(),
         source_hashes=source_hashes(), samples=args.samples, warmups=1,
@@ -105,12 +110,18 @@ def main():
     by_config = {}
     for row in rows:
         by_config.setdefault(row['config'], []).append(row)
-    base = {(r['position'], r['spec'].get('simulations')): r for r in rows if r['config'].startswith('base-')}
+    base = {(r['position'], r['config'].rsplit('-', 1)[-1]): r for r in rows
+            if r['config'].startswith('base-')}
     for name, group in by_config.items():
-        ratios = [r['median_wall_ms'] / base[r['position'], r['spec'].get('simulations')]['median_wall_ms']
-                  for r in group if (r['position'], r['spec'].get('simulations')) in base]
+        # Compare with the baseline at the nominal budget in the configuration name.
+        pairs = [(r, base.get((r['position'], name.rsplit('-', 1)[-1]))) for r in group]
+        pairs = [(r, b) for r, b in pairs if b and b['simulations'][0]]
+        time_ratio = [r['median_wall_ms'] / b['median_wall_ms'] for r, b in pairs]
+        peak_ratio = [r['traced_peak_bytes'] / b['traced_peak_bytes'] for r, b in pairs]
         print(f'{name:14s} median {statistics.median(r["median_wall_ms"] for r in group):8.3f} ms'
-              + (f'  time vs base x{statistics.median(ratios):.2f}' if ratios else '')
+              + (f'  time vs base x{statistics.median(time_ratio):.2f}'
+                 f'  peak vs base median x{statistics.median(peak_ratio):.2f} max x{max(peak_ratio):.2f}'
+                 if pairs else '')
               + f'  peak {max(r["traced_peak_bytes"] for r in group) / 2**20:.2f} MiB')
 
 
