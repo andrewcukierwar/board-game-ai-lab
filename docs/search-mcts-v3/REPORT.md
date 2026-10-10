@@ -39,7 +39,9 @@ Supporting results, all at equal time or less:
   (13.0 ms) 58.8% to 41.2%; F1 at 1,023 beats the baseline at 10,000 63.5% to 36.5%.
 
 A second finalist, **F2** (plainer rollouts, solver, default constant), is
-also a confirmed improvement but is weaker than F1 in every comparison.
+also a confirmed improvement but is weaker than F1, including in a direct
+match on a fresh held-out set. On that same fresh set, F1's exploration
+constant and its solver each beat the version of F1 without them.
 
 Classification, by the gates declared before the games:
 
@@ -47,7 +49,8 @@ Classification, by the gates declared before the games:
 | --- | --- |
 | F1 — R2 rollouts + solver, c = 0.5 | **Accepted research improvement** at both budget tiers |
 | F2 — R1 rollouts + solver | **Accepted research improvement** at both tiers; superseded by F1 |
-| R1, R2, solver, c = 0.5 or 0.7, each alone | Promising but inconclusive: positive on the development set, not individually confirmed |
+| c = 0.5 and the solver, as parts of F1 | Confirmed by ablation on a fresh held-out set (solver clearly at 400, only nominally at 2,000) |
+| R1, R2, solver, c = 0.5 or 0.7, each alone on the baseline | Promising but inconclusive: positive on the development set, not individually confirmed |
 | Centre-first expansion | Rejected at the pilot stage: 51.4%, indistinguishable from the A/A control |
 | c = 2.0 | Rejected: below 50% in both sweeps |
 | c = 1.0 | No evidence of a difference from 1.41 |
@@ -108,9 +111,10 @@ pushed before the games they govern.
   is one fsynced JSON line; studies resume at game boundaries and refuse to
   resume if their pinned sources changed.
 
-Volume: 20,288 games and 4,013 s of game time across 16 studies, inside every
+Volume: 23,360 games and 4,761 s of game time across 17 studies, inside every
 declared cap (pilots 1,808 s of 3,600; primary 719 s of 4,500; secondaries
-757 s of 3,600; follow-ups 665 s of 2,700).
+757 s of 3,600; follow-ups A–C 665 s and follow-up D 748 s, each under the
+2,700 s cap for a follow-up).
 
 ## Pilots (development set, exploratory)
 
@@ -170,8 +174,8 @@ some of the tactics on its own.
 
 F1 scores above F2 in all four pairings by 4.1 to 5.9 points (nominal 95%
 intervals exclude zero). That contrast was computed after the fact from
-shared openings against the common baseline. It was not a declared comparison
-and the two were never played against each other.
+shared openings against the common baseline. The direct match is in
+[Ablation](#ablation-and-direct-finalist-match-follow-up-d).
 
 Colour balance is unremarkable: F1's equal-time score is 72.7% as first
 player and 68.9% as second at 400, and 64.6% / 66.8% at 2,000.
@@ -347,6 +351,40 @@ and says nothing about positional quality; it is a description, not a
 strength estimate. Full tallies and examples are in
 [tactical-audit/audit.json](tactical-audit/audit.json).
 
+## Ablation and direct finalist match (follow-up D)
+
+Declared in amendment 4 and run on `holdout2`, 256 fresh openings never used
+for anything else (plies 3, 6, …, 24). F1 is the challenger in every row; 512
+games per row.
+
+| Question | Opponent | Sims (F1 vs opponent) | W / D / L | F1 score | Family interval | F1 time ÷ opponent time |
+| --- | --- | --- | --- | ---: | --- | ---: |
+| Does c = 0.5 help? | F1 with c = 1.41 | 400 vs 400 | 267 / 53 / 192 | 57.3% | 53.6–61.0% | 0.971 |
+| | | 2,000 vs 2,000 | 250 / 53 / 209 | 54.0% | 50.9–57.1% | 0.963 |
+| Does the solver help? | F1 without the solver | 400 vs 400 | 258 / 43 / 211 | 54.6% | 50.7–58.6% | 1.086 |
+| | | 2,000 vs 2,000 | 243 / 44 / 225 | 51.8% | 47.9–55.5% | 1.040 |
+| Is F1 better than F2? | F2 | 187 vs 255 | 254 / 36 / 222 | 53.1% | 48.6–57.6% | 1.014 |
+| | | 1,023 vs 1,415 | 263 / 30 / 219 | 54.3% | 50.8–57.8% | 0.975 |
+
+By the reading rule fixed beforehand (family lower bound above 50% at either
+budget, point estimate above 50% at both), all three are confirmed:
+
+- **The constant is the clearest.** c = 0.5 wins at both budgets and costs
+  nothing; it is slightly faster. The pilot's 3.6-point hint held up on fresh
+  data, so the integration recommendation keeps c = 0.5.
+- **The solver helps, more at the low budget.** On top of tactical rollouts it
+  adds 4.6 points at 400 and 1.8 at 2,000, and in this combination it costs
+  4–9% more time rather than saving time. At 2,000 its interval includes 50%,
+  so its separate contribution there is not established. Its other effects,
+  never playing a proven loss and stopping early in solved positions, are
+  correctness and latency properties that do not depend on this number.
+- **F1 beats F2 directly** at their equal-time budgets, by 3 to 4 points. At
+  the 400 tier F1 used 1.4% more time than F2 and the interval includes 50%;
+  at 2,000 it used less time and the interval excludes 50%.
+
+The rollout policy itself was not ablated on held-out data: R2 versus R1 is
+tested only inside the F1-versus-F2 match, where it is mixed with the constant.
+
 ## Decision gates
 
 Applied to each finalist at each budget tier, as declared.
@@ -378,7 +416,7 @@ All gates pass for both finalists at both tiers.
 - **All configurations:** legal moves, no caller mutation, seeded
   reproducibility, no tree kept between decisions, terminal rejection, and
   the production root guards.
-- **Replay audit:** 440 recorded games sampled from all 16 studies were
+- **Replay audit:** 464 recorded games sampled from all 17 studies were
   replayed and reproduced moves, winners, simulation counts and RNG
   fingerprints with zero mismatches
   ([validation/replay-audit.json](validation/replay-audit.json)).
@@ -407,11 +445,11 @@ excluded some top-row moves. It was fixed by masking with the board mask.
   Negamax, scaling, strict-latency and equivalence studies reuse subsets of
   it. Nothing was tuned or selected on it, but those results are not
   independent samples and carry no adjusted significance claim.
-- **No component attribution on held-out data.** Only the two combinations
-  were confirmed. How much each of R2, S and c = 0.5 contributes is known only
-  from the pilots. In particular c = 0.5 was chosen on a 3.6-point pilot
-  difference and never confirmed separately.
-- **F1 versus F2** is a post hoc contrast through a common opponent.
+- **Partial component attribution.** The constant and the solver were ablated
+  on fresh held-out data; the rollout level (R2 versus R1) was not isolated,
+  and the single components were never confirmed against the baseline alone.
+- **A different ladder for the ablation set.** `holdout2` uses plies 3 to 24
+  rather than 2 to 23, because two-ply boards were exhausted.
 - **Latency shape.** At the declared equal-time budgets F1's 95th-percentile
   latency is about 25% above the baseline's and it is slower from the empty
   board. The strict budgets remove this at a small cost in simulations.
@@ -421,7 +459,7 @@ excluded some top-row moves. It was fixed by masking with the board mask.
 - **Seeding differs from the public API**, which re-initialises its RNG per
   ply; these games use one persistent stream per agent per game.
 - **Bootstrap intervals are approximate**, with one seed pair per opening.
-- **Evidence size.** Raw game logs add about 19 MB to the branch.
+- **Evidence size.** Raw game logs add about 22 MB to the branch.
 
 ## Integration recommendation
 
@@ -453,8 +491,9 @@ In rough order of expected value:
 1. **Positional knowledge.** The audit says F1's remaining losses are not
    short-range tactical. Candidates: implicit minimax backups with a cheap
    threat-parity evaluation, or odd/even threat awareness in rollouts.
-2. **Component ablation on a fresh held-out set**, to learn whether c = 0.5
-   and gift avoidance each earn their place, and a direct F1 versus F2 match.
+2. **Isolate the rollout level.** R2 versus R1 with everything else equal, at
+   equal time, on fresh positions; and a finer constant sweep below 0.5, since
+   the best tested value was the lowest one tried.
 3. **Cheaper tactical rollouts.** The rollout recomputes one player's threat
    set per move; an incremental update or a compiled kernel would raise the
    equal-time budget without changing the policy, and the existing RNG-parity
@@ -511,12 +550,13 @@ agent = ResearchMCTSAgent(187, rng=Random(1),
 | `followup_strict_empty/`, `followup_strict_holdout/` | empty2, held-out | Follow-up A |
 | `tactical-audit/` | held-out games | Follow-up B |
 | `followup_equivalence/` | held-out | Follow-up C |
+| `followup_ablation/` | holdout2 | Follow-up D |
 | `finalists/`, `validation/` | fixtures | Latency, memory, test logs, replay audit |
 
 Each study directory holds `study.json` (the frozen plan, with source hashes
 and commit), `results.jsonl` (one line per game), `run-log.jsonl` (batches and
-load averages) and `analysis.json`. Studies declared before the `empty2` seed
-set was appended pin an earlier hash of `scripts/mcts_v3/harness.py`; only the
+load averages) and `analysis.json`. Studies declared before the `empty2` and `holdout2` sets
+were appended pin earlier hashes of `scripts/mcts_v3/harness.py`; only the
 opening generator changed, and the replay audit confirms their games still
 reproduce.
 
@@ -537,9 +577,11 @@ reproduce.
 | `add3101`, `e050317`, `b6ebd7c` | Empty-board and scaling secondaries, finalist fixtures |
 | `944b581`, `294a1d0` | Amendment 2; strict-latency follow-up |
 | `9063217`, `513138c` | Tactical audit; amendment 3; equivalence follow-up; replay audit |
+| `dda59df` | First version of this report; validation log |
+| `21a7cfb`, `00cf58d`, `aa9a24b` | Amendment 4; ablation follow-up (WIP batch, then complete) |
 
-Later commits add this report and the final validation log; see
-`git log origin/research/mcts-v3`.
+The last commits add the ablation section of this report and the final
+validation logs; see `git log origin/research/mcts-v3`.
 
 ## Scope
 

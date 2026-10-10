@@ -24,10 +24,10 @@ directories. The production `MCTSAgent` and `mcts_bitboard` are not edited.
 
 | Field | Value |
 | --- | --- |
-| Current phase | Complete: phases A–E, declared secondaries, and follow-ups A–C |
+| Current phase | Complete: phases A–E, declared secondaries, and follow-ups A–D |
 | Outcome | F1 (R2 rollouts + solver, c = 0.5) and F2 (R1 rollouts + solver) are accepted research improvements; see [REPORT.md](REPORT.md) |
-| Design | [DESIGN.md](DESIGN.md): original at `65f4211`; amendments 1–3 and the finalist freeze each pushed before the games they govern |
-| Last validated commit | the commit that adds `REPORT.md`; full suite 2,882 passed, 15 skipped; 130 focused tests; replay audit 440 games, 0 mismatches |
+| Design | [DESIGN.md](DESIGN.md): original at `65f4211`; amendments 1–4 and the finalist freeze each pushed before the games they govern |
+| Last validated commit | the commit that adds `REPORT.md`; full suite 2,882 passed, 15 skipped; 130 focused tests; replay audit 464 games across 17 studies, 0 mismatches |
 | Last pushed commit | `git log origin/research/mcts-v3 -1` |
 | Production changes | none. `MCTSAgent`, `mcts_bitboard`, presets, API caps, provenance versions untouched |
 | Incomplete work | none of the declared work. Open research items are listed under "Next research" in the report |
@@ -225,6 +225,19 @@ held-out game.
 - **Validation.** Full backend suite 2,882 passed, 15 skipped
   (`validation/backend-tests-final.txt`).
 
-Totals: 20,288 games, 4,013 s of game time, every phase inside its declared
-compute cap. The benchmark lock was acquired for every timed run and released
+Totals at that point: 20,288 games, 4,013 s of game time, every phase inside
+its declared compute cap. The benchmark lock was acquired for every timed run and released
 after each batch; it was never found held by the other agent.
+
+### 2026-10-10 — Follow-up D: ablation on a fresh held-out set (amendment 4)
+
+`followup_ablation`, 3,072 games on `holdout2` (256 new openings), 748 s.
+F1 versus F1 at c = 1.41: 57.3% / 54.0%. F1 versus F1 without the solver:
+54.6% / 51.8%. F1 versus F2 at equal-time budgets: 53.1% / 54.3%. All three
+are confirmed by the reading rule fixed in amendment 4; the solver's separate
+contribution at 2,000 is only nominal. The recommendation keeps c = 0.5.
+
+Replay audit and the full backend suite were rerun afterwards on the final
+sources: 464 games, 0 mismatches; 2,882 passed, 15 skipped.
+
+Final totals: 23,360 games, 4,761 s of game time, 17 studies.
