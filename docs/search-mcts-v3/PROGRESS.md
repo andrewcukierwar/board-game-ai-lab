@@ -24,13 +24,27 @@ directories. The production `MCTSAgent` and `mcts_bitboard` are not edited.
 
 | Field | Value |
 | --- | --- |
-| Current phase | A — experimental design and preflight |
-| Current experiment | none started |
-| Last validated commit | `60b99b0` (starting SHA; no changes yet) |
+| Current phase | B complete → C (pilots) |
+| Current experiment | preflight (smoke + cost projection), then pilot 1 |
+| Design | [DESIGN.md](DESIGN.md), pushed at `65f4211` before any strength game |
+| Last validated commit | Phase B implementation commit (see log) |
 | Last pushed commit | see `git log origin/research/mcts-v3` |
-| Next exact action | Write and push `DESIGN.md`, then implement research-only variants |
-| Incomplete work | everything after the audit |
+| Next exact action | `scripts/mcts_v3/with_benchmark_lock.sh .venv/bin/python -m scripts.mcts_v3.harness run --study preflight`, then declare and run `pilot1` |
+| Incomplete work | pilots, confirmatory phase, report |
 | Blockers | none |
+
+## How to resume
+
+1. `cd` to the worktree, confirm `git status` is clean and the branch is `research/mcts-v3`.
+2. Create `.venv` if missing: `/opt/homebrew/bin/python3.11 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt`.
+3. Read this file's Status table and the last Log entry.
+4. Every declared study lives in `docs/search-mcts-v3/<study>/` with `study.json`
+   (the frozen plan), `results.jsonl` (one fsynced line per finished game),
+   `run-log.jsonl`, and `analysis.json`. Resume any unfinished study with
+   `scripts/mcts_v3/with_benchmark_lock.sh .venv/bin/python -m scripts.mcts_v3.harness run --study <study> --max-seconds 600`
+   and analyse with `.venv/bin/python -m scripts.mcts_v3.analysis --study <study>`.
+   A study refuses to resume if its pinned sources changed; declare a new one instead.
+5. New studies are functions in `scripts/mcts_v3/studies.py`, committed before their first game.
 
 ## Log
 
@@ -79,3 +93,47 @@ design, the evaluation/analysis/profiling scripts, and the MCTS tests.
 Observed weaknesses that motivate the candidates: no tactics below the root,
 rollouts that ignore one-move wins and blocks, no reuse of proven terminal
 results in the tree, and an untuned exploration constant.
+
+### 2026-10-10 — Phase A: design
+
+`DESIGN.md` predeclares candidates (R1 decisive rollouts, R2 + gift avoidance,
+S solver with tactical expansion, E centre-first expansion, C exploration
+constant), the equal-simulation and equal-time comparisons, the development
+(96) and held-out (256) opening sets, seeds, the cluster bootstrap, a fixed
+family of 8 for the Bonferroni adjustment, decision gates, and compute caps.
+Pushed at `65f4211` before any game.
+
+### 2026-10-10 — Phase B: research-only implementation
+
+New files (production agent and bitboard module untouched):
+
+- `games/connect4/agents/mcts_research_agent.py` — `ResearchMCTSAgent`,
+  `ResearchConfig`, `ResearchNode`, `winning_cells`, `tactical_rollout`.
+  Not imported by the agent factory or the API.
+- `scripts/mcts_v3/harness.py` — openings, study declaration, serial resumable
+  runner with pinned source hashes.
+- `scripts/mcts_v3/analysis.py` — opening-cluster bootstrap, sign-flip test, timing.
+- `scripts/mcts_v3/studies.py` — declared studies. `scripts/mcts_v3/throughput.py` — fixture latency/memory.
+- `docs/search-mcts-v3/openings.json` — frozen dev / holdout / preflight / empty sets.
+- `tests/test_connect4_mcts_research.py` (119 tests), `tests/test_mcts_v3_harness.py` (7 tests).
+
+What the tests establish:
+
+- Default configuration reproduces the production agent exactly: same move,
+  same final RNG state, same complete tree fingerprint, on 5 fixtures × 4
+  budgets × 2 seeds.
+- `winning_cells` agrees with four-detection on every empty cell of random
+  positions from 4 to 36 plies.
+- Both tactical rollouts match an independent array-engine statement of the
+  policy in outcome and RNG consumption (84 positions × 6 seeds each).
+- Solver: every proven node in the tree, at any depth, matches an exhaustive
+  memoised solve of late positions; a proven root always plays a move that
+  achieves the exact value; a proven-lost move is never chosen when an
+  alternative was searched; the search stops early once the root is proven.
+- All configurations: legal moves, no caller mutation, seeded reproducibility,
+  no tree retained between decisions, terminal rejection, and the production
+  root guards (immediate win, forced block, floating-threat avoidance).
+
+A real defect was caught by the rollout oracle before any game was played:
+gift detection in R2 shifted unmasked sentinel-row bits back onto the board
+and wrongly excluded top-row moves. Fixed by masking with `BOARD_MASK`.

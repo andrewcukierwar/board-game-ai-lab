@@ -1,0 +1,125 @@
+"""MCTS v3 study harness: declared openings, resume integrity, and inference."""
+import copy
+import json
+import shutil
+from pathlib import Path
+
+import pytest
+
+from scripts.mcts_v3 import analysis, harness
+from scripts.mcts_v3.harness import matchup, mcts, negamax
+
+
+@pytest.fixture(scope='module')
+def openings():
+    return harness.generate_openings()
+
+
+def test_committed_openings_match_generator_and_declared_shape(openings):
+    committed = json.loads(Path('docs/search-mcts-v3/openings.json').read_text())
+    assert committed == json.loads(json.dumps(openings))
+    sets = openings['sets']
+    assert {name: len(rows) for name, rows in sets.items()} == dict(
+        dev=96, holdout=256, preflight=8, empty=64)
+    for name in ('dev', 'holdout'):
+        counts = {length: sum(o['length'] == length for o in sets[name]) for length in harness.LENGTHS}
+        assert set(counts.values()) == {len(sets[name]) // 8}
+    seeds = [o[key] for rows in sets.values() for o in rows
+             for key in ('challenger_seed', 'opponent_seed')]
+    assert len(set(seeds)) == len(seeds)
+
+
+def test_development_and_held_out_positions_are_disjoint_and_undecided(openings):
+    boards = []
+    for name in ('dev', 'holdout', 'preflight'):
+        for opening in openings['sets'][name]:
+            game = harness.position(opening['history'])
+            assert len(opening['history']) == opening['length']
+            assert not game.is_game_over()
+            assert not harness.decided_by_root_guards(game)
+            boards.append(tuple(map(tuple, game.board)))
+    assert len(set(boards)) == len(boards) == 360
+
+
+def test_root_guard_decided_positions_are_recognised():
+    assert harness.decided_by_root_guards(harness.position([0, 1, 0, 1, 0, 2]))   # mover wins
+    assert harness.decided_by_root_guards(harness.position([2, 2, 3, 3, 4]))      # two threats
+    assert not harness.decided_by_root_guards(harness.position([0, 1, 0, 1, 0]))  # one block
+    assert not harness.decided_by_root_guards(harness.position([]))
+
+
+@pytest.fixture
+def tiny(tmp_path, monkeypatch):
+    shutil.copy('docs/search-mcts-v3/openings.json', tmp_path / 'openings.json')
+    monkeypatch.setattr(harness, 'ROOT', tmp_path)
+    monkeypatch.setattr(analysis, 'ROOT', tmp_path)
+    rows = [matchup('solver', mcts(12, solver=True, rollout='safe'), mcts(12), pairs=3),
+            matchup('negamax', mcts(12, exploration=0.7), negamax(2), pairs=2)]
+    config = harness.declare('tiny', 'preflight', rows, cap_seconds=600)
+    config['analysis']['replicates'] = 200
+    harness.atomic_json(tmp_path / 'tiny' / 'study.json', config)
+    return tmp_path / 'tiny', config
+
+
+def stable(row):
+    row = copy.deepcopy(row)
+    for key in ('elapsed_seconds', 'wall_us', 'cpu_us'):
+        row.pop(key)
+    return row
+
+
+def test_resume_matches_fresh_games_and_rejects_corruption(tiny):
+    directory, config = tiny
+    assert len(list(harness.schedule(config))) == 10
+    assert harness.run('tiny', max_games=3)['status'] == 'batch limit'
+    partial = harness.load_rows(directory / 'results.jsonl')
+    summary = harness.run('tiny')
+    assert (summary['status'], summary['completed'], summary['planned']) == ('complete', 10, 10)
+    rows = harness.load_rows(directory / 'results.jsonl')
+    assert [stable(r) for r in rows[:3]] == [stable(r) for r in partial]
+    plans = {f'{m["id"]}/{o["id"]}/{c}': (m, o, c) for m, o, c in harness.schedule(config)}
+    for row in rows:
+        fresh = harness.play_game(config, *plans[row['id']])
+        assert stable(fresh) == stable(row)
+        assert row['simulations'][0] in (0, 12, None) or 0 < row['simulations'][0] <= 12
+    assert harness.run('tiny')['games_this_invocation'] == 0
+    for damage in (dict(winner=7), dict(challenger_score=0.25), dict(study_sha256='x')):
+        with pytest.raises(ValueError):
+            harness.validate_rows(config, [dict(rows[0], **damage)])
+    with pytest.raises(ValueError, match='Duplicate'):
+        harness.validate_rows(config, [rows[0], rows[0]])
+    with pytest.raises(ValueError, match='already declared'):
+        harness.declare('tiny', 'preflight', [], cap_seconds=1)
+
+
+def test_analysis_counts_pairs_and_reports_both_roles(tiny):
+    directory, config = tiny
+    harness.run('tiny')
+    result, pair_scores, strata, _ = analysis.analyze('tiny')
+    assert result['complete_games'] == result['planned_games'] == 10
+    by_id = {row['matchup']: row for row in result['matchups']}
+    assert by_id['solver']['complete_pairs'] == 3 and by_id['negamax']['complete_pairs'] == 2
+    for row in result['matchups']:
+        assert row['wins'] + row['draws'] + row['losses'] == row['games']
+        low, high = row['score']['ci_family']
+        assert 0 <= low <= row['score']['ci95'][0] <= row['score']['mean'] <= row['score']['ci95'][1] <= high <= 1
+        assert row['timing']['challenger']['decisions'] > 0 and row['time_ratio'] > 0
+    assert by_id['negamax']['timing']['opponent']['mean_simulations'] is None
+    assert '| solver |' in analysis.table(result)
+
+
+def test_source_drift_blocks_resume(tiny, monkeypatch):
+    monkeypatch.setattr(harness, 'source_hashes', lambda: {'changed': 'x'})
+    with pytest.raises(ValueError, match='drift'):
+        harness.run('tiny')
+
+
+def test_cluster_bootstrap_and_sign_flip_behave():
+    values = {f'o{i}': 0.5 for i in range(16)}
+    strata = {key: i % 2 for i, key in enumerate(values)}
+    flat = analysis.bootstrap(values, strata, 1, 200)
+    assert flat['ci95'] == flat['ci_family'] == [0.5, 0.5]
+    assert analysis.sign_flip_p([0.0] * 16, 1, 200) == 1.0
+    assert analysis.sign_flip_p([1.0] * 16, 1, 2000) < 0.01
+    mixed = analysis.sign_flip_p([1.0, -1.0] * 8, 1, 2000)
+    assert mixed == 1.0
