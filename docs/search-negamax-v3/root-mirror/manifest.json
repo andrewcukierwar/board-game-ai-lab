@@ -800,7 +800,7 @@
   "memory_repetitions": 2,
   "warmups": 1,
   "maximum_batch_seconds": 450,
-  "design_sha256": "7644d132845f7ab074fbb54bdf8b9aed945f2833c71b7ad47e28812d49cb9d40",
+  "design_sha256": "10cf8fb58480eaa909482042944ee94e74bf8182af99dd266ee25f9e605a4332",
   "source_hashes": {
     "scripts/negamax_v3_variants.py": "65152dcf1345981dc6f2b4efc10216bc90c15039e75bcdbf27987b36df1f1144",
     "scripts/benchmark_negamax_v3.py": "edda4b7ee395730dfafeab62ec6381bda96226c7c0234e139ca6e7295a0b1eb8",
@@ -836,5 +836,6 @@
   },
   "reference_commit": "51bd80ed65413fe0d14dc6e6b4d04d60a3381fb6",
   "reference_variant": "terminal-proof",
-  "original_position_count": 32
+  "original_position_count": 32,
+  "resource_preflight_design_sha256": "7644d132845f7ab074fbb54bdf8b9aed945f2833c71b7ad47e28812d49cb9d40"
 }

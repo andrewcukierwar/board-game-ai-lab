@@ -67,3 +67,15 @@ Shared lock entire warmup/calibration/run; release between eight-position blocks
 and final six-target block. All bytes/evidence/source hashes frozen and pushed
 before preflight. Reproduction uses freshdirectory; exclusive writes never alter
 frozen results. No lengthy tournament, native rewrite, deployment or strength claim.
+
+## Exact command sequence
+
+```sh
+scripts/wait_benchmark_slot.sh .venv/bin/python -m scripts.negamax_v3_root_mirror_study preflight
+# Proceed ONLY if preflight.json passed=true; separate forecast data not pooled.
+scripts/wait_benchmark_slot.sh .venv/bin/python -m scripts.benchmark_negamax_v3 run --phase root-mirror --start 0 --stop 8
+# Then8:16,16:24,24:32,32:38; release/reacquire each block.
+scripts/wait_benchmark_slot.sh .venv/bin/python -m scripts.benchmark_negamax_v3 audit --phase root-mirror
+.venv/bin/python -m scripts.benchmark_negamax_v3 summarize --phase root-mirror
+scripts/wait_benchmark_slot.sh .venv/bin/python -m scripts.negamax_v3_root_mirror_study analyze
+```
