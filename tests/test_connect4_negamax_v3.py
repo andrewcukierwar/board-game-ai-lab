@@ -128,3 +128,73 @@ def test_seeded_exact_vectors(module):
                 break
         if not game.is_game_over():
             assert module.NegamaxAgent(3).score_moves(game) == root_oracle(game,3)
+
+
+def test_each_retained_bound_is_true(module):
+    game = position([5,4,3,6,2,4])
+    table = module.SearchTable()
+    for alpha,beta in [(-10,-9),(20,21),(-inf,inf)]:
+        module.negamax(module.SearchState(game),3,alpha,beta,table)
+        for key,entry in table.entries.items():
+            x,o,mover,remaining = unpack_key(key)
+            flag,value,move = unpack_entry(entry)
+            board = [['X' if x & (1 << (7*c+5-r)) else 'O' if o & (1 << (7*c+5-r)) else ' '
+                      for c in range(7)] for r in range(6)]
+            child = type(game)(board,mover)
+            exact = oracle(child,remaining)
+            assert value == exact if flag == 'exact' else value <= exact if flag == 'lower' else value >= exact
+            assert move in child.get_valid_moves()
+
+
+@pytest.mark.parametrize('variant', ['mirror','mirror-selective'])
+@pytest.mark.parametrize('hint', [None,0,3,6,7,14])
+def test_hint_orientation_and_invalid_hints(variant,hint,monkeypatch):
+    m = load_variant(variant)
+    original = m.SearchState.ordered_moves
+    seen = []
+    def ordering(self,hint=None,tactical='wins'):
+        seen.append((tuple(self.pieces),hint))
+        return original(self,hint,tactical)
+    monkeypatch.setattr(m.SearchState,'ordered_moves',ordering)
+    for history in ([0,1,0,2],[6,5,6,4],DRAW[:30]):
+        game = position(history)
+        state,table = m.SearchState(game),m.SearchTable()
+        key,reflected = m.identity(state,3,3 if variant == 'mirror-selective' else 1)
+        table.entries[key] = pack_entry('lower',-10**20,hint)
+        seen.clear()
+        assert m.negamax(state,3,table=table) == oracle(game,3)
+        assert seen[0] == (tuple(state.pieces),m.reflect_hint(hint) if reflected else hint)
+        assert state.ordered_moves(99,'none') == state.legal()
+
+
+def test_pvs_mandatory_full_research(monkeypatch):
+    m = load_variant('pvs')
+    original = m.negamax
+    windows = []
+    def search(state,depth,alpha=-inf,beta=inf,table=None):
+        windows.append((tuple(state.pieces),depth,alpha,beta))
+        return original(state,depth,alpha,beta,table)
+    monkeypatch.setattr(m,'negamax',search)
+    game = position([])
+    assert m.NegamaxAgent(4).score_moves(game) == root_oracle(game,4)
+    nulls = [i for i,w in enumerate(windows) if w[3]-w[2] == 1]
+    assert nulls
+    # Same child searched first with a unit window then with a wider window.
+    assert any(any(w[:2] == windows[i][:2] and w[3]-w[2] > 1 for w in windows[i+1:]) for i in nulls)
+
+
+def test_terminals_transpositions_and_unrestricted_depth(module):
+    for history in (DRAW,[0,1,0,1,0,1,0]):
+        game=position(history)
+        for mover in (0,1):
+            game.current_player=mover
+            for depth in (0,4,10**80):
+                assert module.negamax(module.SearchState(game),depth,table=module.SearchTable()) == oracle(game,depth)
+        with pytest.raises(ValueError,match='terminal'):
+            module.NegamaxAgent(4).choose_move(game)
+    first,second=position([0,1,2,3]),position([2,3,0,1])
+    table=module.SearchTable()
+    assert module.negamax(module.SearchState(first),3,table=table) == oracle(first,3)
+    hits=table.hits
+    assert module.negamax(module.SearchState(second),3,table=table) == oracle(second,3)
+    assert table.hits == hits+1
