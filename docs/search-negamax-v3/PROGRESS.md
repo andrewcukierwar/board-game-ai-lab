@@ -47,7 +47,7 @@ change or strength inference. Additional research only if justified by evidence.
 - B diagnostic design `923fbfd48aab5edd8ae4627316958e31e054cf42`.
 - Latest validation/preparation `a676a2697bd6d42a917696f39fd124bfda4674bf`.
 - Last validated Git SHA: `a676a2697bd6d42a917696f39fd124bfda4674bf` (focused/research validation; production still starting main).
-- Last pushed Git SHA: `a676a2697bd6d42a917696f39fd124bfda4674bf`, verified origin.
+- Last pushed Git SHA: `e7723700da7b28b6cff952af28b7101c061e8558`, verified origin.
 - Full focused suite: 89 passed in 7.69s, under shared lock (pvs/focused-tests.txt).
 - Provisional tuning correctness: 14 passed in 1.01s (preparation/tuning-correctness.txt).
 - Earlier expanded PVS fixture precondition failed (empty D4 needed no re-search);
@@ -86,3 +86,5 @@ under lock using predeclared profile manifest, select C experiments. All sources
 and runner hashes are frozen; do not edit frozen runner during primary runs.
 Exclusive evidence writes fail rather than overwrite. Reproduction uses a fresh
 --directory copied DESIGN.md and frozen checkpoint. Checkpoint WIP if interrupted.
+
+Lock correctness tests (isolated temporary path; production wrapper still mandatory shared path) 4 passed in0.21s: successful/failing cleanup, busy lock owner unchanged/child never launched, SIGTERM leaves ownership until foreground child finishes. Provisional expanded checks 22 passed in1.18s; no CPU-intensive workload run while MCTS holds lock.
