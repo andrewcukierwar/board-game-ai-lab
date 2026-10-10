@@ -1,5 +1,5 @@
 """Research-only exact search variants generated from an immutable Git engine."""
-from scripts.negamax_v3_pinned import baseline_bytes
+import subprocess
 import types
 
 BASELINE = '60b99b0d42145da149f433907585b809060c946d'
@@ -39,7 +39,7 @@ def reflect_hint(move):
 
 def variant_source(variant, baseline=None):
     if baseline is None:
-        baseline = baseline_bytes().decode()
+        baseline = subprocess.check_output(['git', 'show', f'{BASELINE}:{AGENT_PATH}']).decode()
     source = baseline
     if variant in ('mirror', 'mirror-selective'):
         source = replace(source,

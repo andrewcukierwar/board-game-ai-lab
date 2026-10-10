@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "checks": {
+    "mirror": {
+      "source_hashes_verified": true,
+      "baseline_source_sha256": "f46461d73b240c645248d57884fee0b9917c1be289758efe381cf6458a9cb392"
+    },
+    "pvs": {
+      "source_hashes_verified": true,
+      "baseline_source_sha256": "f46461d73b240c645248d57884fee0b9917c1be289758efe381cf6458a9cb392"
+    },
+    "tuning": {
+      "source_hashes_verified": true,
+      "baseline_source_sha256": "f46461d73b240c645248d57884fee0b9917c1be289758efe381cf6458a9cb392"
+    },
+    "deeper": {
+      "source_hashes_verified": true,
+      "baseline_source_sha256": "f46461d73b240c645248d57884fee0b9917c1be289758efe381cf6458a9cb392"
+    },
+    "git_missing_variants": [
+      "direct",
+      "mirror",
+      "mirror-selective",
+      "pvs"
+    ]
+  },
+  "measured_engine_source_bytes_unchanged": true,
+  "all_gate_and_timing_functions_unchanged": true
+}

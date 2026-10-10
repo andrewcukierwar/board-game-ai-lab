@@ -20,13 +20,10 @@ from scripts.benchmark_public_agents import position
 from scripts.negamax_v3_variants import (BASELINE, AGENT_PATH, variant_source,
                                         diagnostic_source, load_source)
 
-from scripts.negamax_v3_compatibility import verify_source_hash
-
 ROOT = Path('docs/search-negamax-v3')
 HASH_PATHS = ('scripts/negamax_v3_variants.py', 'scripts/benchmark_negamax_v3.py',
               'games/connect4/agents/negamax_tt.py', 'games/connect4/connect4.py',
-              'games/connect4/board.py', 'scripts/with_benchmark_lock.sh',
-              'scripts/negamax_v3_pinned.py', 'scripts/negamax_v3_compatibility.py')
+              'games/connect4/board.py', 'scripts/with_benchmark_lock.sh')
 
 
 def digest(data):
@@ -92,7 +89,7 @@ def check(directory):
     assert config['runtime']['python'] == sys.version
     assert digest((directory / 'DESIGN.md').read_bytes()) == config['design_sha256']
     for p, expected in config['source_hashes'].items():
-        verify_source_hash(p, expected)
+        assert digest(Path(p).read_bytes()) == expected, p
     for p, expected in config['sources'].items():
         assert digest((directory / p).read_bytes()) == expected, p
     assert (directory / 'direct-source.py').read_text() == variant_source('direct')
