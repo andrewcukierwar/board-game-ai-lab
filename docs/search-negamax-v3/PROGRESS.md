@@ -91,3 +91,5 @@ Latest pushed checkpoint d85ee212c0cfd6a257b89d5b70a4caf0067d72cd (lock correctn
 PVS blocks0:8 and8:16 complete; next serial command sequence handles remaining blocks then audit/summarize/stability/scouts. No acceptance decision until entire workload. Profile utility now checks its own source hash and excludes game-construction overhead from profiling (not used for timing acceptance).
 
 Phase B complete and audited: preserve rejection then commit/push before Phase C. Exact next action: freeze profile design/source/script hashes for original direct; profile four declared costly D10 histories under shared lock; choose up to two hotspot-backed bounded experiments and push their final designs before timing.
+
+B completed checkpoint1e515a9; original direct strongest. Profile design/source/script hashes frozen; no profile measurements yet. Exact next action push profile declaration, then profile under shared lock and compare counters/vectors to frozen primary A.
