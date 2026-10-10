@@ -99,5 +99,24 @@ def pilot3c():
                      '(61.6% vs 61.0%), so the constant sweep runs on R2+S, equal simulations.')
 
 
+R2S_C050 = dict(COMBOS['r2s'], exploration=0.5)
+
+
+def pilot3d():
+    """R2+S with c = 0.5 versus the baseline at equal simulations (dev set)."""
+    rows = [matchup(f'r2sc-{b}', research(b, R2S_C050), mcts(b)) for b in PRIMARY_BUDGETS]
+    return dict(opening_set='dev', matchups=rows, cap_seconds=300,
+                note='Exploratory pilot 3d: c = 0.5 scored 53.65% pooled head-to-head in 3c '
+                     '(rule: >= 52%), so it replaces 1.41 on R2+S. Equal simulations, for timing.')
+
+
+def pilot3e():
+    """R2+S with c = 0.5 versus the baseline at equal time (dev set)."""
+    rows = [matchup(f'r2sct-{b}', research(equal_time_budget('pilot3d', f'r2sc-{b}', b), R2S_C050),
+                    mcts(b)) for b in PRIMARY_BUDGETS]
+    return dict(opening_set='dev', matchups=rows, cap_seconds=300,
+                note='Exploratory pilot 3e: R2+S c = 0.5 at equal-time budgets from pilot 3d timings.')
+
+
 STUDIES = dict(preflight=preflight, pilot1=pilot1, pilot2=pilot2, pilot3a=pilot3a,
-               pilot3b=pilot3b, pilot3c=pilot3c)
+               pilot3b=pilot3b, pilot3c=pilot3c, pilot3d=pilot3d, pilot3e=pilot3e)
