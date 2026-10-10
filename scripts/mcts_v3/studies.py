@@ -3,7 +3,10 @@
 Each function returns the arguments of ``harness.declare``. A study is added
 here and committed before its first game is played.
 """
-from scripts.mcts_v3.harness import matchup, mcts, negamax
+import json
+import math
+
+from scripts.mcts_v3.harness import ROOT, matchup, mcts, negamax
 
 PRIMARY_BUDGETS = (400, 2000)
 SINGLES = dict(
@@ -42,4 +45,25 @@ def pilot1():
                 note='Exploratory pilot 1: single components, equal simulations.')
 
 
-STUDIES = dict(preflight=preflight, pilot1=pilot1)
+def equal_time_budget(study, matchup_id, budget):
+    """Declared rule: floor(min(1, 0.90 * r) * B), r = baseline / candidate wall time.
+
+    ``r`` comes from the realised game timings of an already analysed
+    development-set study, so the budget is frozen before it is used.
+    """
+    rows = json.loads((ROOT / study / 'analysis.json').read_text())['matchups']
+    ratio = next(row['time_ratio'] for row in rows if row['matchup'] == matchup_id)
+    return math.floor(min(1.0, 0.90 / ratio) * budget)
+
+
+def pilot2():
+    """Passing structural components versus the baseline at equal time (dev set)."""
+    rows = [matchup(f'{name}t-{b}', research(equal_time_budget('pilot1', f'{name}-{b}', b),
+                                             SINGLES[name]), mcts(b))
+            for b in PRIMARY_BUDGETS for name in ('r1', 'r2', 's')]
+    return dict(opening_set='dev', matchups=rows, cap_seconds=900,
+                note='Exploratory pilot 2: R1, R2, S at equal-time budgets from pilot 1 timings. '
+                     'E failed the pilot-1 pass rule (pooled 51.4% < 52%).')
+
+
+STUDIES = dict(preflight=preflight, pilot1=pilot1, pilot2=pilot2)
