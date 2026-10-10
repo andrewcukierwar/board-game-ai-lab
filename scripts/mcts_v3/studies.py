@@ -89,5 +89,15 @@ def pilot3b():
                 note='Exploratory pilot 3b: R1+S and R2+S at equal-time budgets from pilot 3a timings.')
 
 
+def pilot3c():
+    """Exploration-constant sweep on R2+S, head-to-head against R2+S at 1.41 (dev set)."""
+    rows = [matchup(f'r2s-c{round(100 * c):03d}-{b}',
+                    research(b, dict(COMBOS['r2s'], exploration=c)), research(b, COMBOS['r2s']))
+            for b in PRIMARY_BUDGETS for c in (0.5, 0.7, 1.0, 2.0)]
+    return dict(opening_set='dev', matchups=rows, cap_seconds=1200,
+                note='Exploratory pilot 3c: R2+S had the higher pooled equal-time score in 3b '
+                     '(61.6% vs 61.0%), so the constant sweep runs on R2+S, equal simulations.')
+
+
 STUDIES = dict(preflight=preflight, pilot1=pilot1, pilot2=pilot2, pilot3a=pilot3a,
-               pilot3b=pilot3b)
+               pilot3b=pilot3b, pilot3c=pilot3c)
