@@ -3,10 +3,10 @@
 No public search path imports this module. Source substitutions are asserted;
 score TT identity, bound classification, evaluation and restoration stay intact.
 """
-import subprocess
 import types
 
 from scripts.negamax_tt_variants import replace_once
+from scripts.pinned_git_source import pinned_source
 
 BASELINE = '2e79b15ecdb1967345a1e66593201f9803c89757'
 AGENT_PATH = 'games/connect4/agents/negamax_agent.py'
@@ -15,7 +15,7 @@ IDENTITY_MASK = (1 << 99) - 1
 
 
 def git_source(path=AGENT_PATH):
-    return subprocess.check_output(['git', 'show', f'{BASELINE}:{path}'])
+    return pinned_source(BASELINE, path)
 
 
 def schedule(target, variant):

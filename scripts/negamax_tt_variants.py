@@ -4,10 +4,10 @@ Small asserted substitutions keep a single canonical search algorithm. The
 resulting source is saved with benchmark evidence for independent inspection.
 No benchmark outcome changes a search parameter or its evaluation.
 """
-import subprocess
 import types
 
 from games.connect4.agents.negamax_tt import DirectMappedEntries
+from scripts.pinned_git_source import pinned_source
 
 BASELINE = 'f2f57b46c7817bb7324f4390da0bb345ae2fc7e4'
 AGENT_PATH = 'games/connect4/agents/negamax_agent.py'
@@ -15,7 +15,7 @@ VARIANTS = ('baseline', 'packed-key', 'packed-entry')
 
 
 def git_source(path=AGENT_PATH):
-    return subprocess.check_output(['git', 'show', f'{BASELINE}:{path}'])
+    return pinned_source(BASELINE, path)
 
 
 def replace_once(source, old, new):

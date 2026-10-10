@@ -26,6 +26,7 @@ from games.connect4.agents import negamax_agent as candidate
 from scripts.benchmark_negamax_ordering import table_bytes
 from scripts.benchmark_public_agents import position
 from scripts.negamax_evaluation_variants import VARIANTS
+from scripts.pinned_git_source import pinned_source
 
 BASELINE = '93ee943d8744651064dcf9a3a79108d6ca73af53'
 AGENT_PATH = 'games/connect4/agents/negamax_agent.py'
@@ -43,7 +44,7 @@ def digest(data):
 
 
 def git_source(path):
-    return subprocess.check_output(['git', 'show', f'{BASELINE}:{path}'])
+    return pinned_source(BASELINE, path)
 
 
 def load_baseline():
