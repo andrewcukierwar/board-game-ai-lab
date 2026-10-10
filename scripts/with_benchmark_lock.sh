@@ -20,4 +20,13 @@ trap cleanup EXIT
 trap ':' INT TERM HUP
 branch=$(git branch --show-current)
 printf 'pid=%s\nbranch=%s\nstart_utc=%s\nworktree=%s\n' "$$" "$branch" "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "$PWD" > "$lock_dir/owner"
-"$@"
+"$@" &
+child_pid=$!
+status=0
+# A trapped signal can interrupt wait while the child is still running.
+# Keep ownership until wait has actually reaped the foreground workload.
+while :; do
+    wait "$child_pid" && status=0 || status=$?
+    if ! kill -0 "$child_pid" 2>/dev/null; then break; fi
+done
+exit "$status"
