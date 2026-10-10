@@ -1,120 +1,133 @@
-# Negamax v3 current progress and recovery
+# Negamax v3 — completed research and recovery
 
-2026-10-10, America/New_York. Work only on this branch; never merge/deploy.
+2026-10-10, America/New_York. All declared studies complete. No merge/deployment.
 
-## Verified scope and baseline
+## Verified starting scope
 
-- Starting main SHA: `60b99b0d42145da149f433907585b809060c946d`.
-- Branch: `research/negamax-v3`.
-- Worktree/root: `/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab-negamax-v3`.
-- Origin: `https://github.com/andrewcukierwar/board-game-ai-lab.git`.
-- Initial clean HEAD exactly starting main; starting main is ancestor.
-- Production engine: unchanged original optimized direct alpha-beta.
-- Public caps, API, live services, other worktrees and canonical v2 evidence untouched.
-- No paid API calls. Local .venv: CPython 3.11.17, requirements-dev + Pillow/tqdm; Torch absent.
+- Starting main SHA:60b99b0d42145da149f433907585b809060c946d.
+- Current branch:research/negamax-v3; starting main is ancestor.
+- Worktree/root:/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab-negamax-v3.
+- Origin:https://github.com/andrewcukierwar/board-game-ai-lab.git.
+- Initial clean HEAD exactly starting main; no new worktree/branch switch.
+- Other MCTS/AlphaZero/Services worktrees, public infrastructure, containers,
+  Tailscale, Render, main and deployment untouched.
+- Canonical v2 evidence/tests retained; API/public limits/frontend unchanged.
+- Only changed game production file:games/connect4/agents/negamax_agent.py.
+- Worktree-local CPython3.11.17 .venv, requirements-dev +Pillow/tqdm; Torch absent.
 
-## Phases, hypotheses and fixed gates
+## Phase status, hypotheses and immutable decisions
 
-A/mirror COMPLETE, both REJECTED. Full and depth>=3 selective symmetry keys
-preserve exact results, but broad/aggregate/held-out latency gates fail.
-See mirror/DESIGN.md and mirror/REPORT.md. 128 conditions, 4224 audited decisions,
-111 independent oracle vectors, 112 inherited vectors. Full geometric 0.884x,
-wall sum/A 1.124; selective 0.966x, wall sum/A 1.010. Memory gates pass.
-Actual opposite-orientation reuse appears on symmetric empty board; zero on
-three asymmetric D10 diagnostic histories. No production integration.
+A COMPLETE: full mirror and remaining-depth>=3 selective mirror REJECTED.
+Hypothesis:symmetry-orbit score reuse offsets reflection/hint-remapping cost.
+Fixed broad/general/held-out latency gates failed; all exact/memory gates passed.
+Full0.884xgeometric,wall1.124*A;selective0.966x,wall1.010*A.
+128conditions/4224decisions/111oracle/112inherited. DESIGN/REPORT in mirror/.
 
-B/PVS COMPLETE, REJECTED. 128conditions,2816exact decisions,111oracle vectors,112inherited vectors; geometric1.011x, broad1.086x, wall sum/A0.886. Failed aggregate/broad geometric and immediate-win/D8 regression gates. Memory gates pass. Strongest engine remains original direct.
-See pvs/DESIGN.md. Scout unit windows, mandatory qualifying full re-search,
-exact original-window TT semantics and all root scores. Same 32 histories,
-D4/6/8/10, seven warmed interleaved samples and two memory decisions. Fixed
-gates cannot change. Combination with mirror excluded because A failed.
+B COMPLETE: PVS REJECTED as default. Integer scout/full verification hypothesis.
+1.011xgeometric,1.086xbroad,wall0.886*A,retainedbroad0.898*A; fails geometric,
+broad and immediate-win/D8 regression gates. Exact2816decisions/111oracle/
+112inherited. DESIGN/REPORT in pvs/. No mirror combination justified.
 
-C/profile-guided DESIGN FROZEN at ee9ec57; strongest direct profile complete and audited at92a272f. Selected independent terminal-parent-proof and trusted-TT hypotheses; tuning/DESIGN.md has fixed gates. Payload audit declarationf48401d. First two eight-position blocks queued in serial exec session18421; no candidate timing yet (MCTS pilot3c owns shared lock).
+C COMPLETE: profile strongest original direct; two independent bounded trials.
+Terminal-parent proof ACCEPTED AND INTEGRATED: geometric1.135x,broad1.138x,
+wall/CPU0.878*A,heldout1.130x,retained1.000*A,nogatedregressions. All trees,
+leaves,terminals,probes and full TT dictionaries identical on128conditions.
+Trusted TT fast path REJECTED:1.019xgeometric,wall0.979*A,too small for gates.
+4224exactdecisions/111oracle/112inherited. profile/ and tuning/ designs/reports.
 
-D/deeper feasibility PENDING: D10/12 complete decisions and memory, no public cap
-change or strength inference. Additional research only if justified by evidence.
+D COMPLETE: sixhistories atD10/D12; original vs accepted terminalproof.
+264exactdecisions/33oracle;12completeTT/treeequalities;4historicalD12 vectors/
+counters identical. AcceptedD12empty0.592s,near0.548s,seeded1.766s,tail2.907s.
+Largest retained54.52MiB,tracedpeak56.49MiB, excludes RSS/interpreter overhead.
+391.7s measuredbatchesplusauditswithin900s. Server2/4/8multipliers are planning
+assumptions only, not measured MacMini throughput. No strength/cap change.
+DESIGN/REPORT in deeper/.
 
-## Validation and checkpoints
+Tooling COMPLETE: exact Git-or-literal-SHA copy fallback for shallow checkouts.
+Original generator/runner bytes archived, only enumerated non-timed metadata
+substitutions permitted; altered timing/gates, unknown revisions/corrupt bytes
+fail closed. All prior manifests verify, missing-Git variants byte-identical.
+147focusedtests. tooling-compatibility/REPORT.md and certificate preserve provenance.
 
-- A design `244b0c5117a03b154b79db5ecf69a721d8121ca1`.
-- A frozen sources `e45cc917c5dc6901820fa6016d0fd11f92eefa06`.
-- A WIP evidence `5372bff7406a0d3f53cdd79159e376114cfb386c`.
-- A audited rejection `b13340326490ea606f9586197027f272d079017e`.
-- B design `59b996fbeb762dd1f3c74c31d407ff2680841665`.
-- B diagnostic design `923fbfd48aab5edd8ae4627316958e31e054cf42`.
-- Latest validation/preparation `a676a2697bd6d42a917696f39fd124bfda4674bf`.
-- Last validated Git SHA: `a676a2697bd6d42a917696f39fd124bfda4674bf` (focused/research validation; production still starting main).
-- Last pushed Git SHA: `f48401d4bd77e5aba9f5ea309980fcb287dc9de4`, verified origin.
-- Full focused suite: 89 passed in 7.69s, under shared lock (pvs/focused-tests.txt).
-- Provisional tuning correctness: 14 passed in 1.01s (preparation/tuning-correctness.txt).
-- Earlier expanded PVS fixture precondition failed (empty D4 needed no re-search);
-  failure preserved in mirror/expanded-tests.txt, corrected legal tactical fixture
-  passed and full 89-test rerun passed. No hidden score mismatch.
-- Full backend suite pending any accepted production integration.
+E COMPLETE: initial-root-symmetry policy ELIGIBLE RESEARCH-ONLY, not promoted.
+Coreoriginalcohortgeo1.012x,wall0.971*A;asymgeo0.992x;12broadsymmetricconditions
+1.864x,100%faster;corememory0.962*A,nogatefailures. New prospective targeted+
+neutrality gates, not relaxed PhaseA thresholds. Sixnew legal symmetric roots,
+bothmovers, froze before629sresourceforecastpassed. 5016exactdecisions/129oracle/
+112inherited;ALL124asymTT/treeequalities. 42focusedtests. Source/state/bounds/hints/
+ties/restoration tested. DESIGN/REPORT in root-mirror/. Production stays terminal
+proof; conditional-mode integration and historical counter-ablation scope are
+future, separately scoped work.
 
-## Shared lock and exact next action
+All acceptance thresholds were fixed before timing. Rejected results retained.
+No incomplete measured condition. Expensive tail remains a labeled diagnostic.
+No paid LLM API, strength inference, native rewrite or tactical pruning.
 
-Shared lock: `$HOME/.cache/bgai-laptop-benchmark.lock`. Acquire only with
-`scripts/with_benchmark_lock.sh COMMAND...` (atomic mkdir; owner PID/branch/time;
-same-process wait/trap; signal interruption cannot release a running child).
-Busy exit75 means defer. Never delete another owner's lock. A full batches held
-lock for 55.6/101.9/143.1/79.6s, released between blocks. MCTS then ran backend,
-throughput/preflight and pilot batches. All ownership respected.
+## Current strongest engines and validation
 
-MCTS pilot released normally at16:58:33 UTC and queued PVS acquired atomically. First PVS block complete with exact saved vectors; each next block waits fairly for normal release if needed. No current correctness blocker. Wait helper never removes an owner.
+- Strongest production-path engine: terminal-parent-proof51bd80e.
+- Production commit full SHA:51bd80ed65413fe0d14dc6e6b4d04d60a3381fb6.
+- Strongest eligible research strategy: that engine +root-symmetry conditional
+  mirror policy, sources in root-mirror; deliberately research-only by design.
+- Production bytes equal tuning/terminal-proof-source.py exactly.
+- Last validated functional Git SHA:211ac78c8b0272730e6aa3264df98441be9c80a9.
+- Last pushed SHA before final documentation:211ac78c8b0272730e6aa3264df98441be9c80a9,
+  verified origin. Final docs tip resolves via gitHEAD/remote command below;
+  self-referential commit SHA cannot be embedded inside that same commit.
+- Final backend:2916passed,15Torch-dependent skips,123.95s under shared lock.
+- Integration backend:2867passed,15skips,126.21s under shared lock.
+- Providers disabled using exact requested envcommand; global HTTPS guard intact.
+- 16,544recorded decision vectors/moves and raw evidence hashes audited across
+  allfive studies. Independent arrayoracle and old goldenvectors remain active.
+- Compilation/whitespace/scope pass. No frontend changes/checks needed.
+- GitHub workflow triggers main/PRs; no research-branch CI run was triggered or
+  dispatched. Local full suite and explicit missing-Git compatibility tested.
+- Known blockers:none. No owned benchmark/validation child left running.
 
-Exact next action: poll existing queued session if still active; otherwise
-inspect saved `pvs/condition-*.json` and run only missing whole blocks:
+## Principal durable checkpoints
+
+See validation/checkpoints.txt for full historical SHAs/messages.
+A design244b0c5,freezee45cc91,completedb133403.
+B design59b996f,completed1e515a9.
+Profile92a272f,Cdesignee9ec57,Cevidence116c3e2,production51bd80e.
+Ddesign5e79a7d,completed0f742c2.
+Toolingcompatibilityf5651b7.
+Edesignc38792d,resource6fdb058,completed211ac78.
+WIP pushes preserve partial runs; all completed result pushes verified.
+
+## Exact next action and recovery
+
+The research goal is complete. Recommended next optional research is scoped
+conditional-symmetry integration preserving historical counter-ablation checks,
+or a bounded play/undo improvement with a measured whole-decision hypothesis.
+No sufficiently small further hypothesis justifies beginning now; codec gains
+were too small, state rewrites and native/pruning changes need their own scope.
+
+1. Stay in this worktree/branch; verify pwd/root/status/startingSHAancestor.
+2. Read chosen DESIGN/REPORT and create a NEW phase/evidence directory. Preserve
+   all current raw files/source snapshots/criteria; never overwrite them.
+3. Predeclare exact strongest-source SHA, datasets, criteria and compute budget;
+   commit/push before timing. Optional integration needs separate full backend.
+4. Use mandatory shared lock; wait for normal release, never remove active owner.
+5. Commit/push independently validated outcomes, verify origin, update this journal.
 
 ```sh
-scripts/wait_benchmark_slot.sh .venv/bin/python -m scripts.benchmark_negamax_v3 run --phase pvs --start 0 --stop 8
-# Then independent blocks8:16,16:24,24:32; never overwrite completed conditions.
-scripts/wait_benchmark_slot.sh .venv/bin/python -m scripts.benchmark_negamax_v3 audit --phase pvs
-.venv/bin/python -m scripts.benchmark_negamax_v3 summarize --phase pvs
-.venv/bin/python -m scripts.negamax_v3_stability --phase pvs
-scripts/wait_benchmark_slot.sh .venv/bin/python -m scripts.diagnose_negamax_pvs_v3
+git status --short
+git branch --show-current
+git merge-base --is-ancestor 60b99b0d42145da149f433907585b809060c946d HEAD
+git rev-parse HEAD
+git ls-remote origin refs/heads/research/negamax-v3
+# Measured runs and full suites ONLY through the shared wrapper/wait helper:
+scripts/wait_benchmark_slot.sh COMMAND...
+# Missing declared conditions only; no completed file overwritten:
+scripts/wait_benchmark_slot.sh .venv/bin/python -m scripts.resume_negamax_v3 --phase PHASE --start START --stop STOP
 ```
 
-Then report, commit/push completed B, verify remote, profile strongest engine
-under lock using predeclared profile manifest, select C experiments. All sources
-and runner hashes are frozen; do not edit frozen runner during primary runs.
-Exclusive evidence writes fail rather than overwrite. Reproduction uses a fresh
---directory copied DESIGN.md and frozen checkpoint. Checkpoint WIP if interrupted.
-
-Lock correctness tests (isolated temporary path; production wrapper still mandatory shared path) 4 passed in0.21s: successful/failing cleanup, busy lock owner unchanged/child never launched, SIGTERM leaves ownership until foreground child finishes. Provisional expanded checks 22 passed in1.18s; no CPU-intensive workload run while MCTS holds lock.
-
-Latest pushed checkpoint d85ee212c0cfd6a257b89d5b70a4caf0067d72cd (lock correctness). PVS first block32conditions exact, further acceptance pending complete held-out workload.
-
-PVS blocks0:8 and8:16 complete; next serial command sequence handles remaining blocks then audit/summarize/stability/scouts. No acceptance decision until entire workload. Profile utility now checks its own source hash and excludes game-construction overhead from profiling (not used for timing acceptance).
-
-Phase B complete and audited: preserve rejection then commit/push before Phase C. Exact next action: freeze profile design/source/script hashes for original direct; profile four declared costly D10 histories under shared lock; choose up to two hotspot-backed bounded experiments and push their final designs before timing.
-
-B completed checkpoint1e515a9; original direct strongest. Profile design/source/script hashes frozen; no profile measurements yet. Exact next action push profile declaration, then profile under shared lock and compare counters/vectors to frozen primary A.
-
-Profile COMPLETE: 8decisions match A counters/vectors,7.479s, declared92a272f. Selected two independent bounded per-node hypotheses: terminal-parent proof and trusted TT fast path. Final tuning DESIGN+manifest/source/test/generator hashes frozen; prepared22tests pass, no candidate performance timing yet. Next commit/push profile result+tuning declaration, then measured blocks under shared lock.
-
-Current exact next action: resume queued tuning session18421 (blocks0:8 then8:16). Then queue16:24 and24:32, audit/summarize/stability, scripts.audit_negamax_v3_payloads under lock. Pick eligible fastest only after all fixed gates and exact TT/tree audit. If eligible, integrate measured source in a separate production-path commit only after full backend suite. No candidate performance evidence yet; MCTS pid6236 pilot3c540s owns lock as of17:17UTC. Main REPORT updated through B and profile.
-
-C first64conditions complete, batch runtimes59.7s/87.1s, allscore/counter parity. Remaining16:24/24:32 plus audits queued serially; eligibility pending. Resume interrupted partial batches using scripts/resume_negamax_v3.py under shared wrapper with --phase/--start/--stop: skips only parsed complete existing conditions; exclusive files remain untouched; source/manifest hashes validated, original sample counts/criteria preserved.
-
-C COMPLETE: terminal-proof ELIGIBLE allgates, geometric1.135x,broad1.138x, wall/CPU0.878*A,heldout1.130x,retained1.0; trusted-TT REJECTED1.019x. 4224exact decisions111oracle112inherited; payload/tree audit128conditions exactincluding leaf/terminal/probe counts. Next commit/push research result; apply exact measuredterminal source toproduction, fullbackend suiteunder sharedlock; then separate validatedintegration commit before PhaseD.
-
-Accepted production-path integration validated: exact terminal-proof snapshot copied to negamax_agent.py; full backend2867passed/15Torchskips126.21s under sharedlock; canonicalv2unchanged. Researchresult116c3e26fb79c9662aa444102d3fa4338da82b19 pushed/verified. Next separate productionintegrationcommit+push; then final depth10/12 DESIGN/source/manifest before measuring.
-
-Production terminal-proof integration51bd80e pushed/verified, 2867passed15skipped. PhaseD DESIGN+manifest/source digests frozen: originaldirect vs strongestterminal proof, sixpositions D10/12, sevenpaired+two memory, budget900s, two3-position lockbatches. NoD measurements yet. Exactnextaction pushdeeperdeclaration thenbounded measured/audit/payload commands in deeper/DESIGN.md.
-
-D queued serial measurement/audit session54360, noDresults yet; MCTS confirm_primary pid22308 currentlyowner. Standalone hash-pinned baseline-loader prototype3tests pass0.04s; not wired intofrozen toolsuntil Dcomplete. Latest validatedproduction51bd80ed65413fe0d14dc6e6b4d04d60a3381fb6; deeperdesign5e79a7d79f28b58473ae5878acc0476a0446a299 pushed/verified.
-
-D first3-position blockcomplete198.8s, original/accepted D10and12 exact; emptycandidateD12~0.592s,near~0.548s,unchangedTTmemory. Secondblock/auditsongoing serialsession54360. Compatibilityprototype4tests pass0.05s: onlyenumeratedmetadatachanges recognized, measured/gate ASTunchanged, alteredthresholdwithforgednewhashrejected. Frozen runner/variant files remainunediteduntilDcomplete.
-
-D COMPLETE: 264exactdecisions33oracle12fullTT/treecomparisons;4historicalD12vectors/countersmatch; measured391.7s plusauditswithin900. AcceptedD12empty0.592s,near0.548s,seeded1.766s,tail2.907s; largestretained54.52MiB/tracedpeak56.49MiB. Exactnextaction pushcompletedD, wirevalidatedhash-pinnedloaderwitharchivedmetadata-onlycompatibilityguard, thenpredeclareinitial-root-symmetrypolicy asjustifiedadditionalresearch. Strongproduction remains51bd80e.
-
-Toolingcompatibility COMPLETE: wiredhash-pinnedfallback;147focusedtests9.01s; everypriorfrozenmanifestverified; Gitmissing reproducesfourregularsourcesbyte-exact. Originaltoolbytes archived; certifiedtextsubstitutions only; measured/gatebodies unchanged, tamperedgatewithforgednewhashrejected. Exactnextaction pushcompatfix; predeclare research-only initial-root-symmetrypolicy withprospectivecore/targeted criteria, thenfocusedtests/sourcefreeze beforebench.
-
-PhaseE research-only rootsymmetry DESIGN/sources/38positions frozen; core32 +6new legal symmetrichistories, prospectiveconditionalgateagainststrong terminal-proof51bd80e. Independentfocusedtestscompleted; source/hash publicationbeforepreflight. Production remains51bd80e. Preflight resourceforecast must<=1200s orno primaryrun; no outcomecherry-picking.
-
-E resourcepreflight PASS: forecast628.8s <=1200; sixnewD10baseline histories, warm/timed/traced data separate. Added reproductioncommandsection onlybeforeprimary; resource-preflight originaldesignhash preserved, no criteria/method changes. Exactnextaction pushpreflight + commanddocs, then five boundedprimaryblocks0:8/8:16/16:24/24:32/32:38 underlock androot-specificstrong-referenceanalysis.
-
-E primaryfirsttwo8-position blockscomplete53.3/85.6s; original32 tail/heldout +sixnewtarget remaining inserialsession18517. Scoresmatch. Early emptyD10strong192ms→policy98ms,asymmetricnear156ms→158ms,noeligibilityclaim. Keepallcriteriaunchanged; useconditional-analysis againststrongestref, genericstartingdirectsecondary. Exactnextaction finishqueuedbatches/audits, checkpointcompleteE thenfinalbackendbranchverification andhandoff.
-
-E COMPLETE/ELIGIBLE RESEARCH-ONLY: coregeo1.0116x, wallsum0.97077*A, asymgeo0.9915x, symbroad1.8642x12conditions100%faster; memorycore0.96156*A,nogatefailures. 5016decisions129oracle112inherited,all124asymTT/treeexact. Productionremains51bd80e. Next completedEcheckpoint; finalfullbackendunderlock,scope/remoteverification,finalreports. No further speculativeexperimentjustifiedbeforehand-off: stateupdates requireseparatescopeddesign, tinycodecgainalreadyrejected.
+Shared directory exactly:$HOME/.cache/bgai-laptop-benchmark.lock. Atomic mkdir,
+owner PID/branch/start/worktree, same-shell reliable wait/trap; SIGTERM cannot
+release while foreground child remains. Isolated4lock lifecycle tests pass.
+Every measured warmup/calibration included. Released between bounded batches;
+MCTS pilots/confirmation ownership respected. Reproduction uses fresh --directory
+with copied DESIGN/input/sources/manifest parameters; root/deeper custom selected
+histories/depths must be preserved. Source metadata certificates validate frozen
+old bytes without changing timed or acceptance functions. No merge or deployment.

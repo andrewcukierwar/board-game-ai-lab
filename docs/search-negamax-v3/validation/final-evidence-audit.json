@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "phases": {
+    "mirror": {
+      "conditions": 128,
+      "decisions": 4224,
+      "oracle_vectors": 111,
+      "inherited_matches": 112
+    },
+    "pvs": {
+      "conditions": 128,
+      "decisions": 2816,
+      "oracle_vectors": 111,
+      "inherited_matches": 112
+    },
+    "tuning": {
+      "conditions": 128,
+      "decisions": 4224,
+      "oracle_vectors": 111,
+      "inherited_matches": 112
+    },
+    "deeper": {
+      "conditions": 12,
+      "decisions": 264,
+      "oracle_vectors": 33,
+      "inherited_matches": 5
+    },
+    "root-mirror": {
+      "conditions": 152,
+      "decisions": 5016,
+      "oracle_vectors": 129,
+      "inherited_matches": 112
+    }
+  },
+  "total_recorded_decisions": 16544,
+  "production_source_exact": true,
+  "protected_scope_unchanged": true,
+  "changed_game_files": [
+    "games/connect4/agents/negamax_agent.py"
+  ],
+  "final_backend": "2916 passed,15 skipped in123.95s",
+  "validated_functional_head": "211ac78c8b0272730e6aa3264df98441be9c80a9",
+  "production_commit": "51bd80ed65413fe0d14dc6e6b4d04d60a3381fb6",
+  "github_research_branch_runs": [],
+  "ci_note": "Workflow triggers main pushes and PRs; no research-branch run was triggered or dispatched.",
+  "whitespace_and_compilation_passed": true
+}
