@@ -302,3 +302,30 @@ no significance claim is attached, and it stays within the follow-up cap.
 **Replay audit (no new evidence).** A sample of recorded games from every
 completed study is replayed with the current sources and must reproduce the
 recorded moves, winners, simulation counts and final RNG fingerprints exactly.
+
+### Amendment 4 — 2026-10-10, after the report's first version, before follow-up D
+
+The report lists two gaps: no held-out evidence for what each part of F1
+contributes, and no direct F1 versus F2 match. Both affect which
+configuration a later integration phase should take, so they are tested here
+on data that has never been used.
+
+**Follow-up D — ablation and direct comparison.** A new set, `holdout2`, of 256
+openings is appended to `openings.json` (earlier sets byte-identical; no board
+repeats any earlier set). Two-ply boards are nearly exhausted, so it uses the
+same ladder shifted by one ply: 3, 6, 9, 12, 15, 18, 21, 24. Six head-to-head
+comparisons, 512 games each, F1 as the challenger in all:
+
+- **Constant:** F1 versus R2+S at c = 1.41, equal simulations, at 400 and 2,000.
+- **Solver:** F1 versus R2 rollouts at c = 0.5 without the solver, equal
+  simulations, at 400 and 2,000.
+- **Finalists:** F1 versus F2 at their frozen equal-time budgets (187 vs 255,
+  and 1,023 vs 1,415).
+
+Reported with the same cluster bootstrap and the family-of-8 interval. Reading
+rule, fixed now: a part of F1 is called confirmed if its comparison's
+family-adjusted lower bound is above 50% at either budget with a point
+estimate above 50% at both; it is called unsupported if its point estimate is
+at or below 50% at both budgets; otherwise it stays inconclusive. If the
+constant is unsupported, the integration recommendation reverts to c = 1.41.
+Cap: 40 minutes of game time.

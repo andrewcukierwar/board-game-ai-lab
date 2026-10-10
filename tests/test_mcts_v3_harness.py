@@ -20,9 +20,10 @@ def test_committed_openings_match_generator_and_declared_shape(openings):
     assert committed == json.loads(json.dumps(openings))
     sets = openings['sets']
     assert {name: len(rows) for name, rows in sets.items()} == dict(
-        dev=96, holdout=256, preflight=8, empty=64, empty2=64)
-    for name in ('dev', 'holdout'):
-        counts = {length: sum(o['length'] == length for o in sets[name]) for length in harness.LENGTHS}
+        dev=96, holdout=256, preflight=8, holdout2=256, empty=64, empty2=64)
+    for name, lengths in (('dev', harness.LENGTHS), ('holdout', harness.LENGTHS),
+                          ('holdout2', harness.LENGTHS_2)):
+        counts = {length: sum(o['length'] == length for o in sets[name]) for length in lengths}
         assert set(counts.values()) == {len(sets[name]) // 8}
     seeds = [o[key] for rows in sets.values() for o in rows
              for key in ('challenger_seed', 'opponent_seed')]
@@ -31,14 +32,14 @@ def test_committed_openings_match_generator_and_declared_shape(openings):
 
 def test_development_and_held_out_positions_are_disjoint_and_undecided(openings):
     boards = []
-    for name in ('dev', 'holdout', 'preflight'):
+    for name in ('dev', 'holdout', 'preflight', 'holdout2'):
         for opening in openings['sets'][name]:
             game = harness.position(opening['history'])
             assert len(opening['history']) == opening['length']
             assert not game.is_game_over()
             assert not harness.decided_by_root_guards(game)
             boards.append(tuple(map(tuple, game.board)))
-    assert len(set(boards)) == len(boards) == 360
+    assert len(set(boards)) == len(boards) == 616
 
 
 def test_root_guard_decided_positions_are_recognised():

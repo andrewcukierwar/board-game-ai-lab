@@ -30,7 +30,11 @@ from scripts.evaluate_mcts_strength import (
 ROOT = Path('docs/search-mcts-v3')
 MASTER_SEED = 2026101003
 LENGTHS = (2, 5, 8, 11, 14, 17, 20, 23)
-SETS = (('dev', 96), ('holdout', 256), ('preflight', 8))
+# 'holdout2' was appended for the ablation follow-up. Two-ply boards are nearly
+# exhausted by the earlier sets, so it uses the same ladder shifted by one ply.
+LENGTHS_2 = (3, 6, 9, 12, 15, 18, 21, 24)
+SETS = (('dev', 96, LENGTHS), ('holdout', 256, LENGTHS), ('preflight', 8, LENGTHS),
+        ('holdout2', 256, LENGTHS_2))
 EMPTY_PAIRS = 64
 FAMILY = 8
 SOURCE_FILES = (
@@ -72,10 +76,10 @@ def decided_by_root_guards(game):
 def generate_openings():
     """Deterministic, mutually disjoint development / held-out / preflight sets."""
     seen, sets = set(), {}
-    for domain, count in SETS:
+    for domain, count, lengths in SETS:
         rows = []
         for index in range(count):
-            length = LENGTHS[index % len(LENGTHS)]
+            length = lengths[index % len(lengths)]
             seed = seed_for(MASTER_SEED, domain, index)
             rng = random.Random(seed)
             for attempt in range(1_000_000):

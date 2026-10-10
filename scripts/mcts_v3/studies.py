@@ -229,10 +229,27 @@ def followup_equivalence():
                      'F1 replaces. First 128 held-out openings; nothing is selected from it.')
 
 
+def followup_ablation():
+    """Component ablation of F1 and a direct F1 versus F2 match on a fresh held-out set."""
+    rows = []
+    for b in PRIMARY_BUDGETS:
+        rows += [
+            matchup(f'f1-vs-c141-{b}', research(b, R2S_C050), research(b, COMBOS['r2s'])),
+            matchup(f'f1-vs-nosolver-{b}', research(b, R2S_C050),
+                    research(b, dict(rollout='safe', exploration=0.5))),
+            matchup(f'f1-vs-f2-time-{b}', finalist('f1', b, True), finalist('f2', b, True)),
+        ]
+    return dict(opening_set='holdout2', matchups=rows, cap_seconds=2400,
+                note='Follow-up D (design amendment 4): constant and solver ablations at equal '
+                     'simulations, and F1 versus F2 at their equal-time budgets, on 256 fresh '
+                     'held-out openings never used before.')
+
+
 STUDIES = dict(preflight=preflight, pilot1=pilot1, pilot2=pilot2, pilot3a=pilot3a,
                pilot3b=pilot3b, pilot3c=pilot3c, pilot3d=pilot3d, pilot3e=pilot3e,
                confirm_primary=confirm_primary, confirm_negamax=confirm_negamax,
                pilot4=pilot4, confirm_scaling=confirm_scaling, confirm_empty=confirm_empty,
                followup_strict_empty=followup_strict_empty,
                followup_strict_holdout=followup_strict_holdout,
-               followup_equivalence=followup_equivalence)
+               followup_equivalence=followup_equivalence,
+               followup_ablation=followup_ablation)
