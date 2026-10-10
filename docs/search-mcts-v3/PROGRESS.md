@@ -24,15 +24,15 @@ directories. The production `MCTSAgent` and `mcts_bitboard` are not edited.
 
 | Field | Value |
 | --- | --- |
-| Current phase | D — confirmatory evaluation on the held-out set |
-| Current experiment | `confirm_primary` (8 comparisons × 512 games), then `confirm_negamax` |
-| Design | [DESIGN.md](DESIGN.md): original at `65f4211`; amendment 1 and the finalist freeze appended before the games they govern |
-| Finalists (frozen) | F1 = R2+S, c = 0.5 (equal-time 187 / 1,023). F2 = R1+S (equal-time 255 / 1,415) |
-| Last validated commit | finalist-freeze commit (see log); 128 focused tests pass |
-| Last pushed commit | see `git log origin/research/mcts-v3` |
-| Next exact action | `scripts/mcts_v3/with_benchmark_lock.sh .venv/bin/python -m scripts.mcts_v3.harness run --study confirm_primary --max-seconds 560` until complete; then the same for `confirm_negamax` |
-| Incomplete work | confirmatory runs, scaling and empty-board secondaries, memory check, REPORT.md |
+| Current phase | Complete: phases A–E, declared secondaries, and follow-ups A–C |
+| Outcome | F1 (R2 rollouts + solver, c = 0.5) and F2 (R1 rollouts + solver) are accepted research improvements; see [REPORT.md](REPORT.md) |
+| Design | [DESIGN.md](DESIGN.md): original at `65f4211`; amendments 1–3 and the finalist freeze each pushed before the games they govern |
+| Last validated commit | the commit that adds `REPORT.md`; full suite 2,882 passed, 15 skipped; 130 focused tests; replay audit 440 games, 0 mismatches |
+| Last pushed commit | `git log origin/research/mcts-v3 -1` |
+| Production changes | none. `MCTSAgent`, `mcts_bitboard`, presets, API caps, provenance versions untouched |
+| Incomplete work | none of the declared work. Open research items are listed under "Next research" in the report |
 | Blockers | none |
+| Next exact action | Human decision on a separately authorized integration phase for F1. If continuing research instead, start with a fresh development/held-out split and the positional-knowledge candidates in the report |
 
 ## How to resume
 
@@ -185,3 +185,46 @@ Pilot decisions, each by the predeclared rule:
 Caveat carried forward: the top four configurations sit within about four
 points of each other at equal time, which is inside pilot noise. The pilots
 picked what to confirm; they do not rank the finalists.
+
+### 2026-10-10 — Phase D: confirmatory evaluation (held-out set)
+
+Finalists and equal-time budgets were frozen at `9e98cac` before the first
+held-out game.
+
+- `confirm_primary` (4,096 games, 719 s): all eight comparisons have
+  family-adjusted lower bounds above 56%. Equal time: F1 70.8% (187 vs 400)
+  and 65.7% (1,023 vs 2,000); F2 66.1% and 60.6%. Realised time ratios
+  0.935–0.970.
+- `confirm_negamax` (3,456 games): at equal time F1 gains +21.6 to +26.0
+  points over the baseline against Negamax 4 / 6 / 8; F2 +9.1 to +19.3.
+- `confirm_scaling` (768 games, budgets calibrated by `pilot4` on the
+  development set): F1 at equal time scores 71.3% / 66.8% / 66.2% against the
+  baseline at 100 / 800 / 5,000.
+- `confirm_empty` (256 games): 79.3% and 72.3%, but realised time ratios of
+  1.109 and 1.121, so time parity failed from the empty board.
+- `finalists/throughput.json`: fixture latency and traced memory. Memory gate met.
+
+### 2026-10-10 — Phase E and follow-ups
+
+- **Follow-up A, strict latency (amendment 2).** Budgets cut to 151 / 821 by a
+  rule fixed beforehand. Fresh empty-board seeds (`empty2`): 75.4% and 73.4%
+  at time ratios 0.900 and 0.918. Held-out: 69.2% and 67.6% at time ratios
+  0.789 and 0.783, with 95th-percentile latency within 1–6% of the baseline.
+- **Follow-up B, tactical audit.** Depth-8 Negamax re-scoring of 512 held-out
+  games: F1 makes 0.49% / 0.16% provable blunders per decision against the
+  baseline's 2.15% / 1.22%, and none at the three-ply horizon. Most F1 losses
+  contain no provable blunder, so the residual weakness is positional.
+- **Follow-up C, compute equivalence (amendment 3).** F1 at 187 beats the
+  baseline at 2,000 (58.8%) and F1 at 1,023 beats the baseline at 10,000
+  (63.5%), each in about one-fifth of the time.
+- **Replay audit.** 440 recorded games from all 16 studies replayed with zero
+  mismatches.
+- **Gates.** Every declared gate passes for F1 and F2 at both budget tiers.
+  E is rejected; single components and constants are promising but not
+  individually confirmed.
+- **Validation.** Full backend suite 2,882 passed, 15 skipped
+  (`validation/backend-tests-final.txt`).
+
+Totals: 20,288 games, 4,013 s of game time, every phase inside its declared
+compute cap. The benchmark lock was acquired for every timed run and released
+after each batch; it was never found held by the other agent.
