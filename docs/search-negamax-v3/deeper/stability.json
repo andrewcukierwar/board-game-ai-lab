@@ -1,0 +1,126 @@
+{
+  "method": "Seven descriptive leave-one-repetition-out analyses, not confidence intervals. Correlated conditions and host activity remain.",
+  "variants": {
+    "terminal-proof": {
+      "leave_one_repetition_out_geometric_range": [
+        1.1088763413584022,
+        1.1154345371193473
+      ],
+      "leave_one_repetition_out_wall_sum_range": [
+        0.8770702351628072,
+        0.8803082999637586
+      ],
+      "accepted_in_omissions": 7
+    }
+  },
+  "conditions": [
+    {
+      "position": "empty",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0823082439259848,
+      "paired_speedup_max": 1.161740693623582,
+      "baseline_wall_min": 0.21814279118552804,
+      "baseline_wall_max": 0.223836500197649
+    },
+    {
+      "position": "empty",
+      "depth": 12,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1253661700251048,
+      "paired_speedup_max": 1.1393192297466561,
+      "baseline_wall_min": 0.6680948329158127,
+      "baseline_wall_max": 0.6734535000286996
+    },
+    {
+      "position": "near-opening",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0905582728094045,
+      "paired_speedup_max": 1.1357388369184842,
+      "baseline_wall_min": 0.17589733307249844,
+      "baseline_wall_max": 0.1784494579769671
+    },
+    {
+      "position": "near-opening",
+      "depth": 12,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.131169173211906,
+      "paired_speedup_max": 1.192990101966816,
+      "baseline_wall_min": 0.6194865407887846,
+      "baseline_wall_max": 0.6659327079541981
+    },
+    {
+      "position": "seeded-04",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1394271619538285,
+      "paired_speedup_max": 1.1722718491760766,
+      "baseline_wall_min": 0.4522545840591192,
+      "baseline_wall_max": 0.463875540997833
+    },
+    {
+      "position": "seeded-04",
+      "depth": 12,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.117888138206866,
+      "paired_speedup_max": 1.138898472316403,
+      "baseline_wall_min": 2.001417125109583,
+      "baseline_wall_max": 2.0207181670702994
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1150557174822964,
+      "paired_speedup_max": 1.1650393570233935,
+      "baseline_wall_min": 0.7407166250050068,
+      "baseline_wall_max": 0.7648262500297278
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 12,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1122374879683916,
+      "paired_speedup_max": 1.1437083782707822,
+      "baseline_wall_min": 3.3092163340188563,
+      "baseline_wall_max": 3.3253269160632044
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.9776482674526898,
+      "paired_speedup_max": 2.1016688662067122,
+      "baseline_wall_min": 2.291705459356308e-05,
+      "baseline_wall_max": 5.9542013332247734e-05
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 12,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.5038485561908422,
+      "paired_speedup_max": 1.0828233279729744,
+      "baseline_wall_min": 2.1124957129359245e-05,
+      "baseline_wall_max": 2.4416018277406693e-05
+    },
+    {
+      "position": "heldout-03",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0672218426055164,
+      "paired_speedup_max": 1.1093204171931095,
+      "baseline_wall_min": 0.0001534579787403345,
+      "baseline_wall_max": 0.00015795789659023285
+    },
+    {
+      "position": "heldout-03",
+      "depth": 12,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0875062097149624,
+      "paired_speedup_max": 1.123848290701222,
+      "baseline_wall_min": 0.00015962496399879456,
+      "baseline_wall_max": 0.00016666599549353123
+    }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "passed": true,
+  "conditions": 12,
+  "elapsed_seconds": 15.774090124992654,
+  "lock_owner": {
+    "pid": "44982",
+    "branch": "research/negamax-v3",
+    "start_utc": "2026-10-10T17:45:29Z",
+    "worktree": "/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab-negamax-v3"
+  },
+  "results": [
+    {
+      "position": "empty",
+      "depth": 10,
+      "entries": 38395,
+      "packed_tt_sha256": "129cb94b3cb8bcbb8f1055aa08b8b9e5b98d0e0252dee65b70184797be72f885",
+      "variants": {
+        "terminal-proof": {
+          "exact_table_equal": true,
+          "source_sha256": "cb444b82315d70a6b40c5eb2fed415d1f13ca6b76a6e8076534cb7183253aac3"
+        }
+      }
+    },
+    {
+      "position": "empty",
+      "depth": 12,
+      "entries": 118065,
+      "packed_tt_sha256": "d28665cce8f0a2726330ad403bae70ab2e91fa359b933cf65c83a2dcfe46973f",
+      "variants": {
+        "terminal-proof": {
+          "exact_table_equal": true,
+          "source_sha256": "cb444b82315d70a6b40c5eb2fed415d1f13ca6b76a6e8076534cb7183253aac3"
+        }
+      }
+    },
+    {
+      "position": "near-opening",
+      "depth": 10,
+      "entries": 28999,
+      "packed_tt_sha256": "6f21b94a2802059dd990e8c43c2999dc13883674bc1ec4e239b7afed8db87656",
+      "variants": {
+        "terminal-proof": {
+          "exact_table_equal": true,
+          "source_sha256": "cb444b82315d70a6b40c5eb2fed415d1f13ca6b76a6e8076534cb7183253aac3"
+        }
+      }
+    },
+    {
+      "position": "near-opening",
+      "depth": 12,
+      "entries": 103764,
+      "packed_tt_sha256": "8c3cf6a2f8be131fcf6966b0bed62f0ad6c4e6539985ca2a2103b3bba209e2f8",
+      "variants": {
+        "terminal-proof": {
+          "exact_table_equal": true,
+          "source_sha256": "cb444b82315d70a6b40c5eb2fed415d1f13ca6b76a6e8076534cb7183253aac3"
+        }
+      }
+    },
+    {
+      "position": "seeded-04",
+      "depth": 10,
+      "entries": 78484,
+      "packed_tt_sha256": "f9e0df287add59fa23b0adbc0fb7342e23a2eb24ab211d90257664afbd7d1f68",
+      "variants": {
+        "terminal-proof": {
+          "exact_table_equal": true,
+          "source_sha256": "cb444b82315d70a6b40c5eb2fed415d1f13ca6b76a6e8076534cb7183253aac3"
+        }
+      }
+    },
+    {
+      "position": "seeded-04",
+      "depth": 12,
+      "entries": 350545,
+      "packed_tt_sha256": "0dd6cd45e6c8bd441e8194b0173a298ac13e7267ac27b690a0f2c3c1f3593298",
+      "variants": {
+        "terminal-proof": {
+          "exact_table_equal": true,
+          "source_sha256": "cb444b82315d70a6b40c5eb2fed415d1f13ca6b76a6e8076534cb7183253aac3"
+        }
+      }
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 10,
+      "entries": 119958,
+      "packed_tt_sha256": "e9c6b4b19009c8e5da771a1f8e612f54c717c5e26fc5aeee2e3ba2f517da5502",
+      "variants": {
+        "terminal-proof": {
+          "exact_table_equal": true,
+          "source_sha256": "cb444b82315d70a6b40c5eb2fed415d1f13ca6b76a6e8076534cb7183253aac3"
+        }
+      }
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 12,
+      "entries": 545595,
+      "packed_tt_sha256": "8ab43f87cdd0f4803a5e98c7004144e5117dcf7545e72f96e8c2991dc88ade60",
+      "variants": {
+        "terminal-proof": {
+          "exact_table_equal": true,
+          "source_sha256": "cb444b82315d70a6b40c5eb2fed415d1f13ca6b76a6e8076534cb7183253aac3"
+        }
+      }
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 10,
+      "entries": 3,
+      "packed_tt_sha256": "84de2f187f626afa1395ab873ff68acadf0f1774e8dc2c0c76a0b2881cb8c6bc",
+      "variants": {
+        "terminal-proof": {
+          "exact_table_equal": true,
+          "source_sha256": "cb444b82315d70a6b40c5eb2fed415d1f13ca6b76a6e8076534cb7183253aac3"
+        }
+      }
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 12,
+      "entries": 3,
+      "packed_tt_sha256": "c49c46725f54ddba0adb4a45d82e5e00de485145e5a7664eb15300638c04dd45",
+      "variants": {
+        "terminal-proof": {
+          "exact_table_equal": true,
+          "source_sha256": "cb444b82315d70a6b40c5eb2fed415d1f13ca6b76a6e8076534cb7183253aac3"
+        }
+      }
+    },
+    {
+      "position": "heldout-03",
+      "depth": 10,
+      "entries": 32,
+      "packed_tt_sha256": "aad15cbd9ed2375867b67c7a64066170224b51aebb7d080d21872c469312d992",
+      "variants": {
+        "terminal-proof": {
+          "exact_table_equal": true,
+          "source_sha256": "cb444b82315d70a6b40c5eb2fed415d1f13ca6b76a6e8076534cb7183253aac3"
+        }
+      }
+    },
+    {
+      "position": "heldout-03",
+      "depth": 12,
+      "entries": 34,
+      "packed_tt_sha256": "aaa20262390679a64d69d6c54b6472056473222bbbdc2134173806a7ef475256",
+      "variants": {
+        "terminal-proof": {
+          "exact_table_equal": true,
+          "source_sha256": "cb444b82315d70a6b40c5eb2fed415d1f13ca6b76a6e8076534cb7183253aac3"
+        }
+      }
+    }
+  ]
+}
