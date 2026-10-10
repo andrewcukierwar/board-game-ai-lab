@@ -1,0 +1,581 @@
+{
+  "schema": 1,
+  "name": "preflight",
+  "note": "Smoke and cost projection only; never used for inference.",
+  "opening_set": "preflight",
+  "master_seed": 2026101003,
+  "cap_seconds": 600,
+  "source_commit": "6847229fd7011fa540f19578192250c89cf977fb",
+  "source_hashes": {
+    "games/connect4/agents/mcts_agent.py": "408be66814f85f4b9361713c94d4f79151b2a92683a268dd018bd812c641d4d2",
+    "games/connect4/agents/mcts_bitboard.py": "353cef4ce072bfb32492491cf00a7f87684452d2aeb06f6d0c569586cbb58f4e",
+    "games/connect4/agents/mcts_research_agent.py": "3df5e0431562ad5d73348081bd3ca82bb018363b0f5e3ba06a74e80fc4a27431",
+    "games/connect4/agents/negamax_agent.py": "f46461d73b240c645248d57884fee0b9917c1be289758efe381cf6458a9cb392",
+    "games/connect4/agents/negamax_tt.py": "066923937ffb5e5f0d065a04a9657e0e02bc0f531b3941f2b73cd0f84583ab60",
+    "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+    "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+    "scripts/mcts_v3/harness.py": "464def0bf3a6ae32a88525fc3c515dd7dd77288cd42219ddf1e59aa773b4dfd0",
+    "scripts/evaluate_mcts_strength.py": "2da8dacc5d8cd47164d65a3fb49c598f50bf1cb316e1b22bdaca079d8946f6bb"
+  },
+  "python": "3.11.17",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "hardware": [
+    "Model Name: MacBook Pro",
+    "Model Identifier: Mac17,2",
+    "Chip: Apple M5",
+    "Total Number of Cores: 10 (4 Super and 6 Efficiency)",
+    "Memory: 32 GB"
+  ],
+  "pairing": "role seeds follow the agent across colours; fresh persistent RNG per game",
+  "analysis": {
+    "bootstrap_seed": 298116954079754081408141011932589658770,
+    "replicates": 10000,
+    "family": 8
+  },
+  "matchups": [
+    {
+      "id": "aa-400",
+      "challenger": {
+        "type": "research",
+        "simulations": 400,
+        "config": {}
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "r1-400",
+      "challenger": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "decisive"
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "r2-400",
+      "challenger": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "safe"
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "s-400",
+      "challenger": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "solver": true
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "e-400",
+      "challenger": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "expansion": "center"
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "c050-400",
+      "challenger": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "exploration": 0.5
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "c070-400",
+      "challenger": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "exploration": 0.7
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "c100-400",
+      "challenger": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "exploration": 1.0
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "c200-400",
+      "challenger": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "exploration": 2.0
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "aa-2000",
+      "challenger": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {}
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "r1-2000",
+      "challenger": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "decisive"
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "r2-2000",
+      "challenger": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "safe"
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "s-2000",
+      "challenger": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "solver": true
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "e-2000",
+      "challenger": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "expansion": "center"
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "c050-2000",
+      "challenger": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "exploration": 0.5
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "c070-2000",
+      "challenger": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "exploration": 0.7
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "c100-2000",
+      "challenger": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "exploration": 1.0
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "c200-2000",
+      "challenger": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "exploration": 2.0
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "base-400-vs-negamax-4",
+      "challenger": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 4
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "base-400-vs-negamax-6",
+      "challenger": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 6
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "base-400-vs-negamax-8",
+      "challenger": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 8
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "base-2000-vs-negamax-4",
+      "challenger": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 4
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "base-2000-vs-negamax-6",
+      "challenger": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 6
+      },
+      "pairs": 8,
+      "primary": false
+    },
+    {
+      "id": "base-2000-vs-negamax-8",
+      "challenger": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 8
+      },
+      "pairs": 8,
+      "primary": false
+    }
+  ],
+  "openings": [
+    {
+      "id": "preflight-000",
+      "history": [
+        5,
+        1
+      ],
+      "length": 2,
+      "generator_seed": 147805911158501595574410597002645368589,
+      "rejected_attempts": 5,
+      "challenger_seed": 183410655584490852977548927052010965690,
+      "opponent_seed": 338495630384579046891565529024994348926
+    },
+    {
+      "id": "preflight-001",
+      "history": [
+        0,
+        5,
+        5,
+        5,
+        3
+      ],
+      "length": 5,
+      "generator_seed": 39666749710761800758898825443785156900,
+      "rejected_attempts": 0,
+      "challenger_seed": 333031923295481176019708586281491801029,
+      "opponent_seed": 17300609796488233017763787973229513914
+    },
+    {
+      "id": "preflight-002",
+      "history": [
+        0,
+        1,
+        1,
+        5,
+        6,
+        1,
+        4,
+        6
+      ],
+      "length": 8,
+      "generator_seed": 243305331472687313452818755076172885400,
+      "rejected_attempts": 1,
+      "challenger_seed": 6697147097021287613104097420814804670,
+      "opponent_seed": 19544681082804163341720160125018715756
+    },
+    {
+      "id": "preflight-003",
+      "history": [
+        5,
+        5,
+        5,
+        6,
+        3,
+        4,
+        4,
+        3,
+        3,
+        2,
+        4
+      ],
+      "length": 11,
+      "generator_seed": 264919237260238027277747949250561510589,
+      "rejected_attempts": 0,
+      "challenger_seed": 322919760891136430798754273446621429451,
+      "opponent_seed": 258667831073060417735127843496486016895
+    },
+    {
+      "id": "preflight-004",
+      "history": [
+        3,
+        6,
+        6,
+        1,
+        2,
+        0,
+        2,
+        1,
+        5,
+        4,
+        2,
+        2,
+        5,
+        5
+      ],
+      "length": 14,
+      "generator_seed": 142699087108511530693161328481885408001,
+      "rejected_attempts": 3,
+      "challenger_seed": 216770805641396817603648851016700102277,
+      "opponent_seed": 165747479568528576647452761001163116584
+    },
+    {
+      "id": "preflight-005",
+      "history": [
+        6,
+        1,
+        0,
+        1,
+        4,
+        5,
+        5,
+        6,
+        0,
+        4,
+        1,
+        5,
+        6,
+        1,
+        0,
+        0,
+        0
+      ],
+      "length": 17,
+      "generator_seed": 98858278200095132813952379052044175104,
+      "rejected_attempts": 2,
+      "challenger_seed": 174875984698177577883020304940282971408,
+      "opponent_seed": 323309156833621751133016461976957297197
+    },
+    {
+      "id": "preflight-006",
+      "history": [
+        4,
+        4,
+        5,
+        4,
+        3,
+        2,
+        0,
+        6,
+        0,
+        5,
+        3,
+        6,
+        6,
+        4,
+        6,
+        0,
+        4,
+        4,
+        2,
+        2
+      ],
+      "length": 20,
+      "generator_seed": 104250316957726527142924790536927569384,
+      "rejected_attempts": 4,
+      "challenger_seed": 173184297188867185093731571675665201564,
+      "opponent_seed": 212153498029740247157678043025132931042
+    },
+    {
+      "id": "preflight-007",
+      "history": [
+        2,
+        5,
+        4,
+        1,
+        3,
+        6,
+        2,
+        3,
+        1,
+        1,
+        2,
+        2,
+        4,
+        5,
+        1,
+        6,
+        6,
+        6,
+        6,
+        3,
+        3,
+        3,
+        6
+      ],
+      "length": 23,
+      "generator_seed": 49948806996131971899055978069592217437,
+      "rejected_attempts": 6,
+      "challenger_seed": 77903887136594232657382419755622989888,
+      "opponent_seed": 85458872769924632278274002509372592017
+    }
+  ]
+}
