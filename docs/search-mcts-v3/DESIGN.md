@@ -203,4 +203,21 @@ from all inference.
 
 ## Amendments
 
-None yet.
+### Amendment 1 — 2026-10-10, after pilot 2, before pilot 3
+
+Pilot 2 gave pooled equal-time scores of 59.65% for R1 and 59.25% for R2, a
+difference far inside the noise of 96 openings, while pilot 1 showed R2
+clearly ahead per simulation (64.7% versus 60.3% pooled). The declared rule
+names R1 as "R". Discarding R2 on a 0.4-point pilot difference would throw
+away information, so pilot 3 is widened, on the development set only:
+
+- 3a: both R1+S and R2+S versus the baseline at equal simulations.
+- 3b: both at their equal-time budgets.
+- 3c: the exploration-constant sweep is run on whichever combination has the
+  higher pooled equal-time score in 3b, instead of on R1+S unconditionally.
+- 3d: if a constant replaces 1.41, that configuration is replayed against the
+  baseline at equal simulations and then at equal time.
+
+Unchanged: the finalist rule, the cap of two finalists, the held-out set, the
+family of 8, the gates, and the compute caps. The cost is more looks at the
+development set, which is why only held-out results support claims.

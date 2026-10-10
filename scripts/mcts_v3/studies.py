@@ -66,4 +66,18 @@ def pilot2():
                      'E failed the pilot-1 pass rule (pooled 51.4% < 52%).')
 
 
-STUDIES = dict(preflight=preflight, pilot1=pilot1, pilot2=pilot2)
+COMBOS = dict(
+    r1s=dict(rollout='decisive', solver=True),
+    r2s=dict(rollout='safe', solver=True),
+)
+
+
+def pilot3a():
+    """Both rollout levels combined with the solver, equal simulations (dev set)."""
+    rows = [matchup(f'{name}-{b}', research(b, config), mcts(b))
+            for b in PRIMARY_BUDGETS for name, config in COMBOS.items()]
+    return dict(opening_set='dev', matchups=rows, cap_seconds=600,
+                note='Exploratory pilot 3a (design amendment 1): R1+S and R2+S, equal simulations.')
+
+
+STUDIES = dict(preflight=preflight, pilot1=pilot1, pilot2=pilot2, pilot3a=pilot3a)
