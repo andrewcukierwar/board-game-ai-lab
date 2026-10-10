@@ -1,0 +1,35 @@
+{
+  "terminal-proof": {
+    "accepted": true,
+    "geometric_speedup": 1.1352828026936508,
+    "broad_speedup": 1.138268742644982,
+    "wall_sum_ratio": 0.8777601828463504,
+    "cpu_sum_ratio": 0.8777054448475151,
+    "heldout_speedup": 1.1302519465012983,
+    "broad_retained_ratio": 1.0,
+    "regressions": [],
+    "memory_failures": [],
+    "failed_gates": [],
+    "baseline_sum_median_seconds": 3.625203791074455,
+    "candidate_sum_median_seconds": 3.182059542508796
+  },
+  "trusted-tt": {
+    "accepted": false,
+    "geometric_speedup": 1.0190625640964954,
+    "broad_speedup": 1.023732560774,
+    "wall_sum_ratio": 0.9790520420904821,
+    "cpu_sum_ratio": 0.9792012456724527,
+    "heldout_speedup": 1.0224098016600374,
+    "broad_retained_ratio": 1.0,
+    "regressions": [],
+    "memory_failures": [],
+    "failed_gates": [
+      "geometric",
+      "wall_sum",
+      "cpu_sum",
+      "broad_geometric"
+    ],
+    "baseline_sum_median_seconds": 3.625203791074455,
+    "candidate_sum_median_seconds": 3.5492631746456027
+  }
+}
