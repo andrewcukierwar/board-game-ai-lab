@@ -1,0 +1,5704 @@
+{
+  "python": "3.11.17",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "hardware": [
+    "Model Name: MacBook Pro",
+    "Model Identifier: Mac17,2",
+    "Chip: Apple M5",
+    "Total Number of Cores: 10 (4 Super and 6 Efficiency)",
+    "Memory: 32 GB"
+  ],
+  "source_hashes": {
+    "games/connect4/agents/mcts_agent.py": "408be66814f85f4b9361713c94d4f79151b2a92683a268dd018bd812c641d4d2",
+    "games/connect4/agents/mcts_bitboard.py": "353cef4ce072bfb32492491cf00a7f87684452d2aeb06f6d0c569586cbb58f4e",
+    "games/connect4/agents/mcts_research_agent.py": "3df5e0431562ad5d73348081bd3ca82bb018363b0f5e3ba06a74e80fc4a27431",
+    "games/connect4/agents/negamax_agent.py": "f46461d73b240c645248d57884fee0b9917c1be289758efe381cf6458a9cb392",
+    "games/connect4/agents/negamax_tt.py": "066923937ffb5e5f0d065a04a9657e0e02bc0f531b3941f2b73cd0f84583ab60",
+    "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+    "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+    "scripts/mcts_v3/harness.py": "464def0bf3a6ae32a88525fc3c515dd7dd77288cd42219ddf1e59aa773b4dfd0",
+    "scripts/evaluate_mcts_strength.py": "2da8dacc5d8cd47164d65a3fb49c598f50bf1cb316e1b22bdaca079d8946f6bb"
+  },
+  "samples": 7,
+  "warmups": 1,
+  "load_average_before": [
+    3.23779296875,
+    3.51806640625,
+    3.57275390625
+  ],
+  "load_average_after": [
+    3.1318359375,
+    3.458984375,
+    3.548828125
+  ],
+  "rows": [
+    {
+      "position": "empty",
+      "plies": 0,
+      "config": "base-400",
+      "spec": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "wall_ms": [
+        4.818374989554286,
+        4.904875066131353,
+        4.806374898180366,
+        4.86679095774889,
+        4.763124976307154,
+        5.150666926056147,
+        4.700083052739501
+      ],
+      "median_wall_ms": 4.818374989554286,
+      "median_cpu_ms": 4.817999999999767,
+      "moves": [
+        3,
+        2,
+        3,
+        6,
+        3,
+        1,
+        3
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 83015.53965126346,
+      "traced_peak_bytes": 213904
+    },
+    {
+      "position": "empty",
+      "plies": 0,
+      "config": "base-2000",
+      "spec": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "wall_ms": [
+        28.830374823883176,
+        31.79187490604818,
+        24.958041962236166,
+        32.57566620595753,
+        25.055125122889876,
+        24.55716603435576,
+        24.815165903419256
+      ],
+      "median_wall_ms": 25.055125122889876,
+      "median_cpu_ms": 25.040000000000173,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 79823.98771470667,
+      "traced_peak_bytes": 1057992
+    },
+    {
+      "position": "empty",
+      "plies": 0,
+      "config": "f1-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        12.632250087335706,
+        13.255124911665916,
+        13.276583049446344,
+        12.94645806774497,
+        12.86137499846518,
+        12.982250191271305,
+        12.272084131836891
+      ],
+      "median_wall_ms": 12.94645806774497,
+      "median_cpu_ms": 12.947000000000042,
+      "moves": [
+        6,
+        3,
+        2,
+        3,
+        3,
+        3,
+        3
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 30896.481331567196,
+      "traced_peak_bytes": 215320
+    },
+    {
+      "position": "empty",
+      "plies": 0,
+      "config": "f1-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        5.853707902133465,
+        5.835291929543018,
+        5.990416975691915,
+        6.065791938453913,
+        6.199042079970241,
+        6.304541137069464,
+        5.8957498986274
+      ],
+      "median_wall_ms": 5.990416975691915,
+      "median_cpu_ms": 5.987000000000187,
+      "moves": [
+        4,
+        3,
+        2,
+        2,
+        3,
+        0,
+        1
+      ],
+      "simulations": [
+        187,
+        187,
+        187,
+        187,
+        187,
+        187,
+        187
+      ],
+      "simulations_per_second": 31216.52478597299,
+      "traced_peak_bytes": 101160
+    },
+    {
+      "position": "empty",
+      "plies": 0,
+      "config": "f1-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        64.39837487414479,
+        64.18858305551112,
+        63.83145903237164,
+        65.18166698515415,
+        64.84291702508926,
+        72.22412503324449,
+        63.772707944735885
+      ],
+      "median_wall_ms": 64.39837487414479,
+      "median_cpu_ms": 64.35999999999976,
+      "moves": [
+        3,
+        2,
+        3,
+        3,
+        3,
+        1,
+        3
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 31056.68433261935,
+      "traced_peak_bytes": 1069208
+    },
+    {
+      "position": "empty",
+      "plies": 0,
+      "config": "f1-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        32.81279094517231,
+        32.56404190324247,
+        32.648917054757476,
+        33.64533302374184,
+        33.39929087087512,
+        33.31629210151732,
+        32.5101250782609
+      ],
+      "median_wall_ms": 32.81279094517231,
+      "median_cpu_ms": 32.81,
+      "moves": [
+        1,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "simulations": [
+        1023,
+        1023,
+        1023,
+        1023,
+        1023,
+        1023,
+        1023
+      ],
+      "simulations_per_second": 31176.866414970784,
+      "traced_peak_bytes": 548992
+    },
+    {
+      "position": "empty",
+      "plies": 0,
+      "config": "f2-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        10.61012502759695,
+        10.862166993319988,
+        10.427249828353524,
+        10.751584079116583,
+        10.570457903668284,
+        10.460415855050087,
+        10.614625178277493
+      ],
+      "median_wall_ms": 10.61012502759695,
+      "median_cpu_ms": 10.606999999999811,
+      "moves": [
+        2,
+        2,
+        2,
+        2,
+        5,
+        3,
+        6
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 37699.83849950867,
+      "traced_peak_bytes": 215376
+    },
+    {
+      "position": "empty",
+      "plies": 0,
+      "config": "f2-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        6.729124812409282,
+        6.70241704210639,
+        6.623333087190986,
+        6.642041960731149,
+        6.834666011855006,
+        6.814582971855998,
+        6.599458167329431
+      ],
+      "median_wall_ms": 6.70241704210639,
+      "median_cpu_ms": 6.696999999999953,
+      "moves": [
+        2,
+        2,
+        2,
+        0,
+        5,
+        3,
+        6
+      ],
+      "simulations": [
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255
+      ],
+      "simulations_per_second": 38045.97630944498,
+      "traced_peak_bytes": 136088
+    },
+    {
+      "position": "empty",
+      "plies": 0,
+      "config": "f2-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        52.261041942983866,
+        52.852666936814785,
+        52.21962509676814,
+        52.043457981199026,
+        52.13645799085498,
+        52.373167127370834,
+        52.015458000823855
+      ],
+      "median_wall_ms": 52.21962509676814,
+      "median_cpu_ms": 52.1609999999999,
+      "moves": [
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        3
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 38299.77707219846,
+      "traced_peak_bytes": 1063264
+    },
+    {
+      "position": "empty",
+      "plies": 0,
+      "config": "f2-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        37.29683393612504,
+        37.03404194675386,
+        36.72554204240441,
+        36.68304183520377,
+        37.24662493914366,
+        36.86591610312462,
+        37.04979200847447
+      ],
+      "median_wall_ms": 37.03404194675386,
+      "median_cpu_ms": 36.99500000000011,
+      "moves": [
+        2,
+        2,
+        3,
+        2,
+        3,
+        3,
+        6
+      ],
+      "simulations": [
+        1415,
+        1415,
+        1415,
+        1415,
+        1415,
+        1415,
+        1415
+      ],
+      "simulations_per_second": 38208.089790318685,
+      "traced_peak_bytes": 757168
+    },
+    {
+      "position": "near-opening",
+      "plies": 4,
+      "config": "base-400",
+      "spec": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "wall_ms": [
+        4.15604212321341,
+        3.9809169247746468,
+        4.123291932046413,
+        3.870458109304309,
+        4.198124865069985,
+        4.565667128190398,
+        3.791874973103404
+      ],
+      "median_wall_ms": 4.123291932046413,
+      "median_cpu_ms": 4.122999999999877,
+      "moves": [
+        6,
+        3,
+        6,
+        6,
+        5,
+        0,
+        5
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 97009.86653192846,
+      "traced_peak_bytes": 205584
+    },
+    {
+      "position": "near-opening",
+      "plies": 4,
+      "config": "base-2000",
+      "spec": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "wall_ms": [
+        19.961500074714422,
+        20.03354183398187,
+        28.243917040526867,
+        20.181375090032816,
+        20.101292058825493,
+        24.05941695906222,
+        19.882499938830733
+      ],
+      "median_wall_ms": 20.101292058825493,
+      "median_cpu_ms": 20.09699999999981,
+      "moves": [
+        6,
+        3,
+        4,
+        6,
+        5,
+        6,
+        6
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 99496.09180082023,
+      "traced_peak_bytes": 990208
+    },
+    {
+      "position": "near-opening",
+      "plies": 4,
+      "config": "f1-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        11.649457970634103,
+        11.810166062787175,
+        12.294416083022952,
+        12.110291980206966,
+        19.033083925023675,
+        13.195957988500595,
+        12.183916987851262
+      ],
+      "median_wall_ms": 12.183916987851262,
+      "median_cpu_ms": 12.178999999999718,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 32830.164584906895,
+      "traced_peak_bytes": 213944
+    },
+    {
+      "position": "near-opening",
+      "plies": 4,
+      "config": "f1-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        5.575667135417461,
+        5.683791125193238,
+        5.6727922055870295,
+        6.004707887768745,
+        5.6358338333666325,
+        5.744457943364978,
+        5.886875092983246
+      ],
+      "median_wall_ms": 5.683791125193238,
+      "median_cpu_ms": 5.675000000000097,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        2,
+        1
+      ],
+      "simulations": [
+        187,
+        187,
+        187,
+        187,
+        187,
+        187,
+        187
+      ],
+      "simulations_per_second": 32900.57566878697,
+      "traced_peak_bytes": 102288
+    },
+    {
+      "position": "near-opening",
+      "plies": 4,
+      "config": "f1-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        59.42616588436067,
+        59.71620790660381,
+        59.93858305737376,
+        59.98708284460008,
+        60.842375038191676,
+        62.46474990621209,
+        67.99095799215138
+      ],
+      "median_wall_ms": 59.98708284460008,
+      "median_cpu_ms": 59.94499999999903,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 33340.5110760447,
+      "traced_peak_bytes": 1073400
+    },
+    {
+      "position": "near-opening",
+      "plies": 4,
+      "config": "f1-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        30.599083052948117,
+        30.586333014070988,
+        30.72266699746251,
+        31.125999987125397,
+        31.71574999578297,
+        31.63191583007574,
+        30.53983300924301
+      ],
+      "median_wall_ms": 30.72266699746251,
+      "median_cpu_ms": 30.713999999999686,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "simulations": [
+        1023,
+        1023,
+        1023,
+        1023,
+        1023,
+        1023,
+        1023
+      ],
+      "simulations_per_second": 33297.890449565886,
+      "traced_peak_bytes": 548936
+    },
+    {
+      "position": "near-opening",
+      "plies": 4,
+      "config": "f2-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        8.974500000476837,
+        9.05304099433124,
+        9.120207978412509,
+        8.859917055815458,
+        9.204041911289096,
+        9.005666943266988,
+        8.733374997973442
+      ],
+      "median_wall_ms": 9.005666943266988,
+      "median_cpu_ms": 9.004999999998375,
+      "moves": [
+        3,
+        3,
+        6,
+        3,
+        3,
+        1,
+        2
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 44416.477149319486,
+      "traced_peak_bytes": 215848
+    },
+    {
+      "position": "near-opening",
+      "plies": 4,
+      "config": "f2-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        5.962874973192811,
+        5.880957935005426,
+        5.928124999627471,
+        5.706624826416373,
+        6.267874967306852,
+        5.882458994165063,
+        5.616875132545829
+      ],
+      "median_wall_ms": 5.882458994165063,
+      "median_cpu_ms": 5.87699999999991,
+      "moves": [
+        5,
+        3,
+        6,
+        5,
+        4,
+        2,
+        2
+      ],
+      "simulations": [
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255
+      ],
+      "simulations_per_second": 43349.21845659102,
+      "traced_peak_bytes": 136320
+    },
+    {
+      "position": "near-opening",
+      "plies": 4,
+      "config": "f2-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        51.730250008404255,
+        45.274625066667795,
+        45.77700002118945,
+        44.518542010337114,
+        45.16291618347168,
+        44.5292079821229,
+        44.9114590883255
+      ],
+      "median_wall_ms": 45.16291618347168,
+      "median_cpu_ms": 45.15400000000014,
+      "moves": [
+        3,
+        3,
+        2,
+        3,
+        3,
+        3,
+        3
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 44284.1200040121,
+      "traced_peak_bytes": 1078624
+    },
+    {
+      "position": "near-opening",
+      "plies": 4,
+      "config": "f2-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        31.382624991238117,
+        32.40404115058482,
+        32.10379113443196,
+        31.526332953944802,
+        31.92687500268221,
+        31.857040943577886,
+        31.323624774813652
+      ],
+      "median_wall_ms": 31.857040943577886,
+      "median_cpu_ms": 31.822000000000017,
+      "moves": [
+        3,
+        3,
+        2,
+        3,
+        3,
+        3,
+        2
+      ],
+      "simulations": [
+        1415,
+        1415,
+        1415,
+        1415,
+        1415,
+        1415,
+        1415
+      ],
+      "simulations_per_second": 44417.182452887304,
+      "traced_peak_bytes": 764552
+    },
+    {
+      "position": "midgame",
+      "plies": 16,
+      "config": "base-400",
+      "spec": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "wall_ms": [
+        2.306042006239295,
+        2.268000040203333,
+        2.267583040520549,
+        2.6615839451551437,
+        2.3324580397456884,
+        2.346040913835168,
+        2.3522921837866306
+      ],
+      "median_wall_ms": 2.3324580397456884,
+      "median_cpu_ms": 2.330999999999861,
+      "moves": [
+        0,
+        0,
+        0,
+        0,
+        4,
+        0,
+        4
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 171492.9028449372,
+      "traced_peak_bytes": 146960
+    },
+    {
+      "position": "midgame",
+      "plies": 16,
+      "config": "base-2000",
+      "spec": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "wall_ms": [
+        10.050541954115033,
+        10.369500145316124,
+        9.833959164097905,
+        10.036708088591695,
+        10.630332864820957,
+        10.338583029806614,
+        10.150125017389655
+      ],
+      "median_wall_ms": 10.150125017389655,
+      "median_cpu_ms": 10.129000000000943,
+      "moves": [
+        4,
+        0,
+        4,
+        0,
+        0,
+        0,
+        4
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 197041.90801330123,
+      "traced_peak_bytes": 558640
+    },
+    {
+      "position": "midgame",
+      "plies": 16,
+      "config": "f1-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        0.09004096500575542,
+        0.08637504652142525,
+        0.08783303201198578,
+        0.12041698209941387,
+        0.08629122748970985,
+        0.08737505413591862,
+        0.09591714479029179
+      ],
+      "median_wall_ms": 0.08783303201198578,
+      "median_cpu_ms": 0.08700000000061436,
+      "moves": [
+        0,
+        4,
+        0,
+        1,
+        3,
+        4,
+        5
+      ],
+      "simulations": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "simulations_per_second": 79696.66809458169,
+      "traced_peak_bytes": 4928
+    },
+    {
+      "position": "midgame",
+      "plies": 16,
+      "config": "f1-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        0.08187489584088326,
+        0.08270819671452045,
+        0.08504209108650684,
+        0.08495897054672241,
+        0.08145812898874283,
+        0.08204206824302673,
+        0.08558295667171478
+      ],
+      "median_wall_ms": 0.08270819671452045,
+      "median_cpu_ms": 0.08399999999930685,
+      "moves": [
+        0,
+        4,
+        0,
+        1,
+        3,
+        4,
+        5
+      ],
+      "simulations": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "simulations_per_second": 84634.90050643387,
+      "traced_peak_bytes": 4928
+    },
+    {
+      "position": "midgame",
+      "plies": 16,
+      "config": "f1-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        0.08004112169146538,
+        0.0827079638838768,
+        0.08116615936160088,
+        0.08224998600780964,
+        0.07929117418825626,
+        0.08183298632502556,
+        0.08033285848796368
+      ],
+      "median_wall_ms": 0.08116615936160088,
+      "median_cpu_ms": 0.0800000000005241,
+      "moves": [
+        0,
+        4,
+        0,
+        1,
+        3,
+        4,
+        5
+      ],
+      "simulations": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "simulations_per_second": 86242.83882664096,
+      "traced_peak_bytes": 4928
+    },
+    {
+      "position": "midgame",
+      "plies": 16,
+      "config": "f1-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        0.07991702295839787,
+        0.0802918802946806,
+        0.08083297871053219,
+        0.08008303120732307,
+        0.08133286610245705,
+        0.07870793342590332,
+        0.08012494072318077
+      ],
+      "median_wall_ms": 0.08012494072318077,
+      "median_cpu_ms": 0.0800000000005241,
+      "moves": [
+        0,
+        4,
+        0,
+        1,
+        3,
+        4,
+        5
+      ],
+      "simulations": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "simulations_per_second": 87363.55917171799,
+      "traced_peak_bytes": 4928
+    },
+    {
+      "position": "midgame",
+      "plies": 16,
+      "config": "f2-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        0.07941713556647301,
+        0.07916591130197048,
+        0.07999991066753864,
+        0.08091703057289124,
+        0.0830420758575201,
+        0.07920805364847183,
+        0.07987511344254017
+      ],
+      "median_wall_ms": 0.07987511344254017,
+      "median_cpu_ms": 0.07899999999949614,
+      "moves": [
+        0,
+        4,
+        0,
+        1,
+        3,
+        4,
+        5
+      ],
+      "simulations": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "simulations_per_second": 87636.80824109998,
+      "traced_peak_bytes": 4928
+    },
+    {
+      "position": "midgame",
+      "plies": 16,
+      "config": "f2-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        0.07891608402132988,
+        0.08033309131860733,
+        0.08062506094574928,
+        0.0815410166978836,
+        0.08199992589652538,
+        0.08299993351101875,
+        0.08008419536054134
+      ],
+      "median_wall_ms": 0.08062506094574928,
+      "median_cpu_ms": 0.0800000000005241,
+      "moves": [
+        0,
+        4,
+        0,
+        1,
+        3,
+        4,
+        5
+      ],
+      "simulations": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "simulations_per_second": 86821.63979646646,
+      "traced_peak_bytes": 4928
+    },
+    {
+      "position": "midgame",
+      "plies": 16,
+      "config": "f2-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        0.07974985055625439,
+        0.07937499321997166,
+        0.07983390241861343,
+        0.08112494833767414,
+        0.08004088886082172,
+        0.07941597141325474,
+        0.07787486538290977
+      ],
+      "median_wall_ms": 0.07974985055625439,
+      "median_cpu_ms": 0.0790000000012725,
+      "moves": [
+        0,
+        4,
+        0,
+        1,
+        3,
+        4,
+        5
+      ],
+      "simulations": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "simulations_per_second": 87774.4591516482,
+      "traced_peak_bytes": 4928
+    },
+    {
+      "position": "midgame",
+      "plies": 16,
+      "config": "f2-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        0.08020782843232155,
+        0.07974985055625439,
+        0.07841596379876137,
+        0.07950002327561378,
+        0.10970816947519779,
+        0.07904204539954662,
+        0.07816683501005173
+      ],
+      "median_wall_ms": 0.07950002327561378,
+      "median_cpu_ms": 0.0790000000012725,
+      "moves": [
+        0,
+        4,
+        0,
+        1,
+        3,
+        4,
+        5
+      ],
+      "simulations": [
+        7,
+        7,
+        7,
+        7,
+        7,
+        7,
+        7
+      ],
+      "simulations_per_second": 88050.28868648411,
+      "traced_peak_bytes": 4928
+    },
+    {
+      "position": "midgame-wide",
+      "plies": 16,
+      "config": "base-400",
+      "spec": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "wall_ms": [
+        3.2890839502215385,
+        2.742457902058959,
+        2.806207863613963,
+        2.837834181264043,
+        2.8446658980101347,
+        8.129166904836893,
+        2.7534160763025284
+      ],
+      "median_wall_ms": 2.837834181264043,
+      "median_cpu_ms": 2.8359999999985064,
+      "moves": [
+        2,
+        3,
+        4,
+        4,
+        2,
+        3,
+        3
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 140952.56257073834,
+      "traced_peak_bytes": 211632
+    },
+    {
+      "position": "midgame-wide",
+      "plies": 16,
+      "config": "base-2000",
+      "spec": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "wall_ms": [
+        14.370374847203493,
+        13.908624881878495,
+        14.811208005994558,
+        14.4336661323905,
+        13.994458131492138,
+        14.20162501744926,
+        24.801332969218493
+      ],
+      "median_wall_ms": 14.370374847203493,
+      "median_cpu_ms": 14.367000000000019,
+      "moves": [
+        4,
+        4,
+        3,
+        4,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 139175.2143743978,
+      "traced_peak_bytes": 954896
+    },
+    {
+      "position": "midgame-wide",
+      "plies": 16,
+      "config": "f1-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        2.1153329871594906,
+        1.6352918464690447,
+        1.6352920792996883,
+        1.6977498307824135,
+        2.3667500354349613,
+        2.219791989773512,
+        2.767500001937151
+      ],
+      "median_wall_ms": 2.1153329871594906,
+      "median_cpu_ms": 2.114999999999867,
+      "moves": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        111,
+        112,
+        110,
+        120,
+        174,
+        160,
+        87
+      ],
+      "simulations_per_second": 59024.81718720012,
+      "traced_peak_bytes": 60188
+    },
+    {
+      "position": "midgame-wide",
+      "plies": 16,
+      "config": "f1-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        1.67675013653934,
+        1.593792112544179,
+        1.7149578779935837,
+        1.6645409632474184,
+        2.3144171573221684,
+        2.2280418779700994,
+        3.701625159010291
+      ],
+      "median_wall_ms": 1.7149578779935837,
+      "median_cpu_ms": 1.7050000000011778,
+      "moves": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        111,
+        112,
+        110,
+        120,
+        174,
+        160,
+        87
+      ],
+      "simulations_per_second": 72804.7869042822,
+      "traced_peak_bytes": 60188
+    },
+    {
+      "position": "midgame-wide",
+      "plies": 16,
+      "config": "f1-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        1.6446670051664114,
+        1.6793329268693924,
+        1.6123750247061253,
+        1.6683749854564667,
+        2.3636668920516968,
+        2.2003750782459974,
+        1.8257498741149902
+      ],
+      "median_wall_ms": 1.6793329268693924,
+      "median_cpu_ms": 1.6780000000000683,
+      "moves": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        111,
+        112,
+        110,
+        120,
+        174,
+        160,
+        87
+      ],
+      "simulations_per_second": 74349.24954988001,
+      "traced_peak_bytes": 60188
+    },
+    {
+      "position": "midgame-wide",
+      "plies": 16,
+      "config": "f1-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        1.6333749517798424,
+        1.619167160242796,
+        1.6409170348197222,
+        1.6535830218344927,
+        2.3441670928150415,
+        2.203041920438409,
+        2.7731251902878284
+      ],
+      "median_wall_ms": 1.6535830218344927,
+      "median_cpu_ms": 1.6529999999992384,
+      "moves": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        111,
+        112,
+        110,
+        120,
+        174,
+        160,
+        87
+      ],
+      "simulations_per_second": 75507.03001209203,
+      "traced_peak_bytes": 60188
+    },
+    {
+      "position": "midgame-wide",
+      "plies": 16,
+      "config": "f2-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        1.3236671220511198,
+        2.0844591781497,
+        1.730124931782484,
+        2.550249919295311,
+        1.4801248908042908,
+        1.9780001603066921,
+        2.501916140317917
+      ],
+      "median_wall_ms": 1.9780001603066921,
+      "median_cpu_ms": 1.9770000000001176,
+      "moves": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        118,
+        167,
+        149,
+        207,
+        134,
+        183,
+        129
+      ],
+      "simulations_per_second": 78506.421486658,
+      "traced_peak_bytes": 64480
+    },
+    {
+      "position": "midgame-wide",
+      "plies": 16,
+      "config": "f2-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        1.3648748863488436,
+        1.9695409573614597,
+        1.6415419522672892,
+        2.2645830176770687,
+        1.4759998302906752,
+        1.9890840630978346,
+        1.449874835088849
+      ],
+      "median_wall_ms": 1.6415419522672892,
+      "median_cpu_ms": 1.6410000000011138,
+      "moves": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        118,
+        167,
+        149,
+        207,
+        134,
+        183,
+        129
+      ],
+      "simulations_per_second": 94597.46920950418,
+      "traced_peak_bytes": 64480
+    },
+    {
+      "position": "midgame-wide",
+      "plies": 16,
+      "config": "f2-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        1.3255001977086067,
+        1.9172080792486668,
+        1.6365000046789646,
+        2.2796671837568283,
+        1.7821660730987787,
+        2.0190831273794174,
+        1.410959055647254
+      ],
+      "median_wall_ms": 1.7821660730987787,
+      "median_cpu_ms": 1.7809999999993664,
+      "moves": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        118,
+        167,
+        149,
+        207,
+        134,
+        183,
+        129
+      ],
+      "simulations_per_second": 87133.13345467742,
+      "traced_peak_bytes": 64480
+    },
+    {
+      "position": "midgame-wide",
+      "plies": 16,
+      "config": "f2-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        1.3945831451565027,
+        2.3737919982522726,
+        1.6498749610036612,
+        2.2849999368190765,
+        1.4890830498188734,
+        2.006709109991789,
+        1.4042919501662254
+      ],
+      "median_wall_ms": 1.6498749610036612,
+      "median_cpu_ms": 1.6489999999986793,
+      "moves": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        118,
+        167,
+        149,
+        207,
+        134,
+        183,
+        129
+      ],
+      "simulations_per_second": 94119.68661628151,
+      "traced_peak_bytes": 64480
+    },
+    {
+      "position": "late",
+      "plies": 30,
+      "config": "base-400",
+      "spec": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "wall_ms": [
+        2.4516251869499683,
+        2.398416167125106,
+        2.416792092844844,
+        2.427917206659913,
+        2.4477080442011356,
+        2.436666050925851,
+        2.5107089895755053
+      ],
+      "median_wall_ms": 2.436666050925851,
+      "median_cpu_ms": 2.4359999999994386,
+      "moves": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 164158.72821308998,
+      "traced_peak_bytes": 189896
+    },
+    {
+      "position": "late",
+      "plies": 30,
+      "config": "base-2000",
+      "spec": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "wall_ms": [
+        9.864000137895346,
+        9.70966718159616,
+        9.674583096057177,
+        9.837166871875525,
+        10.19195793196559,
+        10.131167015060782,
+        10.404417058452964
+      ],
+      "median_wall_ms": 9.864000137895346,
+      "median_cpu_ms": 9.86099999999901,
+      "moves": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 202757.49919309455,
+      "traced_peak_bytes": 445928
+    },
+    {
+      "position": "late",
+      "plies": 30,
+      "config": "f1-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        1.6306249890476465,
+        1.3961249496787786,
+        1.4612500090152025,
+        1.574791967868805,
+        0.9193748701363802,
+        1.691875047981739,
+        0.894458033144474
+      ],
+      "median_wall_ms": 1.4612500090152025,
+      "median_cpu_ms": 1.4610000000008228,
+      "moves": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "simulations": [
+        147,
+        119,
+        122,
+        89,
+        78,
+        149,
+        76
+      ],
+      "simulations_per_second": 76255.65149092303,
+      "traced_peak_bytes": 78720
+    },
+    {
+      "position": "late",
+      "plies": 30,
+      "config": "f1-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        1.6089591663330793,
+        1.3385829515755177,
+        1.4592499937862158,
+        1.0049159172922373,
+        0.9424579329788685,
+        1.6203750856220722,
+        0.9238750208169222
+      ],
+      "median_wall_ms": 1.3385829515755177,
+      "median_cpu_ms": 1.3380000000005055,
+      "moves": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "simulations": [
+        147,
+        119,
+        122,
+        89,
+        78,
+        149,
+        76
+      ],
+      "simulations_per_second": 83243.68041399268,
+      "traced_peak_bytes": 78720
+    },
+    {
+      "position": "late",
+      "plies": 30,
+      "config": "f1-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        1.6327500343322754,
+        1.37141696177423,
+        1.4328330289572477,
+        1.0134999174624681,
+        0.8960419800132513,
+        1.666167052462697,
+        0.8972920477390289
+      ],
+      "median_wall_ms": 1.37141696177423,
+      "median_cpu_ms": 1.3710000000006772,
+      "moves": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "simulations": [
+        147,
+        119,
+        122,
+        89,
+        78,
+        149,
+        76
+      ],
+      "simulations_per_second": 81250.68781737541,
+      "traced_peak_bytes": 78720
+    },
+    {
+      "position": "late",
+      "plies": 30,
+      "config": "f1-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        2.1197081077843904,
+        1.3606669381260872,
+        1.4512089546769857,
+        1.03554199449718,
+        0.8912910707294941,
+        1.6270419582724571,
+        0.8799170609563589
+      ],
+      "median_wall_ms": 1.3606669381260872,
+      "median_cpu_ms": 1.3600000000000279,
+      "moves": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "simulations": [
+        147,
+        119,
+        122,
+        89,
+        78,
+        149,
+        76
+      ],
+      "simulations_per_second": 81892.61332536752,
+      "traced_peak_bytes": 78720
+    },
+    {
+      "position": "late",
+      "plies": 30,
+      "config": "f2-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        2.331166062504053,
+        1.9758339039981365,
+        2.1228748373687267,
+        2.9297079890966415,
+        2.323791151866317,
+        2.2038749884814024,
+        1.997124869376421
+      ],
+      "median_wall_ms": 2.2038749884814024,
+      "median_cpu_ms": 2.202999999999733,
+      "moves": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "simulations": [
+        219,
+        186,
+        201,
+        227,
+        219,
+        201,
+        189
+      ],
+      "simulations_per_second": 93471.72642580146,
+      "traced_peak_bytes": 118696
+    },
+    {
+      "position": "late",
+      "plies": 30,
+      "config": "f2-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        2.285541035234928,
+        2.0127089228481054,
+        2.5937501341104507,
+        2.4709999561309814,
+        2.3363749496638775,
+        2.2700410336256027,
+        1.9402499310672283
+      ],
+      "median_wall_ms": 2.285541035234928,
+      "median_cpu_ms": 2.2849999999987602,
+      "moves": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "simulations": [
+        219,
+        186,
+        201,
+        227,
+        219,
+        201,
+        189
+      ],
+      "simulations_per_second": 90131.83173008551,
+      "traced_peak_bytes": 118696
+    },
+    {
+      "position": "late",
+      "plies": 30,
+      "config": "f2-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        2.3185419850051403,
+        2.4355410132557154,
+        2.1124170161783695,
+        2.4313339963555336,
+        2.3005001712590456,
+        2.171708969399333,
+        1.957541098818183
+      ],
+      "median_wall_ms": 2.3005001712590456,
+      "median_cpu_ms": 2.2999999999999687,
+      "moves": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "simulations": [
+        219,
+        186,
+        201,
+        227,
+        219,
+        201,
+        189
+      ],
+      "simulations_per_second": 89545.74425754457,
+      "traced_peak_bytes": 118696
+    },
+    {
+      "position": "late",
+      "plies": 30,
+      "config": "f2-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        2.283124951645732,
+        1.9630840979516506,
+        2.1597500890493393,
+        2.447041217237711,
+        2.3047919385135174,
+        2.179250121116638,
+        2.078999998047948
+      ],
+      "median_wall_ms": 2.179250121116638,
+      "median_cpu_ms": 2.178999999999931,
+      "moves": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "simulations": [
+        219,
+        186,
+        201,
+        227,
+        219,
+        201,
+        189
+      ],
+      "simulations_per_second": 94527.92866862226,
+      "traced_peak_bytes": 118696
+    },
+    {
+      "position": "preflight-000",
+      "plies": 2,
+      "config": "base-400",
+      "spec": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "wall_ms": [
+        4.371083108708262,
+        4.483666969463229,
+        4.410832887515426,
+        4.6359580010175705,
+        4.424207843840122,
+        4.35691699385643,
+        4.292792174965143
+      ],
+      "median_wall_ms": 4.410832887515426,
+      "median_cpu_ms": 4.404000000000963,
+      "moves": [
+        3,
+        3,
+        3,
+        2,
+        2,
+        3,
+        3
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 90685.82061500763,
+      "traced_peak_bytes": 214720
+    },
+    {
+      "position": "preflight-000",
+      "plies": 2,
+      "config": "base-2000",
+      "spec": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "wall_ms": [
+        22.354125045239925,
+        22.75924989953637,
+        30.377082992345095,
+        22.336832946166396,
+        22.696125088259578,
+        22.110332967713475,
+        22.29558303952217
+      ],
+      "median_wall_ms": 22.354125045239925,
+      "median_cpu_ms": 22.351000000000454,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 89468.94570699733,
+      "traced_peak_bytes": 1067216
+    },
+    {
+      "position": "preflight-000",
+      "plies": 2,
+      "config": "f1-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        11.989457998424768,
+        12.143375119194388,
+        12.720708968117833,
+        12.142750201746821,
+        19.94245802052319,
+        12.614124920219183,
+        11.995541863143444
+      ],
+      "median_wall_ms": 12.143375119194388,
+      "median_cpu_ms": 12.133999999999645,
+      "moves": [
+        1,
+        3,
+        3,
+        1,
+        3,
+        3,
+        4
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 32939.77136288422,
+      "traced_peak_bytes": 214008
+    },
+    {
+      "position": "preflight-000",
+      "plies": 2,
+      "config": "f1-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        5.557165946811438,
+        5.66533301025629,
+        5.610082997009158,
+        5.879041971638799,
+        5.613042041659355,
+        5.722125060856342,
+        5.464000161737204
+      ],
+      "median_wall_ms": 5.613042041659355,
+      "median_cpu_ms": 5.6069999999994735,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        0,
+        3,
+        3
+      ],
+      "simulations": [
+        187,
+        187,
+        187,
+        187,
+        187,
+        187,
+        187
+      ],
+      "simulations_per_second": 33315.26801547314,
+      "traced_peak_bytes": 101848
+    },
+    {
+      "position": "preflight-000",
+      "plies": 2,
+      "config": "f1-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        60.40333420969546,
+        60.317750088870525,
+        62.052416848018765,
+        62.58525000885129,
+        61.60879204981029,
+        61.49541703052819,
+        71.23566698282957
+      ],
+      "median_wall_ms": 61.60879204981029,
+      "median_cpu_ms": 61.540000000000816,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        1,
+        4
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 32462.899100229293,
+      "traced_peak_bytes": 1067768
+    },
+    {
+      "position": "preflight-000",
+      "plies": 2,
+      "config": "f1-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        30.31787509098649,
+        30.595583841204643,
+        31.305208103731275,
+        31.421542167663574,
+        31.23995801433921,
+        31.30299993790686,
+        34.63204205036163
+      ],
+      "median_wall_ms": 31.30299993790686,
+      "median_cpu_ms": 31.265999999998684,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        1,
+        4
+      ],
+      "simulations": [
+        1023,
+        1023,
+        1023,
+        1023,
+        1023,
+        1023,
+        1023
+      ],
+      "simulations_per_second": 32680.57381175093,
+      "traced_peak_bytes": 545248
+    },
+    {
+      "position": "preflight-000",
+      "plies": 2,
+      "config": "f2-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        9.99708310700953,
+        9.899958036839962,
+        9.919167030602694,
+        9.585542138665915,
+        9.818249847739935,
+        9.700416820123792,
+        10.527624981477857
+      ],
+      "median_wall_ms": 9.899958036839962,
+      "median_cpu_ms": 9.894000000000958,
+      "moves": [
+        3,
+        3,
+        3,
+        5,
+        1,
+        3,
+        3
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 40404.211665494986,
+      "traced_peak_bytes": 213888
+    },
+    {
+      "position": "preflight-000",
+      "plies": 2,
+      "config": "f2-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        6.10675010830164,
+        6.243083160370588,
+        6.03887508623302,
+        5.975417094305158,
+        6.289375014603138,
+        6.062333006411791,
+        6.1240000650286674
+      ],
+      "median_wall_ms": 6.10675010830164,
+      "median_cpu_ms": 6.096999999998687,
+      "moves": [
+        4,
+        3,
+        3,
+        3,
+        1,
+        3,
+        3
+      ],
+      "simulations": [
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255
+      ],
+      "simulations_per_second": 41757.071351805906,
+      "traced_peak_bytes": 136120
+    },
+    {
+      "position": "preflight-000",
+      "plies": 2,
+      "config": "f2-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        48.972042044624686,
+        49.218083964660764,
+        49.288874957710505,
+        49.00929192081094,
+        49.09795895218849,
+        49.559124978259206,
+        49.41474995575845
+      ],
+      "median_wall_ms": 49.218083964660764,
+      "median_cpu_ms": 49.19199999999968,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        1,
+        3,
+        3
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 40635.47052006386,
+      "traced_peak_bytes": 1070528
+    },
+    {
+      "position": "preflight-000",
+      "plies": 2,
+      "config": "f2-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        41.172249941155314,
+        35.34133383072913,
+        34.778791945427656,
+        34.886165987700224,
+        34.61225004866719,
+        35.11820803396404,
+        34.8092089407146
+      ],
+      "median_wall_ms": 34.886165987700224,
+      "median_cpu_ms": 34.872000000000014,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        5,
+        3,
+        3
+      ],
+      "simulations": [
+        1415,
+        1415,
+        1415,
+        1415,
+        1415,
+        1415,
+        1415
+      ],
+      "simulations_per_second": 40560.490381742864,
+      "traced_peak_bytes": 767224
+    },
+    {
+      "position": "preflight-001",
+      "plies": 5,
+      "config": "base-400",
+      "spec": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "wall_ms": [
+        4.622583044692874,
+        4.3715001083910465,
+        4.4778750743716955,
+        4.211124964058399,
+        4.708749940618873,
+        4.635125165805221,
+        4.349375143647194
+      ],
+      "median_wall_ms": 4.4778750743716955,
+      "median_cpu_ms": 4.4780000000024245,
+      "moves": [
+        3,
+        1,
+        2,
+        3,
+        3,
+        2,
+        3
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 89328.08382469787,
+      "traced_peak_bytes": 214280
+    },
+    {
+      "position": "preflight-001",
+      "plies": 5,
+      "config": "base-2000",
+      "spec": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "wall_ms": [
+        22.18274981714785,
+        22.425916977226734,
+        29.30650021880865,
+        22.028957959264517,
+        29.072917066514492,
+        21.84800012037158,
+        22.29712507687509
+      ],
+      "median_wall_ms": 22.29712507687509,
+      "median_cpu_ms": 22.266000000001895,
+      "moves": [
+        3,
+        2,
+        1,
+        1,
+        3,
+        5,
+        2
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 89697.66250601744,
+      "traced_peak_bytes": 1045304
+    },
+    {
+      "position": "preflight-001",
+      "plies": 5,
+      "config": "f1-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        12.234249850735068,
+        12.09616707637906,
+        12.212250148877501,
+        12.320542009547353,
+        12.120458064600825,
+        12.046792078763247,
+        12.172624934464693
+      ],
+      "median_wall_ms": 12.172624934464693,
+      "median_cpu_ms": 12.153000000001413,
+      "moves": [
+        3,
+        5,
+        5,
+        3,
+        5,
+        2,
+        3
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 32860.619804974755,
+      "traced_peak_bytes": 214800
+    },
+    {
+      "position": "preflight-001",
+      "plies": 5,
+      "config": "f1-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        5.643458105623722,
+        5.876915995031595,
+        5.642666015774012,
+        5.568708060309291,
+        5.640167044475675,
+        5.834416951984167,
+        5.790666909888387
+      ],
+      "median_wall_ms": 5.643458105623722,
+      "median_cpu_ms": 5.637999999997589,
+      "moves": [
+        3,
+        5,
+        5,
+        1,
+        5,
+        2,
+        1
+      ],
+      "simulations": [
+        187,
+        187,
+        187,
+        187,
+        187,
+        187,
+        187
+      ],
+      "simulations_per_second": 33135.71156196835,
+      "traced_peak_bytes": 102816
+    },
+    {
+      "position": "preflight-001",
+      "plies": 5,
+      "config": "f1-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        60.55454188026488,
+        60.46216702088714,
+        61.75341596826911,
+        61.73933297395706,
+        59.974417090415955,
+        61.37391598895192,
+        68.87854216620326
+      ],
+      "median_wall_ms": 61.37391598895192,
+      "median_cpu_ms": 61.32899999999708,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        5,
+        3,
+        3
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 32587.13360183869,
+      "traced_peak_bytes": 1072384
+    },
+    {
+      "position": "preflight-001",
+      "plies": 5,
+      "config": "f1-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        30.479875160381198,
+        30.602666083723307,
+        31.235500006005168,
+        31.872791005298495,
+        31.03941702283919,
+        30.996917048469186,
+        30.55379120633006
+      ],
+      "median_wall_ms": 30.996917048469186,
+      "median_cpu_ms": 30.972999999999473,
+      "moves": [
+        5,
+        5,
+        5,
+        3,
+        5,
+        5,
+        5
+      ],
+      "simulations": [
+        1023,
+        1023,
+        1023,
+        1023,
+        1023,
+        1023,
+        1023
+      ],
+      "simulations_per_second": 33003.28217804235,
+      "traced_peak_bytes": 548152
+    },
+    {
+      "position": "preflight-001",
+      "plies": 5,
+      "config": "f2-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        9.293083101511002,
+        9.845624910667539,
+        9.396165842190385,
+        9.320083074271679,
+        9.86870820634067,
+        9.396167006343603,
+        9.827250149101019
+      ],
+      "median_wall_ms": 9.396167006343603,
+      "median_cpu_ms": 9.395000000001374,
+      "moves": [
+        3,
+        3,
+        3,
+        1,
+        5,
+        5,
+        3
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 42570.550281827615,
+      "traced_peak_bytes": 216448
+    },
+    {
+      "position": "preflight-001",
+      "plies": 5,
+      "config": "f2-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        6.284874863922596,
+        6.055708043277264,
+        6.011915858834982,
+        5.825292086228728,
+        6.1085408087819815,
+        6.027041934430599,
+        6.203916156664491
+      ],
+      "median_wall_ms": 6.055708043277264,
+      "median_cpu_ms": 6.053000000001418,
+      "moves": [
+        3,
+        3,
+        3,
+        1,
+        5,
+        5,
+        3
+      ],
+      "simulations": [
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255
+      ],
+      "simulations_per_second": 42109.03137628768,
+      "traced_peak_bytes": 138528
+    },
+    {
+      "position": "preflight-001",
+      "plies": 5,
+      "config": "f2-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        53.851749980822206,
+        47.23437502980232,
+        47.26229212246835,
+        47.11658298037946,
+        47.506083035841584,
+        48.053250182420015,
+        49.30016677826643
+      ],
+      "median_wall_ms": 47.506083035841584,
+      "median_cpu_ms": 47.464000000001505,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 42099.871683613106,
+      "traced_peak_bytes": 1076216
+    },
+    {
+      "position": "preflight-001",
+      "plies": 5,
+      "config": "f2-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        33.715832978487015,
+        33.42933300882578,
+        34.1645828448236,
+        33.47554220817983,
+        33.52800011634827,
+        33.680833876132965,
+        34.06283399090171
+      ],
+      "median_wall_ms": 33.680833876132965,
+      "median_cpu_ms": 33.62800000000021,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        5,
+        3
+      ],
+      "simulations": [
+        1415,
+        1415,
+        1415,
+        1415,
+        1415,
+        1415,
+        1415
+      ],
+      "simulations_per_second": 42012.02396603079,
+      "traced_peak_bytes": 764720
+    },
+    {
+      "position": "preflight-002",
+      "plies": 8,
+      "config": "base-400",
+      "spec": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "wall_ms": [
+        4.732290981337428,
+        4.334292141720653,
+        12.395832920446992,
+        4.305084003135562,
+        4.222332965582609,
+        4.342250060290098,
+        4.422167083248496
+      ],
+      "median_wall_ms": 4.342250060290098,
+      "median_cpu_ms": 4.342000000001178,
+      "moves": [
+        5,
+        4,
+        4,
+        1,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 92118.14023747787,
+      "traced_peak_bytes": 214056
+    },
+    {
+      "position": "preflight-002",
+      "plies": 8,
+      "config": "base-2000",
+      "spec": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "wall_ms": [
+        21.90037490800023,
+        21.87595795840025,
+        22.00283296406269,
+        21.826833952218294,
+        28.98437506519258,
+        21.83554181829095,
+        30.441832961514592
+      ],
+      "median_wall_ms": 21.90037490800023,
+      "median_cpu_ms": 21.8870000000031,
+      "moves": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 91322.6375530858,
+      "traced_peak_bytes": 1055136
+    },
+    {
+      "position": "preflight-002",
+      "plies": 8,
+      "config": "f1-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        10.976624907925725,
+        11.594583047553897,
+        11.264082975685596,
+        11.824165936559439,
+        11.400667019188404,
+        11.289542075246572,
+        11.617166921496391
+      ],
+      "median_wall_ms": 11.400667019188404,
+      "median_cpu_ms": 11.366999999999905,
+      "moves": [
+        3,
+        1,
+        4,
+        6,
+        1,
+        6,
+        1
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 35085.666419935085,
+      "traced_peak_bytes": 215664
+    },
+    {
+      "position": "preflight-002",
+      "plies": 8,
+      "config": "f1-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        5.833999952301383,
+        5.477291066199541,
+        5.434249993413687,
+        5.667624995112419,
+        5.147499963641167,
+        5.616666981950402,
+        5.258291028439999
+      ],
+      "median_wall_ms": 5.477291066199541,
+      "median_cpu_ms": 5.475999999998038,
+      "moves": [
+        3,
+        1,
+        5,
+        6,
+        1,
+        1,
+        3
+      ],
+      "simulations": [
+        187,
+        187,
+        187,
+        187,
+        187,
+        187,
+        187
+      ],
+      "simulations_per_second": 34140.96452788136,
+      "traced_peak_bytes": 102176
+    },
+    {
+      "position": "preflight-002",
+      "plies": 8,
+      "config": "f1-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        58.00670804455876,
+        56.98566581122577,
+        56.682916125282645,
+        55.62579189427197,
+        56.0078751295805,
+        55.68354204297066,
+        56.67837499640882
+      ],
+      "median_wall_ms": 56.67837499640882,
+      "median_cpu_ms": 56.63099999999943,
+      "moves": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 35286.82676817607,
+      "traced_peak_bytes": 1071376
+    },
+    {
+      "position": "preflight-002",
+      "plies": 8,
+      "config": "f1-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        28.134708991274238,
+        28.816166799515486,
+        28.980416944250464,
+        28.87041703797877,
+        28.48133398219943,
+        31.32637497037649,
+        28.22725009173155
+      ],
+      "median_wall_ms": 28.816166799515486,
+      "median_cpu_ms": 28.80000000000038,
+      "moves": [
+        1,
+        1,
+        4,
+        1,
+        1,
+        1,
+        1
+      ],
+      "simulations": [
+        1023,
+        1023,
+        1023,
+        1023,
+        1023,
+        1023,
+        1023
+      ],
+      "simulations_per_second": 35500.904999522725,
+      "traced_peak_bytes": 548104
+    },
+    {
+      "position": "preflight-002",
+      "plies": 8,
+      "config": "f2-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        8.693250128999352,
+        8.662041975185275,
+        8.599332999438047,
+        8.979292120784521,
+        8.983375038951635,
+        8.849707897752523,
+        8.894250029698014
+      ],
+      "median_wall_ms": 8.849707897752523,
+      "median_cpu_ms": 8.846000000001908,
+      "moves": [
+        1,
+        4,
+        6,
+        4,
+        6,
+        1,
+        1
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 45199.231954490184,
+      "traced_peak_bytes": 217784
+    },
+    {
+      "position": "preflight-002",
+      "plies": 8,
+      "config": "f2-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        5.874540889635682,
+        5.526208085939288,
+        5.647582933306694,
+        5.754374898970127,
+        5.430582910776138,
+        5.469667026773095,
+        5.507832858711481
+      ],
+      "median_wall_ms": 5.526208085939288,
+      "median_cpu_ms": 5.52499999999867,
+      "moves": [
+        5,
+        1,
+        4,
+        3,
+        6,
+        1,
+        6
+      ],
+      "simulations": [
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255
+      ],
+      "simulations_per_second": 46143.75644826225,
+      "traced_peak_bytes": 137632
+    },
+    {
+      "position": "preflight-002",
+      "plies": 8,
+      "config": "f2-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        50.266708014532924,
+        43.443082831799984,
+        43.60466613434255,
+        43.8893330283463,
+        43.271084083244205,
+        43.372875079512596,
+        46.36929207481444
+      ],
+      "median_wall_ms": 43.60466613434255,
+      "median_cpu_ms": 43.596000000000856,
+      "moves": [
+        1,
+        1,
+        4,
+        1,
+        1,
+        1,
+        4
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 45866.65091846265,
+      "traced_peak_bytes": 1069560
+    },
+    {
+      "position": "preflight-002",
+      "plies": 8,
+      "config": "f2-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        31.002999981865287,
+        30.706916004419327,
+        31.05883300304413,
+        31.13283310085535,
+        30.622333055362105,
+        30.624415958300233,
+        31.76133311353624
+      ],
+      "median_wall_ms": 31.002999981865287,
+      "median_cpu_ms": 30.972999999999473,
+      "moves": [
+        1,
+        5,
+        4,
+        1,
+        1,
+        1,
+        4
+      ],
+      "simulations": [
+        1415,
+        1415,
+        1415,
+        1415,
+        1415,
+        1415,
+        1415
+      ],
+      "simulations_per_second": 45640.74447078288,
+      "traced_peak_bytes": 755264
+    },
+    {
+      "position": "preflight-003",
+      "plies": 11,
+      "config": "base-400",
+      "spec": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "wall_ms": [
+        2.979916986078024,
+        3.190917195752263,
+        3.0307921115309,
+        3.0447919853031635,
+        2.9251249507069588,
+        2.8803751338273287,
+        3.0179161112755537
+      ],
+      "median_wall_ms": 3.0179161112755537,
+      "median_cpu_ms": 3.0169999999998254,
+      "moves": [
+        3,
+        1,
+        1,
+        3,
+        0,
+        1,
+        4
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 132541.78885407647,
+      "traced_peak_bytes": 219472
+    },
+    {
+      "position": "preflight-003",
+      "plies": 11,
+      "config": "base-2000",
+      "spec": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "wall_ms": [
+        15.130375046283007,
+        14.961666893213987,
+        14.995583100244403,
+        14.917167136445642,
+        15.235041035339236,
+        21.67245908640325,
+        15.128458151593804
+      ],
+      "median_wall_ms": 15.128458151593804,
+      "median_cpu_ms": 15.114999999997991,
+      "moves": [
+        4,
+        4,
+        1,
+        4,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 132201.17872945944,
+      "traced_peak_bytes": 1034920
+    },
+    {
+      "position": "preflight-003",
+      "plies": 11,
+      "config": "f1-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        0.62700011767447,
+        0.7091250736266375,
+        0.6718749646097422,
+        0.6186251994222403,
+        0.6599170155823231,
+        0.7110419683158398,
+        0.5697498563677073
+      ],
+      "median_wall_ms": 0.6599170155823231,
+      "median_cpu_ms": 0.6590000000024077,
+      "moves": [
+        4,
+        4,
+        5,
+        3,
+        1,
+        0,
+        4
+      ],
+      "simulations": [
+        55,
+        58,
+        59,
+        54,
+        53,
+        60,
+        50
+      ],
+      "simulations_per_second": 84209.72222149979,
+      "traced_peak_bytes": 31064
+    },
+    {
+      "position": "preflight-003",
+      "plies": 11,
+      "config": "f1-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        0.6387089379131794,
+        0.7125830743461847,
+        0.6578329484909773,
+        0.6370409391820431,
+        0.6207500118762255,
+        0.7301659788936377,
+        0.5465829744935036
+      ],
+      "median_wall_ms": 0.6387089379131794,
+      "median_cpu_ms": 0.6379999999985841,
+      "moves": [
+        4,
+        4,
+        5,
+        3,
+        1,
+        0,
+        4
+      ],
+      "simulations": [
+        55,
+        58,
+        59,
+        54,
+        53,
+        60,
+        50
+      ],
+      "simulations_per_second": 87005.87274227635,
+      "traced_peak_bytes": 31064
+    },
+    {
+      "position": "preflight-003",
+      "plies": 11,
+      "config": "f1-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        0.5954999942332506,
+        0.6989999674260616,
+        0.6664169486612082,
+        0.6113329436630011,
+        0.6237498018890619,
+        0.6933340337127447,
+        0.5880419630557299
+      ],
+      "median_wall_ms": 0.6237498018890619,
+      "median_cpu_ms": 0.6229999999973757,
+      "moves": [
+        4,
+        4,
+        5,
+        3,
+        1,
+        0,
+        4
+      ],
+      "simulations": [
+        55,
+        58,
+        59,
+        54,
+        53,
+        60,
+        50
+      ],
+      "simulations_per_second": 89092.4989525084,
+      "traced_peak_bytes": 31064
+    },
+    {
+      "position": "preflight-003",
+      "plies": 11,
+      "config": "f1-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        0.6013340316712856,
+        0.686833169311285,
+        0.6345410365611315,
+        0.5864158738404512,
+        0.6275421474128962,
+        0.6911670789122581,
+        0.5544999148696661
+      ],
+      "median_wall_ms": 0.6275421474128962,
+      "median_cpu_ms": 0.6270000000014875,
+      "moves": [
+        4,
+        4,
+        5,
+        3,
+        1,
+        0,
+        4
+      ],
+      "simulations": [
+        55,
+        58,
+        59,
+        54,
+        53,
+        60,
+        50
+      ],
+      "simulations_per_second": 88554.0976020929,
+      "traced_peak_bytes": 31064
+    },
+    {
+      "position": "preflight-003",
+      "plies": 11,
+      "config": "f2-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        0.5162078887224197,
+        0.5059170071035624,
+        0.4527911078184843,
+        0.4624160937964916,
+        0.5619588773697615,
+        0.5366248078644276,
+        0.4700419958680868
+      ],
+      "median_wall_ms": 0.5059170071035624,
+      "median_cpu_ms": 0.5050000000004218,
+      "moves": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        3,
+        4
+      ],
+      "simulations": [
+        52,
+        51,
+        50,
+        49,
+        55,
+        55,
+        52
+      ],
+      "simulations_per_second": 102783.65674580986,
+      "traced_peak_bytes": 29432
+    },
+    {
+      "position": "preflight-003",
+      "plies": 11,
+      "config": "f2-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        0.48695807345211506,
+        0.46487501822412014,
+        0.4812080878764391,
+        0.4950419533997774,
+        0.5382089875638485,
+        0.5033330526202917,
+        0.4987078718841076
+      ],
+      "median_wall_ms": 0.4950419533997774,
+      "median_cpu_ms": 0.4939999999997724,
+      "moves": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        3,
+        4
+      ],
+      "simulations": [
+        52,
+        51,
+        50,
+        49,
+        55,
+        55,
+        52
+      ],
+      "simulations_per_second": 105041.60231851449,
+      "traced_peak_bytes": 29432
+    },
+    {
+      "position": "preflight-003",
+      "plies": 11,
+      "config": "f2-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        0.4865420050919056,
+        0.4683749284595251,
+        0.44816709123551846,
+        0.493708997964859,
+        0.540250213816762,
+        0.5035840440541506,
+        0.4669581539928913
+      ],
+      "median_wall_ms": 0.4865420050919056,
+      "median_cpu_ms": 0.4860000000022069,
+      "moves": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        3,
+        4
+      ],
+      "simulations": [
+        52,
+        51,
+        50,
+        49,
+        55,
+        55,
+        52
+      ],
+      "simulations_per_second": 106876.69195217262,
+      "traced_peak_bytes": 29432
+    },
+    {
+      "position": "preflight-003",
+      "plies": 11,
+      "config": "f2-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        0.48358412459492683,
+        0.46970811672508717,
+        0.44954195618629456,
+        0.4576249048113823,
+        0.5665000062435865,
+        0.7281249854713678,
+        0.46600005589425564
+      ],
+      "median_wall_ms": 0.46970811672508717,
+      "median_cpu_ms": 0.4690000000024952,
+      "moves": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        3,
+        4
+      ],
+      "simulations": [
+        52,
+        51,
+        50,
+        49,
+        55,
+        55,
+        52
+      ],
+      "simulations_per_second": 110707.0500773032,
+      "traced_peak_bytes": 29432
+    },
+    {
+      "position": "preflight-004",
+      "plies": 14,
+      "config": "base-400",
+      "spec": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "wall_ms": [
+        3.564083017408848,
+        3.3835419453680515,
+        3.3552919048815966,
+        3.4710830077528954,
+        3.274250077083707,
+        3.6394582130014896,
+        3.444832982495427
+      ],
+      "median_wall_ms": 3.444832982495427,
+      "median_cpu_ms": 3.444999999999254,
+      "moves": [
+        1,
+        3,
+        3,
+        1,
+        3,
+        3,
+        3
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 116115.93422164727,
+      "traced_peak_bytes": 211968
+    },
+    {
+      "position": "preflight-004",
+      "plies": 14,
+      "config": "base-2000",
+      "spec": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "wall_ms": [
+        16.632874961942434,
+        17.398374853655696,
+        21.79541694931686,
+        17.289290903136134,
+        17.075167037546635,
+        16.84108399786055,
+        16.66712504811585
+      ],
+      "median_wall_ms": 17.075167037546635,
+      "median_cpu_ms": 17.070999999997838,
+      "moves": [
+        3,
+        3,
+        3,
+        1,
+        1,
+        3,
+        3
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 117129.1616417101,
+      "traced_peak_bytes": 971768
+    },
+    {
+      "position": "preflight-004",
+      "plies": 14,
+      "config": "f1-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        8.473833091557026,
+        8.039250038564205,
+        8.299915818497539,
+        1.902541145682335,
+        8.290624944493175,
+        8.543540956452489,
+        8.263250114396214
+      ],
+      "median_wall_ms": 8.290624944493175,
+      "median_cpu_ms": 8.286999999999267,
+      "moves": [
+        1,
+        1,
+        1,
+        3,
+        1,
+        1,
+        1
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        95,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 42991.76163617431,
+      "traced_peak_bytes": 215680
+    },
+    {
+      "position": "preflight-004",
+      "plies": 14,
+      "config": "f1-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        4.061667015776038,
+        4.041000036522746,
+        4.295957973226905,
+        1.9032920245081186,
+        3.726750146597624,
+        4.108624998480082,
+        4.297415958717465
+      ],
+      "median_wall_ms": 4.061667015776038,
+      "median_cpu_ms": 4.061000000000092,
+      "moves": [
+        1,
+        5,
+        5,
+        3,
+        1,
+        1,
+        1
+      ],
+      "simulations": [
+        187,
+        187,
+        187,
+        95,
+        187,
+        187,
+        187
+      ],
+      "simulations_per_second": 42804.38110309371,
+      "traced_peak_bytes": 102208
+    },
+    {
+      "position": "preflight-004",
+      "plies": 14,
+      "config": "f1-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        29.847499914467335,
+        19.019832834601402,
+        21.22724987566471,
+        1.9002500921487808,
+        11.470749974250793,
+        18.70662486180663,
+        24.84950004145503
+      ],
+      "median_wall_ms": 19.019832834601402,
+      "median_cpu_ms": 19.010000000001526,
+      "moves": [
+        1,
+        1,
+        1,
+        3,
+        3,
+        1,
+        1
+      ],
+      "simulations": [
+        1542,
+        973,
+        1064,
+        95,
+        559,
+        918,
+        1274
+      ],
+      "simulations_per_second": 48257.89747149365,
+      "traced_peak_bytes": 824408
+    },
+    {
+      "position": "preflight-004",
+      "plies": 14,
+      "config": "f1-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        19.722499884665012,
+        18.613666063174605,
+        20.325958030298352,
+        1.8897498957812786,
+        11.741458903998137,
+        19.131209002807736,
+        26.60025004297495
+      ],
+      "median_wall_ms": 19.131209002807736,
+      "median_cpu_ms": 19.11999999999736,
+      "moves": [
+        1,
+        1,
+        1,
+        3,
+        3,
+        1,
+        1
+      ],
+      "simulations": [
+        1023,
+        973,
+        1023,
+        95,
+        559,
+        918,
+        1023
+      ],
+      "simulations_per_second": 41921.03070340702,
+      "traced_peak_bytes": 548280
+    },
+    {
+      "position": "preflight-004",
+      "plies": 14,
+      "config": "f2-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        4.655750002712011,
+        6.729166954755783,
+        4.375166958197951,
+        4.846916068345308,
+        4.028124967589974,
+        3.7299171090126038,
+        2.0721249748021364
+      ],
+      "median_wall_ms": 4.375166958197951,
+      "median_cpu_ms": 4.3720000000000425,
+      "moves": [
+        3,
+        1,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "simulations": [
+        253,
+        400,
+        224,
+        267,
+        218,
+        207,
+        112
+      ],
+      "simulations_per_second": 54887.701300836176,
+      "traced_peak_bytes": 136656
+    },
+    {
+      "position": "preflight-004",
+      "plies": 14,
+      "config": "f2-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        4.96916682459414,
+        4.85216686502099,
+        4.182958975434303,
+        4.675459116697311,
+        3.967499826103449,
+        3.7423751782625914,
+        1.996458973735571
+      ],
+      "median_wall_ms": 4.182958975434303,
+      "median_cpu_ms": 4.162000000000887,
+      "moves": [
+        3,
+        1,
+        3,
+        1,
+        3,
+        3,
+        3
+      ],
+      "simulations": [
+        253,
+        255,
+        224,
+        255,
+        218,
+        207,
+        112
+      ],
+      "simulations_per_second": 52047.91320997384,
+      "traced_peak_bytes": 136656
+    },
+    {
+      "position": "preflight-004",
+      "plies": 14,
+      "config": "f2-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        4.636875120922923,
+        8.117999881505966,
+        4.091375041753054,
+        4.686750005930662,
+        4.003666806966066,
+        3.741708118468523,
+        2.0345409866422415
+      ],
+      "median_wall_ms": 4.091375041753054,
+      "median_cpu_ms": 4.090999999998957,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "simulations": [
+        253,
+        484,
+        224,
+        267,
+        218,
+        207,
+        112
+      ],
+      "simulations_per_second": 61627.901272727155,
+      "traced_peak_bytes": 136656
+    },
+    {
+      "position": "preflight-004",
+      "plies": 14,
+      "config": "f2-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        4.643999971449375,
+        8.20416584610939,
+        4.064332926645875,
+        4.725167062133551,
+        3.9823330007493496,
+        3.782042069360614,
+        1.9893338903784752
+      ],
+      "median_wall_ms": 4.064332926645875,
+      "median_cpu_ms": 4.061000000000092,
+      "moves": [
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3
+      ],
+      "simulations": [
+        253,
+        484,
+        224,
+        267,
+        218,
+        207,
+        112
+      ],
+      "simulations_per_second": 62037.94366593392,
+      "traced_peak_bytes": 136656
+    },
+    {
+      "position": "preflight-005",
+      "plies": 17,
+      "config": "base-400",
+      "spec": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "wall_ms": [
+        3.51387495175004,
+        3.869500011205673,
+        3.466667141765356,
+        3.675083862617612,
+        3.4295418299734592,
+        3.5467499401420355,
+        3.619374940171838
+      ],
+      "median_wall_ms": 3.5467499401420355,
+      "median_cpu_ms": 3.546000000000049,
+      "moves": [
+        6,
+        6,
+        6,
+        6,
+        6,
+        4,
+        6
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 112779.30690089229,
+      "traced_peak_bytes": 210856
+    },
+    {
+      "position": "preflight-005",
+      "plies": 17,
+      "config": "base-2000",
+      "spec": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "wall_ms": [
+        18.193542025983334,
+        18.144124886021018,
+        24.97720788232982,
+        17.98875001259148,
+        18.104834016412497,
+        18.065290991216898,
+        17.962584039196372
+      ],
+      "median_wall_ms": 18.104834016412497,
+      "median_cpu_ms": 18.09899999999942,
+      "moves": [
+        6,
+        6,
+        6,
+        6,
+        4,
+        3,
+        6
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 110467.73464959406,
+      "traced_peak_bytes": 1008136
+    },
+    {
+      "position": "preflight-005",
+      "plies": 17,
+      "config": "f1-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        8.352749980986118,
+        7.942791096866131,
+        8.029290940612555,
+        7.922291988506913,
+        8.177874842658639,
+        8.186083985492587,
+        8.232374908402562
+      ],
+      "median_wall_ms": 8.177874842658639,
+      "median_cpu_ms": 8.178000000000907,
+      "moves": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        6,
+        2
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 48912.462919273465,
+      "traced_peak_bytes": 215784
+    },
+    {
+      "position": "preflight-005",
+      "plies": 17,
+      "config": "f1-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        3.8031248841434717,
+        3.786040935665369,
+        3.6854997742921114,
+        3.746624803170562,
+        4.166333004832268,
+        4.201750038191676,
+        3.876208094879985
+      ],
+      "median_wall_ms": 3.8031248841434717,
+      "median_cpu_ms": 3.8039999999988083,
+      "moves": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        187,
+        187,
+        187,
+        187,
+        187,
+        187,
+        187
+      ],
+      "simulations_per_second": 49170.091884089044,
+      "traced_peak_bytes": 100256
+    },
+    {
+      "position": "preflight-005",
+      "plies": 17,
+      "config": "f1-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        41.66774987243116,
+        39.29091687314212,
+        39.43970915861428,
+        40.12762499041855,
+        46.6279168613255,
+        39.686250034719706,
+        48.6120420973748
+      ],
+      "median_wall_ms": 40.12762499041855,
+      "median_cpu_ms": 40.09200000000135,
+      "moves": [
+        4,
+        6,
+        6,
+        4,
+        6,
+        6,
+        4
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 49840.97614741836,
+      "traced_peak_bytes": 1067560
+    },
+    {
+      "position": "preflight-005",
+      "plies": 17,
+      "config": "f1-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        21.343041909858584,
+        20.499124890193343,
+        20.60599997639656,
+        20.453500095754862,
+        20.444207824766636,
+        20.34116699360311,
+        21.07566688209772
+      ],
+      "median_wall_ms": 20.499124890193343,
+      "median_cpu_ms": 20.483999999996172,
+      "moves": [
+        4,
+        4,
+        4,
+        4,
+        6,
+        6,
+        2
+      ],
+      "simulations": [
+        1023,
+        1023,
+        1023,
+        1023,
+        1023,
+        1023,
+        1023
+      ],
+      "simulations_per_second": 49904.56936478284,
+      "traced_peak_bytes": 545808
+    },
+    {
+      "position": "preflight-005",
+      "plies": 17,
+      "config": "f2-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        6.933459080755711,
+        6.681833881884813,
+        7.006332976743579,
+        6.913583027198911,
+        6.809749873355031,
+        7.0654170121997595,
+        6.854374893009663
+      ],
+      "median_wall_ms": 6.913583027198911,
+      "median_cpu_ms": 6.906000000000745,
+      "moves": [
+        4,
+        4,
+        4,
+        6,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 57857.119589993985,
+      "traced_peak_bytes": 216752
+    },
+    {
+      "position": "preflight-005",
+      "plies": 17,
+      "config": "f2-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        4.412374924868345,
+        4.310040967538953,
+        4.339541075751185,
+        4.521333146840334,
+        4.3333750218153,
+        4.501374904066324,
+        4.426417173817754
+      ],
+      "median_wall_ms": 4.412374924868345,
+      "median_cpu_ms": 4.412999999999556,
+      "moves": [
+        4,
+        4,
+        4,
+        6,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255
+      ],
+      "simulations_per_second": 57792.00642330017,
+      "traced_peak_bytes": 138872
+    },
+    {
+      "position": "preflight-005",
+      "plies": 17,
+      "config": "f2-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        34.13229086436331,
+        33.358458895236254,
+        33.70758309029043,
+        34.3774170614779,
+        34.36341602355242,
+        34.737166948616505,
+        34.00008287280798
+      ],
+      "median_wall_ms": 34.13229086436331,
+      "median_cpu_ms": 34.11799999999943,
+      "moves": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 58595.53957124369,
+      "traced_peak_bytes": 1082448
+    },
+    {
+      "position": "preflight-005",
+      "plies": 17,
+      "config": "f2-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        32.07637509331107,
+        23.3857911080122,
+        23.987499997019768,
+        24.30362510494888,
+        24.425707990303636,
+        24.724833900108933,
+        23.989042034372687
+      ],
+      "median_wall_ms": 24.30362510494888,
+      "median_cpu_ms": 24.300000000003763,
+      "moves": [
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "simulations": [
+        1415,
+        1415,
+        1415,
+        1415,
+        1415,
+        1415,
+        1415
+      ],
+      "simulations_per_second": 58221.7670775323,
+      "traced_peak_bytes": 771768
+    },
+    {
+      "position": "preflight-006",
+      "plies": 20,
+      "config": "base-400",
+      "spec": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "wall_ms": [
+        8.401166880503297,
+        2.439166884869337,
+        2.939291065558791,
+        2.451749984174967,
+        2.418291987851262,
+        2.4092919193208218,
+        2.469042083248496
+      ],
+      "median_wall_ms": 2.451749984174967,
+      "median_cpu_ms": 2.451000000000647,
+      "moves": [
+        1,
+        1,
+        6,
+        6,
+        6,
+        6,
+        6
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 163148.77233887417,
+      "traced_peak_bytes": 199008
+    },
+    {
+      "position": "preflight-006",
+      "plies": 20,
+      "config": "base-2000",
+      "spec": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "wall_ms": [
+        12.146333931013942,
+        12.118374928832054,
+        12.465375009924173,
+        12.908041942864656,
+        12.597708962857723,
+        12.744874926283956,
+        12.635374907404184
+      ],
+      "median_wall_ms": 12.597708962857723,
+      "median_cpu_ms": 12.588000000000932,
+      "moves": [
+        6,
+        1,
+        6,
+        1,
+        6,
+        5,
+        1
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 158759.0256209817,
+      "traced_peak_bytes": 807928
+    },
+    {
+      "position": "preflight-006",
+      "plies": 20,
+      "config": "f1-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        6.414166186004877,
+        6.8603751715272665,
+        13.809333089739084,
+        6.471958011388779,
+        6.500916788354516,
+        6.402208004146814,
+        6.820749957114458
+      ],
+      "median_wall_ms": 6.500916788354516,
+      "median_cpu_ms": 6.500000000002615,
+      "moves": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 61529.78310944452,
+      "traced_peak_bytes": 206704
+    },
+    {
+      "position": "preflight-006",
+      "plies": 20,
+      "config": "f1-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        3.1795408576726913,
+        3.1245830468833447,
+        3.1149578280746937,
+        3.0595827847719193,
+        2.954416209831834,
+        2.977374941110611,
+        3.079083049669862
+      ],
+      "median_wall_ms": 3.079083049669862,
+      "median_cpu_ms": 3.07899999999961,
+      "moves": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "simulations": [
+        187,
+        187,
+        187,
+        187,
+        187,
+        187,
+        187
+      ],
+      "simulations_per_second": 60732.36641669996,
+      "traced_peak_bytes": 99176
+    },
+    {
+      "position": "preflight-006",
+      "plies": 20,
+      "config": "f1-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        33.381666988134384,
+        33.09887507930398,
+        33.995250007137656,
+        32.85833401605487,
+        32.341083977371454,
+        34.3382500577718,
+        33.501582918688655
+      ],
+      "median_wall_ms": 33.381666988134384,
+      "median_cpu_ms": 33.378999999996495,
+      "moves": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 59913.12539037988,
+      "traced_peak_bytes": 1020068
+    },
+    {
+      "position": "preflight-006",
+      "plies": 20,
+      "config": "f1-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        17.14004180394113,
+        16.57958305440843,
+        17.075834097340703,
+        16.269000014290214,
+        17.5312920473516,
+        17.44895800948143,
+        16.4686250500381
+      ],
+      "median_wall_ms": 17.075834097340703,
+      "median_cpu_ms": 17.071999999998866,
+      "moves": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "simulations": [
+        1023,
+        1023,
+        1023,
+        1023,
+        1023,
+        1023,
+        1023
+      ],
+      "simulations_per_second": 59909.225761294816,
+      "traced_peak_bytes": 525232
+    },
+    {
+      "position": "preflight-006",
+      "plies": 20,
+      "config": "f2-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        4.696124931797385,
+        4.359459038823843,
+        4.480583127588034,
+        4.636459052562714,
+        4.439292009919882,
+        12.049500131979585,
+        12.113249860703945
+      ],
+      "median_wall_ms": 4.636459052562714,
+      "median_cpu_ms": 4.635000000000389,
+      "moves": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 86272.73431411147,
+      "traced_peak_bytes": 208616
+    },
+    {
+      "position": "preflight-006",
+      "plies": 20,
+      "config": "f2-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        2.781708026304841,
+        2.727207960560918,
+        2.7579590678215027,
+        2.8039589524269104,
+        2.767459023743868,
+        2.624040935188532,
+        2.878875005990267
+      ],
+      "median_wall_ms": 2.767459023743868,
+      "median_cpu_ms": 2.7639999999991005,
+      "moves": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "simulations": [
+        255,
+        255,
+        255,
+        255,
+        255,
+        255,
+        255
+      ],
+      "simulations_per_second": 92142.28568957507,
+      "traced_peak_bytes": 134776
+    },
+    {
+      "position": "preflight-006",
+      "plies": 20,
+      "config": "f2-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        23.744500009343028,
+        23.577583953738213,
+        23.765624966472387,
+        23.841624846681952,
+        23.635833989828825,
+        23.36329105310142,
+        24.519999977201223
+      ],
+      "median_wall_ms": 23.744500009343028,
+      "median_cpu_ms": 23.734000000004585,
+      "moves": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 84230.03218484434,
+      "traced_peak_bytes": 1030296
+    },
+    {
+      "position": "preflight-006",
+      "plies": 20,
+      "config": "f2-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        16.59412495791912,
+        16.26874995417893,
+        16.268790932372212,
+        16.65445906110108,
+        16.528959153220057,
+        16.2559999153018,
+        17.279624938964844
+      ],
+      "median_wall_ms": 16.528959153220057,
+      "median_cpu_ms": 16.52599999999893,
+      "moves": [
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5
+      ],
+      "simulations": [
+        1415,
+        1415,
+        1415,
+        1415,
+        1415,
+        1415,
+        1415
+      ],
+      "simulations_per_second": 85607.32632244054,
+      "traced_peak_bytes": 733880
+    },
+    {
+      "position": "preflight-007",
+      "plies": 23,
+      "config": "base-400",
+      "spec": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "wall_ms": [
+        2.468584105372429,
+        2.498249989002943,
+        2.7788749430328608,
+        2.444749930873513,
+        2.498249989002943,
+        2.446916885674,
+        2.6112080086022615
+      ],
+      "median_wall_ms": 2.498249989002943,
+      "median_cpu_ms": 2.4979999999956704,
+      "moves": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "simulations": [
+        400,
+        400,
+        400,
+        400,
+        400,
+        400,
+        400
+      ],
+      "simulations_per_second": 160112.07915971646,
+      "traced_peak_bytes": 164288
+    },
+    {
+      "position": "preflight-007",
+      "plies": 23,
+      "config": "base-2000",
+      "spec": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "wall_ms": [
+        12.54483312368393,
+        13.482458889484406,
+        12.667207978665829,
+        11.973915854468942,
+        12.059290893375874,
+        12.156458804383874,
+        13.266166904941201
+      ],
+      "median_wall_ms": 12.54483312368393,
+      "median_cpu_ms": 12.50999999999891,
+      "moves": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "simulations": [
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000
+      ],
+      "simulations_per_second": 159428.186910204,
+      "traced_peak_bytes": 731760
+    },
+    {
+      "position": "preflight-007",
+      "plies": 23,
+      "config": "f1-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        1.80741585791111,
+        1.208040863275528,
+        2.2532499860972166,
+        1.0773329995572567,
+        1.0558750946074724,
+        3.2310830429196358,
+        1.1532919015735388
+      ],
+      "median_wall_ms": 1.208040863275528,
+      "median_cpu_ms": 1.2069999999937409,
+      "moves": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "simulations": [
+        111,
+        73,
+        136,
+        67,
+        64,
+        173,
+        70
+      ],
+      "simulations_per_second": 82069.12543838743,
+      "traced_peak_bytes": 60944
+    },
+    {
+      "position": "preflight-007",
+      "plies": 23,
+      "config": "f1-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        1.720166066661477,
+        1.2340410612523556,
+        2.2806250490248203,
+        1.034833025187254,
+        1.0611668694764376,
+        2.640542108565569,
+        1.1637499555945396
+      ],
+      "median_wall_ms": 1.2340410612523556,
+      "median_cpu_ms": 1.2329999999991514,
+      "moves": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "simulations": [
+        111,
+        73,
+        136,
+        67,
+        64,
+        173,
+        70
+      ],
+      "simulations_per_second": 80339.9986076986,
+      "traced_peak_bytes": 60944
+    },
+    {
+      "position": "preflight-007",
+      "plies": 23,
+      "config": "f1-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        1.7560417763888836,
+        1.2004589661955833,
+        2.2412079852074385,
+        1.0463329963386059,
+        1.0514578316360712,
+        2.694333903491497,
+        1.1393751483410597
+      ],
+      "median_wall_ms": 1.2004589661955833,
+      "median_cpu_ms": 1.1999999999972033,
+      "moves": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "simulations": [
+        111,
+        73,
+        136,
+        67,
+        64,
+        173,
+        70
+      ],
+      "simulations_per_second": 82587.46024202247,
+      "traced_peak_bytes": 60944
+    },
+    {
+      "position": "preflight-007",
+      "plies": 23,
+      "config": "f1-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "wall_ms": [
+        1.7311670817434788,
+        1.295916037634015,
+        2.224166877567768,
+        1.0766671039164066,
+        1.0206250008195639,
+        2.677959157153964,
+        1.166792120784521
+      ],
+      "median_wall_ms": 1.295916037634015,
+      "median_cpu_ms": 1.2910000000019295,
+      "moves": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "simulations": [
+        111,
+        73,
+        136,
+        67,
+        64,
+        173,
+        70
+      ],
+      "simulations_per_second": 76504.07454163823,
+      "traced_peak_bytes": 60944
+    },
+    {
+      "position": "preflight-007",
+      "plies": 23,
+      "config": "f2-sims-400",
+      "spec": {
+        "type": "research",
+        "simulations": 400,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        1.8113339319825172,
+        1.3187089934945107,
+        1.5677919145673513,
+        0.88162487372756,
+        1.5106669161468744,
+        2.1209579426795244,
+        1.9854579586535692
+      ],
+      "median_wall_ms": 1.5677919145673513,
+      "median_cpu_ms": 1.5619999999998413,
+      "moves": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "simulations": [
+        101,
+        96,
+        121,
+        68,
+        114,
+        125,
+        160
+      ],
+      "simulations_per_second": 71529.17176116713,
+      "traced_peak_bytes": 56008
+    },
+    {
+      "position": "preflight-007",
+      "plies": 23,
+      "config": "f2-time-400",
+      "spec": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        1.3347920030355453,
+        1.2477498967200518,
+        1.5553750563412905,
+        0.8811668958514929,
+        2.0194591488689184,
+        1.5827501192688942,
+        1.9709588959813118
+      ],
+      "median_wall_ms": 1.5553750563412905,
+      "median_cpu_ms": 1.5550000000033037,
+      "moves": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "simulations": [
+        101,
+        96,
+        121,
+        68,
+        114,
+        125,
+        160
+      ],
+      "simulations_per_second": 72100.20289681824,
+      "traced_peak_bytes": 56008
+    },
+    {
+      "position": "preflight-007",
+      "plies": 23,
+      "config": "f2-sims-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 2000,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        1.3306669425219297,
+        1.276541966944933,
+        1.5822499990463257,
+        1.337040914222598,
+        1.467083115130663,
+        1.6248750034719706,
+        1.9691670313477516
+      ],
+      "median_wall_ms": 1.467083115130663,
+      "median_cpu_ms": 1.4660000000006335,
+      "moves": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "simulations": [
+        101,
+        96,
+        121,
+        68,
+        114,
+        125,
+        160
+      ],
+      "simulations_per_second": 76439.33461320585,
+      "traced_peak_bytes": 56008
+    },
+    {
+      "position": "preflight-007",
+      "plies": 23,
+      "config": "f2-time-2000",
+      "spec": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "wall_ms": [
+        1.3269591145217419,
+        1.2505408376455307,
+        1.531749963760376,
+        0.8846248965710402,
+        1.5185000374913216,
+        1.6203750856220722,
+        1.9837080035358667
+      ],
+      "median_wall_ms": 1.5185000374913216,
+      "median_cpu_ms": 1.5179999999972438,
+      "moves": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "simulations": [
+        101,
+        96,
+        121,
+        68,
+        114,
+        125,
+        160
+      ],
+      "simulations_per_second": 73851.07301553033,
+      "traced_peak_bytes": 56008
+    }
+  ]
+}
