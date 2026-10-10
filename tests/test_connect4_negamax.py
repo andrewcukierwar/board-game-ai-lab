@@ -7,6 +7,7 @@ from random import Random
 import pytest
 
 from games.connect4.connect4 import Connect4
+from games.connect4.agents.negamax_tt import pack_key, unpack_key, pack_entry, unpack_entry
 from games.connect4.agents import negamax_agent as engine
 from games.connect4.agents.negamax_agent import (
     CENTER_ORDER, EXACT, LOWER, UPPER, WIN_SCORE, NegamaxAgent, SearchState,
@@ -110,17 +111,17 @@ def test_cutoffs_then_full_window_cache_reuse(depth):
     game = position([5, 4, 3, 6, 2, 4])
     expected = oracle(game, depth)
     state, table = SearchState(game), SearchTable()
-    key = (*state.pieces, state.mover, depth)
+    key = pack_key(*state.pieces, state.mover, depth)
     # Fail-high / beta cutoff must produce LOWER; fail-low UPPER.
     assert negamax(state, depth, expected - 2, expected - 1, table) >= expected - 1
-    assert table.entries[key][0] == LOWER
+    assert unpack_entry(table.entries[key])[0] == LOWER
     assert negamax(state, depth, -inf, inf, table) == expected
-    assert table.entries[key][:2] == (EXACT, expected)
+    assert unpack_entry(table.entries[key])[:2] == (EXACT, expected)
     assert negamax(state, depth, -inf, inf, table) == expected
     assert table.hits > 0 and table.cutoffs > 0
     table = SearchTable()
     assert negamax(state, depth, expected + 1, expected + 2, table) <= expected + 1
-    assert table.entries[key][0] == UPPER
+    assert unpack_entry(table.entries[key])[0] == UPPER
     assert negamax(state, depth, -inf, inf, table) == expected
     # Further arbitrary windows, reusing the same table, then exact root values.
     table = SearchTable()
@@ -141,7 +142,7 @@ def test_transposition_key_includes_mover_and_depth_and_fresh_decisions():
     assert negamax(SearchState(first), 2, table=table) == oracle(first, 2)
     first.current_player = 1
     assert negamax(SearchState(first), 3, table=table) == oracle(first, 3)
-    assert any(key[2] == 0 for key in table.entries) and any(key[2] == 1 for key in table.entries)
+    assert any(unpack_key(key)[2] == 0 for key in table.entries) and any(unpack_key(key)[2] == 1 for key in table.entries)
     # A terminal winner from either mover perspective must be exact, before depth 0.
     win = position([0, 1, 0, 1, 0, 1, 0])
     for mover in [0, 1]:
@@ -221,7 +222,7 @@ def test_threat_geometry_and_stable_tactical_order_match_array_engine():
 
 
 @pytest.mark.parametrize('flag', [EXACT, LOWER, UPPER])
-@pytest.mark.parametrize('hint', [None, 0, 3, 99])
+@pytest.mark.parametrize('hint', [None, 0, 3, 8])
 def test_cache_move_hint_never_changes_bound_meaning(flag, hint):
     game = position([5, 4, 3, 6, 2, 4])
     expected = oracle(game, 3)
@@ -229,7 +230,7 @@ def test_cache_move_hint_never_changes_bound_meaning(flag, hint):
                         (expected + 1, expected + 2), (expected - 1, expected + 1)]:
         state, table = SearchState(game), SearchTable()
         before = deepcopy((state.pieces, state.heights, state.mover, state.count))
-        table.entries[(*state.pieces, state.mover, 3)] = (flag, expected, hint)
+        table.entries[pack_key(*state.pieces, state.mover, 3)] = pack_entry(flag, expected, hint)
         value = negamax(state, 3, alpha, beta, table)
         assert value <= alpha if expected <= alpha else value >= beta if expected >= beta else value == expected
         assert negamax(state, 3, table=table) == expected
@@ -240,7 +241,9 @@ def test_all_stored_bounds_enclose_independent_values():
     state, table = SearchState(position([5, 4, 3, 6, 2, 4])), SearchTable()
     for alpha, beta in [(-10, -9), (20, 21), (-inf, inf)]:
         negamax(state, 3, alpha, beta, table)
-        for (x, o, mover, depth), (flag, value, hint) in table.entries.items():
+        for key, entry in table.entries.items():
+            x, o, mover, depth = unpack_key(key)
+            flag, value, hint = unpack_entry(entry)
             board = [['X' if x & (1 << (7 * col + 5 - row)) else
                       'O' if o & (1 << (7 * col + 5 - row)) else ' '
                       for col in range(7)] for row in range(6)]

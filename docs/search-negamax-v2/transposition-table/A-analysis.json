@@ -1,0 +1,50 @@
+{
+  "experiment": "A",
+  "selected": "packed-entry",
+  "comparisons": {
+    "packed-key": {
+      "eligible": true,
+      "checks": {
+        "memory": true,
+        "geometric_latency": true,
+        "summed_latency": true,
+        "per_condition": true,
+        "peak": true
+      },
+      "geometric_wall_ratio": 1.0077606606884792,
+      "summed_wall_ratio": 1.0062492839458335,
+      "geometric_cpu_ratio": 1.0079892972731515,
+      "retained_large_ratio": 0.6478688797684296,
+      "large_conditions": 28,
+      "depth_wall_ratios": {
+        "4": 1.0076984623977956,
+        "6": 1.0100699296958995,
+        "8": 1.0046807839650886,
+        "10": 1.0086011766336547
+      },
+      "worst_wall_ratio": 1.0338788667630114
+    },
+    "packed-entry": {
+      "eligible": true,
+      "checks": {
+        "memory": true,
+        "geometric_latency": true,
+        "summed_latency": true,
+        "per_condition": true,
+        "peak": true
+      },
+      "geometric_wall_ratio": 1.0482524634277093,
+      "summed_wall_ratio": 1.0463463664921036,
+      "geometric_cpu_ratio": 1.048705640369406,
+      "retained_large_ratio": 0.4398110524334292,
+      "large_conditions": 28,
+      "depth_wall_ratios": {
+        "4": 1.043512387705767,
+        "6": 1.0521156525892739,
+        "8": 1.0478034558458742,
+        "10": 1.0495971661549335
+      },
+      "worst_wall_ratio": 1.0702990982726557
+    }
+  }
+}

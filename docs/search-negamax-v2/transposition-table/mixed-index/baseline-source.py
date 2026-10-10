@@ -6,7 +6,6 @@ incrementally and unchanged on nonterminal leaves. No research module,
 checkpoint, or neural dependency is used.
 """
 from math import inf
-from games.connect4.agents.negamax_tt import pack_entry, unpack_entry
 
 WIN_SCORE = 1_000_000
 CENTER_ORDER = (3, 2, 4, 1, 5, 0, 6)
@@ -174,12 +173,11 @@ def negamax(state, depth, alpha=-inf, beta=inf, table=None):
         return terminal
     if depth == 0:
         return state.heuristic()
-    key = (state.pieces[0] | (state.pieces[1] << 49) |
-           (state.mover << 98) | (depth << 99))
+    key = (*state.pieces, state.mover, depth)
     alpha_original, beta_original = alpha, beta
     hint = None
     if table is not None and key in table.entries:
-        flag, value, move = unpack_entry(table.entries[key])
+        flag, value, move = table.entries[key]
         if table.tt_moves:
             hint = move
         table.hits += 1
@@ -211,7 +209,7 @@ def negamax(state, depth, alpha=-inf, beta=inf, table=None):
     if table is not None:
         flag = UPPER if best <= alpha_original else LOWER if best >= beta_original else EXACT
         # For bounds this is only a searched-move hint, never an exact value.
-        table.entries[key] = pack_entry(flag, best, best_move)
+        table.entries[key] = (flag, best, best_move)
     return best
 
 
