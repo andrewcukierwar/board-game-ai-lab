@@ -1,0 +1,67 @@
+{
+  "probe": {
+    "wall_seconds": 0.7043102090246975,
+    "cpu_seconds": 0.702389,
+    "move": 3,
+    "scores": [
+      [
+        3,
+        -2
+      ],
+      [
+        2,
+        -4
+      ],
+      [
+        4,
+        -4
+      ],
+      [
+        1,
+        -6
+      ],
+      [
+        5,
+        -6
+      ],
+      [
+        0,
+        -5
+      ],
+      [
+        6,
+        -5
+      ]
+    ],
+    "stats": {
+      "nodes": 380468,
+      "entries": 118065,
+      "hits": 56562,
+      "cutoffs": 87487
+    },
+    "iterations": [
+      {
+        "depth": 12,
+        "nodes": 380468,
+        "entries": 118065,
+        "hits": 56562,
+        "cutoffs": 87487
+      }
+    ],
+    "rss_before_bytes": null,
+    "rss_after_bytes": null,
+    "high_water_bytes": 63389696,
+    "retained": {
+      "total_bytes": 12954058,
+      "categories": {
+        "score_tt": 12953384,
+        "table_overhead": 674
+      },
+      "final_entries": 118065,
+      "hint_entries": 0,
+      "attribute_bytes": 120
+    }
+  },
+  "projected_seconds": 349.33786367625,
+  "passed": true
+}

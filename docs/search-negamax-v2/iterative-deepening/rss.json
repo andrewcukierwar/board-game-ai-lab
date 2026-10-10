@@ -1,0 +1,1350 @@
+[
+  {
+    "position": "empty",
+    "variant": "direct",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.34193295799195766,
+      "cpu_seconds": 0.25302800000000003,
+      "move": 2,
+      "scores": [
+        [
+          3,
+          -4
+        ],
+        [
+          2,
+          -3
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          1,
+          -5
+        ],
+        [
+          5,
+          -5
+        ],
+        [
+          0,
+          -6
+        ],
+        [
+          6,
+          -6
+        ]
+      ],
+      "stats": {
+        "nodes": 128308,
+        "entries": 38395,
+        "hits": 15828,
+        "cutoffs": 27477
+      },
+      "iterations": [
+        {
+          "depth": 10,
+          "nodes": 128308,
+          "entries": 38395,
+          "hits": 15828,
+          "cutoffs": 27477
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 49299456,
+      "retained": {
+        "total_bytes": 3800282,
+        "categories": {
+          "score_tt": 3799608,
+          "table_overhead": 674
+        },
+        "final_entries": 38395,
+        "hint_entries": 0,
+        "attribute_bytes": 120
+      }
+    }
+  },
+  {
+    "position": "empty",
+    "variant": "hints",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.28635804215446115,
+      "cpu_seconds": 0.28160199999999996,
+      "move": 2,
+      "scores": [
+        [
+          3,
+          -4
+        ],
+        [
+          2,
+          -3
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          1,
+          -5
+        ],
+        [
+          5,
+          -5
+        ],
+        [
+          0,
+          -6
+        ],
+        [
+          6,
+          -6
+        ]
+      ],
+      "stats": {
+        "nodes": 150605,
+        "entries": 45595,
+        "hits": 14589,
+        "cutoffs": 31036
+      },
+      "iterations": [
+        {
+          "depth": 8,
+          "nodes": 29425,
+          "entries": 8400,
+          "hits": 2725,
+          "cutoffs": 5639
+        },
+        {
+          "depth": 10,
+          "nodes": 121180,
+          "entries": 37195,
+          "hits": 11864,
+          "cutoffs": 25397
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 50233344,
+      "retained": {
+        "total_bytes": 4334824,
+        "categories": {
+          "score_tt": 3712548,
+          "hint_cache": 621540,
+          "table_overhead": 736
+        },
+        "final_entries": 37195,
+        "hint_entries": 8400,
+        "attribute_bytes": 128
+      }
+    }
+  },
+  {
+    "position": "empty",
+    "variant": "iterative",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.29356541694141924,
+      "cpu_seconds": 0.29152900000000004,
+      "move": 2,
+      "scores": [
+        [
+          3,
+          -4
+        ],
+        [
+          2,
+          -3
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          1,
+          -5
+        ],
+        [
+          5,
+          -5
+        ],
+        [
+          0,
+          -6
+        ],
+        [
+          6,
+          -6
+        ]
+      ],
+      "stats": {
+        "nodes": 163435,
+        "entries": 48392,
+        "hits": 18964,
+        "cutoffs": 34101
+      },
+      "iterations": [
+        {
+          "depth": 2,
+          "nodes": 56,
+          "entries": 7,
+          "hits": 0,
+          "cutoffs": 0
+        },
+        {
+          "depth": 4,
+          "nodes": 594,
+          "entries": 143,
+          "hits": 15,
+          "cutoffs": 71
+        },
+        {
+          "depth": 6,
+          "nodes": 5052,
+          "entries": 1447,
+          "hits": 396,
+          "cutoffs": 914
+        },
+        {
+          "depth": 8,
+          "nodes": 29425,
+          "entries": 8400,
+          "hits": 2725,
+          "cutoffs": 5639
+        },
+        {
+          "depth": 10,
+          "nodes": 128308,
+          "entries": 38395,
+          "hits": 15828,
+          "cutoffs": 27477
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 49446912,
+      "retained": {
+        "total_bytes": 3800344,
+        "categories": {
+          "score_tt": 3799608,
+          "table_overhead": 736
+        },
+        "final_entries": 38395,
+        "hint_entries": 0,
+        "attribute_bytes": 128
+      }
+    }
+  },
+  {
+    "position": "empty",
+    "variant": "combined",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.2884417499881238,
+      "cpu_seconds": 0.288049,
+      "move": 2,
+      "scores": [
+        [
+          3,
+          -4
+        ],
+        [
+          2,
+          -3
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          1,
+          -5
+        ],
+        [
+          5,
+          -5
+        ],
+        [
+          0,
+          -6
+        ],
+        [
+          6,
+          -6
+        ]
+      ],
+      "stats": {
+        "nodes": 159259,
+        "entries": 47743,
+        "hits": 13856,
+        "cutoffs": 31928
+      },
+      "iterations": [
+        {
+          "depth": 2,
+          "nodes": 56,
+          "entries": 7,
+          "hits": 0,
+          "cutoffs": 0
+        },
+        {
+          "depth": 4,
+          "nodes": 612,
+          "entries": 152,
+          "hits": 15,
+          "cutoffs": 78
+        },
+        {
+          "depth": 6,
+          "nodes": 4678,
+          "entries": 1370,
+          "hits": 309,
+          "cutoffs": 851
+        },
+        {
+          "depth": 8,
+          "nodes": 29215,
+          "entries": 8647,
+          "hits": 2265,
+          "cutoffs": 5775
+        },
+        {
+          "depth": 10,
+          "nodes": 124698,
+          "entries": 37567,
+          "hits": 11267,
+          "cutoffs": 25224
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 50364416,
+      "retained": {
+        "total_bytes": 4362836,
+        "categories": {
+          "score_tt": 3730928,
+          "hint_cache": 631172,
+          "table_overhead": 736
+        },
+        "final_entries": 37567,
+        "hint_entries": 8647,
+        "attribute_bytes": 128
+      }
+    }
+  },
+  {
+    "position": "near-opening",
+    "variant": "direct",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.18489804188720882,
+      "cpu_seconds": 0.18483200000000005,
+      "move": 3,
+      "scores": [
+        [
+          3,
+          -7
+        ],
+        [
+          2,
+          -11
+        ],
+        [
+          4,
+          -14
+        ],
+        [
+          1,
+          -17
+        ],
+        [
+          5,
+          -13
+        ],
+        [
+          0,
+          -18
+        ],
+        [
+          6,
+          -11
+        ]
+      ],
+      "stats": {
+        "nodes": 99441,
+        "entries": 28999,
+        "hits": 14340,
+        "cutoffs": 22095
+      },
+      "iterations": [
+        {
+          "depth": 10,
+          "nodes": 99441,
+          "entries": 28999,
+          "hits": 14340,
+          "cutoffs": 22095
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 48496640,
+      "retained": {
+        "total_bytes": 3244654,
+        "categories": {
+          "score_tt": 3243980,
+          "table_overhead": 674
+        },
+        "final_entries": 28999,
+        "hint_entries": 0,
+        "attribute_bytes": 120
+      }
+    }
+  },
+  {
+    "position": "near-opening",
+    "variant": "hints",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.1803088339511305,
+      "cpu_seconds": 0.18013,
+      "move": 3,
+      "scores": [
+        [
+          3,
+          -7
+        ],
+        [
+          2,
+          -11
+        ],
+        [
+          4,
+          -14
+        ],
+        [
+          1,
+          -17
+        ],
+        [
+          5,
+          -13
+        ],
+        [
+          0,
+          -18
+        ],
+        [
+          6,
+          -11
+        ]
+      ],
+      "stats": {
+        "nodes": 97835,
+        "entries": 29456,
+        "hits": 10871,
+        "cutoffs": 21357
+      },
+      "iterations": [
+        {
+          "depth": 8,
+          "nodes": 24054,
+          "entries": 6699,
+          "hits": 2903,
+          "cutoffs": 4939
+        },
+        {
+          "depth": 10,
+          "nodes": 73781,
+          "entries": 22757,
+          "hits": 7968,
+          "cutoffs": 16418
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 48889856,
+      "retained": {
+        "total_bytes": 3382012,
+        "categories": {
+          "score_tt": 2825460,
+          "hint_cache": 555816,
+          "table_overhead": 736
+        },
+        "final_entries": 22757,
+        "hint_entries": 6699,
+        "attribute_bytes": 128
+      }
+    }
+  },
+  {
+    "position": "near-opening",
+    "variant": "iterative",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.23013337492011487,
+      "cpu_seconds": 0.23004099999999994,
+      "move": 3,
+      "scores": [
+        [
+          3,
+          -7
+        ],
+        [
+          2,
+          -11
+        ],
+        [
+          4,
+          -14
+        ],
+        [
+          1,
+          -17
+        ],
+        [
+          5,
+          -13
+        ],
+        [
+          0,
+          -18
+        ],
+        [
+          6,
+          -11
+        ]
+      ],
+      "stats": {
+        "nodes": 128378,
+        "entries": 37046,
+        "hits": 17656,
+        "cutoffs": 27931
+      },
+      "iterations": [
+        {
+          "depth": 2,
+          "nodes": 56,
+          "entries": 7,
+          "hits": 0,
+          "cutoffs": 0
+        },
+        {
+          "depth": 4,
+          "nodes": 569,
+          "entries": 155,
+          "hits": 19,
+          "cutoffs": 91
+        },
+        {
+          "depth": 6,
+          "nodes": 4258,
+          "entries": 1186,
+          "hits": 394,
+          "cutoffs": 806
+        },
+        {
+          "depth": 8,
+          "nodes": 24054,
+          "entries": 6699,
+          "hits": 2903,
+          "cutoffs": 4939
+        },
+        {
+          "depth": 10,
+          "nodes": 99441,
+          "entries": 28999,
+          "hits": 14340,
+          "cutoffs": 22095
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 48742400,
+      "retained": {
+        "total_bytes": 3244716,
+        "categories": {
+          "score_tt": 3243980,
+          "table_overhead": 736
+        },
+        "final_entries": 28999,
+        "hint_entries": 0,
+        "attribute_bytes": 128
+      }
+    }
+  },
+  {
+    "position": "near-opening",
+    "variant": "combined",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.18664187495596707,
+      "cpu_seconds": 0.1862149999999999,
+      "move": 3,
+      "scores": [
+        [
+          3,
+          -7
+        ],
+        [
+          2,
+          -11
+        ],
+        [
+          4,
+          -14
+        ],
+        [
+          1,
+          -17
+        ],
+        [
+          5,
+          -13
+        ],
+        [
+          0,
+          -18
+        ],
+        [
+          6,
+          -11
+        ]
+      ],
+      "stats": {
+        "nodes": 99992,
+        "entries": 30934,
+        "hits": 10295,
+        "cutoffs": 22266
+      },
+      "iterations": [
+        {
+          "depth": 2,
+          "nodes": 56,
+          "entries": 7,
+          "hits": 0,
+          "cutoffs": 0
+        },
+        {
+          "depth": 4,
+          "nodes": 543,
+          "entries": 149,
+          "hits": 15,
+          "cutoffs": 88
+        },
+        {
+          "depth": 6,
+          "nodes": 3521,
+          "entries": 1047,
+          "hits": 205,
+          "cutoffs": 696
+        },
+        {
+          "depth": 8,
+          "nodes": 19733,
+          "entries": 5944,
+          "hits": 1850,
+          "cutoffs": 4202
+        },
+        {
+          "depth": 10,
+          "nodes": 76139,
+          "entries": 23787,
+          "hits": 8225,
+          "cutoffs": 17280
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 49348608,
+      "retained": {
+        "total_bytes": 3422524,
+        "categories": {
+          "score_tt": 2894996,
+          "hint_cache": 526792,
+          "table_overhead": 736
+        },
+        "final_entries": 23787,
+        "hint_entries": 5944,
+        "attribute_bytes": 128
+      }
+    }
+  },
+  {
+    "position": "seeded-04",
+    "variant": "direct",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.46020399988628924,
+      "cpu_seconds": 0.45963200000000004,
+      "move": 5,
+      "scores": [
+        [
+          3,
+          -13
+        ],
+        [
+          2,
+          -6
+        ],
+        [
+          4,
+          -9
+        ],
+        [
+          1,
+          -5
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          0,
+          -7
+        ],
+        [
+          6,
+          -5
+        ]
+      ],
+      "stats": {
+        "nodes": 253274,
+        "entries": 78484,
+        "hits": 29767,
+        "cutoffs": 61262
+      },
+      "iterations": [
+        {
+          "depth": 10,
+          "nodes": 253274,
+          "entries": 78484,
+          "hits": 29767,
+          "cutoffs": 61262
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 54951936,
+      "retained": {
+        "total_bytes": 7774706,
+        "categories": {
+          "score_tt": 7774032,
+          "table_overhead": 674
+        },
+        "final_entries": 78484,
+        "hint_entries": 0,
+        "attribute_bytes": 120
+      }
+    }
+  },
+  {
+    "position": "seeded-04",
+    "variant": "hints",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.3542084170039743,
+      "cpu_seconds": 0.35371699999999995,
+      "move": 5,
+      "scores": [
+        [
+          3,
+          -13
+        ],
+        [
+          2,
+          -6
+        ],
+        [
+          4,
+          -9
+        ],
+        [
+          1,
+          -5
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          0,
+          -7
+        ],
+        [
+          6,
+          -5
+        ]
+      ],
+      "stats": {
+        "nodes": 190378,
+        "entries": 59814,
+        "hits": 16313,
+        "cutoffs": 44195
+      },
+      "iterations": [
+        {
+          "depth": 8,
+          "nodes": 50920,
+          "entries": 15094,
+          "hits": 5178,
+          "cutoffs": 11381
+        },
+        {
+          "depth": 10,
+          "nodes": 139458,
+          "entries": 44720,
+          "hits": 11135,
+          "cutoffs": 32814
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 53968896,
+      "retained": {
+        "total_bytes": 6756432,
+        "categories": {
+          "score_tt": 5561996,
+          "hint_cache": 1193700,
+          "table_overhead": 736
+        },
+        "final_entries": 44720,
+        "hint_entries": 15094,
+        "attribute_bytes": 128
+      }
+    }
+  },
+  {
+    "position": "seeded-04",
+    "variant": "iterative",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.5727229590993375,
+      "cpu_seconds": 0.5713540000000001,
+      "move": 5,
+      "scores": [
+        [
+          3,
+          -13
+        ],
+        [
+          2,
+          -6
+        ],
+        [
+          4,
+          -9
+        ],
+        [
+          1,
+          -5
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          0,
+          -7
+        ],
+        [
+          6,
+          -5
+        ]
+      ],
+      "stats": {
+        "nodes": 313546,
+        "entries": 96041,
+        "hits": 35597,
+        "cutoffs": 74336
+      },
+      "iterations": [
+        {
+          "depth": 2,
+          "nodes": 56,
+          "entries": 7,
+          "hits": 0,
+          "cutoffs": 0
+        },
+        {
+          "depth": 4,
+          "nodes": 992,
+          "entries": 215,
+          "hits": 32,
+          "cutoffs": 116
+        },
+        {
+          "depth": 6,
+          "nodes": 8304,
+          "entries": 2241,
+          "hits": 620,
+          "cutoffs": 1577
+        },
+        {
+          "depth": 8,
+          "nodes": 50920,
+          "entries": 15094,
+          "hits": 5178,
+          "cutoffs": 11381
+        },
+        {
+          "depth": 10,
+          "nodes": 253274,
+          "entries": 78484,
+          "hits": 29767,
+          "cutoffs": 61262
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 55230464,
+      "retained": {
+        "total_bytes": 7774768,
+        "categories": {
+          "score_tt": 7774032,
+          "table_overhead": 736
+        },
+        "final_entries": 78484,
+        "hint_entries": 0,
+        "attribute_bytes": 128
+      }
+    }
+  },
+  {
+    "position": "seeded-04",
+    "variant": "combined",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.32420212496072054,
+      "cpu_seconds": 0.32380699999999996,
+      "move": 5,
+      "scores": [
+        [
+          3,
+          -13
+        ],
+        [
+          2,
+          -6
+        ],
+        [
+          4,
+          -9
+        ],
+        [
+          1,
+          -5
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          0,
+          -7
+        ],
+        [
+          6,
+          -5
+        ]
+      ],
+      "stats": {
+        "nodes": 171547,
+        "entries": 53774,
+        "hits": 12694,
+        "cutoffs": 38914
+      },
+      "iterations": [
+        {
+          "depth": 2,
+          "nodes": 56,
+          "entries": 7,
+          "hits": 0,
+          "cutoffs": 0
+        },
+        {
+          "depth": 4,
+          "nodes": 779,
+          "entries": 164,
+          "hits": 10,
+          "cutoffs": 80
+        },
+        {
+          "depth": 6,
+          "nodes": 5030,
+          "entries": 1321,
+          "hits": 158,
+          "cutoffs": 840
+        },
+        {
+          "depth": 8,
+          "nodes": 29125,
+          "entries": 8689,
+          "hits": 1866,
+          "cutoffs": 6112
+        },
+        {
+          "depth": 10,
+          "nodes": 136557,
+          "entries": 43593,
+          "hits": 10660,
+          "cutoffs": 31882
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 50855936,
+      "retained": {
+        "total_bytes": 4822120,
+        "categories": {
+          "score_tt": 4178804,
+          "hint_cache": 642580,
+          "table_overhead": 736
+        },
+        "final_entries": 43593,
+        "hint_entries": 8689,
+        "attribute_bytes": 128
+      }
+    }
+  },
+  {
+    "position": "post-hoc-tail",
+    "variant": "direct",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.7658529998734593,
+      "cpu_seconds": 0.7632570000000001,
+      "move": 4,
+      "scores": [
+        [
+          3,
+          -15
+        ],
+        [
+          2,
+          -10
+        ],
+        [
+          4,
+          -4
+        ],
+        [
+          1,
+          -7
+        ],
+        [
+          5,
+          -11
+        ],
+        [
+          0,
+          -8
+        ],
+        [
+          6,
+          -7
+        ]
+      ],
+      "stats": {
+        "nodes": 423857,
+        "entries": 119958,
+        "hits": 47944,
+        "cutoffs": 93664
+      },
+      "iterations": [
+        {
+          "depth": 10,
+          "nodes": 423857,
+          "entries": 119958,
+          "hits": 47944,
+          "cutoffs": 93664
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 63471616,
+      "retained": {
+        "total_bytes": 13184786,
+        "categories": {
+          "score_tt": 13184112,
+          "table_overhead": 674
+        },
+        "final_entries": 119958,
+        "hint_entries": 0,
+        "attribute_bytes": 120
+      }
+    }
+  },
+  {
+    "position": "post-hoc-tail",
+    "variant": "hints",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.478151333052665,
+      "cpu_seconds": 0.47738200000000003,
+      "move": 4,
+      "scores": [
+        [
+          3,
+          -15
+        ],
+        [
+          2,
+          -10
+        ],
+        [
+          4,
+          -4
+        ],
+        [
+          1,
+          -7
+        ],
+        [
+          5,
+          -11
+        ],
+        [
+          0,
+          -8
+        ],
+        [
+          6,
+          -7
+        ]
+      ],
+      "stats": {
+        "nodes": 269620,
+        "entries": 76198,
+        "hits": 18503,
+        "cutoffs": 55218
+      },
+      "iterations": [
+        {
+          "depth": 8,
+          "nodes": 78662,
+          "entries": 20755,
+          "hits": 7119,
+          "cutoffs": 15463
+        },
+        {
+          "depth": 10,
+          "nodes": 190958,
+          "entries": 55443,
+          "hits": 11384,
+          "cutoffs": 39755
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 54919168,
+      "retained": {
+        "total_bytes": 7667852,
+        "categories": {
+          "score_tt": 6285784,
+          "hint_cache": 1381332,
+          "table_overhead": 736
+        },
+        "final_entries": 55443,
+        "hint_entries": 20755,
+        "attribute_bytes": 128
+      }
+    }
+  },
+  {
+    "position": "post-hoc-tail",
+    "variant": "iterative",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.9495640839450061,
+      "cpu_seconds": 0.9262119999999999,
+      "move": 4,
+      "scores": [
+        [
+          3,
+          -15
+        ],
+        [
+          2,
+          -10
+        ],
+        [
+          4,
+          -4
+        ],
+        [
+          1,
+          -7
+        ],
+        [
+          5,
+          -11
+        ],
+        [
+          0,
+          -8
+        ],
+        [
+          6,
+          -7
+        ]
+      ],
+      "stats": {
+        "nodes": 514601,
+        "entries": 143559,
+        "hits": 55819,
+        "cutoffs": 111064
+      },
+      "iterations": [
+        {
+          "depth": 2,
+          "nodes": 56,
+          "entries": 7,
+          "hits": 0,
+          "cutoffs": 0
+        },
+        {
+          "depth": 4,
+          "nodes": 1227,
+          "entries": 235,
+          "hits": 41,
+          "cutoffs": 132
+        },
+        {
+          "depth": 6,
+          "nodes": 10799,
+          "entries": 2604,
+          "hits": 715,
+          "cutoffs": 1805
+        },
+        {
+          "depth": 8,
+          "nodes": 78662,
+          "entries": 20755,
+          "hits": 7119,
+          "cutoffs": 15463
+        },
+        {
+          "depth": 10,
+          "nodes": 423857,
+          "entries": 119958,
+          "hits": 47944,
+          "cutoffs": 93664
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 63799296,
+      "retained": {
+        "total_bytes": 13184848,
+        "categories": {
+          "score_tt": 13184112,
+          "table_overhead": 736
+        },
+        "final_entries": 119958,
+        "hint_entries": 0,
+        "attribute_bytes": 128
+      }
+    }
+  },
+  {
+    "position": "post-hoc-tail",
+    "variant": "combined",
+    "depth": 10,
+    "result": {
+      "wall_seconds": 0.48252183315344155,
+      "cpu_seconds": 0.47703899999999994,
+      "move": 4,
+      "scores": [
+        [
+          3,
+          -15
+        ],
+        [
+          2,
+          -10
+        ],
+        [
+          4,
+          -4
+        ],
+        [
+          1,
+          -7
+        ],
+        [
+          5,
+          -11
+        ],
+        [
+          0,
+          -8
+        ],
+        [
+          6,
+          -7
+        ]
+      ],
+      "stats": {
+        "nodes": 259977,
+        "entries": 71631,
+        "hits": 14336,
+        "cutoffs": 50066
+      },
+      "iterations": [
+        {
+          "depth": 2,
+          "nodes": 56,
+          "entries": 7,
+          "hits": 0,
+          "cutoffs": 0
+        },
+        {
+          "depth": 4,
+          "nodes": 1148,
+          "entries": 215,
+          "hits": 26,
+          "cutoffs": 113
+        },
+        {
+          "depth": 6,
+          "nodes": 7446,
+          "entries": 1718,
+          "hits": 259,
+          "cutoffs": 1087
+        },
+        {
+          "depth": 8,
+          "nodes": 39744,
+          "entries": 10319,
+          "hits": 1687,
+          "cutoffs": 6924
+        },
+        {
+          "depth": 10,
+          "nodes": 211583,
+          "entries": 59372,
+          "hits": 12364,
+          "cutoffs": 41942
+        }
+      ],
+      "rss_before_bytes": null,
+      "rss_after_bytes": null,
+      "high_water_bytes": 54542336,
+      "retained": {
+        "total_bytes": 7225012,
+        "categories": {
+          "score_tt": 6534196,
+          "hint_cache": 690080,
+          "table_overhead": 736
+        },
+        "final_entries": 59372,
+        "hint_entries": 10319,
+        "attribute_bytes": 128
+      }
+    }
+  }
+]

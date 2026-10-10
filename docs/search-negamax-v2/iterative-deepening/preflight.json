@@ -1,0 +1,4615 @@
+{
+  "rows": [
+    {
+      "position": "empty",
+      "depth": 8,
+      "variants": {
+        "direct": {
+          "normal": {
+            "wall_seconds": 0.046036750078201294,
+            "cpu_seconds": 0.04600700000000002,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -4
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -6
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 29425,
+              "entries": 8400,
+              "hits": 2725,
+              "cutoffs": 5639
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 29425,
+                "entries": 8400,
+                "hits": 2725,
+                "cutoffs": 5639
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 0.2981775840744376,
+            "cpu_seconds": 0.297957,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -4
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -6
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 29425,
+              "entries": 8400,
+              "hits": 2725,
+              "cutoffs": 5639
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 29425,
+                "entries": 8400,
+                "hits": 2725,
+                "cutoffs": 5639
+              }
+            ],
+            "traced_current_bytes": 864532,
+            "traced_peak_bytes": 868032,
+            "retained": {
+              "total_bytes": 834050,
+              "categories": {
+                "score_tt": 833376,
+                "table_overhead": 674
+              },
+              "final_entries": 8400,
+              "hint_entries": 0,
+              "attribute_bytes": 120
+            }
+          }
+        },
+        "hints": {
+          "normal": {
+            "wall_seconds": 0.05441395798698068,
+            "cpu_seconds": 0.054405999999999954,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -4
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -6
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 34298,
+              "entries": 10124,
+              "hits": 2647,
+              "cutoffs": 6720
+            },
+            "iterations": [
+              {
+                "depth": 6,
+                "nodes": 5052,
+                "entries": 1447,
+                "hits": 396,
+                "cutoffs": 914
+              },
+              {
+                "depth": 8,
+                "nodes": 29246,
+                "entries": 8677,
+                "hits": 2251,
+                "cutoffs": 5806
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 0.361825916916132,
+            "cpu_seconds": 0.36151699999999987,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -4
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -6
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 34298,
+              "entries": 10124,
+              "hits": 2647,
+              "cutoffs": 6720
+            },
+            "iterations": [
+              {
+                "depth": 6,
+                "nodes": 5052,
+                "entries": 1447,
+                "hits": 396,
+                "cutoffs": 914
+              },
+              {
+                "depth": 8,
+                "nodes": 29246,
+                "entries": 8677,
+                "hits": 2251,
+                "cutoffs": 5806
+              }
+            ],
+            "traced_current_bytes": 1013032,
+            "traced_peak_bytes": 1016340,
+            "retained": {
+              "total_bytes": 979740,
+              "categories": {
+                "score_tt": 848880,
+                "hint_cache": 130124,
+                "table_overhead": 736
+              },
+              "final_entries": 8677,
+              "hint_entries": 1447,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "iterative": {
+          "normal": {
+            "wall_seconds": 0.05321349995210767,
+            "cpu_seconds": 0.05316600000000005,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -4
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -6
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 35127,
+              "entries": 9997,
+              "hits": 3136,
+              "cutoffs": 6624
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 594,
+                "entries": 143,
+                "hits": 15,
+                "cutoffs": 71
+              },
+              {
+                "depth": 6,
+                "nodes": 5052,
+                "entries": 1447,
+                "hits": 396,
+                "cutoffs": 914
+              },
+              {
+                "depth": 8,
+                "nodes": 29425,
+                "entries": 8400,
+                "hits": 2725,
+                "cutoffs": 5639
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 0.3477467498742044,
+            "cpu_seconds": 0.347256,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -4
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -6
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 35127,
+              "entries": 9997,
+              "hits": 3136,
+              "cutoffs": 6624
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 594,
+                "entries": 143,
+                "hits": 15,
+                "cutoffs": 71
+              },
+              {
+                "depth": 6,
+                "nodes": 5052,
+                "entries": 1447,
+                "hits": 396,
+                "cutoffs": 914
+              },
+              {
+                "depth": 8,
+                "nodes": 29425,
+                "entries": 8400,
+                "hits": 2725,
+                "cutoffs": 5639
+              }
+            ],
+            "traced_current_bytes": 865712,
+            "traced_peak_bytes": 868940,
+            "retained": {
+              "total_bytes": 834112,
+              "categories": {
+                "score_tt": 833376,
+                "table_overhead": 736
+              },
+              "final_entries": 8400,
+              "hint_entries": 0,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "combined": {
+          "normal": {
+            "wall_seconds": 0.05526624992489815,
+            "cpu_seconds": 0.05524300000000015,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -4
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -6
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 34561,
+              "entries": 10176,
+              "hits": 2589,
+              "cutoffs": 6704
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 612,
+                "entries": 152,
+                "hits": 15,
+                "cutoffs": 78
+              },
+              {
+                "depth": 6,
+                "nodes": 4678,
+                "entries": 1370,
+                "hits": 309,
+                "cutoffs": 851
+              },
+              {
+                "depth": 8,
+                "nodes": 29215,
+                "entries": 8647,
+                "hits": 2265,
+                "cutoffs": 5775
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 0.3665135831106454,
+            "cpu_seconds": 0.366279,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -4
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -6
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 34561,
+              "entries": 10176,
+              "hits": 2589,
+              "cutoffs": 6704
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 612,
+                "entries": 152,
+                "hits": 15,
+                "cutoffs": 78
+              },
+              {
+                "depth": 6,
+                "nodes": 4678,
+                "entries": 1370,
+                "hits": 309,
+                "cutoffs": 851
+              },
+              {
+                "depth": 8,
+                "nodes": 29215,
+                "entries": 8647,
+                "hits": 2265,
+                "cutoffs": 5775
+              }
+            ],
+            "traced_current_bytes": 1008264,
+            "traced_peak_bytes": 1011468,
+            "retained": {
+              "total_bytes": 974644,
+              "categories": {
+                "score_tt": 846784,
+                "hint_cache": 127124,
+                "table_overhead": 736
+              },
+              "final_entries": 8647,
+              "hint_entries": 1370,
+              "attribute_bytes": 128
+            }
+          }
+        }
+      }
+    },
+    {
+      "position": "empty",
+      "depth": 10,
+      "variants": {
+        "direct": {
+          "normal": {
+            "wall_seconds": 0.21313679218292236,
+            "cpu_seconds": 0.21301900000000007,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -3
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -5
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 128308,
+              "entries": 38395,
+              "hits": 15828,
+              "cutoffs": 27477
+            },
+            "iterations": [
+              {
+                "depth": 10,
+                "nodes": 128308,
+                "entries": 38395,
+                "hits": 15828,
+                "cutoffs": 27477
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 1.5000237920321524,
+            "cpu_seconds": 1.4989749999999997,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -3
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -5
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 128308,
+              "entries": 38395,
+              "hits": 15828,
+              "cutoffs": 27477
+            },
+            "iterations": [
+              {
+                "depth": 10,
+                "nodes": 128308,
+                "entries": 38395,
+                "hits": 15828,
+                "cutoffs": 27477
+              }
+            ],
+            "traced_current_bytes": 3937804,
+            "traced_peak_bytes": 3941400,
+            "retained": {
+              "total_bytes": 3800282,
+              "categories": {
+                "score_tt": 3799608,
+                "table_overhead": 674
+              },
+              "final_entries": 38395,
+              "hint_entries": 0,
+              "attribute_bytes": 120
+            }
+          }
+        },
+        "hints": {
+          "normal": {
+            "wall_seconds": 0.2515647909604013,
+            "cpu_seconds": 0.25141999999999953,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -3
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -5
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 150605,
+              "entries": 45595,
+              "hits": 14589,
+              "cutoffs": 31036
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 29425,
+                "entries": 8400,
+                "hits": 2725,
+                "cutoffs": 5639
+              },
+              {
+                "depth": 10,
+                "nodes": 121180,
+                "entries": 37195,
+                "hits": 11864,
+                "cutoffs": 25397
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 1.837228334043175,
+            "cpu_seconds": 1.8258290000000006,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -3
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -5
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 150605,
+              "entries": 45595,
+              "hits": 14589,
+              "cutoffs": 31036
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 29425,
+                "entries": 8400,
+                "hits": 2725,
+                "cutoffs": 5639
+              },
+              {
+                "depth": 10,
+                "nodes": 121180,
+                "entries": 37195,
+                "hits": 11864,
+                "cutoffs": 25397
+              }
+            ],
+            "traced_current_bytes": 4476832,
+            "traced_peak_bytes": 4480092,
+            "retained": {
+              "total_bytes": 4334824,
+              "categories": {
+                "score_tt": 3712548,
+                "hint_cache": 621540,
+                "table_overhead": 736
+              },
+              "final_entries": 37195,
+              "hint_entries": 8400,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "iterative": {
+          "normal": {
+            "wall_seconds": 0.27070491714403033,
+            "cpu_seconds": 0.27015600000000006,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -3
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -5
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 163435,
+              "entries": 48392,
+              "hits": 18964,
+              "cutoffs": 34101
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 594,
+                "entries": 143,
+                "hits": 15,
+                "cutoffs": 71
+              },
+              {
+                "depth": 6,
+                "nodes": 5052,
+                "entries": 1447,
+                "hits": 396,
+                "cutoffs": 914
+              },
+              {
+                "depth": 8,
+                "nodes": 29425,
+                "entries": 8400,
+                "hits": 2725,
+                "cutoffs": 5639
+              },
+              {
+                "depth": 10,
+                "nodes": 128308,
+                "entries": 38395,
+                "hits": 15828,
+                "cutoffs": 27477
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 1.8921078329440206,
+            "cpu_seconds": 1.879137,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -3
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -5
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 163435,
+              "entries": 48392,
+              "hits": 18964,
+              "cutoffs": 34101
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 594,
+                "entries": 143,
+                "hits": 15,
+                "cutoffs": 71
+              },
+              {
+                "depth": 6,
+                "nodes": 5052,
+                "entries": 1447,
+                "hits": 396,
+                "cutoffs": 914
+              },
+              {
+                "depth": 8,
+                "nodes": 29425,
+                "entries": 8400,
+                "hits": 2725,
+                "cutoffs": 5639
+              },
+              {
+                "depth": 10,
+                "nodes": 128308,
+                "entries": 38395,
+                "hits": 15828,
+                "cutoffs": 27477
+              }
+            ],
+            "traced_current_bytes": 3939252,
+            "traced_peak_bytes": 3942640,
+            "retained": {
+              "total_bytes": 3800344,
+              "categories": {
+                "score_tt": 3799608,
+                "table_overhead": 736
+              },
+              "final_entries": 38395,
+              "hint_entries": 0,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "combined": {
+          "normal": {
+            "wall_seconds": 0.2653762500267476,
+            "cpu_seconds": 0.26522999999999897,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -3
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -5
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 159259,
+              "entries": 47743,
+              "hits": 13856,
+              "cutoffs": 31928
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 612,
+                "entries": 152,
+                "hits": 15,
+                "cutoffs": 78
+              },
+              {
+                "depth": 6,
+                "nodes": 4678,
+                "entries": 1370,
+                "hits": 309,
+                "cutoffs": 851
+              },
+              {
+                "depth": 8,
+                "nodes": 29215,
+                "entries": 8647,
+                "hits": 2265,
+                "cutoffs": 5775
+              },
+              {
+                "depth": 10,
+                "nodes": 124698,
+                "entries": 37567,
+                "hits": 11267,
+                "cutoffs": 25224
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 1.9112565000541508,
+            "cpu_seconds": 1.9099240000000002,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -4
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -3
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -5
+              ],
+              [
+                0,
+                -6
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 159259,
+              "entries": 47743,
+              "hits": 13856,
+              "cutoffs": 31928
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 612,
+                "entries": 152,
+                "hits": 15,
+                "cutoffs": 78
+              },
+              {
+                "depth": 6,
+                "nodes": 4678,
+                "entries": 1370,
+                "hits": 309,
+                "cutoffs": 851
+              },
+              {
+                "depth": 8,
+                "nodes": 29215,
+                "entries": 8647,
+                "hits": 2265,
+                "cutoffs": 5775
+              },
+              {
+                "depth": 10,
+                "nodes": 124698,
+                "entries": 37567,
+                "hits": 11267,
+                "cutoffs": 25224
+              }
+            ],
+            "traced_current_bytes": 4506236,
+            "traced_peak_bytes": 4509432,
+            "retained": {
+              "total_bytes": 4362836,
+              "categories": {
+                "score_tt": 3730928,
+                "hint_cache": 631172,
+                "table_overhead": 736
+              },
+              "final_entries": 37567,
+              "hint_entries": 8647,
+              "attribute_bytes": 128
+            }
+          }
+        }
+      }
+    },
+    {
+      "position": "near-opening",
+      "depth": 8,
+      "variants": {
+        "direct": {
+          "normal": {
+            "wall_seconds": 0.040346582885831594,
+            "cpu_seconds": 0.04032899999999984,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -6
+              ],
+              [
+                2,
+                -8
+              ],
+              [
+                4,
+                -12
+              ],
+              [
+                1,
+                -21
+              ],
+              [
+                5,
+                -15
+              ],
+              [
+                0,
+                -21
+              ],
+              [
+                6,
+                -10
+              ]
+            ],
+            "stats": {
+              "nodes": 24054,
+              "entries": 6699,
+              "hits": 2903,
+              "cutoffs": 4939
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 24054,
+                "entries": 6699,
+                "hits": 2903,
+                "cutoffs": 4939
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 0.3036475838162005,
+            "cpu_seconds": 0.30338899999999924,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -6
+              ],
+              [
+                2,
+                -8
+              ],
+              [
+                4,
+                -12
+              ],
+              [
+                1,
+                -21
+              ],
+              [
+                5,
+                -15
+              ],
+              [
+                0,
+                -21
+              ],
+              [
+                6,
+                -10
+              ]
+            ],
+            "stats": {
+              "nodes": 24054,
+              "entries": 6699,
+              "hits": 2903,
+              "cutoffs": 4939
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 24054,
+                "entries": 6699,
+                "hits": 2903,
+                "cutoffs": 4939
+              }
+            ],
+            "traced_current_bytes": 769036,
+            "traced_peak_bytes": 833672,
+            "retained": {
+              "total_bytes": 741678,
+              "categories": {
+                "score_tt": 741004,
+                "table_overhead": 674
+              },
+              "final_entries": 6699,
+              "hint_entries": 0,
+              "attribute_bytes": 120
+            }
+          }
+        },
+        "hints": {
+          "normal": {
+            "wall_seconds": 0.04232570785097778,
+            "cpu_seconds": 0.042283999999998656,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -6
+              ],
+              [
+                2,
+                -8
+              ],
+              [
+                4,
+                -12
+              ],
+              [
+                1,
+                -21
+              ],
+              [
+                5,
+                -15
+              ],
+              [
+                0,
+                -21
+              ],
+              [
+                6,
+                -10
+              ]
+            ],
+            "stats": {
+              "nodes": 24043,
+              "entries": 7143,
+              "hits": 2292,
+              "cutoffs": 5052
+            },
+            "iterations": [
+              {
+                "depth": 6,
+                "nodes": 4258,
+                "entries": 1186,
+                "hits": 394,
+                "cutoffs": 806
+              },
+              {
+                "depth": 8,
+                "nodes": 19785,
+                "entries": 5957,
+                "hits": 1898,
+                "cutoffs": 4246
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 0.3195616661105305,
+            "cpu_seconds": 0.31935999999999964,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -6
+              ],
+              [
+                2,
+                -8
+              ],
+              [
+                4,
+                -12
+              ],
+              [
+                1,
+                -21
+              ],
+              [
+                5,
+                -15
+              ],
+              [
+                0,
+                -21
+              ],
+              [
+                6,
+                -10
+              ]
+            ],
+            "stats": {
+              "nodes": 24043,
+              "entries": 7143,
+              "hits": 2292,
+              "cutoffs": 5052
+            },
+            "iterations": [
+              {
+                "depth": 6,
+                "nodes": 4258,
+                "entries": 1186,
+                "hits": 394,
+                "cutoffs": 806
+              },
+              {
+                "depth": 8,
+                "nodes": 19785,
+                "entries": 5957,
+                "hits": 1898,
+                "cutoffs": 4246
+              }
+            ],
+            "traced_current_bytes": 801320,
+            "traced_peak_bytes": 918260,
+            "retained": {
+              "total_bytes": 774828,
+              "categories": {
+                "score_tt": 690940,
+                "hint_cache": 83152,
+                "table_overhead": 736
+              },
+              "final_entries": 5957,
+              "hint_entries": 1186,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "iterative": {
+          "normal": {
+            "wall_seconds": 0.049249792005866766,
+            "cpu_seconds": 0.04921500000000023,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -6
+              ],
+              [
+                2,
+                -8
+              ],
+              [
+                4,
+                -12
+              ],
+              [
+                1,
+                -21
+              ],
+              [
+                5,
+                -15
+              ],
+              [
+                0,
+                -21
+              ],
+              [
+                6,
+                -10
+              ]
+            ],
+            "stats": {
+              "nodes": 28937,
+              "entries": 8047,
+              "hits": 3316,
+              "cutoffs": 5836
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 569,
+                "entries": 155,
+                "hits": 19,
+                "cutoffs": 91
+              },
+              {
+                "depth": 6,
+                "nodes": 4258,
+                "entries": 1186,
+                "hits": 394,
+                "cutoffs": 806
+              },
+              {
+                "depth": 8,
+                "nodes": 24054,
+                "entries": 6699,
+                "hits": 2903,
+                "cutoffs": 4939
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 0.3673102499451488,
+            "cpu_seconds": 0.36704000000000114,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -6
+              ],
+              [
+                2,
+                -8
+              ],
+              [
+                4,
+                -12
+              ],
+              [
+                1,
+                -21
+              ],
+              [
+                5,
+                -15
+              ],
+              [
+                0,
+                -21
+              ],
+              [
+                6,
+                -10
+              ]
+            ],
+            "stats": {
+              "nodes": 28937,
+              "entries": 8047,
+              "hits": 3316,
+              "cutoffs": 5836
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 569,
+                "entries": 155,
+                "hits": 19,
+                "cutoffs": 91
+              },
+              {
+                "depth": 6,
+                "nodes": 4258,
+                "entries": 1186,
+                "hits": 394,
+                "cutoffs": 806
+              },
+              {
+                "depth": 8,
+                "nodes": 24054,
+                "entries": 6699,
+                "hits": 2903,
+                "cutoffs": 4939
+              }
+            ],
+            "traced_current_bytes": 770216,
+            "traced_peak_bytes": 834588,
+            "retained": {
+              "total_bytes": 741740,
+              "categories": {
+                "score_tt": 741004,
+                "table_overhead": 736
+              },
+              "final_entries": 6699,
+              "hint_entries": 0,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "combined": {
+          "normal": {
+            "wall_seconds": 0.0416375829372555,
+            "cpu_seconds": 0.0416110000000014,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -6
+              ],
+              [
+                2,
+                -8
+              ],
+              [
+                4,
+                -12
+              ],
+              [
+                1,
+                -21
+              ],
+              [
+                5,
+                -15
+              ],
+              [
+                0,
+                -21
+              ],
+              [
+                6,
+                -10
+              ]
+            ],
+            "stats": {
+              "nodes": 23853,
+              "entries": 7147,
+              "hits": 2070,
+              "cutoffs": 4986
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 543,
+                "entries": 149,
+                "hits": 15,
+                "cutoffs": 88
+              },
+              {
+                "depth": 6,
+                "nodes": 3521,
+                "entries": 1047,
+                "hits": 205,
+                "cutoffs": 696
+              },
+              {
+                "depth": 8,
+                "nodes": 19733,
+                "entries": 5944,
+                "hits": 1850,
+                "cutoffs": 4202
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 0.32021575001999736,
+            "cpu_seconds": 0.3199829999999988,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -6
+              ],
+              [
+                2,
+                -8
+              ],
+              [
+                4,
+                -12
+              ],
+              [
+                1,
+                -21
+              ],
+              [
+                5,
+                -15
+              ],
+              [
+                0,
+                -21
+              ],
+              [
+                6,
+                -10
+              ]
+            ],
+            "stats": {
+              "nodes": 23853,
+              "entries": 7147,
+              "hits": 2070,
+              "cutoffs": 4986
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 543,
+                "entries": 149,
+                "hits": 15,
+                "cutoffs": 88
+              },
+              {
+                "depth": 6,
+                "nodes": 3521,
+                "entries": 1047,
+                "hits": 205,
+                "cutoffs": 696
+              },
+              {
+                "depth": 8,
+                "nodes": 19733,
+                "entries": 5944,
+                "hits": 1850,
+                "cutoffs": 4202
+              }
+            ],
+            "traced_current_bytes": 795392,
+            "traced_peak_bytes": 913044,
+            "retained": {
+              "total_bytes": 768576,
+              "categories": {
+                "score_tt": 690084,
+                "hint_cache": 77756,
+                "table_overhead": 736
+              },
+              "final_entries": 5944,
+              "hint_entries": 1047,
+              "attribute_bytes": 128
+            }
+          }
+        }
+      }
+    },
+    {
+      "position": "near-opening",
+      "depth": 10,
+      "variants": {
+        "direct": {
+          "normal": {
+            "wall_seconds": 0.17214895808137953,
+            "cpu_seconds": 0.17204399999999964,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -7
+              ],
+              [
+                2,
+                -11
+              ],
+              [
+                4,
+                -14
+              ],
+              [
+                1,
+                -17
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -18
+              ],
+              [
+                6,
+                -11
+              ]
+            ],
+            "stats": {
+              "nodes": 99441,
+              "entries": 28999,
+              "hits": 14340,
+              "cutoffs": 22095
+            },
+            "iterations": [
+              {
+                "depth": 10,
+                "nodes": 99441,
+                "entries": 28999,
+                "hits": 14340,
+                "cutoffs": 22095
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 1.4070504999253899,
+            "cpu_seconds": 1.3971229999999988,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -7
+              ],
+              [
+                2,
+                -11
+              ],
+              [
+                4,
+                -14
+              ],
+              [
+                1,
+                -17
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -18
+              ],
+              [
+                6,
+                -11
+              ]
+            ],
+            "stats": {
+              "nodes": 99441,
+              "entries": 28999,
+              "hits": 14340,
+              "cutoffs": 22095
+            },
+            "iterations": [
+              {
+                "depth": 10,
+                "nodes": 99441,
+                "entries": 28999,
+                "hits": 14340,
+                "cutoffs": 22095
+              }
+            ],
+            "traced_current_bytes": 3356652,
+            "traced_peak_bytes": 3445120,
+            "retained": {
+              "total_bytes": 3244654,
+              "categories": {
+                "score_tt": 3243980,
+                "table_overhead": 674
+              },
+              "final_entries": 28999,
+              "hint_entries": 0,
+              "attribute_bytes": 120
+            }
+          }
+        },
+        "hints": {
+          "normal": {
+            "wall_seconds": 0.17264129221439362,
+            "cpu_seconds": 0.1725720000000006,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -7
+              ],
+              [
+                2,
+                -11
+              ],
+              [
+                4,
+                -14
+              ],
+              [
+                1,
+                -17
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -18
+              ],
+              [
+                6,
+                -11
+              ]
+            ],
+            "stats": {
+              "nodes": 97835,
+              "entries": 29456,
+              "hits": 10871,
+              "cutoffs": 21357
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 24054,
+                "entries": 6699,
+                "hits": 2903,
+                "cutoffs": 4939
+              },
+              {
+                "depth": 10,
+                "nodes": 73781,
+                "entries": 22757,
+                "hits": 7968,
+                "cutoffs": 16418
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 1.405873625073582,
+            "cpu_seconds": 1.4048390000000008,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -7
+              ],
+              [
+                2,
+                -11
+              ],
+              [
+                4,
+                -14
+              ],
+              [
+                1,
+                -17
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -18
+              ],
+              [
+                6,
+                -11
+              ]
+            ],
+            "stats": {
+              "nodes": 97835,
+              "entries": 29456,
+              "hits": 10871,
+              "cutoffs": 21357
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 24054,
+                "entries": 6699,
+                "hits": 2903,
+                "cutoffs": 4939
+              },
+              {
+                "depth": 10,
+                "nodes": 73781,
+                "entries": 22757,
+                "hits": 7968,
+                "cutoffs": 16418
+              }
+            ],
+            "traced_current_bytes": 3478056,
+            "traced_peak_bytes": 4007572,
+            "retained": {
+              "total_bytes": 3382012,
+              "categories": {
+                "score_tt": 2825460,
+                "hint_cache": 555816,
+                "table_overhead": 736
+              },
+              "final_entries": 22757,
+              "hint_entries": 6699,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "iterative": {
+          "normal": {
+            "wall_seconds": 0.2225166668649763,
+            "cpu_seconds": 0.22234299999999863,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -7
+              ],
+              [
+                2,
+                -11
+              ],
+              [
+                4,
+                -14
+              ],
+              [
+                1,
+                -17
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -18
+              ],
+              [
+                6,
+                -11
+              ]
+            ],
+            "stats": {
+              "nodes": 128378,
+              "entries": 37046,
+              "hits": 17656,
+              "cutoffs": 27931
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 569,
+                "entries": 155,
+                "hits": 19,
+                "cutoffs": 91
+              },
+              {
+                "depth": 6,
+                "nodes": 4258,
+                "entries": 1186,
+                "hits": 394,
+                "cutoffs": 806
+              },
+              {
+                "depth": 8,
+                "nodes": 24054,
+                "entries": 6699,
+                "hits": 2903,
+                "cutoffs": 4939
+              },
+              {
+                "depth": 10,
+                "nodes": 99441,
+                "entries": 28999,
+                "hits": 14340,
+                "cutoffs": 22095
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 1.728765708161518,
+            "cpu_seconds": 1.7276739999999986,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -7
+              ],
+              [
+                2,
+                -11
+              ],
+              [
+                4,
+                -14
+              ],
+              [
+                1,
+                -17
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -18
+              ],
+              [
+                6,
+                -11
+              ]
+            ],
+            "stats": {
+              "nodes": 128378,
+              "entries": 37046,
+              "hits": 17656,
+              "cutoffs": 27931
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 569,
+                "entries": 155,
+                "hits": 19,
+                "cutoffs": 91
+              },
+              {
+                "depth": 6,
+                "nodes": 4258,
+                "entries": 1186,
+                "hits": 394,
+                "cutoffs": 806
+              },
+              {
+                "depth": 8,
+                "nodes": 24054,
+                "entries": 6699,
+                "hits": 2903,
+                "cutoffs": 4939
+              },
+              {
+                "depth": 10,
+                "nodes": 99441,
+                "entries": 28999,
+                "hits": 14340,
+                "cutoffs": 22095
+              }
+            ],
+            "traced_current_bytes": 3358100,
+            "traced_peak_bytes": 3446392,
+            "retained": {
+              "total_bytes": 3244716,
+              "categories": {
+                "score_tt": 3243980,
+                "table_overhead": 736
+              },
+              "final_entries": 28999,
+              "hint_entries": 0,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "combined": {
+          "normal": {
+            "wall_seconds": 0.1793704170268029,
+            "cpu_seconds": 0.17922400000000138,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -7
+              ],
+              [
+                2,
+                -11
+              ],
+              [
+                4,
+                -14
+              ],
+              [
+                1,
+                -17
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -18
+              ],
+              [
+                6,
+                -11
+              ]
+            ],
+            "stats": {
+              "nodes": 99992,
+              "entries": 30934,
+              "hits": 10295,
+              "cutoffs": 22266
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 543,
+                "entries": 149,
+                "hits": 15,
+                "cutoffs": 88
+              },
+              {
+                "depth": 6,
+                "nodes": 3521,
+                "entries": 1047,
+                "hits": 205,
+                "cutoffs": 696
+              },
+              {
+                "depth": 8,
+                "nodes": 19733,
+                "entries": 5944,
+                "hits": 1850,
+                "cutoffs": 4202
+              },
+              {
+                "depth": 10,
+                "nodes": 76139,
+                "entries": 23787,
+                "hits": 8225,
+                "cutoffs": 17280
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 1.4241466668900102,
+            "cpu_seconds": 1.4232270000000007,
+            "move": 3,
+            "scores": [
+              [
+                3,
+                -7
+              ],
+              [
+                2,
+                -11
+              ],
+              [
+                4,
+                -14
+              ],
+              [
+                1,
+                -17
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -18
+              ],
+              [
+                6,
+                -11
+              ]
+            ],
+            "stats": {
+              "nodes": 99992,
+              "entries": 30934,
+              "hits": 10295,
+              "cutoffs": 22266
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 543,
+                "entries": 149,
+                "hits": 15,
+                "cutoffs": 88
+              },
+              {
+                "depth": 6,
+                "nodes": 3521,
+                "entries": 1047,
+                "hits": 205,
+                "cutoffs": 696
+              },
+              {
+                "depth": 8,
+                "nodes": 19733,
+                "entries": 5944,
+                "hits": 1850,
+                "cutoffs": 4202
+              },
+              {
+                "depth": 10,
+                "nodes": 76139,
+                "entries": 23787,
+                "hits": 8225,
+                "cutoffs": 17280
+              }
+            ],
+            "traced_current_bytes": 3522180,
+            "traced_peak_bytes": 3979512,
+            "retained": {
+              "total_bytes": 3422524,
+              "categories": {
+                "score_tt": 2894996,
+                "hint_cache": 526792,
+                "table_overhead": 736
+              },
+              "final_entries": 23787,
+              "hint_entries": 5944,
+              "attribute_bytes": 128
+            }
+          }
+        }
+      }
+    },
+    {
+      "position": "seeded-04",
+      "depth": 8,
+      "variants": {
+        "direct": {
+          "normal": {
+            "wall_seconds": 0.08815587498247623,
+            "cpu_seconds": 0.08804100000000048,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -10
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -6
+              ],
+              [
+                1,
+                -4
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -5
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 50920,
+              "entries": 15094,
+              "hits": 5178,
+              "cutoffs": 11381
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 50920,
+                "entries": 15094,
+                "hits": 5178,
+                "cutoffs": 11381
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 0.668463584035635,
+            "cpu_seconds": 0.6679860000000026,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -10
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -6
+              ],
+              [
+                1,
+                -4
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -5
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 50920,
+              "entries": 15094,
+              "hits": 5178,
+              "cutoffs": 11381
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 50920,
+                "entries": 15094,
+                "hits": 5178,
+                "cutoffs": 11381
+              }
+            ],
+            "traced_current_bytes": 1630188,
+            "traced_peak_bytes": 1638584,
+            "retained": {
+              "total_bytes": 1574950,
+              "categories": {
+                "score_tt": 1574276,
+                "table_overhead": 674
+              },
+              "final_entries": 15094,
+              "hint_entries": 0,
+              "attribute_bytes": 120
+            }
+          }
+        },
+        "hints": {
+          "normal": {
+            "wall_seconds": 0.05809320788830519,
+            "cpu_seconds": 0.05805600000000055,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -10
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -6
+              ],
+              [
+                1,
+                -4
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -5
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 33918,
+              "entries": 9759,
+              "hits": 2067,
+              "cutoffs": 6802
+            },
+            "iterations": [
+              {
+                "depth": 6,
+                "nodes": 8304,
+                "entries": 2241,
+                "hits": 620,
+                "cutoffs": 1577
+              },
+              {
+                "depth": 8,
+                "nodes": 25614,
+                "entries": 7518,
+                "hits": 1447,
+                "cutoffs": 5225
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 0.44945633388124406,
+            "cpu_seconds": 0.4491329999999998,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -10
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -6
+              ],
+              [
+                1,
+                -4
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -5
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 33918,
+              "entries": 9759,
+              "hits": 2067,
+              "cutoffs": 6802
+            },
+            "iterations": [
+              {
+                "depth": 6,
+                "nodes": 8304,
+                "entries": 2241,
+                "hits": 620,
+                "cutoffs": 1577
+              },
+              {
+                "depth": 8,
+                "nodes": 25614,
+                "entries": 7518,
+                "hits": 1447,
+                "cutoffs": 5225
+              }
+            ],
+            "traced_current_bytes": 981056,
+            "traced_peak_bytes": 989860,
+            "retained": {
+              "total_bytes": 951836,
+              "categories": {
+                "score_tt": 787596,
+                "hint_cache": 163504,
+                "table_overhead": 736
+              },
+              "final_entries": 7518,
+              "hint_entries": 2241,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "iterative": {
+          "normal": {
+            "wall_seconds": 0.10227775014936924,
+            "cpu_seconds": 0.10222900000000124,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -10
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -6
+              ],
+              [
+                1,
+                -4
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -5
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 60272,
+              "entries": 17557,
+              "hits": 5830,
+              "cutoffs": 13074
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 992,
+                "entries": 215,
+                "hits": 32,
+                "cutoffs": 116
+              },
+              {
+                "depth": 6,
+                "nodes": 8304,
+                "entries": 2241,
+                "hits": 620,
+                "cutoffs": 1577
+              },
+              {
+                "depth": 8,
+                "nodes": 50920,
+                "entries": 15094,
+                "hits": 5178,
+                "cutoffs": 11381
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 0.7783451669383794,
+            "cpu_seconds": 0.7778439999999982,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -10
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -6
+              ],
+              [
+                1,
+                -4
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -5
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 60272,
+              "entries": 17557,
+              "hits": 5830,
+              "cutoffs": 13074
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 992,
+                "entries": 215,
+                "hits": 32,
+                "cutoffs": 116
+              },
+              {
+                "depth": 6,
+                "nodes": 8304,
+                "entries": 2241,
+                "hits": 620,
+                "cutoffs": 1577
+              },
+              {
+                "depth": 8,
+                "nodes": 50920,
+                "entries": 15094,
+                "hits": 5178,
+                "cutoffs": 11381
+              }
+            ],
+            "traced_current_bytes": 1631368,
+            "traced_peak_bytes": 1639556,
+            "retained": {
+              "total_bytes": 1575012,
+              "categories": {
+                "score_tt": 1574276,
+                "table_overhead": 736
+              },
+              "final_entries": 15094,
+              "hint_entries": 0,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "combined": {
+          "normal": {
+            "wall_seconds": 0.06097462493926287,
+            "cpu_seconds": 0.060950000000001836,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -10
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -6
+              ],
+              [
+                1,
+                -4
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -5
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 34990,
+              "entries": 10181,
+              "hits": 2034,
+              "cutoffs": 7032
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 779,
+                "entries": 164,
+                "hits": 10,
+                "cutoffs": 80
+              },
+              {
+                "depth": 6,
+                "nodes": 5030,
+                "entries": 1321,
+                "hits": 158,
+                "cutoffs": 840
+              },
+              {
+                "depth": 8,
+                "nodes": 29125,
+                "entries": 8689,
+                "hits": 1866,
+                "cutoffs": 6112
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 0.4694055828731507,
+            "cpu_seconds": 0.46911900000000273,
+            "move": 2,
+            "scores": [
+              [
+                3,
+                -10
+              ],
+              [
+                2,
+                -3
+              ],
+              [
+                4,
+                -6
+              ],
+              [
+                1,
+                -4
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -5
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 34990,
+              "entries": 10181,
+              "hits": 2034,
+              "cutoffs": 7032
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 779,
+                "entries": 164,
+                "hits": 10,
+                "cutoffs": 80
+              },
+              {
+                "depth": 6,
+                "nodes": 5030,
+                "entries": 1321,
+                "hits": 158,
+                "cutoffs": 840
+              },
+              {
+                "depth": 8,
+                "nodes": 29125,
+                "entries": 8689,
+                "hits": 1866,
+                "cutoffs": 6112
+              }
+            ],
+            "traced_current_bytes": 987896,
+            "traced_peak_bytes": 990604,
+            "retained": {
+              "total_bytes": 954056,
+              "categories": {
+                "score_tt": 863472,
+                "hint_cache": 89848,
+                "table_overhead": 736
+              },
+              "final_entries": 8689,
+              "hint_entries": 1321,
+              "attribute_bytes": 128
+            }
+          }
+        }
+      }
+    },
+    {
+      "position": "seeded-04",
+      "depth": 10,
+      "variants": {
+        "direct": {
+          "normal": {
+            "wall_seconds": 0.4461832079105079,
+            "cpu_seconds": 0.4458759999999984,
+            "move": 5,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -6
+              ],
+              [
+                4,
+                -9
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -7
+              ],
+              [
+                6,
+                -5
+              ]
+            ],
+            "stats": {
+              "nodes": 253274,
+              "entries": 78484,
+              "hits": 29767,
+              "cutoffs": 61262
+            },
+            "iterations": [
+              {
+                "depth": 10,
+                "nodes": 253274,
+                "entries": 78484,
+                "hits": 29767,
+                "cutoffs": 61262
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 3.6103173340670764,
+            "cpu_seconds": 3.601078000000001,
+            "move": 5,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -6
+              ],
+              [
+                4,
+                -9
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -7
+              ],
+              [
+                6,
+                -5
+              ]
+            ],
+            "stats": {
+              "nodes": 253274,
+              "entries": 78484,
+              "hits": 29767,
+              "cutoffs": 61262
+            },
+            "iterations": [
+              {
+                "depth": 10,
+                "nodes": 253274,
+                "entries": 78484,
+                "hits": 29767,
+                "cutoffs": 61262
+              }
+            ],
+            "traced_current_bytes": 8063228,
+            "traced_peak_bytes": 8066336,
+            "retained": {
+              "total_bytes": 7774706,
+              "categories": {
+                "score_tt": 7774032,
+                "table_overhead": 674
+              },
+              "final_entries": 78484,
+              "hint_entries": 0,
+              "attribute_bytes": 120
+            }
+          }
+        },
+        "hints": {
+          "normal": {
+            "wall_seconds": 0.34432716690935194,
+            "cpu_seconds": 0.3437630000000027,
+            "move": 5,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -6
+              ],
+              [
+                4,
+                -9
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -7
+              ],
+              [
+                6,
+                -5
+              ]
+            ],
+            "stats": {
+              "nodes": 190378,
+              "entries": 59814,
+              "hits": 16313,
+              "cutoffs": 44195
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 50920,
+                "entries": 15094,
+                "hits": 5178,
+                "cutoffs": 11381
+              },
+              {
+                "depth": 10,
+                "nodes": 139458,
+                "entries": 44720,
+                "hits": 11135,
+                "cutoffs": 32814
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 2.9401480411179364,
+            "cpu_seconds": 2.874898999999999,
+            "move": 5,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -6
+              ],
+              [
+                4,
+                -9
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -7
+              ],
+              [
+                6,
+                -5
+              ]
+            ],
+            "stats": {
+              "nodes": 190378,
+              "entries": 59814,
+              "hits": 16313,
+              "cutoffs": 44195
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 50920,
+                "entries": 15094,
+                "hits": 5178,
+                "cutoffs": 11381
+              },
+              {
+                "depth": 10,
+                "nodes": 139458,
+                "entries": 44720,
+                "hits": 11135,
+                "cutoffs": 32814
+              }
+            ],
+            "traced_current_bytes": 6922536,
+            "traced_peak_bytes": 8165644,
+            "retained": {
+              "total_bytes": 6756432,
+              "categories": {
+                "score_tt": 5561996,
+                "hint_cache": 1193700,
+                "table_overhead": 736
+              },
+              "final_entries": 44720,
+              "hint_entries": 15094,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "iterative": {
+          "normal": {
+            "wall_seconds": 0.5528816250152886,
+            "cpu_seconds": 0.5525190000000002,
+            "move": 5,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -6
+              ],
+              [
+                4,
+                -9
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -7
+              ],
+              [
+                6,
+                -5
+              ]
+            ],
+            "stats": {
+              "nodes": 313546,
+              "entries": 96041,
+              "hits": 35597,
+              "cutoffs": 74336
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 992,
+                "entries": 215,
+                "hits": 32,
+                "cutoffs": 116
+              },
+              {
+                "depth": 6,
+                "nodes": 8304,
+                "entries": 2241,
+                "hits": 620,
+                "cutoffs": 1577
+              },
+              {
+                "depth": 8,
+                "nodes": 50920,
+                "entries": 15094,
+                "hits": 5178,
+                "cutoffs": 11381
+              },
+              {
+                "depth": 10,
+                "nodes": 253274,
+                "entries": 78484,
+                "hits": 29767,
+                "cutoffs": 61262
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 4.427623083116487,
+            "cpu_seconds": 4.423572,
+            "move": 5,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -6
+              ],
+              [
+                4,
+                -9
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -7
+              ],
+              [
+                6,
+                -5
+              ]
+            ],
+            "stats": {
+              "nodes": 313546,
+              "entries": 96041,
+              "hits": 35597,
+              "cutoffs": 74336
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 992,
+                "entries": 215,
+                "hits": 32,
+                "cutoffs": 116
+              },
+              {
+                "depth": 6,
+                "nodes": 8304,
+                "entries": 2241,
+                "hits": 620,
+                "cutoffs": 1577
+              },
+              {
+                "depth": 8,
+                "nodes": 50920,
+                "entries": 15094,
+                "hits": 5178,
+                "cutoffs": 11381
+              },
+              {
+                "depth": 10,
+                "nodes": 253274,
+                "entries": 78484,
+                "hits": 29767,
+                "cutoffs": 61262
+              }
+            ],
+            "traced_current_bytes": 8064676,
+            "traced_peak_bytes": 8067624,
+            "retained": {
+              "total_bytes": 7774768,
+              "categories": {
+                "score_tt": 7774032,
+                "table_overhead": 736
+              },
+              "final_entries": 78484,
+              "hint_entries": 0,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "combined": {
+          "normal": {
+            "wall_seconds": 0.30822462518699467,
+            "cpu_seconds": 0.3080230000000057,
+            "move": 5,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -6
+              ],
+              [
+                4,
+                -9
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -7
+              ],
+              [
+                6,
+                -5
+              ]
+            ],
+            "stats": {
+              "nodes": 171547,
+              "entries": 53774,
+              "hits": 12694,
+              "cutoffs": 38914
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 779,
+                "entries": 164,
+                "hits": 10,
+                "cutoffs": 80
+              },
+              {
+                "depth": 6,
+                "nodes": 5030,
+                "entries": 1321,
+                "hits": 158,
+                "cutoffs": 840
+              },
+              {
+                "depth": 8,
+                "nodes": 29125,
+                "entries": 8689,
+                "hits": 1866,
+                "cutoffs": 6112
+              },
+              {
+                "depth": 10,
+                "nodes": 136557,
+                "entries": 43593,
+                "hits": 10660,
+                "cutoffs": 31882
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 2.5479648751206696,
+            "cpu_seconds": 2.534964000000002,
+            "move": 5,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -6
+              ],
+              [
+                4,
+                -9
+              ],
+              [
+                1,
+                -5
+              ],
+              [
+                5,
+                -3
+              ],
+              [
+                0,
+                -7
+              ],
+              [
+                6,
+                -5
+              ]
+            ],
+            "stats": {
+              "nodes": 171547,
+              "entries": 53774,
+              "hits": 12694,
+              "cutoffs": 38914
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 779,
+                "entries": 164,
+                "hits": 10,
+                "cutoffs": 80
+              },
+              {
+                "depth": 6,
+                "nodes": 5030,
+                "entries": 1321,
+                "hits": 158,
+                "cutoffs": 840
+              },
+              {
+                "depth": 8,
+                "nodes": 29125,
+                "entries": 8689,
+                "hits": 1866,
+                "cutoffs": 6112
+              },
+              {
+                "depth": 10,
+                "nodes": 136557,
+                "entries": 43593,
+                "hits": 10660,
+                "cutoffs": 31882
+              }
+            ],
+            "traced_current_bytes": 4985084,
+            "traced_peak_bytes": 4987912,
+            "retained": {
+              "total_bytes": 4822120,
+              "categories": {
+                "score_tt": 4178804,
+                "hint_cache": 642580,
+                "table_overhead": 736
+              },
+              "final_entries": 43593,
+              "hint_entries": 8689,
+              "attribute_bytes": 128
+            }
+          }
+        }
+      }
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 8,
+      "variants": {
+        "direct": {
+          "normal": {
+            "wall_seconds": 0.1303710830397904,
+            "cpu_seconds": 0.13020200000000415,
+            "move": 1,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -13
+              ],
+              [
+                4,
+                -7
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 78662,
+              "entries": 20755,
+              "hits": 7119,
+              "cutoffs": 15463
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 78662,
+                "entries": 20755,
+                "hits": 7119,
+                "cutoffs": 15463
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 0.9628199581056833,
+            "cpu_seconds": 0.962178999999999,
+            "move": 1,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -13
+              ],
+              [
+                4,
+                -7
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 78662,
+              "entries": 20755,
+              "hits": 7119,
+              "cutoffs": 15463
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 78662,
+                "entries": 20755,
+                "hits": 7119,
+                "cutoffs": 15463
+              }
+            ],
+            "traced_current_bytes": 2043252,
+            "traced_peak_bytes": 2046392,
+            "retained": {
+              "total_bytes": 1964406,
+              "categories": {
+                "score_tt": 1963732,
+                "table_overhead": 674
+              },
+              "final_entries": 20755,
+              "hint_entries": 0,
+              "attribute_bytes": 120
+            }
+          }
+        },
+        "hints": {
+          "normal": {
+            "wall_seconds": 0.08320504194125533,
+            "cpu_seconds": 0.08316999999999553,
+            "move": 1,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -13
+              ],
+              [
+                4,
+                -7
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 50033,
+              "entries": 13126,
+              "hits": 2422,
+              "cutoffs": 9032
+            },
+            "iterations": [
+              {
+                "depth": 6,
+                "nodes": 10799,
+                "entries": 2604,
+                "hits": 715,
+                "cutoffs": 1805
+              },
+              {
+                "depth": 8,
+                "nodes": 39234,
+                "entries": 10522,
+                "hits": 1707,
+                "cutoffs": 7227
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 0.6272825421765447,
+            "cpu_seconds": 0.626849,
+            "move": 1,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -13
+              ],
+              [
+                4,
+                -7
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 50033,
+              "entries": 13126,
+              "hits": 2422,
+              "cutoffs": 9032
+            },
+            "iterations": [
+              {
+                "depth": 6,
+                "nodes": 10799,
+                "entries": 2604,
+                "hits": 715,
+                "cutoffs": 1805
+              },
+              {
+                "depth": 8,
+                "nodes": 39234,
+                "entries": 10522,
+                "hits": 1707,
+                "cutoffs": 7227
+              }
+            ],
+            "traced_current_bytes": 1211256,
+            "traced_peak_bytes": 1214276,
+            "retained": {
+              "total_bytes": 1164400,
+              "categories": {
+                "score_tt": 990888,
+                "hint_cache": 172776,
+                "table_overhead": 736
+              },
+              "final_entries": 10522,
+              "hint_entries": 2604,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "iterative": {
+          "normal": {
+            "wall_seconds": 0.14956175000406802,
+            "cpu_seconds": 0.1494999999999962,
+            "move": 1,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -13
+              ],
+              [
+                4,
+                -7
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 90744,
+              "entries": 23601,
+              "hits": 7875,
+              "cutoffs": 17400
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 1227,
+                "entries": 235,
+                "hits": 41,
+                "cutoffs": 132
+              },
+              {
+                "depth": 6,
+                "nodes": 10799,
+                "entries": 2604,
+                "hits": 715,
+                "cutoffs": 1805
+              },
+              {
+                "depth": 8,
+                "nodes": 78662,
+                "entries": 20755,
+                "hits": 7119,
+                "cutoffs": 15463
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 1.0974776670336723,
+            "cpu_seconds": 1.0966559999999959,
+            "move": 1,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -13
+              ],
+              [
+                4,
+                -7
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 90744,
+              "entries": 23601,
+              "hits": 7875,
+              "cutoffs": 17400
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 1227,
+                "entries": 235,
+                "hits": 41,
+                "cutoffs": 132
+              },
+              {
+                "depth": 6,
+                "nodes": 10799,
+                "entries": 2604,
+                "hits": 715,
+                "cutoffs": 1805
+              },
+              {
+                "depth": 8,
+                "nodes": 78662,
+                "entries": 20755,
+                "hits": 7119,
+                "cutoffs": 15463
+              }
+            ],
+            "traced_current_bytes": 2044432,
+            "traced_peak_bytes": 2047364,
+            "retained": {
+              "total_bytes": 1964468,
+              "categories": {
+                "score_tt": 1963732,
+                "table_overhead": 736
+              },
+              "final_entries": 20755,
+              "hint_entries": 0,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "combined": {
+          "normal": {
+            "wall_seconds": 0.0803946249652654,
+            "cpu_seconds": 0.0803110000000018,
+            "move": 1,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -13
+              ],
+              [
+                4,
+                -7
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 48394,
+              "entries": 12259,
+              "hits": 1972,
+              "cutoffs": 8124
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 1148,
+                "entries": 215,
+                "hits": 26,
+                "cutoffs": 113
+              },
+              {
+                "depth": 6,
+                "nodes": 7446,
+                "entries": 1718,
+                "hits": 259,
+                "cutoffs": 1087
+              },
+              {
+                "depth": 8,
+                "nodes": 39744,
+                "entries": 10319,
+                "hits": 1687,
+                "cutoffs": 6924
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 0.6053614160045981,
+            "cpu_seconds": 0.6049739999999986,
+            "move": 1,
+            "scores": [
+              [
+                3,
+                -13
+              ],
+              [
+                2,
+                -13
+              ],
+              [
+                4,
+                -7
+              ],
+              [
+                1,
+                -6
+              ],
+              [
+                5,
+                -13
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -6
+              ]
+            ],
+            "stats": {
+              "nodes": 48394,
+              "entries": 12259,
+              "hits": 1972,
+              "cutoffs": 8124
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 1148,
+                "entries": 215,
+                "hits": 26,
+                "cutoffs": 113
+              },
+              {
+                "depth": 6,
+                "nodes": 7446,
+                "entries": 1718,
+                "hits": 259,
+                "cutoffs": 1087
+              },
+              {
+                "depth": 8,
+                "nodes": 39744,
+                "entries": 10319,
+                "hits": 1687,
+                "cutoffs": 6924
+              }
+            ],
+            "traced_current_bytes": 1160712,
+            "traced_peak_bytes": 1163676,
+            "retained": {
+              "total_bytes": 1115940,
+              "categories": {
+                "score_tt": 976076,
+                "hint_cache": 139128,
+                "table_overhead": 736
+              },
+              "final_entries": 10319,
+              "hint_entries": 1718,
+              "attribute_bytes": 128
+            }
+          }
+        }
+      }
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 10,
+      "variants": {
+        "direct": {
+          "normal": {
+            "wall_seconds": 0.7337233750149608,
+            "cpu_seconds": 0.7332800000000006,
+            "move": 4,
+            "scores": [
+              [
+                3,
+                -15
+              ],
+              [
+                2,
+                -10
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -7
+              ],
+              [
+                5,
+                -11
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 423857,
+              "entries": 119958,
+              "hits": 47944,
+              "cutoffs": 93664
+            },
+            "iterations": [
+              {
+                "depth": 10,
+                "nodes": 423857,
+                "entries": 119958,
+                "hits": 47944,
+                "cutoffs": 93664
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 5.678773374995217,
+            "cpu_seconds": 5.674393000000002,
+            "move": 4,
+            "scores": [
+              [
+                3,
+                -15
+              ],
+              [
+                2,
+                -10
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -7
+              ],
+              [
+                5,
+                -11
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 423857,
+              "entries": 119958,
+              "hits": 47944,
+              "cutoffs": 93664
+            },
+            "iterations": [
+              {
+                "depth": 10,
+                "nodes": 423857,
+                "entries": 119958,
+                "hits": 47944,
+                "cutoffs": 93664
+              }
+            ],
+            "traced_current_bytes": 13634820,
+            "traced_peak_bytes": 13981000,
+            "retained": {
+              "total_bytes": 13184786,
+              "categories": {
+                "score_tt": 13184112,
+                "table_overhead": 674
+              },
+              "final_entries": 119958,
+              "hint_entries": 0,
+              "attribute_bytes": 120
+            }
+          }
+        },
+        "hints": {
+          "normal": {
+            "wall_seconds": 0.46883783279918134,
+            "cpu_seconds": 0.4685270000000017,
+            "move": 4,
+            "scores": [
+              [
+                3,
+                -15
+              ],
+              [
+                2,
+                -10
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -7
+              ],
+              [
+                5,
+                -11
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 269620,
+              "entries": 76198,
+              "hits": 18503,
+              "cutoffs": 55218
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 78662,
+                "entries": 20755,
+                "hits": 7119,
+                "cutoffs": 15463
+              },
+              {
+                "depth": 10,
+                "nodes": 190958,
+                "entries": 55443,
+                "hits": 11384,
+                "cutoffs": 39755
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 3.6976555828005075,
+            "cpu_seconds": 3.695179000000003,
+            "move": 4,
+            "scores": [
+              [
+                3,
+                -15
+              ],
+              [
+                2,
+                -10
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -7
+              ],
+              [
+                5,
+                -11
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 269620,
+              "entries": 76198,
+              "hits": 18503,
+              "cutoffs": 55218
+            },
+            "iterations": [
+              {
+                "depth": 8,
+                "nodes": 78662,
+                "entries": 20755,
+                "hits": 7119,
+                "cutoffs": 15463
+              },
+              {
+                "depth": 10,
+                "nodes": 190958,
+                "entries": 55443,
+                "hits": 11384,
+                "cutoffs": 39755
+              }
+            ],
+            "traced_current_bytes": 7915496,
+            "traced_peak_bytes": 8417164,
+            "retained": {
+              "total_bytes": 7667852,
+              "categories": {
+                "score_tt": 6285784,
+                "hint_cache": 1381332,
+                "table_overhead": 736
+              },
+              "final_entries": 55443,
+              "hint_entries": 20755,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "iterative": {
+          "normal": {
+            "wall_seconds": 0.8851001660805196,
+            "cpu_seconds": 0.8845090000000013,
+            "move": 4,
+            "scores": [
+              [
+                3,
+                -15
+              ],
+              [
+                2,
+                -10
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -7
+              ],
+              [
+                5,
+                -11
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 514601,
+              "entries": 143559,
+              "hits": 55819,
+              "cutoffs": 111064
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 1227,
+                "entries": 235,
+                "hits": 41,
+                "cutoffs": 132
+              },
+              {
+                "depth": 6,
+                "nodes": 10799,
+                "entries": 2604,
+                "hits": 715,
+                "cutoffs": 1805
+              },
+              {
+                "depth": 8,
+                "nodes": 78662,
+                "entries": 20755,
+                "hits": 7119,
+                "cutoffs": 15463
+              },
+              {
+                "depth": 10,
+                "nodes": 423857,
+                "entries": 119958,
+                "hits": 47944,
+                "cutoffs": 93664
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 6.88086395803839,
+            "cpu_seconds": 6.865674000000006,
+            "move": 4,
+            "scores": [
+              [
+                3,
+                -15
+              ],
+              [
+                2,
+                -10
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -7
+              ],
+              [
+                5,
+                -11
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 514601,
+              "entries": 143559,
+              "hits": 55819,
+              "cutoffs": 111064
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 1227,
+                "entries": 235,
+                "hits": 41,
+                "cutoffs": 132
+              },
+              {
+                "depth": 6,
+                "nodes": 10799,
+                "entries": 2604,
+                "hits": 715,
+                "cutoffs": 1805
+              },
+              {
+                "depth": 8,
+                "nodes": 78662,
+                "entries": 20755,
+                "hits": 7119,
+                "cutoffs": 15463
+              },
+              {
+                "depth": 10,
+                "nodes": 423857,
+                "entries": 119958,
+                "hits": 47944,
+                "cutoffs": 93664
+              }
+            ],
+            "traced_current_bytes": 13636268,
+            "traced_peak_bytes": 13982288,
+            "retained": {
+              "total_bytes": 13184848,
+              "categories": {
+                "score_tt": 13184112,
+                "table_overhead": 736
+              },
+              "final_entries": 119958,
+              "hint_entries": 0,
+              "attribute_bytes": 128
+            }
+          }
+        },
+        "combined": {
+          "normal": {
+            "wall_seconds": 0.4510886250063777,
+            "cpu_seconds": 0.4507410000000007,
+            "move": 4,
+            "scores": [
+              [
+                3,
+                -15
+              ],
+              [
+                2,
+                -10
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -7
+              ],
+              [
+                5,
+                -11
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 259977,
+              "entries": 71631,
+              "hits": 14336,
+              "cutoffs": 50066
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 1148,
+                "entries": 215,
+                "hits": 26,
+                "cutoffs": 113
+              },
+              {
+                "depth": 6,
+                "nodes": 7446,
+                "entries": 1718,
+                "hits": 259,
+                "cutoffs": 1087
+              },
+              {
+                "depth": 8,
+                "nodes": 39744,
+                "entries": 10319,
+                "hits": 1687,
+                "cutoffs": 6924
+              },
+              {
+                "depth": 10,
+                "nodes": 211583,
+                "entries": 59372,
+                "hits": 12364,
+                "cutoffs": 41942
+              }
+            ]
+          },
+          "memory": {
+            "wall_seconds": 3.56912370887585,
+            "cpu_seconds": 3.566722999999996,
+            "move": 4,
+            "scores": [
+              [
+                3,
+                -15
+              ],
+              [
+                2,
+                -10
+              ],
+              [
+                4,
+                -4
+              ],
+              [
+                1,
+                -7
+              ],
+              [
+                5,
+                -11
+              ],
+              [
+                0,
+                -8
+              ],
+              [
+                6,
+                -7
+              ]
+            ],
+            "stats": {
+              "nodes": 259977,
+              "entries": 71631,
+              "hits": 14336,
+              "cutoffs": 50066
+            },
+            "iterations": [
+              {
+                "depth": 2,
+                "nodes": 56,
+                "entries": 7,
+                "hits": 0,
+                "cutoffs": 0
+              },
+              {
+                "depth": 4,
+                "nodes": 1148,
+                "entries": 215,
+                "hits": 26,
+                "cutoffs": 113
+              },
+              {
+                "depth": 6,
+                "nodes": 7446,
+                "entries": 1718,
+                "hits": 259,
+                "cutoffs": 1087
+              },
+              {
+                "depth": 8,
+                "nodes": 39744,
+                "entries": 10319,
+                "hits": 1687,
+                "cutoffs": 6924
+              },
+              {
+                "depth": 10,
+                "nodes": 211583,
+                "entries": 59372,
+                "hits": 12364,
+                "cutoffs": 41942
+              }
+            ],
+            "traced_current_bytes": 7465388,
+            "traced_peak_bytes": 7695680,
+            "retained": {
+              "total_bytes": 7225012,
+              "categories": {
+                "score_tt": 6534196,
+                "hint_cache": 690080,
+                "table_overhead": 736
+              },
+              "final_entries": 59372,
+              "hint_entries": 10319,
+              "attribute_bytes": 128
+            }
+          }
+        }
+      }
+    }
+  ],
+  "main_projected_seconds": 5247.533961428329,
+  "passed": true,
+  "elapsed_seconds": 62.334616959095
+}

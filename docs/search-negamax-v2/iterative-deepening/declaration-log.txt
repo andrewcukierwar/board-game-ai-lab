@@ -1,0 +1,628 @@
+{
+  "baseline_commit": "2e79b15ecdb1967345a1e66593201f9803c89757",
+  "baseline_sha256": "f46461d73b240c645248d57884fee0b9917c1be289758efe381cf6458a9cb392",
+  "fixture_source_sha256": "2034ed9b1e3b88721353d7d87e4a092ae3555f18f572429f640d0620240354d5",
+  "positions": [
+    {
+      "id": "empty",
+      "history": [],
+      "group": "phase3a"
+    },
+    {
+      "id": "near-opening",
+      "history": [
+        3,
+        2,
+        4,
+        3
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "midgame",
+      "history": [
+        3,
+        2,
+        4,
+        3,
+        2,
+        4,
+        1,
+        5,
+        5,
+        1,
+        3,
+        2,
+        4,
+        3,
+        2,
+        4
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "midgame-wide",
+      "history": [
+        5,
+        6,
+        6,
+        5,
+        4,
+        3,
+        0,
+        1,
+        0,
+        2,
+        4,
+        6,
+        6,
+        2,
+        3,
+        0
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "late",
+      "history": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        6,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "immediate-win",
+      "history": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        2
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "forced-reply",
+      "history": [
+        1,
+        0,
+        1,
+        0,
+        2,
+        0
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "double-threat-loss",
+      "history": [
+        1,
+        0,
+        1,
+        0,
+        2,
+        0,
+        2,
+        6,
+        4,
+        6,
+        4,
+        6
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "dense-endgame",
+      "history": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        6,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        6
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "quiet-5",
+      "history": [
+        2,
+        1,
+        2,
+        2,
+        2,
+        5,
+        1,
+        5,
+        0,
+        0,
+        5,
+        4,
+        4,
+        6,
+        3,
+        3,
+        3,
+        4,
+        3,
+        4,
+        3,
+        3,
+        4
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "supplement-main-003",
+      "history": [
+        1,
+        3,
+        3,
+        3,
+        3,
+        1,
+        1,
+        5,
+        4,
+        1,
+        3,
+        1,
+        4,
+        4
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "seeded-00",
+      "history": [
+        0,
+        6,
+        2,
+        6,
+        1,
+        2,
+        4,
+        3
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "seeded-01",
+      "history": [
+        2,
+        0,
+        0,
+        5,
+        1,
+        6,
+        6,
+        6,
+        2,
+        3,
+        1,
+        0
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "seeded-02",
+      "history": [
+        6,
+        5,
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        5,
+        5,
+        6,
+        4,
+        6,
+        0,
+        0,
+        4
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "seeded-03",
+      "history": [
+        0,
+        2,
+        1,
+        5,
+        5,
+        0,
+        4,
+        1,
+        5,
+        1,
+        0,
+        3,
+        6,
+        6,
+        1,
+        3,
+        3,
+        1,
+        5,
+        3
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "seeded-04",
+      "history": [
+        1,
+        1,
+        5,
+        0,
+        5,
+        6,
+        6,
+        6
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "seeded-05",
+      "history": [
+        2,
+        3,
+        5,
+        4,
+        0,
+        5,
+        5,
+        4,
+        3,
+        4,
+        0,
+        0
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "seeded-06",
+      "history": [
+        3,
+        2,
+        4,
+        6,
+        5,
+        5,
+        3,
+        3,
+        0,
+        2,
+        6,
+        5,
+        1,
+        2,
+        4,
+        3
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "seeded-07",
+      "history": [
+        0,
+        0,
+        1,
+        2,
+        5,
+        3,
+        3,
+        1,
+        0,
+        6,
+        6,
+        1,
+        5,
+        6,
+        5,
+        3,
+        1,
+        6,
+        0,
+        4
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "post-hoc-tail",
+      "history": [
+        1,
+        4,
+        6,
+        0,
+        6
+      ],
+      "group": "post-hoc-diagnostic"
+    },
+    {
+      "id": "additional-00",
+      "history": [
+        4,
+        2,
+        0,
+        6,
+        3,
+        0,
+        6,
+        4,
+        4,
+        1
+      ],
+      "group": "additional"
+    },
+    {
+      "id": "additional-01",
+      "history": [
+        4,
+        4,
+        4,
+        0,
+        2,
+        2,
+        1,
+        6,
+        1,
+        3,
+        6,
+        5,
+        5,
+        4
+      ],
+      "group": "additional"
+    },
+    {
+      "id": "additional-02",
+      "history": [
+        4,
+        1,
+        5,
+        6,
+        2,
+        2,
+        4,
+        4,
+        4,
+        3,
+        6,
+        3,
+        0,
+        3,
+        3,
+        4,
+        4,
+        5
+      ],
+      "group": "additional"
+    },
+    {
+      "id": "additional-03",
+      "history": [
+        4,
+        0,
+        3,
+        1,
+        1,
+        2,
+        6,
+        0,
+        1,
+        5,
+        5,
+        3,
+        5,
+        1,
+        2,
+        6,
+        5,
+        2,
+        6,
+        3,
+        6,
+        5
+      ],
+      "group": "additional"
+    },
+    {
+      "id": "generalization-00",
+      "history": [
+        1,
+        4,
+        1,
+        4,
+        4,
+        3
+      ],
+      "group": "generalization"
+    },
+    {
+      "id": "generalization-01",
+      "history": [
+        3,
+        4,
+        1,
+        3,
+        0,
+        3,
+        0,
+        6,
+        6,
+        0
+      ],
+      "group": "generalization"
+    },
+    {
+      "id": "generalization-02",
+      "history": [
+        4,
+        2,
+        0,
+        5,
+        5,
+        6,
+        2,
+        1,
+        3,
+        3,
+        2,
+        2,
+        2,
+        2,
+        1,
+        6,
+        5,
+        0
+      ],
+      "group": "generalization"
+    },
+    {
+      "id": "generalization-03",
+      "history": [
+        6,
+        3,
+        1,
+        1,
+        6,
+        1,
+        5,
+        1,
+        6,
+        5,
+        4,
+        6,
+        2,
+        3,
+        5,
+        5,
+        1,
+        0,
+        4,
+        5,
+        4,
+        3,
+        0,
+        5,
+        0,
+        6
+      ],
+      "group": "generalization"
+    }
+  ],
+  "source_hashes": {
+    "games/connect4/agents/negamax_agent.py": "f46461d73b240c645248d57884fee0b9917c1be289758efe381cf6458a9cb392",
+    "games/connect4/agents/negamax_tt.py": "066923937ffb5e5f0d065a04a9657e0e02bc0f531b3941f2b73cd0f84583ab60",
+    "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+    "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+    "scripts/negamax_iterative_variants.py": "513c6bf638ff019ce349fba385683226d5fd80494c59dcd8fc4a41b80e07f7e9",
+    "scripts/benchmark_negamax_iterative.py": "3e479c9a10fb192f2268a4881019fe6d04aaccd0201828c67f52005c0241d851",
+    "scripts/benchmark_public_agents.py": "e5507959a9c6ed7d422f3c6f4ce675e9eba351d5c5b3c0c787d19956b2d9d1ce",
+    "tests/test_connect4_negamax_iterative.py": "cf88993fff0bb7ceb3cbcd2f11dcc0f3817b8efce13fc791183dad0f731e9aa9"
+  },
+  "design_sha256": "1a42d03c50c6f28ef3617d6c3fb65190399b89fa72e6570f20077ed5eab9f4f9",
+  "variants": [
+    "direct",
+    "hints",
+    "iterative",
+    "combined"
+  ],
+  "depths": [
+    4,
+    6,
+    8,
+    10
+  ],
+  "samples": 7,
+  "warmups": 1,
+  "memory_repetitions": 2,
+  "constructor_warmups": 64,
+  "generalization_seed": 20261011,
+  "runtime": {
+    "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+    "executable": "/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab/.venv/bin/python",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "cpus": 10,
+    "load": [
+      3.2900390625,
+      3.25341796875,
+      3.22314453125
+    ],
+    "unix_seconds": 1791597128.191732
+  },
+  "hardware": [
+    "Model Name: MacBook Pro",
+    "Model Identifier: Mac17,2",
+    "Chip: Apple M5",
+    "Total Number of Cores: 10 (4 Performance and 6 Efficiency)",
+    "Memory: 32 GB"
+  ]
+}
