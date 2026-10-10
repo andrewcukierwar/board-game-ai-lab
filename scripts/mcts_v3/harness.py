@@ -96,10 +96,12 @@ def generate_openings():
                              challenger_seed=seed_for(MASTER_SEED, domain, index, 'challenger'),
                              opponent_seed=seed_for(MASTER_SEED, domain, index, 'opponent')))
         sets[domain] = rows
-    sets['empty'] = [dict(id=f'empty-{index:03d}', history=[], length=0,
-                          challenger_seed=seed_for(MASTER_SEED, 'empty', index, 'challenger'),
-                          opponent_seed=seed_for(MASTER_SEED, 'empty', index, 'opponent'))
-                     for index in range(EMPTY_PAIRS)]
+    # 'empty2' was added for the strict-latency follow-up; earlier sets are unchanged.
+    for domain in ('empty', 'empty2'):
+        sets[domain] = [dict(id=f'{domain}-{index:03d}', history=[], length=0,
+                             challenger_seed=seed_for(MASTER_SEED, domain, index, 'challenger'),
+                             opponent_seed=seed_for(MASTER_SEED, domain, index, 'opponent'))
+                        for index in range(EMPTY_PAIRS)]
     return dict(schema=1, master_seed=MASTER_SEED, lengths=LENGTHS,
                 rejection='terminal, duplicate board in any set, or decided by shared root guards',
                 sets=sets)

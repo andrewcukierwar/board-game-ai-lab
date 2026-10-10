@@ -189,7 +189,38 @@ def confirm_empty():
                 note='Secondary (exploratory): real starting position; clusters are seed pairs.')
 
 
+def strict_budget(budget):
+    """Follow-up rule: shrink F1's equal-time budget by its empty-board time overrun.
+
+    floor(B' * 0.90 / ratio), with ratio the realised F1 / baseline search time
+    in the completed ``confirm_empty`` games at baseline budget ``budget``.
+    """
+    rows = json.loads((ROOT / 'confirm_empty' / 'analysis.json').read_text())['matchups']
+    ratio = next(row['time_ratio'] for row in rows if row['matchup'] == f'f1-time-{budget}')
+    return math.floor(FROZEN_BUDGETS['f1'][budget] * 0.90 / ratio)
+
+
+def followup_strict_empty():
+    """F1 at strict-latency budgets from the empty board, fresh seed pairs."""
+    rows = [matchup(f'f1-strict-{b}', research(strict_budget(b), R2S_C050), mcts(b))
+            for b in PRIMARY_BUDGETS]
+    return dict(opening_set='empty2', matchups=rows, cap_seconds=600,
+                note='Follow-up A (design amendment 2): strict-latency budgets on 64 fresh '
+                     'empty-board seed pairs. Calibrated on confirm_empty, evaluated here.')
+
+
+def followup_strict_holdout():
+    """F1 at strict-latency budgets on the held-out set."""
+    rows = [matchup(f'f1-strict-{b}', research(strict_budget(b), R2S_C050), mcts(b))
+            for b in PRIMARY_BUDGETS]
+    return dict(opening_set='holdout', matchups=rows, cap_seconds=900,
+                note='Follow-up A (design amendment 2): strict-latency budgets on the held-out '
+                     'set. No selection is made from these results.')
+
+
 STUDIES = dict(preflight=preflight, pilot1=pilot1, pilot2=pilot2, pilot3a=pilot3a,
                pilot3b=pilot3b, pilot3c=pilot3c, pilot3d=pilot3d, pilot3e=pilot3e,
                confirm_primary=confirm_primary, confirm_negamax=confirm_negamax,
-               pilot4=pilot4, confirm_scaling=confirm_scaling, confirm_empty=confirm_empty)
+               pilot4=pilot4, confirm_scaling=confirm_scaling, confirm_empty=confirm_empty,
+               followup_strict_empty=followup_strict_empty,
+               followup_strict_holdout=followup_strict_holdout)

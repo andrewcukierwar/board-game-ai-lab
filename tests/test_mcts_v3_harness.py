@@ -20,7 +20,7 @@ def test_committed_openings_match_generator_and_declared_shape(openings):
     assert committed == json.loads(json.dumps(openings))
     sets = openings['sets']
     assert {name: len(rows) for name, rows in sets.items()} == dict(
-        dev=96, holdout=256, preflight=8, empty=64)
+        dev=96, holdout=256, preflight=8, empty=64, empty2=64)
     for name in ('dev', 'holdout'):
         counts = {length: sum(o['length'] == length for o in sets[name]) for length in harness.LENGTHS}
         assert set(counts.values()) == {len(sets[name]) // 8}
@@ -147,3 +147,23 @@ def test_frozen_finalist_budgets_follow_the_declared_rule():
             assert studies.finalist(name, budget, False)['simulations'] == budget
     assert studies.FINALISTS['f1'][0] == dict(rollout='safe', solver=True, exploration=0.5)
     assert studies.FINALISTS['f2'][0] == dict(rollout='decisive', solver=True)
+
+
+def test_tactical_audit_classifies_proven_blunders_and_wins():
+    from games.connect4.agents.negamax_agent import NegamaxAgent
+    from scripts.mcts_v3.tactical_audit import classify
+    must_block = NegamaxAgent(4).score_moves(harness.position([0, 1, 0, 1, 0]))
+    assert classify(must_block, 3, 4) == ('blunder', 1)
+    assert classify(must_block, 0, 4)[0] == 'unproven'
+    forced = NegamaxAgent(4).score_moves(harness.position([3, 3, 2, 2]))
+    assert classify(forced, 4, 4) == ('win_kept', 2)
+    assert classify(forced, 6, 4) == ('win_missed', 2)
+    immediate = NegamaxAgent(4).score_moves(harness.position([0, 1, 0, 1, 0, 2]))
+    assert classify(immediate, 0, 4) == ('win_kept', 0)
+    doomed = NegamaxAgent(4).score_moves(harness.position([2, 2, 3, 3, 4]))
+    assert classify(doomed, 1, 4) == ('already_lost', None)
+
+
+def test_strict_latency_budgets_are_below_the_frozen_equal_time_budgets():
+    from scripts.mcts_v3 import studies
+    assert {b: studies.strict_budget(b) for b in studies.PRIMARY_BUDGETS} == {400: 151, 2000: 821}

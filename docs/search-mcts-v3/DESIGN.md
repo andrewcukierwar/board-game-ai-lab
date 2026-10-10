@@ -253,3 +253,36 @@ structurally different configurations, each above 50% at both budgets):
 "Best finalist" for the scaling and empty-board secondaries is F1, fixed here.
 The differences among the top pilot configurations are within pilot noise;
 the pilots choose what to confirm and prove nothing by themselves.
+
+### Amendment 2 — 2026-10-10, after the declared confirmatory studies, before the follow-ups
+
+The declared confirmatory work is complete and its results are not revised.
+Two follow-up experiments are declared here, within the 45-minute follow-up
+cap, each prompted by an observation in the completed evidence.
+
+**Observation.** "Equal time" was calibrated on total search time over
+mixed-length development games. On the held-out set it held (realised ratios
+0.935–0.970), but the time is distributed differently: the solver stops early
+in late positions and the tactical rollouts cost more in broad early ones. F1's
+95th-percentile decision time is about 25% above the baseline's, and from the
+empty board the realised ratio was 1.109 (400) and 1.121 (2,000), so the
+empty-board scores do not meet the declared time-parity condition.
+
+**Follow-up A — strict latency.** Hypothesis: F1 still beats the baseline when
+its budget is cut until it is no slower in opening-phase games. Rule, fixed
+before any game: `B'' = floor(B' · 0.90 / ratio)` with `ratio` the realised
+empty-board time ratio above, giving **151** (vs 400) and **821** (vs 2,000).
+Evaluated once on (i) 64 fresh empty-board seed pairs (`empty2`, a new domain
+appended to `openings.json`; earlier sets are byte-identical) and (ii) the 256
+held-out openings. Reported: score with the same cluster bootstrap and family
+interval, realised time ratio, and 95th-percentile decision time for both
+agents. The held-out set is reused, but nothing is tuned or selected from the
+result, and the budgets come from data that excludes it. Success means: time
+ratio ≤ 1.00 in both studies, and family-adjusted lower bound above 50%.
+
+**Follow-up B — tactical audit (diagnostic, no new games).** Re-score every
+decision of the first 128 held-out pairs of `f1-time-400` and `f1-time-2000`
+with exact depth-8 Negamax and count, for F1 and for the baseline, the moves
+that turn a position not proven lost into one proven lost, grouped by how
+many plies later the loss lands. Purpose: describe what F1 still misses and
+guide the next research step. It is descriptive and supports no strength claim.
