@@ -87,3 +87,5 @@ a fresh --directory containing copied DESIGN.md, then run
 directory (or adapt its directory for new evidence). Exclusive writes refuse
 existing files. Diagnostic declaration/script hashes are preserved. Never rerun
 into this frozen evidence directory. Phase B baseline remains A/direct.
+
+Follow-up validation before Phase B timing: complete expanded suite **89 passed in 7.69s**, run under shared lock; log at ../pvs/focused-tests.txt.
