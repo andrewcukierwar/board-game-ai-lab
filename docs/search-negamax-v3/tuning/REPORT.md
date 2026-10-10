@@ -83,3 +83,5 @@ push production-path integration separately. Keep trusted TT, PVS and mirror
 research-only. Then freeze depth10/12 feasibility design using terminal-proof
 as strongest validated candidate and original direct as reference. No public
 limit, contract, frontend, deployment, other worktree or canonical evidence edits.
+
+Integration validation COMPLETE: production bytes equal measured terminal-proof source; full backend **2867 passed,15 Torch-dependent skips in126.21s**, under shared lock with providers disabled. integration-audit.json verifies only this Negamax production file changes and all canonical v2 evidence is untouched. Production integration is separately checkpointed; no merge/deployment.
