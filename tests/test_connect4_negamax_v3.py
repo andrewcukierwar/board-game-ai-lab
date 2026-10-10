@@ -175,7 +175,9 @@ def test_pvs_mandatory_full_research(monkeypatch):
         windows.append((tuple(state.pieces),depth,alpha,beta))
         return original(state,depth,alpha,beta,table)
     monkeypatch.setattr(m,'negamax',search)
-    game = position([])
+    # This legal tactical fixture has later children improving the scout value;
+    # the empty D4 tree's center-first ordering needs no full re-search.
+    game = position([5,4,3,6,2,4])
     assert m.NegamaxAgent(4).score_moves(game) == root_oracle(game,4)
     nulls = [i for i,w in enumerate(windows) if w[3]-w[2] == 1]
     assert nulls
