@@ -218,9 +218,21 @@ def followup_strict_holdout():
                      'set. No selection is made from these results.')
 
 
+def followup_equivalence():
+    """F1 at its frozen equal-time budgets versus much larger baseline budgets."""
+    f1 = FROZEN_BUDGETS['f1']
+    rows = [matchup(f'f1-{f1[small]}-vs-base-{large}', research(f1[small], R2S_C050), mcts(large),
+                    pairs=128)
+            for small, large in ((400, 2000), (400, 5000), (2000, 5000), (2000, 10000))]
+    return dict(opening_set='holdout', matchups=rows, cap_seconds=1200,
+                note='Follow-up C (design amendment 3, exploratory): how much baseline compute '
+                     'F1 replaces. First 128 held-out openings; nothing is selected from it.')
+
+
 STUDIES = dict(preflight=preflight, pilot1=pilot1, pilot2=pilot2, pilot3a=pilot3a,
                pilot3b=pilot3b, pilot3c=pilot3c, pilot3d=pilot3d, pilot3e=pilot3e,
                confirm_primary=confirm_primary, confirm_negamax=confirm_negamax,
                pilot4=pilot4, confirm_scaling=confirm_scaling, confirm_empty=confirm_empty,
                followup_strict_empty=followup_strict_empty,
-               followup_strict_holdout=followup_strict_holdout)
+               followup_strict_holdout=followup_strict_holdout,
+               followup_equivalence=followup_equivalence)

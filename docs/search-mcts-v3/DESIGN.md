@@ -286,3 +286,19 @@ with exact depth-8 Negamax and count, for F1 and for the baseline, the moves
 that turn a position not proven lost into one proven lost, grouped by how
 many plies later the loss lands. Purpose: describe what F1 still misses and
 guide the next research step. It is descriptive and supports no strength claim.
+
+### Amendment 3 — 2026-10-10, after follow-ups A and B, before follow-up C
+
+**Follow-up C — compute equivalence (exploratory).** The Negamax secondary
+showed F1 at 187 simulations scoring higher against every Negamax depth than
+the baseline at 2,000. That is an indirect comparison. This follow-up plays
+it directly: F1 at its frozen equal-time budgets against the baseline at much
+larger budgets — F1 187 vs baseline 2,000 and 5,000; F1 1,023 vs baseline
+5,000 and 10,000 — on the first 128 held-out openings, both colours. Reported
+with the same cluster bootstrap and the realised time ratio. It describes how
+much baseline computation F1 replaces. Nothing is tuned or selected from it,
+no significance claim is attached, and it stays within the follow-up cap.
+
+**Replay audit (no new evidence).** A sample of recorded games from every
+completed study is replayed with the current sources and must reproduce the
+recorded moves, winners, simulation counts and final RNG fingerprints exactly.
