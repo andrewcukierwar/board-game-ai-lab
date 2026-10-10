@@ -63,3 +63,31 @@ def test_retained_bounds_and_rollback(module,monkeypatch):
     with pytest.raises(RuntimeError):
         module.negamax(state,3,table=module.SearchTable())
     assert {slot:getattr(state,slot) for slot in state.__slots__}==before
+
+
+@pytest.mark.parametrize('method',['heuristic','terminal_value','ordered_moves'])
+def test_nested_root_exception_restores_every_field(module,method,monkeypatch):
+    game=position([3,2,4,3])
+    state=module.SearchState(game)
+    before=deepcopy({slot:getattr(state,slot) for slot in state.__slots__})
+    caller=deepcopy(vars(game))
+    original=getattr(module.SearchState,method)
+    def fail(self,*args,**kwargs):
+        if self.count>=7: raise RuntimeError('injected')
+        return original(self,*args,**kwargs)
+    monkeypatch.setattr(module.SearchState,method,fail)
+    with pytest.raises(RuntimeError): module.negamax(state,4,table=module.SearchTable())
+    assert {slot:getattr(state,slot) for slot in state.__slots__}==before
+    with pytest.raises(RuntimeError): module.NegamaxAgent(4).choose_move(game)
+    assert vars(game)==caller
+
+
+@pytest.mark.parametrize('transform',[terminal_parent_proof,trusted_tt])
+def test_transform_pvs_has_independent_oracle(transform):
+    module=load_source(transform(variant_source('pvs')))
+    game=position([5,4,3,6,2,4])
+    agent=module.NegamaxAgent(3)
+    assert agent.score_moves(game)==root_oracle(game,3)
+    baseline=load_source(variant_source('pvs')).NegamaxAgent(3)
+    baseline.score_moves(game)
+    assert baseline.last_stats==agent.last_stats
