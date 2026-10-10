@@ -1,0 +1,78 @@
+{
+  "experiment": "B",
+  "selected": null,
+  "comparisons": {
+    "16384": {
+      "eligible": false,
+      "checks": {
+        "memory": true,
+        "geometric_latency": false,
+        "summed_latency": false,
+        "per_condition": false,
+        "peak": false,
+        "expensive_latency": false,
+        "expensive_nodes": true
+      },
+      "geometric_wall_ratio": 1.207443473697963,
+      "summed_wall_ratio": 1.2018373191332328,
+      "geometric_cpu_ratio": 1.2074335534491698,
+      "retained_large_ratio": 0.2906425943214627,
+      "large_conditions": 8,
+      "depth_wall_ratios": {
+        "4": 1.2469215240753635,
+        "6": 1.18469861382536,
+        "8": 1.1785396034777003,
+        "10": 1.2208886343775909
+      },
+      "worst_wall_ratio": 3.905600930926975
+    },
+    "32768": {
+      "eligible": false,
+      "checks": {
+        "memory": true,
+        "geometric_latency": false,
+        "summed_latency": false,
+        "per_condition": false,
+        "peak": false,
+        "expensive_latency": false,
+        "expensive_nodes": true
+      },
+      "geometric_wall_ratio": 1.2779272406180224,
+      "summed_wall_ratio": 1.1516565363889382,
+      "geometric_cpu_ratio": 1.2775721474073791,
+      "retained_large_ratio": 0.46999440719956537,
+      "large_conditions": 8,
+      "depth_wall_ratios": {
+        "4": 1.4010665292030484,
+        "6": 1.254878098025659,
+        "8": 1.222570446158539,
+        "10": 1.2407672460431496
+      },
+      "worst_wall_ratio": 6.762075703684188
+    },
+    "65536": {
+      "eligible": false,
+      "checks": {
+        "memory": true,
+        "geometric_latency": false,
+        "summed_latency": false,
+        "per_condition": false,
+        "peak": false,
+        "expensive_latency": true,
+        "expensive_nodes": true
+      },
+      "geometric_wall_ratio": 1.4038976774458505,
+      "summed_wall_ratio": 1.127857935772249,
+      "geometric_cpu_ratio": 1.4034284790780385,
+      "retained_large_ratio": 0.6985089749396904,
+      "large_conditions": 8,
+      "depth_wall_ratios": {
+        "4": 1.6859318573083966,
+        "6": 1.3756413764829796,
+        "8": 1.2973689701496116,
+        "10": 1.2910202922894116
+      },
+      "worst_wall_ratio": 12.473049224959382
+    }
+  }
+}

@@ -1,0 +1,55 @@
+........................................................................ [  3%]
+........................................................................ [  7%]
+........................................................................ [ 11%]
+........................................................................ [ 15%]
+........................................................................ [ 19%]
+........................................................................ [ 23%]
+........................................................................ [ 27%]
+........................................................................ [ 31%]
+........................................................................ [ 34%]
+........................................................................ [ 38%]
+........................................................................ [ 42%]
+........................................................................ [ 46%]
+.s...................................................................... [ 50%]
+........................................................................ [ 54%]
+........................................................................ [ 58%]
+........................................................................ [ 62%]
+........................................................................ [ 65%]
+........................................................................ [ 69%]
+........................................................................ [ 73%]
+........................................................................ [ 77%]
+........................................................................ [ 81%]
+........................................................................ [ 85%]
+........................................................................ [ 89%]
+.s...............F...................................................... [ 93%]
+........................................................................ [ 96%]
+........................................................                 [100%]
+=================================== FAILURES ===================================
+_____________ test_disabled_by_default_with_unchanged_public_error _____________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x123fbe910>
+
+    def test_disabled_by_default_with_unchanged_public_error(monkeypatch):
+        monkeypatch.delenv('VICTOR_RESEARCH_ENABLED', raising=False)
+        app = create_app({'TESTING': True, 'EXPLANATIONS_ENABLED': False})
+>       assert app.config['VICTOR_RESEARCH_ENABLED'] is False
+E       assert True is False
+
+tests/test_victor_research_agent.py:139: AssertionError
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_alphazero_v2.py:20: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_connect4_dqn.py:11: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_connect4_neural_mcts.py:11: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_dqn_diagnostics.py:8: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_dqn_experiment.py:11: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_dqn_replication.py:7: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_dqn_symmetry.py:12: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_dqn_validation.py:9: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_neural_root_noise.py:10: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_neural_scaled.py:8: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_neural_self_play.py:10: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_neural_symmetry.py:8: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_neural_value_anchoring.py:11: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_neural_value_target_audit.py:178: could not import 'torch': No module named 'torch'
+SKIPPED [1] tests/test_victor_research_agent.py:65: could not import 'torch': No module named 'torch'
+1 failed, 1853 passed, 15 skipped in 89.87s (0:01:29)

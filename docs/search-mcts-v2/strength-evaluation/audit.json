@@ -1,0 +1,41 @@
+{
+  "experiment_sha256": "b05723a266fc590d740fa5d8b5acfcacd4ca9909fce47c3f38bf617cc24cdfe2",
+  "replayed_complete_games": 1776,
+  "audited_search_calls": 29044,
+  "deterministic_repeat_ids": [
+    "mcts-800-vs-mcts-400/main-000/0",
+    "mcts-800-vs-mcts-400/main-000/1",
+    "mcts-2000-vs-mcts-400/main-000/0",
+    "mcts-2000-vs-mcts-400/main-000/1",
+    "mcts-5000-vs-mcts-400/main-000/0",
+    "mcts-5000-vs-mcts-400/main-000/1",
+    "mcts-10000-vs-mcts-400/main-000/0",
+    "mcts-10000-vs-mcts-400/main-000/1",
+    "mcts-400-vs-negamax-4/main-000/0",
+    "mcts-400-vs-negamax-4/main-000/1",
+    "mcts-800-vs-negamax-4/main-000/0",
+    "mcts-800-vs-negamax-4/main-000/1",
+    "mcts-2000-vs-negamax-4/main-000/0",
+    "mcts-2000-vs-negamax-4/main-000/1",
+    "mcts-5000-vs-negamax-4/main-000/0",
+    "mcts-5000-vs-negamax-4/main-000/1",
+    "mcts-10000-vs-negamax-4/main-000/0",
+    "mcts-10000-vs-negamax-4/main-000/1",
+    "mcts-400-vs-negamax-6/main-000/0",
+    "mcts-400-vs-negamax-6/main-000/1",
+    "mcts-800-vs-negamax-6/main-000/0",
+    "mcts-800-vs-negamax-6/main-000/1",
+    "mcts-2000-vs-negamax-6/main-000/0",
+    "mcts-2000-vs-negamax-6/main-000/1",
+    "mcts-5000-vs-negamax-6/main-000/0",
+    "mcts-5000-vs-negamax-6/main-000/1",
+    "mcts-10000-vs-negamax-6/main-000/0",
+    "mcts-10000-vs-negamax-6/main-000/1"
+  ],
+  "incomplete_attempts": {
+    "preflight-attempts.jsonl": 0,
+    "results-attempts.jsonl": 0
+  },
+  "simulation_accounting": "inferred from production immediate-win guard; independently captured in profiling",
+  "status": "passed"
+}

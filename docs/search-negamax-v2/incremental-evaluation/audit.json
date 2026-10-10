@@ -1,0 +1,38 @@
+{
+  "conditions": 80,
+  "timed_decisions": 2240,
+  "warmups": 320,
+  "verified_saved_decisions": 3200,
+  "prior_phase3a_score_counter_leaf_matches": 44,
+  "prior_post_hoc_depth10_tail_matches": 1,
+  "unchanged_search_ast": [
+    "has_four",
+    "winning_squares",
+    "SearchTable",
+    "negamax",
+    "NegamaxAgent",
+    "WIN_SCORE",
+    "CENTER_ORDER",
+    "EXACT",
+    "WEIGHTS",
+    "BOARD_MASK",
+    "BOTTOM_MASK",
+    "WINDOWS",
+    "SearchState.legal",
+    "SearchState.ordered_moves",
+    "SearchState.terminal_value"
+  ],
+  "retained_tt_size_parity_all_repetitions": true,
+  "independently_checked_full_draw_play_undo_transitions": 84,
+  "source_hashes_verified": true,
+  "auditor_sha256": "5a11c60de2a62ca6ed80ea580c3f2a9f645f3b9d3a7462341630cc47a27990bf",
+  "evidence_sha256": {
+    "manifest.json": "aae890614aaed2500519039be57a215eb251f1e72e09548a724facf0a847519b",
+    "results.jsonl": "8488c279790f84886b1e704fe483454f6af2e1f07f0668706ed52a5ea1c50af9",
+    "microbenchmark.json": "a71505418d84ec0328eaac90520037427a00c00389cc87ea33d0d5a0cca6499a",
+    "analysis.json": "2f1ade5098bf549db42c8f3aea953cc96717667f78f2ebd561d714393436e8cd",
+    "runtime-end.json": "7915ff35660c05a7e19abb3d3d375d6bbba25f1defa3fcd455aa4c996720e6df",
+    "performance.csv": "99e80a9dea744ac7d1b5b230a03a72f3441dba3bf2d98eebb130d1d4ea853784"
+  },
+  "uncalibrated_run_preserved_with_matching_harness_design_candidate_and_fixtures": true
+}

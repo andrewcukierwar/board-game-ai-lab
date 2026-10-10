@@ -1,0 +1,108 @@
+{
+  "experiment_sha256": "e6c6ee93d7f75ffe3349e4c08e0fda44f7c0c0245a10e96a0318707b3853be3e",
+  "source_hashes": {
+    "games/connect4/agents/negamax_agent.py": "a07a0d19bf523c6afc1870c1b2deaab811f210f61aa3198db780a1752e436dc2",
+    "games/connect4/agents/mcts_agent.py": "408be66814f85f4b9361713c94d4f79151b2a92683a268dd018bd812c641d4d2",
+    "games/connect4/agents/mcts_bitboard.py": "353cef4ce072bfb32492491cf00a7f87684452d2aeb06f6d0c569586cbb58f4e",
+    "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+    "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+    "scripts/evaluate_mcts_strength.py": "2da8dacc5d8cd47164d65a3fb49c598f50bf1cb316e1b22bdaca079d8946f6bb",
+    "scripts/benchmark_public_agents.py": "e5507959a9c6ed7d422f3c6f4ce675e9eba351d5c5b3c0c787d19956b2d9d1ce",
+    "scripts/benchmark_negamax_ordering.py": "f778c88ac4a5d42266aadc683e9edfd45e2639b7eee61e36dd2497333ba5d973",
+    "scripts/evaluate_negamax_depths.py": "f6910509d99ad0efc210821d7e274f884aa8aedcd994b8bac061059a7e2be176",
+    "scripts/analyze_negamax_depths.py": "8d1b54c5c357cb55e8207ecb0f69b61529459a5a189ddabd66ad0eb0c9ee8d6a",
+    "scripts/profile_negamax_depths.py": "b12802486eabbad6dc07fd71033f941e3c6c6856e6ed16c713ac3ec78a429c28"
+  },
+  "audit_source_sha256": "4fc5131d27a380265dd71012771f511666a6816ad217b7c08e5b2b53d2499470",
+  "independently_replayed_games": 608,
+  "main_moves": 8675,
+  "preflight_moves": 1625,
+  "repeated_games": [
+    {
+      "id": "n8-vs-n6/main-000/0",
+      "moves": 36,
+      "winner": 1,
+      "elapsed_seconds": 0.8288187079597265,
+      "match": true
+    },
+    {
+      "id": "n8-vs-n6/main-000/1",
+      "moves": 31,
+      "winner": 0,
+      "elapsed_seconds": 0.8305924579035491,
+      "match": true
+    },
+    {
+      "id": "n10-vs-n8/main-000/0",
+      "moves": 19,
+      "winner": 0,
+      "elapsed_seconds": 3.9557737498544157,
+      "match": true
+    },
+    {
+      "id": "n10-vs-n8/main-000/1",
+      "moves": 40,
+      "winner": -1,
+      "elapsed_seconds": 3.116355957929045,
+      "match": true
+    },
+    {
+      "id": "n10-vs-n6/main-000/0",
+      "moves": 17,
+      "winner": 0,
+      "elapsed_seconds": 3.305128333857283,
+      "match": true
+    },
+    {
+      "id": "n10-vs-n6/main-000/1",
+      "moves": 40,
+      "winner": -1,
+      "elapsed_seconds": 2.5141217089258134,
+      "match": true
+    },
+    {
+      "id": "n8-vs-m2000/main-000/0",
+      "moves": 38,
+      "winner": 1,
+      "elapsed_seconds": 1.0008534588851035,
+      "match": true
+    },
+    {
+      "id": "n8-vs-m2000/main-000/1",
+      "moves": 37,
+      "winner": 0,
+      "elapsed_seconds": 0.710972584085539,
+      "match": true
+    },
+    {
+      "id": "n10-vs-m2000/main-000/0",
+      "moves": 34,
+      "winner": 1,
+      "elapsed_seconds": 2.5345364580862224,
+      "match": true
+    },
+    {
+      "id": "n10-vs-m2000/main-000/1",
+      "moves": 32,
+      "winner": 1,
+      "elapsed_seconds": 1.6154180408921093,
+      "match": true
+    },
+    {
+      "id": "n10-vs-m5000/main-000/0",
+      "moves": 19,
+      "winner": 0,
+      "elapsed_seconds": 3.7271222500130534,
+      "match": true
+    },
+    {
+      "id": "n10-vs-m5000/main-000/1",
+      "moves": 30,
+      "winner": 1,
+      "elapsed_seconds": 2.0996944590006024,
+      "match": true
+    }
+  ],
+  "excluded_from_inference": true,
+  "elapsed_seconds": 26.264108416158706
+}

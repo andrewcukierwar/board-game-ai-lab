@@ -173,6 +173,8 @@ def negamax(state, depth, alpha=-inf, beta=inf, table=None):
     if terminal is not None:
         return terminal
     if depth == 0:
+        if table is not None:
+            table.diagnostic["leaves"] += 1
         return state.heuristic()
     key = (state.pieces[0] | (state.pieces[1] << 49) |
            (state.mover << 98) | (depth << 99))
@@ -195,7 +197,12 @@ def negamax(state, depth, alpha=-inf, beta=inf, table=None):
     # At depth one, threat scoring has no reply horizon and costs more than it
     # saves. TT hints remain useful; leaf evaluation and terminal checks stay exact.
     tactical = table.tactical if table is not None else 'wins'
-    for col in state.ordered_moves(hint, tactical if depth > 1 else 'none'):
+    moves = state.ordered_moves(hint, tactical if depth > 1 else "none")
+    hinted_first = hint is not None and moves[0] == hint
+    if table is not None and hinted_first:
+        if moves[0] != state.ordered_moves(None, tactical if depth > 1 else "none")[0]:
+            table.diagnostic["changed_first"] += 1
+    for index, col in enumerate(moves):
         state.play(col)
         try:
             value = -negamax(state, depth - 1, -beta, -alpha, table)
@@ -207,6 +214,8 @@ def negamax(state, depth, alpha=-inf, beta=inf, table=None):
         if alpha >= beta:
             if table is not None:
                 table.cutoffs += 1
+                table.diagnostic["first_move_cutoffs"] += int(index == 0)
+                table.diagnostic["hinted_first_cutoffs"] += int(index == 0 and hinted_first)
             break
     if table is not None:
         flag = UPPER if best <= alpha_original else LOWER if best >= beta_original else EXACT

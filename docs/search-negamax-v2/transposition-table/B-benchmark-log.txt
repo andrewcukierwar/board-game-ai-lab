@@ -1,0 +1,174 @@
+B empty d4: unbounded=0.840ms, 16384=0.951ms, 32768=0.999ms, 65536=1.133ms
+B empty d6: unbounded=7.623ms, 16384=9.878ms, 32768=9.886ms, 65536=9.970ms
+B empty d8: unbounded=47.590ms, 16384=83.087ms, 32768=83.149ms, 65536=82.941ms
+B empty d10: unbounded=219.196ms, 16384=486.215ms, 32768=484.018ms, 65536=480.984ms
+B near-opening d4: unbounded=0.929ms, 16384=1.052ms, 32768=1.115ms, 65536=1.223ms
+B near-opening d6: unbounded=7.291ms, 16384=9.873ms, 32768=9.869ms, 65536=9.870ms
+B near-opening d8: unbounded=41.649ms, 16384=74.392ms, 32768=74.732ms, 65536=73.486ms
+B near-opening d10: unbounded=178.106ms, 16384=482.789ms, 32768=493.507ms, 65536=485.744ms
+B midgame d4: unbounded=0.551ms, 16384=0.622ms, 32768=0.679ms, 65536=0.805ms
+B midgame d6: unbounded=2.017ms, 16384=2.758ms, 32768=2.767ms, 65536=2.885ms
+B midgame d8: unbounded=5.010ms, 16384=10.444ms, 32768=10.527ms, 65536=10.567ms
+B midgame d10: unbounded=10.072ms, 16384=34.234ms, 32768=34.094ms, 65536=34.368ms
+B midgame-wide d4: unbounded=1.235ms, 16384=1.337ms, 32768=1.378ms, 65536=1.507ms
+B midgame-wide d6: unbounded=5.523ms, 16384=6.803ms, 32768=6.940ms, 65536=7.017ms
+B midgame-wide d8: unbounded=15.572ms, 16384=22.506ms, 32768=22.516ms, 65536=22.650ms
+B midgame-wide d10: unbounded=37.979ms, 16384=70.881ms, 32768=71.294ms, 65536=71.190ms
+B late d4: unbounded=0.089ms, 16384=0.161ms, 32768=0.220ms, 65536=0.341ms
+B late d6: unbounded=0.245ms, 16384=0.386ms, 32768=0.451ms, 65536=0.454ms
+B late d8: unbounded=0.588ms, 16384=0.918ms, 32768=0.982ms, 65536=1.104ms
+B late d10: unbounded=1.166ms, 16384=1.738ms, 32768=1.806ms, 65536=1.905ms
+B immediate-win d4: unbounded=0.556ms, 16384=0.667ms, 32768=0.726ms, 65536=0.843ms
+B immediate-win d6: unbounded=3.405ms, 16384=4.707ms, 32768=4.759ms, 65536=4.831ms
+B immediate-win d8: unbounded=21.637ms, 16384=39.290ms, 32768=39.260ms, 65536=38.982ms
+B immediate-win d10: unbounded=106.659ms, 16384=256.017ms, 32768=257.179ms, 65536=255.958ms
+B forced-reply d4: unbounded=0.561ms, 16384=0.636ms, 32768=0.692ms, 65536=0.813ms
+B forced-reply d6: unbounded=2.682ms, 16384=3.306ms, 32768=3.342ms, 65536=3.511ms
+B forced-reply d8: unbounded=14.479ms, 16384=21.427ms, 32768=21.527ms, 65536=21.609ms
+B forced-reply d10: unbounded=54.665ms, 16384=108.900ms, 32768=109.182ms, 65536=108.139ms
+B double-threat-loss d4: unbounded=0.194ms, 16384=0.258ms, 32768=0.319ms, 65536=0.440ms
+B double-threat-loss d6: unbounded=0.197ms, 16384=0.258ms, 32768=0.320ms, 65536=0.440ms
+B double-threat-loss d8: unbounded=0.193ms, 16384=0.260ms, 32768=0.320ms, 65536=0.431ms
+B double-threat-loss d10: unbounded=0.192ms, 16384=0.257ms, 32768=0.319ms, 65536=0.437ms
+B dense-endgame d4: unbounded=0.021ms, 16384=0.082ms, 32768=0.143ms, 65536=0.264ms
+B dense-endgame d6: unbounded=0.023ms, 16384=0.084ms, 32768=0.145ms, 65536=0.266ms
+B dense-endgame d8: unbounded=0.023ms, 16384=0.085ms, 32768=0.145ms, 65536=0.267ms
+B dense-endgame d10: unbounded=0.023ms, 16384=0.086ms, 32768=0.146ms, 65536=0.267ms
+B quiet-5 d4: unbounded=0.658ms, 16384=0.721ms, 32768=0.788ms, 65536=0.844ms
+B quiet-5 d6: unbounded=3.927ms, 16384=4.895ms, 32768=4.907ms, 65536=5.008ms
+B quiet-5 d8: unbounded=12.254ms, 16384=21.260ms, 32768=21.395ms, 65536=21.527ms
+B quiet-5 d10: unbounded=20.873ms, 16384=43.375ms, 32768=43.306ms, 65536=43.554ms
+B supplement-main-003 d4: unbounded=1.182ms, 16384=1.409ms, 32768=1.460ms, 65536=1.543ms
+B supplement-main-003 d6: unbounded=9.646ms, 16384=15.200ms, 32768=15.188ms, 65536=15.256ms
+B supplement-main-003 d8: unbounded=44.353ms, 16384=116.622ms, 32768=116.227ms, 65536=115.801ms
+B supplement-main-003 d10: unbounded=163.783ms, 16384=700.692ms, 32768=704.033ms, 65536=699.255ms
+B seeded-00 d4: unbounded=1.410ms, 16384=1.591ms, 32768=1.640ms, 65536=1.756ms
+B seeded-00 d6: unbounded=11.873ms, 16384=15.301ms, 32768=15.437ms, 65536=15.480ms
+B seeded-00 d8: unbounded=59.604ms, 16384=104.556ms, 32768=105.190ms, 65536=104.670ms
+B seeded-00 d10: unbounded=235.800ms, 16384=605.793ms, 32768=606.816ms, 65536=608.652ms
+B seeded-01 d4: unbounded=0.278ms, 16384=0.339ms, 32768=0.400ms, 65536=0.527ms
+B seeded-01 d6: unbounded=0.868ms, 16384=1.004ms, 32768=1.025ms, 65536=1.162ms
+B seeded-01 d8: unbounded=3.220ms, 16384=4.066ms, 32768=4.146ms, 65536=4.252ms
+B seeded-01 d10: unbounded=9.825ms, 16384=15.929ms, 32768=15.640ms, 65536=15.711ms
+B seeded-02 d4: unbounded=0.462ms, 16384=0.542ms, 32768=0.624ms, 65536=0.690ms
+B seeded-02 d6: unbounded=1.031ms, 16384=1.154ms, 32768=1.208ms, 65536=1.332ms
+B seeded-02 d8: unbounded=2.596ms, 16384=3.528ms, 32768=3.600ms, 65536=3.730ms
+B seeded-02 d10: unbounded=4.806ms, 16384=8.464ms, 32768=8.525ms, 65536=8.617ms
+B seeded-03 d4: unbounded=0.307ms, 16384=0.375ms, 32768=0.435ms, 65536=0.560ms
+B seeded-03 d6: unbounded=0.917ms, 16384=1.065ms, 32768=1.123ms, 65536=1.248ms
+B seeded-03 d8: unbounded=3.389ms, 16384=4.934ms, 32768=4.932ms, 65536=5.098ms
+B seeded-03 d10: unbounded=11.439ms, 16384=27.881ms, 32768=27.699ms, 65536=27.796ms
+B seeded-04 d4: unbounded=1.544ms, 16384=1.658ms, 32768=1.726ms, 65536=1.844ms
+B seeded-04 d6: unbounded=13.923ms, 16384=17.499ms, 32768=17.575ms, 65536=17.678ms
+B seeded-04 d8: unbounded=89.143ms, 16384=138.540ms, 32768=138.900ms, 65536=138.769ms
+B seeded-04 d10: unbounded=456.461ms, 16384=964.922ms, 32768=977.399ms, 65536=974.898ms
+B seeded-05 d4: unbounded=0.788ms, 16384=0.848ms, 32768=0.916ms, 65536=1.049ms
+B seeded-05 d6: unbounded=4.524ms, 16384=5.617ms, 32768=5.680ms, 65536=5.822ms
+B seeded-05 d8: unbounded=15.173ms, 16384=22.094ms, 32768=22.142ms, 65536=22.191ms
+B seeded-05 d10: unbounded=52.922ms, 16384=95.450ms, 32768=95.472ms, 65536=97.389ms
+B seeded-06 d4: unbounded=0.505ms, 16384=0.574ms, 32768=0.633ms, 65536=0.761ms
+B seeded-06 d6: unbounded=1.731ms, 16384=2.356ms, 32768=2.417ms, 65536=2.520ms
+B seeded-06 d8: unbounded=4.617ms, 16384=9.539ms, 32768=9.609ms, 65536=9.688ms
+B seeded-06 d10: unbounded=11.010ms, 16384=36.875ms, 32768=36.750ms, 65536=36.936ms
+B seeded-07 d4: unbounded=0.279ms, 16384=0.362ms, 32768=0.411ms, 65536=0.529ms
+B seeded-07 d6: unbounded=0.582ms, 16384=0.764ms, 32768=0.802ms, 65536=0.877ms
+B seeded-07 d8: unbounded=1.024ms, 16384=1.423ms, 32768=1.419ms, 65536=1.440ms
+B seeded-07 d10: unbounded=1.498ms, 16384=2.372ms, 32768=2.277ms, 65536=2.246ms
+B post-hoc-tail d4: unbounded=1.852ms, 16384=2.071ms, 32768=2.114ms, 65536=2.249ms
+B post-hoc-tail d6: unbounded=17.437ms, 16384=21.633ms, 32768=21.436ms, 65536=21.464ms
+B post-hoc-tail d8: unbounded=132.074ms, 16384=211.801ms, 32768=214.209ms, 65536=215.882ms
+B post-hoc-tail d10: unbounded=740.701ms, 16384=1628.294ms, 32768=1638.763ms, 65536=1626.334ms
+B additional-00 d4: unbounded=1.267ms, 16384=1.378ms, 32768=1.432ms, 65536=1.544ms
+B additional-00 d6: unbounded=10.684ms, 16384=13.783ms, 32768=13.770ms, 65536=13.810ms
+B additional-00 d8: unbounded=62.498ms, 16384=99.981ms, 32768=99.787ms, 65536=99.813ms
+B additional-00 d10: unbounded=280.432ms, 16384=635.620ms, 32768=637.694ms, 65536=634.455ms
+B additional-01 d4: unbounded=1.423ms, 16384=1.563ms, 32768=1.641ms, 65536=1.738ms
+B additional-01 d6: unbounded=13.187ms, 16384=16.888ms, 32768=16.630ms, 65536=17.082ms
+B additional-01 d8: unbounded=66.800ms, 16384=106.880ms, 32768=106.176ms, 65536=106.300ms
+B additional-01 d10: unbounded=224.150ms, 16384=499.694ms, 32768=508.617ms, 65536=507.559ms
+B additional-02 d4: unbounded=0.701ms, 16384=0.779ms, 32768=0.836ms, 65536=0.957ms
+B additional-02 d6: unbounded=2.559ms, 16384=3.277ms, 32768=3.323ms, 65536=3.433ms
+B additional-02 d8: unbounded=7.048ms, 16384=13.648ms, 32768=13.311ms, 65536=13.357ms
+B additional-02 d10: unbounded=16.257ms, 16384=45.680ms, 32768=44.552ms, 65536=46.070ms
+B additional-03 d4: unbounded=0.444ms, 16384=0.529ms, 32768=0.597ms, 65536=0.706ms
+B additional-03 d6: unbounded=1.137ms, 16384=1.289ms, 32768=1.331ms, 65536=1.465ms
+B additional-03 d8: unbounded=2.289ms, 16384=2.934ms, 32768=2.964ms, 65536=3.110ms
+B additional-03 d10: unbounded=5.593ms, 16384=7.784ms, 32768=7.795ms, 65536=7.901ms
+{
+  "experiment": "B",
+  "selected": null,
+  "comparisons": {
+    "16384": {
+      "eligible": false,
+      "checks": {
+        "memory": true,
+        "geometric_latency": false,
+        "summed_latency": false,
+        "per_condition": false,
+        "peak": false,
+        "expensive_latency": false,
+        "expensive_nodes": false
+      },
+      "geometric_wall_ratio": 1.5797658403571482,
+      "summed_wall_ratio": 2.2548527824527933,
+      "geometric_cpu_ratio": 1.5798765534252694,
+      "retained_large_ratio": 0.07476887218169222,
+      "large_conditions": 8,
+      "depth_wall_ratios": {
+        "4": 1.2391758158852393,
+        "6": 1.3485065090060833,
+        "8": 1.6849285532106821,
+        "10": 2.212093139625186
+      },
+      "worst_wall_ratio": 4.27816705180248
+    },
+    "32768": {
+      "eligible": false,
+      "checks": {
+        "memory": true,
+        "geometric_latency": false,
+        "summed_latency": false,
+        "per_condition": false,
+        "peak": false,
+        "expensive_latency": false,
+        "expensive_nodes": false
+      },
+      "geometric_wall_ratio": 1.6778390441609095,
+      "summed_wall_ratio": 2.2691092774312627,
+      "geometric_cpu_ratio": 1.6771256142050286,
+      "retained_large_ratio": 0.1413309651318993,
+      "large_conditions": 8,
+      "depth_wall_ratios": {
+        "4": 1.3939642624227662,
+        "6": 1.4211428766171037,
+        "8": 1.749214563199508,
+        "10": 2.2870134515739386
+      },
+      "worst_wall_ratio": 6.836788197915972
+    },
+    "65536": {
+      "eligible": false,
+      "checks": {
+        "memory": true,
+        "geometric_latency": false,
+        "summed_latency": false,
+        "per_condition": false,
+        "peak": false,
+        "expensive_latency": false,
+        "expensive_nodes": false
+      },
+      "geometric_wall_ratio": 1.8298096696332269,
+      "summed_wall_ratio": 2.2639611706533715,
+      "geometric_cpu_ratio": 1.8294965808179597,
+      "retained_large_ratio": 0.2713163617085423,
+      "large_conditions": 8,
+      "depth_wall_ratios": {
+        "4": 1.6627094986578326,
+        "6": 1.532374378666132,
+        "8": 1.841139361543773,
+        "10": 2.38976805018594
+      },
+      "worst_wall_ratio": 12.609978004399121
+    }
+  }
+}

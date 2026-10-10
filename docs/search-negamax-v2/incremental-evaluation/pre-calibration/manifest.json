@@ -1,0 +1,459 @@
+{
+  "baseline_commit": "93ee943d8744651064dcf9a3a79108d6ca73af53",
+  "baseline_sha256": "a07a0d19bf523c6afc1870c1b2deaab811f210f61aa3198db780a1752e436dc2",
+  "source_hashes": {
+    "games/connect4/agents/negamax_agent.py": "ac7618cfe9854e355640f17cbe1dd96d0fcc119c5fdeb30667d3d51cfc4ffa09",
+    "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+    "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+    "scripts/benchmark_negamax_incremental.py": "4c49442ad7402d0688e03f80c46c79c942a251256baf5ed14fa3023d50f165f3",
+    "scripts/negamax_evaluation_variants.py": "9c922d7679c317574735b487b751568fbd98681f376023651b249d4fe778efcd",
+    "scripts/benchmark_negamax_ordering.py": "f778c88ac4a5d42266aadc683e9edfd45e2639b7eee61e36dd2497333ba5d973",
+    "scripts/benchmark_public_agents.py": "e5507959a9c6ed7d422f3c6f4ce675e9eba351d5c5b3c0c787d19956b2d9d1ce",
+    "tests/test_connect4_incremental_evaluation.py": "ca1b13d293a1ce622b9849b90592c14a191ddffcce7c0eaa92ed50c763f5af96",
+    "tests/test_negamax_incremental_benchmark.py": "b283dfdaeced1ab820cf3688b916353c541d7ae05c1f5faf71944118ac537ff7"
+  },
+  "fixture_source_hashes": {
+    "candidate.json": "da944a03db84412ad39b89127576993d7c4fbd42d7e71a50e3338c9568603feb",
+    "profiling-supplement/candidate.json": "ccac8356fc57cc7507547908141dbc117091b8c4e0b30911eb5c58b7862e755d"
+  },
+  "design_sha256": "c8096260b3ebacbbb6093c00d24eedb138767226cbd4b23ff596c271e50c81e6",
+  "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "executable": "/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab/.venv/bin/python",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "hardware": [
+    "Model Name: MacBook Pro",
+    "Model Identifier: Mac17,2",
+    "Chip: Apple M5",
+    "Total Number of Cores: 10 (4 Performance and 6 Efficiency)",
+    "Memory: 32 GB"
+  ],
+  "cpu_count": 10,
+  "load_average": [
+    4.37890625,
+    3.8603515625,
+    3.83740234375
+  ],
+  "seed": 20261009,
+  "positions": [
+    {
+      "id": "empty",
+      "history": [],
+      "group": "phase3a"
+    },
+    {
+      "id": "near-opening",
+      "history": [
+        3,
+        2,
+        4,
+        3
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "midgame",
+      "history": [
+        3,
+        2,
+        4,
+        3,
+        2,
+        4,
+        1,
+        5,
+        5,
+        1,
+        3,
+        2,
+        4,
+        3,
+        2,
+        4
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "midgame-wide",
+      "history": [
+        5,
+        6,
+        6,
+        5,
+        4,
+        3,
+        0,
+        1,
+        0,
+        2,
+        4,
+        6,
+        6,
+        2,
+        3,
+        0
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "late",
+      "history": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        6,
+        4,
+        4,
+        4,
+        4,
+        4
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "immediate-win",
+      "history": [
+        0,
+        1,
+        0,
+        1,
+        0,
+        2
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "forced-reply",
+      "history": [
+        1,
+        0,
+        1,
+        0,
+        2,
+        0
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "double-threat-loss",
+      "history": [
+        1,
+        0,
+        1,
+        0,
+        2,
+        0,
+        2,
+        6,
+        4,
+        6,
+        4,
+        6
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "dense-endgame",
+      "history": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        6,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        6
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "quiet-5",
+      "history": [
+        2,
+        1,
+        2,
+        2,
+        2,
+        5,
+        1,
+        5,
+        0,
+        0,
+        5,
+        4,
+        4,
+        6,
+        3,
+        3,
+        3,
+        4,
+        3,
+        4,
+        3,
+        3,
+        4
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "supplement-main-003",
+      "history": [
+        1,
+        3,
+        3,
+        3,
+        3,
+        1,
+        1,
+        5,
+        4,
+        1,
+        3,
+        1,
+        4,
+        4
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "seeded-00",
+      "history": [
+        0,
+        6,
+        2,
+        6,
+        1,
+        2,
+        4,
+        3
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "seeded-01",
+      "history": [
+        2,
+        0,
+        0,
+        5,
+        1,
+        6,
+        6,
+        6,
+        2,
+        3,
+        1,
+        0
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "seeded-02",
+      "history": [
+        6,
+        5,
+        1,
+        1,
+        2,
+        1,
+        1,
+        2,
+        5,
+        5,
+        6,
+        4,
+        6,
+        0,
+        0,
+        4
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "seeded-03",
+      "history": [
+        0,
+        2,
+        1,
+        5,
+        5,
+        0,
+        4,
+        1,
+        5,
+        1,
+        0,
+        3,
+        6,
+        6,
+        1,
+        3,
+        3,
+        1,
+        5,
+        3
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "seeded-04",
+      "history": [
+        1,
+        1,
+        5,
+        0,
+        5,
+        6,
+        6,
+        6
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "seeded-05",
+      "history": [
+        2,
+        3,
+        5,
+        4,
+        0,
+        5,
+        5,
+        4,
+        3,
+        4,
+        0,
+        0
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "seeded-06",
+      "history": [
+        3,
+        2,
+        4,
+        6,
+        5,
+        5,
+        3,
+        3,
+        0,
+        2,
+        6,
+        5,
+        1,
+        2,
+        4,
+        3
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "seeded-07",
+      "history": [
+        0,
+        0,
+        1,
+        2,
+        5,
+        3,
+        3,
+        1,
+        0,
+        6,
+        6,
+        1,
+        5,
+        6,
+        5,
+        3,
+        1,
+        6,
+        0,
+        4
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "post-hoc-tail",
+      "history": [
+        1,
+        4,
+        6,
+        0,
+        6
+      ],
+      "group": "post-hoc-diagnostic"
+    }
+  ],
+  "variants": [
+    "baseline",
+    "compact-stack",
+    "compact-inverse",
+    "arrays-stack"
+  ],
+  "depths": [
+    4,
+    6,
+    8,
+    10
+  ],
+  "samples": 7,
+  "warmups": 1,
+  "memory_repetitions": 2,
+  "micro_calls": 20000,
+  "micro_cycles": 2000,
+  "method": "Rotating variant order; timings of unwrapped ordinary choose_move; fresh TT; separate leaf counting and twice-repeated traced TT retention; all results and counters checked against immutable baseline; post-hoc tail excluded from acceptance."
+}

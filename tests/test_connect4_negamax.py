@@ -1,13 +1,17 @@
 """Independent engine/array minimax oracle; no pruning, table, or bitboards."""
 from copy import deepcopy
+from functools import partial
 from math import inf
 from random import Random
 
 import pytest
 
 from games.connect4.connect4 import Connect4
+from games.connect4.agents.negamax_tt import pack_key, unpack_key, pack_entry, unpack_entry
+from games.connect4.agents import negamax_agent as engine
 from games.connect4.agents.negamax_agent import (
-    EXACT, LOWER, UPPER, WIN_SCORE, NegamaxAgent, SearchState, SearchTable, negamax)
+    CENTER_ORDER, EXACT, LOWER, UPPER, WIN_SCORE, NegamaxAgent, SearchState,
+    SearchTable, negamax, winning_squares)
 
 DRAW = [2, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2,
         3, 3, 3, 3, 3, 3, 6, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5,
@@ -59,6 +63,10 @@ def root_oracle(game, depth):
     return scores
 
 
+@pytest.mark.parametrize('tt_moves,tactical', [
+    (False, 'none'), (True, 'none'), (False, 'wins'), (True, 'wins'),
+    (False, 'threats'), (False, 'tactical'), (True, 'tactical'),
+])
 @pytest.mark.parametrize('moves,depth', [
     ([], 3), ([0, 1, 0, 1, 0, 2], 4),  # immediate / slower wins
     ([0, 1, 0, 1, 0], 3),  # required block for O
@@ -67,14 +75,16 @@ def root_oracle(game, depth):
     ([5, 6, 6, 5, 4, 3, 0, 1, 0, 2, 4, 6, 6, 2, 3, 0], 3),
     (DRAW[:36], 4), (DRAW[:41], 4),
 ])
-def test_every_root_move_matches_independent_oracle(moves, depth):
+def test_every_root_move_matches_independent_oracle(moves, depth, tt_moves, tactical, monkeypatch):
+    monkeypatch.setattr(engine, 'SearchTable', partial(SearchTable, tt_moves=tt_moves, tactical=tactical))
     game = position(moves)
-    before = deepcopy(game.board)
+    before = deepcopy((game.board, game.current_player, game.piece))
     agent = NegamaxAgent(depth)
     scores = agent.score_moves(game)
     assert scores == root_oracle(game, depth)
     assert agent.choose_move(game) == max(scores, key=scores.get)
-    assert game.board == before
+    assert (game.board, game.current_player, game.piece) == before
+    assert tuple(scores) == tuple(game.get_valid_moves())
     if moves == [6, 4, 4, 2, 2, 2, 6, 3]:
         assert sum(value == max(scores.values()) for value in scores.values()) > 1
 
@@ -101,17 +111,17 @@ def test_cutoffs_then_full_window_cache_reuse(depth):
     game = position([5, 4, 3, 6, 2, 4])
     expected = oracle(game, depth)
     state, table = SearchState(game), SearchTable()
-    key = (*state.pieces, state.mover, depth)
+    key = pack_key(*state.pieces, state.mover, depth)
     # Fail-high / beta cutoff must produce LOWER; fail-low UPPER.
     assert negamax(state, depth, expected - 2, expected - 1, table) >= expected - 1
-    assert table.entries[key][0] == LOWER
+    assert unpack_entry(table.entries[key])[0] == LOWER
     assert negamax(state, depth, -inf, inf, table) == expected
-    assert table.entries[key] == (EXACT, expected)
+    assert unpack_entry(table.entries[key])[:2] == (EXACT, expected)
     assert negamax(state, depth, -inf, inf, table) == expected
     assert table.hits > 0 and table.cutoffs > 0
     table = SearchTable()
     assert negamax(state, depth, expected + 1, expected + 2, table) <= expected + 1
-    assert table.entries[key][0] == UPPER
+    assert unpack_entry(table.entries[key])[0] == UPPER
     assert negamax(state, depth, -inf, inf, table) == expected
     # Further arbitrary windows, reusing the same table, then exact root values.
     table = SearchTable()
@@ -132,7 +142,7 @@ def test_transposition_key_includes_mover_and_depth_and_fresh_decisions():
     assert negamax(SearchState(first), 2, table=table) == oracle(first, 2)
     first.current_player = 1
     assert negamax(SearchState(first), 3, table=table) == oracle(first, 3)
-    assert any(key[2] == 0 for key in table.entries) and any(key[2] == 1 for key in table.entries)
+    assert any(unpack_key(key)[2] == 0 for key in table.entries) and any(unpack_key(key)[2] == 1 for key in table.entries)
     # A terminal winner from either mover perspective must be exact, before depth 0.
     win = position([0, 1, 0, 1, 0, 1, 0])
     for mover in [0, 1]:
@@ -158,3 +168,104 @@ def test_terminal_dominance_fast_win_and_required_block():
     assert agent.last_scores[0] == WIN_SCORE + 3
     assert NegamaxAgent(2).choose_move(position([0, 1, 0, 1, 0])) == 0
     assert 69 * 81 < WIN_SCORE
+
+
+def array_winning_cells(game, mover):
+    """Gravity-independent threat squares using only the array engine."""
+    cells = set()
+    for row in range(6):
+        for col in range(7):
+            if game.board[row][col] != ' ':
+                continue
+            child = Connect4(game.board, mover)
+            child.board[row][col] = 'XO'[mover]
+            if child.check_winner() == mover:
+                cells.add((row, col))
+    return cells
+
+
+def test_threat_geometry_and_stable_tactical_order_match_array_engine():
+    rng = Random(914)
+    for sample in range(16):
+        game = Connect4()
+        for _ in range(sample * 2):
+            if game.is_game_over():
+                break
+            assert game.make_move(rng.choice(game.get_valid_moves()))
+        if game.is_game_over():
+            continue
+        state = SearchState(game)
+        before = deepcopy((state.pieces, state.heights, state.mover, state.count))
+        for mover in (0, 1):
+            expected = sum(1 << (7 * col + 5 - row) for row, col in array_winning_cells(game, mover))
+            assert winning_squares(state.pieces[mover], state.pieces[0] | state.pieces[1]) == expected
+        priorities = {}
+        for col in game.get_valid_moves():
+            child = Connect4(game.board, game.current_player)
+            assert child.make_move(col)
+            win = child.check_winner() == game.current_player
+            # On an immediate win the array helper counts all empty cells;
+            # wins are a separate, leading priority, so no threat count is needed.
+            priorities[col] = (win, len(array_winning_cells(child, game.current_player)) if not win else 0)
+        actual = state.ordered_moves()
+        expected = sorted(game.get_valid_moves(), key=lambda col: priorities[col], reverse=True)
+        # Multiple immediate wins may have different secondary threat counts.
+        assert [col for col in actual if not priorities[col][0]] == [col for col in expected if not priorities[col][0]]
+        assert all(priorities[col][0] for col in actual[:sum(p[0] for p in priorities.values())])
+        assert state.ordered_moves(99, 'none') == game.get_valid_moves()
+        assert (state.pieces, state.heights, state.mover, state.count) == before
+    assert SearchState(position([])).ordered_moves() == list(CENTER_ORDER)
+    win = SearchState(position([0, 1, 0, 1, 0, 2]))
+    assert win.ordered_moves(hint=3)[0] == 0  # win outranks a legal cache hint
+    full = SearchState(position(DRAW[:30]))
+    assert full.ordered_moves(hint=3, tactical='none') == full.legal()
+
+
+@pytest.mark.parametrize('flag', [EXACT, LOWER, UPPER])
+@pytest.mark.parametrize('hint', [None, 0, 3, 8])
+def test_cache_move_hint_never_changes_bound_meaning(flag, hint):
+    game = position([5, 4, 3, 6, 2, 4])
+    expected = oracle(game, 3)
+    for alpha, beta in [(-inf, inf), (expected - 2, expected - 1),
+                        (expected + 1, expected + 2), (expected - 1, expected + 1)]:
+        state, table = SearchState(game), SearchTable()
+        before = deepcopy((state.pieces, state.heights, state.mover, state.count))
+        table.entries[pack_key(*state.pieces, state.mover, 3)] = pack_entry(flag, expected, hint)
+        value = negamax(state, 3, alpha, beta, table)
+        assert value <= alpha if expected <= alpha else value >= beta if expected >= beta else value == expected
+        assert negamax(state, 3, table=table) == expected
+        assert (state.pieces, state.heights, state.mover, state.count) == before
+
+
+def test_all_stored_bounds_enclose_independent_values():
+    state, table = SearchState(position([5, 4, 3, 6, 2, 4])), SearchTable()
+    for alpha, beta in [(-10, -9), (20, 21), (-inf, inf)]:
+        negamax(state, 3, alpha, beta, table)
+        for key, entry in table.entries.items():
+            x, o, mover, depth = unpack_key(key)
+            flag, value, hint = unpack_entry(entry)
+            board = [['X' if x & (1 << (7 * col + 5 - row)) else
+                      'O' if o & (1 << (7 * col + 5 - row)) else ' '
+                      for col in range(7)] for row in range(6)]
+            game = Connect4(board, mover)
+            exact = oracle(game, depth)
+            assert value == exact if flag == EXACT else value <= exact if flag == LOWER else value >= exact
+            assert hint in game.get_valid_moves()
+
+
+def test_search_restores_detached_state_when_leaf_evaluation_raises(monkeypatch):
+    game = position([3, 2, 4, 3])
+    state = SearchState(game)
+    before = deepcopy((state.pieces, state.heights, state.mover, state.count))
+    caller = deepcopy((game.board, game.current_player, game.piece))
+
+    def fail(self):
+        raise RuntimeError('injected leaf failure')
+
+    monkeypatch.setattr(SearchState, 'heuristic', fail)
+    with pytest.raises(RuntimeError, match='injected'):
+        negamax(state, 3, table=SearchTable())
+    assert (state.pieces, state.heights, state.mover, state.count) == before
+    with pytest.raises(RuntimeError, match='injected'):
+        NegamaxAgent(3).choose_move(game)
+    assert (game.board, game.current_player, game.piece) == caller

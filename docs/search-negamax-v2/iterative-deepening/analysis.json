@@ -1,0 +1,89 @@
+{
+  "comparisons": {
+    "hints": {
+      "eligible": false,
+      "checks": {
+        "broad_speedup": false,
+        "broad_fraction": false,
+        "distribution_speedup": false,
+        "summed_latency": true,
+        "summed_cpu": true,
+        "per_condition": false,
+        "expensive": true,
+        "memory": false,
+        "broad_retained": true
+      },
+      "broad_conditions": 27,
+      "broad_speedup": 1.1306916519809782,
+      "broad_faster_fraction": 0.7037037037037037,
+      "geometric_speedup": 0.9222692510088645,
+      "summed_latency_ratio": 0.8534323667351895,
+      "summed_cpu_ratio": 0.8533951335914074,
+      "broad_retained_ratio": 0.8067297217898763,
+      "depth_speedups": {
+        "4": 0.8994712762881121,
+        "6": 0.9124641972441841,
+        "8": 0.9302874566408447,
+        "10": 0.9475685102049959
+      },
+      "generalization_speedup": 1.0006556890253193
+    },
+    "iterative": {
+      "eligible": false,
+      "checks": {
+        "broad_speedup": false,
+        "broad_fraction": false,
+        "distribution_speedup": false,
+        "summed_latency": false,
+        "summed_cpu": false,
+        "per_condition": false,
+        "expensive": false,
+        "memory": true,
+        "broad_retained": true
+      },
+      "broad_conditions": 27,
+      "broad_speedup": 0.7834252668197104,
+      "broad_faster_fraction": 0.0,
+      "geometric_speedup": 0.737196814207352,
+      "summed_latency_ratio": 1.2866553326954742,
+      "summed_cpu_ratio": 1.2867466323662304,
+      "broad_retained_ratio": 1.0000337157988568,
+      "depth_speedups": {
+        "4": 0.88179175802169,
+        "6": 0.7667081952736152,
+        "8": 0.693571628565719,
+        "10": 0.629863350298051
+      },
+      "generalization_speedup": 0.7508360811904904
+    },
+    "combined": {
+      "eligible": false,
+      "checks": {
+        "broad_speedup": false,
+        "broad_fraction": false,
+        "distribution_speedup": false,
+        "summed_latency": true,
+        "summed_cpu": true,
+        "per_condition": false,
+        "expensive": false,
+        "memory": false,
+        "broad_retained": true
+      },
+      "broad_conditions": 27,
+      "broad_speedup": 1.1244061445885882,
+      "broad_faster_fraction": 0.5925925925925926,
+      "geometric_speedup": 0.8606254355444517,
+      "summed_latency_ratio": 0.859983337016615,
+      "summed_cpu_ratio": 0.8600658990193898,
+      "broad_retained_ratio": 0.7773000589684086,
+      "depth_speedups": {
+        "4": 0.8990685528397516,
+        "6": 0.8737983105787096,
+        "8": 0.8532913778604834,
+        "10": 0.8183806347354696
+      },
+      "generalization_speedup": 0.9741229101398879
+    }
+  },
+  "selected": "direct"
+}

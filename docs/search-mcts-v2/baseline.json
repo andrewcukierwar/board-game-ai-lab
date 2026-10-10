@@ -1,0 +1,2445 @@
+{
+  "baseline_ref": "81aeb764eb3ab29d6b26ecd02a0378f7c5c9c0d9",
+  "baseline_sha256": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+  "runtime": "3.11.17",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "hardware": [
+    "Model Name: MacBook Pro",
+    "Model Identifier: Mac17,2",
+    "Chip: Apple M5",
+    "Total Number of Cores: 10 (4 Performance and 6 Efficiency)",
+    "Memory: 32 GB"
+  ],
+  "supplemental_seed": 20261010,
+  "positions": {
+    "empty": [],
+    "near-opening": [
+      3,
+      2,
+      4,
+      3
+    ],
+    "midgame": [
+      3,
+      2,
+      4,
+      3,
+      2,
+      4,
+      1,
+      5,
+      5,
+      1,
+      3,
+      2,
+      4,
+      3,
+      2,
+      4
+    ],
+    "midgame-wide": [
+      5,
+      6,
+      6,
+      5,
+      4,
+      3,
+      0,
+      1,
+      0,
+      2,
+      4,
+      6,
+      6,
+      2,
+      3,
+      0
+    ],
+    "late": [
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      2,
+      2,
+      2,
+      2,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      6,
+      4,
+      4,
+      4,
+      4,
+      4
+    ],
+    "seeded-08-0": [
+      4,
+      2,
+      0,
+      6,
+      3,
+      0,
+      6,
+      4
+    ],
+    "seeded-08-1": [
+      4,
+      1,
+      4,
+      4,
+      4,
+      0,
+      2,
+      2
+    ],
+    "seeded-12-0": [
+      4,
+      1,
+      5,
+      6,
+      2,
+      2,
+      4,
+      4,
+      4,
+      3,
+      6,
+      3
+    ],
+    "seeded-12-1": [
+      0,
+      3,
+      3,
+      4,
+      4,
+      6,
+      1,
+      4,
+      0,
+      3,
+      1,
+      1
+    ],
+    "seeded-16-0": [
+      2,
+      6,
+      0,
+      1,
+      5,
+      5,
+      3,
+      5,
+      1,
+      2,
+      6,
+      5,
+      2,
+      6,
+      3,
+      6
+    ],
+    "seeded-16-1": [
+      5,
+      4,
+      6,
+      4,
+      5,
+      5,
+      6,
+      0,
+      5,
+      1,
+      5,
+      2,
+      0,
+      5,
+      1,
+      1
+    ],
+    "seeded-20-0": [
+      3,
+      0,
+      6,
+      5,
+      3,
+      5,
+      6,
+      2,
+      2,
+      1,
+      2,
+      6,
+      5,
+      0,
+      2,
+      5,
+      5,
+      2,
+      3,
+      3
+    ],
+    "seeded-20-1": [
+      3,
+      1,
+      6,
+      5,
+      6,
+      6,
+      1,
+      5,
+      3,
+      3,
+      2,
+      2,
+      4,
+      3,
+      2,
+      6,
+      5,
+      6,
+      0,
+      0
+    ]
+  },
+  "samples": 3,
+  "warmups_per_row": 1,
+  "seeds": [
+    701,
+    702,
+    703
+  ],
+  "source_hashes": {
+    "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+    "scripts/benchmark_mcts_bitboards.py": "0896ac1df9012c82b760462636bef5064b76702795091474494d65d5f6bf49ad"
+  },
+  "rows": [
+    {
+      "variant": "original",
+      "position": "empty",
+      "budget": 100,
+      "wall_seconds": [
+        0.08715608296915889,
+        0.084520332980901,
+        0.08431770908646286
+      ],
+      "cpu_seconds": [
+        0.08712199999999992,
+        0.08431099999999991,
+        0.08427600000000002
+      ],
+      "moves": [
+        0,
+        3,
+        3
+      ],
+      "memory": {
+        "retained_bytes": 210400,
+        "peak_bytes": 213296,
+        "tree_nodes": 101,
+        "simulations": 100,
+        "move": 0
+      },
+      "median_wall_seconds": 0.084520332980901,
+      "median_cpu_seconds": 0.08431099999999991,
+      "simulations_per_second": 1183.1472554964605,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "empty",
+      "budget": 400,
+      "wall_seconds": [
+        0.32575704203918576,
+        0.3270575418137014,
+        0.3262852500192821
+      ],
+      "cpu_seconds": [
+        0.3256160000000001,
+        0.3269200000000003,
+        0.3261590000000001
+      ],
+      "moves": [
+        1,
+        3,
+        3
+      ],
+      "memory": {
+        "retained_bytes": 771728,
+        "peak_bytes": 774656,
+        "tree_nodes": 401,
+        "simulations": 400,
+        "move": 1
+      },
+      "median_wall_seconds": 0.3262852500192821,
+      "median_cpu_seconds": 0.3261590000000001,
+      "simulations_per_second": 1225.9211839222326,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "empty",
+      "budget": 800,
+      "wall_seconds": [
+        0.6508747078478336,
+        0.647649500053376,
+        0.6504442081786692
+      ],
+      "cpu_seconds": [
+        0.6506150000000002,
+        0.6473760000000004,
+        0.6500920000000008
+      ],
+      "moves": [
+        1,
+        3,
+        3
+      ],
+      "memory": {
+        "retained_bytes": 1464248,
+        "peak_bytes": 1467272,
+        "tree_nodes": 801,
+        "simulations": 800,
+        "move": 1
+      },
+      "median_wall_seconds": 0.6504442081786692,
+      "median_cpu_seconds": 0.6500920000000008,
+      "simulations_per_second": 1229.928700941326,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "empty",
+      "budget": 1000,
+      "wall_seconds": [
+        0.8073407080955803,
+        0.8030417079571635,
+        0.8130552091170102
+      ],
+      "cpu_seconds": [
+        0.8070100000000018,
+        0.8026620000000015,
+        0.8127139999999997
+      ],
+      "moves": [
+        1,
+        3,
+        3
+      ],
+      "memory": {
+        "retained_bytes": 1798976,
+        "peak_bytes": 1802000,
+        "tree_nodes": 1001,
+        "simulations": 1000,
+        "move": 1
+      },
+      "median_wall_seconds": 0.8073407080955803,
+      "median_cpu_seconds": 0.8070100000000018,
+      "simulations_per_second": 1238.6344327401498,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "near-opening",
+      "budget": 100,
+      "wall_seconds": [
+        0.06531400000676513,
+        0.06131712510250509,
+        0.0677000000141561
+      ],
+      "cpu_seconds": [
+        0.06528100000000236,
+        0.06128500000000159,
+        0.06768100000000032
+      ],
+      "moves": [
+        6,
+        2,
+        4
+      ],
+      "memory": {
+        "retained_bytes": 211792,
+        "peak_bytes": 214688,
+        "tree_nodes": 101,
+        "simulations": 100,
+        "move": 6
+      },
+      "median_wall_seconds": 0.06531400000676513,
+      "median_cpu_seconds": 0.06528100000000236,
+      "simulations_per_second": 1531.0653150877629,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "near-opening",
+      "budget": 400,
+      "wall_seconds": [
+        0.25692058308050036,
+        0.24150137486867607,
+        0.24651266704313457
+      ],
+      "cpu_seconds": [
+        0.2568339999999978,
+        0.24142200000000003,
+        0.24642700000000062
+      ],
+      "moves": [
+        6,
+        5,
+        5
+      ],
+      "memory": {
+        "retained_bytes": 758368,
+        "peak_bytes": 761296,
+        "tree_nodes": 394,
+        "simulations": 400,
+        "move": 6
+      },
+      "median_wall_seconds": 0.24651266704313457,
+      "median_cpu_seconds": 0.24642700000000062,
+      "simulations_per_second": 1622.6346694387446,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "near-opening",
+      "budget": 800,
+      "wall_seconds": [
+        0.5073739581275731,
+        0.49536370811983943,
+        0.4988516659941524
+      ],
+      "cpu_seconds": [
+        0.5071810000000028,
+        0.4951030000000003,
+        0.4986379999999997
+      ],
+      "moves": [
+        6,
+        5,
+        6
+      ],
+      "memory": {
+        "retained_bytes": 1410896,
+        "peak_bytes": 1413920,
+        "tree_nodes": 770,
+        "simulations": 800,
+        "move": 6
+      },
+      "median_wall_seconds": 0.4988516659941524,
+      "median_cpu_seconds": 0.4986379999999997,
+      "simulations_per_second": 1603.6831277403764,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "near-opening",
+      "budget": 1000,
+      "wall_seconds": [
+        0.6348803748842329,
+        0.617387583013624,
+        0.6183060840703547
+      ],
+      "cpu_seconds": [
+        0.6346190000000007,
+        0.6171150000000054,
+        0.6180409999999981
+      ],
+      "moves": [
+        6,
+        5,
+        6
+      ],
+      "memory": {
+        "retained_bytes": 1735232,
+        "peak_bytes": 1738256,
+        "tree_nodes": 962,
+        "simulations": 1000,
+        "move": 6
+      },
+      "median_wall_seconds": 0.6183060840703547,
+      "median_cpu_seconds": 0.6180409999999981,
+      "simulations_per_second": 1617.3219474356874,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "midgame",
+      "budget": 100,
+      "wall_seconds": [
+        0.043346083955839276,
+        0.04384637507610023,
+        0.04368570796214044
+      ],
+      "cpu_seconds": [
+        0.04312599999999378,
+        0.04382600000000281,
+        0.04367200000000082
+      ],
+      "moves": [
+        4,
+        4,
+        0
+      ],
+      "memory": {
+        "retained_bytes": 186976,
+        "peak_bytes": 189872,
+        "tree_nodes": 88,
+        "simulations": 100,
+        "move": 4
+      },
+      "median_wall_seconds": 0.04368570796214044,
+      "median_cpu_seconds": 0.04367200000000082,
+      "simulations_per_second": 2289.0781599937327,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "midgame",
+      "budget": 400,
+      "wall_seconds": [
+        0.15577104222029448,
+        0.15178233291953802,
+        0.15389124979265034
+      ],
+      "cpu_seconds": [
+        0.155694000000004,
+        0.15170899999999676,
+        0.1538190000000057
+      ],
+      "moves": [
+        0,
+        5,
+        0
+      ],
+      "memory": {
+        "retained_bytes": 574064,
+        "peak_bytes": 577168,
+        "tree_nodes": 292,
+        "simulations": 400,
+        "move": 0
+      },
+      "median_wall_seconds": 0.15389124979265034,
+      "median_cpu_seconds": 0.1538190000000057,
+      "simulations_per_second": 2599.2381018345823,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "midgame",
+      "budget": 800,
+      "wall_seconds": [
+        0.2982777499128133,
+        0.2920596250332892,
+        0.29447587486356497
+      ],
+      "cpu_seconds": [
+        0.29814400000000063,
+        0.29193200000000274,
+        0.29436199999999957
+      ],
+      "moves": [
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "retained_bytes": 1028328,
+        "peak_bytes": 1031464,
+        "tree_nodes": 543,
+        "simulations": 800,
+        "move": 0
+      },
+      "median_wall_seconds": 0.29447587486356497,
+      "median_cpu_seconds": 0.29436199999999957,
+      "simulations_per_second": 2716.6911393697424,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "midgame",
+      "budget": 1000,
+      "wall_seconds": [
+        0.3647131670732051,
+        0.35654441686347127,
+        0.3638971659820527
+      ],
+      "cpu_seconds": [
+        0.3645649999999989,
+        0.35638999999999754,
+        0.363742000000002
+      ],
+      "moves": [
+        0,
+        0,
+        0
+      ],
+      "memory": {
+        "retained_bytes": 1211816,
+        "peak_bytes": 1215016,
+        "tree_nodes": 651,
+        "simulations": 1000,
+        "move": 0
+      },
+      "median_wall_seconds": 0.3638971659820527,
+      "median_cpu_seconds": 0.363742000000002,
+      "simulations_per_second": 2748.029095805928,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "midgame-wide",
+      "budget": 100,
+      "wall_seconds": [
+        0.0520413750782609,
+        0.04738437500782311,
+        0.047066957922652364
+      ],
+      "cpu_seconds": [
+        0.05201600000000184,
+        0.04736400000000174,
+        0.0470460000000017
+      ],
+      "moves": [
+        2,
+        3,
+        2
+      ],
+      "memory": {
+        "retained_bytes": 211320,
+        "peak_bytes": 214216,
+        "tree_nodes": 101,
+        "simulations": 100,
+        "move": 2
+      },
+      "median_wall_seconds": 0.04738437500782311,
+      "median_cpu_seconds": 0.04736400000000174,
+      "simulations_per_second": 2110.400316211623,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "midgame-wide",
+      "budget": 400,
+      "wall_seconds": [
+        0.18706550006754696,
+        0.17621058295480907,
+        0.17943058419041336
+      ],
+      "cpu_seconds": [
+        0.18698400000000248,
+        0.17612299999999692,
+        0.17934499999999787
+      ],
+      "moves": [
+        2,
+        4,
+        2
+      ],
+      "memory": {
+        "retained_bytes": 769736,
+        "peak_bytes": 772776,
+        "tree_nodes": 400,
+        "simulations": 400,
+        "move": 2
+      },
+      "median_wall_seconds": 0.17943058419041336,
+      "median_cpu_seconds": 0.17934499999999787,
+      "simulations_per_second": 2229.274355900867,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "midgame-wide",
+      "budget": 800,
+      "wall_seconds": [
+        0.3666333749424666,
+        0.34828679193742573,
+        0.3469371250830591
+      ],
+      "cpu_seconds": [
+        0.3664799999999957,
+        0.34813699999999415,
+        0.3467780000000005
+      ],
+      "moves": [
+        3,
+        4,
+        4
+      ],
+      "memory": {
+        "retained_bytes": 1432352,
+        "peak_bytes": 1435376,
+        "tree_nodes": 784,
+        "simulations": 800,
+        "move": 3
+      },
+      "median_wall_seconds": 0.34828679193742573,
+      "median_cpu_seconds": 0.34813699999999415,
+      "simulations_per_second": 2296.9576180302884,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "midgame-wide",
+      "budget": 1000,
+      "wall_seconds": [
+        0.45990108302794397,
+        0.4276820831000805,
+        0.4312894579488784
+      ],
+      "cpu_seconds": [
+        0.4597210000000018,
+        0.4275090000000006,
+        0.4311170000000004
+      ],
+      "moves": [
+        3,
+        4,
+        4
+      ],
+      "memory": {
+        "retained_bytes": 1761504,
+        "peak_bytes": 1764528,
+        "tree_nodes": 980,
+        "simulations": 1000,
+        "move": 3
+      },
+      "median_wall_seconds": 0.4312894579488784,
+      "median_cpu_seconds": 0.4311170000000004,
+      "simulations_per_second": 2318.6284328761217,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "late",
+      "budget": 100,
+      "wall_seconds": [
+        0.04382845899090171,
+        0.042369999922811985,
+        0.04479579208418727
+      ],
+      "cpu_seconds": [
+        0.0438090000000102,
+        0.042349999999999,
+        0.044782999999995354
+      ],
+      "moves": [
+        6,
+        6,
+        6
+      ],
+      "memory": {
+        "retained_bytes": 203784,
+        "peak_bytes": 206680,
+        "tree_nodes": 101,
+        "simulations": 100,
+        "move": 6
+      },
+      "median_wall_seconds": 0.04382845899090171,
+      "median_cpu_seconds": 0.0438090000000102,
+      "simulations_per_second": 2281.6225416631432,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "late",
+      "budget": 400,
+      "wall_seconds": [
+        0.16568766604177654,
+        0.1651755829807371,
+        0.1721188749652356
+      ],
+      "cpu_seconds": [
+        0.16561400000000503,
+        0.1651159999999976,
+        0.17205699999999524
+      ],
+      "moves": [
+        6,
+        6,
+        6
+      ],
+      "memory": {
+        "retained_bytes": 672072,
+        "peak_bytes": 675056,
+        "tree_nodes": 349,
+        "simulations": 400,
+        "move": 6
+      },
+      "median_wall_seconds": 0.16568766604177654,
+      "median_cpu_seconds": 0.16561400000000503,
+      "simulations_per_second": 2414.180907703437,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "late",
+      "budget": 800,
+      "wall_seconds": [
+        0.3232801668345928,
+        0.32438141689635813,
+        0.33021008293144405
+      ],
+      "cpu_seconds": [
+        0.32314699999999164,
+        0.32425500000000795,
+        0.33007599999999115
+      ],
+      "moves": [
+        6,
+        6,
+        6
+      ],
+      "memory": {
+        "retained_bytes": 1028920,
+        "peak_bytes": 1032056,
+        "tree_nodes": 548,
+        "simulations": 800,
+        "move": 6
+      },
+      "median_wall_seconds": 0.32438141689635813,
+      "median_cpu_seconds": 0.32425500000000795,
+      "simulations_per_second": 2466.2325223630332,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "late",
+      "budget": 1000,
+      "wall_seconds": [
+        0.38893491704948246,
+        0.3945246250368655,
+        0.39897495810873806
+      ],
+      "cpu_seconds": [
+        0.38875600000000077,
+        0.3943359999999956,
+        0.39882199999999557
+      ],
+      "moves": [
+        6,
+        6,
+        6
+      ],
+      "memory": {
+        "retained_bytes": 1121656,
+        "peak_bytes": 1124856,
+        "tree_nodes": 603,
+        "simulations": 1000,
+        "move": 6
+      },
+      "median_wall_seconds": 0.3945246250368655,
+      "median_cpu_seconds": 0.3943359999999956,
+      "simulations_per_second": 2534.6960279261584,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-08-0",
+      "budget": 100,
+      "wall_seconds": [
+        0.07719124993309379,
+        0.07656487496569753,
+        0.07381320791319013
+      ],
+      "cpu_seconds": [
+        0.07715899999999465,
+        0.07653100000000279,
+        0.07378599999999835
+      ],
+      "moves": [
+        6,
+        3,
+        6
+      ],
+      "memory": {
+        "retained_bytes": 210736,
+        "peak_bytes": 213632,
+        "tree_nodes": 101,
+        "simulations": 100,
+        "move": 6
+      },
+      "median_wall_seconds": 0.07656487496569753,
+      "median_cpu_seconds": 0.07653100000000279,
+      "simulations_per_second": 1306.0819343700598,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-08-0",
+      "budget": 400,
+      "wall_seconds": [
+        0.280779791995883,
+        0.28813512483611703,
+        0.27985895797610283
+      ],
+      "cpu_seconds": [
+        0.28068599999998867,
+        0.28801500000000146,
+        0.27973699999999724
+      ],
+      "moves": [
+        0,
+        3,
+        2
+      ],
+      "memory": {
+        "retained_bytes": 770672,
+        "peak_bytes": 773600,
+        "tree_nodes": 401,
+        "simulations": 400,
+        "move": 0
+      },
+      "median_wall_seconds": 0.280779791995883,
+      "median_cpu_seconds": 0.28068599999998867,
+      "simulations_per_second": 1424.603947302109,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-08-0",
+      "budget": 800,
+      "wall_seconds": [
+        0.5719622909091413,
+        0.5629900419153273,
+        0.5566568749491125
+      ],
+      "cpu_seconds": [
+        0.5717299999999881,
+        0.5626920000000126,
+        0.5564059999999955
+      ],
+      "moves": [
+        2,
+        3,
+        2
+      ],
+      "memory": {
+        "retained_bytes": 1464832,
+        "peak_bytes": 1467856,
+        "tree_nodes": 801,
+        "simulations": 800,
+        "move": 2
+      },
+      "median_wall_seconds": 0.5629900419153273,
+      "median_cpu_seconds": 0.5626920000000126,
+      "simulations_per_second": 1420.984281139947,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-08-0",
+      "budget": 1000,
+      "wall_seconds": [
+        0.7270401248242706,
+        0.7346600000746548,
+        0.7320413331035525
+      ],
+      "cpu_seconds": [
+        0.725601999999995,
+        0.7343959999999896,
+        0.7316020000000094
+      ],
+      "moves": [
+        2,
+        3,
+        2
+      ],
+      "memory": {
+        "retained_bytes": 1802584,
+        "peak_bytes": 1805608,
+        "tree_nodes": 1001,
+        "simulations": 1000,
+        "move": 2
+      },
+      "median_wall_seconds": 0.7320413331035525,
+      "median_cpu_seconds": 0.7316020000000094,
+      "simulations_per_second": 1366.0430836062408,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-08-1",
+      "budget": 100,
+      "wall_seconds": [
+        0.07109674997627735,
+        0.06879637506790459,
+        0.07445349986664951
+      ],
+      "cpu_seconds": [
+        0.07074399999999059,
+        0.0687860000000029,
+        0.07444000000000983
+      ],
+      "moves": [
+        3,
+        5,
+        2
+      ],
+      "memory": {
+        "retained_bytes": 210728,
+        "peak_bytes": 213624,
+        "tree_nodes": 101,
+        "simulations": 100,
+        "move": 3
+      },
+      "median_wall_seconds": 0.07109674997627735,
+      "median_cpu_seconds": 0.07074399999999059,
+      "simulations_per_second": 1406.5340544169278,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-08-1",
+      "budget": 400,
+      "wall_seconds": [
+        0.24955049995332956,
+        0.26292895805090666,
+        0.2588367499411106
+      ],
+      "cpu_seconds": [
+        0.24945400000000006,
+        0.26281899999999325,
+        0.2587479999999971
+      ],
+      "moves": [
+        5,
+        2,
+        5
+      ],
+      "memory": {
+        "retained_bytes": 753336,
+        "peak_bytes": 756264,
+        "tree_nodes": 391,
+        "simulations": 400,
+        "move": 5
+      },
+      "median_wall_seconds": 0.2588367499411106,
+      "median_cpu_seconds": 0.2587479999999971,
+      "simulations_per_second": 1545.3756087225104,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-08-1",
+      "budget": 800,
+      "wall_seconds": [
+        0.5083727920427918,
+        0.5266286660917103,
+        0.513168582925573
+      ],
+      "cpu_seconds": [
+        0.5082159999999902,
+        0.5265290000000107,
+        0.513071999999994
+      ],
+      "moves": [
+        5,
+        5,
+        3
+      ],
+      "memory": {
+        "retained_bytes": 1402176,
+        "peak_bytes": 1405200,
+        "tree_nodes": 765,
+        "simulations": 800,
+        "move": 5
+      },
+      "median_wall_seconds": 0.513168582925573,
+      "median_cpu_seconds": 0.513071999999994,
+      "simulations_per_second": 1558.9418889192352,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-08-1",
+      "budget": 1000,
+      "wall_seconds": [
+        0.6517314170487225,
+        0.6479298330377787,
+        0.6519167500082403
+      ],
+      "cpu_seconds": [
+        0.6516419999999954,
+        0.647824,
+        0.6516910000000138
+      ],
+      "moves": [
+        5,
+        3,
+        3
+      ],
+      "memory": {
+        "retained_bytes": 1735920,
+        "peak_bytes": 1738944,
+        "tree_nodes": 962,
+        "simulations": 1000,
+        "move": 5
+      },
+      "median_wall_seconds": 0.6517314170487225,
+      "median_cpu_seconds": 0.6516419999999954,
+      "simulations_per_second": 1534.3743969384882,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-12-0",
+      "budget": 100,
+      "wall_seconds": [
+        0.05886112502776086,
+        0.05658775009214878,
+        0.05914837494492531
+      ],
+      "cpu_seconds": [
+        0.05883000000000038,
+        0.056582000000020116,
+        0.05913699999999267
+      ],
+      "moves": [
+        2,
+        6,
+        2
+      ],
+      "memory": {
+        "retained_bytes": 210424,
+        "peak_bytes": 213376,
+        "tree_nodes": 101,
+        "simulations": 100,
+        "move": 2
+      },
+      "median_wall_seconds": 0.05886112502776086,
+      "median_cpu_seconds": 0.05883000000000038,
+      "simulations_per_second": 1698.914180672501,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-12-0",
+      "budget": 400,
+      "wall_seconds": [
+        0.21683583408594131,
+        0.22280691703781486,
+        0.21143633406609297
+      ],
+      "cpu_seconds": [
+        0.2167919999999981,
+        0.22276200000001722,
+        0.21139800000000264
+      ],
+      "moves": [
+        3,
+        1,
+        3
+      ],
+      "memory": {
+        "retained_bytes": 769888,
+        "peak_bytes": 772816,
+        "tree_nodes": 401,
+        "simulations": 400,
+        "move": 3
+      },
+      "median_wall_seconds": 0.21683583408594131,
+      "median_cpu_seconds": 0.2167919999999981,
+      "simulations_per_second": 1844.7135441712226,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-12-0",
+      "budget": 800,
+      "wall_seconds": [
+        0.44786054105497897,
+        0.5872045001015067,
+        0.4343946671579033
+      ],
+      "cpu_seconds": [
+        0.44776399999997807,
+        0.5095509999999877,
+        0.43431400000000053
+      ],
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "memory": {
+        "retained_bytes": 1452456,
+        "peak_bytes": 1455480,
+        "tree_nodes": 796,
+        "simulations": 800,
+        "move": 3
+      },
+      "median_wall_seconds": 0.44786054105497897,
+      "median_cpu_seconds": 0.44776399999997807,
+      "simulations_per_second": 1786.2703378947438,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-12-0",
+      "budget": 1000,
+      "wall_seconds": [
+        0.540453459136188,
+        0.5520635000430048,
+        0.5373281671199948
+      ],
+      "cpu_seconds": [
+        0.5403619999999876,
+        0.5519940000000076,
+        0.537241999999992
+      ],
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "memory": {
+        "retained_bytes": 1778944,
+        "peak_bytes": 1781968,
+        "tree_nodes": 990,
+        "simulations": 1000,
+        "move": 3
+      },
+      "median_wall_seconds": 0.540453459136188,
+      "median_cpu_seconds": 0.5403619999999876,
+      "simulations_per_second": 1850.2980841279277,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-12-1",
+      "budget": 100,
+      "wall_seconds": [
+        0.0502425420563668,
+        0.04651120794005692,
+        0.048618000000715256
+      ],
+      "cpu_seconds": [
+        0.05021500000000856,
+        0.04649100000000317,
+        0.04860300000001416
+      ],
+      "moves": [
+        5,
+        5,
+        5
+      ],
+      "memory": {
+        "retained_bytes": 211136,
+        "peak_bytes": 214088,
+        "tree_nodes": 101,
+        "simulations": 100,
+        "move": 5
+      },
+      "median_wall_seconds": 0.048618000000715256,
+      "median_cpu_seconds": 0.04860300000001416,
+      "simulations_per_second": 2056.851371889605,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-12-1",
+      "budget": 400,
+      "wall_seconds": [
+        0.1892395419999957,
+        0.18976845894940197,
+        0.18969999998807907
+      ],
+      "cpu_seconds": [
+        0.18919900000000212,
+        0.1897339999999872,
+        0.18965000000000032
+      ],
+      "moves": [
+        5,
+        5,
+        5
+      ],
+      "memory": {
+        "retained_bytes": 751744,
+        "peak_bytes": 754672,
+        "tree_nodes": 390,
+        "simulations": 400,
+        "move": 5
+      },
+      "median_wall_seconds": 0.18969999998807907,
+      "median_cpu_seconds": 0.18965000000000032,
+      "simulations_per_second": 2108.5925146290797,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-12-1",
+      "budget": 800,
+      "wall_seconds": [
+        0.3650710410438478,
+        0.367424292024225,
+        0.3611304999794811
+      ],
+      "cpu_seconds": [
+        0.3649739999999895,
+        0.36735500000000343,
+        0.3609419999999943
+      ],
+      "moves": [
+        5,
+        5,
+        5
+      ],
+      "memory": {
+        "retained_bytes": 1370488,
+        "peak_bytes": 1373512,
+        "tree_nodes": 746,
+        "simulations": 800,
+        "move": 5
+      },
+      "median_wall_seconds": 0.3650710410438478,
+      "median_cpu_seconds": 0.3649739999999895,
+      "simulations_per_second": 2191.3543120609065,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-12-1",
+      "budget": 1000,
+      "wall_seconds": [
+        0.46481470903381705,
+        0.46737854182720184,
+        0.4607402919791639
+      ],
+      "cpu_seconds": [
+        0.464632000000023,
+        0.4673050000000103,
+        0.4602440000000172
+      ],
+      "moves": [
+        5,
+        5,
+        5
+      ],
+      "memory": {
+        "retained_bytes": 1674632,
+        "peak_bytes": 1677832,
+        "tree_nodes": 928,
+        "simulations": 1000,
+        "move": 5
+      },
+      "median_wall_seconds": 0.46481470903381705,
+      "median_cpu_seconds": 0.464632000000023,
+      "simulations_per_second": 2151.3949119180006,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-16-0",
+      "budget": 100,
+      "wall_seconds": [
+        0.0003650002181529999,
+        0.0003633329179137945,
+        0.00036383396945893764
+      ],
+      "cpu_seconds": [
+        0.0003649999999879583,
+        0.0003629999999930078,
+        0.00036399999999048305
+      ],
+      "moves": [
+        4,
+        4,
+        4
+      ],
+      "memory": {
+        "retained_bytes": 8728,
+        "peak_bytes": 13032,
+        "tree_nodes": 0,
+        "simulations": 0,
+        "move": 4
+      },
+      "median_wall_seconds": 0.00036383396945893764,
+      "median_cpu_seconds": 0.00036399999999048305,
+      "simulations_per_second": 0.0,
+      "tactical_bypass": true
+    },
+    {
+      "variant": "original",
+      "position": "seeded-16-0",
+      "budget": 400,
+      "wall_seconds": [
+        0.00037270900793373585,
+        0.00037520797923207283,
+        0.0003683750983327627
+      ],
+      "cpu_seconds": [
+        0.0003719999999987067,
+        0.00037599999998860767,
+        0.000367999999980384
+      ],
+      "moves": [
+        4,
+        4,
+        4
+      ],
+      "memory": {
+        "retained_bytes": 8728,
+        "peak_bytes": 13032,
+        "tree_nodes": 0,
+        "simulations": 0,
+        "move": 4
+      },
+      "median_wall_seconds": 0.00037270900793373585,
+      "median_cpu_seconds": 0.0003719999999987067,
+      "simulations_per_second": 0.0,
+      "tactical_bypass": true
+    },
+    {
+      "variant": "original",
+      "position": "seeded-16-0",
+      "budget": 800,
+      "wall_seconds": [
+        0.0003640840295702219,
+        0.0003612090367823839,
+        0.0003625410608947277
+      ],
+      "cpu_seconds": [
+        0.00036400000001890476,
+        0.00035999999997216037,
+        0.00036199999999553256
+      ],
+      "moves": [
+        4,
+        4,
+        4
+      ],
+      "memory": {
+        "retained_bytes": 8728,
+        "peak_bytes": 13032,
+        "tree_nodes": 0,
+        "simulations": 0,
+        "move": 4
+      },
+      "median_wall_seconds": 0.0003625410608947277,
+      "median_cpu_seconds": 0.00036199999999553256,
+      "simulations_per_second": 0.0,
+      "tactical_bypass": true
+    },
+    {
+      "variant": "original",
+      "position": "seeded-16-0",
+      "budget": 1000,
+      "wall_seconds": [
+        0.0003659590147435665,
+        0.0003624157980084419,
+        0.00035924999974668026
+      ],
+      "cpu_seconds": [
+        0.00036599999998543353,
+        0.00036199999999553256,
+        0.0003600000000005821
+      ],
+      "moves": [
+        4,
+        4,
+        4
+      ],
+      "memory": {
+        "retained_bytes": 8728,
+        "peak_bytes": 13032,
+        "tree_nodes": 0,
+        "simulations": 0,
+        "move": 4
+      },
+      "median_wall_seconds": 0.0003624157980084419,
+      "median_cpu_seconds": 0.00036199999999553256,
+      "simulations_per_second": 0.0,
+      "tactical_bypass": true
+    },
+    {
+      "variant": "original",
+      "position": "seeded-16-1",
+      "budget": 100,
+      "wall_seconds": [
+        0.05375545797869563,
+        0.056442291010171175,
+        0.0595442911144346
+      ],
+      "cpu_seconds": [
+        0.05374499999999216,
+        0.0564109999999971,
+        0.059532999999987624
+      ],
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "memory": {
+        "retained_bytes": 208544,
+        "peak_bytes": 211440,
+        "tree_nodes": 101,
+        "simulations": 100,
+        "move": 3
+      },
+      "median_wall_seconds": 0.056442291010171175,
+      "median_cpu_seconds": 0.0564109999999971,
+      "simulations_per_second": 1771.7211369393124,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-16-1",
+      "budget": 400,
+      "wall_seconds": [
+        0.22981941606849432,
+        0.22572616604156792,
+        0.21053312486037612
+      ],
+      "cpu_seconds": [
+        0.22977300000002288,
+        0.22568200000000616,
+        0.21047599999999989
+      ],
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "memory": {
+        "retained_bytes": 758840,
+        "peak_bytes": 761768,
+        "tree_nodes": 393,
+        "simulations": 400,
+        "move": 3
+      },
+      "median_wall_seconds": 0.22572616604156792,
+      "median_cpu_seconds": 0.22568200000000616,
+      "simulations_per_second": 1772.0586275599933,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-16-1",
+      "budget": 800,
+      "wall_seconds": [
+        0.45367270801216364,
+        0.44301362498663366,
+        0.4428357919678092
+      ],
+      "cpu_seconds": [
+        0.4536110000000235,
+        0.4429020000000037,
+        0.442734999999999
+      ],
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "memory": {
+        "retained_bytes": 1420152,
+        "peak_bytes": 1423176,
+        "tree_nodes": 777,
+        "simulations": 800,
+        "move": 3
+      },
+      "median_wall_seconds": 0.44301362498663366,
+      "median_cpu_seconds": 0.4429020000000037,
+      "simulations_per_second": 1805.8135345704934,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-16-1",
+      "budget": 1000,
+      "wall_seconds": [
+        0.5614815829321742,
+        0.5452494169585407,
+        0.5622952079866081
+      ],
+      "cpu_seconds": [
+        0.5613660000000209,
+        0.5451110000000199,
+        0.5621940000000052
+      ],
+      "moves": [
+        3,
+        3,
+        3
+      ],
+      "memory": {
+        "retained_bytes": 1730992,
+        "peak_bytes": 1734072,
+        "tree_nodes": 963,
+        "simulations": 1000,
+        "move": 3
+      },
+      "median_wall_seconds": 0.5614815829321742,
+      "median_cpu_seconds": 0.5613660000000209,
+      "simulations_per_second": 1781.0023167238915,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-20-0",
+      "budget": 100,
+      "wall_seconds": [
+        0.04682829207740724,
+        0.051707583013921976,
+        0.050952374935150146
+      ],
+      "cpu_seconds": [
+        0.04679899999999293,
+        0.05170200000000591,
+        0.050943000000017946
+      ],
+      "moves": [
+        1,
+        6,
+        2
+      ],
+      "memory": {
+        "retained_bytes": 211880,
+        "peak_bytes": 214776,
+        "tree_nodes": 101,
+        "simulations": 100,
+        "move": 1
+      },
+      "median_wall_seconds": 0.050952374935150146,
+      "median_cpu_seconds": 0.050943000000017946,
+      "simulations_per_second": 1962.6170542055288,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-20-0",
+      "budget": 400,
+      "wall_seconds": [
+        0.18659874983131886,
+        0.18821416702121496,
+        0.19631233299151063
+      ],
+      "cpu_seconds": [
+        0.18657899999999472,
+        0.1881840000000068,
+        0.196282999999994
+      ],
+      "moves": [
+        1,
+        0,
+        0
+      ],
+      "memory": {
+        "retained_bytes": 771280,
+        "peak_bytes": 774208,
+        "tree_nodes": 400,
+        "simulations": 400,
+        "move": 1
+      },
+      "median_wall_seconds": 0.18821416702121496,
+      "median_cpu_seconds": 0.1881840000000068,
+      "simulations_per_second": 2125.2385318843353,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-20-0",
+      "budget": 800,
+      "wall_seconds": [
+        0.371311082970351,
+        0.37868433305993676,
+        0.378606874961406
+      ],
+      "cpu_seconds": [
+        0.3711490000000026,
+        0.3786010000000033,
+        0.378530000000012
+      ],
+      "moves": [
+        0,
+        0,
+        1
+      ],
+      "memory": {
+        "retained_bytes": 1441616,
+        "peak_bytes": 1444640,
+        "tree_nodes": 791,
+        "simulations": 800,
+        "move": 0
+      },
+      "median_wall_seconds": 0.378606874961406,
+      "median_cpu_seconds": 0.378530000000012,
+      "simulations_per_second": 2113.009701901344,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-20-0",
+      "budget": 1000,
+      "wall_seconds": [
+        0.4530249999370426,
+        0.4686731251422316,
+        0.4746078329626471
+      ],
+      "cpu_seconds": [
+        0.4529370000000199,
+        0.4685959999999909,
+        0.47456600000001004
+      ],
+      "moves": [
+        0,
+        0,
+        1
+      ],
+      "memory": {
+        "retained_bytes": 1767488,
+        "peak_bytes": 1770512,
+        "tree_nodes": 987,
+        "simulations": 1000,
+        "move": 0
+      },
+      "median_wall_seconds": 0.4686731251422316,
+      "median_cpu_seconds": 0.4685959999999909,
+      "simulations_per_second": 2133.6832567400206,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-20-1",
+      "budget": 100,
+      "wall_seconds": [
+        0.044408165849745274,
+        0.04982020892202854,
+        0.04673520801588893
+      ],
+      "cpu_seconds": [
+        0.0443830000000105,
+        0.04979899999997883,
+        0.04671600000000353
+      ],
+      "moves": [
+        6,
+        6,
+        6
+      ],
+      "memory": {
+        "retained_bytes": 206312,
+        "peak_bytes": 209208,
+        "tree_nodes": 99,
+        "simulations": 100,
+        "move": 6
+      },
+      "median_wall_seconds": 0.04673520801588893,
+      "median_cpu_seconds": 0.04671600000000353,
+      "simulations_per_second": 2139.7144518111963,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-20-1",
+      "budget": 400,
+      "wall_seconds": [
+        0.16442454094067216,
+        0.17293637502007186,
+        0.16526499995961785
+      ],
+      "cpu_seconds": [
+        0.1643579999999929,
+        0.17286200000000917,
+        0.16519999999999868
+      ],
+      "moves": [
+        6,
+        6,
+        6
+      ],
+      "memory": {
+        "retained_bytes": 694304,
+        "peak_bytes": 697232,
+        "tree_nodes": 357,
+        "simulations": 400,
+        "move": 6
+      },
+      "median_wall_seconds": 0.16526499995961785,
+      "median_cpu_seconds": 0.16519999999999868,
+      "simulations_per_second": 2420.355187715119,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-20-1",
+      "budget": 800,
+      "wall_seconds": [
+        0.3192350419703871,
+        0.334650875069201,
+        0.33053508400917053
+      ],
+      "cpu_seconds": [
+        0.3190620000000024,
+        0.33450200000001473,
+        0.33027300000000537
+      ],
+      "moves": [
+        6,
+        6,
+        6
+      ],
+      "memory": {
+        "retained_bytes": 1219704,
+        "peak_bytes": 1222728,
+        "tree_nodes": 662,
+        "simulations": 800,
+        "move": 6
+      },
+      "median_wall_seconds": 0.33053508400917053,
+      "median_cpu_seconds": 0.33027300000000537,
+      "simulations_per_second": 2420.3179592814554,
+      "tactical_bypass": false
+    },
+    {
+      "variant": "original",
+      "position": "seeded-20-1",
+      "budget": 1000,
+      "wall_seconds": [
+        0.3900512920226902,
+        0.4071049590129405,
+        0.38850291701965034
+      ],
+      "cpu_seconds": [
+        0.38982099999998354,
+        0.4069369999999992,
+        0.38829599999999687
+      ],
+      "moves": [
+        6,
+        6,
+        6
+      ],
+      "memory": {
+        "retained_bytes": 1465752,
+        "peak_bytes": 1468888,
+        "tree_nodes": 809,
+        "simulations": 1000,
+        "move": 6
+      },
+      "median_wall_seconds": 0.3900512920226902,
+      "median_cpu_seconds": 0.38982099999998354,
+      "simulations_per_second": 2563.765382789266,
+      "tactical_bypass": false
+    }
+  ],
+  "profiles": {
+    "original": {
+      "total_seconds": 1.554432834,
+      "functions": [
+        {
+          "file": "original_mcts.py",
+          "line": 62,
+          "function": "choose_move",
+          "calls": 1,
+          "primitive_calls": 1,
+          "self_seconds": 0.002894208,
+          "cumulative_seconds": 1.554432542
+        },
+        {
+          "file": "original_mcts.py",
+          "line": 125,
+          "function": "_simulate",
+          "calls": 1000,
+          "primitive_calls": 1000,
+          "self_seconds": 0.0069866880000000004,
+          "cumulative_seconds": 1.170119488
+        },
+        {
+          "file": "connect4.py",
+          "line": 58,
+          "function": "check_winner",
+          "calls": 18936,
+          "primitive_calls": 18936,
+          "self_seconds": 0.6208661360000001,
+          "cumulative_seconds": 1.15231542
+        },
+        {
+          "file": "connect4.py",
+          "line": 96,
+          "function": "is_game_over",
+          "calls": 17883,
+          "primitive_calls": 17883,
+          "self_seconds": 0.005623081,
+          "cumulative_seconds": 1.1305876940000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.all>",
+          "calls": 2504408,
+          "primitive_calls": 2504408,
+          "self_seconds": 0.24034686900000002,
+          "cumulative_seconds": 0.465325468
+        },
+        {
+          "file": "original_mcts.py",
+          "line": 36,
+          "function": "is_terminal",
+          "calls": 4532,
+          "primitive_calls": 4532,
+          "self_seconds": 0.000842787,
+          "cumulative_seconds": 0.285384401
+        },
+        {
+          "file": "connect4.py",
+          "line": 42,
+          "function": "make_move",
+          "calls": 13351,
+          "primitive_calls": 13351,
+          "self_seconds": 0.008145323000000001,
+          "cumulative_seconds": 0.152303879
+        },
+        {
+          "file": "connect4.py",
+          "line": 33,
+          "function": "_has_terminated",
+          "calls": 13351,
+          "primitive_calls": 13351,
+          "self_seconds": 0.125995577,
+          "cumulative_seconds": 0.133843935
+        },
+        {
+          "file": "copy.py",
+          "line": 128,
+          "function": "deepcopy",
+          "calls": 126504,
+          "primitive_calls": 2008,
+          "self_seconds": 0.052291661,
+          "cumulative_seconds": 0.108248933
+        },
+        {
+          "file": "copy.py",
+          "line": 259,
+          "function": "_reconstruct",
+          "calls": 4016,
+          "primitive_calls": 2008,
+          "self_seconds": 0.0069965010000000005,
+          "cumulative_seconds": 0.10336015300000001
+        },
+        {
+          "file": "copy.py",
+          "line": 227,
+          "function": "_deepcopy_dict",
+          "calls": 4016,
+          "primitive_calls": 2008,
+          "self_seconds": 0.0034909660000000003,
+          "cumulative_seconds": 0.096315122
+        },
+        {
+          "file": "connect4.py",
+          "line": 28,
+          "function": "get_valid_moves",
+          "calls": 13286,
+          "primitive_calls": 13286,
+          "self_seconds": 0.002989488,
+          "cumulative_seconds": 0.08799831500000001
+        },
+        {
+          "file": "connect4.py",
+          "line": 19,
+          "function": "is_valid_move",
+          "calls": 106353,
+          "primitive_calls": 106353,
+          "self_seconds": 0.025426340000000002,
+          "cumulative_seconds": 0.085416473
+        },
+        {
+          "file": "connect4.py",
+          "line": 30,
+          "function": "<listcomp>",
+          "calls": 13286,
+          "primitive_calls": 13286,
+          "self_seconds": 0.009906975,
+          "cumulative_seconds": 0.08500882700000001
+        },
+        {
+          "file": "original_mcts.py",
+          "line": 18,
+          "function": "__init__",
+          "calls": 945,
+          "primitive_calls": 945,
+          "self_seconds": 0.000510226,
+          "cumulative_seconds": 0.068231319
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.isinstance>",
+          "calls": 220738,
+          "primitive_calls": 220738,
+          "self_seconds": 0.016659364,
+          "cumulative_seconds": 0.06040543
+        },
+        {
+          "file": "connect4.py",
+          "line": 64,
+          "function": "<genexpr>",
+          "calls": 1010531,
+          "primitive_calls": 1010531,
+          "self_seconds": 0.057974078000000005,
+          "cumulative_seconds": 0.057974078000000005
+        },
+        {
+          "file": "connect4.py",
+          "line": 62,
+          "function": "<genexpr>",
+          "calls": 1009526,
+          "primitive_calls": 1009526,
+          "self_seconds": 0.057278235000000004,
+          "cumulative_seconds": 0.057278235000000004
+        },
+        {
+          "file": "copy.py",
+          "line": 201,
+          "function": "_deepcopy_list",
+          "calls": 12048,
+          "primitive_calls": 12048,
+          "self_seconds": 0.014379819,
+          "cumulative_seconds": 0.057004226000000005
+        },
+        {
+          "file": "<frozen abc>",
+          "line": 117,
+          "function": "__instancecheck__",
+          "calls": 106353,
+          "primitive_calls": 106353,
+          "self_seconds": 0.009954836,
+          "cumulative_seconds": 0.043746066
+        },
+        {
+          "file": "connect4.py",
+          "line": 72,
+          "function": "<genexpr>",
+          "calls": 773199,
+          "primitive_calls": 773199,
+          "self_seconds": 0.041800884,
+          "cumulative_seconds": 0.041800884
+        },
+        {
+          "file": "connect4.py",
+          "line": 70,
+          "function": "<genexpr>",
+          "calls": 772466,
+          "primitive_calls": 772466,
+          "self_seconds": 0.041166102,
+          "cumulative_seconds": 0.041166102
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method _abc._abc_instancecheck>",
+          "calls": 106353,
+          "primitive_calls": 106353,
+          "self_seconds": 0.014208946,
+          "cumulative_seconds": 0.033791230000000005
+        },
+        {
+          "file": "connect4.py",
+          "line": 80,
+          "function": "<genexpr>",
+          "calls": 430258,
+          "primitive_calls": 430258,
+          "self_seconds": 0.024947969,
+          "cumulative_seconds": 0.024947969
+        },
+        {
+          "file": "connect4.py",
+          "line": 78,
+          "function": "<genexpr>",
+          "calls": 430627,
+          "primitive_calls": 430627,
+          "self_seconds": 0.024930949,
+          "cumulative_seconds": 0.024930949
+        },
+        {
+          "file": "connect4.py",
+          "line": 86,
+          "function": "<genexpr>",
+          "calls": 423782,
+          "primitive_calls": 423782,
+          "self_seconds": 0.023676719000000002,
+          "cumulative_seconds": 0.023676719000000002
+        },
+        {
+          "file": "connect4.py",
+          "line": 88,
+          "function": "<genexpr>",
+          "calls": 423988,
+          "primitive_calls": 423988,
+          "self_seconds": 0.023675745,
+          "cumulative_seconds": 0.023675745
+        },
+        {
+          "file": "<frozen abc>",
+          "line": 121,
+          "function": "__subclasscheck__",
+          "calls": 106353,
+          "primitive_calls": 106353,
+          "self_seconds": 0.01015834,
+          "cumulative_seconds": 0.019582284000000002
+        },
+        {
+          "file": "connect4.py",
+          "line": 93,
+          "function": "is_board_full",
+          "calls": 31234,
+          "primitive_calls": 31234,
+          "self_seconds": 0.008865665,
+          "cumulative_seconds": 0.017614141
+        },
+        {
+          "file": "original_mcts.py",
+          "line": 120,
+          "function": "_select_child",
+          "calls": 2586,
+          "primitive_calls": 2586,
+          "self_seconds": 0.0025457780000000003,
+          "cumulative_seconds": 0.015765766
+        },
+        {
+          "file": "random.py",
+          "line": 367,
+          "function": "choice",
+          "calls": 15875,
+          "primitive_calls": 15875,
+          "self_seconds": 0.005128301,
+          "cumulative_seconds": 0.01262212
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method _abc._abc_subclasscheck>",
+          "calls": 106353,
+          "primitive_calls": 106353,
+          "self_seconds": 0.009423944,
+          "cumulative_seconds": 0.009423944
+        },
+        {
+          "file": "original_mcts.py",
+          "line": 121,
+          "function": "<dictcomp>",
+          "calls": 2586,
+          "primitive_calls": 2586,
+          "self_seconds": 0.002553473,
+          "cumulative_seconds": 0.009141668
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'get' of 'dict' objects>",
+          "calls": 257024,
+          "primitive_calls": 257024,
+          "self_seconds": 0.009141026,
+          "cumulative_seconds": 0.009141026
+        },
+        {
+          "file": "original_mcts.py",
+          "line": 101,
+          "function": "_winning_moves",
+          "calls": 8,
+          "primitive_calls": 8,
+          "self_seconds": 3.4447000000000004e-05,
+          "cumulative_seconds": 0.007131124000000001
+        },
+        {
+          "file": "original_mcts.py",
+          "line": 110,
+          "function": "_safe_moves",
+          "calls": 1,
+          "primitive_calls": 1,
+          "self_seconds": 6.418e-06,
+          "cumulative_seconds": 0.007097125
+        },
+        {
+          "file": "original_mcts.py",
+          "line": 28,
+          "function": "ucb1",
+          "calls": 18102,
+          "primitive_calls": 18102,
+          "self_seconds": 0.004960284000000001,
+          "cumulative_seconds": 0.006588195000000001
+        },
+        {
+          "file": "random.py",
+          "line": 235,
+          "function": "_randbelow_with_getrandbits",
+          "calls": 15875,
+          "primitive_calls": 15875,
+          "self_seconds": 0.00438072,
+          "cumulative_seconds": 0.006085366
+        },
+        {
+          "file": "copy.py",
+          "line": 243,
+          "function": "_keep_alive",
+          "calls": 20080,
+          "primitive_calls": 20080,
+          "self_seconds": 0.004198575,
+          "cumulative_seconds": 0.0056115670000000005
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.id>",
+          "calls": 168672,
+          "primitive_calls": 168672,
+          "self_seconds": 0.005590945,
+          "cumulative_seconds": 0.005590945
+        },
+        {
+          "file": "connect4.py",
+          "line": 94,
+          "function": "<genexpr>",
+          "calls": 63391,
+          "primitive_calls": 63391,
+          "self_seconds": 0.00440021,
+          "cumulative_seconds": 0.00440021
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'append' of 'list' objects>",
+          "calls": 114463,
+          "primitive_calls": 114463,
+          "self_seconds": 0.003981391,
+          "cumulative_seconds": 0.003981391
+        },
+        {
+          "file": "copy.py",
+          "line": 264,
+          "function": "<genexpr>",
+          "calls": 8032,
+          "primitive_calls": 8032,
+          "self_seconds": 0.0011126130000000001,
+          "cumulative_seconds": 0.0036439320000000003
+        },
+        {
+          "file": "copy.py",
+          "line": 182,
+          "function": "_deepcopy_atomic",
+          "calls": 106424,
+          "primitive_calls": 106424,
+          "self_seconds": 0.0036201780000000004,
+          "cumulative_seconds": 0.0036201780000000004
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.len>",
+          "calls": 31750,
+          "primitive_calls": 31750,
+          "self_seconds": 0.001408453,
+          "cumulative_seconds": 0.001408453
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'getrandbits' of '_random.Random' objects>",
+          "calls": 21332,
+          "primitive_calls": 21332,
+          "self_seconds": 0.001107069,
+          "cumulative_seconds": 0.001107069
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method math.log>",
+          "calls": 18102,
+          "primitive_calls": 18102,
+          "self_seconds": 0.0009165940000000001,
+          "cumulative_seconds": 0.0009165940000000001
+        },
+        {
+          "file": "original_mcts.py",
+          "line": 123,
+          "function": "<listcomp>",
+          "calls": 2586,
+          "primitive_calls": 2586,
+          "self_seconds": 0.00086499,
+          "cumulative_seconds": 0.00086499
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method '__reduce_ex__' of 'object' objects>",
+          "calls": 4016,
+          "primitive_calls": 4016,
+          "self_seconds": 0.0007853410000000001,
+          "cumulative_seconds": 0.0007853410000000001
+        },
+        {
+          "file": "copyreg.py",
+          "line": 104,
+          "function": "__newobj__",
+          "calls": 4016,
+          "primitive_calls": 4016,
+          "self_seconds": 0.0005330770000000001,
+          "cumulative_seconds": 0.0007484690000000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method math.sqrt>",
+          "calls": 18102,
+          "primitive_calls": 18102,
+          "self_seconds": 0.000711317,
+          "cumulative_seconds": 0.000711317
+        },
+        {
+          "file": "original_mcts.py",
+          "line": 136,
+          "function": "_backpropagate",
+          "calls": 1000,
+          "primitive_calls": 1000,
+          "self_seconds": 0.000633657,
+          "cumulative_seconds": 0.000633657
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'bit_length' of 'int' objects>",
+          "calls": 15875,
+          "primitive_calls": 15875,
+          "self_seconds": 0.0005975770000000001,
+          "cumulative_seconds": 0.0005975770000000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.getattr>",
+          "calls": 8032,
+          "primitive_calls": 8032,
+          "self_seconds": 0.000531007,
+          "cumulative_seconds": 0.000531007
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'items' of 'dict' objects>",
+          "calls": 9189,
+          "primitive_calls": 9189,
+          "self_seconds": 0.000433386,
+          "cumulative_seconds": 0.000433386
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.max>",
+          "calls": 2587,
+          "primitive_calls": 2587,
+          "self_seconds": 0.000376626,
+          "cumulative_seconds": 0.00037725000000000004
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'update' of 'dict' objects>",
+          "calls": 4016,
+          "primitive_calls": 4016,
+          "self_seconds": 0.000316098,
+          "cumulative_seconds": 0.000316098
+        },
+        {
+          "file": "original_mcts.py",
+          "line": 33,
+          "function": "is_fully_expanded",
+          "calls": 3586,
+          "primitive_calls": 3586,
+          "self_seconds": 0.000275082,
+          "cumulative_seconds": 0.000275082
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.issubclass>",
+          "calls": 4016,
+          "primitive_calls": 4016,
+          "self_seconds": 0.000226838,
+          "cumulative_seconds": 0.000226838
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method builtins.hasattr>",
+          "calls": 4016,
+          "primitive_calls": 4016,
+          "self_seconds": 0.000220697,
+          "cumulative_seconds": 0.000220697
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<built-in method __new__ of type object at 0x103b87400>",
+          "calls": 4016,
+          "primitive_calls": 4016,
+          "self_seconds": 0.00021539200000000001,
+          "cumulative_seconds": 0.00021539200000000001
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'values' of 'dict' objects>",
+          "calls": 2587,
+          "primitive_calls": 2587,
+          "self_seconds": 0.000128767,
+          "cumulative_seconds": 0.000128767
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'remove' of 'list' objects>",
+          "calls": 944,
+          "primitive_calls": 944,
+          "self_seconds": 8.067e-05,
+          "cumulative_seconds": 8.067e-05
+        },
+        {
+          "file": "original_mcts.py",
+          "line": 96,
+          "function": "<genexpr>",
+          "calls": 8,
+          "primitive_calls": 8,
+          "self_seconds": 6.240000000000001e-07,
+          "cumulative_seconds": 6.240000000000001e-07
+        },
+        {
+          "file": "original_mcts.py",
+          "line": 97,
+          "function": "<listcomp>",
+          "calls": 1,
+          "primitive_calls": 1,
+          "self_seconds": 5.000000000000001e-07,
+          "cumulative_seconds": 5.000000000000001e-07
+        },
+        {
+          "file": "~",
+          "line": 0,
+          "function": "<method 'disable' of '_lsprof.Profiler' objects>",
+          "calls": 1,
+          "primitive_calls": 1,
+          "self_seconds": 2.92e-07,
+          "cumulative_seconds": 2.92e-07
+        }
+      ]
+    }
+  }
+}

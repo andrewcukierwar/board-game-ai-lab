@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab/scripts/benchmark_negamax_tt.py", line 400, in <module>
+    main()
+  File "/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab/scripts/benchmark_negamax_tt.py", line 396, in main
+    run(args.directory, args.command)
+  File "/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab/scripts/benchmark_negamax_tt.py", line 352, in run
+    assert_same(expected, data['rss'], experiment == 'A')
+  File "/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab/scripts/benchmark_negamax_tt.py", line 104, in assert_same
+    assert a[key] == b[key], (key, a[key], b[key])
+           ^^^^^^^^^^^^^^^^
+AssertionError: ('scores', [(3, -2), (2, -3), (4, -3), (1, -5), (5, -5), (0, -6), (6, -6)], [[3, -2], [2, -3], [4, -3], [1, -5], [5, -5], [0, -6], [6, -6]])

@@ -160,6 +160,7 @@ class SearchTable:
         self.tt_moves = tt_moves
         self.tactical = tactical
         self.entries = {}
+        self.hints = None
         self.nodes = 0
         self.hits = 0
         self.cutoffs = 0
@@ -249,3 +250,46 @@ class NegamaxAgent:
         scores = self.score_moves(game)
         # Dict insertion follows CENTER_ORDER; exact ties stay deterministic.
         return max(scores, key=scores.get)
+
+IDENTITY_MASK = (1 << 99) - 1
+
+
+def export_hints(table):
+    # A value's move field is decoded ONLY to produce an ordering suggestion.
+    # The resulting cache contains no scores, bounds, horizons or solved flags.
+    hints = {}
+    for key, entry in table.entries.items():
+        move = unpack_entry(entry)[2]
+        if type(move) is int and 0 <= move < 7:
+            hints[key & IDENTITY_MASK] = move
+    return hints
+
+
+class ExperimentalAgent(NegamaxAgent):
+    def score_moves(self, game):
+        state = SearchState(game)
+        if state.terminal_value(self.depth) is not None:
+            raise ValueError('Cannot choose a move from a terminal position')
+        hints = None
+        self.last_iterations = []
+        for horizon in SCHEDULE(self.depth, VARIANT):
+            table, scores = SearchTable(), {}
+            table.hints = hints
+            for col in state.legal():
+                state.play(col)
+                try:
+                    scores[col] = -negamax(state, horizon - 1, -inf, inf, table)
+                finally:
+                    state.undo(col)
+            stats = dict(depth=horizon, nodes=table.nodes, entries=len(table.entries),
+                         hits=table.hits, cutoffs=table.cutoffs)
+            self.last_iterations.append(stats)
+            if horizon != self.depth and VARIANT in ('hints', 'combined'):
+                hints = export_hints(table)
+        self.last_scores = scores
+        self.last_stats = {name: sum(s[name] for s in self.last_iterations)
+                           for name in ('nodes', 'entries', 'hits', 'cutoffs')}
+        return scores
+
+
+NegamaxAgent = ExperimentalAgent

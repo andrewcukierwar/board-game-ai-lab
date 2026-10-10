@@ -1,0 +1,2184 @@
+{
+  "candidate_sha256": "157975aeef53819a1a81dfdbd5a56415c22e49aaaadca5fc11c6c53eac1aa057",
+  "rows": [
+    {
+      "position": "preflight-000",
+      "depth": 6,
+      "memory": {
+        "move": 3,
+        "scores": {
+          "3": 0,
+          "2": -2,
+          "4": -1,
+          "1": -3,
+          "5": -2,
+          "0": -4,
+          "6": -4
+        },
+        "stats": {
+          "nodes": 4086,
+          "entries": 1179,
+          "hits": 363,
+          "cutoffs": 800
+        },
+        "wall_seconds": 0.1878290418535471,
+        "cpu_seconds": 1.5714229999999998,
+        "retained_bytes": 269612,
+        "peak_bytes": 271816,
+        "tt_bytes": 265472,
+        "entries": 1179,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 112344,
+            "count": 1180
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 84888,
+            "count": 1179
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 37792,
+            "count": 1181
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 24448,
+            "count": 764
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 7616,
+            "count": 241
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 336,
+            "count": 6
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 320,
+            "count": 2
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 288,
+            "count": 1
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-000",
+      "depth": 8,
+      "memory": {
+        "move": 3,
+        "scores": {
+          "3": 0,
+          "2": -3,
+          "4": -3,
+          "1": -6,
+          "5": -4,
+          "0": -6,
+          "6": -5
+        },
+        "stats": {
+          "nodes": 20247,
+          "entries": 5894,
+          "hits": 2526,
+          "cutoffs": 4355
+        },
+        "wall_seconds": 0.5153538750018924,
+        "cpu_seconds": 0.66275,
+        "retained_bytes": 1460372,
+        "peak_bytes": 1528000,
+        "tt_bytes": 1442316,
+        "entries": 5894,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 672144,
+            "count": 5895
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 424368,
+            "count": 5894
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 188736,
+            "count": 5898
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 119104,
+            "count": 3722
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 53304,
+            "count": 1670
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 448,
+            "count": 8
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 352,
+            "count": 3
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 312,
+            "count": 2
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-000",
+      "depth": 10,
+      "memory": {
+        "move": 3,
+        "scores": {
+          "3": 3,
+          "2": -2,
+          "4": -1,
+          "1": -6,
+          "5": -3,
+          "0": -6,
+          "6": -3
+        },
+        "stats": {
+          "nodes": 100787,
+          "entries": 30506,
+          "hits": 14581,
+          "cutoffs": 23366
+        },
+        "wall_seconds": 2.6914222920313478,
+        "cpu_seconds": 2.6900010000000005,
+        "retained_bytes": 7365932,
+        "peak_bytes": 7368504,
+        "tt_bytes": 7287924,
+        "entries": 30506,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 3263120,
+            "count": 30507
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 2196432,
+            "count": 30506
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 977760,
+            "count": 30555
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 622240,
+            "count": 19445
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 303512,
+            "count": 9490
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 560,
+            "count": 10
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 352,
+            "count": 3
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 304,
+            "count": 2
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-001",
+      "depth": 6,
+      "memory": {
+        "move": 2,
+        "scores": {
+          "3": -20,
+          "2": -11,
+          "4": -15,
+          "1": -13,
+          "5": -12,
+          "0": -14,
+          "6": -15
+        },
+        "stats": {
+          "nodes": 8682,
+          "entries": 2291,
+          "hits": 696,
+          "cutoffs": 1476
+        },
+        "wall_seconds": 0.27297383290715516,
+        "cpu_seconds": 0.27261300000000066,
+        "retained_bytes": 530284,
+        "peak_bytes": 532464,
+        "tt_bytes": 518244,
+        "entries": 2291,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 220368,
+            "count": 2292
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 164952,
+            "count": 2291
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 73408,
+            "count": 2294
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 47648,
+            "count": 1489
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 21136,
+            "count": 663
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 512,
+            "count": 8
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 336,
+            "count": 6
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 296,
+            "count": 2
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-001",
+      "depth": 8,
+      "memory": {
+        "move": 2,
+        "scores": {
+          "3": -18,
+          "2": -12,
+          "4": -16,
+          "1": -14,
+          "5": -14,
+          "0": -19,
+          "6": -18
+        },
+        "stats": {
+          "nodes": 53397,
+          "entries": 15018,
+          "hits": 5832,
+          "cutoffs": 10677
+        },
+        "wall_seconds": 1.6030319998972118,
+        "cpu_seconds": 1.6020840000000005,
+        "retained_bytes": 3576612,
+        "peak_bytes": 3578976,
+        "tt_bytes": 3507080,
+        "entries": 15018,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 1551000,
+            "count": 15019
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 1081296,
+            "count": 15018
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 481120,
+            "count": 15035
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 300064,
+            "count": 9377
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 160208,
+            "count": 5010
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 512,
+            "count": 8
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 448,
+            "count": 8
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 288,
+            "count": 2
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-001",
+      "depth": 10,
+      "memory": {
+        "move": 2,
+        "scores": {
+          "3": -18,
+          "2": -14,
+          "4": -19,
+          "1": -15,
+          "5": -14,
+          "0": -21,
+          "6": -21
+        },
+        "stats": {
+          "nodes": 256169,
+          "entries": 76512,
+          "hits": 33531,
+          "cutoffs": 57684
+        },
+        "wall_seconds": 7.5432659580837935,
+        "cpu_seconds": 7.538741000000001,
+        "retained_bytes": 18000492,
+        "peak_bytes": 18002992,
+        "tt_bytes": 17679364,
+        "entries": 76512,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 7518232,
+            "count": 76513
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 5508864,
+            "count": 76512
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 2452864,
+            "count": 76652
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 1545408,
+            "count": 48294
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 972120,
+            "count": 30384
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 560,
+            "count": 10
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 512,
+            "count": 8
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 280,
+            "count": 2
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-002",
+      "depth": 6,
+      "memory": {
+        "move": 4,
+        "scores": {
+          "3": -12,
+          "2": -27,
+          "4": 1000003,
+          "1": -23,
+          "5": -20,
+          "0": -22,
+          "6": -24
+        },
+        "stats": {
+          "nodes": 2903,
+          "entries": 747,
+          "hits": 240,
+          "cutoffs": 489
+        },
+        "wall_seconds": 0.09261904191225767,
+        "cpu_seconds": 0.09256799999999998,
+        "retained_bytes": 191132,
+        "peak_bytes": 198152,
+        "tt_bytes": 187476,
+        "entries": 747,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 84696,
+            "count": 748
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 53784,
+            "count": 747
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 23904,
+            "count": 747
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 16096,
+            "count": 503
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 9960,
+            "count": 314
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 512,
+            "count": 8
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 336,
+            "count": 6
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 272,
+            "count": 2
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-002",
+      "depth": 8,
+      "memory": {
+        "move": 4,
+        "scores": {
+          "3": -12,
+          "2": -28,
+          "4": 1000005,
+          "1": -30,
+          "5": -21,
+          "0": -23,
+          "6": -23
+        },
+        "stats": {
+          "nodes": 14997,
+          "entries": 3891,
+          "hits": 1773,
+          "cutoffs": 2810
+        },
+        "wall_seconds": 0.497379417065531,
+        "cpu_seconds": 0.4970859999999995,
+        "retained_bytes": 938924,
+        "peak_bytes": 940828,
+        "tt_bytes": 924792,
+        "entries": 3891,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 396504,
+            "count": 3892
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 280152,
+            "count": 3891
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 124800,
+            "count": 3900
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 84384,
+            "count": 2637
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 50216,
+            "count": 1573
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 512,
+            "count": 8
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 448,
+            "count": 8
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 256,
+            "count": 2
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-002",
+      "depth": 10,
+      "memory": {
+        "move": 4,
+        "scores": {
+          "3": -13,
+          "2": -23,
+          "4": 1000007,
+          "1": -33,
+          "5": -23,
+          "0": -24,
+          "6": -23
+        },
+        "stats": {
+          "nodes": 72952,
+          "entries": 20231,
+          "hits": 10412,
+          "cutoffs": 15526
+        },
+        "wall_seconds": 2.354533167090267,
+        "cpu_seconds": 2.3518449999999973,
+        "retained_bytes": 4693892,
+        "peak_bytes": 4695772,
+        "tt_bytes": 4632192,
+        "entries": 20231,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 1884632,
+            "count": 20232
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 1456632,
+            "count": 20231
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 650976,
+            "count": 20343
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 436608,
+            "count": 13644
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 261976,
+            "count": 8191
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 560,
+            "count": 10
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 512,
+            "count": 8
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 248,
+            "count": 2
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 166,
+            "file": "negamax_agent.py",
+            "bytes": 192,
+            "count": 8
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-003",
+      "depth": 6,
+      "memory": {
+        "move": 3,
+        "scores": {
+          "3": 13,
+          "2": -1000004,
+          "4": -1000004,
+          "1": -1000004,
+          "5": -1000004,
+          "0": -1000004,
+          "6": -1000004
+        },
+        "stats": {
+          "nodes": 925,
+          "entries": 338,
+          "hits": 107,
+          "cutoffs": 251
+        },
+        "wall_seconds": 0.02369245793670416,
+        "cpu_seconds": 0.02368900000000096,
+        "retained_bytes": 83380,
+        "peak_bytes": 85368,
+        "tt_bytes": 81296,
+        "entries": 338,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 30872,
+            "count": 339
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 24336,
+            "count": 338
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 10816,
+            "count": 338
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 7968,
+            "count": 252
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 6816,
+            "count": 213
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 480,
+            "count": 7
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 336,
+            "count": 6
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 240,
+            "count": 2
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-003",
+      "depth": 8,
+      "memory": {
+        "move": 3,
+        "scores": {
+          "3": 12,
+          "2": -1000006,
+          "4": -1000006,
+          "1": -1000006,
+          "5": -1000006,
+          "0": -1000006,
+          "6": -1000006
+        },
+        "stats": {
+          "nodes": 2736,
+          "entries": 860,
+          "hits": 272,
+          "cutoffs": 600
+        },
+        "wall_seconds": 0.07633283408358693,
+        "cpu_seconds": 0.07627199999999945,
+        "retained_bytes": 222684,
+        "peak_bytes": 224680,
+        "tt_bytes": 219012,
+        "entries": 860,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 91928,
+            "count": 861
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 61920,
+            "count": 860
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 27744,
+            "count": 867
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 22040,
+            "count": 692
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 16288,
+            "count": 509
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 480,
+            "count": 7
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 448,
+            "count": 8
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-003",
+      "depth": 10,
+      "memory": {
+        "move": 3,
+        "scores": {
+          "3": 11,
+          "2": -1000008,
+          "4": -1000008,
+          "1": -1000008,
+          "5": -1000008,
+          "0": -1000008,
+          "6": -1000008
+        },
+        "stats": {
+          "nodes": 8720,
+          "entries": 2845,
+          "hits": 1014,
+          "cutoffs": 2041
+        },
+        "wall_seconds": 0.24208683311007917,
+        "cpu_seconds": 0.24190300000000065,
+        "retained_bytes": 758676,
+        "peak_bytes": 811416,
+        "tt_bytes": 748416,
+        "entries": 2845,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 329560,
+            "count": 2846
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 204840,
+            "count": 2845
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 91616,
+            "count": 2863
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 74216,
+            "count": 2323
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 55552,
+            "count": 1736
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 560,
+            "count": 10
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 480,
+            "count": 7
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 224,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-004",
+      "depth": 6,
+      "memory": {
+        "move": 3,
+        "scores": {
+          "3": -4,
+          "2": -13,
+          "4": -17,
+          "1": -21,
+          "5": -17,
+          "0": -24,
+          "6": -21
+        },
+        "stats": {
+          "nodes": 4690,
+          "entries": 1160,
+          "hits": 351,
+          "cutoffs": 773
+        },
+        "wall_seconds": 0.15249758283607662,
+        "cpu_seconds": 0.15233500000000078,
+        "retained_bytes": 271436,
+        "peak_bytes": 273424,
+        "tt_bytes": 269068,
+        "entries": 1160,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 111128,
+            "count": 1161
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 83520,
+            "count": 1160
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 37120,
+            "count": 1160
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 21952,
+            "count": 686
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 15104,
+            "count": 475
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 480,
+            "count": 7
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 336,
+            "count": 6
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 216,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-004",
+      "depth": 8,
+      "memory": {
+        "move": 3,
+        "scores": {
+          "3": -7,
+          "2": -17,
+          "4": -18,
+          "1": -27,
+          "5": -19,
+          "0": -30,
+          "6": -25
+        },
+        "stats": {
+          "nodes": 22020,
+          "entries": 5389,
+          "hits": 2022,
+          "cutoffs": 3660
+        },
+        "wall_seconds": 0.7424256252124906,
+        "cpu_seconds": 0.733430000000002,
+        "retained_bytes": 1242572,
+        "peak_bytes": 1244728,
+        "tt_bytes": 1230836,
+        "entries": 5389,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 492376,
+            "count": 5390
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 388008,
+            "count": 5389
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 172768,
+            "count": 5399
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 98784,
+            "count": 3087
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 87864,
+            "count": 2750
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 512,
+            "count": 8
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 448,
+            "count": 8
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 208,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-004",
+      "depth": 10,
+      "memory": {
+        "move": 3,
+        "scores": {
+          "3": -7,
+          "2": -19,
+          "4": -17,
+          "1": -27,
+          "5": -21,
+          "0": -30,
+          "6": -28
+        },
+        "stats": {
+          "nodes": 85073,
+          "entries": 22545,
+          "hits": 10450,
+          "cutoffs": 16476
+        },
+        "wall_seconds": 2.726109042065218,
+        "cpu_seconds": 2.676551,
+        "retained_bytes": 5945564,
+        "peak_bytes": 6392856,
+        "tt_bytes": 5894060,
+        "entries": 22545,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 2753616,
+            "count": 22546
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 1623240,
+            "count": 22545
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 723264,
+            "count": 22602
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 436448,
+            "count": 13639
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 406072,
+            "count": 12694
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 560,
+            "count": 10
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 512,
+            "count": 8
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 200,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-005",
+      "depth": 6,
+      "memory": {
+        "move": 2,
+        "scores": {
+          "2": -21,
+          "4": -23,
+          "1": -23,
+          "5": -30,
+          "0": -1000002,
+          "6": -28
+        },
+        "stats": {
+          "nodes": 2255,
+          "entries": 678,
+          "hits": 201,
+          "cutoffs": 490
+        },
+        "wall_seconds": 0.06543966592289507,
+        "cpu_seconds": 0.06497099999999989,
+        "retained_bytes": 165852,
+        "peak_bytes": 167704,
+        "tt_bytes": 163372,
+        "entries": 678,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 61840,
+            "count": 679
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 48816,
+            "count": 678
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 21696,
+            "count": 678
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 15544,
+            "count": 488
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 15360,
+            "count": 480
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 480,
+            "count": 7
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 336,
+            "count": 6
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 184,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-005",
+      "depth": 8,
+      "memory": {
+        "move": 2,
+        "scores": {
+          "2": -17,
+          "4": -20,
+          "1": -22,
+          "5": -22,
+          "0": -1000004,
+          "6": -25
+        },
+        "stats": {
+          "nodes": 6563,
+          "entries": 2261,
+          "hits": 824,
+          "cutoffs": 1688
+        },
+        "wall_seconds": 0.18144487496465445,
+        "cpu_seconds": 0.17920600000000064,
+        "retained_bytes": 562684,
+        "peak_bytes": 564584,
+        "tt_bytes": 554920,
+        "entries": 2261,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 218448,
+            "count": 2262
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 162792,
+            "count": 2261
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 73024,
+            "count": 2282
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 56864,
+            "count": 1780
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 48800,
+            "count": 1525
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 480,
+            "count": 7
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 448,
+            "count": 8
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 176,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-005",
+      "depth": 10,
+      "memory": {
+        "move": 2,
+        "scores": {
+          "2": -18,
+          "4": -1000000,
+          "1": -1000000,
+          "5": -1000000,
+          "0": -1000006,
+          "6": -1000000
+        },
+        "stats": {
+          "nodes": 10140,
+          "entries": 4174,
+          "hits": 1539,
+          "cutoffs": 3124
+        },
+        "wall_seconds": 0.27018658304587007,
+        "cpu_seconds": 0.2658239999999985,
+        "retained_bytes": 1047260,
+        "peak_bytes": 1049416,
+        "tt_bytes": 1032320,
+        "entries": 4174,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 414616,
+            "count": 4175
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 300656,
+            "count": 4176
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 135296,
+            "count": 4228
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 112304,
+            "count": 3513
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 81536,
+            "count": 2548
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 504,
+            "count": 9
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 480,
+            "count": 7
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 168,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-006",
+      "depth": 6,
+      "memory": {
+        "move": 3,
+        "scores": {
+          "3": -1000004,
+          "2": -1000004,
+          "4": -1000004,
+          "1": -1000004,
+          "5": -1000004,
+          "0": -1000004,
+          "6": -1000004
+        },
+        "stats": {
+          "nodes": 1310,
+          "entries": 346,
+          "hits": 53,
+          "cutoffs": 176
+        },
+        "wall_seconds": 0.04150629206560552,
+        "cpu_seconds": 0.040123999999998716,
+        "retained_bytes": 94676,
+        "peak_bytes": 105496,
+        "tt_bytes": 91784,
+        "entries": 346,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 40592,
+            "count": 347
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 24912,
+            "count": 346
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 11160,
+            "count": 350
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 11072,
+            "count": 346
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 4416,
+            "count": 138
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 512,
+            "count": 8
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 336,
+            "count": 6
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 160,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-006",
+      "depth": 8,
+      "memory": {
+        "move": 3,
+        "scores": {
+          "3": -1000006,
+          "2": -1000006,
+          "4": -1000006,
+          "1": -1000006,
+          "5": -1000006,
+          "0": -1000006,
+          "6": -1000006
+        },
+        "stats": {
+          "nodes": 2990,
+          "entries": 911,
+          "hits": 295,
+          "cutoffs": 518
+        },
+        "wall_seconds": 0.08120470796711743,
+        "cpu_seconds": 0.08046600000000126,
+        "retained_bytes": 232108,
+        "peak_bytes": 234080,
+        "tt_bytes": 227448,
+        "entries": 911,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 95192,
+            "count": 912
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 65592,
+            "count": 911
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 29152,
+            "count": 911
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 28128,
+            "count": 881
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 11328,
+            "count": 354
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 512,
+            "count": 8
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 448,
+            "count": 8
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          },
+          {
+            "line": 34,
+            "file": "profile_negamax_depths.py",
+            "bytes": 152,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-006",
+      "depth": 10,
+      "memory": {
+        "move": 3,
+        "scores": {
+          "3": -1000008,
+          "2": -1000008,
+          "4": -1000008,
+          "1": -1000008,
+          "5": -1000008,
+          "0": -1000008,
+          "6": -1000008
+        },
+        "stats": {
+          "nodes": 6979,
+          "entries": 2133,
+          "hits": 706,
+          "cutoffs": 1177
+        },
+        "wall_seconds": 0.18963687494397163,
+        "cpu_seconds": 0.1882310000000018,
+        "retained_bytes": 525564,
+        "peak_bytes": 527520,
+        "tt_bytes": 516192,
+        "entries": 2133,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 210256,
+            "count": 2134
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 153576,
+            "count": 2133
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 68256,
+            "count": 2133
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 65352,
+            "count": 2045
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 25280,
+            "count": 790
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 560,
+            "count": 10
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 512,
+            "count": 8
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          },
+          {
+            "line": 43,
+            "file": "profile_negamax_depths.py",
+            "bytes": 152,
+            "count": 1
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-007",
+      "depth": 6,
+      "memory": {
+        "move": 0,
+        "scores": {
+          "1": -1000004,
+          "0": -4,
+          "6": -12
+        },
+        "stats": {
+          "nodes": 101,
+          "entries": 52,
+          "hits": 4,
+          "cutoffs": 27
+        },
+        "wall_seconds": 0.0025722088757902384,
+        "cpu_seconds": 0.002569999999998629,
+        "retained_bytes": 15200,
+        "peak_bytes": 16952,
+        "tt_bytes": 13800,
+        "entries": 52,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 5528,
+            "count": 53
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 3744,
+            "count": 52
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 1664,
+            "count": 52
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 1208,
+            "count": 40
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 832,
+            "count": 26
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 336,
+            "count": 6
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 224,
+            "count": 3
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          },
+          {
+            "line": 43,
+            "file": "profile_negamax_depths.py",
+            "bytes": 152,
+            "count": 1
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-007",
+      "depth": 8,
+      "memory": {
+        "move": 0,
+        "scores": {
+          "1": -1000006,
+          "0": -1000000,
+          "6": -1000000
+        },
+        "stats": {
+          "nodes": 178,
+          "entries": 104,
+          "hits": 8,
+          "cutoffs": 51
+        },
+        "wall_seconds": 0.004656000062823296,
+        "cpu_seconds": 0.0045989999999989095,
+        "retained_bytes": 28528,
+        "peak_bytes": 30232,
+        "tt_bytes": 26716,
+        "entries": 104,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 11280,
+            "count": 105
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 7488,
+            "count": 104
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 3328,
+            "count": 104
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 2472,
+            "count": 80
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 1504,
+            "count": 47
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 448,
+            "count": 8
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 256,
+            "count": 4
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 166,
+            "file": "negamax_agent.py",
+            "bytes": 192,
+            "count": 8
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    },
+    {
+      "position": "preflight-007",
+      "depth": 10,
+      "memory": {
+        "move": 0,
+        "scores": {
+          "1": -1000008,
+          "0": -1000002,
+          "6": -1000002
+        },
+        "stats": {
+          "nodes": 204,
+          "entries": 130,
+          "hits": 17,
+          "cutoffs": 70
+        },
+        "wall_seconds": 0.004609542200341821,
+        "cpu_seconds": 0.004604000000000497,
+        "retained_bytes": 33216,
+        "peak_bytes": 34892,
+        "tt_bytes": 31132,
+        "entries": 130,
+        "top_allocations": [
+          {
+            "line": 186,
+            "file": "negamax_agent.py",
+            "bytes": 12944,
+            "count": 131
+          },
+          {
+            "line": 150,
+            "file": "negamax_agent.py",
+            "bytes": 9360,
+            "count": 130
+          },
+          {
+            "line": 98,
+            "file": "negamax_agent.py",
+            "bytes": 4160,
+            "count": 130
+          },
+          {
+            "line": 173,
+            "file": "negamax_agent.py",
+            "bytes": 2448,
+            "count": 80
+          },
+          {
+            "line": 107,
+            "file": "negamax_agent.py",
+            "bytes": 1664,
+            "count": 52
+          },
+          {
+            "line": 65,
+            "file": "negamax_agent.py",
+            "bytes": 560,
+            "count": 10
+          },
+          {
+            "line": 166,
+            "file": "negamax_agent.py",
+            "bytes": 264,
+            "count": 11
+          },
+          {
+            "line": 212,
+            "file": "negamax_agent.py",
+            "bytes": 256,
+            "count": 4
+          },
+          {
+            "line": 1643,
+            "file": "mock.py",
+            "bytes": 232,
+            "count": 2
+          },
+          {
+            "line": 223,
+            "file": "negamax_agent.py",
+            "bytes": 184,
+            "count": 2
+          }
+        ],
+        "retention": "Diagnostic reference retains TT; production releases TT after each decision"
+      }
+    }
+  ],
+  "depths": [
+    4,
+    6,
+    8,
+    10
+  ],
+  "samples": 3,
+  "warmups": 1,
+  "line_depth": 6,
+  "elapsed_seconds": 21.970804165815935
+}

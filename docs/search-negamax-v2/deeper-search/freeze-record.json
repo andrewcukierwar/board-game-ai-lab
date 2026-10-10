@@ -1,0 +1,19 @@
+{
+  "utc": "2026-10-09T22:16:04.657771+00:00",
+  "experiment_sha256": "e6c6ee93d7f75ffe3349e4c08e0fda44f7c0c0245a10e96a0318707b3853be3e",
+  "design_sha256": "8722ec2773eb44eb6442f8821815277c845adda9761534a9dcf500834aa07e6c",
+  "decision": {
+    "target_projection_seconds": 379.1815900374204,
+    "safety_multiplier": 1.75,
+    "reserved_seconds": 300,
+    "primary_pairs": 64,
+    "secondary_pairs": 32,
+    "scaled_projection_seconds": 379.1815900374204,
+    "preflight_sha256": "9ae8acc6b6b41bc6aea974eddec792009f97005d02c7e111e02a05e278097e20",
+    "preflight_memory_sha256": "5aae610262a668c462ea75a3b1e6acb117a9c5254de47314e6857ef94f3f3072"
+  },
+  "max_observed_nodes": 256169,
+  "max_traced_peak_bytes": 18002992,
+  "max_retained_tt_bytes": 17679364,
+  "note": "Timing-only decision; no main result summaries inspected; full 64/32 target frozen"
+}

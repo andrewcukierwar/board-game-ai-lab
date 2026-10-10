@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "parent_candidate_sha256": "157975aeef53819a1a81dfdbd5a56415c22e49aaaadca5fc11c6c53eac1aa057",
+  "declared_utc": "2026-10-09T22:15:53.170517+00:00",
+  "source_commit": "babaac798c8071fe60985ed41f0465442dee0fc7",
+  "source_hashes": {
+    "games/connect4/agents/negamax_agent.py": "a07a0d19bf523c6afc1870c1b2deaab811f210f61aa3198db780a1752e436dc2",
+    "games/connect4/agents/mcts_agent.py": "408be66814f85f4b9361713c94d4f79151b2a92683a268dd018bd812c641d4d2",
+    "games/connect4/agents/mcts_bitboard.py": "353cef4ce072bfb32492491cf00a7f87684452d2aeb06f6d0c569586cbb58f4e",
+    "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+    "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+    "scripts/evaluate_mcts_strength.py": "2da8dacc5d8cd47164d65a3fb49c598f50bf1cb316e1b22bdaca079d8946f6bb",
+    "scripts/benchmark_public_agents.py": "e5507959a9c6ed7d422f3c6f4ce675e9eba351d5c5b3c0c787d19956b2d9d1ce",
+    "scripts/benchmark_negamax_ordering.py": "f778c88ac4a5d42266aadc683e9edfd45e2639b7eee61e36dd2497333ba5d973",
+    "scripts/evaluate_negamax_depths.py": "f6910509d99ad0efc210821d7e274f884aa8aedcd994b8bac061059a7e2be176",
+    "scripts/analyze_negamax_depths.py": "8d1b54c5c357cb55e8207ecb0f69b61529459a5a189ddabd66ad0eb0c9ee8d6a",
+    "scripts/profile_negamax_depths.py": "b12802486eabbad6dc07fd71033f941e3c6c6856e6ed16c713ac3ec78a429c28"
+  },
+  "python": "3.11.17",
+  "selection": "First quiet midgame in declared main pool absent from base profile set; chosen before main, without scores/timings",
+  "profile_positions": [
+    {
+      "history": [
+        1,
+        3,
+        3,
+        3,
+        3,
+        1,
+        1,
+        5,
+        4,
+        1,
+        3,
+        1,
+        4,
+        4
+      ],
+      "cohort": "agent",
+      "generator_seed": 335323735566952120366851934334218771907,
+      "rejected_attempts": 14,
+      "family": "main-agent-0",
+      "id": "supplement-main-003",
+      "length": 14,
+      "challenger_seed": 239432697321068275113661316832225090690,
+      "opponent_seed": 265369087164259127694856352016851405325,
+      "stage": "midgame",
+      "tactics": "quiet",
+      "immediate_wins": [],
+      "safe_moves": [
+        3,
+        2,
+        4,
+        1,
+        5,
+        0,
+        6
+      ],
+      "board_sha256": "276290a9cdab20bcda57a6f09da5adc9c982200320d6c0c252641c32df62bf71"
+    }
+  ]
+}

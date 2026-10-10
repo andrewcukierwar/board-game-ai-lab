@@ -1,0 +1,75 @@
+{
+  "comparisons": {
+    "compact-stack": {
+      "eligible": false,
+      "checks": {
+        "broad_speedup": true,
+        "broad_improved_fraction": true,
+        "distribution_speedup": true,
+        "workload_reduction": true,
+        "per_condition_overhead": true,
+        "peak_memory": true,
+        "tt_equal": false
+      },
+      "broad_conditions": 28,
+      "broad_geometric_speedup": 1.8379700787255027,
+      "broad_improved_fraction": 1.0,
+      "geometric_speedup": 1.475913292350399,
+      "summed_median_ratio": 0.5604463325749073,
+      "depth_geometric_speedups": {
+        "4": 1.6054196898712023,
+        "6": 1.5603727963974094,
+        "8": 1.447068043625037,
+        "10": 1.308993434272102
+      }
+    },
+    "compact-inverse": {
+      "eligible": false,
+      "checks": {
+        "broad_speedup": true,
+        "broad_improved_fraction": true,
+        "distribution_speedup": true,
+        "workload_reduction": true,
+        "per_condition_overhead": true,
+        "peak_memory": true,
+        "tt_equal": false
+      },
+      "broad_conditions": 28,
+      "broad_geometric_speedup": 1.7484587299645775,
+      "broad_improved_fraction": 1.0,
+      "geometric_speedup": 1.4206300249591441,
+      "summed_median_ratio": 0.5893444247321528,
+      "depth_geometric_speedups": {
+        "4": 1.5490457895029945,
+        "6": 1.4993864558835683,
+        "8": 1.392301617670364,
+        "10": 1.2595423951595333
+      }
+    },
+    "arrays-stack": {
+      "eligible": false,
+      "checks": {
+        "broad_speedup": true,
+        "broad_improved_fraction": true,
+        "distribution_speedup": true,
+        "workload_reduction": true,
+        "per_condition_overhead": true,
+        "peak_memory": true,
+        "tt_equal": false
+      },
+      "broad_conditions": 28,
+      "broad_geometric_speedup": 1.6620487848227874,
+      "broad_improved_fraction": 1.0,
+      "geometric_speedup": 1.3456010943015646,
+      "summed_median_ratio": 0.6190759585697387,
+      "depth_geometric_speedups": {
+        "4": 1.45703799915875,
+        "6": 1.4170058013299829,
+        "8": 1.3233441184265318,
+        "10": 1.199913746030505
+      }
+    }
+  },
+  "selected": null,
+  "correctness": "Every run asserted exact ordered scores, moves and counters; leaf counts matched"
+}
