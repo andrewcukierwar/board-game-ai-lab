@@ -87,6 +87,8 @@ Bounded in-memory sessions, global public API token-bucket budgets, and nonblock
 | **MCTS** | UCT, stochastic rollouts, alternating-player rewards, and final visit-count selection, with immediate-win and immediate-loss-avoidance root guards. Public UI budgets: 100/400/800 simulations; these do not establish theoretical convergence. |
 | **Victor Research (Experimental)** | Allis-inspired strategy, an exact selected-position opening book, native bounded optimal-move proof search, and heuristic fallback. Publicly playable when enabled; it can lose. |
 
+[Classical search optimization](docs/classical-search-optimization.md) made both search agents faster without changing their moves: MCTS runs 53.6–72.3× faster at equal simulation budgets, and Negamax gained win-first ordering, an incremental evaluator (1.83× on broad trees) and packed transposition entries (56.0% less retained table memory for 4.83% more time). Public depths, simulation budgets and the canonical benchmark above are unchanged; that benchmark was run on the earlier implementation, and the public deployment may still run an older backend until it is updated separately.
+
 Random and MCTS use seeded local RNGs in competitions. Public agents need neither PyTorch nor neural checkpoints. **Experimental research**—DQN, neural MCTS, AlphaZero-style self-play, the historical VictorAgent, and historical Mancala work—is separate from the public API and benchmark. Frozen AlphaZero campaign artifacts remain research records.
 
 The [functional Victor research solver](docs/victor-functional-solver.md) adds bounded exact endgame solving, executable conditional nine-rule Black responses, restricted White threat contexts and complete CLI games. It labels exact results, established bounds and exploratory moves separately; it does not claim perfect play or establish a complete executable non-loss theorem for arbitrary nine-rule combinations.
@@ -195,7 +197,7 @@ Packaging verification: **501 backend passed**, with 14 existing optional PyTorc
 | `tests/`, `ui/tests/`, `ui/e2e/` | Backend, frontend, browser checks |
 | `docs/`, `project_plan.md` | Deployment, technical reports, research history |
 
-**Development history / technical reports:** [Match](docs/phase5a-match-lab.md), [Tournament](docs/phase5b-tournament-lab.md), [human participation](docs/phase5c-human-tournament-participation.md), [Season analytics](docs/phase5d-season-ratings-lab.md), [exports](docs/phase5e-evaluation-provenance-export.md), [search corrections](docs/public-agent-strength-and-turn-order.md), and [project/research history](project_plan.md).
+**Development history / technical reports:** [Match](docs/phase5a-match-lab.md), [Tournament](docs/phase5b-tournament-lab.md), [human participation](docs/phase5c-human-tournament-participation.md), [Season analytics](docs/phase5d-season-ratings-lab.md), [exports](docs/phase5e-evaluation-provenance-export.md), [search corrections](docs/public-agent-strength-and-turn-order.md), [classical search optimization](docs/classical-search-optimization.md), and [project/research history](project_plan.md).
 
 ## Limitations / research status
 
