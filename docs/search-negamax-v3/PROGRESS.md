@@ -23,7 +23,7 @@ wall sum/A 1.124; selective 0.966x, wall sum/A 1.010. Memory gates pass.
 Actual opposite-orientation reuse appears on symmetric empty board; zero on
 three asymmetric D10 diagnostic histories. No production integration.
 
-B/PVS DESIGN/SOURCES FROZEN, correctness passed, measurement blocks0:8 and8:16 COMPLETE (38.7s/57.0s), exact64conditions; remaining16:24/24:32 followed by audit/diagnostics queued/running with lock released between commands.
+B/PVS COMPLETE, REJECTED. 128conditions,2816exact decisions,111oracle vectors,112inherited vectors; geometric1.011x, broad1.086x, wall sum/A0.886. Failed aggregate/broad geometric and immediate-win/D8 regression gates. Memory gates pass. Strongest engine remains original direct.
 See pvs/DESIGN.md. Scout unit windows, mandatory qualifying full re-search,
 exact original-window TT semantics and all root scores. Same 32 histories,
 D4/6/8/10, seven warmed interleaved samples and two memory decisions. Fixed
@@ -89,3 +89,5 @@ Lock correctness tests (isolated temporary path; production wrapper still mandat
 Latest pushed checkpoint d85ee212c0cfd6a257b89d5b70a4caf0067d72cd (lock correctness). PVS first block32conditions exact, further acceptance pending complete held-out workload.
 
 PVS blocks0:8 and8:16 complete; next serial command sequence handles remaining blocks then audit/summarize/stability/scouts. No acceptance decision until entire workload. Profile utility now checks its own source hash and excludes game-construction overhead from profiling (not used for timing acceptance).
+
+Phase B complete and audited: preserve rejection then commit/push before Phase C. Exact next action: freeze profile design/source/script hashes for original direct; profile four declared costly D10 histories under shared lock; choose up to two hotspot-backed bounded experiments and push their final designs before timing.
