@@ -19,6 +19,7 @@ def main():
     directory = bench.ROOT / args.phase
     design = (directory / 'DESIGN.md').read_bytes()
     declaration = json.loads((directory / 'manifest.json').read_text())
+    assert declaration['script_sha256'] == bench.digest(Path(__file__).read_bytes())
     assert declaration['design_sha256'] == bench.digest(design)
     assert declaration['source_sha256'] == bench.digest(args.source.read_bytes())
     fixture_manifest = json.loads((bench.ROOT / 'mirror/manifest.json').read_text())
@@ -33,8 +34,9 @@ def main():
     for fixture in fixtures:
         assert time.monotonic()-start < declaration['budget_seconds']
         for _ in range(declaration['repetitions']):
+            game = bench.position(fixture['history'])
             profiler.enable()
-            result = bench.decision(module,bench.position(fixture['history']),declaration['depth'])
+            result = bench.decision(module,game,declaration['depth'])
             profiler.disable()
             decisions.append(dict(position=fixture['id'],**result))
     stats = pstats.Stats(profiler)

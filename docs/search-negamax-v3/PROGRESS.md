@@ -23,7 +23,7 @@ wall sum/A 1.124; selective 0.966x, wall sum/A 1.010. Memory gates pass.
 Actual opposite-orientation reuse appears on symmetric empty board; zero on
 three asymmetric D10 diagnostic histories. No production integration.
 
-B/PVS DESIGN/SOURCES FROZEN, correctness passed, measurements NOT YET STARTED.
+B/PVS DESIGN/SOURCES FROZEN, correctness passed, measurement blocks0:8 and8:16 COMPLETE (38.7s/57.0s), exact64conditions; remaining16:24/24:32 followed by audit/diagnostics queued/running with lock released between commands.
 See pvs/DESIGN.md. Scout unit windows, mandatory qualifying full re-search,
 exact original-window TT semantics and all root scores. Same 32 histories,
 D4/6/8/10, seven warmed interleaved samples and two memory decisions. Fixed
@@ -64,10 +64,7 @@ Busy exit75 means defer. Never delete another owner's lock. A full batches held
 lock for 55.6/101.9/143.1/79.6s, released between blocks. MCTS then ran backend,
 throughput/preflight and pilot batches. All ownership respected.
 
-Current temporary blocker: MCTS owns lock (last observed pid79054, pilot1,
-max-seconds560). A waiting process is queued via scripts/wait_benchmark_slot.sh
-for PVS block0:8, at most1200s wait. It polls for normal release, then delegates
-atomic acquisition to the same wrapper. It never removes a lock.
+MCTS pilot released normally at16:58:33 UTC and queued PVS acquired atomically. First PVS block complete with exact saved vectors; each next block waits fairly for normal release if needed. No current correctness blocker. Wait helper never removes an owner.
 
 Exact next action: poll existing queued session if still active; otherwise
 inspect saved `pvs/condition-*.json` and run only missing whole blocks:
@@ -88,3 +85,7 @@ Exclusive evidence writes fail rather than overwrite. Reproduction uses a fresh
 --directory copied DESIGN.md and frozen checkpoint. Checkpoint WIP if interrupted.
 
 Lock correctness tests (isolated temporary path; production wrapper still mandatory shared path) 4 passed in0.21s: successful/failing cleanup, busy lock owner unchanged/child never launched, SIGTERM leaves ownership until foreground child finishes. Provisional expanded checks 22 passed in1.18s; no CPU-intensive workload run while MCTS holds lock.
+
+Latest pushed checkpoint d85ee212c0cfd6a257b89d5b70a4caf0067d72cd (lock correctness). PVS first block32conditions exact, further acceptance pending complete held-out workload.
+
+PVS blocks0:8 and8:16 complete; next serial command sequence handles remaining blocks then audit/summarize/stability/scouts. No acceptance decision until entire workload. Profile utility now checks its own source hash and excludes game-construction overhead from profiling (not used for timing acceptance).
