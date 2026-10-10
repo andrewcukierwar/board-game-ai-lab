@@ -123,3 +123,27 @@ def test_cluster_bootstrap_and_sign_flip_behave():
     assert analysis.sign_flip_p([1.0] * 16, 1, 2000) < 0.01
     mixed = analysis.sign_flip_p([1.0, -1.0] * 8, 1, 2000)
     assert mixed == 1.0
+
+
+def test_paired_contrast_uses_shared_openings(tiny, monkeypatch):
+    from scripts.mcts_v3 import studies
+    monkeypatch.setitem(studies.CONTRASTS, 'tiny', [('solver minus negamax', 'solver', 'negamax')])
+    harness.run('tiny')
+    result, pair_scores, _, _ = analysis.analyze('tiny')
+    contrast = result['contrasts'][0]
+    shared = pair_scores['solver'].keys() & pair_scores['negamax'].keys()
+    assert contrast['difference']['openings'] == len(shared) == 2
+    expected = sum(pair_scores['solver'][k] - pair_scores['negamax'][k] for k in shared) / 2
+    assert contrast['difference']['mean'] == pytest.approx(expected)
+    assert 'Paired difference' in analysis.table(result)
+
+
+def test_frozen_finalist_budgets_follow_the_declared_rule():
+    from scripts.mcts_v3 import studies
+    for name, budgets in studies.FROZEN_BUDGETS.items():
+        for budget, expected in budgets.items():
+            spec = studies.finalist(name, budget, True)
+            assert spec['simulations'] == expected < budget
+            assert studies.finalist(name, budget, False)['simulations'] == budget
+    assert studies.FINALISTS['f1'][0] == dict(rollout='safe', solver=True, exploration=0.5)
+    assert studies.FINALISTS['f2'][0] == dict(rollout='decisive', solver=True)

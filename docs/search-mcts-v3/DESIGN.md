@@ -221,3 +221,35 @@ away information, so pilot 3 is widened, on the development set only:
 Unchanged: the finalist rule, the cap of two finalists, the held-out set, the
 family of 8, the gates, and the compute caps. The cost is more looks at the
 development set, which is why only held-out results support claims.
+
+### Finalist freeze — 2026-10-10, after all pilots, before any held-out game
+
+Pooled (400 and 2,000) development-set scores versus the baseline. All pilot
+numbers are exploratory.
+
+| Configuration | Equal simulations | Equal time | Equal-time budgets |
+| --- | ---: | ---: | --- |
+| A/A control | 50.7% | — | — |
+| R1 decisive rollouts | 60.3% | 59.6% | 266 / 1,379 |
+| R2 + gift avoidance | 64.7% | 59.2% | 202 / 1,058 |
+| S solver | 58.3% | 57.7% | 367 / 1,905 |
+| E centre-first expansion | 51.4% | not run (failed the 52% rule) | — |
+| C = 0.5 / 0.7 / 1.0 / 2.0 | 57.9% / 57.8% / 52.6% / 47.7% | — | — |
+| R1+S | 65.1% | 61.0% | 255 / 1,415 |
+| R2+S | 68.2% | 61.6% | 183 / 1,012 |
+| R2+S, c = 0.5 | 65.8% | 63.3% | 187 / 1,023 |
+
+Constant sweep on R2+S, head-to-head against R2+S at 1.41: 0.5 → 53.6%,
+0.7 → 52.4%, 1.0 → 51.4%, 2.0 → 46.7%. By the ≥ 52% rule, 0.5 replaces 1.41.
+
+Finalists by the declared rule (two highest pooled equal-time scores among
+structurally different configurations, each above 50% at both budgets):
+
+- **F1 = R2+S with c = 0.5** — `rollout='safe', solver=True, exploration=0.5`;
+  equal-time budgets 187 (vs 400) and 1,023 (vs 2,000).
+- **F2 = R1+S** — `rollout='decisive', solver=True`, c = 1.41;
+  equal-time budgets 255 (vs 400) and 1,415 (vs 2,000).
+
+"Best finalist" for the scaling and empty-board secondaries is F1, fixed here.
+The differences among the top pilot configurations are within pilot noise;
+the pilots choose what to confirm and prove nothing by themselves.

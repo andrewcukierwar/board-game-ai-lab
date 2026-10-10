@@ -12,6 +12,7 @@ import statistics
 
 from scripts.evaluate_mcts_strength import atomic_json, digest, load_rows
 from scripts.mcts_v3.harness import FAMILY, ROOT, schedule, validate_rows
+from scripts.mcts_v3.studies import CONTRASTS
 
 
 def role_of(config_row, opening, index):
@@ -104,8 +105,18 @@ def analyze(name):
                            for length in sorted({strata[k] for k in values})},
             timing=times,
             time_ratio=times['challenger']['total_wall_seconds'] / times['opponent']['total_wall_seconds']))
+    contrasts = []
+    for label, candidate, reference in CONTRASTS.get(name, []):
+        shared = sorted(pair_scores[candidate].keys() & pair_scores[reference].keys())
+        if shared:
+            # One joint value per shared opening keeps the two conditions paired.
+            difference = {key: pair_scores[candidate][key] - pair_scores[reference][key]
+                          for key in shared}
+            contrasts.append(dict(label=label, candidate=candidate, reference=reference,
+                                  difference=bootstrap(difference, strata, seed, replicates),
+                                  sign_flip_p=sign_flip_p(list(difference.values()), seed, replicates)))
     result = dict(study=name, study_sha256=digest(config), complete_games=len(rows),
-                  planned_games=len(list(schedule(config))), matchups=summary,
+                  planned_games=len(list(schedule(config))), matchups=summary, contrasts=contrasts,
                   total_game_seconds=sum(r['elapsed_seconds'] for r in rows))
     atomic_json(directory / 'analysis.json', result)
     return result, pair_scores, strata, config
@@ -121,6 +132,12 @@ def table(result):
             f'| {100 * s["mean"]:.1f}% | {100 * s["ci95"][0]:.1f}–{100 * s["ci95"][1]:.1f}% '
             f'| {100 * s["ci_family"][0]:.1f}–{100 * s["ci_family"][1]:.1f}% '
             f'| {row["time_ratio"]:.3f} | {t["challenger"]["mean_ms"]:.2f} | {t["opponent"]["mean_ms"]:.2f} |')
+    if result.get('contrasts'):
+        lines += ['', '| Paired difference | Points | 95% interval | Sign-flip p |', '| --- | ---: | --- | ---: |']
+        for row in result['contrasts']:
+            d = row['difference']
+            lines.append(f'| {row["label"]} | {100 * d["mean"]:+.1f} '
+                         f'| {100 * d["ci95"][0]:+.1f} to {100 * d["ci95"][1]:+.1f} | {row["sign_flip_p"]:.4f} |')
     return '\n'.join(lines)
 
 

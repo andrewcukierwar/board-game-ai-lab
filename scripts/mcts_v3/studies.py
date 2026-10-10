@@ -118,5 +118,50 @@ def pilot3e():
                 note='Exploratory pilot 3e: R2+S c = 0.5 at equal-time budgets from pilot 3d timings.')
 
 
+# Finalists frozen after the pilots and before any held-out game. Equal-time
+# budgets follow the declared rule from development-set timings; the literals
+# guard against the rule or its inputs drifting after the freeze.
+FINALISTS = dict(f1=(R2S_C050, 'pilot3d', 'r2sc'), f2=(COMBOS['r1s'], 'pilot3a', 'r1s'))
+FROZEN_BUDGETS = dict(f1={400: 187, 2000: 1023}, f2={400: 255, 2000: 1415})
+
+
+def finalist(name, budget, equal_time):
+    config, study, prefix = FINALISTS[name]
+    if not equal_time:
+        return research(budget, config)
+    simulations = equal_time_budget(study, f'{prefix}-{budget}', budget)
+    if simulations != FROZEN_BUDGETS[name][budget]:
+        raise ValueError('Equal-time budget differs from the frozen value')
+    return research(simulations, config)
+
+
+def confirm_primary():
+    """Held-out primary comparisons: both finalists, both budgets, both modes."""
+    rows = [matchup(f'{name}-{mode}-{b}', finalist(name, b, mode == 'time'), mcts(b), primary=True)
+            for name in FINALISTS for b in PRIMARY_BUDGETS for mode in ('sims', 'time')]
+    return dict(opening_set='holdout', matchups=rows, cap_seconds=4500,
+                note='Confirmatory primary family of 8 on the held-out set.')
+
+
+def confirm_negamax():
+    """Held-out secondary: baseline and equal-time finalists versus Negamax 4/6/8."""
+    rows = []
+    for b in PRIMARY_BUDGETS:
+        for d in (4, 6, 8):
+            rows.append(matchup(f'base-{b}-vs-negamax-{d}', mcts(b), negamax(d), pairs=96))
+            rows += [matchup(f'{name}-time-{b}-vs-negamax-{d}', finalist(name, b, True), negamax(d),
+                             pairs=96) for name in FINALISTS]
+    return dict(opening_set='holdout', matchups=rows, cap_seconds=2000,
+                note='Confirmatory secondary (exploratory): common-opponent comparison on the '
+                     'first 96 held-out openings.')
+
+
+# Paired differences reported by the analysis: (label, candidate matchup, reference matchup).
+CONTRASTS = dict(confirm_negamax=[
+    (f'{name} minus baseline at {b} vs Negamax {d}',
+     f'{name}-time-{b}-vs-negamax-{d}', f'base-{b}-vs-negamax-{d}')
+    for name in FINALISTS for b in PRIMARY_BUDGETS for d in (4, 6, 8)])
+
 STUDIES = dict(preflight=preflight, pilot1=pilot1, pilot2=pilot2, pilot3a=pilot3a,
-               pilot3b=pilot3b, pilot3c=pilot3c, pilot3d=pilot3d, pilot3e=pilot3e)
+               pilot3b=pilot3b, pilot3c=pilot3c, pilot3d=pilot3d, pilot3e=pilot3e,
+               confirm_primary=confirm_primary, confirm_negamax=confirm_negamax)

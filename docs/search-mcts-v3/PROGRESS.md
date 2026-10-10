@@ -24,13 +24,14 @@ directories. The production `MCTSAgent` and `mcts_bitboard` are not edited.
 
 | Field | Value |
 | --- | --- |
-| Current phase | B complete → C (pilots) |
-| Current experiment | preflight (smoke + cost projection), then pilot 1 |
-| Design | [DESIGN.md](DESIGN.md), pushed at `65f4211` before any strength game |
-| Last validated commit | Phase B implementation commit (see log) |
+| Current phase | D — confirmatory evaluation on the held-out set |
+| Current experiment | `confirm_primary` (8 comparisons × 512 games), then `confirm_negamax` |
+| Design | [DESIGN.md](DESIGN.md): original at `65f4211`; amendment 1 and the finalist freeze appended before the games they govern |
+| Finalists (frozen) | F1 = R2+S, c = 0.5 (equal-time 187 / 1,023). F2 = R1+S (equal-time 255 / 1,415) |
+| Last validated commit | finalist-freeze commit (see log); 128 focused tests pass |
 | Last pushed commit | see `git log origin/research/mcts-v3` |
-| Next exact action | `scripts/mcts_v3/with_benchmark_lock.sh .venv/bin/python -m scripts.mcts_v3.harness run --study preflight`, then declare and run `pilot1` |
-| Incomplete work | pilots, confirmatory phase, report |
+| Next exact action | `scripts/mcts_v3/with_benchmark_lock.sh .venv/bin/python -m scripts.mcts_v3.harness run --study confirm_primary --max-seconds 560` until complete; then the same for `confirm_negamax` |
+| Incomplete work | confirmatory runs, scaling and empty-board secondaries, memory check, REPORT.md |
 | Blockers | none |
 
 ## How to resume
@@ -137,3 +138,50 @@ What the tests establish:
 A real defect was caught by the rollout oracle before any game was played:
 gift detection in R2 shifted unmasked sentinel-row bits back onto the board
 and wrongly excluded top-row moves. Fixed by masking with `BOARD_MASK`.
+
+### 2026-10-10 — Preflight (excluded from inference)
+
+`preflight/`: 384 smoke games in 63 s with no errors; fixture throughput in
+`preflight/throughput.json`. Per-decision time versus the baseline at equal
+simulations: R1 ×1.4–1.5, R2 ×1.7–1.9, S ×1.1, E and C ×1.0. Traced peak memory
+is unchanged (0.21 MiB at 400, 1.03 MiB at 2,000). Negamax 4 / 6 / 8 medians
+1.0 / 7.0 / 36 ms, so depth 8 is included as an opponent. Host note: a
+pre-existing `BTLEServer` process holds roughly one core throughout (load
+average ≈ 3.5–4); it predates this session and was left alone.
+
+### 2026-10-10 — Phase C: pilots on the development set (exploratory)
+
+All on the 96 development openings, 192 games per condition, under the lock.
+Pilot search time 1,614 s of the 3,600 s cap. Raw games, plans and analyses are
+in `pilot1/` … `pilot3e/`. Pooled over budgets 400 and 2,000, versus baseline:
+
+| Configuration | Equal simulations | Equal time |
+| --- | ---: | ---: |
+| A/A control | 50.7% | — |
+| R1 | 60.3% | 59.6% |
+| R2 | 64.7% | 59.2% |
+| S | 58.3% | 57.7% |
+| E | 51.4% | not run |
+| C 0.5 / 0.7 / 1.0 / 2.0 | 57.9% / 57.8% / 52.6% / 47.7% | — |
+| R1+S | 65.1% | 61.0% |
+| R2+S | 68.2% | 61.6% |
+| R2+S, c = 0.5 | 65.8% | 63.3% |
+
+Every equal-time pilot match realised a time ratio between 0.876 and 0.951,
+so the 0.90 handicap achieved parity with margin.
+
+Pilot decisions, each by the predeclared rule:
+
+- **E rejected at pilot stage:** 51.4% pooled, below the 52% pass rule, and
+  no better than the A/A control's noise.
+- **R1, R2, S pass** to equal time; all stay above 50% at both budgets.
+- **Amendment 1** (recorded before pilot 3): pilot both R1+S and R2+S because
+  R1 and R2 were indistinguishable at equal time.
+- **Constant:** on R2+S, c = 0.5 scores 53.6% head-to-head against 1.41 and
+  replaces it. c = 2.0 is worse everywhere.
+- **Finalists frozen:** F1 = R2+S c = 0.5, F2 = R1+S. See the freeze section
+  of DESIGN.md.
+
+Caveat carried forward: the top four configurations sit within about four
+points of each other at equal time, which is inside pilot noise. The pilots
+picked what to confirm; they do not rank the finalists.
