@@ -56,9 +56,9 @@ test('opposite budgets independent; restart resets replay, timers and applies re
   assert.deepEqual(s.players, [{ type: 'negamax', depth: 1 }, { type: 'negamax', depth: 8 }]);
   ui.click('match-next'); await flush(); ui.click('match-previous');
   assert.match(ui.el('match-view-mode').textContent, /REVIEWING MOVE 0 OF 1/);
-  ui.choose(0, 'mcts'); ui.set('player-1-simulations', '400'); ui.choose(1, 'mcts'); ui.set('player-2-simulations', '800');
+  ui.choose(0, 'mcts'); ui.set('player-1-simulations', '500'); ui.choose(1, 'mcts'); ui.set('player-2-simulations', '2000');
   ui.click('match-start'); await flush();
-  assert.deepEqual(s.calls.at(-1).body, { player1: { type: 'mcts', simulation_limit: 400 }, player2: { type: 'mcts', simulation_limit: 800 }, replace_game_id: 'match-1' });
+  assert.deepEqual(s.calls.at(-1).body, { player1: { type: 'mcts', simulation_limit: 500 }, player2: { type: 'mcts', simulation_limit: 2000 }, replace_game_id: 'match-1' });
   assert.equal(revision(ui), 'Move 0'); assert.equal(ui.doc.querySelectorAll('.move-list li').length, 1);
   ui.click('match-autoplay'); ui.click('match-start'); await flush(); await tick(t, 5000);
   assert.equal(s.plies.length, 0); assert.equal(ui.el('match-view-mode').textContent, 'LIVE'); ui.cleanup();
