@@ -56,7 +56,7 @@ export default function TournamentLabPage({ http = tournamentHttp, storage }) {
       <div className="entrant-field">{field.map((config, i) => <div className="entrant-row" key={i}><label htmlFor={`entrant-${i + 1}`}>#{i + 1}</label>
         <select id={`entrant-${i + 1}`} aria-label={`Entrant ${i + 1} configuration`} value={presets.findIndex(p => JSON.stringify(p) === JSON.stringify(config))}
           onChange={e => setField(field.map((p, j) => j === i ? { ...presets[Number(e.target.value)] } : p))}>
-          {!enabled && config.type === VICTOR_RESEARCH && <option value={-1} disabled>{researchAgent.name} · unavailable</option>}{presets.map((p, j) => <option key={j} value={j} disabled={p.type === 'human' && config.type !== 'human' && field.some(c => c.type === 'human')}>{p.type === 'human' ? 'You · Human' : competitorLabel(p)}</option>)}
+          {presets.findIndex(p => JSON.stringify(p) === JSON.stringify(config)) === -1 && <option value={-1} disabled>{config.type === VICTOR_RESEARCH ? `${researchAgent.name} · unavailable` : `${competitorLabel(config)} · saved setting`}</option>}{presets.map((p, j) => <option key={j} value={j} disabled={p.type === 'human' && config.type !== 'human' && field.some(c => c.type === 'human')}>{p.type === 'human' ? 'You · Human' : competitorLabel(p)}</option>)}
         </select></div>)}</div>
       <div className="setup-submit"><button id="tournament-create" className="action-link action-link--primary" disabled={state.busy}>Create tournament</button>{t && <button type="button" onClick={() => setSetup(false)}>Cancel new tournament</button>}</div>
     </form> : <>
