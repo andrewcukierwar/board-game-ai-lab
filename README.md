@@ -217,7 +217,7 @@ Play and Match Lab expose preset and custom search budgets. Negamax accepts
 depths **1–12** (presets 1/2/4/6/8/10/12), Classic MCTS supports **1–25,000**
 simulations, and F1 **1–10,000**. The Tournament and Season setup menus offer
 lower-cost selections; historical seeded fields/exports remain valid. Depths
-10–12 are capped at 20 seconds per decision with atomic timeout recovery, and
+9–12 are capped at 20 seconds per decision with atomic timeout recovery, and
 F1 stores its actually executed simulation count in immutable game history.
 
 **Deployment status:** this work is pending CI and independent Mac Mini
