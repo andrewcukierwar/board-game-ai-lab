@@ -1,0 +1,1571 @@
+{
+  "study": "confirm_negamax",
+  "study_sha256": "1f1521708c0fe2e78c8f2a44526ef3fe58b159358b25d35d54f4f322d53ff3d2",
+  "complete_games": 3456,
+  "planned_games": 3456,
+  "matchups": [
+    {
+      "matchup": "base-400-vs-negamax-4",
+      "primary": false,
+      "challenger": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 4
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 67,
+      "draws": 10,
+      "losses": 115,
+      "score": {
+        "mean": 0.375,
+        "openings": 96,
+        "ci95": [
+          0.3255208333333333,
+          0.4244791666666667
+        ],
+        "ci_family": [
+          0.3072916666666667,
+          0.44466959635416475
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 0.00019998000199980003,
+      "color_scores": {
+        "0": 0.359375,
+        "1": 0.390625
+      },
+      "length_scores": {
+        "2": 0.14583333333333334,
+        "5": 0.3125,
+        "8": 0.2708333333333333,
+        "11": 0.4583333333333333,
+        "14": 0.4583333333333333,
+        "17": 0.3541666666666667,
+        "20": 0.4791666666666667,
+        "23": 0.5208333333333334
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1711,
+          "total_wall_seconds": 4.741620000000003,
+          "mean_ms": 2.7712565751022793,
+          "median_ms": 2.837,
+          "p95_ms": 4.471,
+          "max_ms": 14.658,
+          "searched_decisions": 1644,
+          "mean_simulations": 400,
+          "simulations_per_second": 138710.5905620268
+        },
+        "opponent": {
+          "decisions": 1733,
+          "total_wall_seconds": 1.1668359999999993,
+          "mean_ms": 0.6733040969417196,
+          "median_ms": 0.611,
+          "p95_ms": 1.5151999999999997,
+          "max_ms": 4.317,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 4.063655903657417
+    },
+    {
+      "matchup": "f1-time-400-vs-negamax-4",
+      "primary": false,
+      "challenger": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 4
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 112,
+      "draws": 12,
+      "losses": 68,
+      "score": {
+        "mean": 0.6145833333333334,
+        "openings": 96,
+        "ci95": [
+          0.5625,
+          0.6666666666666666
+        ],
+        "ci_family": [
+          0.5423095703124999,
+          0.6848958333333334
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05,
+      "color_scores": {
+        "0": 0.578125,
+        "1": 0.6510416666666666
+      },
+      "length_scores": {
+        "2": 0.5416666666666666,
+        "5": 0.6875,
+        "8": 0.6875,
+        "11": 0.5625,
+        "14": 0.625,
+        "17": 0.6875,
+        "20": 0.5208333333333334,
+        "23": 0.6041666666666666
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1906,
+          "total_wall_seconds": 4.7141850000000005,
+          "mean_ms": 2.4733394543546696,
+          "median_ms": 2.6855,
+          "p95_ms": 5.528,
+          "max_ms": 19.911,
+          "searched_decisions": 1794,
+          "mean_simulations": 130.65440356744705,
+          "simulations_per_second": 49737.58719419566
+        },
+        "opponent": {
+          "decisions": 1883,
+          "total_wall_seconds": 1.2135070000000008,
+          "mean_ms": 0.6444540626659586,
+          "median_ms": 0.548,
+          "p95_ms": 1.529,
+          "max_ms": 6.251,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 3.8847612745538322
+    },
+    {
+      "matchup": "f2-time-400-vs-negamax-4",
+      "primary": false,
+      "challenger": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 4
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 94,
+      "draws": 15,
+      "losses": 83,
+      "score": {
+        "mean": 0.5286458333333334,
+        "openings": 96,
+        "ci95": [
+          0.4739583333333333,
+          0.5833333333333334
+        ],
+        "ci_family": [
+          0.453125,
+          0.6041666666666666
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 0.394960503949605,
+      "color_scores": {
+        "0": 0.546875,
+        "1": 0.5104166666666666
+      },
+      "length_scores": {
+        "2": 0.2916666666666667,
+        "5": 0.4791666666666667,
+        "8": 0.6458333333333334,
+        "11": 0.5,
+        "14": 0.7083333333333334,
+        "17": 0.5208333333333334,
+        "20": 0.5208333333333334,
+        "23": 0.5625
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1846,
+          "total_wall_seconds": 4.389531000000006,
+          "mean_ms": 2.3778607800650056,
+          "median_ms": 2.657,
+          "p95_ms": 5.6080000000000005,
+          "max_ms": 11.694,
+          "searched_decisions": 1752,
+          "mean_simulations": 173.20034246575344,
+          "simulations_per_second": 69150.0307298528
+        },
+        "opponent": {
+          "decisions": 1842,
+          "total_wall_seconds": 1.1768600000000005,
+          "mean_ms": 0.6389033659066232,
+          "median_ms": 0.567,
+          "p95_ms": 1.515,
+          "max_ms": 2.456,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 3.7298667641010863
+    },
+    {
+      "matchup": "base-400-vs-negamax-6",
+      "primary": false,
+      "challenger": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 6
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 59,
+      "draws": 10,
+      "losses": 123,
+      "score": {
+        "mean": 0.3333333333333333,
+        "openings": 96,
+        "ci95": [
+          0.2890625,
+          0.3776041666666667
+        ],
+        "ci_family": [
+          0.2708333333333333,
+          0.3958333333333333
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05,
+      "color_scores": {
+        "0": 0.3489583333333333,
+        "1": 0.3177083333333333
+      },
+      "length_scores": {
+        "2": 0.08333333333333333,
+        "5": 0.2916666666666667,
+        "8": 0.22916666666666666,
+        "11": 0.22916666666666666,
+        "14": 0.5,
+        "17": 0.3958333333333333,
+        "20": 0.4375,
+        "23": 0.5
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1633,
+          "total_wall_seconds": 4.489971000000002,
+          "mean_ms": 2.7495229638701777,
+          "median_ms": 2.878,
+          "p95_ms": 4.401999999999999,
+          "max_ms": 11.532,
+          "searched_decisions": 1574,
+          "mean_simulations": 400,
+          "simulations_per_second": 140246.98706212634
+        },
+        "opponent": {
+          "decisions": 1663,
+          "total_wall_seconds": 6.726379000000001,
+          "mean_ms": 4.044725796752856,
+          "median_ms": 2.676,
+          "p95_ms": 12.266599999999993,
+          "max_ms": 26.552,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 0.6675168021308346
+    },
+    {
+      "matchup": "f1-time-400-vs-negamax-6",
+      "primary": false,
+      "challenger": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 6
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 98,
+      "draws": 18,
+      "losses": 76,
+      "score": {
+        "mean": 0.5572916666666666,
+        "openings": 96,
+        "ci95": [
+          0.5104166666666666,
+          0.6041666666666666
+        ],
+        "ci_family": [
+          0.4895833333333333,
+          0.6276041666666666
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 0.045495450454954504,
+      "color_scores": {
+        "0": 0.5260416666666666,
+        "1": 0.5885416666666666
+      },
+      "length_scores": {
+        "2": 0.3125,
+        "5": 0.6458333333333334,
+        "8": 0.5625,
+        "11": 0.5416666666666666,
+        "14": 0.625,
+        "17": 0.625,
+        "20": 0.5625,
+        "23": 0.5833333333333334
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1923,
+          "total_wall_seconds": 4.832987999999991,
+          "mean_ms": 2.513254290171607,
+          "median_ms": 2.712,
+          "p95_ms": 5.5159,
+          "max_ms": 14.663,
+          "searched_decisions": 1825,
+          "mean_simulations": 131.98465753424657,
+          "simulations_per_second": 49852.73210862246
+        },
+        "opponent": {
+          "decisions": 1910,
+          "total_wall_seconds": 6.941794000000015,
+          "mean_ms": 3.634447120418848,
+          "median_ms": 2.1515,
+          "p95_ms": 11.4774,
+          "max_ms": 20.095,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 0.6962159925805895
+    },
+    {
+      "matchup": "f2-time-400-vs-negamax-6",
+      "primary": false,
+      "challenger": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 6
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 84,
+      "draws": 17,
+      "losses": 91,
+      "score": {
+        "mean": 0.4817708333333333,
+        "openings": 96,
+        "ci95": [
+          0.4296875,
+          0.5364583333333334
+        ],
+        "ci_family": [
+          0.40625,
+          0.5572916666666666
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 0.6057394260573943,
+      "color_scores": {
+        "0": 0.4739583333333333,
+        "1": 0.4895833333333333
+      },
+      "length_scores": {
+        "2": 0.4583333333333333,
+        "5": 0.2916666666666667,
+        "8": 0.5625,
+        "11": 0.2708333333333333,
+        "14": 0.625,
+        "17": 0.5,
+        "20": 0.5625,
+        "23": 0.5833333333333334
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1836,
+          "total_wall_seconds": 4.485197000000001,
+          "mean_ms": 2.4429177559912856,
+          "median_ms": 2.7145,
+          "p95_ms": 5.69775,
+          "max_ms": 13.502,
+          "searched_decisions": 1752,
+          "mean_simulations": 174.1181506849315,
+          "simulations_per_second": 68031.70910336547
+        },
+        "opponent": {
+          "decisions": 1840,
+          "total_wall_seconds": 6.898186,
+          "mean_ms": 3.749014130434783,
+          "median_ms": 2.1705,
+          "p95_ms": 11.8642,
+          "max_ms": 21.564,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 0.6501994872275119
+    },
+    {
+      "matchup": "base-400-vs-negamax-8",
+      "primary": false,
+      "challenger": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 8
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 51,
+      "draws": 11,
+      "losses": 130,
+      "score": {
+        "mean": 0.2942708333333333,
+        "openings": 96,
+        "ci95": [
+          0.25,
+          0.3411458333333333
+        ],
+        "ci_family": [
+          0.234375,
+          0.359375
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05,
+      "color_scores": {
+        "0": 0.2916666666666667,
+        "1": 0.296875
+      },
+      "length_scores": {
+        "2": 0.020833333333333332,
+        "5": 0.3333333333333333,
+        "8": 0.10416666666666667,
+        "11": 0.2708333333333333,
+        "14": 0.4791666666666667,
+        "17": 0.2708333333333333,
+        "20": 0.4583333333333333,
+        "23": 0.4166666666666667
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1599,
+          "total_wall_seconds": 4.419816000000001,
+          "mean_ms": 2.7641125703564726,
+          "median_ms": 2.908,
+          "p95_ms": 4.380799999999999,
+          "max_ms": 14.013,
+          "searched_decisions": 1548,
+          "mean_simulations": 400,
+          "simulations_per_second": 140116.5239063636
+        },
+        "opponent": {
+          "decisions": 1637,
+          "total_wall_seconds": 27.383888,
+          "mean_ms": 16.728092852779476,
+          "median_ms": 7.471,
+          "p95_ms": 60.98039999999994,
+          "max_ms": 122.946,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 0.16140206240983754
+    },
+    {
+      "matchup": "f1-time-400-vs-negamax-8",
+      "primary": false,
+      "challenger": {
+        "type": "research",
+        "simulations": 187,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 8
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 91,
+      "draws": 14,
+      "losses": 87,
+      "score": {
+        "mean": 0.5104166666666666,
+        "openings": 96,
+        "ci95": [
+          0.4635416666666667,
+          0.5546875
+        ],
+        "ci_family": [
+          0.4453125,
+          0.5748779296874982
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 0.7482251774822518,
+      "color_scores": {
+        "0": 0.484375,
+        "1": 0.5364583333333334
+      },
+      "length_scores": {
+        "2": 0.3541666666666667,
+        "5": 0.6458333333333334,
+        "8": 0.4583333333333333,
+        "11": 0.5625,
+        "14": 0.5,
+        "17": 0.4791666666666667,
+        "20": 0.5208333333333334,
+        "23": 0.5625
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1944,
+          "total_wall_seconds": 4.874170999999993,
+          "mean_ms": 2.507289609053498,
+          "median_ms": 2.746,
+          "p95_ms": 5.484899999999999,
+          "max_ms": 9.481,
+          "searched_decisions": 1853,
+          "mean_simulations": 131.87209929843496,
+          "simulations_per_second": 50146.040989159126
+        },
+        "opponent": {
+          "decisions": 1942,
+          "total_wall_seconds": 30.017847999999972,
+          "mean_ms": 15.45718228630278,
+          "median_ms": 5.2805,
+          "p95_ms": 59.303850000000004,
+          "max_ms": 123.09,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 0.16237576391218977
+    },
+    {
+      "matchup": "f2-time-400-vs-negamax-8",
+      "primary": false,
+      "challenger": {
+        "type": "research",
+        "simulations": 255,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 8
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 67,
+      "draws": 14,
+      "losses": 111,
+      "score": {
+        "mean": 0.3854166666666667,
+        "openings": 96,
+        "ci95": [
+          0.3333333333333333,
+          0.4375
+        ],
+        "ci_family": [
+          0.3125,
+          0.4583333333333333
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 0.00029997000299970003,
+      "color_scores": {
+        "0": 0.3854166666666667,
+        "1": 0.3854166666666667
+      },
+      "length_scores": {
+        "2": 0.10416666666666667,
+        "5": 0.3958333333333333,
+        "8": 0.3958333333333333,
+        "11": 0.2708333333333333,
+        "14": 0.5,
+        "17": 0.375,
+        "20": 0.5208333333333334,
+        "23": 0.5208333333333334
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1858,
+          "total_wall_seconds": 4.5114220000000005,
+          "mean_ms": 2.4281065662002153,
+          "median_ms": 2.6565,
+          "p95_ms": 5.68245,
+          "max_ms": 10.086,
+          "searched_decisions": 1791,
+          "mean_simulations": 173.87995533221664,
+          "simulations_per_second": 69043.39713582718
+        },
+        "opponent": {
+          "decisions": 1879,
+          "total_wall_seconds": 31.041205999999967,
+          "mean_ms": 16.520067056945184,
+          "median_ms": 5.715,
+          "p95_ms": 64.53559999999996,
+          "max_ms": 131.302,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 0.1453365568335201
+    },
+    {
+      "matchup": "base-2000-vs-negamax-4",
+      "primary": false,
+      "challenger": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 4
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 84,
+      "draws": 12,
+      "losses": 96,
+      "score": {
+        "mean": 0.46875,
+        "openings": 96,
+        "ci95": [
+          0.421875,
+          0.515625
+        ],
+        "ci_family": [
+          0.40625,
+          0.5338541666666666
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 0.26917308269173085,
+      "color_scores": {
+        "0": 0.46875,
+        "1": 0.46875
+      },
+      "length_scores": {
+        "2": 0.3333333333333333,
+        "5": 0.375,
+        "8": 0.625,
+        "11": 0.3541666666666667,
+        "14": 0.5416666666666666,
+        "17": 0.5416666666666666,
+        "20": 0.5,
+        "23": 0.4791666666666667
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1789,
+          "total_wall_seconds": 23.185428999999974,
+          "mean_ms": 12.959993851313582,
+          "median_ms": 14.163,
+          "p95_ms": 22.464199999999998,
+          "max_ms": 31.909,
+          "searched_decisions": 1705,
+          "mean_simulations": 2000,
+          "simulations_per_second": 147081.91211661653
+        },
+        "opponent": {
+          "decisions": 1795,
+          "total_wall_seconds": 1.2076540000000002,
+          "mean_ms": 0.6727877437325905,
+          "median_ms": 0.618,
+          "p95_ms": 1.5235999999999998,
+          "max_ms": 2.701,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 19.198734902546565
+    },
+    {
+      "matchup": "f1-time-2000-vs-negamax-4",
+      "primary": false,
+      "challenger": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 4
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 127,
+      "draws": 10,
+      "losses": 55,
+      "score": {
+        "mean": 0.6875,
+        "openings": 96,
+        "ci95": [
+          0.6380208333333334,
+          0.7369791666666666
+        ],
+        "ci_family": [
+          0.6197916666666666,
+          0.7578125
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05,
+      "color_scores": {
+        "0": 0.6614583333333334,
+        "1": 0.7135416666666666
+      },
+      "length_scores": {
+        "2": 0.75,
+        "5": 0.75,
+        "8": 0.8125,
+        "11": 0.6458333333333334,
+        "14": 0.6875,
+        "17": 0.6875,
+        "20": 0.5625,
+        "23": 0.6041666666666666
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1943,
+          "total_wall_seconds": 23.646237999999965,
+          "mean_ms": 12.169962943901183,
+          "median_ms": 12.789,
+          "p95_ms": 29.412,
+          "max_ms": 39.654,
+          "searched_decisions": 1816,
+          "mean_simulations": 628.3656387665199,
+          "simulations_per_second": 48261.13707812021
+        },
+        "opponent": {
+          "decisions": 1907,
+          "total_wall_seconds": 1.1925569999999999,
+          "mean_ms": 0.6253576297850026,
+          "median_ms": 0.55,
+          "p95_ms": 1.4776999999999998,
+          "max_ms": 7.898,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 19.828182636133928
+    },
+    {
+      "matchup": "f2-time-2000-vs-negamax-4",
+      "primary": false,
+      "challenger": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 4
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 115,
+      "draws": 11,
+      "losses": 66,
+      "score": {
+        "mean": 0.6276041666666666,
+        "openings": 96,
+        "ci95": [
+          0.578125,
+          0.6770833333333334
+        ],
+        "ci_family": [
+          0.5625,
+          0.6953125
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05,
+      "color_scores": {
+        "0": 0.5885416666666666,
+        "1": 0.6666666666666666
+      },
+      "length_scores": {
+        "2": 0.5416666666666666,
+        "5": 0.75,
+        "8": 0.7291666666666666,
+        "11": 0.5625,
+        "14": 0.6875,
+        "17": 0.625,
+        "20": 0.5208333333333334,
+        "23": 0.6041666666666666
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1873,
+          "total_wall_seconds": 22.947112999999916,
+          "mean_ms": 12.251528563801388,
+          "median_ms": 13.838,
+          "p95_ms": 30.961599999999994,
+          "max_ms": 42.809,
+          "searched_decisions": 1758,
+          "mean_simulations": 862.6251422070535,
+          "simulations_per_second": 66091.2157664133
+        },
+        "opponent": {
+          "decisions": 1850,
+          "total_wall_seconds": 1.2092660000000004,
+          "mean_ms": 0.6536572972972973,
+          "median_ms": 0.587,
+          "p95_ms": 1.52755,
+          "max_ms": 2.326,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 18.976067300329216
+    },
+    {
+      "matchup": "base-2000-vs-negamax-6",
+      "primary": false,
+      "challenger": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 6
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 72,
+      "draws": 15,
+      "losses": 105,
+      "score": {
+        "mean": 0.4140625,
+        "openings": 96,
+        "ci95": [
+          0.3671875,
+          0.4609375
+        ],
+        "ci_family": [
+          0.3489583333333333,
+          0.4791666666666667
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 0.000999900009999,
+      "color_scores": {
+        "0": 0.3541666666666667,
+        "1": 0.4739583333333333
+      },
+      "length_scores": {
+        "2": 0.2708333333333333,
+        "5": 0.375,
+        "8": 0.4166666666666667,
+        "11": 0.3541666666666667,
+        "14": 0.4583333333333333,
+        "17": 0.4166666666666667,
+        "20": 0.5208333333333334,
+        "23": 0.5
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1779,
+          "total_wall_seconds": 23.61296199999999,
+          "mean_ms": 13.273165823496345,
+          "median_ms": 14.309,
+          "p95_ms": 23.27489999999999,
+          "max_ms": 40.26,
+          "searched_decisions": 1707,
+          "mean_simulations": 2000,
+          "simulations_per_second": 144587.23457347593
+        },
+        "opponent": {
+          "decisions": 1794,
+          "total_wall_seconds": 6.799163000000002,
+          "mean_ms": 3.7899459308807133,
+          "median_ms": 2.4485,
+          "p95_ms": 11.668999999999999,
+          "max_ms": 21.233,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 3.4729218875911614
+    },
+    {
+      "matchup": "f1-time-2000-vs-negamax-6",
+      "primary": false,
+      "challenger": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 6
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 125,
+      "draws": 9,
+      "losses": 58,
+      "score": {
+        "mean": 0.6744791666666666,
+        "openings": 96,
+        "ci95": [
+          0.6276041666666666,
+          0.7213541666666666
+        ],
+        "ci_family": [
+          0.6074137369791667,
+          0.7421875
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05,
+      "color_scores": {
+        "0": 0.6197916666666666,
+        "1": 0.7291666666666666
+      },
+      "length_scores": {
+        "2": 0.6666666666666666,
+        "5": 0.7708333333333334,
+        "8": 0.7083333333333334,
+        "11": 0.6666666666666666,
+        "14": 0.7291666666666666,
+        "17": 0.6666666666666666,
+        "20": 0.5625,
+        "23": 0.625
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1959,
+          "total_wall_seconds": 24.07194399999995,
+          "mean_ms": 12.287873404798367,
+          "median_ms": 13.064,
+          "p95_ms": 29.457199999999993,
+          "max_ms": 41.721,
+          "searched_decisions": 1834,
+          "mean_simulations": 635.8675027262814,
+          "simulations_per_second": 48463.514902150266
+        },
+        "opponent": {
+          "decisions": 1926,
+          "total_wall_seconds": 7.304536999999999,
+          "mean_ms": 3.7925944963655245,
+          "median_ms": 2.1485000000000003,
+          "p95_ms": 12.39125,
+          "max_ms": 25.225,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 3.2954784129370487
+    },
+    {
+      "matchup": "f2-time-2000-vs-negamax-6",
+      "primary": false,
+      "challenger": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 6
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 109,
+      "draws": 15,
+      "losses": 68,
+      "score": {
+        "mean": 0.6067708333333334,
+        "openings": 96,
+        "ci95": [
+          0.5625,
+          0.6510416666666666
+        ],
+        "ci_family": [
+          0.5442708333333334,
+          0.6692708333333334
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05,
+      "color_scores": {
+        "0": 0.53125,
+        "1": 0.6822916666666666
+      },
+      "length_scores": {
+        "2": 0.625,
+        "5": 0.6458333333333334,
+        "8": 0.6458333333333334,
+        "11": 0.6458333333333334,
+        "14": 0.6458333333333334,
+        "17": 0.5625,
+        "20": 0.5,
+        "23": 0.5833333333333334
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1945,
+          "total_wall_seconds": 23.684461000000013,
+          "mean_ms": 12.177100771208226,
+          "median_ms": 13.807,
+          "p95_ms": 30.5332,
+          "max_ms": 43.505,
+          "searched_decisions": 1836,
+          "mean_simulations": 857.5108932461874,
+          "simulations_per_second": 66477.74043494977
+        },
+        "opponent": {
+          "decisions": 1925,
+          "total_wall_seconds": 7.10460200000001,
+          "mean_ms": 3.6907023376623376,
+          "median_ms": 2.016,
+          "p95_ms": 11.543,
+          "max_ms": 23.355,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 3.333678790170087
+    },
+    {
+      "matchup": "base-2000-vs-negamax-8",
+      "primary": false,
+      "challenger": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 8
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 72,
+      "draws": 10,
+      "losses": 110,
+      "score": {
+        "mean": 0.4010416666666667,
+        "openings": 96,
+        "ci95": [
+          0.3567708333333333,
+          0.4453125
+        ],
+        "ci_family": [
+          0.3411458333333333,
+          0.4609375
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05,
+      "color_scores": {
+        "0": 0.3385416666666667,
+        "1": 0.4635416666666667
+      },
+      "length_scores": {
+        "2": 0.375,
+        "5": 0.3333333333333333,
+        "8": 0.375,
+        "11": 0.3125,
+        "14": 0.3958333333333333,
+        "17": 0.3958333333333333,
+        "20": 0.5208333333333334,
+        "23": 0.5
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1776,
+          "total_wall_seconds": 23.555979999999984,
+          "mean_ms": 13.263502252252252,
+          "median_ms": 14.196000000000002,
+          "p95_ms": 22.957749999999997,
+          "max_ms": 40.028,
+          "searched_decisions": 1704,
+          "mean_simulations": 2000,
+          "simulations_per_second": 144682.14779799333
+        },
+        "opponent": {
+          "decisions": 1795,
+          "total_wall_seconds": 28.783705999999995,
+          "mean_ms": 16.035490807799444,
+          "median_ms": 7.235,
+          "p95_ms": 62.87149999999999,
+          "max_ms": 123.601,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 0.8183789814973786
+    },
+    {
+      "matchup": "f1-time-2000-vs-negamax-8",
+      "primary": false,
+      "challenger": {
+        "type": "research",
+        "simulations": 1023,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 8
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 116,
+      "draws": 13,
+      "losses": 63,
+      "score": {
+        "mean": 0.6380208333333334,
+        "openings": 96,
+        "ci95": [
+          0.5911458333333334,
+          0.6848958333333334
+        ],
+        "ci_family": [
+          0.5703125,
+          0.703125
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05,
+      "color_scores": {
+        "0": 0.6354166666666666,
+        "1": 0.640625
+      },
+      "length_scores": {
+        "2": 0.6875,
+        "5": 0.7708333333333334,
+        "8": 0.6041666666666666,
+        "11": 0.6458333333333334,
+        "14": 0.625,
+        "17": 0.625,
+        "20": 0.5625,
+        "23": 0.5833333333333334
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 2024,
+          "total_wall_seconds": 24.488056999999948,
+          "mean_ms": 12.098842391304348,
+          "median_ms": 12.697,
+          "p95_ms": 29.433649999999997,
+          "max_ms": 40.349,
+          "searched_decisions": 1908,
+          "mean_simulations": 631.4643605870021,
+          "simulations_per_second": 49203.98826929651
+        },
+        "opponent": {
+          "decisions": 1995,
+          "total_wall_seconds": 30.641147000000025,
+          "mean_ms": 15.358970927318296,
+          "median_ms": 5.045,
+          "p95_ms": 62.23869999999998,
+          "max_ms": 148.603,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 0.7991886530879516
+    },
+    {
+      "matchup": "f2-time-2000-vs-negamax-8",
+      "primary": false,
+      "challenger": {
+        "type": "research",
+        "simulations": 1415,
+        "config": {
+          "rollout": "decisive",
+          "solver": true
+        }
+      },
+      "opponent": {
+        "type": "negamax",
+        "depth": 8
+      },
+      "planned_pairs": 96,
+      "complete_pairs": 96,
+      "games": 192,
+      "wins": 101,
+      "draws": 13,
+      "losses": 78,
+      "score": {
+        "mean": 0.5598958333333334,
+        "openings": 96,
+        "ci95": [
+          0.5052083333333334,
+          0.6145833333333334
+        ],
+        "ci_family": [
+          0.4817708333333333,
+          0.6354166666666666
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 0.044295570442955706,
+      "color_scores": {
+        "0": 0.5260416666666666,
+        "1": 0.59375
+      },
+      "length_scores": {
+        "2": 0.5,
+        "5": 0.625,
+        "8": 0.6041666666666666,
+        "11": 0.625,
+        "14": 0.5625,
+        "17": 0.5208333333333334,
+        "20": 0.5,
+        "23": 0.5416666666666666
+      },
+      "timing": {
+        "challenger": {
+          "decisions": 1973,
+          "total_wall_seconds": 23.681879,
+          "mean_ms": 12.002979726305119,
+          "median_ms": 13.6,
+          "p95_ms": 30.263399999999997,
+          "max_ms": 40.998,
+          "searched_decisions": 1872,
+          "mean_simulations": 852.5325854700855,
+          "simulations_per_second": 67394.85644217086
+        },
+        "opponent": {
+          "decisions": 1962,
+          "total_wall_seconds": 30.886221999999904,
+          "mean_ms": 15.742213047910296,
+          "median_ms": 5.529,
+          "p95_ms": 62.115949999999984,
+          "max_ms": 118.494,
+          "searched_decisions": 0,
+          "mean_simulations": null,
+          "simulations_per_second": null
+        }
+      },
+      "time_ratio": 0.766745735363816
+    }
+  ],
+  "contrasts": [
+    {
+      "label": "f1 minus baseline at 400 vs Negamax 4",
+      "candidate": "f1-time-400-vs-negamax-4",
+      "reference": "base-400-vs-negamax-4",
+      "difference": {
+        "mean": 0.23958333333333334,
+        "openings": 96,
+        "ci95": [
+          0.16666666666666666,
+          0.3125
+        ],
+        "ci_family": [
+          0.14126790364583333,
+          0.3385416666666667
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05
+    },
+    {
+      "label": "f1 minus baseline at 400 vs Negamax 6",
+      "candidate": "f1-time-400-vs-negamax-6",
+      "reference": "base-400-vs-negamax-6",
+      "difference": {
+        "mean": 0.22395833333333334,
+        "openings": 96,
+        "ci95": [
+          0.16145833333333334,
+          0.2890625
+        ],
+        "ci_family": [
+          0.13541666666666666,
+          0.3151041666666667
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05
+    },
+    {
+      "label": "f1 minus baseline at 400 vs Negamax 8",
+      "candidate": "f1-time-400-vs-negamax-8",
+      "reference": "base-400-vs-negamax-8",
+      "difference": {
+        "mean": 0.21614583333333334,
+        "openings": 96,
+        "ci95": [
+          0.1484375,
+          0.2838541666666667
+        ],
+        "ci_family": [
+          0.1171875,
+          0.3098958333333333
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05
+    },
+    {
+      "label": "f1 minus baseline at 2000 vs Negamax 4",
+      "candidate": "f1-time-2000-vs-negamax-4",
+      "reference": "base-2000-vs-negamax-4",
+      "difference": {
+        "mean": 0.21875,
+        "openings": 96,
+        "ci95": [
+          0.1484375,
+          0.2890625
+        ],
+        "ci_family": [
+          0.11783040364583335,
+          0.3177083333333333
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05
+    },
+    {
+      "label": "f1 minus baseline at 2000 vs Negamax 6",
+      "candidate": "f1-time-2000-vs-negamax-6",
+      "reference": "base-2000-vs-negamax-6",
+      "difference": {
+        "mean": 0.2604166666666667,
+        "openings": 96,
+        "ci95": [
+          0.19270833333333334,
+          0.328125
+        ],
+        "ci_family": [
+          0.16927083333333334,
+          0.3567708333333333
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05
+    },
+    {
+      "label": "f1 minus baseline at 2000 vs Negamax 8",
+      "candidate": "f1-time-2000-vs-negamax-8",
+      "reference": "base-2000-vs-negamax-8",
+      "difference": {
+        "mean": 0.23697916666666666,
+        "openings": 96,
+        "ci95": [
+          0.171875,
+          0.3046875
+        ],
+        "ci_family": [
+          0.14583333333333334,
+          0.3307291666666667
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05
+    },
+    {
+      "label": "f2 minus baseline at 400 vs Negamax 4",
+      "candidate": "f2-time-400-vs-negamax-4",
+      "reference": "base-400-vs-negamax-4",
+      "difference": {
+        "mean": 0.15364583333333334,
+        "openings": 96,
+        "ci95": [
+          0.09114583333333333,
+          0.21614583333333334
+        ],
+        "ci_family": [
+          0.06770833333333333,
+          0.23958333333333334
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05
+    },
+    {
+      "label": "f2 minus baseline at 400 vs Negamax 6",
+      "candidate": "f2-time-400-vs-negamax-6",
+      "reference": "base-400-vs-negamax-6",
+      "difference": {
+        "mean": 0.1484375,
+        "openings": 96,
+        "ci95": [
+          0.0859375,
+          0.21354166666666666
+        ],
+        "ci_family": [
+          0.0625,
+          0.23958333333333334
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05
+    },
+    {
+      "label": "f2 minus baseline at 400 vs Negamax 8",
+      "candidate": "f2-time-400-vs-negamax-8",
+      "reference": "base-400-vs-negamax-8",
+      "difference": {
+        "mean": 0.09114583333333333,
+        "openings": 96,
+        "ci95": [
+          0.033854166666666664,
+          0.1484375
+        ],
+        "ci_family": [
+          0.010416666666666666,
+          0.16927083333333334
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 0.0033996600339966003
+    },
+    {
+      "label": "f2 minus baseline at 2000 vs Negamax 4",
+      "candidate": "f2-time-2000-vs-negamax-4",
+      "reference": "base-2000-vs-negamax-4",
+      "difference": {
+        "mean": 0.15885416666666666,
+        "openings": 96,
+        "ci95": [
+          0.09375,
+          0.22395833333333334
+        ],
+        "ci_family": [
+          0.06574707031250002,
+          0.24739583333333334
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 0.00019998000199980003
+    },
+    {
+      "label": "f2 minus baseline at 2000 vs Negamax 6",
+      "candidate": "f2-time-2000-vs-negamax-6",
+      "reference": "base-2000-vs-negamax-6",
+      "difference": {
+        "mean": 0.19270833333333334,
+        "openings": 96,
+        "ci95": [
+          0.1328125,
+          0.2526041666666667
+        ],
+        "ci_family": [
+          0.11197916666666667,
+          0.2760416666666667
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05
+    },
+    {
+      "label": "f2 minus baseline at 2000 vs Negamax 8",
+      "candidate": "f2-time-2000-vs-negamax-8",
+      "reference": "base-2000-vs-negamax-8",
+      "difference": {
+        "mean": 0.15885416666666666,
+        "openings": 96,
+        "ci95": [
+          0.1015625,
+          0.21875
+        ],
+        "ci_family": [
+          0.07552083333333333,
+          0.24479166666666666
+        ],
+        "family": 8
+      },
+      "sign_flip_p": 9.999000099990002e-05
+    }
+  ],
+  "total_game_seconds": 485.2652515908703
+}

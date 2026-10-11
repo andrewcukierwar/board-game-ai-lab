@@ -1,0 +1,523 @@
+{
+  "schema": 1,
+  "name": "followup_strict_empty",
+  "note": "Follow-up A (design amendment 2): strict-latency budgets on 64 fresh empty-board seed pairs. Calibrated on confirm_empty, evaluated here.",
+  "opening_set": "empty2",
+  "master_seed": 2026101003,
+  "cap_seconds": 600,
+  "source_commit": "b6ebd7c249fab9194087f529e71c46b5ad6fd97d",
+  "source_hashes": {
+    "games/connect4/agents/mcts_agent.py": "408be66814f85f4b9361713c94d4f79151b2a92683a268dd018bd812c641d4d2",
+    "games/connect4/agents/mcts_bitboard.py": "353cef4ce072bfb32492491cf00a7f87684452d2aeb06f6d0c569586cbb58f4e",
+    "games/connect4/agents/mcts_research_agent.py": "3df5e0431562ad5d73348081bd3ca82bb018363b0f5e3ba06a74e80fc4a27431",
+    "games/connect4/agents/negamax_agent.py": "f46461d73b240c645248d57884fee0b9917c1be289758efe381cf6458a9cb392",
+    "games/connect4/agents/negamax_tt.py": "066923937ffb5e5f0d065a04a9657e0e02bc0f531b3941f2b73cd0f84583ab60",
+    "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+    "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+    "scripts/mcts_v3/harness.py": "c7987292bece0c935bec7a7abb32339f5d461e3f5acf8131e008ade7e6f0d571",
+    "scripts/evaluate_mcts_strength.py": "2da8dacc5d8cd47164d65a3fb49c598f50bf1cb316e1b22bdaca079d8946f6bb"
+  },
+  "python": "3.11.17",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "hardware": [
+    "Model Name: MacBook Pro",
+    "Model Identifier: Mac17,2",
+    "Chip: Apple M5",
+    "Total Number of Cores: 10 (4 Super and 6 Efficiency)",
+    "Memory: 32 GB"
+  ],
+  "pairing": "role seeds follow the agent across colours; fresh persistent RNG per game",
+  "analysis": {
+    "bootstrap_seed": 155868976114371572104587550141542287023,
+    "replicates": 10000,
+    "family": 8
+  },
+  "matchups": [
+    {
+      "id": "f1-strict-400",
+      "challenger": {
+        "type": "research",
+        "simulations": 151,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 400
+      },
+      "pairs": 64,
+      "primary": false
+    },
+    {
+      "id": "f1-strict-2000",
+      "challenger": {
+        "type": "research",
+        "simulations": 821,
+        "config": {
+          "rollout": "safe",
+          "solver": true,
+          "exploration": 0.5
+        }
+      },
+      "opponent": {
+        "type": "mcts",
+        "simulations": 2000
+      },
+      "pairs": 64,
+      "primary": false
+    }
+  ],
+  "openings": [
+    {
+      "id": "empty2-000",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 186736487768901667112541337213807238461,
+      "opponent_seed": 137173534662000052470118077413499743615
+    },
+    {
+      "id": "empty2-001",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 323070315750544353843663183655048194807,
+      "opponent_seed": 328363795087253181039690112680376588344
+    },
+    {
+      "id": "empty2-002",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 287111161753770700917358612603497616968,
+      "opponent_seed": 26335329562350428336307461833291476580
+    },
+    {
+      "id": "empty2-003",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 324620379522522111705938953801296576506,
+      "opponent_seed": 63179579511965045964804865540339690477
+    },
+    {
+      "id": "empty2-004",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 44402542611174538574468899163234611753,
+      "opponent_seed": 309186211362776889913442122387028939864
+    },
+    {
+      "id": "empty2-005",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 227313851270383758378974512995572219767,
+      "opponent_seed": 54096104975851651999171941836943521640
+    },
+    {
+      "id": "empty2-006",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 62098638694386495649352855542297190624,
+      "opponent_seed": 114262066694133656196965080398034687593
+    },
+    {
+      "id": "empty2-007",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 191833218204315479442715244408164263576,
+      "opponent_seed": 293628653444926747004223885435003896046
+    },
+    {
+      "id": "empty2-008",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 23533708293537766738819407806431928827,
+      "opponent_seed": 30264783157907959756355381194362414135
+    },
+    {
+      "id": "empty2-009",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 295426286949897657745706781091459044899,
+      "opponent_seed": 250980202968813055702141590016344840996
+    },
+    {
+      "id": "empty2-010",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 200739942760584752941295572580909434139,
+      "opponent_seed": 199839453420561142324786421788190543648
+    },
+    {
+      "id": "empty2-011",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 211843035781695375299647210866917871504,
+      "opponent_seed": 279944648937103109074192009115302832183
+    },
+    {
+      "id": "empty2-012",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 209955922226172533199152871653575357514,
+      "opponent_seed": 331479632529549998915808424341166145711
+    },
+    {
+      "id": "empty2-013",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 259830666380027058456080378893832166614,
+      "opponent_seed": 120135304672936482284224498903283318746
+    },
+    {
+      "id": "empty2-014",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 262568630238196444512139691821315829105,
+      "opponent_seed": 102763462027249778879651980839107156640
+    },
+    {
+      "id": "empty2-015",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 188537727726156407564196497587722485880,
+      "opponent_seed": 242867755774470567510943766306104220432
+    },
+    {
+      "id": "empty2-016",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 108028858319594699717611534199264628155,
+      "opponent_seed": 332328629827963502120124126422440944508
+    },
+    {
+      "id": "empty2-017",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 315044215385620937031392398818934506998,
+      "opponent_seed": 306078295753638046367551378192058880893
+    },
+    {
+      "id": "empty2-018",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 56308446960352337873553016838851937605,
+      "opponent_seed": 252878545542003902850386092186517494801
+    },
+    {
+      "id": "empty2-019",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 279632295256466859055239305226313657521,
+      "opponent_seed": 41403329238041913807686083467609015790
+    },
+    {
+      "id": "empty2-020",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 48755731103588324008080861251109044554,
+      "opponent_seed": 70374094174931072857842417720369251877
+    },
+    {
+      "id": "empty2-021",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 17470150390998679638524943391380834355,
+      "opponent_seed": 162084439360354925359497177922973067249
+    },
+    {
+      "id": "empty2-022",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 46563969100601630170255355494946511735,
+      "opponent_seed": 174897380269079164121397705822473818895
+    },
+    {
+      "id": "empty2-023",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 118521929490757389692960293660845371805,
+      "opponent_seed": 82374300527170609724676473962504770507
+    },
+    {
+      "id": "empty2-024",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 284276820748605775374367057529457725663,
+      "opponent_seed": 117119057378225200059502234175415416233
+    },
+    {
+      "id": "empty2-025",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 87818362819091880321228504439869602035,
+      "opponent_seed": 267315324562356057440780306311974463966
+    },
+    {
+      "id": "empty2-026",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 71741064543041437149805361531627429429,
+      "opponent_seed": 267309536473789167973059945220424816203
+    },
+    {
+      "id": "empty2-027",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 204809898246260717302373891926372722764,
+      "opponent_seed": 34876875621755523016230554712429828937
+    },
+    {
+      "id": "empty2-028",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 33984527557291354704889878912699571179,
+      "opponent_seed": 242188924263584030080230226973879265274
+    },
+    {
+      "id": "empty2-029",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 224799929874635082795471663277881228984,
+      "opponent_seed": 15803584930433061885905151461711938368
+    },
+    {
+      "id": "empty2-030",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 325299921728349880787794579184827009865,
+      "opponent_seed": 178054745915478641161151659224181748838
+    },
+    {
+      "id": "empty2-031",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 239276136585162895788348146353694270773,
+      "opponent_seed": 224541939154680613834641298925311673317
+    },
+    {
+      "id": "empty2-032",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 45938426812299926065140079447868230238,
+      "opponent_seed": 276306276563608538171639261385401043205
+    },
+    {
+      "id": "empty2-033",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 338471264798774612396323339074477480779,
+      "opponent_seed": 238722312917692272517217995554853131816
+    },
+    {
+      "id": "empty2-034",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 291989177808163329639578570831756412076,
+      "opponent_seed": 246931307309122276672800094807476038491
+    },
+    {
+      "id": "empty2-035",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 92816271984665253495896366890013157947,
+      "opponent_seed": 52582999066737087134384042326297713250
+    },
+    {
+      "id": "empty2-036",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 81057356751261477124286201626828221221,
+      "opponent_seed": 164484925464462185420767627375733833898
+    },
+    {
+      "id": "empty2-037",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 240358829592768896272973289404865971925,
+      "opponent_seed": 71704299635262991419328776716791213239
+    },
+    {
+      "id": "empty2-038",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 245763247947541510211457417372370602932,
+      "opponent_seed": 6322766695915822960738753559045017421
+    },
+    {
+      "id": "empty2-039",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 275887661820324154232831763441898345839,
+      "opponent_seed": 242949567395935471223638126279295958677
+    },
+    {
+      "id": "empty2-040",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 134369810085903820566903681952130564206,
+      "opponent_seed": 339625020656213272508945679928549481082
+    },
+    {
+      "id": "empty2-041",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 245725262100169752680602322416402189556,
+      "opponent_seed": 189974416664678630948156684090100335681
+    },
+    {
+      "id": "empty2-042",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 76562647161984200658721724993590017100,
+      "opponent_seed": 190439225509823810946216388579040168778
+    },
+    {
+      "id": "empty2-043",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 330210284289466122122734274716136887840,
+      "opponent_seed": 138019612865527990611377543389114201102
+    },
+    {
+      "id": "empty2-044",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 258832874088442184071752143135692784452,
+      "opponent_seed": 270892193056936940543377021120778852056
+    },
+    {
+      "id": "empty2-045",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 85868660802564967776871424203406631516,
+      "opponent_seed": 164658838041492731050255566658284034045
+    },
+    {
+      "id": "empty2-046",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 260150125526149046414168405625933349675,
+      "opponent_seed": 103431445024517131732578975076561362842
+    },
+    {
+      "id": "empty2-047",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 21783293786191749740535188053984412395,
+      "opponent_seed": 319511909853772597651125224941610299001
+    },
+    {
+      "id": "empty2-048",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 175448641488092545188183784230813150508,
+      "opponent_seed": 151452240975967481369006382637665745245
+    },
+    {
+      "id": "empty2-049",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 96926757782704475686056901912534942524,
+      "opponent_seed": 127719268518131562720189470194774222913
+    },
+    {
+      "id": "empty2-050",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 176575441933003706189988084360100210793,
+      "opponent_seed": 226003256024292504034107346141634696324
+    },
+    {
+      "id": "empty2-051",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 101741904501351403758529784542979450324,
+      "opponent_seed": 211976513343762849156393555593036153590
+    },
+    {
+      "id": "empty2-052",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 49261321749932752941173843671086318671,
+      "opponent_seed": 42088883186557727484080163400563003653
+    },
+    {
+      "id": "empty2-053",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 287354669965347843380620474539990615598,
+      "opponent_seed": 68234770396893992456736969526976546850
+    },
+    {
+      "id": "empty2-054",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 140449464810019136344894031191915240625,
+      "opponent_seed": 192925691215214806223041253999725317317
+    },
+    {
+      "id": "empty2-055",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 298943698226437126255155395566363187338,
+      "opponent_seed": 53850334233923937571891116299721177863
+    },
+    {
+      "id": "empty2-056",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 240133151322322359638009764623626605933,
+      "opponent_seed": 131054299129038642153803692979790661081
+    },
+    {
+      "id": "empty2-057",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 248102727375368729485751619691672690067,
+      "opponent_seed": 96690716816403981446191188807701946312
+    },
+    {
+      "id": "empty2-058",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 131805185012153055687269847840212966777,
+      "opponent_seed": 117029144718834474934431356486861733513
+    },
+    {
+      "id": "empty2-059",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 18132061088383577892775783661348275532,
+      "opponent_seed": 172576959159466802616030055503955487848
+    },
+    {
+      "id": "empty2-060",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 61208502399868804021537224149070302935,
+      "opponent_seed": 335845049756198625667106490797929341238
+    },
+    {
+      "id": "empty2-061",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 259858284747379303238902208343561161929,
+      "opponent_seed": 123696289970204115300159069148560240454
+    },
+    {
+      "id": "empty2-062",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 153254466544846835807130600652411552967,
+      "opponent_seed": 14977065781633587935266131799836379790
+    },
+    {
+      "id": "empty2-063",
+      "history": [],
+      "length": 0,
+      "challenger_seed": 73336706595030394020839785103655899934,
+      "opponent_seed": 190502191170833042489502930522893933116
+    }
+  ]
+}
