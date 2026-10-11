@@ -484,7 +484,7 @@ test('side selection stays pending until restart, then replaces the old game and
   ui.click('restart-button'); await flush();
   assert.deepEqual(starts[1], { player1: { type: 'negamax', depth: 6 }, player2: { type: 'human' }, replace_game_id: 'game-1' });
   assert.equal(moves, 1);
-  assert.match(ui.doc.querySelector('.settings-note').textContent, /Negamax · depth 2 · AI moves first/);
+  assert.match(ui.doc.querySelector('.settings-note').textContent, /Negamax · depth 6 · AI moves first/);
   ui.click('first-human'); ui.click('restart-button'); await flush();
   assert.equal(moves, 1);
   assert.equal(starts[2].player1.type, 'human');
