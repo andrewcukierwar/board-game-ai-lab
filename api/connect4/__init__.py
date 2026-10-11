@@ -8,14 +8,19 @@ from flask import Blueprint, current_app, jsonify, request
 from games.connect4.agents.negamax_agent import NegamaxAgent
 from games.connect4.agents.random_agent import RandomAgent
 from games.connect4.agents.mcts_agent import MCTSAgent
+from games.connect4.agents.tactical_mcts_agent import TacticalMCTSAgent
+from games.connect4.agents.negamax_agent import SearchDeadlineExceeded
 from games.connect4.connect4 import Connect4
 from games.connect4.grounding.history import record_move
 from .state import GameError
 from .provenance import public_provenance
 
 bp = Blueprint('connect4', __name__)
-MAX_DEPTH = 8
-MCTS_SIMULATION_LIMITS = (50, 100, 250, 400, 800)
+MAX_DEPTH = 12
+CLASSIC_MCTS_MAX_SIMULATIONS = 25000
+TACTICAL_MCTS_MAX_SIMULATIONS = 10000
+# Bound costly public search; preserves exact depth-limited semantics if completed.
+ADVANCED_NEGAMAX_MAX_SECONDS = 20
 # Shared by all app instances in this process; never wait/queue for a search.
 _mcts_reservation = BoundedSemaphore(1)
 # The opt-in research agent gets its own reservation, so it never blocks MCTS.
@@ -53,25 +58,26 @@ def player_config(value):
         raise GameError('invalid_agent', 'Each player configuration must be an object.')
     kind = value.get('type')
     research = kind == VICTOR_RESEARCH and current_app.config.get('VICTOR_RESEARCH_ENABLED') is True
-    if kind not in ('human', 'random', 'negamax', 'mcts') and not research:
-        raise GameError('invalid_agent', 'Supported player types are human, random, negamax, and mcts.')
+    if kind not in ('human', 'random', 'negamax', 'mcts', 'mcts_tactical') and not research:
+        raise GameError('invalid_agent', 'Supported player types are human, random, negamax, mcts, and mcts_tactical.')
     allowed = {'type'}
     if kind == 'negamax':
         allowed.add('depth')
-    elif kind == 'mcts':
+    elif kind in ('mcts', 'mcts_tactical'):
         allowed.add('simulation_limit')
     if set(value) - allowed:
-        raise GameError('invalid_agent', 'Only Negamax accepts depth; only MCTS accepts simulation_limit. No other agent settings are supported.')
+        raise GameError('invalid_agent', 'Only Negamax accepts depth; Classic and Tactical MCTS accept simulation_limit. No other agent settings are supported.')
     config = {'type': kind}
     if kind == 'negamax':
         depth = value.get('depth', 2)
         if type(depth) is not int or not 1 <= depth <= MAX_DEPTH:
             raise GameError('invalid_agent', f'Negamax depth must be an integer from 1 to {MAX_DEPTH}.')
         config['depth'] = depth
-    elif kind == 'mcts':
+    elif kind in ('mcts', 'mcts_tactical'):
         limit = value.get('simulation_limit', 100)
-        if type(limit) is not int or limit not in MCTS_SIMULATION_LIMITS:
-            raise GameError('invalid_agent', f'MCTS simulation_limit must be an integer in {MCTS_SIMULATION_LIMITS}.')
+        maximum = CLASSIC_MCTS_MAX_SIMULATIONS if kind == 'mcts' else TACTICAL_MCTS_MAX_SIMULATIONS
+        if type(limit) is not int or not 1 <= limit <= maximum:
+            raise GameError('invalid_agent', f'{kind} simulation_limit must be an integer from 1 to {maximum}.')
         config['simulation_limit'] = limit
     return config
 
@@ -160,10 +166,11 @@ def make_move():
                 raise GameError('invalid_move', 'It is the AI turn. Request its move without a column.')
             if config['type'] == VICTOR_RESEARCH and current_app.config.get('VICTOR_RESEARCH_ENABLED') is not True:
                 raise GameError('invalid_agent', 'The Victor research agent is not enabled on this server.', 409)
-            reservation = {'mcts': _mcts_reservation, VICTOR_RESEARCH: _victor_reservation}.get(config['type'])
+            reservation = {'mcts': _mcts_reservation, 'mcts_tactical': _mcts_reservation,
+                           VICTOR_RESEARCH: _victor_reservation}.get(config['type'])
             reserved = reservation is not None
             if reserved and not reservation.acquire(blocking=False):
-                name = 'MCTS' if config['type'] == 'mcts' else 'Victor research'
+                name = 'MCTS' if config['type'] in ('mcts', 'mcts_tactical') else 'Victor research'
                 raise GameError('agent_busy', f'Another {name} search is running. Retry the AI move shortly.', 503)
             search_gate = current_app.extensions['connect4_search_gate'] if config['type'] != 'random' else None
             search_acquired = False
@@ -178,6 +185,9 @@ def make_move():
                 if config['type'] == 'mcts':
                     agent = (MCTSAgent(config['simulation_limit'], rng=rng) if rng is not None
                              else MCTSAgent(config['simulation_limit']))
+                elif config['type'] == 'mcts_tactical':
+                    agent = (TacticalMCTSAgent(config['simulation_limit'], rng=rng) if rng is not None
+                             else TacticalMCTSAgent(config['simulation_limit']))
                 elif config['type'] == 'random':
                     agent = RandomAgent(rng=rng) if rng is not None else RandomAgent()
                 elif config['type'] == VICTOR_RESEARCH:
@@ -186,13 +196,16 @@ def make_move():
                     from games.connect4.agents.victor_research_agent import VictorResearchAgent
                     agent = VictorResearchAgent()
                 else:
-                    agent = NegamaxAgent(config['depth'])
+                    agent = NegamaxAgent(config['depth'], max_seconds=(
+                        ADVANCED_NEGAMAX_MAX_SECONDS if config['depth'] >= 10 else None))
                 # Never expose the live game to agent code.
                 column = agent.choose_move(Connect4(candidate.board, candidate.current_player))
                 if type(column) is not int or not candidate.is_valid_move(column):
                     raise ValueError('Agent returned an illegal move')
             except GameError:
                 raise
+            except SearchDeadlineExceeded:
+                raise GameError('search_timeout', 'The advanced Negamax search reached its 20-second safety limit. Try a lower depth; the board was not changed.', 503)
             except Exception:
                 current_app.logger.exception('Connect 4 agent failed')
                 raise GameError('agent_failed', 'The AI could not make a legal move. Retry or start a new game.', 503)

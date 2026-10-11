@@ -3,8 +3,8 @@ import pytest
 from api.app import create_app
 from api.connect4.provenance import public_provenance
 
-EXPECTED = dict(api_provenance_version=1, api_contract_version=2,
-                connect4_engine_version=1, agents=dict(random=2, negamax=2, mcts=2),
+EXPECTED = dict(api_provenance_version=1, api_contract_version=3,
+                connect4_engine_version=1, agents=dict(random=2, negamax=2, mcts=2, mcts_tactical=1),
                 stochastic_seed_version=1, source_commit=None)
 
 

@@ -5,11 +5,12 @@ See docs/evaluation-provenance.md for meanings and bump rules.
 import re
 
 API_PROVENANCE_VERSION = 1
-API_CONTRACT_VERSION = 2
+API_CONTRACT_VERSION = 3
 CONNECT4_ENGINE_VERSION = 1
 RANDOM_VERSION = 2
 NEGAMAX_VERSION = 2
 MCTS_VERSION = 2
+TACTICAL_MCTS_VERSION = 1
 STOCHASTIC_SEED_VERSION = 1
 
 
@@ -21,6 +22,7 @@ def public_provenance(source_commit=None):
     return dict(api_provenance_version=API_PROVENANCE_VERSION,
                 api_contract_version=API_CONTRACT_VERSION,
                 connect4_engine_version=CONNECT4_ENGINE_VERSION,
-                agents=dict(random=RANDOM_VERSION, negamax=NEGAMAX_VERSION, mcts=MCTS_VERSION),
+                agents=dict(random=RANDOM_VERSION, negamax=NEGAMAX_VERSION,
+                            mcts=MCTS_VERSION, mcts_tactical=TACTICAL_MCTS_VERSION),
                 stochastic_seed_version=STOCHASTIC_SEED_VERSION,
                 source_commit=commit)
