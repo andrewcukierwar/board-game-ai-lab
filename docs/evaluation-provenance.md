@@ -173,3 +173,28 @@ rejects unknown agents and extra fields, and requires v2 for Victor evidence.
 It independently reconstructs the schedule and boards and recomputes analytics.
 The same CLI verifies both versions, including completed Victor seasons while
 the UI research flag is disabled. See [integration report](victor-labs-integration.md).
+
+## Tactical MCTS / adjustable-search contract v3 (pending release)
+
+The new agent type `mcts_tactical` has implementation version **1**, distinct
+from `mcts: 2` (Classic MCTS). F1 uses tactical win/block/gift-avoidance
+rollouts, proven tree results, and UCT exploration constant 0.5 as frozen in
+`docs/search-mcts-v3/`. The public API contract version advances from **2**
+to **3**; API provenance version 1 and per-ply RNG seed version 1 do not change.
+
+The `simulation_limit` for F1 is a **maximum**; a proven search can execute
+fewer simulations. Each F1 API history move includes a `search` object with
+`requested_simulations` and `executed_simulations`, verified against the
+saved player configuration. Other historical move records stay byte-compatible.
+
+Depth-10–12 public Negamax requests stop after the bounded 20-second compute
+deadline without committing a move and return `search_timeout` (503).
+This deadline is separate from stochastic game seeds and does not change exact
+search semantics when the depth-limited search completes.
+
+**Preserve historical evidence:** browser/Node verification accepts both
+the original version-2 backend manifest and version 3. The frozen canonical
+Season v1 and older standalone exports keep their original manifest and
+canonical digest. New Season evidence uses v3 declared identifiers when
+F1 is an entrant or a recorded game captures a v3 backend. Provenance IDs
+identify implementations, not proof that a specific algorithm executed.
