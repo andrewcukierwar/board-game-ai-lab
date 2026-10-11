@@ -1,7 +1,7 @@
 // Authoritative optional competitor definition; no payload/validation imports.
 
 export const VICTOR_RESEARCH = 'victor_research';
-export const PUBLIC_PLAYER_TYPES = ['human', 'random', 'negamax', 'mcts'];
+export const PUBLIC_PLAYER_TYPES = ['human', 'random', 'negamax', 'mcts', 'mcts_tactical'];
 export const KNOWN_PLAYER_TYPES = [...PUBLIC_PLAYER_TYPES, VICTOR_RESEARCH];
 export const RESEARCH_DISABLED = 'Victor Research execution is disabled in this UI. Saved evidence remains available; re-enable the research feature flag to continue.';
 export const RESEARCH_CAVEAT = 'Seeds determine schedules, colors and seeded agents’ randomness. Victor uses wall-clock search budgets: CPU contention and hosting performance can change its moves. Recorded moves are historical evidence, not a guarantee of identical future play.';
