@@ -42,7 +42,7 @@ export default function AgentSelector({ selection, select, busy, game, researchE
         <input id="opponent-custom-depth" type="number" min="1" max="12" step="1" value={selection.depth}
           disabled={busy} aria-invalid={!validDepth(selection.depth)} onChange={event => select({ depth: Number(event.target.value) })} />
       </details>
-      {selection.depth >= 10 && <p className="search-warning">Advanced search may be slow. After 20 seconds the server stops without making a move; retry at a lower depth.</p>}
+      {selection.depth >= 9 && <p className="search-warning">Advanced search may be slow. After 20 seconds the server stops without making a move; retry at a lower depth.</p>}
     </div>
     <div id="mcts-options" hidden={!['mcts', 'mcts_tactical'].includes(selection.type)} className="agent-setting">
       <label htmlFor="opponent-simulations">Maximum simulations:</label>
