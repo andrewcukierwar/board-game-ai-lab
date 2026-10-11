@@ -155,3 +155,11 @@
 .turn-option.is-selected { border-color: var(--accent); background: #91d5ed0b; }
 .turn-option:has(input:focus-visible) { outline: 3px solid var(--accent); outline-offset: 4px; }
 .turn-order:disabled .turn-option { opacity: .5; cursor: not-allowed; }
+
+/* Optional custom search controls */
+.advanced-search { margin-top: .65rem; }
+.advanced-search summary { cursor: pointer; font-weight: 600; }
+.advanced-search label { display: block; margin: .5rem 0 .25rem; }
+.advanced-search input { width: min(100%, 15rem); padding: .55rem; border: 1px solid var(--border, #888); border-radius: .35rem; }
+.advanced-search input[aria-invalid="true"] { outline: 2px solid #b45309; }
+.search-warning { font-size: .82rem; line-height: 1.45; margin-top: .5rem; }
