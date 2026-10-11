@@ -224,7 +224,7 @@ function select(ui, id, value) {
   });
 }
 
-for (const limit of [100, 400, 800]) {
+for (const limit of [500, 2000, 5000]) {
   test(`MCTS selector shows only its options and sends ${limit} simulations`, async () => {
     let body;
     const ui = setup({ post: async (url, data) => { body = data; return response(state()); } });
@@ -232,7 +232,7 @@ for (const limit of [100, 400, 800]) {
     select(ui, 'opponent-type', 'mcts');
     assert.equal(ui.el('mcts-options').hidden, false);
     assert.equal(ui.el('negamax-options').hidden, true);
-    assert.equal(ui.el('opponent-simulations').value, '100');
+    assert.equal(ui.el('opponent-simulations').value, '2000');
     select(ui, 'opponent-simulations', String(limit));
     ui.click('start-button'); await flush();
     assert.deepEqual(body, { player1: { type: 'human' }, player2: { type: 'mcts', simulation_limit: limit } });
@@ -252,7 +252,7 @@ test('switching opponents applies only at restart and never leaks agent settings
     assert.equal(ui.el('mcts-options').hidden, type !== 'mcts');
     assert.equal(ui.el('negamax-options').hidden, type !== 'negamax');
     ui.click(index ? 'restart-button' : 'start-button'); await flush();
-    assert.deepEqual(bodies[index].player2, type === 'mcts' ? { type, simulation_limit: 100 }
+    assert.deepEqual(bodies[index].player2, type === 'mcts' ? { type, simulation_limit: 2000 }
       : type === 'negamax' ? { type, depth: 2 } : { type });
     if (index) assert.equal(bodies[index].replace_game_id, `game-${index}`);
   }
@@ -360,7 +360,7 @@ for (const explicit of [false, true]) {
   });
 }
 
-for (const opponent of [{ type: 'random' }, { type: 'negamax', depth: 8 }, { type: 'mcts', simulation_limit: 800 }]) {
+for (const opponent of [{ type: 'random' }, { type: 'negamax', depth: 8 }, { type: 'mcts', simulation_limit: 2000 }]) {
   test(`AI-first ${opponent.type} accepts start then issues exactly one locked revision-0 opener`, async () => {
     const calls = []; let release;
     const players = [opponent, { type: 'human' }];
@@ -546,11 +546,11 @@ test('all grounded analysis actions after AI opener use revision 1 and never mov
   ui.cleanup();
 });
 
-for (const depth of [1, 2, 4, 6, 8]) {
+for (const depth of [1, 2, 4, 6, 8, 10, 12]) {
   test(`Negamax UI preset ${depth} stays bounded and sends the selected depth`, async () => {
     let body;
     const ui = setup({ post: async (url, value) => { body = value; return response(state()); } });
-    assert.deepEqual([...ui.el('opponent-depth').options].map(option => Number(option.value)), [1, 2, 4, 6, 8]);
+    assert.deepEqual([...ui.el('opponent-depth').options].map(option => Number(option.value)), [1, 2, 4, 6, 8, 10, 12]);
     select(ui, 'opponent-depth', String(depth)); ui.click('start-button'); await flush();
     assert.equal(body.player2.depth, depth);
     ui.cleanup();
@@ -572,7 +572,7 @@ test('the Victor research option is hidden and its snapshots rejected by default
   assert.throws(() => opponentPayload({ type: 'victor_research' }, false), /Unsupported competitor/);
   const ui = setup({ post: async () => response(state()) });
   assert.equal(ui.doc.querySelector('input[value="victor_research"]'), null);
-  assert.deepEqual([...ui.doc.querySelectorAll('input[name="opponent"]')].map(input => input.value), ['random', 'negamax', 'mcts']);
+  assert.deepEqual([...ui.doc.querySelectorAll('input[name="opponent"]')].map(input => input.value), ['random', 'negamax', 'mcts', 'mcts_tactical']);
   assert.doesNotMatch(ui.doc.body.textContent, /Victor/);
   ui.cleanup();
 });
