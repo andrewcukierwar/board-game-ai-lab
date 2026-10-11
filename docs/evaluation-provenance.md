@@ -187,7 +187,7 @@ fewer simulations. Each F1 API history move includes a `search` object with
 `requested_simulations` and `executed_simulations`, verified against the
 saved player configuration. Other historical move records stay byte-compatible.
 
-Depth-10–12 public Negamax requests stop after the bounded 20-second compute
+Depth-9–12 public Negamax requests stop after the bounded 20-second compute
 deadline without committing a move and return `search_timeout` (503).
 This deadline is separate from stochastic game seeds and does not change exact
 search semantics when the depth-limited search completes.
