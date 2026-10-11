@@ -1,19 +1,19 @@
 import { KNOWN_PLAYER_TYPES, VICTOR_RESEARCH, assertResearchExecution, researchAgentEnabled } from '../connect4/researchAgent.js';
-import { toPlayerPayload, competitorLabel, NEGAMAX_DEPTHS, MCTS_SIMULATIONS } from '../connect4/competitorConfig.js';
+import { toPlayerPayload, competitorLabel, validDepth, validSimulations } from '../connect4/competitorConfig.js';
 import { emptyBoard, validateMatchHistory } from '../connect4/matchRecord.js';
 
 export const SIZES = [8, 16, 32, 64];
 export const VERSION = 1;
 export const DEFAULT_POOL = [{ type: 'random' }, ...[2, 4, 6, 8].map(depth => ({ type: 'negamax', depth })),
-  ...MCTS_SIMULATIONS.map(simulations => ({ type: 'mcts', simulations }))];
+  ...[100, 400, 800].map(simulations => ({ type: 'mcts', simulations }))];
 export const defaultField = size => Array.from({ length: size }, (_, i) => ({ ...DEFAULT_POOL[i % DEFAULT_POOL.length] }));
 const check = (condition, message = 'Invalid tournament record.') => { if (!condition) throw new Error(message); };
 const equal = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 export function validSeed(seed) { return Number.isInteger(seed) && seed >= 0 && seed <= 0xffffffff; }
 export function entrantConfig(config) {
   check(config && KNOWN_PLAYER_TYPES.includes(config.type), 'Choose a public entrant.');
-  check(config.type !== 'negamax' || NEGAMAX_DEPTHS.includes(config.depth));
-  check(config.type !== 'mcts' || MCTS_SIMULATIONS.includes(config.simulations));
+  check(config.type !== 'negamax' || validDepth(config.depth));
+  check(!['mcts', 'mcts_tactical'].includes(config.type) || validSimulations(config.simulations, config.type));
   check(equal(Object.keys(config).sort(), (['human', 'random', VICTOR_RESEARCH].includes(config.type) ? ['type'] : config.type === 'negamax' ? ['depth', 'type'] : ['simulations', 'type'])));
   toPlayerPayload(config, true);
   return { ...config };
