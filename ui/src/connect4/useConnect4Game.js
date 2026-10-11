@@ -10,7 +10,7 @@ export const winnerLabel = game => game.winner === 'Draw' ? 'Draw'
 const initialState = {
   game: null, phase: 'idle', uncertain: false, retryAI: false, notice: null,
   message: 'Choose an opponent and who moves first, then start a game.',
-  selection: { type: 'negamax', depth: 2, simulations: 100, first: 'human' },
+  selection: { type: 'negamax', depth: 2, simulations: 2000, first: 'human' },
 };
 
 function reducer(state, action) {
