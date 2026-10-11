@@ -184,7 +184,7 @@ test('restart applies changed opponent and replaces the old session', async () =
   ui.click('start-button'); await flush();
   select(ui, 'opponent-type', 'negamax');
   ui.click('restart-button'); await flush();
-  assert.deepEqual(bodies[1], { player1: { type: 'human' }, player2: { type: 'negamax', depth: 2 }, replace_game_id: 'game-1' });
+  assert.deepEqual(bodies[1], { player1: { type: 'human' }, player2: { type: 'negamax', depth: 6 }, replace_game_id: 'game-1' });
   assert.equal(ui.column().disabled, false);
   ui.cleanup();
 });
@@ -253,7 +253,7 @@ test('switching opponents applies only at restart and never leaks agent settings
     assert.equal(ui.el('negamax-options').hidden, type !== 'negamax');
     ui.click(index ? 'restart-button' : 'start-button'); await flush();
     assert.deepEqual(bodies[index].player2, type === 'mcts' ? { type, simulation_limit: 2000 }
-      : type === 'negamax' ? { type, depth: 2 } : { type });
+      : type === 'negamax' ? { type, depth: 6 } : { type });
     if (index) assert.equal(bodies[index].replace_game_id, `game-${index}`);
   }
   ui.cleanup();
@@ -355,7 +355,7 @@ for (const explicit of [false, true]) {
     assert.equal(ui.el('first-human').checked, true);
     if (explicit) { ui.click('first-ai'); ui.click('first-human'); }
     ui.click('start-button'); await flush();
-    assert.deepEqual(calls, [{ player1: { type: 'human' }, player2: { type: 'negamax', depth: 2 } }]);
+    assert.deepEqual(calls, [{ player1: { type: 'human' }, player2: { type: 'negamax', depth: 6 } }]);
     ui.cleanup();
   });
 }
@@ -482,7 +482,7 @@ test('side selection stays pending until restart, then replaces the old game and
   assert.match(ui.doc.querySelector('.board-legend').textContent, /You · redAI · yellow/);
   assert.equal(ui.column().disabled, false);
   ui.click('restart-button'); await flush();
-  assert.deepEqual(starts[1], { player1: { type: 'negamax', depth: 2 }, player2: { type: 'human' }, replace_game_id: 'game-1' });
+  assert.deepEqual(starts[1], { player1: { type: 'negamax', depth: 6 }, player2: { type: 'human' }, replace_game_id: 'game-1' });
   assert.equal(moves, 1);
   assert.match(ui.doc.querySelector('.settings-note').textContent, /Negamax · depth 2 · AI moves first/);
   ui.click('first-human'); ui.click('restart-button'); await flush();
