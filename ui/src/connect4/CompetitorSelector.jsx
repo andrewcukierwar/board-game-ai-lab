@@ -20,7 +20,7 @@ export default function CompetitorSelector({ index, config, select, busy, resear
         </select><details className="advanced-search"><summary>Advanced · custom depth</summary>
           <label htmlFor={`${id}-custom-depth`}>Depth 1–12</label><input id={`${id}-custom-depth`} type="number" min="1" max="12" step="1" value={config.depth}
             aria-invalid={!validDepth(config.depth)} onChange={e => select(index, { depth: Number(e.target.value) })} />
-        </details>{config.depth >= 10 && <p className="search-warning">Depth 10–12 uses a 20-second server-side safety limit.</p>}</> : ['mcts', 'mcts_tactical'].includes(config.type) ? <><label htmlFor={`${id}-simulations`}>Maximum simulations</label>
+        </details>{config.depth >= 9 && <p className="search-warning">Depth 9–12 uses a 20-second server-side safety limit.</p>}</> : ['mcts', 'mcts_tactical'].includes(config.type) ? <><label htmlFor={`${id}-simulations`}>Maximum simulations</label>
         <select id={`${id}-simulations`} value={config.simulations} onChange={e => select(index, { simulations: Number(e.target.value) })}>
           {!(config.type === 'mcts' ? MCTS_SIMULATIONS : TACTICAL_MCTS_SIMULATIONS).includes(config.simulations) &&
             <option value={config.simulations}>Custom · {config.simulations}</option>}
