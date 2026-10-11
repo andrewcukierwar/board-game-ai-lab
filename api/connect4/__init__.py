@@ -154,6 +154,7 @@ def make_move():
         if session.game.is_game_over():
             raise GameError('game_over', 'This game is finished. Start a new game.', 409)
         config = session.players[session.game.current_player]
+        search_stats = None
         candidate = Connect4(session.game.board, session.game.current_player)
         if config['type'] == 'human':
             if 'column' not in data:
@@ -200,6 +201,8 @@ def make_move():
                         ADVANCED_NEGAMAX_MAX_SECONDS if config['depth'] >= 10 else None))
                 # Never expose the live game to agent code.
                 column = agent.choose_move(Connect4(candidate.board, candidate.current_player))
+                if config['type'] == 'mcts_tactical':
+                    search_stats = (config['simulation_limit'], agent.last_stats['simulations'])
                 if type(column) is not int or not candidate.is_valid_move(column):
                     raise ValueError('Agent returned an illegal move')
             except GameError:
@@ -218,7 +221,7 @@ def make_move():
             raise GameError('invalid_move', 'That move could not be played. Refresh the game.', 409)
         # Prepare the immutable evidence before committing; failed requests add nothing.
         record = record_move(session.game.board, candidate.board,
-                             session.game.current_player, config, column, session.revision)
+                             session.game.current_player, config, column, session.revision, search_stats=search_stats)
         history = session.history + (record,)
         session.game, session.revision, session.history = candidate, record.revision, history
         return jsonify(snapshot(gid, session))
