@@ -141,8 +141,8 @@ class SearchState:
         self.score = self.score_history.pop()
         self.pieces[self.mover] ^= 1 << cell
 
-    def terminal_value(self, depth):
-        if has_four(self.pieces[self.mover]):
+    def terminal_value(self, depth, previous_only=False):
+        if not previous_only and has_four(self.pieces[self.mover]):
             return WIN_SCORE + depth
         if has_four(self.pieces[1 - self.mover]):
             return -(WIN_SCORE + depth)
@@ -165,11 +165,11 @@ class SearchTable:
         self.cutoffs = 0
 
 
-def negamax(state, depth, alpha=-inf, beta=inf, table=None):
+def negamax(state, depth, alpha=-inf, beta=inf, table=None, parent_checked=False):
     """Fail-soft alpha-beta value from the current mover's perspective."""
     if table is not None:
         table.nodes += 1
-    terminal = state.terminal_value(depth)
+    terminal = state.terminal_value(depth, previous_only=parent_checked)
     if terminal is not None:
         return terminal
     if depth == 0:
@@ -198,7 +198,7 @@ def negamax(state, depth, alpha=-inf, beta=inf, table=None):
     for col in state.ordered_moves(hint, tactical if depth > 1 else 'none'):
         state.play(col)
         try:
-            value = -negamax(state, depth - 1, -beta, -alpha, table)
+            value = -negamax(state, depth - 1, -beta, -alpha, table, parent_checked=True)
         finally:
             state.undo(col)
         if value > best:
@@ -237,7 +237,7 @@ class NegamaxAgent:
         for col in state.legal():
             state.play(col)
             try:
-                scores[col] = -negamax(state, self.depth - 1, -inf, inf, table)
+                scores[col] = -negamax(state, self.depth - 1, -inf, inf, table, parent_checked=True)
             finally:
                 state.undo(col)
         self.last_scores = scores

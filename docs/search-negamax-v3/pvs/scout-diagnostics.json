@@ -1,0 +1,562 @@
+{
+  "runtime": {
+    "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "cpus": 10,
+    "load": [
+      4.3583984375,
+      4.12548828125,
+      3.9189453125
+    ],
+    "unix_seconds": 1791652115.769956
+  },
+  "lock_owner": {
+    "pid": "4934",
+    "branch": "research/negamax-v3",
+    "start_utc": "2026-10-10T17:08:33Z",
+    "worktree": "/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab-negamax-v3"
+  },
+  "results": [
+    {
+      "position": "empty",
+      "depth": 8,
+      "scouts": 17832,
+      "researches": 23,
+      "wall_seconds": 0.043869208078831434,
+      "cpu_seconds": 0.04383799999999999,
+      "move": 3,
+      "scores": [
+        [
+          3,
+          -4
+        ],
+        [
+          2,
+          -4
+        ],
+        [
+          4,
+          -4
+        ],
+        [
+          1,
+          -6
+        ],
+        [
+          5,
+          -6
+        ],
+        [
+          0,
+          -6
+        ],
+        [
+          6,
+          -6
+        ]
+      ],
+      "stats": {
+        "nodes": 25968,
+        "entries": 7875,
+        "hits": 2377,
+        "cutoffs": 5595
+      }
+    },
+    {
+      "position": "empty",
+      "depth": 10,
+      "scouts": 72190,
+      "researches": 59,
+      "wall_seconds": 0.19336704211309552,
+      "cpu_seconds": 0.193291,
+      "move": 2,
+      "scores": [
+        [
+          3,
+          -4
+        ],
+        [
+          2,
+          -3
+        ],
+        [
+          4,
+          -3
+        ],
+        [
+          1,
+          -5
+        ],
+        [
+          5,
+          -5
+        ],
+        [
+          0,
+          -6
+        ],
+        [
+          6,
+          -6
+        ]
+      ],
+      "stats": {
+        "nodes": 108339,
+        "entries": 35003,
+        "hits": 13132,
+        "cutoffs": 26138
+      }
+    },
+    {
+      "position": "near-opening",
+      "depth": 8,
+      "scouts": 15223,
+      "researches": 103,
+      "wall_seconds": 0.04137691715732217,
+      "cpu_seconds": 0.04137400000000002,
+      "move": 3,
+      "scores": [
+        [
+          3,
+          -6
+        ],
+        [
+          2,
+          -8
+        ],
+        [
+          4,
+          -12
+        ],
+        [
+          1,
+          -21
+        ],
+        [
+          5,
+          -15
+        ],
+        [
+          0,
+          -21
+        ],
+        [
+          6,
+          -10
+        ]
+      ],
+      "stats": {
+        "nodes": 22676,
+        "entries": 6498,
+        "hits": 3173,
+        "cutoffs": 5274
+      }
+    },
+    {
+      "position": "near-opening",
+      "depth": 10,
+      "scouts": 63105,
+      "researches": 233,
+      "wall_seconds": 0.1760017501655966,
+      "cpu_seconds": 0.17593800000000004,
+      "move": 3,
+      "scores": [
+        [
+          3,
+          -7
+        ],
+        [
+          2,
+          -11
+        ],
+        [
+          4,
+          -14
+        ],
+        [
+          1,
+          -17
+        ],
+        [
+          5,
+          -13
+        ],
+        [
+          0,
+          -18
+        ],
+        [
+          6,
+          -11
+        ]
+      ],
+      "stats": {
+        "nodes": 95015,
+        "entries": 28570,
+        "hits": 14377,
+        "cutoffs": 23361
+      }
+    },
+    {
+      "position": "midgame",
+      "depth": 8,
+      "scouts": 1897,
+      "researches": 0,
+      "wall_seconds": 0.005327458027750254,
+      "cpu_seconds": 0.005323999999999995,
+      "move": 3,
+      "scores": [
+        [
+          3,
+          -1000006
+        ],
+        [
+          2,
+          -1000006
+        ],
+        [
+          4,
+          -1000006
+        ],
+        [
+          1,
+          -1000006
+        ],
+        [
+          5,
+          -1000006
+        ],
+        [
+          0,
+          -1000006
+        ],
+        [
+          6,
+          -1000006
+        ]
+      ],
+      "stats": {
+        "nodes": 2784,
+        "entries": 880,
+        "hits": 284,
+        "cutoffs": 452
+      }
+    },
+    {
+      "position": "midgame",
+      "depth": 10,
+      "scouts": 3501,
+      "researches": 0,
+      "wall_seconds": 0.010622665984556079,
+      "cpu_seconds": 0.010589999999999988,
+      "move": 3,
+      "scores": [
+        [
+          3,
+          -1000008
+        ],
+        [
+          2,
+          -1000008
+        ],
+        [
+          4,
+          -1000008
+        ],
+        [
+          1,
+          -1000008
+        ],
+        [
+          5,
+          -1000008
+        ],
+        [
+          0,
+          -1000008
+        ],
+        [
+          6,
+          -1000008
+        ]
+      ],
+      "stats": {
+        "nodes": 5389,
+        "entries": 1881,
+        "hits": 700,
+        "cutoffs": 993
+      }
+    },
+    {
+      "position": "seeded-04",
+      "depth": 8,
+      "scouts": 27791,
+      "researches": 136,
+      "wall_seconds": 0.07882754202000797,
+      "cpu_seconds": 0.0787699999999999,
+      "move": 2,
+      "scores": [
+        [
+          3,
+          -10
+        ],
+        [
+          2,
+          -3
+        ],
+        [
+          4,
+          -6
+        ],
+        [
+          1,
+          -4
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          0,
+          -5
+        ],
+        [
+          6,
+          -7
+        ]
+      ],
+      "stats": {
+        "nodes": 42456,
+        "entries": 13099,
+        "hits": 5368,
+        "cutoffs": 10962
+      }
+    },
+    {
+      "position": "seeded-04",
+      "depth": 10,
+      "scouts": 133596,
+      "researches": 326,
+      "wall_seconds": 0.38786887493915856,
+      "cpu_seconds": 0.38766900000000004,
+      "move": 5,
+      "scores": [
+        [
+          3,
+          -13
+        ],
+        [
+          2,
+          -6
+        ],
+        [
+          4,
+          -9
+        ],
+        [
+          1,
+          -5
+        ],
+        [
+          5,
+          -3
+        ],
+        [
+          0,
+          -7
+        ],
+        [
+          6,
+          -5
+        ]
+      ],
+      "stats": {
+        "nodes": 206175,
+        "entries": 66984,
+        "hits": 26322,
+        "cutoffs": 55351
+      }
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 8,
+      "scouts": 35897,
+      "researches": 111,
+      "wall_seconds": 0.0953594169113785,
+      "cpu_seconds": 0.09532099999999999,
+      "move": 1,
+      "scores": [
+        [
+          3,
+          -13
+        ],
+        [
+          2,
+          -13
+        ],
+        [
+          4,
+          -7
+        ],
+        [
+          1,
+          -6
+        ],
+        [
+          5,
+          -13
+        ],
+        [
+          0,
+          -8
+        ],
+        [
+          6,
+          -6
+        ]
+      ],
+      "stats": {
+        "nodes": 53070,
+        "entries": 16061,
+        "hits": 5030,
+        "cutoffs": 12986
+      }
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 10,
+      "scouts": 193286,
+      "researches": 245,
+      "wall_seconds": 0.5312505420297384,
+      "cpu_seconds": 0.5310299999999999,
+      "move": 4,
+      "scores": [
+        [
+          3,
+          -15
+        ],
+        [
+          2,
+          -10
+        ],
+        [
+          4,
+          -4
+        ],
+        [
+          1,
+          -7
+        ],
+        [
+          5,
+          -11
+        ],
+        [
+          0,
+          -8
+        ],
+        [
+          6,
+          -7
+        ]
+      ],
+      "stats": {
+        "nodes": 288940,
+        "entries": 90173,
+        "hits": 31487,
+        "cutoffs": 73188
+      }
+    },
+    {
+      "position": "heldout-00",
+      "depth": 8,
+      "scouts": 24756,
+      "researches": 170,
+      "wall_seconds": 0.06645437492989004,
+      "cpu_seconds": 0.06637200000000032,
+      "move": 3,
+      "scores": [
+        [
+          3,
+          7
+        ],
+        [
+          2,
+          -4
+        ],
+        [
+          4,
+          -7
+        ],
+        [
+          1,
+          3
+        ],
+        [
+          5,
+          3
+        ],
+        [
+          0,
+          0
+        ],
+        [
+          6,
+          2
+        ]
+      ],
+      "stats": {
+        "nodes": 37223,
+        "entries": 10687,
+        "hits": 5400,
+        "cutoffs": 9132
+      }
+    },
+    {
+      "position": "heldout-00",
+      "depth": 10,
+      "scouts": 92914,
+      "researches": 345,
+      "wall_seconds": 0.2734547092113644,
+      "cpu_seconds": 0.27325199999999983,
+      "move": 3,
+      "scores": [
+        [
+          3,
+          8
+        ],
+        [
+          2,
+          -3
+        ],
+        [
+          4,
+          -6
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          5,
+          4
+        ],
+        [
+          0,
+          4
+        ],
+        [
+          6,
+          4
+        ]
+      ],
+      "stats": {
+        "nodes": 146891,
+        "entries": 49052,
+        "hits": 20132,
+        "cutoffs": 41082
+      }
+    }
+  ]
+}

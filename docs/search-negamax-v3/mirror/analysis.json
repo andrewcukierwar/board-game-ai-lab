@@ -1,0 +1,54 @@
+{
+  "mirror": {
+    "accepted": false,
+    "geometric_speedup": 0.8836265951168635,
+    "broad_speedup": 0.8790932481517887,
+    "wall_sum_ratio": 1.1244928759956239,
+    "cpu_sum_ratio": 1.1243182052354248,
+    "heldout_speedup": 0.8690314647446129,
+    "broad_retained_ratio": 0.9564261558319089,
+    "regressions": [
+      "late/D10",
+      "quiet-5/D10",
+      "supplement-main-003/D10",
+      "seeded-03/D10",
+      "additional-03/D8",
+      "heldout-02/D8",
+      "heldout-02/D10"
+    ],
+    "memory_failures": [],
+    "failed_gates": [
+      "geometric",
+      "wall_sum",
+      "cpu_sum",
+      "broad_geometric",
+      "broad_fraction",
+      "heldout",
+      "expensive:supplement-main-003/D10",
+      "per_condition"
+    ],
+    "baseline_sum_median_seconds": 3.671724134357646,
+    "candidate_sum_median_seconds": 4.128827631706372
+  },
+  "mirror-selective": {
+    "accepted": false,
+    "geometric_speedup": 0.9656291876242078,
+    "broad_speedup": 0.9706506372116546,
+    "wall_sum_ratio": 1.0101085685021303,
+    "cpu_sum_ratio": 1.0099944774964904,
+    "heldout_speedup": 0.9346436946796451,
+    "broad_retained_ratio": 0.9585398029115881,
+    "regressions": [],
+    "memory_failures": [],
+    "failed_gates": [
+      "geometric",
+      "wall_sum",
+      "cpu_sum",
+      "broad_geometric",
+      "broad_fraction",
+      "heldout"
+    ],
+    "baseline_sum_median_seconds": 3.671724134357646,
+    "candidate_sum_median_seconds": 3.708840009290725
+  }
+}

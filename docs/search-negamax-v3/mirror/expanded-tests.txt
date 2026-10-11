@@ -1,0 +1,26 @@
+........................................................................ [ 80%]
+............F....                                                        [100%]
+=================================== FAILURES ===================================
+_______________________ test_pvs_mandatory_full_research _______________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10a0ff290>
+
+    def test_pvs_mandatory_full_research(monkeypatch):
+        m = load_variant('pvs')
+        original = m.negamax
+        windows = []
+        def search(state,depth,alpha=-inf,beta=inf,table=None):
+            windows.append((tuple(state.pieces),depth,alpha,beta))
+            return original(state,depth,alpha,beta,table)
+        monkeypatch.setattr(m,'negamax',search)
+        game = position([])
+        assert m.NegamaxAgent(4).score_moves(game) == root_oracle(game,4)
+        nulls = [i for i,w in enumerate(windows) if w[3]-w[2] == 1]
+        assert nulls
+        # Same child searched first with a unit window then with a wider window.
+>       assert any(any(w[:2] == windows[i][:2] and w[3]-w[2] > 1 for w in windows[i+1:]) for i in nulls)
+E       assert False
+E        +  where False = any(<generator object test_pvs_mandatory_full_research.<locals>.<genexpr> at 0x1080d9140>)
+
+tests/test_connect4_negamax_v3.py:183: AssertionError
+1 failed, 88 passed in 7.38s

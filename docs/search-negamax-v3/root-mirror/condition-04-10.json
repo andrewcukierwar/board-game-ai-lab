@@ -1,0 +1,913 @@
+{
+  "position": "late",
+  "group": "phase3a",
+  "depth": 10,
+  "variants": {
+    "direct": {
+      "warmup": {
+        "wall_seconds": 0.0011926249135285616,
+        "cpu_seconds": 0.0011859999999970228,
+        "move": 6,
+        "scores": [
+          [
+            4,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            6,
+            1000001
+          ]
+        ],
+        "stats": {
+          "nodes": 506,
+          "entries": 328,
+          "hits": 22,
+          "cutoffs": 166
+        }
+      },
+      "samples": [
+        {
+          "wall_seconds": 0.0011846250854432583,
+          "cpu_seconds": 0.0011820000000000164,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.0011493749916553497,
+          "cpu_seconds": 0.0011489999999980682,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.001136415870860219,
+          "cpu_seconds": 0.001135999999995363,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.0011602910235524178,
+          "cpu_seconds": 0.001160000000005823,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.0011320419143885374,
+          "cpu_seconds": 0.0011330000000029372,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.0011252909898757935,
+          "cpu_seconds": 0.0011249999999947136,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.0011575000826269388,
+          "cpu_seconds": 0.0011559999999946058,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        }
+      ],
+      "memory": [
+        {
+          "wall_seconds": 0.012395541882142425,
+          "cpu_seconds": 0.012394999999997935,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          },
+          "current_bytes": 32180,
+          "peak_bytes": 35780,
+          "retained_bytes": 28978
+        },
+        {
+          "wall_seconds": 0.012408958980813622,
+          "cpu_seconds": 0.012403999999996529,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          },
+          "current_bytes": 32180,
+          "peak_bytes": 35780,
+          "retained_bytes": 28978
+        }
+      ],
+      "counted": {
+        "wall_seconds": 0.0012152909766882658,
+        "cpu_seconds": 0.0012079999999983215,
+        "move": 6,
+        "scores": [
+          [
+            4,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            6,
+            1000001
+          ]
+        ],
+        "stats": {
+          "nodes": 506,
+          "entries": 328,
+          "hits": 22,
+          "cutoffs": 166
+        },
+        "diagnostics": {
+          "leaves": 78,
+          "terminals": 78,
+          "probes": 350,
+          "canonicalizations": 0,
+          "reflected_hits": 0
+        }
+      },
+      "median_wall_seconds": 0.0011493749916553497,
+      "median_cpu_seconds": 0.0011489999999980682
+    },
+    "terminal-proof": {
+      "warmup": {
+        "wall_seconds": 0.001017875038087368,
+        "cpu_seconds": 0.0010169999999973811,
+        "move": 6,
+        "scores": [
+          [
+            4,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            6,
+            1000001
+          ]
+        ],
+        "stats": {
+          "nodes": 506,
+          "entries": 328,
+          "hits": 22,
+          "cutoffs": 166
+        }
+      },
+      "samples": [
+        {
+          "wall_seconds": 0.0010300420690327883,
+          "cpu_seconds": 0.0010300000000000864,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.001014875015243888,
+          "cpu_seconds": 0.0010150000000024306,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.0010306669864803553,
+          "cpu_seconds": 0.0010309999999975616,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.0010097501799464226,
+          "cpu_seconds": 0.0010100000000008436,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.00100762490183115,
+          "cpu_seconds": 0.001006999999994207,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.0010236669331789017,
+          "cpu_seconds": 0.001024000000001024,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.0009999158792197704,
+          "cpu_seconds": 0.0009990000000001942,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        }
+      ],
+      "memory": [
+        {
+          "wall_seconds": 0.010989999864250422,
+          "cpu_seconds": 0.0109859999999955,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          },
+          "current_bytes": 32180,
+          "peak_bytes": 35780,
+          "retained_bytes": 28978
+        },
+        {
+          "wall_seconds": 0.01009312504902482,
+          "cpu_seconds": 0.010092999999997687,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          },
+          "current_bytes": 32180,
+          "peak_bytes": 35780,
+          "retained_bytes": 28978
+        }
+      ],
+      "counted": {
+        "wall_seconds": 0.0010359999723732471,
+        "cpu_seconds": 0.0010359999999991487,
+        "move": 6,
+        "scores": [
+          [
+            4,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            6,
+            1000001
+          ]
+        ],
+        "stats": {
+          "nodes": 506,
+          "entries": 328,
+          "hits": 22,
+          "cutoffs": 166
+        },
+        "diagnostics": {
+          "leaves": 78,
+          "terminals": 78,
+          "probes": 350,
+          "canonicalizations": 0,
+          "reflected_hits": 0
+        }
+      },
+      "median_wall_seconds": 0.001014875015243888,
+      "median_cpu_seconds": 0.0010150000000024306
+    },
+    "root-mirror": {
+      "warmup": {
+        "wall_seconds": 0.0010209998581558466,
+        "cpu_seconds": 0.001021000000001493,
+        "move": 6,
+        "scores": [
+          [
+            4,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            6,
+            1000001
+          ]
+        ],
+        "stats": {
+          "nodes": 506,
+          "entries": 328,
+          "hits": 22,
+          "cutoffs": 166
+        }
+      },
+      "samples": [
+        {
+          "wall_seconds": 0.0010228748433291912,
+          "cpu_seconds": 0.0010219999999989682,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.0010296250693500042,
+          "cpu_seconds": 0.0010290000000026112,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.0010403748601675034,
+          "cpu_seconds": 0.0010410000000007358,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.0010203749407082796,
+          "cpu_seconds": 0.001021000000001493,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.001026791986078024,
+          "cpu_seconds": 0.0010270000000005552,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.0010205409489572048,
+          "cpu_seconds": 0.0010209999999943875,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        },
+        {
+          "wall_seconds": 0.0010212080087512732,
+          "cpu_seconds": 0.0010219999999989682,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          }
+        }
+      ],
+      "memory": [
+        {
+          "wall_seconds": 0.0116778330411762,
+          "cpu_seconds": 0.011637000000000342,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          },
+          "current_bytes": 32188,
+          "peak_bytes": 35788,
+          "retained_bytes": 29077
+        },
+        {
+          "wall_seconds": 0.011276166886091232,
+          "cpu_seconds": 0.011274000000000228,
+          "move": 6,
+          "scores": [
+            [
+              4,
+              0
+            ],
+            [
+              5,
+              0
+            ],
+            [
+              6,
+              1000001
+            ]
+          ],
+          "stats": {
+            "nodes": 506,
+            "entries": 328,
+            "hits": 22,
+            "cutoffs": 166
+          },
+          "current_bytes": 32188,
+          "peak_bytes": 35788,
+          "retained_bytes": 29077
+        }
+      ],
+      "counted": {
+        "wall_seconds": 0.001063917065039277,
+        "cpu_seconds": 0.0010650000000040905,
+        "move": 6,
+        "scores": [
+          [
+            4,
+            0
+          ],
+          [
+            5,
+            0
+          ],
+          [
+            6,
+            1000001
+          ]
+        ],
+        "stats": {
+          "nodes": 506,
+          "entries": 328,
+          "hits": 22,
+          "cutoffs": 166
+        },
+        "diagnostics": {
+          "leaves": 78,
+          "terminals": 78,
+          "probes": 350,
+          "canonicalizations": 0,
+          "reflected_hits": 0
+        }
+      },
+      "median_wall_seconds": 0.0010228748433291912,
+      "median_cpu_seconds": 0.0010219999999989682
+    }
+  },
+  "runtime": {
+    "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "cpus": 10,
+    "load": [
+      4.02392578125,
+      3.837890625,
+      3.65478515625
+    ],
+    "unix_seconds": 1791656016.550637
+  },
+  "lock_owner": {
+    "pid": "75317",
+    "branch": "research/negamax-v3",
+    "start_utc": "2026-10-10T18:12:57Z",
+    "worktree": "/Users/andrewcukierwar/Documents/GitHub/board-game-ai-lab-negamax-v3"
+  }
+}

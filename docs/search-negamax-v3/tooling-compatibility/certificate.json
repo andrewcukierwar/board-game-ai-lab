@@ -1,0 +1,19 @@
+{
+  "reason": "Hash-pinned baseline fallback and source-metadata compatibility only; all measured/gate function bytes unchanged.",
+  "files": {
+    "scripts/negamax_v3_variants.py": {
+      "archive": "variants-original.py.txt",
+      "old_sha256": "a3e2297d701d7f6bd270858ef74183b8b9257cdd18ea40104d4b85682150e47d",
+      "new_sha256": "65152dcf1345981dc6f2b4efc10216bc90c15039e75bcdbf27987b36df1f1144"
+    },
+    "scripts/benchmark_negamax_v3.py": {
+      "archive": "benchmark-original.py.txt",
+      "old_sha256": "03b82b3e0d10c3673978877356e212dd5180cb423ff0ce9d85710ed3b58d387d",
+      "new_sha256": "edda4b7ee395730dfafeab62ec6381bda96226c7c0234e139ca6e7295a0b1eb8"
+    }
+  },
+  "helpers": {
+    "scripts/negamax_v3_pinned.py": "aab694e668c23c7ac2d24ec2b4e2498109000aee8ee60439068377d576932e16",
+    "scripts/negamax_v3_compatibility.py": "5dcdd93e16b68af9eed41873899b444a8f5654cbe5ef073a51264de52ecd651e"
+  }
+}

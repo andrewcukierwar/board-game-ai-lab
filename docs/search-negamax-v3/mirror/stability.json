@@ -1,0 +1,2333 @@
+{
+  "method": "Seven descriptive leave-one-repetition-out analyses, not confidence intervals. Correlated conditions and host activity remain.",
+  "variants": {
+    "mirror": {
+      "leave_one_repetition_out_geometric_range": [
+        0.8828375959023932,
+        0.8839418846077696
+      ],
+      "leave_one_repetition_out_wall_sum_range": [
+        1.1210144011904324,
+        1.126472657224895
+      ],
+      "accepted_in_omissions": 0
+    },
+    "mirror-selective": {
+      "leave_one_repetition_out_geometric_range": [
+        0.9652721328896476,
+        0.9658255179472922
+      ],
+      "leave_one_repetition_out_wall_sum_range": [
+        1.0090558006786288,
+        1.0116669259349282
+      ],
+      "accepted_in_omissions": 0
+    }
+  },
+  "conditions": [
+    {
+      "position": "empty",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 1.6526152264654972,
+      "paired_speedup_max": 1.7959772044442477,
+      "baseline_wall_min": 0.0008327921386808157,
+      "baseline_wall_max": 0.000878083985298872
+    },
+    {
+      "position": "empty",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 1.6009994209738565,
+      "paired_speedup_max": 1.8176666380698911,
+      "baseline_wall_min": 0.0008327921386808157,
+      "baseline_wall_max": 0.000878083985298872
+    },
+    {
+      "position": "empty",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 1.6603591648510332,
+      "paired_speedup_max": 1.8955741642341684,
+      "baseline_wall_min": 0.007747582858428359,
+      "baseline_wall_max": 0.008387125097215176
+    },
+    {
+      "position": "empty",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 1.8025330747394488,
+      "paired_speedup_max": 2.039112661985175,
+      "baseline_wall_min": 0.007747582858428359,
+      "baseline_wall_max": 0.008387125097215176
+    },
+    {
+      "position": "empty",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 1.7374837805034498,
+      "paired_speedup_max": 1.7931524220798707,
+      "baseline_wall_min": 0.04789704200811684,
+      "baseline_wall_max": 0.04960158304311335
+    },
+    {
+      "position": "empty",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 1.9024261938731961,
+      "paired_speedup_max": 1.9901964802296013,
+      "baseline_wall_min": 0.04789704200811684,
+      "baseline_wall_max": 0.04960158304311335
+    },
+    {
+      "position": "empty",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 1.782936124333673,
+      "paired_speedup_max": 1.862206445894565,
+      "baseline_wall_min": 0.22053166711702943,
+      "baseline_wall_max": 0.23029737500473857
+    },
+    {
+      "position": "empty",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 1.9685800937744373,
+      "paired_speedup_max": 2.0710800886386203,
+      "baseline_wall_min": 0.22053166711702943,
+      "baseline_wall_max": 0.23029737500473857
+    },
+    {
+      "position": "near-opening",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8584288384273981,
+      "paired_speedup_max": 0.9451139842905666,
+      "baseline_wall_min": 0.0009310839232057333,
+      "baseline_wall_max": 0.0010094998870044947
+    },
+    {
+      "position": "near-opening",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9514445625097905,
+      "paired_speedup_max": 1.0069707434560622,
+      "baseline_wall_min": 0.0009310839232057333,
+      "baseline_wall_max": 0.0010094998870044947
+    },
+    {
+      "position": "near-opening",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8705393425157265,
+      "paired_speedup_max": 0.9241486424513845,
+      "baseline_wall_min": 0.007246125023812056,
+      "baseline_wall_max": 0.007691458100453019
+    },
+    {
+      "position": "near-opening",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9513199229330439,
+      "paired_speedup_max": 1.0116013707863036,
+      "baseline_wall_min": 0.007246125023812056,
+      "baseline_wall_max": 0.007691458100453019
+    },
+    {
+      "position": "near-opening",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8511379840097596,
+      "paired_speedup_max": 0.8936351543569716,
+      "baseline_wall_min": 0.04164745821617544,
+      "baseline_wall_max": 0.043349584098905325
+    },
+    {
+      "position": "near-opening",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9190367394378686,
+      "paired_speedup_max": 0.9687385936819574,
+      "baseline_wall_min": 0.04164745821617544,
+      "baseline_wall_max": 0.043349584098905325
+    },
+    {
+      "position": "near-opening",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8155767961325147,
+      "paired_speedup_max": 0.8882606643043921,
+      "baseline_wall_min": 0.17603445891290903,
+      "baseline_wall_max": 0.19179175002500415
+    },
+    {
+      "position": "near-opening",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9364543724365487,
+      "paired_speedup_max": 1.007354799398414,
+      "baseline_wall_min": 0.17603445891290903,
+      "baseline_wall_max": 0.19179175002500415
+    },
+    {
+      "position": "midgame",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8258443349413374,
+      "paired_speedup_max": 1.0862694560586341,
+      "baseline_wall_min": 0.0005578331183642149,
+      "baseline_wall_max": 0.0007130000740289688
+    },
+    {
+      "position": "midgame",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.955177409149912,
+      "paired_speedup_max": 1.100521023128712,
+      "baseline_wall_min": 0.0005578331183642149,
+      "baseline_wall_max": 0.0007130000740289688
+    },
+    {
+      "position": "midgame",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8329397770362349,
+      "paired_speedup_max": 0.8938663585787712,
+      "baseline_wall_min": 0.0020122500136494637,
+      "baseline_wall_max": 0.002091499976813793
+    },
+    {
+      "position": "midgame",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9529540915481032,
+      "paired_speedup_max": 0.9971589111549758,
+      "baseline_wall_min": 0.0020122500136494637,
+      "baseline_wall_max": 0.002091499976813793
+    },
+    {
+      "position": "midgame",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8442511390170715,
+      "paired_speedup_max": 0.8652652326500098,
+      "baseline_wall_min": 0.004994250135496259,
+      "baseline_wall_max": 0.005118333036080003
+    },
+    {
+      "position": "midgame",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9164035292101789,
+      "paired_speedup_max": 0.952211181832098,
+      "baseline_wall_min": 0.004994250135496259,
+      "baseline_wall_max": 0.005118333036080003
+    },
+    {
+      "position": "midgame",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.36084915892721775,
+      "paired_speedup_max": 0.854350361817372,
+      "baseline_wall_min": 0.010163957951590419,
+      "baseline_wall_max": 0.010383917018771172
+    },
+    {
+      "position": "midgame",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8995045622714574,
+      "paired_speedup_max": 0.9282381346446358,
+      "baseline_wall_min": 0.010163957951590419,
+      "baseline_wall_max": 0.010383917018771172
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8601243635882428,
+      "paired_speedup_max": 0.9404570447626782,
+      "baseline_wall_min": 0.0012370410840958357,
+      "baseline_wall_max": 0.0013168749865144491
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.940626384237144,
+      "paired_speedup_max": 1.0511169081791625,
+      "baseline_wall_min": 0.0012370410840958357,
+      "baseline_wall_max": 0.0013168749865144491
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.7796236313783379,
+      "paired_speedup_max": 0.8864226355842045,
+      "baseline_wall_min": 0.005522958002984524,
+      "baseline_wall_max": 0.005700584035366774
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9289042208441767,
+      "paired_speedup_max": 0.9736266699932354,
+      "baseline_wall_min": 0.005522958002984524,
+      "baseline_wall_max": 0.005700584035366774
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8446361962066451,
+      "paired_speedup_max": 0.8613456323224877,
+      "baseline_wall_min": 0.015691082924604416,
+      "baseline_wall_max": 0.01586641720496118
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9302851479632162,
+      "paired_speedup_max": 0.9422823032703777,
+      "baseline_wall_min": 0.015691082924604416,
+      "baseline_wall_max": 0.01586641720496118
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8271153432382571,
+      "paired_speedup_max": 0.8428891027900554,
+      "baseline_wall_min": 0.03803533315658569,
+      "baseline_wall_max": 0.038421417120844126
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9022169283053425,
+      "paired_speedup_max": 0.9247560368381212,
+      "baseline_wall_min": 0.03803533315658569,
+      "baseline_wall_max": 0.038421417120844126
+    },
+    {
+      "position": "late",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8346952780349655,
+      "paired_speedup_max": 0.878316932774319,
+      "baseline_wall_min": 8.849985897541046e-05,
+      "baseline_wall_max": 9.600003249943256e-05
+    },
+    {
+      "position": "late",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8436446894316528,
+      "paired_speedup_max": 0.9986376536416953,
+      "baseline_wall_min": 8.849985897541046e-05,
+      "baseline_wall_max": 9.600003249943256e-05
+    },
+    {
+      "position": "late",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8248326593768696,
+      "paired_speedup_max": 0.9086607859506867,
+      "baseline_wall_min": 0.00024204188957810402,
+      "baseline_wall_max": 0.00026279198937118053
+    },
+    {
+      "position": "late",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8435345312073478,
+      "paired_speedup_max": 1.010898196620735,
+      "baseline_wall_min": 0.00024204188957810402,
+      "baseline_wall_max": 0.00026279198937118053
+    },
+    {
+      "position": "late",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8103678035859384,
+      "paired_speedup_max": 0.8757895908969064,
+      "baseline_wall_min": 0.0005963749717921019,
+      "baseline_wall_max": 0.0006519160233438015
+    },
+    {
+      "position": "late",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8284053392490556,
+      "paired_speedup_max": 0.9792206266126782,
+      "baseline_wall_min": 0.0005963749717921019,
+      "baseline_wall_max": 0.0006519160233438015
+    },
+    {
+      "position": "late",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8063010571549131,
+      "paired_speedup_max": 0.8459340192546311,
+      "baseline_wall_min": 0.0011545841116458178,
+      "baseline_wall_max": 0.001198125071823597
+    },
+    {
+      "position": "late",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8119971216628423,
+      "paired_speedup_max": 0.9048996107947697,
+      "baseline_wall_min": 0.0011545841116458178,
+      "baseline_wall_max": 0.001198125071823597
+    },
+    {
+      "position": "immediate-win",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.816677235532964,
+      "paired_speedup_max": 0.887588459542112,
+      "baseline_wall_min": 0.0005654159467667341,
+      "baseline_wall_max": 0.0005777091719210148
+    },
+    {
+      "position": "immediate-win",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9503109753084954,
+      "paired_speedup_max": 0.9885406044555277,
+      "baseline_wall_min": 0.0005654159467667341,
+      "baseline_wall_max": 0.0005777091719210148
+    },
+    {
+      "position": "immediate-win",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8503668479093781,
+      "paired_speedup_max": 0.8831405627238653,
+      "baseline_wall_min": 0.0034065828658640385,
+      "baseline_wall_max": 0.0035345829091966152
+    },
+    {
+      "position": "immediate-win",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8789076462530507,
+      "paired_speedup_max": 0.980625358265119,
+      "baseline_wall_min": 0.0034065828658640385,
+      "baseline_wall_max": 0.0035345829091966152
+    },
+    {
+      "position": "immediate-win",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8554340020800054,
+      "paired_speedup_max": 0.8765767832535061,
+      "baseline_wall_min": 0.021457874914631248,
+      "baseline_wall_max": 0.021863834001123905
+    },
+    {
+      "position": "immediate-win",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9457562113597843,
+      "paired_speedup_max": 0.9642421271634564,
+      "baseline_wall_min": 0.021457874914631248,
+      "baseline_wall_max": 0.021863834001123905
+    },
+    {
+      "position": "immediate-win",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8271753831785273,
+      "paired_speedup_max": 0.8564270833885216,
+      "baseline_wall_min": 0.10678087500855327,
+      "baseline_wall_max": 0.10730329202488065
+    },
+    {
+      "position": "immediate-win",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9381357608350759,
+      "paired_speedup_max": 0.9503329444946408,
+      "baseline_wall_min": 0.10678087500855327,
+      "baseline_wall_max": 0.10730329202488065
+    },
+    {
+      "position": "forced-reply",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8389512730488244,
+      "paired_speedup_max": 0.9369745430227882,
+      "baseline_wall_min": 0.0005610829684883356,
+      "baseline_wall_max": 0.0005865409038960934
+    },
+    {
+      "position": "forced-reply",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9453799298016565,
+      "paired_speedup_max": 1.0196400886797383,
+      "baseline_wall_min": 0.0005610829684883356,
+      "baseline_wall_max": 0.0005865409038960934
+    },
+    {
+      "position": "forced-reply",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8463613341084671,
+      "paired_speedup_max": 0.933303152008508,
+      "baseline_wall_min": 0.002674416173249483,
+      "baseline_wall_max": 0.002837708219885826
+    },
+    {
+      "position": "forced-reply",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.94059198386639,
+      "paired_speedup_max": 1.0105500345587426,
+      "baseline_wall_min": 0.002674416173249483,
+      "baseline_wall_max": 0.002837708219885826
+    },
+    {
+      "position": "forced-reply",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8081841829241094,
+      "paired_speedup_max": 0.8962291824064669,
+      "baseline_wall_min": 0.014395209029316902,
+      "baseline_wall_max": 0.015024834079667926
+    },
+    {
+      "position": "forced-reply",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.5743030187878839,
+      "paired_speedup_max": 0.9905341467057754,
+      "baseline_wall_min": 0.014395209029316902,
+      "baseline_wall_max": 0.015024834079667926
+    },
+    {
+      "position": "forced-reply",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8401111181946792,
+      "paired_speedup_max": 1.027971638653566,
+      "baseline_wall_min": 0.05409887502901256,
+      "baseline_wall_max": 0.0650973750744015
+    },
+    {
+      "position": "forced-reply",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9321657905733491,
+      "paired_speedup_max": 1.1368668597629017,
+      "baseline_wall_min": 0.05409887502901256,
+      "baseline_wall_max": 0.0650973750744015
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8696033062202216,
+      "paired_speedup_max": 0.9309148620173825,
+      "baseline_wall_min": 0.0001891248393803835,
+      "baseline_wall_max": 0.0002021249383687973
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9533327948862915,
+      "paired_speedup_max": 1.0325677766821808,
+      "baseline_wall_min": 0.0001891248393803835,
+      "baseline_wall_max": 0.0002021249383687973
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8354180598997771,
+      "paired_speedup_max": 0.8967482835910893,
+      "baseline_wall_min": 0.00019341707229614258,
+      "baseline_wall_max": 0.0002008338924497366
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8639938143953307,
+      "paired_speedup_max": 0.8935887859955475,
+      "baseline_wall_min": 0.00019341707229614258,
+      "baseline_wall_max": 0.0002008338924497366
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.7756421978701821,
+      "paired_speedup_max": 0.9061829993195619,
+      "baseline_wall_min": 0.00019229180179536343,
+      "baseline_wall_max": 0.0002049580216407776
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8565261378055555,
+      "paired_speedup_max": 0.906878663775797,
+      "baseline_wall_min": 0.00019229180179536343,
+      "baseline_wall_max": 0.0002049580216407776
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8715844281209589,
+      "paired_speedup_max": 0.9255887250617276,
+      "baseline_wall_min": 0.00019004195928573608,
+      "baseline_wall_max": 0.0002026660367846489
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.874214044432688,
+      "paired_speedup_max": 0.890498249394021,
+      "baseline_wall_min": 0.00019004195928573608,
+      "baseline_wall_max": 0.0002026660367846489
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8278328698602585,
+      "paired_speedup_max": 1.0644461898450412,
+      "baseline_wall_min": 1.9625062122941017e-05,
+      "baseline_wall_max": 3.02919652312994e-05
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8747947095808675,
+      "paired_speedup_max": 1.24065950832491,
+      "baseline_wall_min": 1.9625062122941017e-05,
+      "baseline_wall_max": 3.02919652312994e-05
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.820251325242849,
+      "paired_speedup_max": 1.1143514545022917,
+      "baseline_wall_min": 1.974985934793949e-05,
+      "baseline_wall_max": 2.8416048735380173e-05
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.5386941149987421,
+      "paired_speedup_max": 0.9412138948975697,
+      "baseline_wall_min": 1.974985934793949e-05,
+      "baseline_wall_max": 2.8416048735380173e-05
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8130164099930038,
+      "paired_speedup_max": 0.9216574383193551,
+      "baseline_wall_min": 2.033403143286705e-05,
+      "baseline_wall_max": 2.2834166884422302e-05
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.7828113411098375,
+      "paired_speedup_max": 0.9164065858079949,
+      "baseline_wall_min": 2.033403143286705e-05,
+      "baseline_wall_max": 2.2834166884422302e-05
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8169360565380583,
+      "paired_speedup_max": 0.9546742209631728,
+      "baseline_wall_min": 2.095801755785942e-05,
+      "baseline_wall_max": 2.2833002731204033e-05
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8353592572085694,
+      "paired_speedup_max": 0.9800614585763111,
+      "baseline_wall_min": 2.095801755785942e-05,
+      "baseline_wall_max": 2.2833002731204033e-05
+    },
+    {
+      "position": "quiet-5",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8209436525590957,
+      "paired_speedup_max": 0.9324716785310443,
+      "baseline_wall_min": 0.0006522501353174448,
+      "baseline_wall_max": 0.0006823751609772444
+    },
+    {
+      "position": "quiet-5",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9305117851489153,
+      "paired_speedup_max": 1.0147515015392763,
+      "baseline_wall_min": 0.0006522501353174448,
+      "baseline_wall_max": 0.0006823751609772444
+    },
+    {
+      "position": "quiet-5",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.848337008715835,
+      "paired_speedup_max": 0.8735915571669721,
+      "baseline_wall_min": 0.003889916930347681,
+      "baseline_wall_max": 0.00396712520159781
+    },
+    {
+      "position": "quiet-5",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9401529380324972,
+      "paired_speedup_max": 0.9634177985978916,
+      "baseline_wall_min": 0.003889916930347681,
+      "baseline_wall_max": 0.00396712520159781
+    },
+    {
+      "position": "quiet-5",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8226769019093851,
+      "paired_speedup_max": 0.8520679741584776,
+      "baseline_wall_min": 0.012093042023479939,
+      "baseline_wall_max": 0.012351166922599077
+    },
+    {
+      "position": "quiet-5",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9221662936232513,
+      "paired_speedup_max": 0.9356765149447913,
+      "baseline_wall_min": 0.012093042023479939,
+      "baseline_wall_max": 0.012351166922599077
+    },
+    {
+      "position": "quiet-5",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.5960316463964883,
+      "paired_speedup_max": 0.8428526395683827,
+      "baseline_wall_min": 0.02067241701297462,
+      "baseline_wall_max": 0.020974457962438464
+    },
+    {
+      "position": "quiet-5",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8866367803550826,
+      "paired_speedup_max": 0.9108208460892363,
+      "baseline_wall_min": 0.02067241701297462,
+      "baseline_wall_max": 0.020974457962438464
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8451653488243491,
+      "paired_speedup_max": 0.8978205695522938,
+      "baseline_wall_min": 0.0011458329390734434,
+      "baseline_wall_max": 0.0011979578994214535
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9225994740214131,
+      "paired_speedup_max": 0.9938548767958179,
+      "baseline_wall_min": 0.0011458329390734434,
+      "baseline_wall_max": 0.0011979578994214535
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.7987769929396372,
+      "paired_speedup_max": 0.948584053513063,
+      "baseline_wall_min": 0.009569874964654446,
+      "baseline_wall_max": 0.010583708062767982
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9376265647315076,
+      "paired_speedup_max": 1.068184774778433,
+      "baseline_wall_min": 0.009569874964654446,
+      "baseline_wall_max": 0.010583708062767982
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8267640705143894,
+      "paired_speedup_max": 0.8375223216222024,
+      "baseline_wall_min": 0.04410375002771616,
+      "baseline_wall_max": 0.04454766702838242
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9281817598987689,
+      "paired_speedup_max": 0.949495964032303,
+      "baseline_wall_min": 0.04410375002771616,
+      "baseline_wall_max": 0.04454766702838242
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.7128817118800429,
+      "paired_speedup_max": 0.8271094459409141,
+      "baseline_wall_min": 0.16336512519046664,
+      "baseline_wall_max": 0.1690048328600824
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8972256789408883,
+      "paired_speedup_max": 0.9353516333032962,
+      "baseline_wall_min": 0.16336512519046664,
+      "baseline_wall_max": 0.1690048328600824
+    },
+    {
+      "position": "seeded-00",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8883850478507609,
+      "paired_speedup_max": 0.9485580041731192,
+      "baseline_wall_min": 0.0013845840003341436,
+      "baseline_wall_max": 0.0014459581580013037
+    },
+    {
+      "position": "seeded-00",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9773214548526378,
+      "paired_speedup_max": 1.028785518680537,
+      "baseline_wall_min": 0.0013845840003341436,
+      "baseline_wall_max": 0.0014459581580013037
+    },
+    {
+      "position": "seeded-00",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8639150342059828,
+      "paired_speedup_max": 0.8852885754383373,
+      "baseline_wall_min": 0.011664832942187786,
+      "baseline_wall_max": 0.011934499954804778
+    },
+    {
+      "position": "seeded-00",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9171998454786061,
+      "paired_speedup_max": 0.9768969538925294,
+      "baseline_wall_min": 0.011664832942187786,
+      "baseline_wall_max": 0.011934499954804778
+    },
+    {
+      "position": "seeded-00",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8424073482235733,
+      "paired_speedup_max": 0.8775681982043958,
+      "baseline_wall_min": 0.05904304189607501,
+      "baseline_wall_max": 0.06028429209254682
+    },
+    {
+      "position": "seeded-00",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9442154139249858,
+      "paired_speedup_max": 0.9678024252232742,
+      "baseline_wall_min": 0.05904304189607501,
+      "baseline_wall_max": 0.06028429209254682
+    },
+    {
+      "position": "seeded-00",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8519656838351779,
+      "paired_speedup_max": 0.8781146751657976,
+      "baseline_wall_min": 0.23458899999968708,
+      "baseline_wall_max": 0.24093125015497208
+    },
+    {
+      "position": "seeded-00",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9382973562951352,
+      "paired_speedup_max": 0.9652526707962867,
+      "baseline_wall_min": 0.23458899999968708,
+      "baseline_wall_max": 0.24093125015497208
+    },
+    {
+      "position": "seeded-01",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8489278069663359,
+      "paired_speedup_max": 0.8885240482618038,
+      "baseline_wall_min": 0.00027866591699421406,
+      "baseline_wall_max": 0.00028449995443224907
+    },
+    {
+      "position": "seeded-01",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9146702138091535,
+      "paired_speedup_max": 0.9862181566753833,
+      "baseline_wall_min": 0.00027866591699421406,
+      "baseline_wall_max": 0.00028449995443224907
+    },
+    {
+      "position": "seeded-01",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8535958127228583,
+      "paired_speedup_max": 0.9030380950104754,
+      "baseline_wall_min": 0.0008239587768912315,
+      "baseline_wall_max": 0.0008724997751414776
+    },
+    {
+      "position": "seeded-01",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.93894779813614,
+      "paired_speedup_max": 0.9884812185408383,
+      "baseline_wall_min": 0.0008239587768912315,
+      "baseline_wall_max": 0.0008724997751414776
+    },
+    {
+      "position": "seeded-01",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.848668277833561,
+      "paired_speedup_max": 0.8732356849867104,
+      "baseline_wall_min": 0.0032283340115100145,
+      "baseline_wall_max": 0.0033008330501616
+    },
+    {
+      "position": "seeded-01",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9229460732146227,
+      "paired_speedup_max": 0.9583256891989835,
+      "baseline_wall_min": 0.0032283340115100145,
+      "baseline_wall_max": 0.0033008330501616
+    },
+    {
+      "position": "seeded-01",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8349385100194773,
+      "paired_speedup_max": 0.8458552583649305,
+      "baseline_wall_min": 0.009776458144187927,
+      "baseline_wall_max": 0.009842583211138844
+    },
+    {
+      "position": "seeded-01",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9237452851436778,
+      "paired_speedup_max": 0.9395861647816321,
+      "baseline_wall_min": 0.009776458144187927,
+      "baseline_wall_max": 0.009842583211138844
+    },
+    {
+      "position": "seeded-02",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.847929015966505,
+      "paired_speedup_max": 0.9462712742636215,
+      "baseline_wall_min": 0.0004553748294711113,
+      "baseline_wall_max": 0.0005085421726107597
+    },
+    {
+      "position": "seeded-02",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.917115696402944,
+      "paired_speedup_max": 1.037665133253931,
+      "baseline_wall_min": 0.0004553748294711113,
+      "baseline_wall_max": 0.0005085421726107597
+    },
+    {
+      "position": "seeded-02",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8169345167933073,
+      "paired_speedup_max": 0.8893276310904671,
+      "baseline_wall_min": 0.001041624927893281,
+      "baseline_wall_max": 0.0011098748072981834
+    },
+    {
+      "position": "seeded-02",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8374555881866382,
+      "paired_speedup_max": 0.949219516954772,
+      "baseline_wall_min": 0.001041624927893281,
+      "baseline_wall_max": 0.0011098748072981834
+    },
+    {
+      "position": "seeded-02",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8409621204243861,
+      "paired_speedup_max": 0.9238866009017622,
+      "baseline_wall_min": 0.0025855829007923603,
+      "baseline_wall_max": 0.0028120409697294235
+    },
+    {
+      "position": "seeded-02",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9018566197184689,
+      "paired_speedup_max": 0.988733749403614,
+      "baseline_wall_min": 0.0025855829007923603,
+      "baseline_wall_max": 0.0028120409697294235
+    },
+    {
+      "position": "seeded-02",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8177038007657031,
+      "paired_speedup_max": 0.8638100517627323,
+      "baseline_wall_min": 0.004781249910593033,
+      "baseline_wall_max": 0.004916375037282705
+    },
+    {
+      "position": "seeded-02",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8702014743239165,
+      "paired_speedup_max": 0.9208993693685835,
+      "baseline_wall_min": 0.004781249910593033,
+      "baseline_wall_max": 0.004916375037282705
+    },
+    {
+      "position": "seeded-03",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.6406790731554565,
+      "paired_speedup_max": 2.172188054571103,
+      "baseline_wall_min": 0.000315624987706542,
+      "baseline_wall_max": 0.0016452500130981207
+    },
+    {
+      "position": "seeded-03",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.4611254777276323,
+      "paired_speedup_max": 2.123130732942276,
+      "baseline_wall_min": 0.000315624987706542,
+      "baseline_wall_max": 0.0016452500130981207
+    },
+    {
+      "position": "seeded-03",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8076559727376416,
+      "paired_speedup_max": 0.8715129379934613,
+      "baseline_wall_min": 0.0009029591456055641,
+      "baseline_wall_max": 0.000949040986597538
+    },
+    {
+      "position": "seeded-03",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8678835202470263,
+      "paired_speedup_max": 0.9546436409980895,
+      "baseline_wall_min": 0.0009029591456055641,
+      "baseline_wall_max": 0.000949040986597538
+    },
+    {
+      "position": "seeded-03",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8030051457961023,
+      "paired_speedup_max": 0.8580400102238864,
+      "baseline_wall_min": 0.0033993329852819443,
+      "baseline_wall_max": 0.003524292027577758
+    },
+    {
+      "position": "seeded-03",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9011627263065473,
+      "paired_speedup_max": 0.9506098775800548,
+      "baseline_wall_min": 0.0033993329852819443,
+      "baseline_wall_max": 0.003524292027577758
+    },
+    {
+      "position": "seeded-03",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8112124814109538,
+      "paired_speedup_max": 0.8300700204291416,
+      "baseline_wall_min": 0.011365541024133563,
+      "baseline_wall_max": 0.011554333148524165
+    },
+    {
+      "position": "seeded-03",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9063803613423674,
+      "paired_speedup_max": 0.9347314695578204,
+      "baseline_wall_min": 0.011365541024133563,
+      "baseline_wall_max": 0.011554333148524165
+    },
+    {
+      "position": "seeded-04",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8467285828862173,
+      "paired_speedup_max": 0.90941046877476,
+      "baseline_wall_min": 0.0015210420824587345,
+      "baseline_wall_max": 0.0015940829180181026
+    },
+    {
+      "position": "seeded-04",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9662777392551432,
+      "paired_speedup_max": 0.9991349124115816,
+      "baseline_wall_min": 0.0015210420824587345,
+      "baseline_wall_max": 0.0015940829180181026
+    },
+    {
+      "position": "seeded-04",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8262911332738716,
+      "paired_speedup_max": 0.8559964373504303,
+      "baseline_wall_min": 0.013896208954975009,
+      "baseline_wall_max": 0.01398883294314146
+    },
+    {
+      "position": "seeded-04",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9614314392711895,
+      "paired_speedup_max": 0.972623938488511,
+      "baseline_wall_min": 0.013896208954975009,
+      "baseline_wall_max": 0.01398883294314146
+    },
+    {
+      "position": "seeded-04",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.838779878292973,
+      "paired_speedup_max": 0.8666183313173607,
+      "baseline_wall_min": 0.08878658292815089,
+      "baseline_wall_max": 0.09142433409579098
+    },
+    {
+      "position": "seeded-04",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9524026108559333,
+      "paired_speedup_max": 0.9812930528431291,
+      "baseline_wall_min": 0.08878658292815089,
+      "baseline_wall_max": 0.09142433409579098
+    },
+    {
+      "position": "seeded-04",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8168034202423121,
+      "paired_speedup_max": 0.8669562445128369,
+      "baseline_wall_min": 0.4539951249025762,
+      "baseline_wall_max": 0.4715152501594275
+    },
+    {
+      "position": "seeded-04",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8477746154624741,
+      "paired_speedup_max": 0.9608456239869603,
+      "baseline_wall_min": 0.4539951249025762,
+      "baseline_wall_max": 0.4715152501594275
+    },
+    {
+      "position": "seeded-05",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8651437911731599,
+      "paired_speedup_max": 0.949261276666161,
+      "baseline_wall_min": 0.0007881668861955404,
+      "baseline_wall_max": 0.0008149589411914349
+    },
+    {
+      "position": "seeded-05",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9438186677610944,
+      "paired_speedup_max": 1.0399858095508616,
+      "baseline_wall_min": 0.0007881668861955404,
+      "baseline_wall_max": 0.0008149589411914349
+    },
+    {
+      "position": "seeded-05",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8785837696387855,
+      "paired_speedup_max": 0.9134658884386274,
+      "baseline_wall_min": 0.0045199578162282705,
+      "baseline_wall_max": 0.004602041095495224
+    },
+    {
+      "position": "seeded-05",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.955039473989615,
+      "paired_speedup_max": 0.9877088542191069,
+      "baseline_wall_min": 0.0045199578162282705,
+      "baseline_wall_max": 0.004602041095495224
+    },
+    {
+      "position": "seeded-05",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.5903773462309247,
+      "paired_speedup_max": 0.8688575150362464,
+      "baseline_wall_min": 0.015136458911001682,
+      "baseline_wall_max": 0.015340124955400825
+    },
+    {
+      "position": "seeded-05",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.82093023475082,
+      "paired_speedup_max": 0.9578757284337367,
+      "baseline_wall_min": 0.015136458911001682,
+      "baseline_wall_max": 0.015340124955400825
+    },
+    {
+      "position": "seeded-05",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8494100037856883,
+      "paired_speedup_max": 0.8560298261599871,
+      "baseline_wall_min": 0.05308212502859533,
+      "baseline_wall_max": 0.053355874959379435
+    },
+    {
+      "position": "seeded-05",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9299159457780359,
+      "paired_speedup_max": 0.939929888041455,
+      "baseline_wall_min": 0.05308212502859533,
+      "baseline_wall_max": 0.053355874959379435
+    },
+    {
+      "position": "seeded-06",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8655887142660937,
+      "paired_speedup_max": 0.9495652080212924,
+      "baseline_wall_min": 0.0005006249994039536,
+      "baseline_wall_max": 0.0005334580782800913
+    },
+    {
+      "position": "seeded-06",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9719221989137028,
+      "paired_speedup_max": 1.0310022683818352,
+      "baseline_wall_min": 0.0005006249994039536,
+      "baseline_wall_max": 0.0005334580782800913
+    },
+    {
+      "position": "seeded-06",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8460583608381517,
+      "paired_speedup_max": 0.8855988062558401,
+      "baseline_wall_min": 0.0017104169819504023,
+      "baseline_wall_max": 0.0017660839948803186
+    },
+    {
+      "position": "seeded-06",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9029657423269905,
+      "paired_speedup_max": 0.98243111152154,
+      "baseline_wall_min": 0.0017104169819504023,
+      "baseline_wall_max": 0.0017660839948803186
+    },
+    {
+      "position": "seeded-06",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.7226556081069354,
+      "paired_speedup_max": 1.2860107138689856,
+      "baseline_wall_min": 0.004651542054489255,
+      "baseline_wall_max": 0.011260041035711765
+    },
+    {
+      "position": "seeded-06",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.922969626047913,
+      "paired_speedup_max": 2.2258359580594886,
+      "baseline_wall_min": 0.004651542054489255,
+      "baseline_wall_max": 0.011260041035711765
+    },
+    {
+      "position": "seeded-06",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.6995964281761344,
+      "paired_speedup_max": 0.850201861141689,
+      "baseline_wall_min": 0.010973792057484388,
+      "baseline_wall_max": 0.011183165945112705
+    },
+    {
+      "position": "seeded-06",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9008224520631118,
+      "paired_speedup_max": 0.9362870564745864,
+      "baseline_wall_min": 0.010973792057484388,
+      "baseline_wall_max": 0.011183165945112705
+    },
+    {
+      "position": "seeded-07",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8372473401947342,
+      "paired_speedup_max": 0.876712687642451,
+      "baseline_wall_min": 0.0002800829242914915,
+      "baseline_wall_max": 0.00029450003057718277
+    },
+    {
+      "position": "seeded-07",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.873130856282159,
+      "paired_speedup_max": 1.0014485439343133,
+      "baseline_wall_min": 0.0002800829242914915,
+      "baseline_wall_max": 0.00029450003057718277
+    },
+    {
+      "position": "seeded-07",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.7800599958084263,
+      "paired_speedup_max": 0.8576080046473648,
+      "baseline_wall_min": 0.0005806251429021358,
+      "baseline_wall_max": 0.0005934590008109808
+    },
+    {
+      "position": "seeded-07",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.867575816507544,
+      "paired_speedup_max": 0.9354161169730583,
+      "baseline_wall_min": 0.0005806251429021358,
+      "baseline_wall_max": 0.0005934590008109808
+    },
+    {
+      "position": "seeded-07",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8291380894417006,
+      "paired_speedup_max": 0.927729650400653,
+      "baseline_wall_min": 0.001034833025187254,
+      "baseline_wall_max": 0.0011633338872343302
+    },
+    {
+      "position": "seeded-07",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8405393910787583,
+      "paired_speedup_max": 0.9828227153391149,
+      "baseline_wall_min": 0.001034833025187254,
+      "baseline_wall_max": 0.0011633338872343302
+    },
+    {
+      "position": "seeded-07",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8298212863326877,
+      "paired_speedup_max": 0.8648109121269624,
+      "baseline_wall_min": 0.0014915000647306442,
+      "baseline_wall_max": 0.0015620000194758177
+    },
+    {
+      "position": "seeded-07",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8254788719756082,
+      "paired_speedup_max": 0.9069747571628985,
+      "baseline_wall_min": 0.0014915000647306442,
+      "baseline_wall_max": 0.0015620000194758177
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8900035537105931,
+      "paired_speedup_max": 0.9418557046622079,
+      "baseline_wall_min": 0.0018370000179857016,
+      "baseline_wall_max": 0.001934749772772193
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.978437947795532,
+      "paired_speedup_max": 1.033198502688531,
+      "baseline_wall_min": 0.0018370000179857016,
+      "baseline_wall_max": 0.001934749772772193
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8583525136729717,
+      "paired_speedup_max": 0.9075938513917489,
+      "baseline_wall_min": 0.017380625009536743,
+      "baseline_wall_max": 0.01807987503707409
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.6358342427224238,
+      "paired_speedup_max": 0.9998087741506325,
+      "baseline_wall_min": 0.017380625009536743,
+      "baseline_wall_max": 0.01807987503707409
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.853121802659931,
+      "paired_speedup_max": 0.9101548554819245,
+      "baseline_wall_min": 0.13194429082795978,
+      "baseline_wall_max": 0.14080345910042524
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9353682605859602,
+      "paired_speedup_max": 1.024923363772246,
+      "baseline_wall_min": 0.13194429082795978,
+      "baseline_wall_max": 0.14080345910042524
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.7398966271736797,
+      "paired_speedup_max": 0.8678387491531232,
+      "baseline_wall_min": 0.7406777918804437,
+      "baseline_wall_max": 0.7535584168508649
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.896966747387255,
+      "paired_speedup_max": 0.9644989559852287,
+      "baseline_wall_min": 0.7406777918804437,
+      "baseline_wall_max": 0.7535584168508649
+    },
+    {
+      "position": "additional-00",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.871368919653099,
+      "paired_speedup_max": 0.9125641320213191,
+      "baseline_wall_min": 0.0012656250037252903,
+      "baseline_wall_max": 0.0013004159554839134
+    },
+    {
+      "position": "additional-00",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9659248365176619,
+      "paired_speedup_max": 0.9915033791163067,
+      "baseline_wall_min": 0.0012656250037252903,
+      "baseline_wall_max": 0.0013004159554839134
+    },
+    {
+      "position": "additional-00",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8539656940872357,
+      "paired_speedup_max": 0.8728688567475061,
+      "baseline_wall_min": 0.010717083932831883,
+      "baseline_wall_max": 0.01081479201093316
+    },
+    {
+      "position": "additional-00",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9438638568625959,
+      "paired_speedup_max": 0.9726609125557454,
+      "baseline_wall_min": 0.010717083932831883,
+      "baseline_wall_max": 0.01081479201093316
+    },
+    {
+      "position": "additional-00",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.5439402764650781,
+      "paired_speedup_max": 0.860741016259718,
+      "baseline_wall_min": 0.06288662482984364,
+      "baseline_wall_max": 0.06881712516769767
+    },
+    {
+      "position": "additional-00",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9096458864149215,
+      "paired_speedup_max": 1.0291353785578667,
+      "baseline_wall_min": 0.06288662482984364,
+      "baseline_wall_max": 0.06881712516769767
+    },
+    {
+      "position": "additional-00",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.6880212051850143,
+      "paired_speedup_max": 0.8504616106870848,
+      "baseline_wall_min": 0.28040349995717406,
+      "baseline_wall_max": 0.2851951669435948
+    },
+    {
+      "position": "additional-00",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.7767877603930631,
+      "paired_speedup_max": 0.9463623538108681,
+      "baseline_wall_min": 0.28040349995717406,
+      "baseline_wall_max": 0.2851951669435948
+    },
+    {
+      "position": "additional-01",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.896308491059561,
+      "paired_speedup_max": 0.9076099390199748,
+      "baseline_wall_min": 0.0014384998939931393,
+      "baseline_wall_max": 0.0014649578370153904
+    },
+    {
+      "position": "additional-01",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9600730338711663,
+      "paired_speedup_max": 1.0001419476198976,
+      "baseline_wall_min": 0.0014384998939931393,
+      "baseline_wall_max": 0.0014649578370153904
+    },
+    {
+      "position": "additional-01",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.7287378806258377,
+      "paired_speedup_max": 0.8705878098130932,
+      "baseline_wall_min": 0.013195833889767528,
+      "baseline_wall_max": 0.01424158294685185
+    },
+    {
+      "position": "additional-01",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9164436047130787,
+      "paired_speedup_max": 1.022765482493295,
+      "baseline_wall_min": 0.013195833889767528,
+      "baseline_wall_max": 0.01424158294685185
+    },
+    {
+      "position": "additional-01",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8178269020166902,
+      "paired_speedup_max": 0.8711855980671733,
+      "baseline_wall_min": 0.06666700006462634,
+      "baseline_wall_max": 0.06839079200290143
+    },
+    {
+      "position": "additional-01",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8747006425354428,
+      "paired_speedup_max": 0.9772957796807428,
+      "baseline_wall_min": 0.06666700006462634,
+      "baseline_wall_max": 0.06839079200290143
+    },
+    {
+      "position": "additional-01",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8382794950548765,
+      "paired_speedup_max": 0.846478775981293,
+      "baseline_wall_min": 0.22276045894250274,
+      "baseline_wall_max": 0.2241714159026742
+    },
+    {
+      "position": "additional-01",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9220647029866874,
+      "paired_speedup_max": 0.9431048221011179,
+      "baseline_wall_min": 0.22276045894250274,
+      "baseline_wall_max": 0.2241714159026742
+    },
+    {
+      "position": "additional-02",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8419331778309255,
+      "paired_speedup_max": 0.9006120232819511,
+      "baseline_wall_min": 0.0007021250203251839,
+      "baseline_wall_max": 0.0007259589619934559
+    },
+    {
+      "position": "additional-02",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9626879705750457,
+      "paired_speedup_max": 1.005134062414105,
+      "baseline_wall_min": 0.0007021250203251839,
+      "baseline_wall_max": 0.0007259589619934559
+    },
+    {
+      "position": "additional-02",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8484509586710328,
+      "paired_speedup_max": 0.8640134069304497,
+      "baseline_wall_min": 0.00252895918674767,
+      "baseline_wall_max": 0.0025937501341104507
+    },
+    {
+      "position": "additional-02",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.921263524207183,
+      "paired_speedup_max": 0.9565153255690092,
+      "baseline_wall_min": 0.00252895918674767,
+      "baseline_wall_max": 0.0025937501341104507
+    },
+    {
+      "position": "additional-02",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8276002679884688,
+      "paired_speedup_max": 0.8583079209682525,
+      "baseline_wall_min": 0.006980834063142538,
+      "baseline_wall_max": 0.00715195806697011
+    },
+    {
+      "position": "additional-02",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9094934242331929,
+      "paired_speedup_max": 0.9383845145862824,
+      "baseline_wall_min": 0.006980834063142538,
+      "baseline_wall_max": 0.00715195806697011
+    },
+    {
+      "position": "additional-02",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8274693851147323,
+      "paired_speedup_max": 0.8463114686808508,
+      "baseline_wall_min": 0.01605291711166501,
+      "baseline_wall_max": 0.01638187514618039
+    },
+    {
+      "position": "additional-02",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9086065717049169,
+      "paired_speedup_max": 0.9184191617932287,
+      "baseline_wall_min": 0.01605291711166501,
+      "baseline_wall_max": 0.01638187514618039
+    },
+    {
+      "position": "additional-03",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8139116075287746,
+      "paired_speedup_max": 0.8885342777428886,
+      "baseline_wall_min": 0.00043458305299282074,
+      "baseline_wall_max": 0.00044958293437957764
+    },
+    {
+      "position": "additional-03",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9512386875235769,
+      "paired_speedup_max": 0.9984901042539533,
+      "baseline_wall_min": 0.00043458305299282074,
+      "baseline_wall_max": 0.00044958293437957764
+    },
+    {
+      "position": "additional-03",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.7921009677792487,
+      "paired_speedup_max": 0.8584100050425904,
+      "baseline_wall_min": 0.0011331250425428152,
+      "baseline_wall_max": 0.0011771658901125193
+    },
+    {
+      "position": "additional-03",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8936013620469742,
+      "paired_speedup_max": 0.9638384350877179,
+      "baseline_wall_min": 0.0011331250425428152,
+      "baseline_wall_max": 0.0011771658901125193
+    },
+    {
+      "position": "additional-03",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.6955915511455696,
+      "paired_speedup_max": 0.8682364334596255,
+      "baseline_wall_min": 0.002281875116750598,
+      "baseline_wall_max": 0.00245591695420444
+    },
+    {
+      "position": "additional-03",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8917841260834045,
+      "paired_speedup_max": 0.9404605967462983,
+      "baseline_wall_min": 0.002281875116750598,
+      "baseline_wall_max": 0.00245591695420444
+    },
+    {
+      "position": "additional-03",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.7960423344677264,
+      "paired_speedup_max": 1.963377806987501,
+      "baseline_wall_min": 0.005667124874889851,
+      "baseline_wall_max": 0.013338041957467794
+    },
+    {
+      "position": "additional-03",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.47245185817621355,
+      "paired_speedup_max": 2.1088092945605474,
+      "baseline_wall_min": 0.005667124874889851,
+      "baseline_wall_max": 0.013338041957467794
+    },
+    {
+      "position": "generalization-00",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8691195358842954,
+      "paired_speedup_max": 0.9140645159311988,
+      "baseline_wall_min": 0.0013140840455889702,
+      "baseline_wall_max": 0.001388082979246974
+    },
+    {
+      "position": "generalization-00",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9807808405818562,
+      "paired_speedup_max": 1.0391460408357203,
+      "baseline_wall_min": 0.0013140840455889702,
+      "baseline_wall_max": 0.001388082979246974
+    },
+    {
+      "position": "generalization-00",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8585276988205363,
+      "paired_speedup_max": 0.8842550818592075,
+      "baseline_wall_min": 0.010838166112080216,
+      "baseline_wall_max": 0.011185665847733617
+    },
+    {
+      "position": "generalization-00",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9098629917755895,
+      "paired_speedup_max": 0.9957935132401566,
+      "baseline_wall_min": 0.010838166112080216,
+      "baseline_wall_max": 0.011185665847733617
+    },
+    {
+      "position": "generalization-00",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8611019455138468,
+      "paired_speedup_max": 0.9090937137475122,
+      "baseline_wall_min": 0.05796504206955433,
+      "baseline_wall_max": 0.06151416711509228
+    },
+    {
+      "position": "generalization-00",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9401470860386417,
+      "paired_speedup_max": 0.9855861220625826,
+      "baseline_wall_min": 0.05796504206955433,
+      "baseline_wall_max": 0.06151416711509228
+    },
+    {
+      "position": "generalization-00",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8583421754592649,
+      "paired_speedup_max": 0.8677518992692085,
+      "baseline_wall_min": 0.24916725000366569,
+      "baseline_wall_max": 0.25679591693915427
+    },
+    {
+      "position": "generalization-00",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9300378073969013,
+      "paired_speedup_max": 0.9611668888522645,
+      "baseline_wall_min": 0.24916725000366569,
+      "baseline_wall_max": 0.25679591693915427
+    },
+    {
+      "position": "generalization-01",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.7830073103968973,
+      "paired_speedup_max": 0.8670482868867578,
+      "baseline_wall_min": 0.0005025831051170826,
+      "baseline_wall_max": 0.000514540821313858
+    },
+    {
+      "position": "generalization-01",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9356114315460521,
+      "paired_speedup_max": 0.991621919949293,
+      "baseline_wall_min": 0.0005025831051170826,
+      "baseline_wall_max": 0.000514540821313858
+    },
+    {
+      "position": "generalization-01",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8289834940938311,
+      "paired_speedup_max": 0.8874555452109831,
+      "baseline_wall_min": 0.0025992088485509157,
+      "baseline_wall_max": 0.0027146670036017895
+    },
+    {
+      "position": "generalization-01",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9318466327849433,
+      "paired_speedup_max": 0.9847641787716763,
+      "baseline_wall_min": 0.0025992088485509157,
+      "baseline_wall_max": 0.0027146670036017895
+    },
+    {
+      "position": "generalization-01",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8317706777773755,
+      "paired_speedup_max": 0.8680885029968847,
+      "baseline_wall_min": 0.014871791936457157,
+      "baseline_wall_max": 0.015672292094677687
+    },
+    {
+      "position": "generalization-01",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9236291125361527,
+      "paired_speedup_max": 0.963121262868148,
+      "baseline_wall_min": 0.014871791936457157,
+      "baseline_wall_max": 0.015672292094677687
+    },
+    {
+      "position": "generalization-01",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8325632421085671,
+      "paired_speedup_max": 0.8496937502366236,
+      "baseline_wall_min": 0.07492066593840718,
+      "baseline_wall_max": 0.07747516687959433
+    },
+    {
+      "position": "generalization-01",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9095721965520358,
+      "paired_speedup_max": 0.9712658744093934,
+      "baseline_wall_min": 0.07492066593840718,
+      "baseline_wall_max": 0.07747516687959433
+    },
+    {
+      "position": "generalization-02",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8311060331314758,
+      "paired_speedup_max": 0.9041958756918089,
+      "baseline_wall_min": 0.0008142080623656511,
+      "baseline_wall_max": 0.0008545410819351673
+    },
+    {
+      "position": "generalization-02",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9766623632883716,
+      "paired_speedup_max": 1.0002020245280883,
+      "baseline_wall_min": 0.0008142080623656511,
+      "baseline_wall_max": 0.0008545410819351673
+    },
+    {
+      "position": "generalization-02",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8324128745063236,
+      "paired_speedup_max": 0.868073748166962,
+      "baseline_wall_min": 0.0025912499986588955,
+      "baseline_wall_max": 0.0026942079421132803
+    },
+    {
+      "position": "generalization-02",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9148987021184604,
+      "paired_speedup_max": 0.9845612963711585,
+      "baseline_wall_min": 0.0025912499986588955,
+      "baseline_wall_max": 0.0026942079421132803
+    },
+    {
+      "position": "generalization-02",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8310160740740604,
+      "paired_speedup_max": 0.8554444654217978,
+      "baseline_wall_min": 0.007325249956920743,
+      "baseline_wall_max": 0.007447042036801577
+    },
+    {
+      "position": "generalization-02",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9165575940152179,
+      "paired_speedup_max": 0.9549071454903563,
+      "baseline_wall_min": 0.007325249956920743,
+      "baseline_wall_max": 0.007447042036801577
+    },
+    {
+      "position": "generalization-02",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8125096088042881,
+      "paired_speedup_max": 0.9440844320896321,
+      "baseline_wall_min": 0.017078042030334473,
+      "baseline_wall_max": 0.019703041994944215
+    },
+    {
+      "position": "generalization-02",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.5839699922307224,
+      "paired_speedup_max": 1.0498513360538135,
+      "baseline_wall_min": 0.017078042030334473,
+      "baseline_wall_max": 0.019703041994944215
+    },
+    {
+      "position": "generalization-03",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.7951509842895484,
+      "paired_speedup_max": 0.8862468387812233,
+      "baseline_wall_min": 0.00023441691882908344,
+      "baseline_wall_max": 0.0002472919877618551
+    },
+    {
+      "position": "generalization-03",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.784951640355305,
+      "paired_speedup_max": 0.999319495778777,
+      "baseline_wall_min": 0.00023441691882908344,
+      "baseline_wall_max": 0.0002472919877618551
+    },
+    {
+      "position": "generalization-03",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.839076610590031,
+      "paired_speedup_max": 0.8976126575160391,
+      "baseline_wall_min": 0.00048095802776515484,
+      "baseline_wall_max": 0.0004913751035928726
+    },
+    {
+      "position": "generalization-03",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8711038147761747,
+      "paired_speedup_max": 0.9549778817124116,
+      "baseline_wall_min": 0.00048095802776515484,
+      "baseline_wall_max": 0.0004913751035928726
+    },
+    {
+      "position": "generalization-03",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.837163998683968,
+      "paired_speedup_max": 0.8580257894254253,
+      "baseline_wall_min": 0.00089833396486938,
+      "baseline_wall_max": 0.0009539579041302204
+    },
+    {
+      "position": "generalization-03",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8675629358032921,
+      "paired_speedup_max": 0.9484645622537671,
+      "baseline_wall_min": 0.00089833396486938,
+      "baseline_wall_max": 0.0009539579041302204
+    },
+    {
+      "position": "generalization-03",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.802103659219539,
+      "paired_speedup_max": 0.8738720004825627,
+      "baseline_wall_min": 0.0015506669878959656,
+      "baseline_wall_max": 0.0016662920825183392
+    },
+    {
+      "position": "generalization-03",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8633518059964107,
+      "paired_speedup_max": 0.9409874894303312,
+      "baseline_wall_min": 0.0015506669878959656,
+      "baseline_wall_max": 0.0016662920825183392
+    },
+    {
+      "position": "heldout-00",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8797358596028578,
+      "paired_speedup_max": 0.9337181788493574,
+      "baseline_wall_min": 0.0014249158557504416,
+      "baseline_wall_max": 0.0014697920996695757
+    },
+    {
+      "position": "heldout-00",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9604350620739379,
+      "paired_speedup_max": 1.0118956130661831,
+      "baseline_wall_min": 0.0014249158557504416,
+      "baseline_wall_max": 0.0014697920996695757
+    },
+    {
+      "position": "heldout-00",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8910895092642918,
+      "paired_speedup_max": 0.9206408420758753,
+      "baseline_wall_min": 0.012612959137186408,
+      "baseline_wall_max": 0.01306458399631083
+    },
+    {
+      "position": "heldout-00",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9739282459515614,
+      "paired_speedup_max": 1.0049744046746674,
+      "baseline_wall_min": 0.012612959137186408,
+      "baseline_wall_max": 0.01306458399631083
+    },
+    {
+      "position": "heldout-00",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8536180004340325,
+      "paired_speedup_max": 0.9353067503788453,
+      "baseline_wall_min": 0.07370033301413059,
+      "baseline_wall_max": 0.08048466593027115
+    },
+    {
+      "position": "heldout-00",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9577992983824551,
+      "paired_speedup_max": 1.0486545705341,
+      "baseline_wall_min": 0.07370033301413059,
+      "baseline_wall_max": 0.08048466593027115
+    },
+    {
+      "position": "heldout-00",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8566633915977122,
+      "paired_speedup_max": 0.9065437762757453,
+      "baseline_wall_min": 0.33849620819091797,
+      "baseline_wall_max": 0.35621683299541473
+    },
+    {
+      "position": "heldout-00",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9813594838289654,
+      "paired_speedup_max": 1.0035908427478963,
+      "baseline_wall_min": 0.33849620819091797,
+      "baseline_wall_max": 0.35621683299541473
+    },
+    {
+      "position": "heldout-01",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8690724275721442,
+      "paired_speedup_max": 0.9156131561619061,
+      "baseline_wall_min": 0.0007007909007370472,
+      "baseline_wall_max": 0.0007255829405039549
+    },
+    {
+      "position": "heldout-01",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9800190209732942,
+      "paired_speedup_max": 1.009096702287565,
+      "baseline_wall_min": 0.0007007909007370472,
+      "baseline_wall_max": 0.0007255829405039549
+    },
+    {
+      "position": "heldout-01",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8262294146573694,
+      "paired_speedup_max": 0.9244211644217275,
+      "baseline_wall_min": 0.0026499589439481497,
+      "baseline_wall_max": 0.002920249942690134
+    },
+    {
+      "position": "heldout-01",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.6988333534381626,
+      "paired_speedup_max": 1.0104760752492066,
+      "baseline_wall_min": 0.0026499589439481497,
+      "baseline_wall_max": 0.002920249942690134
+    },
+    {
+      "position": "heldout-01",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.5489374644575609,
+      "paired_speedup_max": 0.8685613266508264,
+      "baseline_wall_min": 0.006056583020836115,
+      "baseline_wall_max": 0.006263332907110453
+    },
+    {
+      "position": "heldout-01",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8893694959058388,
+      "paired_speedup_max": 0.9374035239726833,
+      "baseline_wall_min": 0.006056583020836115,
+      "baseline_wall_max": 0.006263332907110453
+    },
+    {
+      "position": "heldout-01",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8150421550772501,
+      "paired_speedup_max": 0.8641619587711008,
+      "baseline_wall_min": 0.011717250104993582,
+      "baseline_wall_max": 0.012125540990382433
+    },
+    {
+      "position": "heldout-01",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8669935867065979,
+      "paired_speedup_max": 0.9249783394146848,
+      "baseline_wall_min": 0.011717250104993582,
+      "baseline_wall_max": 0.012125540990382433
+    },
+    {
+      "position": "heldout-02",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.6763678844339722,
+      "paired_speedup_max": 0.9007603718812845,
+      "baseline_wall_min": 0.0003055830020457506,
+      "baseline_wall_max": 0.00033404119312763214
+    },
+    {
+      "position": "heldout-02",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9326412340775458,
+      "paired_speedup_max": 0.9986663457949286,
+      "baseline_wall_min": 0.0003055830020457506,
+      "baseline_wall_max": 0.00033404119312763214
+    },
+    {
+      "position": "heldout-02",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.7869941563491015,
+      "paired_speedup_max": 0.8652871072526911,
+      "baseline_wall_min": 0.0006987920496612787,
+      "baseline_wall_max": 0.0007208338938653469
+    },
+    {
+      "position": "heldout-02",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8422398956492676,
+      "paired_speedup_max": 0.9513302443171336,
+      "baseline_wall_min": 0.0006987920496612787,
+      "baseline_wall_max": 0.0007208338938653469
+    },
+    {
+      "position": "heldout-02",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.7656986839733017,
+      "paired_speedup_max": 0.8637038569078787,
+      "baseline_wall_min": 0.0014823749661445618,
+      "baseline_wall_max": 0.0015459582209587097
+    },
+    {
+      "position": "heldout-02",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8955823157591492,
+      "paired_speedup_max": 0.9267946083138207,
+      "baseline_wall_min": 0.0014823749661445618,
+      "baseline_wall_max": 0.0015459582209587097
+    },
+    {
+      "position": "heldout-02",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.804033068746112,
+      "paired_speedup_max": 0.8473024817568013,
+      "baseline_wall_min": 0.002613541902974248,
+      "baseline_wall_max": 0.002728958847001195
+    },
+    {
+      "position": "heldout-02",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.8768325464315916,
+      "paired_speedup_max": 0.8996109124285875,
+      "baseline_wall_min": 0.002613541902974248,
+      "baseline_wall_max": 0.002728958847001195
+    },
+    {
+      "position": "heldout-03",
+      "depth": 4,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8253923891958399,
+      "paired_speedup_max": 0.8820378869508511,
+      "baseline_wall_min": 0.00011520902626216412,
+      "baseline_wall_max": 0.00012554205022752285
+    },
+    {
+      "position": "heldout-03",
+      "depth": 4,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.9353980109377629,
+      "paired_speedup_max": 0.9814504046722136,
+      "baseline_wall_min": 0.00011520902626216412,
+      "baseline_wall_max": 0.00012554205022752285
+    },
+    {
+      "position": "heldout-03",
+      "depth": 6,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8370592998755102,
+      "paired_speedup_max": 0.8868499787105879,
+      "baseline_wall_min": 0.00014133285731077194,
+      "baseline_wall_max": 0.00014512497000396252
+    },
+    {
+      "position": "heldout-03",
+      "depth": 6,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.7956098819814043,
+      "paired_speedup_max": 0.898778737616888,
+      "baseline_wall_min": 0.00014133285731077194,
+      "baseline_wall_max": 0.00014512497000396252
+    },
+    {
+      "position": "heldout-03",
+      "depth": 8,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8351166584796602,
+      "paired_speedup_max": 0.8650830971481437,
+      "baseline_wall_min": 0.00015279115177690983,
+      "baseline_wall_max": 0.00016233394853770733
+    },
+    {
+      "position": "heldout-03",
+      "depth": 8,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.845121990482875,
+      "paired_speedup_max": 0.8864662466704386,
+      "baseline_wall_min": 0.00015279115177690983,
+      "baseline_wall_max": 0.00016233394853770733
+    },
+    {
+      "position": "heldout-03",
+      "depth": 10,
+      "variant": "mirror",
+      "paired_speedup_min": 0.8363565017269357,
+      "paired_speedup_max": 1.2675715074902514,
+      "baseline_wall_min": 0.00016200006939470768,
+      "baseline_wall_max": 0.00023666699416935444
+    },
+    {
+      "position": "heldout-03",
+      "depth": 10,
+      "variant": "mirror-selective",
+      "paired_speedup_min": 0.6877883221933753,
+      "paired_speedup_max": 1.290322048313594,
+      "baseline_wall_min": 0.00016200006939470768,
+      "baseline_wall_max": 0.00023666699416935444
+    }
+  ]
+}

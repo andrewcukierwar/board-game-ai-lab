@@ -1,0 +1,22 @@
+{
+  "pvs": {
+    "accepted": false,
+    "geometric_speedup": 1.0107651212205782,
+    "broad_speedup": 1.0864252133995271,
+    "wall_sum_ratio": 0.8863280804932435,
+    "cpu_sum_ratio": 0.8868996595457,
+    "heldout_speedup": 1.0134365236436615,
+    "broad_retained_ratio": 0.8983534400786297,
+    "regressions": [
+      "immediate-win/D8"
+    ],
+    "memory_failures": [],
+    "failed_gates": [
+      "geometric",
+      "broad_geometric",
+      "per_condition"
+    ],
+    "baseline_sum_median_seconds": 3.676447131438181,
+    "candidate_sum_median_seconds": 3.2585383290424943
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "baseline_commit": "60b99b0d42145da149f433907585b809060c946d",
+  "variants": [
+    "direct",
+    "terminal-proof"
+  ],
+  "positions": [
+    {
+      "id": "empty",
+      "history": [],
+      "group": "phase3a"
+    },
+    {
+      "id": "near-opening",
+      "history": [
+        3,
+        2,
+        4,
+        3
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "seeded-04",
+      "history": [
+        1,
+        1,
+        5,
+        0,
+        5,
+        6,
+        6,
+        6
+      ],
+      "group": "seeded"
+    },
+    {
+      "id": "post-hoc-tail",
+      "history": [
+        1,
+        4,
+        6,
+        0,
+        6
+      ],
+      "group": "post-hoc-diagnostic"
+    },
+    {
+      "id": "dense-endgame",
+      "history": [
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        6,
+        4,
+        4,
+        4,
+        4,
+        4,
+        4,
+        5,
+        5,
+        5,
+        5,
+        5,
+        5,
+        6
+      ],
+      "group": "phase3a"
+    },
+    {
+      "id": "heldout-03",
+      "history": [
+        5,
+        3,
+        6,
+        2,
+        4,
+        2,
+        3,
+        5,
+        6,
+        5,
+        1,
+        6,
+        6,
+        0,
+        0,
+        6,
+        1,
+        3,
+        0,
+        0,
+        5,
+        0,
+        5,
+        3,
+        0,
+        2,
+        4,
+        5,
+        2
+      ],
+      "group": "heldout"
+    }
+  ],
+  "fixture_source_hash": "6dd0e67b1c29f3ee06f5a3c5d793c7544675c91494b73a189c8117a738fa8a1a",
+  "depths": [
+    10,
+    12
+  ],
+  "samples": 7,
+  "memory_repetitions": 2,
+  "warmups": 1,
+  "maximum_batch_seconds": 450,
+  "design_sha256": "652e91f3c2b2f2577e77bb4c2edd897c43fc1b8324bb300f2a5f79ba60f84be3",
+  "source_hashes": {
+    "scripts/negamax_v3_variants.py": "a3e2297d701d7f6bd270858ef74183b8b9257cdd18ea40104d4b85682150e47d",
+    "scripts/benchmark_negamax_v3.py": "03b82b3e0d10c3673978877356e212dd5180cb423ff0ce9d85710ed3b58d387d",
+    "games/connect4/agents/negamax_tt.py": "066923937ffb5e5f0d065a04a9657e0e02bc0f531b3941f2b73cd0f84583ab60",
+    "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+    "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+    "scripts/with_benchmark_lock.sh": "5de6ed25d6a67fb00157382027e857b2a438944fdcd88ef0fb05e1303e43c00d",
+    "scripts/audit_negamax_v3_payloads.py": "35d644350a9d8789a1ffb935c4362d69df49949babd550a1cb1510cca79d3864"
+  },
+  "runtime": {
+    "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "cpus": 10,
+    "load": [
+      3.28857421875,
+      3.595703125,
+      3.6806640625
+    ],
+    "unix_seconds": 1791653533.766461
+  },
+  "sources": {
+    "direct-source.py": "f46461d73b240c645248d57884fee0b9917c1be289758efe381cf6458a9cb392",
+    "direct-diagnostic.py": "f3bc7dead61088841c3e721ff00a15759ceb80948225a2a3a2fe83106b229acd",
+    "terminal-proof-source.py": "cb444b82315d70a6b40c5eb2fed415d1f13ca6b76a6e8076534cb7183253aac3",
+    "terminal-proof-diagnostic.py": "050aee93f256b029b74466141f2a880f98538dedc45f29008e5ae5ebcc9b7774"
+  },
+  "candidate_commit": "51bd80ed65413fe0d14dc6e6b4d04d60a3381fb6",
+  "candidate_source_sha256": "cb444b82315d70a6b40c5eb2fed415d1f13ca6b76a6e8076534cb7183253aac3"
+}

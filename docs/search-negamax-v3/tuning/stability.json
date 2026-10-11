@@ -1,0 +1,2333 @@
+{
+  "method": "Seven descriptive leave-one-repetition-out analyses, not confidence intervals. Correlated conditions and host activity remain.",
+  "variants": {
+    "terminal-proof": {
+      "leave_one_repetition_out_geometric_range": [
+        1.1340018396339142,
+        1.135724122287669
+      ],
+      "leave_one_repetition_out_wall_sum_range": [
+        0.8766896498666576,
+        0.8786664911271257
+      ],
+      "accepted_in_omissions": 7
+    },
+    "trusted-tt": {
+      "leave_one_repetition_out_geometric_range": [
+        1.0171674582939931,
+        1.021467338680316
+      ],
+      "leave_one_repetition_out_wall_sum_range": [
+        0.9778223836490939,
+        0.9798127884453167
+      ],
+      "accepted_in_omissions": 0
+    }
+  },
+  "conditions": [
+    {
+      "position": "empty",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0413863770816545,
+      "paired_speedup_max": 1.1711122239055087,
+      "baseline_wall_min": 0.0008281671907752752,
+      "baseline_wall_max": 0.0008597918786108494
+    },
+    {
+      "position": "empty",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9745850690250273,
+      "paired_speedup_max": 1.0536663115239162,
+      "baseline_wall_min": 0.0008281671907752752,
+      "baseline_wall_max": 0.0008597918786108494
+    },
+    {
+      "position": "empty",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1112433988551635,
+      "paired_speedup_max": 1.1752907615080568,
+      "baseline_wall_min": 0.0075086248107254505,
+      "baseline_wall_max": 0.007703875191509724
+    },
+    {
+      "position": "empty",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9680403133959178,
+      "paired_speedup_max": 1.029127417365378,
+      "baseline_wall_min": 0.0075086248107254505,
+      "baseline_wall_max": 0.007703875191509724
+    },
+    {
+      "position": "empty",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.13786585836111,
+      "paired_speedup_max": 1.4688098981951685,
+      "baseline_wall_min": 0.04742995789274573,
+      "baseline_wall_max": 0.06101675005629659
+    },
+    {
+      "position": "empty",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0104202220477936,
+      "paired_speedup_max": 1.246157453335527,
+      "baseline_wall_min": 0.04742995789274573,
+      "baseline_wall_max": 0.06101675005629659
+    },
+    {
+      "position": "empty",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.9264897684789897,
+      "paired_speedup_max": 1.1616209103875068,
+      "baseline_wall_min": 0.2189195000100881,
+      "baseline_wall_max": 0.22901470912620425
+    },
+    {
+      "position": "empty",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9340007357405036,
+      "paired_speedup_max": 1.0330884870957928,
+      "baseline_wall_min": 0.2189195000100881,
+      "baseline_wall_max": 0.22901470912620425
+    },
+    {
+      "position": "near-opening",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1240277684777318,
+      "paired_speedup_max": 1.1738390278310091,
+      "baseline_wall_min": 0.0009220419451594353,
+      "baseline_wall_max": 0.0009605418890714645
+    },
+    {
+      "position": "near-opening",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9945624971275489,
+      "paired_speedup_max": 1.044446554183803,
+      "baseline_wall_min": 0.0009220419451594353,
+      "baseline_wall_max": 0.0009605418890714645
+    },
+    {
+      "position": "near-opening",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.5156817525704658,
+      "paired_speedup_max": 1.212246542194627,
+      "baseline_wall_min": 0.007180459098890424,
+      "baseline_wall_max": 0.007754791993647814
+    },
+    {
+      "position": "near-opening",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.5527358355892837,
+      "paired_speedup_max": 1.0333591841170902,
+      "baseline_wall_min": 0.007180459098890424,
+      "baseline_wall_max": 0.007754791993647814
+    },
+    {
+      "position": "near-opening",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0531738017436851,
+      "paired_speedup_max": 1.1615212230346557,
+      "baseline_wall_min": 0.04150812514126301,
+      "baseline_wall_max": 0.042750417022034526
+    },
+    {
+      "position": "near-opening",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.974074158486078,
+      "paired_speedup_max": 1.0350542936109948,
+      "baseline_wall_min": 0.04150812514126301,
+      "baseline_wall_max": 0.042750417022034526
+    },
+    {
+      "position": "near-opening",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1109021029547532,
+      "paired_speedup_max": 1.7892971793429848,
+      "baseline_wall_min": 0.1766878329217434,
+      "baseline_wall_max": 0.29971883282996714
+    },
+    {
+      "position": "near-opening",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9888211442637439,
+      "paired_speedup_max": 1.585245330636609,
+      "baseline_wall_min": 0.1766878329217434,
+      "baseline_wall_max": 0.29971883282996714
+    },
+    {
+      "position": "midgame",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.124720279881873,
+      "paired_speedup_max": 1.1939624266730315,
+      "baseline_wall_min": 0.0005542500875890255,
+      "baseline_wall_max": 0.000588499940931797
+    },
+    {
+      "position": "midgame",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9615145963036932,
+      "paired_speedup_max": 1.057027303601546,
+      "baseline_wall_min": 0.0005542500875890255,
+      "baseline_wall_max": 0.000588499940931797
+    },
+    {
+      "position": "midgame",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.120554860051262,
+      "paired_speedup_max": 1.1900402223947033,
+      "baseline_wall_min": 0.0019942079670727253,
+      "baseline_wall_max": 0.0020730001851916313
+    },
+    {
+      "position": "midgame",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9789482773665511,
+      "paired_speedup_max": 1.0409894199504495,
+      "baseline_wall_min": 0.0019942079670727253,
+      "baseline_wall_max": 0.0020730001851916313
+    },
+    {
+      "position": "midgame",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1276041886812564,
+      "paired_speedup_max": 1.1998711190622988,
+      "baseline_wall_min": 0.004953125026077032,
+      "baseline_wall_max": 0.005205790977925062
+    },
+    {
+      "position": "midgame",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0026314851824487,
+      "paired_speedup_max": 1.0498632774211119,
+      "baseline_wall_min": 0.004953125026077032,
+      "baseline_wall_max": 0.005205790977925062
+    },
+    {
+      "position": "midgame",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1224374376964683,
+      "paired_speedup_max": 1.1535413189055228,
+      "baseline_wall_min": 0.010048666968941689,
+      "baseline_wall_max": 0.01017841580323875
+    },
+    {
+      "position": "midgame",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.014427660884074,
+      "paired_speedup_max": 1.0311999581820652,
+      "baseline_wall_min": 0.010048666968941689,
+      "baseline_wall_max": 0.01017841580323875
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.7300903220733781,
+      "paired_speedup_max": 1.2964518195388974,
+      "baseline_wall_min": 0.0012452909722924232,
+      "baseline_wall_max": 0.0013934161979705095
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.5463799119558007,
+      "paired_speedup_max": 1.1472771162126962,
+      "baseline_wall_min": 0.0012452909722924232,
+      "baseline_wall_max": 0.0013934161979705095
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1240518733333766,
+      "paired_speedup_max": 1.161690727017641,
+      "baseline_wall_min": 0.005471791140735149,
+      "baseline_wall_max": 0.0055995420552790165
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9680230854244651,
+      "paired_speedup_max": 1.0322079186389552,
+      "baseline_wall_min": 0.005471791140735149,
+      "baseline_wall_max": 0.0055995420552790165
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1134578628633267,
+      "paired_speedup_max": 1.1348694816061506,
+      "baseline_wall_min": 0.015542209148406982,
+      "baseline_wall_max": 0.015699875075370073
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0123666691687287,
+      "paired_speedup_max": 1.0261272502517593,
+      "baseline_wall_min": 0.015542209148406982,
+      "baseline_wall_max": 0.015699875075370073
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1235759080034609,
+      "paired_speedup_max": 1.1298772150197354,
+      "baseline_wall_min": 0.037907208781689405,
+      "baseline_wall_max": 0.03841295815072954
+    },
+    {
+      "position": "midgame-wide",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0180404288953637,
+      "paired_speedup_max": 1.0279192785195694,
+      "baseline_wall_min": 0.037907208781689405,
+      "baseline_wall_max": 0.03841295815072954
+    },
+    {
+      "position": "late",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.053489594878113,
+      "paired_speedup_max": 1.3300674752183232,
+      "baseline_wall_min": 9.033316746354103e-05,
+      "baseline_wall_max": 0.00010762480087578297
+    },
+    {
+      "position": "late",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9552427515740174,
+      "paired_speedup_max": 1.1980535468988933,
+      "baseline_wall_min": 9.033316746354103e-05,
+      "baseline_wall_max": 0.00010762480087578297
+    },
+    {
+      "position": "late",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0247561308145958,
+      "paired_speedup_max": 1.1808557878664585,
+      "baseline_wall_min": 0.00023837503977119923,
+      "baseline_wall_max": 0.00026095821522176266
+    },
+    {
+      "position": "late",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.7874037266557118,
+      "paired_speedup_max": 1.0734894644320179,
+      "baseline_wall_min": 0.00023837503977119923,
+      "baseline_wall_max": 0.00026095821522176266
+    },
+    {
+      "position": "late",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.087919580827508,
+      "paired_speedup_max": 1.1294054274529277,
+      "baseline_wall_min": 0.0005862079560756683,
+      "baseline_wall_max": 0.0006258338689804077
+    },
+    {
+      "position": "late",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9901516305487436,
+      "paired_speedup_max": 1.061109604415395,
+      "baseline_wall_min": 0.0005862079560756683,
+      "baseline_wall_max": 0.0006258338689804077
+    },
+    {
+      "position": "late",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0309076135518982,
+      "paired_speedup_max": 1.1475391497506389,
+      "baseline_wall_min": 0.0011391669977456331,
+      "baseline_wall_max": 0.0013040830381214619
+    },
+    {
+      "position": "late",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9924520093730775,
+      "paired_speedup_max": 1.1055456764946052,
+      "baseline_wall_min": 0.0011391669977456331,
+      "baseline_wall_max": 0.0013040830381214619
+    },
+    {
+      "position": "immediate-win",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0954049792912062,
+      "paired_speedup_max": 1.1600413329888917,
+      "baseline_wall_min": 0.0005504579748958349,
+      "baseline_wall_max": 0.0005750418640673161
+    },
+    {
+      "position": "immediate-win",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.011470248575458,
+      "paired_speedup_max": 1.0497447879055521,
+      "baseline_wall_min": 0.0005504579748958349,
+      "baseline_wall_max": 0.0005750418640673161
+    },
+    {
+      "position": "immediate-win",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1218775315431064,
+      "paired_speedup_max": 1.1761402595048192,
+      "baseline_wall_min": 0.0033614588901400566,
+      "baseline_wall_max": 0.003564832964912057
+    },
+    {
+      "position": "immediate-win",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9803744561880801,
+      "paired_speedup_max": 1.0590255008967306,
+      "baseline_wall_min": 0.0033614588901400566,
+      "baseline_wall_max": 0.003564832964912057
+    },
+    {
+      "position": "immediate-win",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.071574674335396,
+      "paired_speedup_max": 1.1564424717229882,
+      "baseline_wall_min": 0.021342665888369083,
+      "baseline_wall_max": 0.02183233294636011
+    },
+    {
+      "position": "immediate-win",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0101018531241157,
+      "paired_speedup_max": 1.0353353976408826,
+      "baseline_wall_min": 0.021342665888369083,
+      "baseline_wall_max": 0.02183233294636011
+    },
+    {
+      "position": "immediate-win",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1268275465182171,
+      "paired_speedup_max": 1.1476866275400315,
+      "baseline_wall_min": 0.10602154186926782,
+      "baseline_wall_max": 0.10725275008007884
+    },
+    {
+      "position": "immediate-win",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0153634735684312,
+      "paired_speedup_max": 1.0316906071034466,
+      "baseline_wall_min": 0.10602154186926782,
+      "baseline_wall_max": 0.10725275008007884
+    },
+    {
+      "position": "forced-reply",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1311225513888428,
+      "paired_speedup_max": 1.1612782762655298,
+      "baseline_wall_min": 0.0005628748331218958,
+      "baseline_wall_max": 0.0005763331428170204
+    },
+    {
+      "position": "forced-reply",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9555783233644817,
+      "paired_speedup_max": 1.0174023623841533,
+      "baseline_wall_min": 0.0005628748331218958,
+      "baseline_wall_max": 0.0005763331428170204
+    },
+    {
+      "position": "forced-reply",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1065263984205187,
+      "paired_speedup_max": 1.1466297914077743,
+      "baseline_wall_min": 0.0026434578467160463,
+      "baseline_wall_max": 0.0027099160943180323
+    },
+    {
+      "position": "forced-reply",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.004233427181981,
+      "paired_speedup_max": 1.0291310647239296,
+      "baseline_wall_min": 0.0026434578467160463,
+      "baseline_wall_max": 0.0027099160943180323
+    },
+    {
+      "position": "forced-reply",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1276982650057892,
+      "paired_speedup_max": 1.1513510060591792,
+      "baseline_wall_min": 0.014310749946162105,
+      "baseline_wall_max": 0.014566125115379691
+    },
+    {
+      "position": "forced-reply",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.974205260764519,
+      "paired_speedup_max": 1.034734125676974,
+      "baseline_wall_min": 0.014310749946162105,
+      "baseline_wall_max": 0.014566125115379691
+    },
+    {
+      "position": "forced-reply",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.116677782215831,
+      "paired_speedup_max": 1.139715185877283,
+      "baseline_wall_min": 0.05394787504337728,
+      "baseline_wall_max": 0.05443683313205838
+    },
+    {
+      "position": "forced-reply",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0151303940346228,
+      "paired_speedup_max": 1.0245020817878912,
+      "baseline_wall_min": 0.05394787504337728,
+      "baseline_wall_max": 0.05443683313205838
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0990326655019325,
+      "paired_speedup_max": 1.1555031517245211,
+      "baseline_wall_min": 0.0001907919067889452,
+      "baseline_wall_max": 0.00020341691561043262
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.8571716979414992,
+      "paired_speedup_max": 1.0619749763369617,
+      "baseline_wall_min": 0.0001907919067889452,
+      "baseline_wall_max": 0.00020341691561043262
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0187905902005847,
+      "paired_speedup_max": 1.1158632250854306,
+      "baseline_wall_min": 0.0001888750120997429,
+      "baseline_wall_max": 0.00019341707229614258
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9993418012582995,
+      "paired_speedup_max": 1.028359356334588,
+      "baseline_wall_min": 0.0001888750120997429,
+      "baseline_wall_max": 0.00019341707229614258
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0483443244448691,
+      "paired_speedup_max": 1.1440346812492959,
+      "baseline_wall_min": 0.00018870900385081768,
+      "baseline_wall_max": 0.00020062504336237907
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9162146983582831,
+      "paired_speedup_max": 1.0608103261013204,
+      "baseline_wall_min": 0.00018870900385081768,
+      "baseline_wall_max": 0.00020062504336237907
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0907584345191665,
+      "paired_speedup_max": 1.1446271560246608,
+      "baseline_wall_min": 0.0001894170418381691,
+      "baseline_wall_max": 0.0002008338924497366
+    },
+    {
+      "position": "double-threat-loss",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9978191302823075,
+      "paired_speedup_max": 1.0223641579668137,
+      "baseline_wall_min": 0.0001894170418381691,
+      "baseline_wall_max": 0.0002008338924497366
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0017905373120817,
+      "paired_speedup_max": 1.7619976017032801,
+      "baseline_wall_min": 4.4416869059205055e-05,
+      "baseline_wall_max": 5.966704338788986e-05
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.5979213474559433,
+      "paired_speedup_max": 1.1983259685300789,
+      "baseline_wall_min": 4.4416869059205055e-05,
+      "baseline_wall_max": 5.966704338788986e-05
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.9886768581971535,
+      "paired_speedup_max": 1.1280105501972575,
+      "baseline_wall_min": 2.1124957129359245e-05,
+      "baseline_wall_max": 2.366607077419758e-05
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9450865170942158,
+      "paired_speedup_max": 1.0486601076262434,
+      "baseline_wall_min": 2.1124957129359245e-05,
+      "baseline_wall_max": 2.366607077419758e-05
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.978527300717756,
+      "paired_speedup_max": 1.119464271574494,
+      "baseline_wall_min": 2.0666979253292084e-05,
+      "baseline_wall_max": 2.3041851818561554e-05
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9431559520147647,
+      "paired_speedup_max": 1.0696729285112085,
+      "baseline_wall_min": 2.0666979253292084e-05,
+      "baseline_wall_max": 2.3041851818561554e-05
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.9634425472012379,
+      "paired_speedup_max": 1.1152658357217446,
+      "baseline_wall_min": 2.087489701807499e-05,
+      "baseline_wall_max": 2.3374799638986588e-05
+    },
+    {
+      "position": "dense-endgame",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9785318257225181,
+      "paired_speedup_max": 1.066233976583831,
+      "baseline_wall_min": 2.087489701807499e-05,
+      "baseline_wall_max": 2.3374799638986588e-05
+    },
+    {
+      "position": "quiet-5",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1449183562572354,
+      "paired_speedup_max": 1.194311915236384,
+      "baseline_wall_min": 0.0006528329104185104,
+      "baseline_wall_max": 0.0006833330262452364
+    },
+    {
+      "position": "quiet-5",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9795204552963757,
+      "paired_speedup_max": 1.0603220606331238,
+      "baseline_wall_min": 0.0006528329104185104,
+      "baseline_wall_max": 0.0006833330262452364
+    },
+    {
+      "position": "quiet-5",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.127930847927739,
+      "paired_speedup_max": 1.1583551573564204,
+      "baseline_wall_min": 0.0038847909308969975,
+      "baseline_wall_max": 0.003976458916440606
+    },
+    {
+      "position": "quiet-5",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0064856051965272,
+      "paired_speedup_max": 1.0286380978669776,
+      "baseline_wall_min": 0.0038847909308969975,
+      "baseline_wall_max": 0.003976458916440606
+    },
+    {
+      "position": "quiet-5",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1237925037564724,
+      "paired_speedup_max": 1.412695773984839,
+      "baseline_wall_min": 0.012061957968398929,
+      "baseline_wall_max": 0.01560316700488329
+    },
+    {
+      "position": "quiet-5",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.021871435494647,
+      "paired_speedup_max": 1.314384465371837,
+      "baseline_wall_min": 0.012061957968398929,
+      "baseline_wall_max": 0.01560316700488329
+    },
+    {
+      "position": "quiet-5",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1254978301238774,
+      "paired_speedup_max": 1.146166697426201,
+      "baseline_wall_min": 0.020581790944561362,
+      "baseline_wall_max": 0.020960666937753558
+    },
+    {
+      "position": "quiet-5",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0110921109186157,
+      "paired_speedup_max": 1.0391432627174695,
+      "baseline_wall_min": 0.020581790944561362,
+      "baseline_wall_max": 0.020960666937753558
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1067348653338749,
+      "paired_speedup_max": 1.216556895988062,
+      "baseline_wall_min": 0.0011434170883148909,
+      "baseline_wall_max": 0.001227708999067545
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9973476842704476,
+      "paired_speedup_max": 1.0647186223233978,
+      "baseline_wall_min": 0.0011434170883148909,
+      "baseline_wall_max": 0.001227708999067545
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1494688608956696,
+      "paired_speedup_max": 1.159340142610331,
+      "baseline_wall_min": 0.00944966683164239,
+      "baseline_wall_max": 0.009624250000342727
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.98738105566294,
+      "paired_speedup_max": 1.0270323586332453,
+      "baseline_wall_min": 0.00944966683164239,
+      "baseline_wall_max": 0.009624250000342727
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1410277279846508,
+      "paired_speedup_max": 1.153345844358727,
+      "baseline_wall_min": 0.043834917014464736,
+      "baseline_wall_max": 0.04446600005030632
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0211913374210024,
+      "paired_speedup_max": 1.0320329647015791,
+      "baseline_wall_min": 0.043834917014464736,
+      "baseline_wall_max": 0.04446600005030632
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1247711754541487,
+      "paired_speedup_max": 1.1733758073315945,
+      "baseline_wall_min": 0.16232975013554096,
+      "baseline_wall_max": 0.16836270783096552
+    },
+    {
+      "position": "supplement-main-003",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.8514024545476288,
+      "paired_speedup_max": 1.0355492751602264,
+      "baseline_wall_min": 0.16232975013554096,
+      "baseline_wall_max": 0.16836270783096552
+    },
+    {
+      "position": "seeded-00",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1365880510025912,
+      "paired_speedup_max": 1.183834623019024,
+      "baseline_wall_min": 0.0013744591269642115,
+      "baseline_wall_max": 0.0014150000642985106
+    },
+    {
+      "position": "seeded-00",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9947123682178132,
+      "paired_speedup_max": 1.0187660426917053,
+      "baseline_wall_min": 0.0013744591269642115,
+      "baseline_wall_max": 0.0014150000642985106
+    },
+    {
+      "position": "seeded-00",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1238720523939725,
+      "paired_speedup_max": 1.1496723953490156,
+      "baseline_wall_min": 0.011739582987502217,
+      "baseline_wall_max": 0.011886999942362309
+    },
+    {
+      "position": "seeded-00",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0013148865669794,
+      "paired_speedup_max": 1.0294857116124732,
+      "baseline_wall_min": 0.011739582987502217,
+      "baseline_wall_max": 0.011886999942362309
+    },
+    {
+      "position": "seeded-00",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1332653710304532,
+      "paired_speedup_max": 1.1490963150955718,
+      "baseline_wall_min": 0.059011958073824644,
+      "baseline_wall_max": 0.059369832975789905
+    },
+    {
+      "position": "seeded-00",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.001555597003295,
+      "paired_speedup_max": 1.0219495176214817,
+      "baseline_wall_min": 0.059011958073824644,
+      "baseline_wall_max": 0.059369832975789905
+    },
+    {
+      "position": "seeded-00",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1243487205058416,
+      "paired_speedup_max": 1.1589215457067754,
+      "baseline_wall_min": 0.23421183391474187,
+      "baseline_wall_max": 0.23982437490485609
+    },
+    {
+      "position": "seeded-00",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0153871936232857,
+      "paired_speedup_max": 1.0409704823038535,
+      "baseline_wall_min": 0.23421183391474187,
+      "baseline_wall_max": 0.23982437490485609
+    },
+    {
+      "position": "seeded-01",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.9495805566895315,
+      "paired_speedup_max": 1.1378585339319585,
+      "baseline_wall_min": 0.00026916712522506714,
+      "baseline_wall_max": 0.00028350017964839935
+    },
+    {
+      "position": "seeded-01",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.00477050435835,
+      "paired_speedup_max": 1.0415517920441117,
+      "baseline_wall_min": 0.00026916712522506714,
+      "baseline_wall_max": 0.00028350017964839935
+    },
+    {
+      "position": "seeded-01",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0984832363517152,
+      "paired_speedup_max": 1.1720465047256947,
+      "baseline_wall_min": 0.0008274160791188478,
+      "baseline_wall_max": 0.0008733340073376894
+    },
+    {
+      "position": "seeded-01",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9581940849411644,
+      "paired_speedup_max": 1.0645001907105784,
+      "baseline_wall_min": 0.0008274160791188478,
+      "baseline_wall_max": 0.0008733340073376894
+    },
+    {
+      "position": "seeded-01",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.074676619069054,
+      "paired_speedup_max": 1.1539580736856667,
+      "baseline_wall_min": 0.003241082886233926,
+      "baseline_wall_max": 0.0033455421216785908
+    },
+    {
+      "position": "seeded-01",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9871740158824116,
+      "paired_speedup_max": 1.041695049194185,
+      "baseline_wall_min": 0.003241082886233926,
+      "baseline_wall_max": 0.0033455421216785908
+    },
+    {
+      "position": "seeded-01",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1243645191764087,
+      "paired_speedup_max": 1.140086109069321,
+      "baseline_wall_min": 0.009738916996866465,
+      "baseline_wall_max": 0.009828999871388078
+    },
+    {
+      "position": "seeded-01",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0156951665068878,
+      "paired_speedup_max": 1.027864882106022,
+      "baseline_wall_min": 0.009738916996866465,
+      "baseline_wall_max": 0.009828999871388078
+    },
+    {
+      "position": "seeded-02",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0247982598964713,
+      "paired_speedup_max": 1.1737980167584965,
+      "baseline_wall_min": 0.00045125000178813934,
+      "baseline_wall_max": 0.0004967499990016222
+    },
+    {
+      "position": "seeded-02",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0076652833166544,
+      "paired_speedup_max": 1.0512595188553355,
+      "baseline_wall_min": 0.00045125000178813934,
+      "baseline_wall_max": 0.0004967499990016222
+    },
+    {
+      "position": "seeded-02",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1147641412054818,
+      "paired_speedup_max": 1.1491896499986711,
+      "baseline_wall_min": 0.0010045419912785292,
+      "baseline_wall_max": 0.0010587910655885935
+    },
+    {
+      "position": "seeded-02",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9865227731377778,
+      "paired_speedup_max": 1.040111845566204,
+      "baseline_wall_min": 0.0010045419912785292,
+      "baseline_wall_max": 0.0010587910655885935
+    },
+    {
+      "position": "seeded-02",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1131451244658759,
+      "paired_speedup_max": 1.1855731394009517,
+      "baseline_wall_min": 0.0025859579909592867,
+      "baseline_wall_max": 0.0027064168825745583
+    },
+    {
+      "position": "seeded-02",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0066665034925264,
+      "paired_speedup_max": 1.0648896232467504,
+      "baseline_wall_min": 0.0025859579909592867,
+      "baseline_wall_max": 0.0027064168825745583
+    },
+    {
+      "position": "seeded-02",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0787948064544728,
+      "paired_speedup_max": 1.1303354410193676,
+      "baseline_wall_min": 0.004740000003948808,
+      "baseline_wall_max": 0.004837166052311659
+    },
+    {
+      "position": "seeded-02",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9993071490895111,
+      "paired_speedup_max": 1.0298323921877863,
+      "baseline_wall_min": 0.004740000003948808,
+      "baseline_wall_max": 0.004837166052311659
+    },
+    {
+      "position": "seeded-03",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0801969168966838,
+      "paired_speedup_max": 1.1729454979999456,
+      "baseline_wall_min": 0.00031029200181365013,
+      "baseline_wall_max": 0.0003309170715510845
+    },
+    {
+      "position": "seeded-03",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9909529683736832,
+      "paired_speedup_max": 1.0554672089321482,
+      "baseline_wall_min": 0.00031029200181365013,
+      "baseline_wall_max": 0.0003309170715510845
+    },
+    {
+      "position": "seeded-03",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.060547784406644,
+      "paired_speedup_max": 1.1708364300719978,
+      "baseline_wall_min": 0.000907916808500886,
+      "baseline_wall_max": 0.0009477920830249786
+    },
+    {
+      "position": "seeded-03",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9936621270555979,
+      "paired_speedup_max": 1.0772924780736517,
+      "baseline_wall_min": 0.000907916808500886,
+      "baseline_wall_max": 0.0009477920830249786
+    },
+    {
+      "position": "seeded-03",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1086801078043205,
+      "paired_speedup_max": 1.1546707319917255,
+      "baseline_wall_min": 0.003396832849830389,
+      "baseline_wall_max": 0.003496832912787795
+    },
+    {
+      "position": "seeded-03",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0062826424164821,
+      "paired_speedup_max": 1.0454301256399776,
+      "baseline_wall_min": 0.003396832849830389,
+      "baseline_wall_max": 0.003496832912787795
+    },
+    {
+      "position": "seeded-03",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.128323247201074,
+      "paired_speedup_max": 1.1449572663987275,
+      "baseline_wall_min": 0.011306916130706668,
+      "baseline_wall_max": 0.011507249902933836
+    },
+    {
+      "position": "seeded-03",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0188944118282686,
+      "paired_speedup_max": 1.0418317811162725,
+      "baseline_wall_min": 0.011306916130706668,
+      "baseline_wall_max": 0.011507249902933836
+    },
+    {
+      "position": "seeded-04",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1156816974800645,
+      "paired_speedup_max": 1.203603041331236,
+      "baseline_wall_min": 0.001545957988128066,
+      "baseline_wall_max": 0.0016822500620037317
+    },
+    {
+      "position": "seeded-04",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9713009560580829,
+      "paired_speedup_max": 1.0389349683137057,
+      "baseline_wall_min": 0.001545957988128066,
+      "baseline_wall_max": 0.0016822500620037317
+    },
+    {
+      "position": "seeded-04",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1447148477843216,
+      "paired_speedup_max": 1.1711741467177872,
+      "baseline_wall_min": 0.013783750124275684,
+      "baseline_wall_max": 0.014106417074799538
+    },
+    {
+      "position": "seeded-04",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0122054517612722,
+      "paired_speedup_max": 1.0400501875122257,
+      "baseline_wall_min": 0.013783750124275684,
+      "baseline_wall_max": 0.014106417074799538
+    },
+    {
+      "position": "seeded-04",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.148701322689417,
+      "paired_speedup_max": 1.157963530399085,
+      "baseline_wall_min": 0.08865212486125529,
+      "baseline_wall_max": 0.08991774986498058
+    },
+    {
+      "position": "seeded-04",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0210554356833634,
+      "paired_speedup_max": 1.0297537075928704,
+      "baseline_wall_min": 0.08865212486125529,
+      "baseline_wall_max": 0.08991774986498058
+    },
+    {
+      "position": "seeded-04",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.118361874082223,
+      "paired_speedup_max": 1.1496275305260146,
+      "baseline_wall_min": 0.45217874995432794,
+      "baseline_wall_max": 0.4553613339085132
+    },
+    {
+      "position": "seeded-04",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9711183713480913,
+      "paired_speedup_max": 1.0284872412398833,
+      "baseline_wall_min": 0.45217874995432794,
+      "baseline_wall_max": 0.4553613339085132
+    },
+    {
+      "position": "seeded-05",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1384736401459024,
+      "paired_speedup_max": 1.1963953672769803,
+      "baseline_wall_min": 0.0007728340569883585,
+      "baseline_wall_max": 0.0008378750644624233
+    },
+    {
+      "position": "seeded-05",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.002911256366115,
+      "paired_speedup_max": 1.0739691016240642,
+      "baseline_wall_min": 0.0007728340569883585,
+      "baseline_wall_max": 0.0008378750644624233
+    },
+    {
+      "position": "seeded-05",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1253867343097104,
+      "paired_speedup_max": 1.16143209695798,
+      "baseline_wall_min": 0.004500792128965259,
+      "baseline_wall_max": 0.004573332844302058
+    },
+    {
+      "position": "seeded-05",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.001747121101833,
+      "paired_speedup_max": 1.0205547177211107,
+      "baseline_wall_min": 0.004500792128965259,
+      "baseline_wall_max": 0.004573332844302058
+    },
+    {
+      "position": "seeded-05",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.8029276341823801,
+      "paired_speedup_max": 1.3583555171652424,
+      "baseline_wall_min": 0.015421290881931782,
+      "baseline_wall_max": 0.032774458872154355
+    },
+    {
+      "position": "seeded-05",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9997575039926453,
+      "paired_speedup_max": 1.688219416236707,
+      "baseline_wall_min": 0.015421290881931782,
+      "baseline_wall_max": 0.032774458872154355
+    },
+    {
+      "position": "seeded-05",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.061391087905642,
+      "paired_speedup_max": 1.1571224245924934,
+      "baseline_wall_min": 0.052261542063206434,
+      "baseline_wall_max": 0.05866883392445743
+    },
+    {
+      "position": "seeded-05",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0032396436860491,
+      "paired_speedup_max": 1.1393905499821229,
+      "baseline_wall_min": 0.052261542063206434,
+      "baseline_wall_max": 0.05866883392445743
+    },
+    {
+      "position": "seeded-06",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.143499141963342,
+      "paired_speedup_max": 1.2011472238509573,
+      "baseline_wall_min": 0.0004977078642696142,
+      "baseline_wall_max": 0.0005227499641478062
+    },
+    {
+      "position": "seeded-06",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9671887141040892,
+      "paired_speedup_max": 1.0313190740335836,
+      "baseline_wall_min": 0.0004977078642696142,
+      "baseline_wall_max": 0.0005227499641478062
+    },
+    {
+      "position": "seeded-06",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1092690403802339,
+      "paired_speedup_max": 1.1752217749369804,
+      "baseline_wall_min": 0.0016974590253084898,
+      "baseline_wall_max": 0.0017547078896313906
+    },
+    {
+      "position": "seeded-06",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9414337235247542,
+      "paired_speedup_max": 1.0403701696244991,
+      "baseline_wall_min": 0.0016974590253084898,
+      "baseline_wall_max": 0.0017547078896313906
+    },
+    {
+      "position": "seeded-06",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1297980687724583,
+      "paired_speedup_max": 1.500165860176587,
+      "baseline_wall_min": 0.004566125106066465,
+      "baseline_wall_max": 0.006221875082701445
+    },
+    {
+      "position": "seeded-06",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9943862773037833,
+      "paired_speedup_max": 1.2065813289908154,
+      "baseline_wall_min": 0.004566125106066465,
+      "baseline_wall_max": 0.006221875082701445
+    },
+    {
+      "position": "seeded-06",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1261378496290233,
+      "paired_speedup_max": 1.1458387741642664,
+      "baseline_wall_min": 0.010891875019297004,
+      "baseline_wall_max": 0.010947291972115636
+    },
+    {
+      "position": "seeded-06",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9655359052034117,
+      "paired_speedup_max": 1.0221993072287268,
+      "baseline_wall_min": 0.010891875019297004,
+      "baseline_wall_max": 0.010947291972115636
+    },
+    {
+      "position": "seeded-07",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.073253672129599,
+      "paired_speedup_max": 1.1307163882458309,
+      "baseline_wall_min": 0.0002698330208659172,
+      "baseline_wall_max": 0.00027904193848371506
+    },
+    {
+      "position": "seeded-07",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.001856018921538,
+      "paired_speedup_max": 1.0213560567505753,
+      "baseline_wall_min": 0.0002698330208659172,
+      "baseline_wall_max": 0.00027904193848371506
+    },
+    {
+      "position": "seeded-07",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0159685858492409,
+      "paired_speedup_max": 1.1466529526953777,
+      "baseline_wall_min": 0.000575292157009244,
+      "baseline_wall_max": 0.0005912911146879196
+    },
+    {
+      "position": "seeded-07",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0072960712020234,
+      "paired_speedup_max": 1.0356865831725848,
+      "baseline_wall_min": 0.000575292157009244,
+      "baseline_wall_max": 0.0005912911146879196
+    },
+    {
+      "position": "seeded-07",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.126235634746279,
+      "paired_speedup_max": 1.2002220116420739,
+      "baseline_wall_min": 0.0010176249779760838,
+      "baseline_wall_max": 0.001083750044927001
+    },
+    {
+      "position": "seeded-07",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9722890761018097,
+      "paired_speedup_max": 1.0759045980778894,
+      "baseline_wall_min": 0.0010176249779760838,
+      "baseline_wall_max": 0.001083750044927001
+    },
+    {
+      "position": "seeded-07",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0767110277424607,
+      "paired_speedup_max": 1.1579959765233594,
+      "baseline_wall_min": 0.0014619161374866962,
+      "baseline_wall_max": 0.001568458043038845
+    },
+    {
+      "position": "seeded-07",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9977246873252579,
+      "paired_speedup_max": 1.070558418228211,
+      "baseline_wall_min": 0.0014619161374866962,
+      "baseline_wall_max": 0.001568458043038845
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1159575235512709,
+      "paired_speedup_max": 1.1830752561057098,
+      "baseline_wall_min": 0.0018080419395118952,
+      "baseline_wall_max": 0.001919749891385436
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9684378329358848,
+      "paired_speedup_max": 1.0824639217552554,
+      "baseline_wall_min": 0.0018080419395118952,
+      "baseline_wall_max": 0.001919749891385436
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.9508607543229421,
+      "paired_speedup_max": 1.1530225420239821,
+      "baseline_wall_min": 0.017138042021542788,
+      "baseline_wall_max": 0.017449457896873355
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9853843568515566,
+      "paired_speedup_max": 1.028021060804621,
+      "baseline_wall_min": 0.017138042021542788,
+      "baseline_wall_max": 0.017449457896873355
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1410995249354199,
+      "paired_speedup_max": 1.1547458207101742,
+      "baseline_wall_min": 0.1304842079989612,
+      "baseline_wall_max": 0.13209262490272522
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9880912530307803,
+      "paired_speedup_max": 1.0276416079596387,
+      "baseline_wall_min": 0.1304842079989612,
+      "baseline_wall_max": 0.13209262490272522
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.9893387323288814,
+      "paired_speedup_max": 1.2097704753014382,
+      "baseline_wall_min": 0.7320214998908341,
+      "baseline_wall_max": 0.778611958026886
+    },
+    {
+      "position": "post-hoc-tail",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0127523032646146,
+      "paired_speedup_max": 1.078533961770158,
+      "baseline_wall_min": 0.7320214998908341,
+      "baseline_wall_max": 0.778611958026886
+    },
+    {
+      "position": "additional-00",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1181507778550068,
+      "paired_speedup_max": 1.1590274415952897,
+      "baseline_wall_min": 0.0012536249123513699,
+      "baseline_wall_max": 0.001300083938986063
+    },
+    {
+      "position": "additional-00",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9610311631821269,
+      "paired_speedup_max": 1.032222130203242,
+      "baseline_wall_min": 0.0012536249123513699,
+      "baseline_wall_max": 0.001300083938986063
+    },
+    {
+      "position": "additional-00",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0878503416909826,
+      "paired_speedup_max": 1.1732651448408338,
+      "baseline_wall_min": 0.010558041045442224,
+      "baseline_wall_max": 0.010941333137452602
+    },
+    {
+      "position": "additional-00",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9982573257462585,
+      "paired_speedup_max": 1.042056558261536,
+      "baseline_wall_min": 0.010558041045442224,
+      "baseline_wall_max": 0.010941333137452602
+    },
+    {
+      "position": "additional-00",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1170308112651353,
+      "paired_speedup_max": 1.2573099975305246,
+      "baseline_wall_min": 0.061523125041276217,
+      "baseline_wall_max": 0.06904391711577773
+    },
+    {
+      "position": "additional-00",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.8742365685102186,
+      "paired_speedup_max": 1.1272148640075281,
+      "baseline_wall_min": 0.061523125041276217,
+      "baseline_wall_max": 0.06904391711577773
+    },
+    {
+      "position": "additional-00",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1285874261444246,
+      "paired_speedup_max": 1.1809844720843936,
+      "baseline_wall_min": 0.2765105420257896,
+      "baseline_wall_max": 0.28912404202856123
+    },
+    {
+      "position": "additional-00",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.002379534160215,
+      "paired_speedup_max": 1.063268926969014,
+      "baseline_wall_min": 0.2765105420257896,
+      "baseline_wall_max": 0.28912404202856123
+    },
+    {
+      "position": "additional-01",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.121359705398372,
+      "paired_speedup_max": 1.2044897766711935,
+      "baseline_wall_min": 0.0014406670816242695,
+      "baseline_wall_max": 0.0015185000374913216
+    },
+    {
+      "position": "additional-01",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.996086338101692,
+      "paired_speedup_max": 1.0512114983112057,
+      "baseline_wall_min": 0.0014406670816242695,
+      "baseline_wall_max": 0.0015185000374913216
+    },
+    {
+      "position": "additional-01",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0835259441976517,
+      "paired_speedup_max": 1.2125155973270287,
+      "baseline_wall_min": 0.013300167163833976,
+      "baseline_wall_max": 0.01402587490156293
+    },
+    {
+      "position": "additional-01",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.982098648164142,
+      "paired_speedup_max": 1.052223408425099,
+      "baseline_wall_min": 0.013300167163833976,
+      "baseline_wall_max": 0.01402587490156293
+    },
+    {
+      "position": "additional-01",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0810942872064384,
+      "paired_speedup_max": 1.1438058791596486,
+      "baseline_wall_min": 0.06589266681112349,
+      "baseline_wall_max": 0.06710662506520748
+    },
+    {
+      "position": "additional-01",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0055477891205837,
+      "paired_speedup_max": 1.028303646070335,
+      "baseline_wall_min": 0.06589266681112349,
+      "baseline_wall_max": 0.06710662506520748
+    },
+    {
+      "position": "additional-01",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.057025761003579,
+      "paired_speedup_max": 1.3021264039714986,
+      "baseline_wall_min": 0.22019862500019372,
+      "baseline_wall_max": 0.2534144159872085
+    },
+    {
+      "position": "additional-01",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9945090308252967,
+      "paired_speedup_max": 1.1659682988669728,
+      "baseline_wall_min": 0.22019862500019372,
+      "baseline_wall_max": 0.2534144159872085
+    },
+    {
+      "position": "additional-02",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1257340365552184,
+      "paired_speedup_max": 1.1942113763345235,
+      "baseline_wall_min": 0.0006925419438630342,
+      "baseline_wall_max": 0.000747875077649951
+    },
+    {
+      "position": "additional-02",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0093789331091623,
+      "paired_speedup_max": 1.0777600729042625,
+      "baseline_wall_min": 0.0006925419438630342,
+      "baseline_wall_max": 0.000747875077649951
+    },
+    {
+      "position": "additional-02",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0905146491718178,
+      "paired_speedup_max": 1.1482640626484901,
+      "baseline_wall_min": 0.0025127502158284187,
+      "baseline_wall_max": 0.002582541201263666
+    },
+    {
+      "position": "additional-02",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9995088625204748,
+      "paired_speedup_max": 1.0341192515211681,
+      "baseline_wall_min": 0.0025127502158284187,
+      "baseline_wall_max": 0.002582541201263666
+    },
+    {
+      "position": "additional-02",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.5309189246583412,
+      "paired_speedup_max": 1.6496190174486582,
+      "baseline_wall_min": 0.006856541149318218,
+      "baseline_wall_max": 0.01015766616910696
+    },
+    {
+      "position": "additional-02",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.007740632021578,
+      "paired_speedup_max": 1.4956440116602163,
+      "baseline_wall_min": 0.006856541149318218,
+      "baseline_wall_max": 0.01015766616910696
+    },
+    {
+      "position": "additional-02",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0818093386549152,
+      "paired_speedup_max": 1.1340666284728835,
+      "baseline_wall_min": 0.01613283413462341,
+      "baseline_wall_max": 0.016331665916368365
+    },
+    {
+      "position": "additional-02",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0153700721576626,
+      "paired_speedup_max": 1.0321649575194767,
+      "baseline_wall_min": 0.01613283413462341,
+      "baseline_wall_max": 0.016331665916368365
+    },
+    {
+      "position": "additional-03",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.046728183538278,
+      "paired_speedup_max": 1.127897649123656,
+      "baseline_wall_min": 0.0004232909996062517,
+      "baseline_wall_max": 0.00043095904402434826
+    },
+    {
+      "position": "additional-03",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9554220362551673,
+      "paired_speedup_max": 1.0323519811633948,
+      "baseline_wall_min": 0.0004232909996062517,
+      "baseline_wall_max": 0.00043095904402434826
+    },
+    {
+      "position": "additional-03",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1225899340773169,
+      "paired_speedup_max": 1.1551317292904233,
+      "baseline_wall_min": 0.0010739169083535671,
+      "baseline_wall_max": 0.0011265419889241457
+    },
+    {
+      "position": "additional-03",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.005743625861148,
+      "paired_speedup_max": 1.0564235613846944,
+      "baseline_wall_min": 0.0010739169083535671,
+      "baseline_wall_max": 0.0011265419889241457
+    },
+    {
+      "position": "additional-03",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1114265000905916,
+      "paired_speedup_max": 1.1632572230365008,
+      "baseline_wall_min": 0.002205209108069539,
+      "baseline_wall_max": 0.0022771249059587717
+    },
+    {
+      "position": "additional-03",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0093309908356451,
+      "paired_speedup_max": 1.0379306058075286,
+      "baseline_wall_min": 0.002205209108069539,
+      "baseline_wall_max": 0.0022771249059587717
+    },
+    {
+      "position": "additional-03",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1227682253801314,
+      "paired_speedup_max": 1.1889581659663915,
+      "baseline_wall_min": 0.0055002078879624605,
+      "baseline_wall_max": 0.005840708035975695
+    },
+    {
+      "position": "additional-03",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0161600579091905,
+      "paired_speedup_max": 1.0967178666384534,
+      "baseline_wall_min": 0.0055002078879624605,
+      "baseline_wall_max": 0.005840708035975695
+    },
+    {
+      "position": "generalization-00",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1156141950054324,
+      "paired_speedup_max": 1.179402453849594,
+      "baseline_wall_min": 0.0013139161746948957,
+      "baseline_wall_max": 0.0013364588376134634
+    },
+    {
+      "position": "generalization-00",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.999937140799841,
+      "paired_speedup_max": 1.0364552171487589,
+      "baseline_wall_min": 0.0013139161746948957,
+      "baseline_wall_max": 0.0013364588376134634
+    },
+    {
+      "position": "generalization-00",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1401592856266174,
+      "paired_speedup_max": 1.261291779578948,
+      "baseline_wall_min": 0.010859874775633216,
+      "baseline_wall_max": 0.012026417069137096
+    },
+    {
+      "position": "generalization-00",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0177530195413398,
+      "paired_speedup_max": 1.114812957583034,
+      "baseline_wall_min": 0.010859874775633216,
+      "baseline_wall_max": 0.012026417069137096
+    },
+    {
+      "position": "generalization-00",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1438478318118095,
+      "paired_speedup_max": 1.1573527526586989,
+      "baseline_wall_min": 0.05755270808003843,
+      "baseline_wall_max": 0.05825879191979766
+    },
+    {
+      "position": "generalization-00",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.01967345324879,
+      "paired_speedup_max": 1.0305431103360614,
+      "baseline_wall_min": 0.05755270808003843,
+      "baseline_wall_max": 0.05825879191979766
+    },
+    {
+      "position": "generalization-00",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1433180769976483,
+      "paired_speedup_max": 1.2855577102231461,
+      "baseline_wall_min": 0.2448135418817401,
+      "baseline_wall_max": 0.28438304201699793
+    },
+    {
+      "position": "generalization-00",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0185436415380662,
+      "paired_speedup_max": 1.1792097613851287,
+      "baseline_wall_min": 0.2448135418817401,
+      "baseline_wall_max": 0.28438304201699793
+    },
+    {
+      "position": "generalization-01",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1133794795408745,
+      "paired_speedup_max": 1.1570629095158684,
+      "baseline_wall_min": 0.0004985840059816837,
+      "baseline_wall_max": 0.0005133328959345818
+    },
+    {
+      "position": "generalization-01",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9908316252080198,
+      "paired_speedup_max": 1.0270093170490344,
+      "baseline_wall_min": 0.0004985840059816837,
+      "baseline_wall_max": 0.0005133328959345818
+    },
+    {
+      "position": "generalization-01",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.7794947229873342,
+      "paired_speedup_max": 1.1693983116966014,
+      "baseline_wall_min": 0.00258012511767447,
+      "baseline_wall_max": 0.0026787500828504562
+    },
+    {
+      "position": "generalization-01",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.5821166226271546,
+      "paired_speedup_max": 1.048708218205511,
+      "baseline_wall_min": 0.00258012511767447,
+      "baseline_wall_max": 0.0026787500828504562
+    },
+    {
+      "position": "generalization-01",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1424496771421697,
+      "paired_speedup_max": 1.148000971884286,
+      "baseline_wall_min": 0.014625499956309795,
+      "baseline_wall_max": 0.014838667120784521
+    },
+    {
+      "position": "generalization-01",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0163949885238186,
+      "paired_speedup_max": 1.0365976665733458,
+      "baseline_wall_min": 0.014625499956309795,
+      "baseline_wall_max": 0.014838667120784521
+    },
+    {
+      "position": "generalization-01",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1361142625010638,
+      "paired_speedup_max": 1.151561052421632,
+      "baseline_wall_min": 0.07452412508428097,
+      "baseline_wall_max": 0.07498466596007347
+    },
+    {
+      "position": "generalization-01",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0188993765886032,
+      "paired_speedup_max": 1.031898918654965,
+      "baseline_wall_min": 0.07452412508428097,
+      "baseline_wall_max": 0.07498466596007347
+    },
+    {
+      "position": "generalization-02",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1128364352489304,
+      "paired_speedup_max": 1.2217146923423032,
+      "baseline_wall_min": 0.000788375036790967,
+      "baseline_wall_max": 0.0008490418549627066
+    },
+    {
+      "position": "generalization-02",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9758119434221034,
+      "paired_speedup_max": 1.0864258992282774,
+      "baseline_wall_min": 0.000788375036790967,
+      "baseline_wall_max": 0.0008490418549627066
+    },
+    {
+      "position": "generalization-02",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.090723091914583,
+      "paired_speedup_max": 1.167131349835302,
+      "baseline_wall_min": 0.0025918749161064625,
+      "baseline_wall_max": 0.0026859589852392673
+    },
+    {
+      "position": "generalization-02",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9648544356752178,
+      "paired_speedup_max": 1.0612421036576363,
+      "baseline_wall_min": 0.0025918749161064625,
+      "baseline_wall_max": 0.0026859589852392673
+    },
+    {
+      "position": "generalization-02",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1169525427885187,
+      "paired_speedup_max": 1.1383357222984034,
+      "baseline_wall_min": 0.007265042047947645,
+      "baseline_wall_max": 0.00736499996855855
+    },
+    {
+      "position": "generalization-02",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0137371686468215,
+      "paired_speedup_max": 1.0283978855581686,
+      "baseline_wall_min": 0.007265042047947645,
+      "baseline_wall_max": 0.00736499996855855
+    },
+    {
+      "position": "generalization-02",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0924991007514349,
+      "paired_speedup_max": 1.1441323657170364,
+      "baseline_wall_min": 0.01691316720098257,
+      "baseline_wall_max": 0.01711016707122326
+    },
+    {
+      "position": "generalization-02",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0134081123096794,
+      "paired_speedup_max": 1.0332614798223563,
+      "baseline_wall_min": 0.01691316720098257,
+      "baseline_wall_max": 0.01711016707122326
+    },
+    {
+      "position": "generalization-03",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.112827937278894,
+      "paired_speedup_max": 1.296627932674972,
+      "baseline_wall_min": 0.0002216668799519539,
+      "baseline_wall_max": 0.00025954190641641617
+    },
+    {
+      "position": "generalization-03",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9940604124310195,
+      "paired_speedup_max": 1.1606122886694112,
+      "baseline_wall_min": 0.0002216668799519539,
+      "baseline_wall_max": 0.00025954190641641617
+    },
+    {
+      "position": "generalization-03",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1073615546201887,
+      "paired_speedup_max": 1.1547026885596603,
+      "baseline_wall_min": 0.0004535829648375511,
+      "baseline_wall_max": 0.0004664999432861805
+    },
+    {
+      "position": "generalization-03",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9290364224522453,
+      "paired_speedup_max": 1.0456710846869566,
+      "baseline_wall_min": 0.0004535829648375511,
+      "baseline_wall_max": 0.0004664999432861805
+    },
+    {
+      "position": "generalization-03",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1226910561945422,
+      "paired_speedup_max": 1.1690197050116717,
+      "baseline_wall_min": 0.000880667008459568,
+      "baseline_wall_max": 0.0009392090141773224
+    },
+    {
+      "position": "generalization-03",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9288378973850582,
+      "paired_speedup_max": 1.0419182740223956,
+      "baseline_wall_min": 0.000880667008459568,
+      "baseline_wall_max": 0.0009392090141773224
+    },
+    {
+      "position": "generalization-03",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1097024023020052,
+      "paired_speedup_max": 1.1343255142258282,
+      "baseline_wall_min": 0.0015177081804722548,
+      "baseline_wall_max": 0.001540082972496748
+    },
+    {
+      "position": "generalization-03",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9648242492776962,
+      "paired_speedup_max": 1.0316028529213257,
+      "baseline_wall_min": 0.0015177081804722548,
+      "baseline_wall_max": 0.001540082972496748
+    },
+    {
+      "position": "heldout-00",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1174777162195906,
+      "paired_speedup_max": 1.1693907230514888,
+      "baseline_wall_min": 0.0014181248843669891,
+      "baseline_wall_max": 0.00143708405084908
+    },
+    {
+      "position": "heldout-00",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9761880962871566,
+      "paired_speedup_max": 1.0230404137120637,
+      "baseline_wall_min": 0.0014181248843669891,
+      "baseline_wall_max": 0.00143708405084908
+    },
+    {
+      "position": "heldout-00",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1477358169982523,
+      "paired_speedup_max": 1.1655857954953466,
+      "baseline_wall_min": 0.012555417139083147,
+      "baseline_wall_max": 0.01270995894446969
+    },
+    {
+      "position": "heldout-00",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9907511683621915,
+      "paired_speedup_max": 1.032255235349294,
+      "baseline_wall_min": 0.012555417139083147,
+      "baseline_wall_max": 0.01270995894446969
+    },
+    {
+      "position": "heldout-00",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.9526753365638546,
+      "paired_speedup_max": 1.1595550546981912,
+      "baseline_wall_min": 0.07258004206232727,
+      "baseline_wall_max": 0.07411037501879036
+    },
+    {
+      "position": "heldout-00",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0032642830526304,
+      "paired_speedup_max": 1.0439968000006297,
+      "baseline_wall_min": 0.07258004206232727,
+      "baseline_wall_max": 0.07411037501879036
+    },
+    {
+      "position": "heldout-00",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.138684804531693,
+      "paired_speedup_max": 1.1491761211025118,
+      "baseline_wall_min": 0.33115208405070007,
+      "baseline_wall_max": 0.3359977079089731
+    },
+    {
+      "position": "heldout-00",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0043387650428048,
+      "paired_speedup_max": 1.0408012605520538,
+      "baseline_wall_min": 0.33115208405070007,
+      "baseline_wall_max": 0.3359977079089731
+    },
+    {
+      "position": "heldout-01",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.076770922975147,
+      "paired_speedup_max": 1.1704759277336843,
+      "baseline_wall_min": 0.0006786668673157692,
+      "baseline_wall_max": 0.0006934578996151686
+    },
+    {
+      "position": "heldout-01",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9963016989758446,
+      "paired_speedup_max": 1.0190154948657781,
+      "baseline_wall_min": 0.0006786668673157692,
+      "baseline_wall_max": 0.0006934578996151686
+    },
+    {
+      "position": "heldout-01",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1366863224655306,
+      "paired_speedup_max": 1.1717822059661305,
+      "baseline_wall_min": 0.002621334046125412,
+      "baseline_wall_max": 0.0026819161139428616
+    },
+    {
+      "position": "heldout-01",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0140023975278967,
+      "paired_speedup_max": 1.0448855475911625,
+      "baseline_wall_min": 0.002621334046125412,
+      "baseline_wall_max": 0.0026819161139428616
+    },
+    {
+      "position": "heldout-01",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.108044457903346,
+      "paired_speedup_max": 1.1589500823063246,
+      "baseline_wall_min": 0.005907624959945679,
+      "baseline_wall_max": 0.006182709010317922
+    },
+    {
+      "position": "heldout-01",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0119369684345778,
+      "paired_speedup_max": 1.0598853962546333,
+      "baseline_wall_min": 0.005907624959945679,
+      "baseline_wall_max": 0.006182709010317922
+    },
+    {
+      "position": "heldout-01",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.1241502644358197,
+      "paired_speedup_max": 1.1439984990579881,
+      "baseline_wall_min": 0.011388999875634909,
+      "baseline_wall_max": 0.011518958956003189
+    },
+    {
+      "position": "heldout-01",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0162977824642054,
+      "paired_speedup_max": 1.0368954657010405,
+      "baseline_wall_min": 0.011388999875634909,
+      "baseline_wall_max": 0.011518958956003189
+    },
+    {
+      "position": "heldout-02",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.099163125237604,
+      "paired_speedup_max": 1.1369553305967,
+      "baseline_wall_min": 0.0002895002253353596,
+      "baseline_wall_max": 0.00030158297158777714
+    },
+    {
+      "position": "heldout-02",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9839571014457524,
+      "paired_speedup_max": 1.0340627057691334,
+      "baseline_wall_min": 0.0002895002253353596,
+      "baseline_wall_max": 0.00030158297158777714
+    },
+    {
+      "position": "heldout-02",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0548507760396866,
+      "paired_speedup_max": 1.152391088012019,
+      "baseline_wall_min": 0.0006802910938858986,
+      "baseline_wall_max": 0.0007019590120762587
+    },
+    {
+      "position": "heldout-02",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0232652642666078,
+      "paired_speedup_max": 1.0488098621608768,
+      "baseline_wall_min": 0.0006802910938858986,
+      "baseline_wall_max": 0.0007019590120762587
+    },
+    {
+      "position": "heldout-02",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0776294249121727,
+      "paired_speedup_max": 1.1623765737152476,
+      "baseline_wall_min": 0.0014500408433377743,
+      "baseline_wall_max": 0.0015164169017225504
+    },
+    {
+      "position": "heldout-02",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0063613040358173,
+      "paired_speedup_max": 1.0713102902759613,
+      "baseline_wall_min": 0.0014500408433377743,
+      "baseline_wall_max": 0.0015164169017225504
+    },
+    {
+      "position": "heldout-02",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.9610182017662141,
+      "paired_speedup_max": 1.1592400310231177,
+      "baseline_wall_min": 0.0025737080723047256,
+      "baseline_wall_max": 0.0026601660065352917
+    },
+    {
+      "position": "heldout-02",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0077666265338343,
+      "paired_speedup_max": 1.0556909357774769,
+      "baseline_wall_min": 0.0025737080723047256,
+      "baseline_wall_max": 0.0026601660065352917
+    },
+    {
+      "position": "heldout-03",
+      "depth": 4,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.085402373901511,
+      "paired_speedup_max": 1.1505249016957735,
+      "baseline_wall_min": 0.00012366706505417824,
+      "baseline_wall_max": 0.0001366250216960907
+    },
+    {
+      "position": "heldout-03",
+      "depth": 4,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.9841247557015291,
+      "paired_speedup_max": 1.06322838754566,
+      "baseline_wall_min": 0.00012366706505417824,
+      "baseline_wall_max": 0.0001366250216960907
+    },
+    {
+      "position": "heldout-03",
+      "depth": 6,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 0.964157608477984,
+      "paired_speedup_max": 1.1202640156913655,
+      "baseline_wall_min": 0.00014012493193149567,
+      "baseline_wall_max": 0.00014787493273615837
+    },
+    {
+      "position": "heldout-03",
+      "depth": 6,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 0.8896825666672087,
+      "paired_speedup_max": 1.0298854526113692,
+      "baseline_wall_min": 0.00014012493193149567,
+      "baseline_wall_max": 0.00014787493273615837
+    },
+    {
+      "position": "heldout-03",
+      "depth": 8,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0705824586257968,
+      "paired_speedup_max": 1.1369902280130293,
+      "baseline_wall_min": 0.0001538749784231186,
+      "baseline_wall_max": 0.00016254186630249023
+    },
+    {
+      "position": "heldout-03",
+      "depth": 8,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0054418684610482,
+      "paired_speedup_max": 1.044727516521406,
+      "baseline_wall_min": 0.0001538749784231186,
+      "baseline_wall_max": 0.00016254186630249023
+    },
+    {
+      "position": "heldout-03",
+      "depth": 10,
+      "variant": "terminal-proof",
+      "paired_speedup_min": 1.0772694681713324,
+      "paired_speedup_max": 1.1165932750821324,
+      "baseline_wall_min": 0.00016091694124042988,
+      "baseline_wall_max": 0.00017379107885062695
+    },
+    {
+      "position": "heldout-03",
+      "depth": 10,
+      "variant": "trusted-tt",
+      "paired_speedup_min": 1.0,
+      "paired_speedup_max": 1.0564129107179252,
+      "baseline_wall_min": 0.00016091694124042988,
+      "baseline_wall_max": 0.00017379107885062695
+    }
+  ]
+}
