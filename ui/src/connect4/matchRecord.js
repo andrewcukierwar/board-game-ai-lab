@@ -35,6 +35,13 @@ export function validateMatchHistory(data, expected = {}) {
       (!['mcts', 'mcts_tactical'].includes(p.type) || validSimulations(p.simulation_limit, p.type)))) invalid();
   let board = emptyBoard(), result = outcome(board);
   for (const [i, record] of data.moves.entries()) {
+    const search = record?.search;
+    if (search !== undefined && (record?.agent?.type !== 'mcts_tactical' || !search ||
+        !equal(Object.keys(search).sort(), ['executed_simulations', 'requested_simulations']) ||
+        !Number.isInteger(search.requested_simulations) || !validSimulations(search.requested_simulations, 'mcts_tactical') ||
+        !Number.isInteger(search.executed_simulations) || search.executed_simulations < 0 ||
+        search.executed_simulations > search.requested_simulations ||
+        search.requested_simulations !== game.players[i % 2].simulation_limit)) invalid();
     if (!record || result.status !== 'ongoing' || record.revision_before !== i || record.revision !== i + 1 ||
         record.move_number !== i + 1 || record.player !== i % 2 || !Number.isInteger(record.column) ||
         record.column < 0 || record.column > 6 || record.agent?.type !== game.players[i % 2].type ||
