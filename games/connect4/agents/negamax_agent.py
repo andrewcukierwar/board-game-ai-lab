@@ -6,6 +6,7 @@ incrementally and unchanged on nonterminal leaves. No research module,
 checkpoint, or neural dependency is used.
 """
 from math import inf
+from time import monotonic
 from games.connect4.agents.negamax_tt import pack_entry, unpack_entry
 
 WIN_SCORE = 1_000_000
@@ -154,11 +155,16 @@ class SearchState:
         return self.score if self.mover == 0 else -self.score
 
 
+class SearchDeadlineExceeded(Exception):
+    """A server-owned search exceeded its bounded advanced-search budget."""
+
+
 class SearchTable:
-    def __init__(self, *, tt_moves=True, tactical='wins'):
+    def __init__(self, *, tt_moves=True, tactical='wins', deadline=None):
         # Internal switches for measured ablations; public agent settings stay fixed.
         self.tt_moves = tt_moves
         self.tactical = tactical
+        self.deadline = deadline
         self.entries = {}
         self.nodes = 0
         self.hits = 0
@@ -169,6 +175,8 @@ def negamax(state, depth, alpha=-inf, beta=inf, table=None, parent_checked=False
     """Fail-soft alpha-beta value from the current mover's perspective."""
     if table is not None:
         table.nodes += 1
+        if table.deadline is not None and (table.nodes & 255) == 0 and monotonic() >= table.deadline:
+            raise SearchDeadlineExceeded('Advanced search time budget exhausted')
     terminal = state.terminal_value(depth, previous_only=parent_checked)
     if terminal is not None:
         return terminal
@@ -216,10 +224,14 @@ def negamax(state, depth, alpha=-inf, beta=inf, table=None, parent_checked=False
 
 
 class NegamaxAgent:
-    def __init__(self, depth):
+    def __init__(self, depth, *, max_seconds=None):
         if type(depth) is not int or depth < 1:
             raise ValueError('depth must be a positive integer')
+        if max_seconds is not None and (type(max_seconds) not in (int, float) or
+                                        not 0 < max_seconds <= 60):
+            raise ValueError('max_seconds must be a positive bounded duration')
         self.depth = depth
+        self.max_seconds = max_seconds
         self.last_scores = None
         self.last_stats = None
 
@@ -233,8 +245,15 @@ class NegamaxAgent:
         state = SearchState(game)
         if state.terminal_value(self.depth) is not None:
             raise ValueError('Cannot choose a move from a terminal position')
-        table, scores = SearchTable(), {}
+        # Preserve the original zero-argument SearchTable creation for
+        # research profiling wrappers that capture tables for memory audits.
+        # Only time-bounded public searches need the new deadline parameter.
+        table = (SearchTable() if self.max_seconds is None else
+                 SearchTable(deadline=monotonic() + self.max_seconds))
+        scores = {}
         for col in state.legal():
+            if table.deadline is not None and monotonic() >= table.deadline:
+                raise SearchDeadlineExceeded('Advanced search time budget exhausted')
             state.play(col)
             try:
                 scores[col] = -negamax(state, self.depth - 1, -inf, inf, table, parent_checked=True)

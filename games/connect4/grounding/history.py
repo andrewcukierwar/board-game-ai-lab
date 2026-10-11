@@ -17,6 +17,7 @@ class MoveRecord:
     board_after: tuple
     outcome_status: str
     winner: int | None
+    search_stats: tuple[int, int] | None = None  # requested/executed F1 simulations
 
     def to_dict(self):
         return {'move_number': self.move_number, 'revision_before': self.revision_before,
@@ -26,10 +27,13 @@ class MoveRecord:
                 'column': self.column,
                 'board_before': [list(row) for row in self.board_before],
                 'board_after': [list(row) for row in self.board_after],
-                'outcome': {'status': self.outcome_status, 'winner': self.winner}}
+                'outcome': {'status': self.outcome_status, 'winner': self.winner},
+                **({'search': {'requested_simulations': self.search_stats[0],
+                               'executed_simulations': self.search_stats[1]}}
+                   if self.search_stats is not None else {})}
 
 
-def record_move(before, after, player, config, column, revision):
+def record_move(before, after, player, config, column, revision, search_stats=None):
     result = outcome(after)
     return MoveRecord(
         move_number=sum(v != ' ' for row in after for v in row),
@@ -37,4 +41,4 @@ def record_move(before, after, player, config, column, revision):
         agent_type=config['type'], agent_depth=config.get('depth'), column=column,
         board_before=tuple(tuple(row) for row in before),
         board_after=tuple(tuple(row) for row in after),
-        outcome_status=result['status'], winner=result['winner'])
+        outcome_status=result['status'], winner=result['winner'], search_stats=search_stats)

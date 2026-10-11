@@ -47,7 +47,7 @@ export default function ExportPanel({ season }) {
     {error && <p className="tournament-error" role="alert">{error}</p>}
     <details className="evaluation-details"><summary>Provenance and integrity details</summary>
       {preview?.schema_version === 2 && <p>Victor reference policy 1 · bounded search with fallback. Victor’s wall-clock budget can change moves with CPU contention. Captured core backend provenance does not identify the Victor algorithm; recorded columns establish what happened, not reproducible future choices.</p>}
-      <p>Engine 1 · Random 2 · corrected Negamax 2 · MCTS 2 · API contract 2 · API provenance 1 · stochastic seeding 1.</p>
+      <p>Engine 1 · Random 2 · Negamax 2 · Classic MCTS 2 · API contract {preview?.provenance.api_contract_version ?? 2} · API provenance 1 · stochastic seeding 1.{preview?.provenance.agents.mcts_tactical && ' Tactical MCTS F1 version 1.'}</p>
       <p>Backend versions and optional source commits are captured in each game’s history. {preview ? `${preview.provenance.execution_capture.recorded_games} games captured; ${preview.provenance.execution_capture.unrecorded_games} games unrecorded.` : ''}</p>
       {preview?.provenance.execution_capture.unrecorded_games > 0 && <p>Historical backend provenance was not recorded for some games. Reference version identifiers do not establish which backend played them.</p>}
       {preview && <ul>{[...new Set(preview.evidence.completed_games.map(g => g.backend_provenance?.source_commit).filter(Boolean))].map(commit => <li key={commit}>Backend source commit: <code>{commit}</code></li>)}</ul>}

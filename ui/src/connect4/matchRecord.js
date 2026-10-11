@@ -1,6 +1,6 @@
 import { KNOWN_PLAYER_TYPES, VICTOR_RESEARCH, validResearchConfig } from './researchAgent.js';
 import { validateSnapshot } from './gameSnapshot.js';
-import { competitorLabel, playerColor } from './competitorConfig.js';
+import { competitorLabel, playerColor, validDepth, validSimulations } from './competitorConfig.js';
 
 export const emptyBoard = () => Array.from({ length: 6 }, () => Array(7).fill(' '));
 const equal = (a, b) => JSON.stringify(a) === JSON.stringify(b);
@@ -31,10 +31,17 @@ export function validateMatchHistory(data, expected = {}) {
       !samePlayers(data.players, game.players) || !Array.isArray(data.moves) ||
       data.moves.length !== game.revision || game.revision > 42 ||
       (expected.players && !samePlayers(game.players, expected.players))) invalid();
-  if (!game.players.every(p => (p.type !== 'negamax' || Number.isInteger(p.depth) && p.depth >= 1 && p.depth <= 8) &&
-      (p.type !== 'mcts' || [50, 100, 250, 400, 800].includes(p.simulation_limit)))) invalid();
+  if (!game.players.every(p => (p.type !== 'negamax' || validDepth(p.depth)) &&
+      (!['mcts', 'mcts_tactical'].includes(p.type) || validSimulations(p.simulation_limit, p.type)))) invalid();
   let board = emptyBoard(), result = outcome(board);
   for (const [i, record] of data.moves.entries()) {
+    const search = record?.search;
+    if (search !== undefined && (record?.agent?.type !== 'mcts_tactical' || !search ||
+        !equal(Object.keys(search).sort(), ['executed_simulations', 'requested_simulations']) ||
+        !Number.isInteger(search.requested_simulations) || !validSimulations(search.requested_simulations, 'mcts_tactical') ||
+        !Number.isInteger(search.executed_simulations) || search.executed_simulations < 0 ||
+        search.executed_simulations > search.requested_simulations ||
+        search.requested_simulations !== game.players[i % 2].simulation_limit)) invalid();
     if (!record || result.status !== 'ongoing' || record.revision_before !== i || record.revision !== i + 1 ||
         record.move_number !== i + 1 || record.player !== i % 2 || !Number.isInteger(record.column) ||
         record.column < 0 || record.column > 6 || record.agent?.type !== game.players[i % 2].type ||

@@ -140,7 +140,7 @@ def test_disabled_by_default_with_unchanged_public_error(monkeypatch):
     result = start(app)
     assert result.status_code == 400 and result.json == {
         'code': 'invalid_agent',
-        'error': 'Supported player types are human, random, negamax, and mcts.'}
+        'error': 'Supported player types are human, random, negamax, mcts, and mcts_tactical.'}
     # Legacy identifiers are not exposed by the public API either.
     result = app.test_client().post(BASE + '/start_game',
                                     json={'player1': {'type': 'human'}, 'player2': {'type': 'victor'}})

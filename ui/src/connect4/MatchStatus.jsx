@@ -1,3 +1,4 @@
+import { SearchElapsed } from './GameStatus.jsx';
 import { competitorLabel, playerColor } from './competitorConfig.js';
 import { resultLabel } from './matchRecord.js';
 
@@ -14,7 +15,7 @@ export default function MatchStatus({ game, result, busy, phase, live, viewedRev
         : !live ? 'Replay only. The live match stays at its latest move.' : busy ? phase === 'ai-move' ? 'AI thinking. Pause will stop after this move is confirmed.'
           : phase === 'starting' ? 'Connecting to the game server. The first request may take longer while it wakes up.' : 'Confirming the board and move history…'
           : result ? 'The match is complete. Explore its timeline or start a new match.' : game ? `${turn} to move. ${humanTurn ? 'Choose a column.' : autoplay ? 'Playback continues after the viewer delay.' : 'Step forward or enable autoplay.'}`
-          : 'Configure both competitors, then start a paused match.'}</p>
+          : 'Configure both competitors, then start a paused match.'}{<SearchElapsed active={busy && phase === 'ai-move'} />}</p>
     </div>
   </div>;
 }

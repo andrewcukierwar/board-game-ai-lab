@@ -4,10 +4,11 @@ import { competitorLabel, matchStartPayload, toPlayerPayload } from '../src/conn
 import { matchResult, resultLabel, replaySnapshot, timelineLabel, validateMatchHistory } from '../src/connect4/matchRecord.js';
 import { DRAW, WIN, matchFixture } from '../e2e/fixtures/match.js';
 
-const configs = [{ type: 'human' }, { type: 'random' }, ...[1, 2, 4, 6, 8].map(depth => ({ type: 'negamax', depth })),
-  ...[100, 400, 800].map(simulations => ({ type: 'mcts', simulations }))];
+const configs = [{ type: 'human' }, { type: 'random' }, ...[1, 2, 4, 6, 8, 10, 12].map(depth => ({ type: 'negamax', depth })),
+  ...[100, 400, 800, 2000, 25000].map(simulations => ({ type: 'mcts', simulations })),
+  ...[200, 800, 10000].map(simulations => ({ type: 'mcts_tactical', simulations }))];
 for (const config of configs) test(`exact public payload and identity: ${competitorLabel(config)}`, () => {
-  const payload = config.type === 'mcts' ? { type: 'mcts', simulation_limit: config.simulations } : config;
+  const payload = ['mcts', 'mcts_tactical'].includes(config.type) ? { type: config.type, simulation_limit: config.simulations } : config;
   assert.deepEqual(toPlayerPayload({ depth: 8, simulations: 800, ...config }), payload);
   assert.equal(competitorLabel(payload), competitorLabel(config));
 });
@@ -18,7 +19,7 @@ test('any independent competitor pairing builds a detached replacement payload',
     assert.deepEqual([a, b], before);
   }
 });
-for (const config of [{ type: 'unknown' }, { type: 'negamax', depth: 3 }, { type: 'negamax', depth: true }, { type: 'mcts', simulations: 250 }]) {
+for (const config of [{ type: 'unknown' }, { type: 'negamax', depth: 13 }, { type: 'negamax', depth: true }, { type: 'mcts', simulations: 25001 }]) {
   test(`nonpublic config rejected ${JSON.stringify(config)}`, () => assert.throws(() => toPlayerPayload(config)));
 }
 for (const seq of [[], [3, 2], WIN, DRAW]) test(`validate complete replay and result at ${seq.length} plies`, () => {
@@ -32,7 +33,7 @@ for (const seq of [[], [3, 2], WIN, DRAW]) test(`validate complete replay and re
   }
   if (seq === WIN) assert.equal(resultLabel(matchResult(game)), 'Negamax · depth 6 wins as Red in 7 moves.');
   if (seq === DRAW) assert.equal(resultLabel(matchResult(game)), 'Draw after 42 moves.');
-  if (moves.length > 1) assert.equal(timelineLabel(moves[1], game.players), `2 · Yellow · MCTS · 400 simulations · Column ${seq[1] + 1}`);
+  if (moves.length > 1) assert.equal(timelineLabel(moves[1], game.players), `2 · Yellow · Classic MCTS · 400 simulations · Column ${seq[1] + 1}`);
 });
 const corruptions = [
   d => d.revision++, d => d.moves.pop(), d => d.state.game_id = 'other', d => d.players = [{ type: 'human' }, { type: 'human' }],

@@ -48,7 +48,7 @@ for (const size of [0, 2, 3, 5, 7, 9, 11, 13, 16]) test(`reject unsupported fiel
 for (const games of [0, 1, 3, 6, 9, '2']) test(`reject games per pairing ${games}`, () => assert.throws(() => createSeason(defaultField(4), 0, games)));
 for (const seed of [-1, 4294967296, .5, NaN, '0']) test(`reject seed ${seed}`, () => assert.throws(() => createSeason(defaultField(4), seed)));
 test('Human/private/invalid configs rejected; uint32 endpoints accepted', () => {
-  for (const config of [{ type: 'human' }, { type: 'alphazero' }, { type: 'negamax', depth: 3 }, { type: 'mcts', simulations: 999 }, { type: 'random', depth: 1 }]) assert.throws(() => createSeason([config, ...defaultField(4).slice(1)], 0));
+  for (const config of [{ type: 'human' }, { type: 'alphazero' }, { type: 'negamax', depth: 13 }, { type: 'mcts', simulations: 25001 }, { type: 'random', depth: 1 }]) assert.throws(() => createSeason([config, ...defaultField(4).slice(1)], 0));
   assert.ok(createSeason(defaultField(4), 4294967295));
 });
 test('canonical storage/replay rebuild from compact evidence; unknown snapshots discarded; aggregates rejected', () => {

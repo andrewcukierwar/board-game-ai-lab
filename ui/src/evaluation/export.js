@@ -2,7 +2,7 @@ import { hasResearch } from '../connect4/researchAgent.js';
 import { createSeason, validateSeason, SCHEDULE_VERSION, totalGames } from '../season/model.js';
 import { seasonAnalytics, INITIAL_ELO, K_FACTOR, BOOTSTRAP_SAMPLES, MIN_INTERVAL_GAMES } from '../season/analytics.js';
 import { canonicalJSON, evidenceDigest } from './canonical.js';
-import { FORMAT, SCHEMA_VERSION, METHODOLOGY_VERSION, BACKEND_VERSIONS, RESEARCH_SCHEMA_VERSION, RESEARCH_METHODOLOGY_VERSION, VICTOR_REFERENCE_VERSION, sourceCommit, validateBackendProvenance } from './provenance.js';
+import { FORMAT, SCHEMA_VERSION, METHODOLOGY_VERSION, BACKEND_VERSIONS, CURRENT_BACKEND_VERSIONS, RESEARCH_SCHEMA_VERSION, RESEARCH_METHODOLOGY_VERSION, VICTOR_REFERENCE_VERSION, sourceCommit, validateBackendProvenance } from './provenance.js';
 
 export const METHODOLOGY = Object.freeze({
   version: METHODOLOGY_VERSION, schedule_version: SCHEDULE_VERSION,
@@ -49,12 +49,12 @@ export function seasonEvidence(season) {
 }
 function internalConfig(p) {
   if (!p || typeof p !== 'object') throw new Error('Malformed entrant configuration.');
-  const ordered = p.type === 'negamax' ? { type: p.type, depth: p.depth } : p.type === 'mcts' ? { type: p.type, simulations: p.simulations } : { type: p.type };
+  const ordered = p.type === 'negamax' ? { type: p.type, depth: p.depth } : ['mcts', 'mcts_tactical'].includes(p.type) ? { type: p.type, simulations: p.simulations } : { type: p.type };
   requireEqual(p, ordered, 'Unknown or missing entrant configuration fields.');
   return ordered;
 }
 function apiConfig(p) {
-  const ordered = p?.type === 'negamax' ? { type: p.type, depth: p.depth } : p?.type === 'mcts' ? { type: p.type, simulation_limit: p.simulation_limit } : { type: p?.type };
+  const ordered = p?.type === 'negamax' ? { type: p.type, depth: p.depth } : ['mcts', 'mcts_tactical'].includes(p?.type) ? { type: p.type, simulation_limit: p.simulation_limit } : { type: p?.type };
   requireEqual(p, ordered, 'Unknown or missing player configuration fields.'); return ordered;
 }
 export function reconstructEvidence(e) {
@@ -97,7 +97,10 @@ export function derivedAnalytics(s) {
 }
 export function evaluationProvenance(evidence, commit = null) {
   const captured = evidence.completed_games.filter(g => g.backend_provenance !== null).length;
-  return { ...BACKEND_VERSIONS, agents: { ...BACKEND_VERSIONS.agents, ...(evidenceHasResearch(evidence) ? { victor_research: VICTOR_REFERENCE_VERSION } : {}) }, season_schedule_version: SCHEDULE_VERSION,
+  const modern = evidence.entrants.some(e => e.config.type === 'mcts_tactical') ||
+    evidence.completed_games.some(g => g.backend_provenance?.api_contract_version === 3);
+  const versions = modern ? CURRENT_BACKEND_VERSIONS : BACKEND_VERSIONS;
+  return { ...versions, agents: { ...versions.agents, ...(evidenceHasResearch(evidence) ? { victor_research: VICTOR_REFERENCE_VERSION } : {}) }, season_schedule_version: SCHEDULE_VERSION,
     evaluation_methodology_version: evaluationMethodology(evidence).version, export_schema_version: evaluationSchema(evidence),
     source_commit: sourceCommit(commit), execution_capture: { recorded_games: captured,
       unrecorded_games: evidence.completed_games.length - captured, scope: 'per-game-history-response',

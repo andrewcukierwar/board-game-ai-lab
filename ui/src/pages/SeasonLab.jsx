@@ -2,7 +2,7 @@ import { researchAgentEnabled, researchAgent, VICTOR_RESEARCH, hasResearch, RESE
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { competitorLabel, NEGAMAX_DEPTHS, MCTS_SIMULATIONS } from '../connect4/competitorConfig.js';
+import { competitorLabel, NEGAMAX_DEPTHS, MCTS_SIMULATIONS, TACTICAL_MCTS_SIMULATIONS } from '../connect4/competitorConfig.js';
 import { FIELD_SIZES, GAMES_PER_PAIRING, defaultField, validSeed, currentFixture, totalGames, entrantLabel } from '../season/model.js';
 import { useSeason } from '../season/useSeason.js';
 import { seasonAnalytics, K_FACTOR, INITIAL_ELO, BOOTSTRAP_SAMPLES } from '../season/analytics.js';
@@ -16,7 +16,8 @@ import './match-lab.css';
 import './tournament-lab.css';
 import './season-lab.css';
 const seasonHttp = axios.create({ baseURL: import.meta.env?.VITE_API_BASE, timeout: 90000 });
-const ordinaryPresets = [{ type: 'random' }, ...NEGAMAX_DEPTHS.map(depth => ({ type: 'negamax', depth })), ...MCTS_SIMULATIONS.map(simulations => ({ type: 'mcts', simulations }))];
+const ordinaryPresets = [{ type: 'random' }, ...NEGAMAX_DEPTHS.map(depth => ({ type: 'negamax', depth })), ...MCTS_SIMULATIONS.filter(n => n <= 5000).map(simulations => ({ type: 'mcts', simulations })),
+  ...TACTICAL_MCTS_SIMULATIONS.filter(n => n <= 2000).map(simulations => ({ type: 'mcts_tactical', simulations }))];
 const randomSeed = () => globalThis.crypto.getRandomValues(new Uint32Array(1))[0];
 const modes = { paused: 'Paused', game: 'Running current game', round: 'Running current round', season: 'Running season' };
 export default function SeasonLabPage({ http = seasonHttp, storage }) {
@@ -53,7 +54,7 @@ export default function SeasonLabPage({ http = seasonHttp, storage }) {
       <p id="season-seed-help" className="analysis-helper">Whole number 0–4294967295. The same field, slot order, seed and season length reproduce the schedule, colors and game seeds.</p>
       <p className="season-workload" role="status">{size * (size - 1) / 2} pairings × {games} = <strong>{totalGames(size, games)} scheduled games.</strong> Higher-depth Negamax and MCTS entrants may make a full season take several minutes or longer.</p>
       <div className="field-heading"><h3>Entrants</h3><button type="button" onClick={() => setField(defaultField(size))}>Reset default field</button></div>
-      <div className="entrant-field">{field.map((config, i) => <div className="entrant-row" key={i}><label htmlFor={`season-entrant-${i + 1}`}>#{i + 1}</label><select id={`season-entrant-${i + 1}`} aria-label={`Entrant ${i + 1} configuration`} value={presets.findIndex(p => JSON.stringify(p) === JSON.stringify(config))} onChange={e => setField(field.map((p, j) => j === i ? { ...presets[Number(e.target.value)] } : p))}>{!enabled && config.type === VICTOR_RESEARCH && <option value={-1} disabled>{researchAgent.name} · unavailable</option>}{presets.map((p, j) => <option value={j} key={j}>{competitorLabel(p)}</option>)}</select></div>)}</div>
+      <div className="entrant-field">{field.map((config, i) => <div className="entrant-row" key={i}><label htmlFor={`season-entrant-${i + 1}`}>#{i + 1}</label><select id={`season-entrant-${i + 1}`} aria-label={`Entrant ${i + 1} configuration`} value={presets.findIndex(p => JSON.stringify(p) === JSON.stringify(config))} onChange={e => setField(field.map((p, j) => j === i ? { ...presets[Number(e.target.value)] } : p))}>{presets.findIndex(p => JSON.stringify(p) === JSON.stringify(config)) === -1 && <option value={-1} disabled>{config.type === VICTOR_RESEARCH ? `${researchAgent.name} · unavailable` : `${competitorLabel(config)} · saved setting`}</option>}{presets.map((p, j) => <option value={j} key={j}>{competitorLabel(p)}</option>)}</select></div>)}</div>
       <div className="setup-submit"><button id="season-create" className="action-link action-link--primary" disabled={state.busy}>Create season</button>{s && <button type="button" onClick={() => setSetup(false)}>Cancel new season</button>}</div>
     </form> : <>
       <section className="tournament-summary" aria-label="Season summary"><div><span className="eyebrow">Exact Red / Yellow balance</span><h2>{s.fieldSize} entrants <span>·</span> {s.gamesPerPairing} games per pairing</h2><p>Seed {s.seasonSeed} · {s.currentGameIndex} of {s.schedule.length} games complete · {s.schedule.at(-1).round} rounds</p></div><button disabled={state.busy} onClick={() => { c.pause(); setSize(s.fieldSize); setGames(s.gamesPerPairing); setField(s.entrants.map(e => ({ ...e.config }))); setSeed(String(randomSeed())); setSetup(true); }}>New season</button></section>

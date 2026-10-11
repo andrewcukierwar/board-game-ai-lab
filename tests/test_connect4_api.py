@@ -50,7 +50,7 @@ def test_independent_sessions_and_app_instances(client, app):
 
 @pytest.mark.parametrize('config', [None, [], 'random', {}, {'type': []},
     {'type': 'mcts_nn'}, {'type': 'negamax', 'depth': True}, {'type': 'negamax', 'depth': False},
-    {'type': 'negamax', 'depth': 0}, {'type': 'negamax', 'depth': 9}, {'type': 'negamax', 'depth': 10}, {'type': 'negamax', 'depth': None}, {'type': 'negamax', 'depth': 1000000},
+    {'type': 'negamax', 'depth': 0}, {'type': 'negamax', 'depth': 13}, {'type': 'negamax', 'depth': -1}, {'type': 'negamax', 'depth': None}, {'type': 'negamax', 'depth': 1000000},
     {'type': 'negamax', 'depth': 2.0}, {'type': 'negamax', 'depth': '2'},
     {'type': 'random', 'depth': 2}, {'type': 'human', 'extra': 1}])
 def test_invalid_configuration_does_not_replace_game(client, config):
@@ -310,3 +310,54 @@ def test_failed_ai_opener_keeps_revision_zero_and_recovers(client, monkeypatch):
         assert move(client, state).json['code'] == 'agent_failed'
         assert read(client, state).json == state
     assert move(client, state).json['revision'] == 1
+
+
+
+@pytest.mark.parametrize('agent,valid_cap', [('mcts', 25000), ('mcts_tactical', 10000)])
+def test_custom_mcts_budget_validation(client, agent, valid_cap):
+    for n in (1, 100, 400, 800, valid_cap):
+        response = client.post(BASE + '/start_game', json={'player2': {'type': agent, 'simulation_limit': n}})
+        assert response.status_code == 201, response.json
+        assert response.json['players'][1] == {'type': agent, 'simulation_limit': n}
+    for invalid in (True, None, 0, -1, 1.5, '100', valid_cap + 1):
+        response = client.post(BASE + '/start_game', json={'player2': {'type': agent, 'simulation_limit': invalid}})
+        assert response.status_code == 400
+        assert response.json['code'] == 'invalid_agent'
+
+
+def test_advanced_negamax_depths_validate_without_running_long_search(client):
+    for depth in (9, 10, 11, 12):
+        response = client.post(BASE + '/start_game', json={'player2': {'type': 'negamax', 'depth': depth}})
+        assert response.status_code == 201
+    for depth in (0, 13, 14, True, '12'):
+        response = client.post(BASE + '/start_game', json={'player2': {'type': 'negamax', 'depth': depth}})
+        assert response.status_code == 400
+
+
+def test_tactical_mcts_seeded_move_and_history(client):
+    created = client.post(BASE + '/start_game', json={
+        'player1': {'type': 'mcts_tactical', 'simulation_limit': 12},
+        'player2': {'type': 'human'}, 'rng_seed': 9821})
+    assert created.status_code == 201
+    state = created.json
+    response = move(client, state)
+    assert response.status_code == 200, response.json
+    history = client.get(BASE + '/games/' + state['game_id'] + '/history')
+    assert history.status_code == 200
+    assert history.json['moves'][0]['agent']['type'] == 'mcts_tactical'
+    assert history.json['moves'][0]['search']['requested_simulations'] == 12
+    assert 0 <= history.json['moves'][0]['search']['executed_simulations'] <= 12
+
+
+def test_advanced_negamax_timeout_is_atomic(client, monkeypatch):
+    from games.connect4.agents.negamax_agent import NegamaxAgent, SearchDeadlineExceeded
+    created = client.post(BASE + '/start_game', json={
+        'player1': {'type': 'negamax', 'depth': 12}, 'player2': {'type': 'human'}}).json
+    def timed_out(self, game):
+        raise SearchDeadlineExceeded()
+    with monkeypatch.context() as patch:
+        patch.setattr(NegamaxAgent, 'choose_move', timed_out)
+        result = move(client, created)
+    assert result.status_code == 503
+    assert result.json['code'] == 'search_timeout'
+    assert read(client, created).json == created
