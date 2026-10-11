@@ -1,6 +1,6 @@
 import { KNOWN_PLAYER_TYPES, VICTOR_RESEARCH, validResearchConfig } from './researchAgent.js';
 import { validateSnapshot } from './gameSnapshot.js';
-import { competitorLabel, playerColor } from './competitorConfig.js';
+import { competitorLabel, playerColor, validDepth, validSimulations } from './competitorConfig.js';
 
 export const emptyBoard = () => Array.from({ length: 6 }, () => Array(7).fill(' '));
 const equal = (a, b) => JSON.stringify(a) === JSON.stringify(b);
@@ -31,8 +31,8 @@ export function validateMatchHistory(data, expected = {}) {
       !samePlayers(data.players, game.players) || !Array.isArray(data.moves) ||
       data.moves.length !== game.revision || game.revision > 42 ||
       (expected.players && !samePlayers(game.players, expected.players))) invalid();
-  if (!game.players.every(p => (p.type !== 'negamax' || Number.isInteger(p.depth) && p.depth >= 1 && p.depth <= 8) &&
-      (p.type !== 'mcts' || [50, 100, 250, 400, 800].includes(p.simulation_limit)))) invalid();
+  if (!game.players.every(p => (p.type !== 'negamax' || validDepth(p.depth)) &&
+      (!['mcts', 'mcts_tactical'].includes(p.type) || validSimulations(p.simulation_limit, p.type)))) invalid();
   let board = emptyBoard(), result = outcome(board);
   for (const [i, record] of data.moves.entries()) {
     if (!record || result.status !== 'ongoing' || record.revision_before !== i || record.revision !== i + 1 ||
