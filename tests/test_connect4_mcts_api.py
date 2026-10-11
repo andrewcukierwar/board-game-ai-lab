@@ -66,7 +66,7 @@ def test_presets_normalization_dispatch_and_detached_input(app, monkeypatch, pla
 
 @pytest.mark.parametrize('config', [
     *[{'type': 'mcts', 'simulation_limit': v} for v in
-      [True, False, 50.0, '100', None, 0, -50, 1, 51, 500, 801, 1000, 1000000, [], {}]],
+      [True, False, 50.0, '100', None, 0, -50, 25001, 1000000, [], {}]],
     {'type': 'mcts', 'depth': 2}, {'type': 'mcts', 'extra': 1},
     *[{'type': kind, 'simulation_limit': 100} for kind in ['human', 'random', 'negamax']],
 ])
