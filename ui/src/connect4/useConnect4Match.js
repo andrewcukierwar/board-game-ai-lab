@@ -116,7 +116,8 @@ export function useConnect4Match(http, researchEnabled = researchAgentEnabled())
   function returnLive() { pause(); patch({ viewedRevision: null }); }
   function select(index, value) {
     if (current.current.phase !== 'idle') return;
-    patch({ selections: current.current.selections.map((config, i) => i === index ? (value.type === VICTOR_RESEARCH ? { type: VICTOR_RESEARCH } : { ...DEFAULT_COMPETITOR, ...config, ...value }) : config) });
+    patch({ selections: current.current.selections.map((config, i) => i === index ? (value.type === VICTOR_RESEARCH ? { type: VICTOR_RESEARCH } : { ...DEFAULT_COMPETITOR, ...config, ...value,
+          ...(value.type === 'mcts_tactical' ? { simulations: 800 } : value.type === 'mcts' ? { simulations: 2000 } : {}) }) : config) });
   }
   function setSpeed(speed) { if (Object.hasOwn(PLAYBACK_SPEEDS, speed) && current.current.speed !== speed) { clearTimer(); patch({ speed }); } }
 
