@@ -2,7 +2,7 @@ import { researchAgentEnabled, researchAgent, VICTOR_RESEARCH, hasResearch, RESE
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { competitorLabel, NEGAMAX_DEPTHS, MCTS_SIMULATIONS } from '../connect4/competitorConfig.js';
+import { competitorLabel, NEGAMAX_DEPTHS, MCTS_SIMULATIONS, TACTICAL_MCTS_SIMULATIONS } from '../connect4/competitorConfig.js';
 import { FIELD_SIZES, GAMES_PER_PAIRING, defaultField, validSeed, currentFixture, totalGames, entrantLabel } from '../season/model.js';
 import { useSeason } from '../season/useSeason.js';
 import { seasonAnalytics, K_FACTOR, INITIAL_ELO, BOOTSTRAP_SAMPLES } from '../season/analytics.js';
@@ -16,7 +16,8 @@ import './match-lab.css';
 import './tournament-lab.css';
 import './season-lab.css';
 const seasonHttp = axios.create({ baseURL: import.meta.env?.VITE_API_BASE, timeout: 90000 });
-const ordinaryPresets = [{ type: 'random' }, ...NEGAMAX_DEPTHS.map(depth => ({ type: 'negamax', depth })), ...MCTS_SIMULATIONS.map(simulations => ({ type: 'mcts', simulations }))];
+const ordinaryPresets = [{ type: 'random' }, ...NEGAMAX_DEPTHS.map(depth => ({ type: 'negamax', depth })), ...MCTS_SIMULATIONS.filter(n => n <= 5000).map(simulations => ({ type: 'mcts', simulations })),
+  ...TACTICAL_MCTS_SIMULATIONS.filter(n => n <= 2000).map(simulations => ({ type: 'mcts_tactical', simulations }))];
 const randomSeed = () => globalThis.crypto.getRandomValues(new Uint32Array(1))[0];
 const modes = { paused: 'Paused', game: 'Running current game', round: 'Running current round', season: 'Running season' };
 export default function SeasonLabPage({ http = seasonHttp, storage }) {
