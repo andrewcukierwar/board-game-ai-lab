@@ -204,3 +204,22 @@ Packaging verification: **501 backend passed**, with 14 existing optional PyTorc
 The public Connect 4 and competition/evaluation system is feature-complete. Sessions and limits are process-local: restarts lose live games, horizontal scaling is unsupported, and simulation budgets are not deadlines. Replay persistence is browser-local. Canonical timing is machine-specific; the benchmark neither solves Connect 4 nor establishes definitive rankings.
 
 AlphaZero and other learned-agent work remains experimental and separate. Broader opening coverage and independent repetitions could address future research questions, outside this completed scope. Check public deployment freshness separately when releasing these packaging changes.
+
+## Tactical MCTS and adjustable search (integration preview)
+
+A separately versioned **Tactical MCTS (F1)** agent is available in the
+integration branch for review. It combines tactical rollouts and MCTS-Solver
+proof propagation with exploration constant 0.5, using the methods examined
+in the [MCTS v3 research report](docs/search-mcts-v3/REPORT.md). The older
+Classic MCTS remains available for direct comparisons.
+
+Play and Match Lab expose preset and custom search budgets. Negamax accepts
+depths **1–12** (presets 1/2/4/6/8/10/12), Classic MCTS supports **1–25,000**
+simulations, and F1 **1–10,000**. The Tournament and Season setup menus offer
+lower-cost selections; historical seeded fields/exports remain valid. Depths
+10–12 are capped at 20 seconds per decision with atomic timeout recovery, and
+F1 stores its actually executed simulation count in immutable game history.
+
+**Deployment status:** this work is pending CI and independent Mac Mini
+capacity/latency checks. The current live app must not be assumed to expose
+these new settings until the integration PR is reviewed and deployed.
