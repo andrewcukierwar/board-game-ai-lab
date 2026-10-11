@@ -198,7 +198,7 @@ def make_move():
                     agent = VictorResearchAgent()
                 else:
                     agent = NegamaxAgent(config['depth'], max_seconds=(
-                        ADVANCED_NEGAMAX_MAX_SECONDS if config['depth'] >= 10 else None))
+                        ADVANCED_NEGAMAX_MAX_SECONDS if config['depth'] >= 9 else None))
                 # Never expose the live game to agent code.
                 column = agent.choose_move(Connect4(candidate.board, candidate.current_player))
                 if config['type'] == 'mcts_tactical':
