@@ -345,6 +345,8 @@ def test_tactical_mcts_seeded_move_and_history(client):
     history = client.get(BASE + '/games/' + state['game_id'] + '/history')
     assert history.status_code == 200
     assert history.json['moves'][0]['agent']['type'] == 'mcts_tactical'
+    assert history.json['moves'][0]['search']['requested_simulations'] == 12
+    assert 0 <= history.json['moves'][0]['search']['executed_simulations'] <= 12
 
 
 def test_advanced_negamax_timeout_is_atomic(client, monkeypatch):
