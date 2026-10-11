@@ -1,0 +1,30 @@
+{
+  "arena_seed": 4304004,
+  "domain": "phase4d4a-exploratory-v1",
+  "ladder_only": true,
+  "note": "Development reuse, exploratory. Identical RNG domain across checkpoints and opponents. All tactical rows once; all solved rows raw NN unless ladder-only. Paired X/O. Opening list above is authoritative; --opening-rows may omit mirrors.",
+  "openings": [
+    {
+      "family": "empty-board",
+      "id": "development-empty-00",
+      "moves": [],
+      "pair_seed": 0,
+      "stratum": "empty"
+    },
+    {
+      "family": "development-prefix-00",
+      "id": "development-prefix-00-base",
+      "moves": [
+        6,
+        2
+      ],
+      "pair_seed": 20,
+      "stratum": "prefix",
+      "to_move": 0
+    }
+  ],
+  "search_tie_seed": 4304003,
+  "simulations": 512,
+  "solved_rows": 300,
+  "tactics_rows": 200
+}

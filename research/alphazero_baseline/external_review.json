@@ -1,0 +1,125 @@
+{
+  "retrieved_date": "2026-10-11",
+  "sources": [
+    {
+      "repository": "https://github.com/eugeneyp/connect4-alphazero",
+      "commit": "a936aadd74a6a6dd9035e576b89aeb5a3ea7ef73",
+      "sources": [
+        {
+          "path": "configs/full.yaml",
+          "url": "https://github.com/eugeneyp/connect4-alphazero/blob/a936aadd74a6a6dd9035e576b89aeb5a3ea7ef73/configs/full.yaml",
+          "sha256": "7faf5ab97fdd75e6f8dcd63c00286fc495d17544115b13a4e84fcc1e506da201"
+        },
+        {
+          "path": "src/mcts/search.py",
+          "url": "https://github.com/eugeneyp/connect4-alphazero/blob/a936aadd74a6a6dd9035e576b89aeb5a3ea7ef73/src/mcts/search.py",
+          "sha256": "6ad97e6b18ba48af4da463b46d194bfa4bf35f69db460cfe9c12b32fdf97efd6"
+        },
+        {
+          "path": "src/training/self_play.py",
+          "url": "https://github.com/eugeneyp/connect4-alphazero/blob/a936aadd74a6a6dd9035e576b89aeb5a3ea7ef73/src/training/self_play.py",
+          "sha256": "8a9dd644a6e31e151dd3365cde84f31565435adb2c704c5e0ff1ee9ebb5a87cb"
+        },
+        {
+          "path": "src/training/coach.py",
+          "url": "https://github.com/eugeneyp/connect4-alphazero/blob/a936aadd74a6a6dd9035e576b89aeb5a3ea7ef73/src/training/coach.py",
+          "sha256": "082e91a1d2827a97ae526c56582d3a53f8bbf2fbbd0518eca64913910aa76970"
+        },
+        {
+          "path": "src/training/replay_buffer.py",
+          "url": "https://github.com/eugeneyp/connect4-alphazero/blob/a936aadd74a6a6dd9035e576b89aeb5a3ea7ef73/src/training/replay_buffer.py",
+          "sha256": "e561388dbeaaf26f8a3cf73b5328a5f90832b6972de8821b6bd4306e45efd089"
+        }
+      ],
+      "performance_status": "Author claims only; no independent reproduction in this phase"
+    },
+    {
+      "repository": "https://github.com/suharshkumar/connect4-selfplay-rl",
+      "commit": "ed5c601783610e1df7b7e32758140160449e973e",
+      "sources": [
+        {
+          "path": "c4/train.py",
+          "url": "https://github.com/suharshkumar/connect4-selfplay-rl/blob/ed5c601783610e1df7b7e32758140160449e973e/c4/train.py",
+          "sha256": "e5f4dee2efaf2f3493d85729ba7c5a229ea467ddcf6bdc607f6215c17fe7bb2b"
+        },
+        {
+          "path": "c4/mcts.py",
+          "url": "https://github.com/suharshkumar/connect4-selfplay-rl/blob/ed5c601783610e1df7b7e32758140160449e973e/c4/mcts.py",
+          "sha256": "2cf1d30f519bbca62f6ef2a0c0057101af12e7f9fe4bfae952ef445aeafd2c8b"
+        },
+        {
+          "path": "c4/selfplay.py",
+          "url": "https://github.com/suharshkumar/connect4-selfplay-rl/blob/ed5c601783610e1df7b7e32758140160449e973e/c4/selfplay.py",
+          "sha256": "e05ab0667e9b1b0710280362d46aa44b8210686e866245156cb0ed9f6abacc20"
+        },
+        {
+          "path": "c4/net.py",
+          "url": "https://github.com/suharshkumar/connect4-selfplay-rl/blob/ed5c601783610e1df7b7e32758140160449e973e/c4/net.py",
+          "sha256": "9bf70c72c9a197dd2bda2e20bb5fca9e5096dd702c292f05a1d3fe1ccc44d343"
+        }
+      ],
+      "performance_status": "Author claims only; no independent reproduction in this phase"
+    },
+    {
+      "repository": "https://github.com/kuotunyu/alphazero-connect4",
+      "commit": "0ca5789237911127edea8dca3b3786d0c148ee89",
+      "sources": [
+        {
+          "path": "src/az/config.py",
+          "url": "https://github.com/kuotunyu/alphazero-connect4/blob/0ca5789237911127edea8dca3b3786d0c148ee89/src/az/config.py",
+          "sha256": "fc13352a3613ceffb7fa6282883f7b8306ff1d39cc84761b0fc3a88447fe5bea"
+        },
+        {
+          "path": "src/az/mcts.py",
+          "url": "https://github.com/kuotunyu/alphazero-connect4/blob/0ca5789237911127edea8dca3b3786d0c148ee89/src/az/mcts.py",
+          "sha256": "ee90e09eeb30cab8cf45f85cd10d901d50bd2f187788aeb58ca3e6ca94617d7d"
+        },
+        {
+          "path": "src/az/train.py",
+          "url": "https://github.com/kuotunyu/alphazero-connect4/blob/0ca5789237911127edea8dca3b3786d0c148ee89/src/az/train.py",
+          "sha256": "e8484975c65f2c96522a87033244f6f7fe173c7ea35aa9964b15ccf8fba004e3"
+        },
+        {
+          "path": "src/az/selfplay.py",
+          "url": "https://github.com/kuotunyu/alphazero-connect4/blob/0ca5789237911127edea8dca3b3786d0c148ee89/src/az/selfplay.py",
+          "sha256": "9c75ef7356a13f01f11483aa63ed0bf77d646539c958ef2a02a8f9e2f479af1e"
+        }
+      ],
+      "performance_status": "Author claims only; no independent reproduction in this phase"
+    },
+    {
+      "repository": "https://github.com/plkmo/AlphaZero_Connect4",
+      "commit": "01ff24aae145ccd23e58f630aa49582cade49847",
+      "sources": [
+        {
+          "path": "src/MCTS_c4.py",
+          "url": "https://github.com/plkmo/AlphaZero_Connect4/blob/01ff24aae145ccd23e58f630aa49582cade49847/src/MCTS_c4.py",
+          "sha256": "e8173e1ec156e51846cf98079b0c7f07d202277218877c76a7a3facfc88a6693"
+        },
+        {
+          "path": "src/main_pipeline.py",
+          "url": "https://github.com/plkmo/AlphaZero_Connect4/blob/01ff24aae145ccd23e58f630aa49582cade49847/src/main_pipeline.py",
+          "sha256": "0faff54b2fd6b70e6265b274e8552a512309bc4cef49d254391491dc06aa0337"
+        },
+        {
+          "path": "src/train_c4.py",
+          "url": "https://github.com/plkmo/AlphaZero_Connect4/blob/01ff24aae145ccd23e58f630aa49582cade49847/src/train_c4.py",
+          "sha256": "875e0216ca1ef0e61e4d5300a7e3740ed6189cc4a5f7bc03d0d9b5a4bd171342"
+        },
+        {
+          "path": "src/evaluator_c4.py",
+          "url": "https://github.com/plkmo/AlphaZero_Connect4/blob/01ff24aae145ccd23e58f630aa49582cade49847/src/evaluator_c4.py",
+          "sha256": "f4ce4c9d58b06e4620b2d168272512d0cde57133b7e147b2f30dd74cf84cf081"
+        }
+      ],
+      "performance_status": "Author claims only; no independent reproduction in this phase"
+    },
+    {
+      "repository": "https://jonathan-laurent.github.io/AlphaZero.jl/stable/tutorial/connect_four/",
+      "documentation_version": "Tutorial generated 2021-08-18, describes v0.5.0",
+      "performance_status": "Documented methodology and author plots; not reproduced on this M4"
+    }
+  ],
+  "model_card": "https://huggingface.co/steven0226/alphazero-connect4",
+  "note": "Public sources inspected as evidence; no external implementation copied into project. The report distinguishes source defaults from reported run configurations."
+}

@@ -1,0 +1,8 @@
+{
+  "field": "root_guard",
+  "original": false,
+  "correct": true,
+  "scope": "main-tactical-1000 opponent_config and main_reference.json",
+  "reason": "Pinned ResearchMCTSAgent.choose_move uses inherited immediate-win and safe-response root guards (lines180-185). Original wrapper metadata tested only classic kind. Executed opponent algorithm is unchanged.",
+  "correction": "Tool describe() now handles both main MCTS kinds; unit test added. Raw measurements kept unchanged."
+}

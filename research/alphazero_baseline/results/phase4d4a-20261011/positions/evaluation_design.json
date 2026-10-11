@@ -1,0 +1,66 @@
+{
+  "arena_seed": 4304004,
+  "domain": "phase4d4a-exploratory-v1",
+  "note": "Development reuse, exploratory. Identical RNG domain across checkpoints and opponents. All tactical rows once; all solved rows raw NN. Paired X/O, prefix mirrors retained.",
+  "openings": [
+    {
+      "family": "empty-board",
+      "id": "development-empty-00",
+      "moves": [],
+      "pair_seed": 0,
+      "stratum": "empty"
+    },
+    {
+      "family": "development-prefix-00",
+      "id": "development-prefix-00-base",
+      "moves": [
+        6,
+        2
+      ],
+      "pair_seed": 20,
+      "stratum": "prefix",
+      "to_move": 0
+    },
+    {
+      "family": "development-prefix-00",
+      "id": "development-prefix-00-mirror",
+      "moves": [
+        0,
+        4
+      ],
+      "pair_seed": 21,
+      "stratum": "prefix",
+      "to_move": 0
+    },
+    {
+      "family": "development-prefix-01",
+      "id": "development-prefix-01-base",
+      "moves": [
+        2,
+        6,
+        6,
+        4
+      ],
+      "pair_seed": 22,
+      "stratum": "prefix",
+      "to_move": 0
+    },
+    {
+      "family": "development-prefix-01",
+      "id": "development-prefix-01-mirror",
+      "moves": [
+        4,
+        0,
+        0,
+        2
+      ],
+      "pair_seed": 23,
+      "stratum": "prefix",
+      "to_move": 0
+    }
+  ],
+  "search_tie_seed": 4304003,
+  "simulations": 512,
+  "solved_rows": 300,
+  "tactics_rows": 200
+}

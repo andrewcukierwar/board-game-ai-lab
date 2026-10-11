@@ -1,0 +1,5363 @@
+{
+  "archives": [
+    {
+      "collection_fraction": 0.984303653132655,
+      "collection_seconds": 14985.472430246882,
+      "games": 5120,
+      "positions": 158305,
+      "seed": 42,
+      "snapshots": [
+        {
+          "after8_duplicate_fraction": 0.000952834683182413,
+          "archived_tactics": {
+            "immediate_win_states": 245,
+            "mandatory_response_states": 1754,
+            "missed_immediate_win_actions": 3,
+            "unsafe_actions_with_safe_alternative": 34
+          },
+          "duplicate_position_fraction": 0.1418018307371126,
+          "generation": 1,
+          "length_mean": 24.32421875,
+          "max_trajectory_multiplicity": 1,
+          "policy_loss": 1.9334954090607472,
+          "replay_positions": 6227,
+          "sampled_positions": 24960,
+          "seed": 42,
+          "top_opening8_count": 1,
+          "unique_mirror_families": 5219,
+          "unique_opening8": 256,
+          "unique_positions": 5344,
+          "unique_trajectories": 256,
+          "updates": 195,
+          "value_mse": 0.8069726873666813
+        },
+        {
+          "after8_duplicate_fraction": 0.1636895095810328,
+          "archived_tactics": {
+            "immediate_win_states": 226,
+            "mandatory_response_states": 2414,
+            "missed_immediate_win_actions": 15,
+            "unsafe_actions_with_safe_alternative": 55
+          },
+          "duplicate_position_fraction": 0.2931055521659548,
+          "generation": 10,
+          "length_mean": 32.01171875,
+          "max_trajectory_multiplicity": 4,
+          "policy_loss": 1.3251969563821875,
+          "replay_positions": 59949,
+          "sampled_positions": 32896,
+          "seed": 42,
+          "top_opening8_count": 7,
+          "unique_mirror_families": 5657,
+          "unique_opening8": 214,
+          "unique_positions": 5793,
+          "unique_trajectories": 247,
+          "updates": 257,
+          "value_mse": 0.5761254125995858
+        },
+        {
+          "after8_duplicate_fraction": 0.3249186928914356,
+          "archived_tactics": {
+            "immediate_win_states": 235,
+            "mandatory_response_states": 2452,
+            "missed_immediate_win_actions": 20,
+            "unsafe_actions_with_safe_alternative": 61
+          },
+          "duplicate_position_fraction": 0.42749617781959304,
+          "generation": 15,
+          "length_mean": 33.21484375,
+          "max_trajectory_multiplicity": 13,
+          "policy_loss": 1.1820209841979177,
+          "replay_positions": 65782,
+          "sampled_positions": 34048,
+          "seed": 42,
+          "top_opening8_count": 22,
+          "unique_mirror_families": 4665,
+          "unique_opening8": 169,
+          "unique_positions": 4868,
+          "unique_trajectories": 223,
+          "updates": 266,
+          "value_mse": 0.5125050934633815
+        },
+        {
+          "after8_duplicate_fraction": 0.48229007633587784,
+          "archived_tactics": {
+            "immediate_win_states": 211,
+            "mandatory_response_states": 1765,
+            "missed_immediate_win_actions": 22,
+            "unsafe_actions_with_safe_alternative": 93
+          },
+          "duplicate_position_fraction": 0.56732223903177,
+          "generation": 20,
+          "length_mean": 33.56640625,
+          "max_trajectory_multiplicity": 7,
+          "policy_loss": 1.0209292951126525,
+          "replay_positions": 68856,
+          "sampled_positions": 34432,
+          "seed": 42,
+          "top_opening8_count": 20,
+          "unique_mirror_families": 3530,
+          "unique_opening8": 133,
+          "unique_positions": 3718,
+          "unique_trajectories": 187,
+          "updates": 269,
+          "value_mse": 0.40709118561673785
+        }
+      ],
+      "training_seconds": 238.96809941483662
+    },
+    {
+      "collection_fraction": 0.9843515190888884,
+      "collection_seconds": 14839.723929249682,
+      "games": 5120,
+      "positions": 156213,
+      "seed": 314159,
+      "snapshots": [
+        {
+          "after8_duplicate_fraction": 0.00043927081045469496,
+          "archived_tactics": {
+            "immediate_win_states": 240,
+            "mandatory_response_states": 1859,
+            "missed_immediate_win_actions": 4,
+            "unsafe_actions_with_safe_alternative": 24
+          },
+          "duplicate_position_fraction": 0.13522537562604342,
+          "generation": 1,
+          "length_mean": 25.73828125,
+          "max_trajectory_multiplicity": 1,
+          "policy_loss": 1.9340404920207643,
+          "replay_positions": 6589,
+          "sampled_positions": 26368,
+          "seed": 314159,
+          "top_opening8_count": 1,
+          "unique_mirror_families": 5586,
+          "unique_opening8": 256,
+          "unique_positions": 5698,
+          "unique_trajectories": 256,
+          "updates": 206,
+          "value_mse": 0.7701230700154906
+        },
+        {
+          "after8_duplicate_fraction": 0.1552013422818792,
+          "archived_tactics": {
+            "immediate_win_states": 233,
+            "mandatory_response_states": 2122,
+            "missed_immediate_win_actions": 22,
+            "unsafe_actions_with_safe_alternative": 48
+          },
+          "duplicate_position_fraction": 0.2800549862534366,
+          "generation": 10,
+          "length_mean": 31.2578125,
+          "max_trajectory_multiplicity": 3,
+          "policy_loss": 1.3012670810479092,
+          "replay_positions": 62836,
+          "sampled_positions": 32128,
+          "seed": 314159,
+          "top_opening8_count": 4,
+          "unique_mirror_families": 5543,
+          "unique_opening8": 224,
+          "unique_positions": 5761,
+          "unique_trajectories": 246,
+          "updates": 251,
+          "value_mse": 0.5164811533998208
+        },
+        {
+          "after8_duplicate_fraction": 0.3098159509202454,
+          "archived_tactics": {
+            "immediate_win_states": 241,
+            "mandatory_response_states": 1541,
+            "missed_immediate_win_actions": 26,
+            "unsafe_actions_with_safe_alternative": 42
+          },
+          "duplicate_position_fraction": 0.4347276633388095,
+          "generation": 15,
+          "length_mean": 30.91015625,
+          "max_trajectory_multiplicity": 7,
+          "policy_loss": 1.198468040554754,
+          "replay_positions": 62395,
+          "sampled_positions": 31744,
+          "seed": 314159,
+          "top_opening8_count": 18,
+          "unique_mirror_families": 4281,
+          "unique_opening8": 167,
+          "unique_positions": 4473,
+          "unique_trajectories": 230,
+          "updates": 248,
+          "value_mse": 0.4363947895265395
+        },
+        {
+          "after8_duplicate_fraction": 0.4370577830188679,
+          "archived_tactics": {
+            "immediate_win_states": 211,
+            "mandatory_response_states": 1610,
+            "missed_immediate_win_actions": 15,
+            "unsafe_actions_with_safe_alternative": 53
+          },
+          "duplicate_position_fraction": 0.5255945639864099,
+          "generation": 20,
+          "length_mean": 34.4921875,
+          "max_trajectory_multiplicity": 8,
+          "policy_loss": 1.0817412559105002,
+          "replay_positions": 64514,
+          "sampled_positions": 35328,
+          "seed": 314159,
+          "top_opening8_count": 26,
+          "unique_mirror_families": 4004,
+          "unique_opening8": 151,
+          "unique_positions": 4189,
+          "unique_trajectories": 207,
+          "updates": 276,
+          "value_mse": 0.3696957719714745
+        }
+      ],
+      "training_seconds": 235.9107820019126
+    }
+  ],
+  "cpu_wall_ratio_median": 1.0000220621142781,
+  "exclusive_runtime_percent": {
+    "backup": 0.2224918453130988,
+    "encoding_tensor": 5.660577416735141,
+    "expansion": 1.613334699661051,
+    "inference_pipeline": 8.47624621006162,
+    "legal_moves": 1.562982193588713,
+    "neural_forward": 35.44550259023332,
+    "other": 1.0531362253967513,
+    "selection": 3.054345772606625,
+    "state_copy": 15.896815642666647,
+    "state_transition": 1.495503425238557,
+    "terminal": 25.51906397849848
+  },
+  "forward_batches": [
+    {
+      "batch": 1,
+      "positions_per_second": 6202.351707067703,
+      "seconds": {
+        "max": 0.0001666676253080368,
+        "mean": 0.00016200216487050056,
+        "median": 0.00016122916713356972,
+        "min": 0.00016020797193050385,
+        "n": 20,
+        "p95": 0.00016619251109659672,
+        "stdev": 1.916442329478196e-06
+      }
+    },
+    {
+      "batch": 8,
+      "positions_per_second": 10093.841231716524,
+      "seconds": {
+        "max": 0.0008070832118391991,
+        "mean": 0.0007920770440250635,
+        "median": 0.0007925624959170818,
+        "min": 0.0007707914337515831,
+        "n": 20,
+        "p95": 0.0008059356827288866,
+        "stdev": 9.475271903612506e-06
+      }
+    },
+    {
+      "batch": 32,
+      "positions_per_second": 4449.117827871307,
+      "seconds": {
+        "max": 0.007320958189666271,
+        "mean": 0.007204497838392854,
+        "median": 0.007192437071353197,
+        "min": 0.007132708095014095,
+        "n": 20,
+        "p95": 0.00731114181689918,
+        "stdev": 5.3670621913759125e-05
+      }
+    },
+    {
+      "batch": 64,
+      "positions_per_second": 5080.52450427266,
+      "seconds": {
+        "max": 0.012905334122478962,
+        "mean": 0.012620674772188067,
+        "median": 0.012597124557942152,
+        "min": 0.012519124895334244,
+        "n": 20,
+        "p95": 0.01273187850601971,
+        "stdev": 8.916006201670403e-05
+      }
+    }
+  ],
+  "inclusive_runtime_percent": {
+    "backup": 0.2224918453130988,
+    "encoding_tensor": 5.660577416735141,
+    "expansion": 83.90585550169727,
+    "inference_pipeline": 58.416326678462404,
+    "legal_moves": 1.562982193588713,
+    "neural_forward": 35.44550259023332,
+    "selection": 3.054345772606625,
+    "state_copy": 15.896815642666647,
+    "state_transition": 7.509748631010416,
+    "terminal": 42.33125928104406
+  },
+  "instrumentation_overhead_ratio_median": 1.0426056542049902,
+  "ladder": [
+    {
+      "agent_decisions": 44,
+      "agent_tactics": {
+        "immediate_win_opportunities": 4,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 8,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 10,
+      "interval95": [
+        1.0,
+        1.0
+      ],
+      "losses": 0,
+      "opponent": "seed42-g0",
+      "score": 1.0,
+      "seed": 42,
+      "wins": 4
+    },
+    {
+      "agent_decisions": 75,
+      "agent_tactics": {
+        "immediate_win_opportunities": 3,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 13,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 1,
+          "games": 2,
+          "losses": 0,
+          "score": 0.75,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 1,
+      "games": 4,
+      "generation": 15,
+      "interval95": [
+        0.75,
+        1.0
+      ],
+      "losses": 0,
+      "opponent": "seed42-g0",
+      "score": 0.875,
+      "seed": 42,
+      "wins": 3
+    },
+    {
+      "agent_decisions": 68,
+      "agent_tactics": {
+        "immediate_win_opportunities": 3,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 12,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 20,
+      "interval95": [
+        0.5,
+        1.0
+      ],
+      "losses": 1,
+      "opponent": "seed42-g0",
+      "score": 0.75,
+      "seed": 42,
+      "wins": 3
+    },
+    {
+      "agent_decisions": 75,
+      "agent_tactics": {
+        "immediate_win_opportunities": 4,
+        "missed_immediate_wins": 1,
+        "safe_response_opportunities": 28,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 1,
+          "games": 2,
+          "losses": 0,
+          "score": 0.75,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 1,
+      "games": 4,
+      "generation": 10,
+      "interval95": [
+        0.75,
+        1.0
+      ],
+      "losses": 0,
+      "opponent": "seed314159-g0",
+      "score": 0.875,
+      "seed": 314159,
+      "wins": 3
+    },
+    {
+      "agent_decisions": 58,
+      "agent_tactics": {
+        "immediate_win_opportunities": 4,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 12,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 15,
+      "interval95": [
+        1.0,
+        1.0
+      ],
+      "losses": 0,
+      "opponent": "seed314159-g0",
+      "score": 1.0,
+      "seed": 314159,
+      "wins": 4
+    },
+    {
+      "agent_decisions": 49,
+      "agent_tactics": {
+        "immediate_win_opportunities": 5,
+        "missed_immediate_wins": 1,
+        "safe_response_opportunities": 7,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 20,
+      "interval95": [
+        1.0,
+        1.0
+      ],
+      "losses": 0,
+      "opponent": "seed314159-g0",
+      "score": 1.0,
+      "seed": 314159,
+      "wins": 4
+    },
+    {
+      "agent_decisions": 45,
+      "agent_tactics": {
+        "immediate_win_opportunities": 1,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 16,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 0,
+      "interval95": [
+        0.0,
+        0.5
+      ],
+      "losses": 3,
+      "opponent": "main-negamax-2",
+      "score": 0.25,
+      "seed": 42,
+      "wins": 1
+    },
+    {
+      "agent_decisions": 34,
+      "agent_tactics": {
+        "immediate_win_opportunities": 4,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 5,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 10,
+      "interval95": [
+        1.0,
+        1.0
+      ],
+      "losses": 0,
+      "opponent": "main-negamax-2",
+      "score": 1.0,
+      "seed": 42,
+      "wins": 4
+    },
+    {
+      "agent_decisions": 59,
+      "agent_tactics": {
+        "immediate_win_opportunities": 3,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 5,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 15,
+      "interval95": [
+        0.5,
+        1.0
+      ],
+      "losses": 1,
+      "opponent": "main-negamax-2",
+      "score": 0.75,
+      "seed": 42,
+      "wins": 3
+    },
+    {
+      "agent_decisions": 46,
+      "agent_tactics": {
+        "immediate_win_opportunities": 3,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 9,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 20,
+      "interval95": [
+        0.5,
+        1.0
+      ],
+      "losses": 1,
+      "opponent": "main-negamax-2",
+      "score": 0.75,
+      "seed": 42,
+      "wins": 3
+    },
+    {
+      "agent_decisions": 33,
+      "agent_tactics": {
+        "safe_response_opportunities": 7,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 0,
+      "interval95": [
+        0.0,
+        0.0
+      ],
+      "losses": 4,
+      "opponent": "main-negamax-2",
+      "score": 0.0,
+      "seed": 314159,
+      "wins": 0
+    },
+    {
+      "agent_decisions": 50,
+      "agent_tactics": {
+        "immediate_win_opportunities": 4,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 26,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 10,
+      "interval95": [
+        1.0,
+        1.0
+      ],
+      "losses": 0,
+      "opponent": "main-negamax-2",
+      "score": 1.0,
+      "seed": 314159,
+      "wins": 4
+    },
+    {
+      "agent_decisions": 51,
+      "agent_tactics": {
+        "immediate_win_opportunities": 3,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 3,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 1,
+          "games": 2,
+          "losses": 0,
+          "score": 0.75,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 1,
+      "games": 4,
+      "generation": 15,
+      "interval95": [
+        0.75,
+        1.0
+      ],
+      "losses": 0,
+      "opponent": "main-negamax-2",
+      "score": 0.875,
+      "seed": 314159,
+      "wins": 3
+    },
+    {
+      "agent_decisions": 49,
+      "agent_tactics": {
+        "immediate_win_opportunities": 3,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 4,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 20,
+      "interval95": [
+        0.5,
+        1.0
+      ],
+      "losses": 1,
+      "opponent": "main-negamax-2",
+      "score": 0.75,
+      "seed": 314159,
+      "wins": 3
+    },
+    {
+      "agent_decisions": 60,
+      "agent_tactics": {
+        "immediate_win_opportunities": 1,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 32,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 0,
+      "interval95": [
+        0.0,
+        0.5
+      ],
+      "losses": 3,
+      "opponent": "main-negamax-4",
+      "score": 0.25,
+      "seed": 42,
+      "wins": 1
+    },
+    {
+      "agent_decisions": 73,
+      "agent_tactics": {
+        "immediate_win_opportunities": 2,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 17,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 10,
+      "interval95": [
+        0.0,
+        1.0
+      ],
+      "losses": 2,
+      "opponent": "main-negamax-4",
+      "score": 0.5,
+      "seed": 42,
+      "wins": 2
+    },
+    {
+      "agent_decisions": 76,
+      "agent_tactics": {
+        "immediate_win_opportunities": 4,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 18,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 15,
+      "interval95": [
+        1.0,
+        1.0
+      ],
+      "losses": 0,
+      "opponent": "main-negamax-4",
+      "score": 1.0,
+      "seed": 42,
+      "wins": 4
+    },
+    {
+      "agent_decisions": 76,
+      "agent_tactics": {
+        "immediate_win_opportunities": 4,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 18,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 20,
+      "interval95": [
+        1.0,
+        1.0
+      ],
+      "losses": 0,
+      "opponent": "main-negamax-4",
+      "score": 1.0,
+      "seed": 42,
+      "wins": 4
+    },
+    {
+      "agent_decisions": 24,
+      "agent_tactics": {
+        "safe_response_opportunities": 2,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 0,
+      "interval95": [
+        0.0,
+        0.0
+      ],
+      "losses": 4,
+      "opponent": "main-negamax-4",
+      "score": 0.0,
+      "seed": 314159,
+      "wins": 0
+    },
+    {
+      "agent_decisions": 78,
+      "agent_tactics": {
+        "immediate_win_opportunities": 3,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 37,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 10,
+      "interval95": [
+        0.5,
+        1.0
+      ],
+      "losses": 1,
+      "opponent": "main-negamax-4",
+      "score": 0.75,
+      "seed": 314159,
+      "wins": 3
+    },
+    {
+      "agent_decisions": 67,
+      "agent_tactics": {
+        "immediate_win_opportunities": 4,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 14,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 15,
+      "interval95": [
+        1.0,
+        1.0
+      ],
+      "losses": 0,
+      "opponent": "main-negamax-4",
+      "score": 1.0,
+      "seed": 314159,
+      "wins": 4
+    },
+    {
+      "agent_decisions": 66,
+      "agent_tactics": {
+        "immediate_win_opportunities": 5,
+        "missed_immediate_wins": 1,
+        "safe_response_opportunities": 15,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 20,
+      "interval95": [
+        1.0,
+        1.0
+      ],
+      "losses": 0,
+      "opponent": "main-negamax-4",
+      "score": 1.0,
+      "seed": 314159,
+      "wins": 4
+    },
+    {
+      "agent_decisions": 48,
+      "agent_tactics": {
+        "safe_response_opportunities": 20,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 0,
+      "interval95": [
+        0.0,
+        0.0
+      ],
+      "losses": 4,
+      "opponent": "main-negamax-6",
+      "score": 0.0,
+      "seed": 42,
+      "wins": 0
+    },
+    {
+      "agent_decisions": 62,
+      "agent_tactics": {
+        "safe_response_opportunities": 22,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 10,
+      "interval95": [
+        0.0,
+        0.0
+      ],
+      "losses": 4,
+      "opponent": "main-negamax-6",
+      "score": 0.0,
+      "seed": 42,
+      "wins": 0
+    },
+    {
+      "agent_decisions": 78,
+      "agent_tactics": {
+        "immediate_win_opportunities": 1,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 19,
+        "unsafe_responses": 1
+      },
+      "by_color": {
+        "O": {
+          "draws": 2,
+          "games": 2,
+          "losses": 0,
+          "score": 0.5,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 2,
+      "games": 4,
+      "generation": 15,
+      "interval95": [
+        0.25,
+        0.75
+      ],
+      "losses": 1,
+      "opponent": "main-negamax-6",
+      "score": 0.5,
+      "seed": 42,
+      "wins": 1
+    },
+    {
+      "agent_decisions": 76,
+      "agent_tactics": {
+        "immediate_win_opportunities": 2,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 25,
+        "unsafe_responses": 1
+      },
+      "by_color": {
+        "O": {
+          "draws": 1,
+          "games": 2,
+          "losses": 1,
+          "score": 0.25,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 1,
+      "games": 4,
+      "generation": 20,
+      "interval95": [
+        0.5,
+        0.75
+      ],
+      "losses": 1,
+      "opponent": "main-negamax-6",
+      "score": 0.625,
+      "seed": 42,
+      "wins": 2
+    },
+    {
+      "agent_decisions": 44,
+      "agent_tactics": {
+        "safe_response_opportunities": 17,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 0,
+      "interval95": [
+        0.0,
+        0.0
+      ],
+      "losses": 4,
+      "opponent": "main-negamax-6",
+      "score": 0.0,
+      "seed": 314159,
+      "wins": 0
+    },
+    {
+      "agent_decisions": 73,
+      "agent_tactics": {
+        "immediate_win_opportunities": 2,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 34,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 10,
+      "interval95": [
+        0.0,
+        1.0
+      ],
+      "losses": 2,
+      "opponent": "main-negamax-6",
+      "score": 0.5,
+      "seed": 314159,
+      "wins": 2
+    },
+    {
+      "agent_decisions": 75,
+      "agent_tactics": {
+        "immediate_win_opportunities": 2,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 18,
+        "unsafe_responses": 1
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 15,
+      "interval95": [
+        0.5,
+        0.5
+      ],
+      "losses": 2,
+      "opponent": "main-negamax-6",
+      "score": 0.5,
+      "seed": 314159,
+      "wins": 2
+    },
+    {
+      "agent_decisions": 70,
+      "agent_tactics": {
+        "immediate_win_opportunities": 2,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 15,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 20,
+      "interval95": [
+        0.5,
+        0.5
+      ],
+      "losses": 2,
+      "opponent": "main-negamax-6",
+      "score": 0.5,
+      "seed": 314159,
+      "wins": 2
+    },
+    {
+      "agent_decisions": 53,
+      "agent_tactics": {
+        "safe_response_opportunities": 23,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 0,
+      "interval95": [
+        0.0,
+        0.0
+      ],
+      "losses": 4,
+      "opponent": "main-negamax-8",
+      "score": 0.0,
+      "seed": 42,
+      "wins": 0
+    },
+    {
+      "agent_decisions": 72,
+      "agent_tactics": {
+        "immediate_win_opportunities": 1,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 15,
+        "unsafe_responses": 1
+      },
+      "by_color": {
+        "O": {
+          "draws": 1,
+          "games": 2,
+          "losses": 0,
+          "score": 0.75,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 1,
+      "games": 4,
+      "generation": 10,
+      "interval95": [
+        0.25,
+        0.5
+      ],
+      "losses": 2,
+      "opponent": "main-negamax-8",
+      "score": 0.375,
+      "seed": 42,
+      "wins": 1
+    },
+    {
+      "agent_decisions": 81,
+      "agent_tactics": {
+        "immediate_win_opportunities": 1,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 16,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 2,
+          "games": 2,
+          "losses": 0,
+          "score": 0.5,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 2,
+      "games": 4,
+      "generation": 15,
+      "interval95": [
+        0.25,
+        0.75
+      ],
+      "losses": 1,
+      "opponent": "main-negamax-8",
+      "score": 0.5,
+      "seed": 42,
+      "wins": 1
+    },
+    {
+      "agent_decisions": 78,
+      "agent_tactics": {
+        "immediate_win_opportunities": 1,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 27,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 1,
+          "games": 2,
+          "losses": 1,
+          "score": 0.25,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 1,
+      "games": 4,
+      "generation": 20,
+      "interval95": [
+        0.0,
+        0.75
+      ],
+      "losses": 2,
+      "opponent": "main-negamax-8",
+      "score": 0.375,
+      "seed": 42,
+      "wins": 1
+    },
+    {
+      "agent_decisions": 33,
+      "agent_tactics": {
+        "safe_response_opportunities": 7,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 0,
+      "interval95": [
+        0.0,
+        0.0
+      ],
+      "losses": 4,
+      "opponent": "main-negamax-8",
+      "score": 0.0,
+      "seed": 314159,
+      "wins": 0
+    },
+    {
+      "agent_decisions": 67,
+      "agent_tactics": {
+        "immediate_win_opportunities": 3,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 19,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 10,
+      "interval95": [
+        0.5,
+        1.0
+      ],
+      "losses": 1,
+      "opponent": "main-negamax-8",
+      "score": 0.75,
+      "seed": 314159,
+      "wins": 3
+    },
+    {
+      "agent_decisions": 62,
+      "agent_tactics": {
+        "immediate_win_opportunities": 2,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 12,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 15,
+      "interval95": [
+        0.5,
+        0.5
+      ],
+      "losses": 2,
+      "opponent": "main-negamax-8",
+      "score": 0.5,
+      "seed": 314159,
+      "wins": 2
+    },
+    {
+      "agent_decisions": 75,
+      "agent_tactics": {
+        "immediate_win_opportunities": 4,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 22,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 20,
+      "interval95": [
+        1.0,
+        1.0
+      ],
+      "losses": 0,
+      "opponent": "main-negamax-8",
+      "score": 1.0,
+      "seed": 314159,
+      "wins": 4
+    },
+    {
+      "agent_decisions": 47,
+      "agent_tactics": {
+        "safe_response_opportunities": 23,
+        "unsafe_responses": 1
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 0,
+      "interval95": [
+        0.0,
+        0.0
+      ],
+      "losses": 4,
+      "opponent": "main-classic-1000",
+      "score": 0.0,
+      "seed": 42,
+      "wins": 0
+    },
+    {
+      "agent_decisions": 65,
+      "agent_tactics": {
+        "immediate_win_opportunities": 2,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 23,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 10,
+      "interval95": [
+        0.0,
+        1.0
+      ],
+      "losses": 2,
+      "opponent": "main-classic-1000",
+      "score": 0.5,
+      "seed": 42,
+      "wins": 2
+    },
+    {
+      "agent_decisions": 58,
+      "agent_tactics": {
+        "immediate_win_opportunities": 3,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 14,
+        "unsafe_responses": 1
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 15,
+      "interval95": [
+        0.5,
+        1.0
+      ],
+      "losses": 1,
+      "opponent": "main-classic-1000",
+      "score": 0.75,
+      "seed": 42,
+      "wins": 3
+    },
+    {
+      "agent_decisions": 71,
+      "agent_tactics": {
+        "immediate_win_opportunities": 3,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 22,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        },
+        "X": {
+          "draws": 1,
+          "games": 2,
+          "losses": 0,
+          "score": 0.75,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 1,
+      "games": 4,
+      "generation": 20,
+      "interval95": [
+        0.75,
+        1.0
+      ],
+      "losses": 0,
+      "opponent": "main-classic-1000",
+      "score": 0.875,
+      "seed": 42,
+      "wins": 3
+    },
+    {
+      "agent_decisions": 41,
+      "agent_tactics": {
+        "safe_response_opportunities": 24,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 0,
+      "interval95": [
+        0.0,
+        0.0
+      ],
+      "losses": 4,
+      "opponent": "main-classic-1000",
+      "score": 0.0,
+      "seed": 314159,
+      "wins": 0
+    },
+    {
+      "agent_decisions": 70,
+      "agent_tactics": {
+        "immediate_win_opportunities": 2,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 44,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 10,
+      "interval95": [
+        0.0,
+        1.0
+      ],
+      "losses": 2,
+      "opponent": "main-classic-1000",
+      "score": 0.5,
+      "seed": 314159,
+      "wins": 2
+    },
+    {
+      "agent_decisions": 74,
+      "agent_tactics": {
+        "immediate_win_opportunities": 2,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 36,
+        "unsafe_responses": 1
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 15,
+      "interval95": [
+        0.5,
+        0.5
+      ],
+      "losses": 2,
+      "opponent": "main-classic-1000",
+      "score": 0.5,
+      "seed": 314159,
+      "wins": 2
+    },
+    {
+      "agent_decisions": 71,
+      "agent_tactics": {
+        "immediate_win_opportunities": 2,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 21,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 1,
+          "games": 2,
+          "losses": 0,
+          "score": 0.75,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 1,
+      "games": 4,
+      "generation": 20,
+      "interval95": [
+        0.5,
+        0.75
+      ],
+      "losses": 1,
+      "opponent": "main-classic-1000",
+      "score": 0.625,
+      "seed": 314159,
+      "wins": 2
+    },
+    {
+      "agent_decisions": 31,
+      "agent_tactics": {
+        "safe_response_opportunities": 8,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 0,
+      "interval95": [
+        0.0,
+        0.0
+      ],
+      "losses": 4,
+      "opponent": "main-tactical-1000",
+      "score": 0.0,
+      "seed": 42,
+      "wins": 0
+    },
+    {
+      "agent_decisions": 68,
+      "agent_tactics": {
+        "safe_response_opportunities": 32,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 10,
+      "interval95": [
+        0.0,
+        0.0
+      ],
+      "losses": 4,
+      "opponent": "main-tactical-1000",
+      "score": 0.0,
+      "seed": 42,
+      "wins": 0
+    },
+    {
+      "agent_decisions": 64,
+      "agent_tactics": {
+        "immediate_win_opportunities": 1,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 22,
+        "unsafe_responses": 1
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 15,
+      "interval95": [
+        0.0,
+        0.5
+      ],
+      "losses": 3,
+      "opponent": "main-tactical-1000",
+      "score": 0.25,
+      "seed": 42,
+      "wins": 1
+    },
+    {
+      "agent_decisions": 74,
+      "agent_tactics": {
+        "immediate_win_opportunities": 1,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 13,
+        "unsafe_responses": 1
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 20,
+      "interval95": [
+        0.0,
+        0.5
+      ],
+      "losses": 3,
+      "opponent": "main-tactical-1000",
+      "score": 0.25,
+      "seed": 42,
+      "wins": 1
+    },
+    {
+      "agent_decisions": 31,
+      "agent_tactics": {
+        "safe_response_opportunities": 9,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 2,
+          "score": 0.0,
+          "wins": 0
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 0,
+      "interval95": [
+        0.0,
+        0.0
+      ],
+      "losses": 4,
+      "opponent": "main-tactical-1000",
+      "score": 0.0,
+      "seed": 314159,
+      "wins": 0
+    },
+    {
+      "agent_decisions": 76,
+      "agent_tactics": {
+        "immediate_win_opportunities": 2,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 11,
+        "unsafe_responses": 1
+      },
+      "by_color": {
+        "O": {
+          "draws": 1,
+          "games": 2,
+          "losses": 0,
+          "score": 0.75,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 1,
+      "games": 4,
+      "generation": 10,
+      "interval95": [
+        0.5,
+        0.75
+      ],
+      "losses": 1,
+      "opponent": "main-tactical-1000",
+      "score": 0.625,
+      "seed": 314159,
+      "wins": 2
+    },
+    {
+      "agent_decisions": 76,
+      "agent_tactics": {
+        "immediate_win_opportunities": 3,
+        "missed_immediate_wins": 0,
+        "safe_response_opportunities": 19,
+        "unsafe_responses": 0
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 15,
+      "interval95": [
+        0.5,
+        1.0
+      ],
+      "losses": 1,
+      "opponent": "main-tactical-1000",
+      "score": 0.75,
+      "seed": 314159,
+      "wins": 3
+    },
+    {
+      "agent_decisions": 72,
+      "agent_tactics": {
+        "immediate_win_opportunities": 4,
+        "missed_immediate_wins": 1,
+        "safe_response_opportunities": 27,
+        "unsafe_responses": 1
+      },
+      "by_color": {
+        "O": {
+          "draws": 0,
+          "games": 2,
+          "losses": 1,
+          "score": 0.5,
+          "wins": 1
+        },
+        "X": {
+          "draws": 0,
+          "games": 2,
+          "losses": 0,
+          "score": 1.0,
+          "wins": 2
+        }
+      },
+      "caveat": "Small exploratory sample; family bootstrap is unstable and may degenerate. No significance claim.",
+      "clusters": 2,
+      "draws": 0,
+      "games": 4,
+      "generation": 20,
+      "interval95": [
+        0.5,
+        1.0
+      ],
+      "losses": 1,
+      "opponent": "main-tactical-1000",
+      "score": 0.75,
+      "seed": 314159,
+      "wins": 3
+    }
+  ],
+  "latency_trials": 560,
+  "memory": {
+    "generation": 10,
+    "note": "tracemalloc excludes most native tensor storage; RSS is process lifetime peak",
+    "position": "development-W-x-001-base",
+    "process_peak_rss_mib": 282.640625,
+    "python_current_bytes": 2971958,
+    "python_peak_bytes": 2976830,
+    "seed": 42,
+    "simulations": 512
+  },
+  "official_development": [
+    {
+      "arena": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 100,
+            "score": 0.84
+          },
+          "X": {
+            "games": 100,
+            "score": 0.9
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 40,
+            "score": 0.95
+          },
+          "prefix": {
+            "games": 160,
+            "score": 0.85
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 41,
+        "complete": true,
+        "draws": 2,
+        "games": 200,
+        "interval95": [
+          0.8048780487804879,
+          0.9172794117647058
+        ],
+        "losses": 25,
+        "planned_games": 200,
+        "resamples": 10000,
+        "score": 0.87,
+        "wins": 173
+      },
+      "baselines": {
+        "negamax1": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.8
+            },
+            "X": {
+              "games": 20,
+              "score": 0.9
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 1.0
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.8125
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 2,
+          "games": 40,
+          "interval95": [
+            0.75,
+            0.9375
+          ],
+          "losses": 5,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.85,
+          "wins": 33
+        },
+        "negamax2": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.575
+            },
+            "X": {
+              "games": 20,
+              "score": 0.475
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 0.375
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.5625
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 2,
+          "games": 40,
+          "interval95": [
+            0.3888888888888889,
+            0.6944444444444444
+          ],
+          "losses": 18,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.525,
+          "wins": 20
+        },
+        "random": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 1.0
+            },
+            "X": {
+              "games": 20,
+              "score": 1.0
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 1.0
+            },
+            "prefix": {
+              "games": 32,
+              "score": 1.0
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 0,
+          "games": 40,
+          "interval95": [
+            1.0,
+            1.0
+          ],
+          "losses": 0,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 1.0,
+          "wins": 40
+        }
+      },
+      "candidate": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "generation-5",
+        "path": "generations/generation-0005/generation-0005.inference.pt",
+        "root_noise": false,
+        "sha256": "6ca9a0b6e23a7b74d50fea858397c6530edb8c5bc5e43ab2c7c34702a4f11547",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "50ac28538c351085bb4bb90ede2a325d3fe74b73b1708261491a866592e08d00"
+      },
+      "candidate_tactics": {
+        "immediate_win": 0.97,
+        "immediate_win_families": 50,
+        "immediate_win_o": 0.94,
+        "immediate_win_x": 1.0,
+        "safe_response": 0.93,
+        "safe_response_families": 50,
+        "safe_response_o": 0.9,
+        "safe_response_x": 0.96,
+        "zero_visit_winning_actions": 0
+      },
+      "champion": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "champion-generation-0",
+        "path": "generations/generation-0000/generation-0000.inference.pt",
+        "root_noise": false,
+        "sha256": "29f5504975c7ecb877a09cd2db888ae6d5932c046b1461097d7f5512c5866729",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "6fa87b9b45fe4f9ad87a4d7338d83006ff042559f1f1add209df7d340144890e"
+      },
+      "champion_tactics": {
+        "immediate_win": 1.0,
+        "immediate_win_families": 50,
+        "immediate_win_o": 1.0,
+        "immediate_win_x": 1.0,
+        "safe_response": 1.0,
+        "safe_response_families": 50,
+        "safe_response_o": 1.0,
+        "safe_response_x": 1.0,
+        "zero_visit_winning_actions": 0
+      },
+      "decision": {
+        "checks": {
+          "complete": true,
+          "correctness": true,
+          "lower_bound": true,
+          "score": true,
+          "tactical": false
+        },
+        "promote": false,
+        "rule": {
+          "lower_bound": 0.5,
+          "max_tactical_regression": 0.02,
+          "schedule": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "score": 0.55
+        },
+        "tactical_regression": {
+          "immediate_win": 0.030000000000000027,
+          "safe_response": 0.06999999999999995
+        }
+      },
+      "generation": 5,
+      "previous": 0,
+      "promote": false,
+      "seed": 42
+    },
+    {
+      "arena": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 100,
+            "score": 0.87
+          },
+          "X": {
+            "games": 100,
+            "score": 0.945
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 40,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 160,
+            "score": 0.884375
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 41,
+        "complete": true,
+        "draws": 5,
+        "games": 200,
+        "interval95": [
+          0.8475609756097561,
+          0.9503676470588235
+        ],
+        "losses": 16,
+        "planned_games": 200,
+        "resamples": 10000,
+        "score": 0.9075,
+        "wins": 179
+      },
+      "baselines": {
+        "negamax1": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 1.0
+            },
+            "X": {
+              "games": 20,
+              "score": 0.95
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 1.0
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.96875
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 0,
+          "games": 40,
+          "interval95": [
+            0.9166666666666666,
+            1.0
+          ],
+          "losses": 1,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.975,
+          "wins": 39
+        },
+        "negamax2": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.525
+            },
+            "X": {
+              "games": 20,
+              "score": 0.7
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 0.875
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.546875
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 3,
+          "games": 40,
+          "interval95": [
+            0.4125,
+            0.78125
+          ],
+          "losses": 14,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.6125,
+          "wins": 23
+        },
+        "random": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 1.0
+            },
+            "X": {
+              "games": 20,
+              "score": 1.0
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 1.0
+            },
+            "prefix": {
+              "games": 32,
+              "score": 1.0
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 0,
+          "games": 40,
+          "interval95": [
+            1.0,
+            1.0
+          ],
+          "losses": 0,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 1.0,
+          "wins": 40
+        }
+      },
+      "candidate": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "generation-10",
+        "path": "generations/generation-0010/generation-0010.inference.pt",
+        "root_noise": false,
+        "sha256": "8a39029106ba0290a83339253869a86f097a27f295461a1daa9d221fd85430c8",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "771b577d395025feb1c734fd7cf1d332d47a6e374acd4ded309619e2f22864e5"
+      },
+      "candidate_tactics": {
+        "immediate_win": 0.98,
+        "immediate_win_families": 50,
+        "immediate_win_o": 0.96,
+        "immediate_win_x": 1.0,
+        "safe_response": 0.93,
+        "safe_response_families": 50,
+        "safe_response_o": 0.88,
+        "safe_response_x": 0.98,
+        "zero_visit_winning_actions": 0
+      },
+      "champion": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "champion-generation-0",
+        "path": "generations/generation-0000/generation-0000.inference.pt",
+        "root_noise": false,
+        "sha256": "29f5504975c7ecb877a09cd2db888ae6d5932c046b1461097d7f5512c5866729",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "6fa87b9b45fe4f9ad87a4d7338d83006ff042559f1f1add209df7d340144890e"
+      },
+      "champion_tactics": {
+        "immediate_win": 1.0,
+        "immediate_win_families": 50,
+        "immediate_win_o": 1.0,
+        "immediate_win_x": 1.0,
+        "safe_response": 1.0,
+        "safe_response_families": 50,
+        "safe_response_o": 1.0,
+        "safe_response_x": 1.0,
+        "zero_visit_winning_actions": 0
+      },
+      "decision": {
+        "checks": {
+          "complete": true,
+          "correctness": true,
+          "lower_bound": true,
+          "score": true,
+          "tactical": false
+        },
+        "promote": false,
+        "rule": {
+          "lower_bound": 0.5,
+          "max_tactical_regression": 0.02,
+          "schedule": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "score": 0.55
+        },
+        "tactical_regression": {
+          "immediate_win": 0.020000000000000018,
+          "safe_response": 0.06999999999999995
+        }
+      },
+      "generation": 10,
+      "previous": 0,
+      "promote": false,
+      "seed": 42
+    },
+    {
+      "arena": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 100,
+            "score": 0.79
+          },
+          "X": {
+            "games": 100,
+            "score": 0.95
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 40,
+            "score": 0.75
+          },
+          "prefix": {
+            "games": 160,
+            "score": 0.9
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 41,
+        "complete": true,
+        "draws": 26,
+        "games": 200,
+        "interval95": [
+          0.8199152542372882,
+          0.9329268292682927
+        ],
+        "losses": 13,
+        "planned_games": 200,
+        "resamples": 10000,
+        "score": 0.87,
+        "wins": 161
+      },
+      "baselines": {
+        "negamax1": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.875
+            },
+            "X": {
+              "games": 20,
+              "score": 1.0
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 1.0
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.921875
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 1,
+          "games": 40,
+          "interval95": [
+            0.8472222222222222,
+            1.0
+          ],
+          "losses": 2,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.9375,
+          "wins": 37
+        },
+        "negamax2": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.675
+            },
+            "X": {
+              "games": 20,
+              "score": 0.575
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 0.625
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.625
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 6,
+          "games": 40,
+          "interval95": [
+            0.5113636363636364,
+            0.75
+          ],
+          "losses": 12,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.625,
+          "wins": 22
+        },
+        "random": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 1.0
+            },
+            "X": {
+              "games": 20,
+              "score": 1.0
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 1.0
+            },
+            "prefix": {
+              "games": 32,
+              "score": 1.0
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 0,
+          "games": 40,
+          "interval95": [
+            1.0,
+            1.0
+          ],
+          "losses": 0,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 1.0,
+          "wins": 40
+        }
+      },
+      "candidate": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "generation-15",
+        "path": "generations/generation-0015/generation-0015.inference.pt",
+        "root_noise": false,
+        "sha256": "ea8522db4024971516a1fa9f67a8a02ae9bed745e913eb14974077fc0051013f",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "e428bf7e4ab43bfb6ab379fed002d64d41bd26abd316dd6cdd3b116912eb763e"
+      },
+      "candidate_tactics": {
+        "immediate_win": 0.9,
+        "immediate_win_families": 50,
+        "immediate_win_o": 0.88,
+        "immediate_win_x": 0.92,
+        "safe_response": 0.9,
+        "safe_response_families": 50,
+        "safe_response_o": 0.86,
+        "safe_response_x": 0.94,
+        "zero_visit_winning_actions": 3
+      },
+      "champion": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "champion-generation-0",
+        "path": "generations/generation-0000/generation-0000.inference.pt",
+        "root_noise": false,
+        "sha256": "29f5504975c7ecb877a09cd2db888ae6d5932c046b1461097d7f5512c5866729",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "6fa87b9b45fe4f9ad87a4d7338d83006ff042559f1f1add209df7d340144890e"
+      },
+      "champion_tactics": {
+        "immediate_win": 1.0,
+        "immediate_win_families": 50,
+        "immediate_win_o": 1.0,
+        "immediate_win_x": 1.0,
+        "safe_response": 1.0,
+        "safe_response_families": 50,
+        "safe_response_o": 1.0,
+        "safe_response_x": 1.0,
+        "zero_visit_winning_actions": 0
+      },
+      "decision": {
+        "checks": {
+          "complete": true,
+          "correctness": true,
+          "lower_bound": true,
+          "score": true,
+          "tactical": false
+        },
+        "promote": false,
+        "rule": {
+          "lower_bound": 0.5,
+          "max_tactical_regression": 0.02,
+          "schedule": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "score": 0.55
+        },
+        "tactical_regression": {
+          "immediate_win": 0.09999999999999998,
+          "safe_response": 0.09999999999999998
+        }
+      },
+      "generation": 15,
+      "previous": 0,
+      "promote": false,
+      "seed": 42
+    },
+    {
+      "arena": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 100,
+            "score": 0.67
+          },
+          "X": {
+            "games": 100,
+            "score": 0.915
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 40,
+            "score": 0.5
+          },
+          "prefix": {
+            "games": 160,
+            "score": 0.865625
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 41,
+        "complete": true,
+        "draws": 9,
+        "games": 200,
+        "interval95": [
+          0.6893382352941176,
+          0.9054878048780488
+        ],
+        "losses": 37,
+        "planned_games": 200,
+        "resamples": 10000,
+        "score": 0.7925,
+        "wins": 154
+      },
+      "baselines": {
+        "negamax1": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.9
+            },
+            "X": {
+              "games": 20,
+              "score": 1.0
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 1.0
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.9375
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 2,
+          "games": 40,
+          "interval95": [
+            0.8888888888888888,
+            1.0
+          ],
+          "losses": 1,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.95,
+          "wins": 37
+        },
+        "negamax2": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.725
+            },
+            "X": {
+              "games": 20,
+              "score": 0.65
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 0.9375
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.625
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 7,
+          "games": 40,
+          "interval95": [
+            0.475,
+            0.8472222222222222
+          ],
+          "losses": 9,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.6875,
+          "wins": 24
+        },
+        "random": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 1.0
+            },
+            "X": {
+              "games": 20,
+              "score": 1.0
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 1.0
+            },
+            "prefix": {
+              "games": 32,
+              "score": 1.0
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 0,
+          "games": 40,
+          "interval95": [
+            1.0,
+            1.0
+          ],
+          "losses": 0,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 1.0,
+          "wins": 40
+        }
+      },
+      "candidate": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "generation-20",
+        "path": "generations/generation-0020/generation-0020.inference.pt",
+        "root_noise": false,
+        "sha256": "3e0878c7c661bca8b26ead13052981726c6a02f6664e34224a45ca5bfa72842a",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d"
+      },
+      "candidate_tactics": {
+        "immediate_win": 0.88,
+        "immediate_win_families": 50,
+        "immediate_win_o": 0.88,
+        "immediate_win_x": 0.88,
+        "safe_response": 0.91,
+        "safe_response_families": 50,
+        "safe_response_o": 0.9,
+        "safe_response_x": 0.92,
+        "zero_visit_winning_actions": 5
+      },
+      "champion": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "champion-generation-0",
+        "path": "generations/generation-0000/generation-0000.inference.pt",
+        "root_noise": false,
+        "sha256": "29f5504975c7ecb877a09cd2db888ae6d5932c046b1461097d7f5512c5866729",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "6fa87b9b45fe4f9ad87a4d7338d83006ff042559f1f1add209df7d340144890e"
+      },
+      "champion_tactics": {
+        "immediate_win": 1.0,
+        "immediate_win_families": 50,
+        "immediate_win_o": 1.0,
+        "immediate_win_x": 1.0,
+        "safe_response": 1.0,
+        "safe_response_families": 50,
+        "safe_response_o": 1.0,
+        "safe_response_x": 1.0,
+        "zero_visit_winning_actions": 0
+      },
+      "decision": {
+        "checks": {
+          "complete": true,
+          "correctness": true,
+          "lower_bound": true,
+          "score": true,
+          "tactical": false
+        },
+        "promote": false,
+        "rule": {
+          "lower_bound": 0.5,
+          "max_tactical_regression": 0.02,
+          "schedule": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "score": 0.55
+        },
+        "tactical_regression": {
+          "immediate_win": 0.12,
+          "safe_response": 0.08999999999999997
+        }
+      },
+      "generation": 20,
+      "previous": 0,
+      "promote": false,
+      "seed": 42
+    },
+    {
+      "arena": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 100,
+            "score": 0.77
+          },
+          "X": {
+            "games": 100,
+            "score": 0.83
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 40,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 160,
+            "score": 0.75
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 41,
+        "complete": true,
+        "draws": 12,
+        "games": 200,
+        "interval95": [
+          0.6981539634146341,
+          0.8798733766233766
+        ],
+        "losses": 34,
+        "planned_games": 200,
+        "resamples": 10000,
+        "score": 0.8,
+        "wins": 154
+      },
+      "baselines": {
+        "negamax1": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.75
+            },
+            "X": {
+              "games": 20,
+              "score": 0.75
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 0.5
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.8125
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 2,
+          "games": 40,
+          "interval95": [
+            0.6125,
+            0.9027777777777778
+          ],
+          "losses": 9,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.75,
+          "wins": 29
+        },
+        "negamax2": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.325
+            },
+            "X": {
+              "games": 20,
+              "score": 0.475
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 0.3125
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.421875
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 4,
+          "games": 40,
+          "interval95": [
+            0.225,
+            0.6000568181818173
+          ],
+          "losses": 22,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.4,
+          "wins": 14
+        },
+        "random": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.95
+            },
+            "X": {
+              "games": 20,
+              "score": 1.0
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 1.0
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.96875
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 0,
+          "games": 40,
+          "interval95": [
+            0.9166666666666666,
+            1.0
+          ],
+          "losses": 1,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.975,
+          "wins": 39
+        }
+      },
+      "candidate": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "generation-5",
+        "path": "generations/generation-0005/generation-0005.inference.pt",
+        "root_noise": false,
+        "sha256": "8726030bd141f4bcd162d6a710557752124f1e22359aa4142eb7c058262da5cf",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "97883e59d2d021f39567286bb3eff9bf171c533f2d1a1ecc30da841a8268e861"
+      },
+      "candidate_tactics": {
+        "immediate_win": 0.98,
+        "immediate_win_families": 50,
+        "immediate_win_o": 0.96,
+        "immediate_win_x": 1.0,
+        "safe_response": 0.96,
+        "safe_response_families": 50,
+        "safe_response_o": 0.94,
+        "safe_response_x": 0.98,
+        "zero_visit_winning_actions": 0
+      },
+      "champion": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "champion-generation-0",
+        "path": "generations/generation-0000/generation-0000.inference.pt",
+        "root_noise": false,
+        "sha256": "93dfb2c022568badb36f91e084cc5a20fe7a5b429bb7dc20873d25a262a05051",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "9905b22a3cc9e26cdab7732acca15e4ce65294b0c22f74f66e425af55ca9ed33"
+      },
+      "champion_tactics": {
+        "immediate_win": 1.0,
+        "immediate_win_families": 50,
+        "immediate_win_o": 1.0,
+        "immediate_win_x": 1.0,
+        "safe_response": 1.0,
+        "safe_response_families": 50,
+        "safe_response_o": 1.0,
+        "safe_response_x": 1.0,
+        "zero_visit_winning_actions": 0
+      },
+      "decision": {
+        "checks": {
+          "complete": true,
+          "correctness": true,
+          "lower_bound": true,
+          "score": true,
+          "tactical": false
+        },
+        "promote": false,
+        "rule": {
+          "lower_bound": 0.5,
+          "max_tactical_regression": 0.02,
+          "schedule": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "score": 0.55
+        },
+        "tactical_regression": {
+          "immediate_win": 0.020000000000000018,
+          "safe_response": 0.040000000000000036
+        }
+      },
+      "generation": 5,
+      "previous": 0,
+      "promote": false,
+      "seed": 314159
+    },
+    {
+      "arena": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 100,
+            "score": 0.72
+          },
+          "X": {
+            "games": 100,
+            "score": 0.78
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 40,
+            "score": 0.75
+          },
+          "prefix": {
+            "games": 160,
+            "score": 0.75
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 41,
+        "complete": true,
+        "draws": 26,
+        "games": 200,
+        "interval95": [
+          0.6829268292682927,
+          0.8109756097560976
+        ],
+        "losses": 37,
+        "planned_games": 200,
+        "resamples": 10000,
+        "score": 0.75,
+        "wins": 137
+      },
+      "baselines": {
+        "negamax1": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.65
+            },
+            "X": {
+              "games": 20,
+              "score": 0.9
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 0.5
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.84375
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 0,
+          "games": 40,
+          "interval95": [
+            0.6363636363636364,
+            0.9166666666666666
+          ],
+          "losses": 9,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.775,
+          "wins": 31
+        },
+        "negamax2": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.525
+            },
+            "X": {
+              "games": 20,
+              "score": 0.65
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 1.0
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.484375
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 1,
+          "games": 40,
+          "interval95": [
+            0.3611111111111111,
+            0.7916666666666666
+          ],
+          "losses": 16,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.5875,
+          "wins": 23
+        },
+        "random": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 1.0
+            },
+            "X": {
+              "games": 20,
+              "score": 1.0
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 1.0
+            },
+            "prefix": {
+              "games": 32,
+              "score": 1.0
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 0,
+          "games": 40,
+          "interval95": [
+            1.0,
+            1.0
+          ],
+          "losses": 0,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 1.0,
+          "wins": 40
+        }
+      },
+      "candidate": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "generation-10",
+        "path": "generations/generation-0010/generation-0010.inference.pt",
+        "root_noise": false,
+        "sha256": "a96c87e6b9185eded4d6360af9fc0cb375e91238235f1203ba0b906783596ad3",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "c746a37cdfe1505ac328fa3fe425b133a3e99d869848ea39e77b42a58e7a4976"
+      },
+      "candidate_tactics": {
+        "immediate_win": 0.96,
+        "immediate_win_families": 50,
+        "immediate_win_o": 0.94,
+        "immediate_win_x": 0.98,
+        "safe_response": 0.99,
+        "safe_response_families": 50,
+        "safe_response_o": 0.98,
+        "safe_response_x": 1.0,
+        "zero_visit_winning_actions": 0
+      },
+      "champion": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "champion-generation-0",
+        "path": "generations/generation-0000/generation-0000.inference.pt",
+        "root_noise": false,
+        "sha256": "93dfb2c022568badb36f91e084cc5a20fe7a5b429bb7dc20873d25a262a05051",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "9905b22a3cc9e26cdab7732acca15e4ce65294b0c22f74f66e425af55ca9ed33"
+      },
+      "champion_tactics": {
+        "immediate_win": 1.0,
+        "immediate_win_families": 50,
+        "immediate_win_o": 1.0,
+        "immediate_win_x": 1.0,
+        "safe_response": 1.0,
+        "safe_response_families": 50,
+        "safe_response_o": 1.0,
+        "safe_response_x": 1.0,
+        "zero_visit_winning_actions": 0
+      },
+      "decision": {
+        "checks": {
+          "complete": true,
+          "correctness": true,
+          "lower_bound": true,
+          "score": true,
+          "tactical": false
+        },
+        "promote": false,
+        "rule": {
+          "lower_bound": 0.5,
+          "max_tactical_regression": 0.02,
+          "schedule": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "score": 0.55
+        },
+        "tactical_regression": {
+          "immediate_win": 0.040000000000000036,
+          "safe_response": 0.010000000000000009
+        }
+      },
+      "generation": 10,
+      "previous": 0,
+      "promote": false,
+      "seed": 314159
+    },
+    {
+      "arena": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 100,
+            "score": 0.88
+          },
+          "X": {
+            "games": 100,
+            "score": 0.84
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 40,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 160,
+            "score": 0.825
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 41,
+        "complete": true,
+        "draws": 4,
+        "games": 200,
+        "interval95": [
+          0.7804878048780488,
+          0.9173728813559322
+        ],
+        "losses": 26,
+        "planned_games": 200,
+        "resamples": 10000,
+        "score": 0.86,
+        "wins": 170
+      },
+      "baselines": {
+        "negamax1": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.8
+            },
+            "X": {
+              "games": 20,
+              "score": 0.9
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 0.875
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.84375
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 0,
+          "games": 40,
+          "interval95": [
+            0.7222222222222222,
+            0.9545454545454546
+          ],
+          "losses": 6,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.85,
+          "wins": 34
+        },
+        "negamax2": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.6
+            },
+            "X": {
+              "games": 20,
+              "score": 0.75
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 1.0
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.59375
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 0,
+          "games": 40,
+          "interval95": [
+            0.4444444444444444,
+            0.8636363636363636
+          ],
+          "losses": 13,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.675,
+          "wins": 27
+        },
+        "random": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 1.0
+            },
+            "X": {
+              "games": 20,
+              "score": 1.0
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 1.0
+            },
+            "prefix": {
+              "games": 32,
+              "score": 1.0
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 0,
+          "games": 40,
+          "interval95": [
+            1.0,
+            1.0
+          ],
+          "losses": 0,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 1.0,
+          "wins": 40
+        }
+      },
+      "candidate": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "generation-15",
+        "path": "generations/generation-0015/generation-0015.inference.pt",
+        "root_noise": false,
+        "sha256": "6923a8b2cef8471742e82d7d493beb5b44cd3180a03d2061523bb84bf115a03e",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "9406016ebd57dfc29b847dd6a485a6a9501325ad269a36da6ac9d11c3468ae3b"
+      },
+      "candidate_tactics": {
+        "immediate_win": 0.94,
+        "immediate_win_families": 50,
+        "immediate_win_o": 0.92,
+        "immediate_win_x": 0.96,
+        "safe_response": 0.94,
+        "safe_response_families": 50,
+        "safe_response_o": 0.88,
+        "safe_response_x": 1.0,
+        "zero_visit_winning_actions": 1
+      },
+      "champion": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "champion-generation-0",
+        "path": "generations/generation-0000/generation-0000.inference.pt",
+        "root_noise": false,
+        "sha256": "93dfb2c022568badb36f91e084cc5a20fe7a5b429bb7dc20873d25a262a05051",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "9905b22a3cc9e26cdab7732acca15e4ce65294b0c22f74f66e425af55ca9ed33"
+      },
+      "champion_tactics": {
+        "immediate_win": 1.0,
+        "immediate_win_families": 50,
+        "immediate_win_o": 1.0,
+        "immediate_win_x": 1.0,
+        "safe_response": 1.0,
+        "safe_response_families": 50,
+        "safe_response_o": 1.0,
+        "safe_response_x": 1.0,
+        "zero_visit_winning_actions": 0
+      },
+      "decision": {
+        "checks": {
+          "complete": true,
+          "correctness": true,
+          "lower_bound": true,
+          "score": true,
+          "tactical": false
+        },
+        "promote": false,
+        "rule": {
+          "lower_bound": 0.5,
+          "max_tactical_regression": 0.02,
+          "schedule": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "score": 0.55
+        },
+        "tactical_regression": {
+          "immediate_win": 0.06000000000000005,
+          "safe_response": 0.06000000000000005
+        }
+      },
+      "generation": 15,
+      "previous": 0,
+      "promote": false,
+      "seed": 314159
+    },
+    {
+      "arena": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 100,
+            "score": 0.74
+          },
+          "X": {
+            "games": 100,
+            "score": 0.87
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 40,
+            "score": 0.7
+          },
+          "prefix": {
+            "games": 160,
+            "score": 0.83125
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 41,
+        "complete": true,
+        "draws": 4,
+        "games": 200,
+        "interval95": [
+          0.75,
+          0.8780487804878049
+        ],
+        "losses": 37,
+        "planned_games": 200,
+        "resamples": 10000,
+        "score": 0.805,
+        "wins": 159
+      },
+      "baselines": {
+        "negamax1": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.825
+            },
+            "X": {
+              "games": 20,
+              "score": 0.9
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 1.0
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.828125
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 1,
+          "games": 40,
+          "interval95": [
+            0.6805555555555556,
+            1.0
+          ],
+          "losses": 5,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.8625,
+          "wins": 34
+        },
+        "negamax2": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 0.6
+            },
+            "X": {
+              "games": 20,
+              "score": 0.725
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 0.875
+            },
+            "prefix": {
+              "games": 32,
+              "score": 0.609375
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 3,
+          "games": 40,
+          "interval95": [
+            0.5138541666666666,
+            0.7789062499999991
+          ],
+          "losses": 12,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 0.6625,
+          "wins": 25
+        },
+        "random": {
+          "analysis_seed": 4303009,
+          "by_color": {
+            "O": {
+              "games": 20,
+              "score": 1.0
+            },
+            "X": {
+              "games": 20,
+              "score": 1.0
+            }
+          },
+          "by_stratum": {
+            "empty": {
+              "games": 8,
+              "score": 1.0
+            },
+            "prefix": {
+              "games": 32,
+              "score": 1.0
+            }
+          },
+          "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+          "clusters": 9,
+          "complete": true,
+          "draws": 0,
+          "games": 40,
+          "interval95": [
+            1.0,
+            1.0
+          ],
+          "losses": 0,
+          "planned_games": 40,
+          "resamples": 10000,
+          "score": 1.0,
+          "wins": 40
+        }
+      },
+      "candidate": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "generation-20",
+        "path": "generations/generation-0020/generation-0020.inference.pt",
+        "root_noise": false,
+        "sha256": "83dd7c5c17f42a5358d83be17615d9aabca4d2344c74738dbf3350d1da7fd154",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "9d4c5a6aa4fe68d1aaa3a3f80c8f6b53609d4953076c12e106dca8cbe752ef8e"
+      },
+      "candidate_tactics": {
+        "immediate_win": 0.92,
+        "immediate_win_families": 50,
+        "immediate_win_o": 0.88,
+        "immediate_win_x": 0.96,
+        "safe_response": 0.96,
+        "safe_response_families": 50,
+        "safe_response_o": 0.92,
+        "safe_response_x": 1.0,
+        "zero_visit_winning_actions": 2
+      },
+      "champion": {
+        "kind": "alphazero-v2 raw PUCT",
+        "name": "champion-generation-0",
+        "path": "generations/generation-0000/generation-0000.inference.pt",
+        "root_noise": false,
+        "sha256": "93dfb2c022568badb36f91e084cc5a20fe7a5b429bb7dc20873d25a262a05051",
+        "simulations": 512,
+        "tactical_guard": false,
+        "temperature": 0,
+        "ties": "seeded uniform",
+        "weights_sha256": "9905b22a3cc9e26cdab7732acca15e4ce65294b0c22f74f66e425af55ca9ed33"
+      },
+      "champion_tactics": {
+        "immediate_win": 1.0,
+        "immediate_win_families": 50,
+        "immediate_win_o": 1.0,
+        "immediate_win_x": 1.0,
+        "safe_response": 1.0,
+        "safe_response_families": 50,
+        "safe_response_o": 1.0,
+        "safe_response_x": 1.0,
+        "zero_visit_winning_actions": 0
+      },
+      "decision": {
+        "checks": {
+          "complete": true,
+          "correctness": true,
+          "lower_bound": true,
+          "score": true,
+          "tactical": false
+        },
+        "promote": false,
+        "rule": {
+          "lower_bound": 0.5,
+          "max_tactical_regression": 0.02,
+          "schedule": [
+            5,
+            10,
+            15,
+            20
+          ],
+          "score": 0.55
+        },
+        "tactical_regression": {
+          "immediate_win": 0.07999999999999996,
+          "safe_response": 0.040000000000000036
+        }
+      },
+      "generation": 20,
+      "previous": 0,
+      "promote": false,
+      "seed": 314159
+    }
+  ],
+  "performance": [
+    {
+      "checkpoint_median_range_ms": [
+        111.45629175007343,
+        114.72649965435266
+      ],
+      "mean_inference_calls": 257,
+      "median_of_checkpoint_medians_ms": 113.00808330997825,
+      "median_simulations_per_second": 2265.007834562121,
+      "position": "empty",
+      "simulations": 256
+    },
+    {
+      "checkpoint_median_range_ms": [
+        224.33799970895052,
+        229.90708239376545
+      ],
+      "mean_inference_calls": 513,
+      "median_of_checkpoint_medians_ms": 227.23529115319252,
+      "median_simulations_per_second": 2252.812811808016,
+      "position": "empty",
+      "simulations": 512
+    },
+    {
+      "checkpoint_median_range_ms": [
+        111.40825040638447,
+        113.78016695380211
+      ],
+      "mean_inference_calls": 255.875,
+      "median_of_checkpoint_medians_ms": 112.95510409399867,
+      "median_simulations_per_second": 2267.327841464402,
+      "position": "early_opening",
+      "simulations": 256
+    },
+    {
+      "checkpoint_median_range_ms": [
+        221.11183311790228,
+        228.81116718053818
+      ],
+      "mean_inference_calls": 508.5,
+      "median_of_checkpoint_medians_ms": 225.44437507167459,
+      "median_simulations_per_second": 2276.571041829141,
+      "position": "early_opening",
+      "simulations": 512
+    },
+    {
+      "checkpoint_median_range_ms": [
+        96.94149997085333,
+        105.44866696000099
+      ],
+      "mean_inference_calls": 253.75,
+      "median_of_checkpoint_medians_ms": 99.80512503534555,
+      "median_simulations_per_second": 2556.9867676484396,
+      "position": "quiet_midgame",
+      "simulations": 256
+    },
+    {
+      "checkpoint_median_range_ms": [
+        194.21916641294956,
+        207.9997081309557
+      ],
+      "mean_inference_calls": 498.875,
+      "median_of_checkpoint_medians_ms": 196.49554137140512,
+      "median_simulations_per_second": 2600.3478671245343,
+      "position": "quiet_midgame",
+      "simulations": 512
+    },
+    {
+      "checkpoint_median_range_ms": [
+        82.5087083503604,
+        104.28995732218027
+      ],
+      "mean_inference_calls": 229.125,
+      "median_of_checkpoint_medians_ms": 100.23868689313531,
+      "median_simulations_per_second": 2557.1807710617522,
+      "position": "tactical_midgame",
+      "simulations": 256
+    },
+    {
+      "checkpoint_median_range_ms": [
+        175.49395840615034,
+        210.17008367925882
+      ],
+      "mean_inference_calls": 460.875,
+      "median_of_checkpoint_medians_ms": 199.906166177243,
+      "median_simulations_per_second": 2544.6591999409457,
+      "position": "tactical_midgame",
+      "simulations": 512
+    },
+    {
+      "checkpoint_median_range_ms": [
+        23.001624271273613,
+        37.98466548323631
+      ],
+      "mean_inference_calls": 55.75,
+      "median_of_checkpoint_medians_ms": 31.135375145822763,
+      "median_simulations_per_second": 8217.53666113085,
+      "position": "late_game",
+      "simulations": 256
+    },
+    {
+      "checkpoint_median_range_ms": [
+        37.82087564468384,
+        52.70683392882347
+      ],
+      "mean_inference_calls": 66.625,
+      "median_of_checkpoint_medians_ms": 48.26643783599138,
+      "median_simulations_per_second": 10583.874519577821,
+      "position": "late_game",
+      "simulations": 512
+    },
+    {
+      "checkpoint_median_range_ms": [
+        15.865582972764969,
+        22.87979144603014
+      ],
+      "mean_inference_calls": 22.5,
+      "median_of_checkpoint_medians_ms": 18.104062415659428,
+      "median_simulations_per_second": 14187.233726696786,
+      "position": "immediate_win",
+      "simulations": 256
+    },
+    {
+      "checkpoint_median_range_ms": [
+        28.791500255465508,
+        37.04104200005531
+      ],
+      "mean_inference_calls": 30.75,
+      "median_of_checkpoint_medians_ms": 31.232145614922047,
+      "median_simulations_per_second": 16301.287722318299,
+      "position": "immediate_win",
+      "simulations": 512
+    },
+    {
+      "checkpoint_median_range_ms": [
+        67.75062531232834,
+        98.68775028735399
+      ],
+      "mean_inference_calls": 185.5,
+      "median_of_checkpoint_medians_ms": 85.27752105146646,
+      "median_simulations_per_second": 3006.41091805455,
+      "position": "mandatory_block",
+      "simulations": 256
+    },
+    {
+      "checkpoint_median_range_ms": [
+        162.2582096606493,
+        202.81391590833664
+      ],
+      "mean_inference_calls": 389,
+      "median_of_checkpoint_medians_ms": 179.18912461027503,
+      "median_simulations_per_second": 2813.346255283002,
+      "position": "mandatory_block",
+      "simulations": 512
+    }
+  ],
+  "positions": [
+    {
+      "generation": 0,
+      "immediate_win": 1,
+      "nn_immediate_win": 0.26,
+      "nn_move_counts": {
+        "0": 6,
+        "1": 2,
+        "2": 17,
+        "3": 1,
+        "4": 4,
+        "5": 6,
+        "6": 164
+      },
+      "nn_safe_response": 0.15,
+      "nn_solved_optimal_fraction": 0.57,
+      "policy_entropy_tactical": 1.5163935232204044,
+      "safe_response": 1,
+      "search_move_counts": {
+        "0": 23,
+        "1": 26,
+        "2": 45,
+        "3": 12,
+        "4": 45,
+        "5": 26,
+        "6": 23
+      },
+      "seed": 42,
+      "solved_class_balanced_mse": 0.6742166512678345,
+      "tactical_avoidable_errors": 0
+    },
+    {
+      "generation": 10,
+      "immediate_win": 0.98,
+      "nn_immediate_win": 0.28,
+      "nn_move_counts": {
+        "0": 22,
+        "1": 33,
+        "2": 40,
+        "3": 14,
+        "4": 35,
+        "5": 31,
+        "6": 25
+      },
+      "nn_safe_response": 0.42,
+      "nn_solved_optimal_fraction": 0.6666666666666666,
+      "policy_entropy_tactical": 1.2802445789975374,
+      "safe_response": 0.93,
+      "search_move_counts": {
+        "0": 22,
+        "1": 28,
+        "2": 42,
+        "3": 13,
+        "4": 44,
+        "5": 28,
+        "6": 23
+      },
+      "seed": 42,
+      "solved_class_balanced_mse": 0.5903118040195976,
+      "tactical_avoidable_errors": 9
+    },
+    {
+      "generation": 15,
+      "immediate_win": 0.9,
+      "nn_immediate_win": 0.35,
+      "nn_move_counts": {
+        "0": 18,
+        "1": 29,
+        "2": 34,
+        "3": 22,
+        "4": 38,
+        "5": 31,
+        "6": 28
+      },
+      "nn_safe_response": 0.53,
+      "nn_solved_optimal_fraction": 0.72,
+      "policy_entropy_tactical": 1.1839475903997754,
+      "safe_response": 0.9,
+      "search_move_counts": {
+        "0": 22,
+        "1": 27,
+        "2": 42,
+        "3": 14,
+        "4": 43,
+        "5": 29,
+        "6": 23
+      },
+      "seed": 42,
+      "solved_class_balanced_mse": 0.5860812838950233,
+      "tactical_avoidable_errors": 20
+    },
+    {
+      "generation": 20,
+      "immediate_win": 0.88,
+      "nn_immediate_win": 0.44,
+      "nn_move_counts": {
+        "0": 20,
+        "1": 31,
+        "2": 38,
+        "3": 19,
+        "4": 42,
+        "5": 28,
+        "6": 22
+      },
+      "nn_safe_response": 0.63,
+      "nn_solved_optimal_fraction": 0.7333333333333333,
+      "policy_entropy_tactical": 1.1257608340424885,
+      "safe_response": 0.91,
+      "search_move_counts": {
+        "0": 24,
+        "1": 27,
+        "2": 42,
+        "3": 15,
+        "4": 44,
+        "5": 26,
+        "6": 22
+      },
+      "seed": 42,
+      "solved_class_balanced_mse": 0.6117835886642529,
+      "tactical_avoidable_errors": 21
+    },
+    {
+      "generation": 0,
+      "immediate_win": 1,
+      "nn_immediate_win": 0.25,
+      "nn_move_counts": {
+        "0": 129,
+        "1": 4,
+        "2": 7,
+        "3": 41,
+        "4": 3,
+        "5": 6,
+        "6": 10
+      },
+      "nn_safe_response": 0.17,
+      "nn_solved_optimal_fraction": 0.59,
+      "policy_entropy_tactical": 1.5163819237687022,
+      "safe_response": 1,
+      "search_move_counts": {
+        "0": 23,
+        "1": 26,
+        "2": 45,
+        "3": 12,
+        "4": 45,
+        "5": 26,
+        "6": 23
+      },
+      "seed": 314159,
+      "solved_class_balanced_mse": 0.666617983605152,
+      "tactical_avoidable_errors": 0
+    },
+    {
+      "generation": 10,
+      "immediate_win": 0.96,
+      "nn_immediate_win": 0.3,
+      "nn_move_counts": {
+        "0": 27,
+        "1": 20,
+        "2": 41,
+        "3": 30,
+        "4": 42,
+        "5": 20,
+        "6": 20
+      },
+      "nn_safe_response": 0.45,
+      "nn_solved_optimal_fraction": 0.6733333333333333,
+      "policy_entropy_tactical": 1.2507826726607056,
+      "safe_response": 0.99,
+      "search_move_counts": {
+        "0": 22,
+        "1": 27,
+        "2": 43,
+        "3": 12,
+        "4": 45,
+        "5": 27,
+        "6": 24
+      },
+      "seed": 314159,
+      "solved_class_balanced_mse": 0.5972283625545978,
+      "tactical_avoidable_errors": 5
+    },
+    {
+      "generation": 15,
+      "immediate_win": 0.94,
+      "nn_immediate_win": 0.3,
+      "nn_move_counts": {
+        "0": 20,
+        "1": 22,
+        "2": 41,
+        "3": 25,
+        "4": 48,
+        "5": 23,
+        "6": 21
+      },
+      "nn_safe_response": 0.58,
+      "nn_solved_optimal_fraction": 0.6733333333333333,
+      "policy_entropy_tactical": 1.1740380458569835,
+      "safe_response": 0.94,
+      "search_move_counts": {
+        "0": 25,
+        "1": 26,
+        "2": 41,
+        "3": 14,
+        "4": 43,
+        "5": 27,
+        "6": 24
+      },
+      "seed": 314159,
+      "solved_class_balanced_mse": 0.563343001242003,
+      "tactical_avoidable_errors": 12
+    },
+    {
+      "generation": 20,
+      "immediate_win": 0.92,
+      "nn_immediate_win": 0.36,
+      "nn_move_counts": {
+        "0": 25,
+        "1": 24,
+        "2": 46,
+        "3": 18,
+        "4": 43,
+        "5": 22,
+        "6": 22
+      },
+      "nn_safe_response": 0.69,
+      "nn_solved_optimal_fraction": 0.69,
+      "policy_entropy_tactical": 1.141875405154185,
+      "safe_response": 0.96,
+      "search_move_counts": {
+        "0": 25,
+        "1": 26,
+        "2": 42,
+        "3": 14,
+        "4": 42,
+        "5": 26,
+        "6": 25
+      },
+      "seed": 314159,
+      "solved_class_balanced_mse": 0.5948974591122966,
+      "tactical_avoidable_errors": 12
+    }
+  ],
+  "profiles": 112,
+  "replay_exploration": [
+    {
+      "generation": 13,
+      "seed": 42,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.7132274581844755,
+          "mean_target_entropy": 0.8001171031054629,
+          "mean_visited_actions": 4.885352387138681,
+          "positions": 6158
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.6948246969882468,
+          "mean_target_entropy": 0.9403207375711405,
+          "mean_visited_actions": 6.97845249755142,
+          "positions": 2042
+        }
+      }
+    },
+    {
+      "generation": 14,
+      "seed": 42,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.710400730352625,
+          "mean_target_entropy": 0.7959649789158733,
+          "mean_visited_actions": 4.747469955724225,
+          "positions": 6324
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.6603665718306412,
+          "mean_target_entropy": 0.9729560536361225,
+          "mean_visited_actions": 6.945178658835046,
+          "positions": 2043
+        }
+      }
+    },
+    {
+      "generation": 15,
+      "seed": 42,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.7144904512544525,
+          "mean_target_entropy": 0.79413608528409,
+          "mean_visited_actions": 4.987145733312684,
+          "positions": 6457
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.7124686889051809,
+          "mean_target_entropy": 0.8865315922789561,
+          "mean_visited_actions": 6.955034213098729,
+          "positions": 2046
+        }
+      }
+    },
+    {
+      "generation": 16,
+      "seed": 42,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.7193248510861948,
+          "mean_target_entropy": 0.7472329218068438,
+          "mean_visited_actions": 4.338051857042747,
+          "positions": 7135
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.7506256103515625,
+          "mean_target_entropy": 0.7942997495246231,
+          "mean_visited_actions": 6.87158203125,
+          "positions": 2048
+        }
+      }
+    },
+    {
+      "generation": 17,
+      "seed": 42,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.731726898006135,
+          "mean_target_entropy": 0.7256247406235358,
+          "mean_visited_actions": 4.4833479404031555,
+          "positions": 6846
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.7709662768685882,
+          "mean_target_entropy": 0.7738535141530344,
+          "mean_visited_actions": 6.900341963849536,
+          "positions": 2047
+        }
+      }
+    },
+    {
+      "generation": 18,
+      "seed": 42,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.7405273589305146,
+          "mean_target_entropy": 0.7119062437444873,
+          "mean_visited_actions": 4.475983211565366,
+          "positions": 6433
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.778167724609375,
+          "mean_target_entropy": 0.7455448036790037,
+          "mean_visited_actions": 6.8271484375,
+          "positions": 2048
+        }
+      }
+    },
+    {
+      "generation": 19,
+      "seed": 42,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.7445042245106964,
+          "mean_target_entropy": 0.7098702997286526,
+          "mean_visited_actions": 4.649370353512365,
+          "positions": 6591
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.7805375152811735,
+          "mean_target_entropy": 0.7146733620267932,
+          "mean_visited_actions": 6.8352078239608804,
+          "positions": 2045
+        }
+      }
+    },
+    {
+      "generation": 20,
+      "seed": 42,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.7658832299618321,
+          "mean_target_entropy": 0.6527418273261156,
+          "mean_visited_actions": 4.507022900763359,
+          "positions": 6550
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.7837012053352912,
+          "mean_target_entropy": 0.7026300376258687,
+          "mean_visited_actions": 6.722466960352423,
+          "positions": 2043
+        }
+      }
+    },
+    {
+      "generation": 13,
+      "seed": 314159,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.7033552646049621,
+          "mean_target_entropy": 0.8179070103404504,
+          "mean_visited_actions": 4.843568537744149,
+          "positions": 5683
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.6893078828277887,
+          "mean_target_entropy": 0.9619353487470832,
+          "mean_visited_actions": 6.970645792563601,
+          "positions": 2044
+        }
+      }
+    },
+    {
+      "generation": 14,
+      "seed": 314159,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.7107053811088486,
+          "mean_target_entropy": 0.7999607708542065,
+          "mean_visited_actions": 4.892077008515365,
+          "positions": 5402
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.7009763708292444,
+          "mean_target_entropy": 0.909963054112656,
+          "mean_visited_actions": 6.91315014720314,
+          "positions": 2038
+        }
+      }
+    },
+    {
+      "generation": 15,
+      "seed": 314159,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.6826205159338786,
+          "mean_target_entropy": 0.8565941653832139,
+          "mean_visited_actions": 4.768234492160873,
+          "positions": 5868
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.7452017114914425,
+          "mean_target_entropy": 0.8402793496447496,
+          "mean_visited_actions": 6.906601466992665,
+          "positions": 2045
+        }
+      }
+    },
+    {
+      "generation": 16,
+      "seed": 314159,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.7012208664297659,
+          "mean_target_entropy": 0.8186141668045215,
+          "mean_visited_actions": 4.8123745819398,
+          "positions": 5980
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.7499980907869013,
+          "mean_target_entropy": 0.7949934450266404,
+          "mean_visited_actions": 6.827956989247312,
+          "positions": 2046
+        }
+      }
+    },
+    {
+      "generation": 17,
+      "seed": 314159,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.7133676007689708,
+          "mean_target_entropy": 0.7809244165888402,
+          "mean_visited_actions": 4.706439073854994,
+          "positions": 5917
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.7105742168379834,
+          "mean_target_entropy": 0.8701421254513214,
+          "mean_visited_actions": 6.76456191874694,
+          "positions": 2043
+        }
+      }
+    },
+    {
+      "generation": 18,
+      "seed": 314159,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.7193360597230913,
+          "mean_target_entropy": 0.7707620544682099,
+          "mean_visited_actions": 4.682571964956195,
+          "positions": 6392
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.7312939333740831,
+          "mean_target_entropy": 0.8153505722978212,
+          "mean_visited_actions": 6.644498777506112,
+          "positions": 2045
+        }
+      }
+    },
+    {
+      "generation": 19,
+      "seed": 314159,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.7116997727828497,
+          "mean_target_entropy": 0.7808978428546427,
+          "mean_visited_actions": 4.756928594717966,
+          "positions": 6134
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.743225604543234,
+          "mean_target_entropy": 0.8032851999732191,
+          "mean_visited_actions": 6.605276013678554,
+          "positions": 2047
+        }
+      }
+    },
+    {
+      "generation": 20,
+      "seed": 314159,
+      "stages": {
+        "after8": {
+          "mean_max_visit_mass": 0.7353446528596698,
+          "mean_target_entropy": 0.7200800291632915,
+          "mean_visited_actions": 4.544516509433962,
+          "positions": 6784
+        },
+        "before8": {
+          "mean_max_visit_mass": 0.7554259836265884,
+          "mean_target_entropy": 0.742122476615382,
+          "mean_visited_actions": 6.383186705767351,
+          "positions": 2046
+        }
+      }
+    }
+  ],
+  "schema": "phase4d4a-baseline-summary-v1",
+  "state": {
+    "bitboard_source_sha256": "353cef4ce072bfb32492491cf00a7f87684452d2aeb06f6d0c569586cbb58f4e",
+    "caveat": "Microbenchmarks are not neural-search speedups. Direct bitboard encoding is not implemented.",
+    "main_commit": "8704142702da273e6571f0ca9df3fd4a793be285",
+    "measurements": [
+      {
+        "operation": "engine_copy_all_successors",
+        "position": "empty",
+        "seconds_per_successor_or_call": {
+          "max": 1.6442464398486273e-05,
+          "mean": 1.5692907199263575e-05,
+          "median": 1.5534142830542157e-05,
+          "min": 1.5401547774672508e-05,
+          "n": 5,
+          "p95": 1.6271809594971792e-05,
+          "stdev": 4.245570029557407e-07
+        }
+      },
+      {
+        "operation": "bitboard_all_successors",
+        "position": "empty",
+        "seconds_per_successor_or_call": {
+          "max": 9.702143392392568e-07,
+          "mean": 9.631308593920299e-07,
+          "median": 9.656545839139393e-07,
+          "min": 9.53833173428263e-07,
+          "n": 5,
+          "p95": 9.700500539370946e-07,
+          "stdev": 7.506508902861111e-09
+        }
+      },
+      {
+        "operation": "engine_terminal",
+        "position": "empty",
+        "seconds_per_successor_or_call": {
+          "max": 3.62787488847971e-05,
+          "mean": 3.5746400430798525e-05,
+          "median": 3.5682333633303644e-05,
+          "min": 3.5022335126996044e-05,
+          "n": 5,
+          "p95": 3.626901581883431e-05,
+          "stdev": 5.238457624559705e-07
+        }
+      },
+      {
+        "operation": "bitboard_terminal",
+        "position": "empty",
+        "seconds_per_successor_or_call": {
+          "max": 3.250129520893097e-08,
+          "mean": 3.053359687328338e-08,
+          "median": 3.016553819179535e-08,
+          "min": 2.9832124710083005e-08,
+          "n": 5,
+          "p95": 3.205128014087677e-08,
+          "stdev": 1.1133622304393714e-09
+        }
+      },
+      {
+        "operation": "engine_to_bitboard",
+        "position": "empty",
+        "seconds_per_successor_or_call": {
+          "max": 3.3789165318012236e-06,
+          "mean": 3.3511161804199215e-06,
+          "median": 3.352414816617966e-06,
+          "min": 3.3227503299713133e-06,
+          "n": 5,
+          "p95": 3.376583009958267e-06,
+          "stdev": 2.3042844436248305e-08
+        }
+      },
+      {
+        "operation": "engine_copy_all_successors",
+        "position": "early_opening",
+        "seconds_per_successor_or_call": {
+          "max": 1.571558362671307e-05,
+          "mean": 1.5629564278892108e-05,
+          "median": 1.563173798578126e-05,
+          "min": 1.554161895598684e-05,
+          "n": 5,
+          "p95": 1.570078358054161e-05,
+          "stdev": 6.211555315174942e-08
+        }
+      },
+      {
+        "operation": "bitboard_all_successors",
+        "position": "early_opening",
+        "seconds_per_successor_or_call": {
+          "max": 1.0011190814631325e-06,
+          "mean": 9.98057158929961e-07,
+          "median": 9.984759879963738e-07,
+          "min": 9.945713515792574e-07,
+          "n": 5,
+          "p95": 1.0009905589478357e-06,
+          "stdev": 2.888915207645375e-09
+        }
+      },
+      {
+        "operation": "engine_terminal",
+        "position": "early_opening",
+        "seconds_per_successor_or_call": {
+          "max": 3.592991642653942e-05,
+          "mean": 3.577458336949348e-05,
+          "median": 3.577524982392788e-05,
+          "min": 3.562125004827976e-05,
+          "n": 5,
+          "p95": 3.5923650115728376e-05,
+          "stdev": 1.4058892864150998e-07
+        }
+      },
+      {
+        "operation": "bitboard_terminal",
+        "position": "early_opening",
+        "seconds_per_successor_or_call": {
+          "max": 4.308484494686127e-08,
+          "mean": 3.3133476972579955e-08,
+          "median": 3.091618418693542e-08,
+          "min": 2.99997627735138e-08,
+          "n": 5,
+          "p95": 4.068464040756225e-08,
+          "stdev": 5.578383804492091e-09
+        }
+      },
+      {
+        "operation": "engine_to_bitboard",
+        "position": "early_opening",
+        "seconds_per_successor_or_call": {
+          "max": 3.6387499421834945e-06,
+          "mean": 3.6283828318119047e-06,
+          "median": 3.6317501217126845e-06,
+          "min": 3.6098323762416838e-06,
+          "n": 5,
+          "p95": 3.6377329379320144e-06,
+          "stdev": 1.1079854167853108e-08
+        }
+      },
+      {
+        "operation": "engine_copy_all_successors",
+        "position": "quiet_midgame",
+        "seconds_per_successor_or_call": {
+          "max": 1.6635366529226304e-05,
+          "mean": 1.6604863256216048e-05,
+          "median": 1.659865006804466e-05,
+          "min": 1.658186614513397e-05,
+          "n": 5,
+          "p95": 1.6631226614117622e-05,
+          "stdev": 2.0719369476288063e-08
+        }
+      },
+      {
+        "operation": "bitboard_all_successors",
+        "position": "quiet_midgame",
+        "seconds_per_successor_or_call": {
+          "max": 1.0821670293807984e-06,
+          "mean": 1.0798469185829162e-06,
+          "median": 1.0793667286634445e-06,
+          "min": 1.0771837085485458e-06,
+          "n": 5,
+          "p95": 1.08209028840065e-06,
+          "stdev": 2.1032641796954636e-09
+        }
+      },
+      {
+        "operation": "engine_terminal",
+        "position": "quiet_midgame",
+        "seconds_per_successor_or_call": {
+          "max": 3.8757000118494036e-05,
+          "mean": 3.85094664990902e-05,
+          "median": 3.8460832089185715e-05,
+          "min": 3.840333223342896e-05,
+          "n": 5,
+          "p95": 3.870753347873688e-05,
+          "stdev": 1.445210019912904e-07
+        }
+      },
+      {
+        "operation": "bitboard_terminal",
+        "position": "quiet_midgame",
+        "seconds_per_successor_or_call": {
+          "max": 3.466755151748657e-08,
+          "mean": 3.2334029674530025e-08,
+          "median": 3.183446824550629e-08,
+          "min": 3.133527934551239e-08,
+          "n": 5,
+          "p95": 3.413408994674682e-08,
+          "stdev": 1.328083886259051e-09
+        }
+      },
+      {
+        "operation": "engine_to_bitboard",
+        "position": "quiet_midgame",
+        "seconds_per_successor_or_call": {
+          "max": 4.9787499010562895e-06,
+          "mean": 4.968167096376419e-06,
+          "median": 4.969583824276924e-06,
+          "min": 4.960084334015847e-06,
+          "n": 5,
+          "p95": 4.977400228381157e-06,
+          "stdev": 7.970541707111088e-09
+        }
+      },
+      {
+        "operation": "engine_copy_all_successors",
+        "position": "tactical_midgame",
+        "seconds_per_successor_or_call": {
+          "max": 1.6383153075973195e-05,
+          "mean": 1.6356805649896464e-05,
+          "median": 1.635272242128849e-05,
+          "min": 1.633837508658568e-05,
+          "n": 5,
+          "p95": 1.637994746367137e-05,
+          "stdev": 1.8421060899766276e-08
+        }
+      },
+      {
+        "operation": "bitboard_all_successors",
+        "position": "tactical_midgame",
+        "seconds_per_successor_or_call": {
+          "max": 1.0247360914945602e-06,
+          "mean": 1.0195666303237278e-06,
+          "median": 1.018499955534935e-06,
+          "min": 1.017194241285324e-06,
+          "n": 5,
+          "p95": 1.0237166658043861e-06,
+          "stdev": 3.0308588451090217e-09
+        }
+      },
+      {
+        "operation": "engine_terminal",
+        "position": "tactical_midgame",
+        "seconds_per_successor_or_call": {
+          "max": 3.686791844666004e-05,
+          "mean": 3.668525107204914e-05,
+          "median": 3.671266697347164e-05,
+          "min": 3.6544583737850186e-05,
+          "n": 5,
+          "p95": 3.6842368543148037e-05,
+          "stdev": 1.3451873928658727e-07
+        }
+      },
+      {
+        "operation": "bitboard_terminal",
+        "position": "tactical_midgame",
+        "seconds_per_successor_or_call": {
+          "max": 3.3000484108924863e-08,
+          "mean": 3.0016899108886715e-08,
+          "median": 2.9666349291801452e-08,
+          "min": 2.8498470783233644e-08,
+          "n": 5,
+          "p95": 3.238432109355926e-08,
+          "stdev": 1.7588915833707659e-09
+        }
+      },
+      {
+        "operation": "engine_to_bitboard",
+        "position": "tactical_midgame",
+        "seconds_per_successor_or_call": {
+          "max": 4.584584385156631e-06,
+          "mean": 4.5747831463813786e-06,
+          "median": 4.572751000523567e-06,
+          "min": 4.56949882209301e-06,
+          "n": 5,
+          "p95": 4.58313412964344e-06,
+          "stdev": 6.323938413202031e-09
+        }
+      },
+      {
+        "operation": "engine_copy_all_successors",
+        "position": "late_game",
+        "seconds_per_successor_or_call": {
+          "max": 1.777508342638612e-05,
+          "mean": 1.761463740840554e-05,
+          "median": 1.7559146042913198e-05,
+          "min": 1.7530458047986032e-05,
+          "n": 5,
+          "p95": 1.7755145858973264e-05,
+          "stdev": 1.0752632795730285e-07
+        }
+      },
+      {
+        "operation": "bitboard_all_successors",
+        "position": "late_game",
+        "seconds_per_successor_or_call": {
+          "max": 1.0863752104341984e-06,
+          "mean": 1.0760667733848094e-06,
+          "median": 1.0754582472145557e-06,
+          "min": 1.0674791410565375e-06,
+          "n": 5,
+          "p95": 1.0846626944839954e-06,
+          "stdev": 6.920956685055571e-09
+        }
+      },
+      {
+        "operation": "engine_terminal",
+        "position": "late_game",
+        "seconds_per_successor_or_call": {
+          "max": 4.175874963402748e-05,
+          "mean": 4.1520849615335465e-05,
+          "median": 4.145750030875206e-05,
+          "min": 4.143516533076763e-05,
+          "n": 5,
+          "p95": 4.1706966236233714e-05,
+          "stdev": 1.3508942598404186e-07
+        }
+      },
+      {
+        "operation": "bitboard_terminal",
+        "position": "late_game",
+        "seconds_per_successor_or_call": {
+          "max": 3.316625952720642e-08,
+          "mean": 3.1515955924987796e-08,
+          "median": 3.108195960521698e-08,
+          "min": 3.100000321865082e-08,
+          "n": 5,
+          "p95": 3.2799318432807926e-08,
+          "stdev": 9.325064644547223e-10
+        }
+      },
+      {
+        "operation": "engine_to_bitboard",
+        "position": "late_game",
+        "seconds_per_successor_or_call": {
+          "max": 5.984999239444733e-06,
+          "mean": 5.967217311263085e-06,
+          "median": 5.964916199445724e-06,
+          "min": 5.954667925834656e-06,
+          "n": 5,
+          "p95": 5.9821330010890965e-06,
+          "stdev": 1.1528430094313574e-08
+        }
+      },
+      {
+        "operation": "engine_copy_all_successors",
+        "position": "immediate_win",
+        "seconds_per_successor_or_call": {
+          "max": 1.6295428786958968e-05,
+          "mean": 1.610684048916612e-05,
+          "median": 1.6040106969220298e-05,
+          "min": 1.6011607167976242e-05,
+          "n": 5,
+          "p95": 1.627141923776695e-05,
+          "stdev": 1.253414429857326e-07
+        }
+      },
+      {
+        "operation": "bitboard_all_successors",
+        "position": "immediate_win",
+        "seconds_per_successor_or_call": {
+          "max": 9.874169315610613e-07,
+          "mean": 9.75700148514339e-07,
+          "median": 9.722502103873662e-07,
+          "min": 9.684285947254726e-07,
+          "n": 5,
+          "p95": 9.862288300480161e-07,
+          "stdev": 8.385702793629061e-09
+        }
+      },
+      {
+        "operation": "engine_terminal",
+        "position": "immediate_win",
+        "seconds_per_successor_or_call": {
+          "max": 3.71039155870676e-05,
+          "mean": 3.6626632511615754e-05,
+          "median": 3.657766617834568e-05,
+          "min": 3.6268165335059167e-05,
+          "n": 5,
+          "p95": 3.7025899067521094e-05,
+          "stdev": 3.126356473613202e-07
+        }
+      },
+      {
+        "operation": "bitboard_terminal",
+        "position": "immediate_win",
+        "seconds_per_successor_or_call": {
+          "max": 3.258325159549713e-08,
+          "mean": 3.085024654865265e-08,
+          "median": 3.0666589736938474e-08,
+          "min": 3.0083581805229187e-08,
+          "n": 5,
+          "p95": 3.223307430744171e-08,
+          "stdev": 1.0259207010585384e-09
+        }
+      },
+      {
+        "operation": "engine_to_bitboard",
+        "position": "immediate_win",
+        "seconds_per_successor_or_call": {
+          "max": 4.003334790468216e-06,
+          "mean": 3.977883234620095e-06,
+          "median": 3.970500081777573e-06,
+          "min": 3.967666998505592e-06,
+          "n": 5,
+          "p95": 3.998317569494247e-06,
+          "stdev": 1.4784509792329644e-08
+        }
+      },
+      {
+        "operation": "engine_copy_all_successors",
+        "position": "mandatory_block",
+        "seconds_per_successor_or_call": {
+          "max": 1.6191297343799046e-05,
+          "mean": 1.608189998992852e-05,
+          "median": 1.606438122689724e-05,
+          "min": 1.6039142917309487e-05,
+          "n": 5,
+          "p95": 1.616688072681427e-05,
+          "stdev": 6.243266314557586e-08
+        }
+      },
+      {
+        "operation": "bitboard_all_successors",
+        "position": "mandatory_block",
+        "seconds_per_successor_or_call": {
+          "max": 9.753571024962834e-07,
+          "mean": 9.710024510111129e-07,
+          "median": 9.686906955071857e-07,
+          "min": 9.676428245646614e-07,
+          "n": 5,
+          "p95": 9.752523686204637e-07,
+          "stdev": 3.76138864442279e-09
+        }
+      },
+      {
+        "operation": "engine_terminal",
+        "position": "mandatory_block",
+        "seconds_per_successor_or_call": {
+          "max": 3.6817500367760656e-05,
+          "mean": 3.6712483316659925e-05,
+          "median": 3.670108504593372e-05,
+          "min": 3.659466654062271e-05,
+          "n": 5,
+          "p95": 3.680503331124782e-05,
+          "stdev": 8.24661711526403e-08
+        }
+      },
+      {
+        "operation": "bitboard_terminal",
+        "position": "mandatory_block",
+        "seconds_per_successor_or_call": {
+          "max": 3.191828727722168e-08,
+          "mean": 2.9584020376205444e-08,
+          "median": 2.899952232837677e-08,
+          "min": 2.8833746910095216e-08,
+          "n": 5,
+          "p95": 3.138482570648193e-08,
+          "stdev": 1.3141944297109087e-09
+        }
+      },
+      {
+        "operation": "engine_to_bitboard",
+        "position": "mandatory_block",
+        "seconds_per_successor_or_call": {
+          "max": 4.263332113623619e-06,
+          "mean": 4.257350042462349e-06,
+          "median": 4.258085042238235e-06,
+          "min": 4.247084259986877e-06,
+          "n": 5,
+          "p95": 4.26269881427288e-06,
+          "stdev": 6.127328928248893e-09
+        }
+      }
+    ],
+    "transitions_checked": 2704
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "commit": "8704142702da273e6571f0ca9df3fd4a793be285",
+  "files": {
+    "games/connect4/agents/agent_factory.py": "356bbca85cc6fcae52f7c8326d82030b11c9ecc1286ee1bc331a2bd25c9a6478",
+    "games/connect4/agents/dqn_agent.py": "065f3ba28c5af58461c407f1d34cef731557cac10e6ac4ab0a75f14c0a2092e4",
+    "games/connect4/agents/human.py": "abc6fd7fe26658b4ca0370ebd5774e0f131ca0ebeaa9cb73fdcd0047813e5983",
+    "games/connect4/agents/mcts_agent.py": "408be66814f85f4b9361713c94d4f79151b2a92683a268dd018bd812c641d4d2",
+    "games/connect4/agents/mcts_bitboard.py": "353cef4ce072bfb32492491cf00a7f87684452d2aeb06f6d0c569586cbb58f4e",
+    "games/connect4/agents/mcts_nn_agent.py": "721b7ffe0b146d127641656e54219d55af2a52ce9a68e182df80fe202763df9f",
+    "games/connect4/agents/mcts_research_agent.py": "3df5e0431562ad5d73348081bd3ca82bb018363b0f5e3ba06a74e80fc4a27431",
+    "games/connect4/agents/negamax_agent.py": "fc08f64ab267fbd784747c0d35cdc3207bf584fb2a744d77ae84b8f2c2c32bbe",
+    "games/connect4/agents/negamax_tt.py": "066923937ffb5e5f0d065a04a9657e0e02bc0f531b3941f2b73cd0f84583ab60",
+    "games/connect4/agents/random_agent.py": "5f4a62fc535339c464856f92617d7f6c97fd971c3394346b696f1942a838ded4",
+    "games/connect4/agents/tactical_mcts_agent.py": "2c40b090f957662984fa37a082c7d641afe708d5cb8ff476283597443bf2773c",
+    "games/connect4/agents/victor_agent.py": "36344e10ee091e0bcafeaddd5c1a79d446165b49009fcf81d2fa03dbc1d5a08e",
+    "games/connect4/agents/victor_research_agent.py": "edbe57045313a0ce7ef00b65ed5ee89161847f73141148c86423245810dc1a4e"
+  },
+  "opponents": [
+    {
+      "budget": 2,
+      "exploration": null,
+      "kind": "negamax",
+      "max_seconds": null,
+      "name": "main-negamax-2",
+      "root_guard": false
+    },
+    {
+      "budget": 4,
+      "exploration": null,
+      "kind": "negamax",
+      "max_seconds": null,
+      "name": "main-negamax-4",
+      "root_guard": false
+    },
+    {
+      "budget": 6,
+      "exploration": null,
+      "kind": "negamax",
+      "max_seconds": null,
+      "name": "main-negamax-6",
+      "root_guard": false
+    },
+    {
+      "budget": 8,
+      "exploration": null,
+      "kind": "negamax",
+      "max_seconds": null,
+      "name": "main-negamax-8",
+      "root_guard": false
+    },
+    {
+      "budget": 1000,
+      "exploration": null,
+      "kind": "classic",
+      "max_seconds": null,
+      "name": "main-classic-1000",
+      "root_guard": true
+    },
+    {
+      "budget": 1000,
+      "exploration": 0.5,
+      "kind": "tactical",
+      "max_seconds": null,
+      "name": "main-tactical-1000",
+      "root_guard": false
+    }
+  ]
+}

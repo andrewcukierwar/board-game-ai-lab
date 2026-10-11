@@ -1,0 +1,1818 @@
+[
+  {
+    "arena": {
+      "analysis_seed": 4303009,
+      "by_color": {
+        "O": {
+          "games": 100,
+          "score": 0.84
+        },
+        "X": {
+          "games": 100,
+          "score": 0.9
+        }
+      },
+      "by_stratum": {
+        "empty": {
+          "games": 40,
+          "score": 0.95
+        },
+        "prefix": {
+          "games": 160,
+          "score": 0.85
+        }
+      },
+      "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+      "clusters": 41,
+      "complete": true,
+      "draws": 2,
+      "games": 200,
+      "interval95": [
+        0.8048780487804879,
+        0.9172794117647058
+      ],
+      "losses": 25,
+      "planned_games": 200,
+      "resamples": 10000,
+      "score": 0.87,
+      "wins": 173
+    },
+    "baselines": {
+      "negamax1": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.8
+          },
+          "X": {
+            "games": 20,
+            "score": 0.9
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.8125
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 2,
+        "games": 40,
+        "interval95": [
+          0.75,
+          0.9375
+        ],
+        "losses": 5,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.85,
+        "wins": 33
+      },
+      "negamax2": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.575
+          },
+          "X": {
+            "games": 20,
+            "score": 0.475
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 0.375
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.5625
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 2,
+        "games": 40,
+        "interval95": [
+          0.3888888888888889,
+          0.6944444444444444
+        ],
+        "losses": 18,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.525,
+        "wins": 20
+      },
+      "random": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 1.0
+          },
+          "X": {
+            "games": 20,
+            "score": 1.0
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 32,
+            "score": 1.0
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 0,
+        "games": 40,
+        "interval95": [
+          1.0,
+          1.0
+        ],
+        "losses": 0,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 1.0,
+        "wins": 40
+      }
+    },
+    "candidate": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "generation-5",
+      "path": "generations/generation-0005/generation-0005.inference.pt",
+      "root_noise": false,
+      "sha256": "6ca9a0b6e23a7b74d50fea858397c6530edb8c5bc5e43ab2c7c34702a4f11547",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "50ac28538c351085bb4bb90ede2a325d3fe74b73b1708261491a866592e08d00"
+    },
+    "candidate_tactics": {
+      "immediate_win": 0.97,
+      "immediate_win_families": 50,
+      "immediate_win_o": 0.94,
+      "immediate_win_x": 1.0,
+      "safe_response": 0.93,
+      "safe_response_families": 50,
+      "safe_response_o": 0.9,
+      "safe_response_x": 0.96,
+      "zero_visit_winning_actions": 0
+    },
+    "champion": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "champion-generation-0",
+      "path": "generations/generation-0000/generation-0000.inference.pt",
+      "root_noise": false,
+      "sha256": "29f5504975c7ecb877a09cd2db888ae6d5932c046b1461097d7f5512c5866729",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "6fa87b9b45fe4f9ad87a4d7338d83006ff042559f1f1add209df7d340144890e"
+    },
+    "champion_tactics": {
+      "immediate_win": 1.0,
+      "immediate_win_families": 50,
+      "immediate_win_o": 1.0,
+      "immediate_win_x": 1.0,
+      "safe_response": 1.0,
+      "safe_response_families": 50,
+      "safe_response_o": 1.0,
+      "safe_response_x": 1.0,
+      "zero_visit_winning_actions": 0
+    },
+    "decision": {
+      "checks": {
+        "complete": true,
+        "correctness": true,
+        "lower_bound": true,
+        "score": true,
+        "tactical": false
+      },
+      "promote": false,
+      "rule": {
+        "lower_bound": 0.5,
+        "max_tactical_regression": 0.02,
+        "schedule": [
+          5,
+          10,
+          15,
+          20
+        ],
+        "score": 0.55
+      },
+      "tactical_regression": {
+        "immediate_win": 0.030000000000000027,
+        "safe_response": 0.06999999999999995
+      }
+    },
+    "generation": 5,
+    "previous": 0,
+    "promote": false,
+    "seed": 42
+  },
+  {
+    "arena": {
+      "analysis_seed": 4303009,
+      "by_color": {
+        "O": {
+          "games": 100,
+          "score": 0.87
+        },
+        "X": {
+          "games": 100,
+          "score": 0.945
+        }
+      },
+      "by_stratum": {
+        "empty": {
+          "games": 40,
+          "score": 1.0
+        },
+        "prefix": {
+          "games": 160,
+          "score": 0.884375
+        }
+      },
+      "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+      "clusters": 41,
+      "complete": true,
+      "draws": 5,
+      "games": 200,
+      "interval95": [
+        0.8475609756097561,
+        0.9503676470588235
+      ],
+      "losses": 16,
+      "planned_games": 200,
+      "resamples": 10000,
+      "score": 0.9075,
+      "wins": 179
+    },
+    "baselines": {
+      "negamax1": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 1.0
+          },
+          "X": {
+            "games": 20,
+            "score": 0.95
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.96875
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 0,
+        "games": 40,
+        "interval95": [
+          0.9166666666666666,
+          1.0
+        ],
+        "losses": 1,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.975,
+        "wins": 39
+      },
+      "negamax2": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.525
+          },
+          "X": {
+            "games": 20,
+            "score": 0.7
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 0.875
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.546875
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 3,
+        "games": 40,
+        "interval95": [
+          0.4125,
+          0.78125
+        ],
+        "losses": 14,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.6125,
+        "wins": 23
+      },
+      "random": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 1.0
+          },
+          "X": {
+            "games": 20,
+            "score": 1.0
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 32,
+            "score": 1.0
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 0,
+        "games": 40,
+        "interval95": [
+          1.0,
+          1.0
+        ],
+        "losses": 0,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 1.0,
+        "wins": 40
+      }
+    },
+    "candidate": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "generation-10",
+      "path": "generations/generation-0010/generation-0010.inference.pt",
+      "root_noise": false,
+      "sha256": "8a39029106ba0290a83339253869a86f097a27f295461a1daa9d221fd85430c8",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "771b577d395025feb1c734fd7cf1d332d47a6e374acd4ded309619e2f22864e5"
+    },
+    "candidate_tactics": {
+      "immediate_win": 0.98,
+      "immediate_win_families": 50,
+      "immediate_win_o": 0.96,
+      "immediate_win_x": 1.0,
+      "safe_response": 0.93,
+      "safe_response_families": 50,
+      "safe_response_o": 0.88,
+      "safe_response_x": 0.98,
+      "zero_visit_winning_actions": 0
+    },
+    "champion": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "champion-generation-0",
+      "path": "generations/generation-0000/generation-0000.inference.pt",
+      "root_noise": false,
+      "sha256": "29f5504975c7ecb877a09cd2db888ae6d5932c046b1461097d7f5512c5866729",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "6fa87b9b45fe4f9ad87a4d7338d83006ff042559f1f1add209df7d340144890e"
+    },
+    "champion_tactics": {
+      "immediate_win": 1.0,
+      "immediate_win_families": 50,
+      "immediate_win_o": 1.0,
+      "immediate_win_x": 1.0,
+      "safe_response": 1.0,
+      "safe_response_families": 50,
+      "safe_response_o": 1.0,
+      "safe_response_x": 1.0,
+      "zero_visit_winning_actions": 0
+    },
+    "decision": {
+      "checks": {
+        "complete": true,
+        "correctness": true,
+        "lower_bound": true,
+        "score": true,
+        "tactical": false
+      },
+      "promote": false,
+      "rule": {
+        "lower_bound": 0.5,
+        "max_tactical_regression": 0.02,
+        "schedule": [
+          5,
+          10,
+          15,
+          20
+        ],
+        "score": 0.55
+      },
+      "tactical_regression": {
+        "immediate_win": 0.020000000000000018,
+        "safe_response": 0.06999999999999995
+      }
+    },
+    "generation": 10,
+    "previous": 0,
+    "promote": false,
+    "seed": 42
+  },
+  {
+    "arena": {
+      "analysis_seed": 4303009,
+      "by_color": {
+        "O": {
+          "games": 100,
+          "score": 0.79
+        },
+        "X": {
+          "games": 100,
+          "score": 0.95
+        }
+      },
+      "by_stratum": {
+        "empty": {
+          "games": 40,
+          "score": 0.75
+        },
+        "prefix": {
+          "games": 160,
+          "score": 0.9
+        }
+      },
+      "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+      "clusters": 41,
+      "complete": true,
+      "draws": 26,
+      "games": 200,
+      "interval95": [
+        0.8199152542372882,
+        0.9329268292682927
+      ],
+      "losses": 13,
+      "planned_games": 200,
+      "resamples": 10000,
+      "score": 0.87,
+      "wins": 161
+    },
+    "baselines": {
+      "negamax1": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.875
+          },
+          "X": {
+            "games": 20,
+            "score": 1.0
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.921875
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 1,
+        "games": 40,
+        "interval95": [
+          0.8472222222222222,
+          1.0
+        ],
+        "losses": 2,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.9375,
+        "wins": 37
+      },
+      "negamax2": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.675
+          },
+          "X": {
+            "games": 20,
+            "score": 0.575
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 0.625
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.625
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 6,
+        "games": 40,
+        "interval95": [
+          0.5113636363636364,
+          0.75
+        ],
+        "losses": 12,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.625,
+        "wins": 22
+      },
+      "random": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 1.0
+          },
+          "X": {
+            "games": 20,
+            "score": 1.0
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 32,
+            "score": 1.0
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 0,
+        "games": 40,
+        "interval95": [
+          1.0,
+          1.0
+        ],
+        "losses": 0,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 1.0,
+        "wins": 40
+      }
+    },
+    "candidate": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "generation-15",
+      "path": "generations/generation-0015/generation-0015.inference.pt",
+      "root_noise": false,
+      "sha256": "ea8522db4024971516a1fa9f67a8a02ae9bed745e913eb14974077fc0051013f",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "e428bf7e4ab43bfb6ab379fed002d64d41bd26abd316dd6cdd3b116912eb763e"
+    },
+    "candidate_tactics": {
+      "immediate_win": 0.9,
+      "immediate_win_families": 50,
+      "immediate_win_o": 0.88,
+      "immediate_win_x": 0.92,
+      "safe_response": 0.9,
+      "safe_response_families": 50,
+      "safe_response_o": 0.86,
+      "safe_response_x": 0.94,
+      "zero_visit_winning_actions": 3
+    },
+    "champion": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "champion-generation-0",
+      "path": "generations/generation-0000/generation-0000.inference.pt",
+      "root_noise": false,
+      "sha256": "29f5504975c7ecb877a09cd2db888ae6d5932c046b1461097d7f5512c5866729",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "6fa87b9b45fe4f9ad87a4d7338d83006ff042559f1f1add209df7d340144890e"
+    },
+    "champion_tactics": {
+      "immediate_win": 1.0,
+      "immediate_win_families": 50,
+      "immediate_win_o": 1.0,
+      "immediate_win_x": 1.0,
+      "safe_response": 1.0,
+      "safe_response_families": 50,
+      "safe_response_o": 1.0,
+      "safe_response_x": 1.0,
+      "zero_visit_winning_actions": 0
+    },
+    "decision": {
+      "checks": {
+        "complete": true,
+        "correctness": true,
+        "lower_bound": true,
+        "score": true,
+        "tactical": false
+      },
+      "promote": false,
+      "rule": {
+        "lower_bound": 0.5,
+        "max_tactical_regression": 0.02,
+        "schedule": [
+          5,
+          10,
+          15,
+          20
+        ],
+        "score": 0.55
+      },
+      "tactical_regression": {
+        "immediate_win": 0.09999999999999998,
+        "safe_response": 0.09999999999999998
+      }
+    },
+    "generation": 15,
+    "previous": 0,
+    "promote": false,
+    "seed": 42
+  },
+  {
+    "arena": {
+      "analysis_seed": 4303009,
+      "by_color": {
+        "O": {
+          "games": 100,
+          "score": 0.67
+        },
+        "X": {
+          "games": 100,
+          "score": 0.915
+        }
+      },
+      "by_stratum": {
+        "empty": {
+          "games": 40,
+          "score": 0.5
+        },
+        "prefix": {
+          "games": 160,
+          "score": 0.865625
+        }
+      },
+      "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+      "clusters": 41,
+      "complete": true,
+      "draws": 9,
+      "games": 200,
+      "interval95": [
+        0.6893382352941176,
+        0.9054878048780488
+      ],
+      "losses": 37,
+      "planned_games": 200,
+      "resamples": 10000,
+      "score": 0.7925,
+      "wins": 154
+    },
+    "baselines": {
+      "negamax1": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.9
+          },
+          "X": {
+            "games": 20,
+            "score": 1.0
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.9375
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 2,
+        "games": 40,
+        "interval95": [
+          0.8888888888888888,
+          1.0
+        ],
+        "losses": 1,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.95,
+        "wins": 37
+      },
+      "negamax2": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.725
+          },
+          "X": {
+            "games": 20,
+            "score": 0.65
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 0.9375
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.625
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 7,
+        "games": 40,
+        "interval95": [
+          0.475,
+          0.8472222222222222
+        ],
+        "losses": 9,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.6875,
+        "wins": 24
+      },
+      "random": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 1.0
+          },
+          "X": {
+            "games": 20,
+            "score": 1.0
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 32,
+            "score": 1.0
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 0,
+        "games": 40,
+        "interval95": [
+          1.0,
+          1.0
+        ],
+        "losses": 0,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 1.0,
+        "wins": 40
+      }
+    },
+    "candidate": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "generation-20",
+      "path": "generations/generation-0020/generation-0020.inference.pt",
+      "root_noise": false,
+      "sha256": "3e0878c7c661bca8b26ead13052981726c6a02f6664e34224a45ca5bfa72842a",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d"
+    },
+    "candidate_tactics": {
+      "immediate_win": 0.88,
+      "immediate_win_families": 50,
+      "immediate_win_o": 0.88,
+      "immediate_win_x": 0.88,
+      "safe_response": 0.91,
+      "safe_response_families": 50,
+      "safe_response_o": 0.9,
+      "safe_response_x": 0.92,
+      "zero_visit_winning_actions": 5
+    },
+    "champion": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "champion-generation-0",
+      "path": "generations/generation-0000/generation-0000.inference.pt",
+      "root_noise": false,
+      "sha256": "29f5504975c7ecb877a09cd2db888ae6d5932c046b1461097d7f5512c5866729",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "6fa87b9b45fe4f9ad87a4d7338d83006ff042559f1f1add209df7d340144890e"
+    },
+    "champion_tactics": {
+      "immediate_win": 1.0,
+      "immediate_win_families": 50,
+      "immediate_win_o": 1.0,
+      "immediate_win_x": 1.0,
+      "safe_response": 1.0,
+      "safe_response_families": 50,
+      "safe_response_o": 1.0,
+      "safe_response_x": 1.0,
+      "zero_visit_winning_actions": 0
+    },
+    "decision": {
+      "checks": {
+        "complete": true,
+        "correctness": true,
+        "lower_bound": true,
+        "score": true,
+        "tactical": false
+      },
+      "promote": false,
+      "rule": {
+        "lower_bound": 0.5,
+        "max_tactical_regression": 0.02,
+        "schedule": [
+          5,
+          10,
+          15,
+          20
+        ],
+        "score": 0.55
+      },
+      "tactical_regression": {
+        "immediate_win": 0.12,
+        "safe_response": 0.08999999999999997
+      }
+    },
+    "generation": 20,
+    "previous": 0,
+    "promote": false,
+    "seed": 42
+  },
+  {
+    "arena": {
+      "analysis_seed": 4303009,
+      "by_color": {
+        "O": {
+          "games": 100,
+          "score": 0.77
+        },
+        "X": {
+          "games": 100,
+          "score": 0.83
+        }
+      },
+      "by_stratum": {
+        "empty": {
+          "games": 40,
+          "score": 1.0
+        },
+        "prefix": {
+          "games": 160,
+          "score": 0.75
+        }
+      },
+      "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+      "clusters": 41,
+      "complete": true,
+      "draws": 12,
+      "games": 200,
+      "interval95": [
+        0.6981539634146341,
+        0.8798733766233766
+      ],
+      "losses": 34,
+      "planned_games": 200,
+      "resamples": 10000,
+      "score": 0.8,
+      "wins": 154
+    },
+    "baselines": {
+      "negamax1": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.75
+          },
+          "X": {
+            "games": 20,
+            "score": 0.75
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 0.5
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.8125
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 2,
+        "games": 40,
+        "interval95": [
+          0.6125,
+          0.9027777777777778
+        ],
+        "losses": 9,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.75,
+        "wins": 29
+      },
+      "negamax2": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.325
+          },
+          "X": {
+            "games": 20,
+            "score": 0.475
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 0.3125
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.421875
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 4,
+        "games": 40,
+        "interval95": [
+          0.225,
+          0.6000568181818173
+        ],
+        "losses": 22,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.4,
+        "wins": 14
+      },
+      "random": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.95
+          },
+          "X": {
+            "games": 20,
+            "score": 1.0
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.96875
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 0,
+        "games": 40,
+        "interval95": [
+          0.9166666666666666,
+          1.0
+        ],
+        "losses": 1,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.975,
+        "wins": 39
+      }
+    },
+    "candidate": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "generation-5",
+      "path": "generations/generation-0005/generation-0005.inference.pt",
+      "root_noise": false,
+      "sha256": "8726030bd141f4bcd162d6a710557752124f1e22359aa4142eb7c058262da5cf",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "97883e59d2d021f39567286bb3eff9bf171c533f2d1a1ecc30da841a8268e861"
+    },
+    "candidate_tactics": {
+      "immediate_win": 0.98,
+      "immediate_win_families": 50,
+      "immediate_win_o": 0.96,
+      "immediate_win_x": 1.0,
+      "safe_response": 0.96,
+      "safe_response_families": 50,
+      "safe_response_o": 0.94,
+      "safe_response_x": 0.98,
+      "zero_visit_winning_actions": 0
+    },
+    "champion": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "champion-generation-0",
+      "path": "generations/generation-0000/generation-0000.inference.pt",
+      "root_noise": false,
+      "sha256": "93dfb2c022568badb36f91e084cc5a20fe7a5b429bb7dc20873d25a262a05051",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "9905b22a3cc9e26cdab7732acca15e4ce65294b0c22f74f66e425af55ca9ed33"
+    },
+    "champion_tactics": {
+      "immediate_win": 1.0,
+      "immediate_win_families": 50,
+      "immediate_win_o": 1.0,
+      "immediate_win_x": 1.0,
+      "safe_response": 1.0,
+      "safe_response_families": 50,
+      "safe_response_o": 1.0,
+      "safe_response_x": 1.0,
+      "zero_visit_winning_actions": 0
+    },
+    "decision": {
+      "checks": {
+        "complete": true,
+        "correctness": true,
+        "lower_bound": true,
+        "score": true,
+        "tactical": false
+      },
+      "promote": false,
+      "rule": {
+        "lower_bound": 0.5,
+        "max_tactical_regression": 0.02,
+        "schedule": [
+          5,
+          10,
+          15,
+          20
+        ],
+        "score": 0.55
+      },
+      "tactical_regression": {
+        "immediate_win": 0.020000000000000018,
+        "safe_response": 0.040000000000000036
+      }
+    },
+    "generation": 5,
+    "previous": 0,
+    "promote": false,
+    "seed": 314159
+  },
+  {
+    "arena": {
+      "analysis_seed": 4303009,
+      "by_color": {
+        "O": {
+          "games": 100,
+          "score": 0.72
+        },
+        "X": {
+          "games": 100,
+          "score": 0.78
+        }
+      },
+      "by_stratum": {
+        "empty": {
+          "games": 40,
+          "score": 0.75
+        },
+        "prefix": {
+          "games": 160,
+          "score": 0.75
+        }
+      },
+      "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+      "clusters": 41,
+      "complete": true,
+      "draws": 26,
+      "games": 200,
+      "interval95": [
+        0.6829268292682927,
+        0.8109756097560976
+      ],
+      "losses": 37,
+      "planned_games": 200,
+      "resamples": 10000,
+      "score": 0.75,
+      "wins": 137
+    },
+    "baselines": {
+      "negamax1": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.65
+          },
+          "X": {
+            "games": 20,
+            "score": 0.9
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 0.5
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.84375
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 0,
+        "games": 40,
+        "interval95": [
+          0.6363636363636364,
+          0.9166666666666666
+        ],
+        "losses": 9,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.775,
+        "wins": 31
+      },
+      "negamax2": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.525
+          },
+          "X": {
+            "games": 20,
+            "score": 0.65
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.484375
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 1,
+        "games": 40,
+        "interval95": [
+          0.3611111111111111,
+          0.7916666666666666
+        ],
+        "losses": 16,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.5875,
+        "wins": 23
+      },
+      "random": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 1.0
+          },
+          "X": {
+            "games": 20,
+            "score": 1.0
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 32,
+            "score": 1.0
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 0,
+        "games": 40,
+        "interval95": [
+          1.0,
+          1.0
+        ],
+        "losses": 0,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 1.0,
+        "wins": 40
+      }
+    },
+    "candidate": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "generation-10",
+      "path": "generations/generation-0010/generation-0010.inference.pt",
+      "root_noise": false,
+      "sha256": "a96c87e6b9185eded4d6360af9fc0cb375e91238235f1203ba0b906783596ad3",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "c746a37cdfe1505ac328fa3fe425b133a3e99d869848ea39e77b42a58e7a4976"
+    },
+    "candidate_tactics": {
+      "immediate_win": 0.96,
+      "immediate_win_families": 50,
+      "immediate_win_o": 0.94,
+      "immediate_win_x": 0.98,
+      "safe_response": 0.99,
+      "safe_response_families": 50,
+      "safe_response_o": 0.98,
+      "safe_response_x": 1.0,
+      "zero_visit_winning_actions": 0
+    },
+    "champion": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "champion-generation-0",
+      "path": "generations/generation-0000/generation-0000.inference.pt",
+      "root_noise": false,
+      "sha256": "93dfb2c022568badb36f91e084cc5a20fe7a5b429bb7dc20873d25a262a05051",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "9905b22a3cc9e26cdab7732acca15e4ce65294b0c22f74f66e425af55ca9ed33"
+    },
+    "champion_tactics": {
+      "immediate_win": 1.0,
+      "immediate_win_families": 50,
+      "immediate_win_o": 1.0,
+      "immediate_win_x": 1.0,
+      "safe_response": 1.0,
+      "safe_response_families": 50,
+      "safe_response_o": 1.0,
+      "safe_response_x": 1.0,
+      "zero_visit_winning_actions": 0
+    },
+    "decision": {
+      "checks": {
+        "complete": true,
+        "correctness": true,
+        "lower_bound": true,
+        "score": true,
+        "tactical": false
+      },
+      "promote": false,
+      "rule": {
+        "lower_bound": 0.5,
+        "max_tactical_regression": 0.02,
+        "schedule": [
+          5,
+          10,
+          15,
+          20
+        ],
+        "score": 0.55
+      },
+      "tactical_regression": {
+        "immediate_win": 0.040000000000000036,
+        "safe_response": 0.010000000000000009
+      }
+    },
+    "generation": 10,
+    "previous": 0,
+    "promote": false,
+    "seed": 314159
+  },
+  {
+    "arena": {
+      "analysis_seed": 4303009,
+      "by_color": {
+        "O": {
+          "games": 100,
+          "score": 0.88
+        },
+        "X": {
+          "games": 100,
+          "score": 0.84
+        }
+      },
+      "by_stratum": {
+        "empty": {
+          "games": 40,
+          "score": 1.0
+        },
+        "prefix": {
+          "games": 160,
+          "score": 0.825
+        }
+      },
+      "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+      "clusters": 41,
+      "complete": true,
+      "draws": 4,
+      "games": 200,
+      "interval95": [
+        0.7804878048780488,
+        0.9173728813559322
+      ],
+      "losses": 26,
+      "planned_games": 200,
+      "resamples": 10000,
+      "score": 0.86,
+      "wins": 170
+    },
+    "baselines": {
+      "negamax1": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.8
+          },
+          "X": {
+            "games": 20,
+            "score": 0.9
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 0.875
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.84375
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 0,
+        "games": 40,
+        "interval95": [
+          0.7222222222222222,
+          0.9545454545454546
+        ],
+        "losses": 6,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.85,
+        "wins": 34
+      },
+      "negamax2": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.6
+          },
+          "X": {
+            "games": 20,
+            "score": 0.75
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.59375
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 0,
+        "games": 40,
+        "interval95": [
+          0.4444444444444444,
+          0.8636363636363636
+        ],
+        "losses": 13,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.675,
+        "wins": 27
+      },
+      "random": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 1.0
+          },
+          "X": {
+            "games": 20,
+            "score": 1.0
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 32,
+            "score": 1.0
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 0,
+        "games": 40,
+        "interval95": [
+          1.0,
+          1.0
+        ],
+        "losses": 0,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 1.0,
+        "wins": 40
+      }
+    },
+    "candidate": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "generation-15",
+      "path": "generations/generation-0015/generation-0015.inference.pt",
+      "root_noise": false,
+      "sha256": "6923a8b2cef8471742e82d7d493beb5b44cd3180a03d2061523bb84bf115a03e",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "9406016ebd57dfc29b847dd6a485a6a9501325ad269a36da6ac9d11c3468ae3b"
+    },
+    "candidate_tactics": {
+      "immediate_win": 0.94,
+      "immediate_win_families": 50,
+      "immediate_win_o": 0.92,
+      "immediate_win_x": 0.96,
+      "safe_response": 0.94,
+      "safe_response_families": 50,
+      "safe_response_o": 0.88,
+      "safe_response_x": 1.0,
+      "zero_visit_winning_actions": 1
+    },
+    "champion": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "champion-generation-0",
+      "path": "generations/generation-0000/generation-0000.inference.pt",
+      "root_noise": false,
+      "sha256": "93dfb2c022568badb36f91e084cc5a20fe7a5b429bb7dc20873d25a262a05051",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "9905b22a3cc9e26cdab7732acca15e4ce65294b0c22f74f66e425af55ca9ed33"
+    },
+    "champion_tactics": {
+      "immediate_win": 1.0,
+      "immediate_win_families": 50,
+      "immediate_win_o": 1.0,
+      "immediate_win_x": 1.0,
+      "safe_response": 1.0,
+      "safe_response_families": 50,
+      "safe_response_o": 1.0,
+      "safe_response_x": 1.0,
+      "zero_visit_winning_actions": 0
+    },
+    "decision": {
+      "checks": {
+        "complete": true,
+        "correctness": true,
+        "lower_bound": true,
+        "score": true,
+        "tactical": false
+      },
+      "promote": false,
+      "rule": {
+        "lower_bound": 0.5,
+        "max_tactical_regression": 0.02,
+        "schedule": [
+          5,
+          10,
+          15,
+          20
+        ],
+        "score": 0.55
+      },
+      "tactical_regression": {
+        "immediate_win": 0.06000000000000005,
+        "safe_response": 0.06000000000000005
+      }
+    },
+    "generation": 15,
+    "previous": 0,
+    "promote": false,
+    "seed": 314159
+  },
+  {
+    "arena": {
+      "analysis_seed": 4303009,
+      "by_color": {
+        "O": {
+          "games": 100,
+          "score": 0.74
+        },
+        "X": {
+          "games": 100,
+          "score": 0.87
+        }
+      },
+      "by_stratum": {
+        "empty": {
+          "games": 40,
+          "score": 0.7
+        },
+        "prefix": {
+          "games": 160,
+          "score": 0.83125
+        }
+      },
+      "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+      "clusters": 41,
+      "complete": true,
+      "draws": 4,
+      "games": 200,
+      "interval95": [
+        0.75,
+        0.8780487804878049
+      ],
+      "losses": 37,
+      "planned_games": 200,
+      "resamples": 10000,
+      "score": 0.805,
+      "wins": 159
+    },
+    "baselines": {
+      "negamax1": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.825
+          },
+          "X": {
+            "games": 20,
+            "score": 0.9
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.828125
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 1,
+        "games": 40,
+        "interval95": [
+          0.6805555555555556,
+          1.0
+        ],
+        "losses": 5,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.8625,
+        "wins": 34
+      },
+      "negamax2": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 0.6
+          },
+          "X": {
+            "games": 20,
+            "score": 0.725
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 0.875
+          },
+          "prefix": {
+            "games": 32,
+            "score": 0.609375
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 3,
+        "games": 40,
+        "interval95": [
+          0.5138541666666666,
+          0.7789062499999991
+        ],
+        "losses": 12,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 0.6625,
+        "wins": 25
+      },
+      "random": {
+        "analysis_seed": 4303009,
+        "by_color": {
+          "O": {
+            "games": 20,
+            "score": 1.0
+          },
+          "X": {
+            "games": 20,
+            "score": 1.0
+          }
+        },
+        "by_stratum": {
+          "empty": {
+            "games": 8,
+            "score": 1.0
+          },
+          "prefix": {
+            "games": 32,
+            "score": 1.0
+          }
+        },
+        "clustering": "opening family (prefix+mirror); all empty-board pairs form one family",
+        "clusters": 9,
+        "complete": true,
+        "draws": 0,
+        "games": 40,
+        "interval95": [
+          1.0,
+          1.0
+        ],
+        "losses": 0,
+        "planned_games": 40,
+        "resamples": 10000,
+        "score": 1.0,
+        "wins": 40
+      }
+    },
+    "candidate": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "generation-20",
+      "path": "generations/generation-0020/generation-0020.inference.pt",
+      "root_noise": false,
+      "sha256": "83dd7c5c17f42a5358d83be17615d9aabca4d2344c74738dbf3350d1da7fd154",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "9d4c5a6aa4fe68d1aaa3a3f80c8f6b53609d4953076c12e106dca8cbe752ef8e"
+    },
+    "candidate_tactics": {
+      "immediate_win": 0.92,
+      "immediate_win_families": 50,
+      "immediate_win_o": 0.88,
+      "immediate_win_x": 0.96,
+      "safe_response": 0.96,
+      "safe_response_families": 50,
+      "safe_response_o": 0.92,
+      "safe_response_x": 1.0,
+      "zero_visit_winning_actions": 2
+    },
+    "champion": {
+      "kind": "alphazero-v2 raw PUCT",
+      "name": "champion-generation-0",
+      "path": "generations/generation-0000/generation-0000.inference.pt",
+      "root_noise": false,
+      "sha256": "93dfb2c022568badb36f91e084cc5a20fe7a5b429bb7dc20873d25a262a05051",
+      "simulations": 512,
+      "tactical_guard": false,
+      "temperature": 0,
+      "ties": "seeded uniform",
+      "weights_sha256": "9905b22a3cc9e26cdab7732acca15e4ce65294b0c22f74f66e425af55ca9ed33"
+    },
+    "champion_tactics": {
+      "immediate_win": 1.0,
+      "immediate_win_families": 50,
+      "immediate_win_o": 1.0,
+      "immediate_win_x": 1.0,
+      "safe_response": 1.0,
+      "safe_response_families": 50,
+      "safe_response_o": 1.0,
+      "safe_response_x": 1.0,
+      "zero_visit_winning_actions": 0
+    },
+    "decision": {
+      "checks": {
+        "complete": true,
+        "correctness": true,
+        "lower_bound": true,
+        "score": true,
+        "tactical": false
+      },
+      "promote": false,
+      "rule": {
+        "lower_bound": 0.5,
+        "max_tactical_regression": 0.02,
+        "schedule": [
+          5,
+          10,
+          15,
+          20
+        ],
+        "score": 0.55
+      },
+      "tactical_regression": {
+        "immediate_win": 0.07999999999999996,
+        "safe_response": 0.040000000000000036
+      }
+    },
+    "generation": 20,
+    "previous": 0,
+    "promote": false,
+    "seed": 314159
+  }
+]

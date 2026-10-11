@@ -1,0 +1,463 @@
+{
+  "bitboard_source_sha256": "353cef4ce072bfb32492491cf00a7f87684452d2aeb06f6d0c569586cbb58f4e",
+  "caveat": "Microbenchmarks are not neural-search speedups. Direct bitboard encoding is not implemented.",
+  "main_commit": "8704142702da273e6571f0ca9df3fd4a793be285",
+  "measurements": [
+    {
+      "operation": "engine_copy_all_successors",
+      "position": "empty",
+      "seconds_per_successor_or_call": {
+        "max": 1.6442464398486273e-05,
+        "mean": 1.5692907199263575e-05,
+        "median": 1.5534142830542157e-05,
+        "min": 1.5401547774672508e-05,
+        "n": 5,
+        "p95": 1.6271809594971792e-05,
+        "stdev": 4.245570029557407e-07
+      }
+    },
+    {
+      "operation": "bitboard_all_successors",
+      "position": "empty",
+      "seconds_per_successor_or_call": {
+        "max": 9.702143392392568e-07,
+        "mean": 9.631308593920299e-07,
+        "median": 9.656545839139393e-07,
+        "min": 9.53833173428263e-07,
+        "n": 5,
+        "p95": 9.700500539370946e-07,
+        "stdev": 7.506508902861111e-09
+      }
+    },
+    {
+      "operation": "engine_terminal",
+      "position": "empty",
+      "seconds_per_successor_or_call": {
+        "max": 3.62787488847971e-05,
+        "mean": 3.5746400430798525e-05,
+        "median": 3.5682333633303644e-05,
+        "min": 3.5022335126996044e-05,
+        "n": 5,
+        "p95": 3.626901581883431e-05,
+        "stdev": 5.238457624559705e-07
+      }
+    },
+    {
+      "operation": "bitboard_terminal",
+      "position": "empty",
+      "seconds_per_successor_or_call": {
+        "max": 3.250129520893097e-08,
+        "mean": 3.053359687328338e-08,
+        "median": 3.016553819179535e-08,
+        "min": 2.9832124710083005e-08,
+        "n": 5,
+        "p95": 3.205128014087677e-08,
+        "stdev": 1.1133622304393714e-09
+      }
+    },
+    {
+      "operation": "engine_to_bitboard",
+      "position": "empty",
+      "seconds_per_successor_or_call": {
+        "max": 3.3789165318012236e-06,
+        "mean": 3.3511161804199215e-06,
+        "median": 3.352414816617966e-06,
+        "min": 3.3227503299713133e-06,
+        "n": 5,
+        "p95": 3.376583009958267e-06,
+        "stdev": 2.3042844436248305e-08
+      }
+    },
+    {
+      "operation": "engine_copy_all_successors",
+      "position": "early_opening",
+      "seconds_per_successor_or_call": {
+        "max": 1.571558362671307e-05,
+        "mean": 1.5629564278892108e-05,
+        "median": 1.563173798578126e-05,
+        "min": 1.554161895598684e-05,
+        "n": 5,
+        "p95": 1.570078358054161e-05,
+        "stdev": 6.211555315174942e-08
+      }
+    },
+    {
+      "operation": "bitboard_all_successors",
+      "position": "early_opening",
+      "seconds_per_successor_or_call": {
+        "max": 1.0011190814631325e-06,
+        "mean": 9.98057158929961e-07,
+        "median": 9.984759879963738e-07,
+        "min": 9.945713515792574e-07,
+        "n": 5,
+        "p95": 1.0009905589478357e-06,
+        "stdev": 2.888915207645375e-09
+      }
+    },
+    {
+      "operation": "engine_terminal",
+      "position": "early_opening",
+      "seconds_per_successor_or_call": {
+        "max": 3.592991642653942e-05,
+        "mean": 3.577458336949348e-05,
+        "median": 3.577524982392788e-05,
+        "min": 3.562125004827976e-05,
+        "n": 5,
+        "p95": 3.5923650115728376e-05,
+        "stdev": 1.4058892864150998e-07
+      }
+    },
+    {
+      "operation": "bitboard_terminal",
+      "position": "early_opening",
+      "seconds_per_successor_or_call": {
+        "max": 4.308484494686127e-08,
+        "mean": 3.3133476972579955e-08,
+        "median": 3.091618418693542e-08,
+        "min": 2.99997627735138e-08,
+        "n": 5,
+        "p95": 4.068464040756225e-08,
+        "stdev": 5.578383804492091e-09
+      }
+    },
+    {
+      "operation": "engine_to_bitboard",
+      "position": "early_opening",
+      "seconds_per_successor_or_call": {
+        "max": 3.6387499421834945e-06,
+        "mean": 3.6283828318119047e-06,
+        "median": 3.6317501217126845e-06,
+        "min": 3.6098323762416838e-06,
+        "n": 5,
+        "p95": 3.6377329379320144e-06,
+        "stdev": 1.1079854167853108e-08
+      }
+    },
+    {
+      "operation": "engine_copy_all_successors",
+      "position": "quiet_midgame",
+      "seconds_per_successor_or_call": {
+        "max": 1.6635366529226304e-05,
+        "mean": 1.6604863256216048e-05,
+        "median": 1.659865006804466e-05,
+        "min": 1.658186614513397e-05,
+        "n": 5,
+        "p95": 1.6631226614117622e-05,
+        "stdev": 2.0719369476288063e-08
+      }
+    },
+    {
+      "operation": "bitboard_all_successors",
+      "position": "quiet_midgame",
+      "seconds_per_successor_or_call": {
+        "max": 1.0821670293807984e-06,
+        "mean": 1.0798469185829162e-06,
+        "median": 1.0793667286634445e-06,
+        "min": 1.0771837085485458e-06,
+        "n": 5,
+        "p95": 1.08209028840065e-06,
+        "stdev": 2.1032641796954636e-09
+      }
+    },
+    {
+      "operation": "engine_terminal",
+      "position": "quiet_midgame",
+      "seconds_per_successor_or_call": {
+        "max": 3.8757000118494036e-05,
+        "mean": 3.85094664990902e-05,
+        "median": 3.8460832089185715e-05,
+        "min": 3.840333223342896e-05,
+        "n": 5,
+        "p95": 3.870753347873688e-05,
+        "stdev": 1.445210019912904e-07
+      }
+    },
+    {
+      "operation": "bitboard_terminal",
+      "position": "quiet_midgame",
+      "seconds_per_successor_or_call": {
+        "max": 3.466755151748657e-08,
+        "mean": 3.2334029674530025e-08,
+        "median": 3.183446824550629e-08,
+        "min": 3.133527934551239e-08,
+        "n": 5,
+        "p95": 3.413408994674682e-08,
+        "stdev": 1.328083886259051e-09
+      }
+    },
+    {
+      "operation": "engine_to_bitboard",
+      "position": "quiet_midgame",
+      "seconds_per_successor_or_call": {
+        "max": 4.9787499010562895e-06,
+        "mean": 4.968167096376419e-06,
+        "median": 4.969583824276924e-06,
+        "min": 4.960084334015847e-06,
+        "n": 5,
+        "p95": 4.977400228381157e-06,
+        "stdev": 7.970541707111088e-09
+      }
+    },
+    {
+      "operation": "engine_copy_all_successors",
+      "position": "tactical_midgame",
+      "seconds_per_successor_or_call": {
+        "max": 1.6383153075973195e-05,
+        "mean": 1.6356805649896464e-05,
+        "median": 1.635272242128849e-05,
+        "min": 1.633837508658568e-05,
+        "n": 5,
+        "p95": 1.637994746367137e-05,
+        "stdev": 1.8421060899766276e-08
+      }
+    },
+    {
+      "operation": "bitboard_all_successors",
+      "position": "tactical_midgame",
+      "seconds_per_successor_or_call": {
+        "max": 1.0247360914945602e-06,
+        "mean": 1.0195666303237278e-06,
+        "median": 1.018499955534935e-06,
+        "min": 1.017194241285324e-06,
+        "n": 5,
+        "p95": 1.0237166658043861e-06,
+        "stdev": 3.0308588451090217e-09
+      }
+    },
+    {
+      "operation": "engine_terminal",
+      "position": "tactical_midgame",
+      "seconds_per_successor_or_call": {
+        "max": 3.686791844666004e-05,
+        "mean": 3.668525107204914e-05,
+        "median": 3.671266697347164e-05,
+        "min": 3.6544583737850186e-05,
+        "n": 5,
+        "p95": 3.6842368543148037e-05,
+        "stdev": 1.3451873928658727e-07
+      }
+    },
+    {
+      "operation": "bitboard_terminal",
+      "position": "tactical_midgame",
+      "seconds_per_successor_or_call": {
+        "max": 3.3000484108924863e-08,
+        "mean": 3.0016899108886715e-08,
+        "median": 2.9666349291801452e-08,
+        "min": 2.8498470783233644e-08,
+        "n": 5,
+        "p95": 3.238432109355926e-08,
+        "stdev": 1.7588915833707659e-09
+      }
+    },
+    {
+      "operation": "engine_to_bitboard",
+      "position": "tactical_midgame",
+      "seconds_per_successor_or_call": {
+        "max": 4.584584385156631e-06,
+        "mean": 4.5747831463813786e-06,
+        "median": 4.572751000523567e-06,
+        "min": 4.56949882209301e-06,
+        "n": 5,
+        "p95": 4.58313412964344e-06,
+        "stdev": 6.323938413202031e-09
+      }
+    },
+    {
+      "operation": "engine_copy_all_successors",
+      "position": "late_game",
+      "seconds_per_successor_or_call": {
+        "max": 1.777508342638612e-05,
+        "mean": 1.761463740840554e-05,
+        "median": 1.7559146042913198e-05,
+        "min": 1.7530458047986032e-05,
+        "n": 5,
+        "p95": 1.7755145858973264e-05,
+        "stdev": 1.0752632795730285e-07
+      }
+    },
+    {
+      "operation": "bitboard_all_successors",
+      "position": "late_game",
+      "seconds_per_successor_or_call": {
+        "max": 1.0863752104341984e-06,
+        "mean": 1.0760667733848094e-06,
+        "median": 1.0754582472145557e-06,
+        "min": 1.0674791410565375e-06,
+        "n": 5,
+        "p95": 1.0846626944839954e-06,
+        "stdev": 6.920956685055571e-09
+      }
+    },
+    {
+      "operation": "engine_terminal",
+      "position": "late_game",
+      "seconds_per_successor_or_call": {
+        "max": 4.175874963402748e-05,
+        "mean": 4.1520849615335465e-05,
+        "median": 4.145750030875206e-05,
+        "min": 4.143516533076763e-05,
+        "n": 5,
+        "p95": 4.1706966236233714e-05,
+        "stdev": 1.3508942598404186e-07
+      }
+    },
+    {
+      "operation": "bitboard_terminal",
+      "position": "late_game",
+      "seconds_per_successor_or_call": {
+        "max": 3.316625952720642e-08,
+        "mean": 3.1515955924987796e-08,
+        "median": 3.108195960521698e-08,
+        "min": 3.100000321865082e-08,
+        "n": 5,
+        "p95": 3.2799318432807926e-08,
+        "stdev": 9.325064644547223e-10
+      }
+    },
+    {
+      "operation": "engine_to_bitboard",
+      "position": "late_game",
+      "seconds_per_successor_or_call": {
+        "max": 5.984999239444733e-06,
+        "mean": 5.967217311263085e-06,
+        "median": 5.964916199445724e-06,
+        "min": 5.954667925834656e-06,
+        "n": 5,
+        "p95": 5.9821330010890965e-06,
+        "stdev": 1.1528430094313574e-08
+      }
+    },
+    {
+      "operation": "engine_copy_all_successors",
+      "position": "immediate_win",
+      "seconds_per_successor_or_call": {
+        "max": 1.6295428786958968e-05,
+        "mean": 1.610684048916612e-05,
+        "median": 1.6040106969220298e-05,
+        "min": 1.6011607167976242e-05,
+        "n": 5,
+        "p95": 1.627141923776695e-05,
+        "stdev": 1.253414429857326e-07
+      }
+    },
+    {
+      "operation": "bitboard_all_successors",
+      "position": "immediate_win",
+      "seconds_per_successor_or_call": {
+        "max": 9.874169315610613e-07,
+        "mean": 9.75700148514339e-07,
+        "median": 9.722502103873662e-07,
+        "min": 9.684285947254726e-07,
+        "n": 5,
+        "p95": 9.862288300480161e-07,
+        "stdev": 8.385702793629061e-09
+      }
+    },
+    {
+      "operation": "engine_terminal",
+      "position": "immediate_win",
+      "seconds_per_successor_or_call": {
+        "max": 3.71039155870676e-05,
+        "mean": 3.6626632511615754e-05,
+        "median": 3.657766617834568e-05,
+        "min": 3.6268165335059167e-05,
+        "n": 5,
+        "p95": 3.7025899067521094e-05,
+        "stdev": 3.126356473613202e-07
+      }
+    },
+    {
+      "operation": "bitboard_terminal",
+      "position": "immediate_win",
+      "seconds_per_successor_or_call": {
+        "max": 3.258325159549713e-08,
+        "mean": 3.085024654865265e-08,
+        "median": 3.0666589736938474e-08,
+        "min": 3.0083581805229187e-08,
+        "n": 5,
+        "p95": 3.223307430744171e-08,
+        "stdev": 1.0259207010585384e-09
+      }
+    },
+    {
+      "operation": "engine_to_bitboard",
+      "position": "immediate_win",
+      "seconds_per_successor_or_call": {
+        "max": 4.003334790468216e-06,
+        "mean": 3.977883234620095e-06,
+        "median": 3.970500081777573e-06,
+        "min": 3.967666998505592e-06,
+        "n": 5,
+        "p95": 3.998317569494247e-06,
+        "stdev": 1.4784509792329644e-08
+      }
+    },
+    {
+      "operation": "engine_copy_all_successors",
+      "position": "mandatory_block",
+      "seconds_per_successor_or_call": {
+        "max": 1.6191297343799046e-05,
+        "mean": 1.608189998992852e-05,
+        "median": 1.606438122689724e-05,
+        "min": 1.6039142917309487e-05,
+        "n": 5,
+        "p95": 1.616688072681427e-05,
+        "stdev": 6.243266314557586e-08
+      }
+    },
+    {
+      "operation": "bitboard_all_successors",
+      "position": "mandatory_block",
+      "seconds_per_successor_or_call": {
+        "max": 9.753571024962834e-07,
+        "mean": 9.710024510111129e-07,
+        "median": 9.686906955071857e-07,
+        "min": 9.676428245646614e-07,
+        "n": 5,
+        "p95": 9.752523686204637e-07,
+        "stdev": 3.76138864442279e-09
+      }
+    },
+    {
+      "operation": "engine_terminal",
+      "position": "mandatory_block",
+      "seconds_per_successor_or_call": {
+        "max": 3.6817500367760656e-05,
+        "mean": 3.6712483316659925e-05,
+        "median": 3.670108504593372e-05,
+        "min": 3.659466654062271e-05,
+        "n": 5,
+        "p95": 3.680503331124782e-05,
+        "stdev": 8.24661711526403e-08
+      }
+    },
+    {
+      "operation": "bitboard_terminal",
+      "position": "mandatory_block",
+      "seconds_per_successor_or_call": {
+        "max": 3.191828727722168e-08,
+        "mean": 2.9584020376205444e-08,
+        "median": 2.899952232837677e-08,
+        "min": 2.8833746910095216e-08,
+        "n": 5,
+        "p95": 3.138482570648193e-08,
+        "stdev": 1.3141944297109087e-09
+      }
+    },
+    {
+      "operation": "engine_to_bitboard",
+      "position": "mandatory_block",
+      "seconds_per_successor_or_call": {
+        "max": 4.263332113623619e-06,
+        "mean": 4.257350042462349e-06,
+        "median": 4.258085042238235e-06,
+        "min": 4.247084259986877e-06,
+        "n": 5,
+        "p95": 4.26269881427288e-06,
+        "stdev": 6.127328928248893e-09
+      }
+    }
+  ],
+  "transitions_checked": 2704
+}

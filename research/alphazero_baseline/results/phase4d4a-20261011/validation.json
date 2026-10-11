@@ -1,0 +1,14 @@
+{
+  "suite_command": "env OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 VECLIB_MAXIMUM_THREADS=1 NUMEXPR_NUM_THREADS=1 python -m pytest -q tests/test_alphazero_baseline.py tests/test_alphazero_v2.py tests/test_alphazero_v2_evaluation_core.py tests/test_alphazero_v2_campaign.py tests/test_alphazero_v2_launch_control.py tests/test_neural_mcts_import_isolation.py",
+  "suite_passed": 374,
+  "suite_skipped": 2,
+  "suite_seconds": 292.22,
+  "skip_reason": "Optional retained Phase 4D.2f v1 checkpoint absent in isolated worktree",
+  "final_tool_tests_passed": 16,
+  "final_tool_tests_seconds": 0.77,
+  "full_search_equivalence_profiles": 224,
+  "bitboard_successor_transitions": 2704,
+  "archive_games_replayed": 10240,
+  "archive_positions": 314518,
+  "final_campaign_files_unchanged": 150
+}

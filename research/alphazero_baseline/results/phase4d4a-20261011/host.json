@@ -1,0 +1,11 @@
+{
+  "cpu": "Apple M4",
+  "physical_cores": 10,
+  "logical_cores": 10,
+  "memory_bytes": 17179869184,
+  "hardware_verification": "sysctl -n machdep.cpu.brand_string hw.memsize hw.physicalcpu hw.logicalcpu",
+  "client_date": "2026-10-11",
+  "timezone": "America/New_York",
+  "principal_profile_exclusive_agent_workload": true,
+  "note": "No claim that host background services were stopped. Evaluation overlaps regression tests; its latency is not a benchmark."
+}
