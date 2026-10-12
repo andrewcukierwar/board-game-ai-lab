@@ -1,0 +1,100 @@
+{
+  "conservatively_accounted_experimental_seconds": 656.618132124655,
+  "documentation_and_implementation_wall_time_excluded": true,
+  "entries": [
+    {
+      "basis": "monotonic measured invocation",
+      "name": "old-data feasibility",
+      "seconds": 0.9054299583658576
+    },
+    {
+      "basis": "monotonic measured invocation",
+      "name": "regression",
+      "seconds": 60.14596941694617
+    },
+    {
+      "basis": "monotonic measured invocation",
+      "name": "main",
+      "seconds": 469.64870762452483
+    },
+    {
+      "basis": "conservative ceiling; filesystem elapsed68.753sec, native solving63.492sec; not counted twice",
+      "failure_preserved": true,
+      "name": "native proof collection plus failed summary",
+      "seconds": 90
+    },
+    {
+      "basis": "monotonic measured invocation",
+      "fresh_games": 0,
+      "name": "analysis",
+      "new_solves": 0,
+      "seconds": 7.02339983265847
+    },
+    {
+      "basis": "monotonic measured invocation",
+      "fresh_games": 0,
+      "name": "analysis-final",
+      "new_solves": 0,
+      "seconds": 7.011203249916434
+    },
+    {
+      "basis": "monotonic measured invocation",
+      "name": "independent late native/Python/exhaustive check",
+      "seconds": 0.009555624797940254
+    },
+    {
+      "basis": "monotonic measured invocation",
+      "name": "independent-new-error-solver-validation",
+      "seconds": 1.5366197498515248
+    },
+    {
+      "basis": "monotonic measured invocation",
+      "name": "independent-recompute",
+      "seconds": 8.998572332784534
+    },
+    {
+      "basis": "monotonic measured invocation",
+      "name": "independent-final-recompute",
+      "seconds": 9.061186209321022
+    },
+    {
+      "basis": "monotonic measured invocation",
+      "name": "independent-prefix-validation",
+      "seconds": 0.05216608289629221
+    },
+    {
+      "basis": "monotonic measured invocation",
+      "name": "independent-preservation",
+      "seconds": 0.0955604175105691
+    },
+    {
+      "basis": "conservative read-only analysis accounting",
+      "name": "root prefix diagnostic inspection",
+      "seconds": 2
+    },
+    {
+      "basis": "monotonic measured invocation",
+      "name": "final preservation",
+      "seconds": 0.12976162508130074
+    }
+  ],
+  "fresh_primary_games": 512,
+  "limit_seconds": 1800,
+  "measured_plus_ordinary_test_accounting_seconds": 705.488132124655,
+  "minutes": 10.943635535410916,
+  "no_deployment": true,
+  "no_tournament": true,
+  "no_training": true,
+  "ordinary_test_runs_seconds": [
+    0.84,
+    0.71,
+    15.87,
+    15.68,
+    15.07,
+    0.7
+  ],
+  "pilot_fresh_games": 0,
+  "regression_control_games": 64,
+  "tests_excluded_from_experimental_execution": true,
+  "within_limit": true
+}

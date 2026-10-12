@@ -1,0 +1,307 @@
+{
+  "design_sha256": "e90aecd6f0deed6cec2c2034d2be12c9a1a3dd51f18c8bdc1472f05e37b32713",
+  "files": {
+    "docs/phase4d4e-alphazero-exploration-confirmation.md": {
+      "bytes": 21873,
+      "sha256": "1fb71675b7deae65bdd7079d6c0c3e7c644fe03a8eb2c374f0aa9a07b494e44b"
+    },
+    "research/alphazero_exploration_confirmation/DESIGN.md": {
+      "bytes": 9917,
+      "sha256": "e90aecd6f0deed6cec2c2034d2be12c9a1a3dd51f18c8bdc1472f05e37b32713"
+    },
+    "research/alphazero_exploration_confirmation/README.md": {
+      "bytes": 3782,
+      "sha256": "5c51000e479b2b660c82a98c2382e73abfc764621914204ca2abab396b03b7b8"
+    },
+    "research/alphazero_exploration_confirmation/__init__.py": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "research/alphazero_exploration_confirmation/analyze.py": {
+      "bytes": 20879,
+      "sha256": "aed68afcf6da2db1c23c5e09364022926d317a227872e1304273630cdda93104"
+    },
+    "research/alphazero_exploration_confirmation/c4_oracle.c": {
+      "bytes": 6076,
+      "sha256": "b60dc839edebdcc92cee1a210b795956125bf10a5989dfa346d4e18e9525c942"
+    },
+    "research/alphazero_exploration_confirmation/collect.py": {
+      "bytes": 12179,
+      "sha256": "1ec324136334bbd1ba9b5edc1b2f9293c14b0282b893d3c12e26b69907e5948c"
+    },
+    "research/alphazero_exploration_confirmation/feasibility.py": {
+      "bytes": 2388,
+      "sha256": "fda3b6da6ed3e96831efc2556fadf96f1bff775de1f68273535301f47dc515ee"
+    },
+    "research/alphazero_exploration_confirmation/native_oracle.py": {
+      "bytes": 3082,
+      "sha256": "c61160336cb995b3b08daf8db8dcec4a44be703e4d5b4ca5aec4c73c162692c4"
+    },
+    "research/alphazero_exploration_confirmation/results/REVIEW.md": {
+      "bytes": 13948,
+      "sha256": "3ead6bff7d49e2ea09ec7562d036b251c1e5c45bd3a4ca96c5c3c4a9ed20641b"
+    },
+    "research/alphazero_exploration_confirmation/results/analysis-final/decisions.jsonl.gz": {
+      "bytes": 212886,
+      "sha256": "5186f98ae03ebb1bb13a1a78c1ae12865b2d0384613da5ff459f5c19860bf6b8"
+    },
+    "research/alphazero_exploration_confirmation/results/analysis-final/execution.json": {
+      "bytes": 63,
+      "sha256": "dddbfd382f2a2a043153ebaecbbc792e3d7962ea05de2400e556abf2bae33433"
+    },
+    "research/alphazero_exploration_confirmation/results/analysis-final/preservation.json": {
+      "bytes": 149,
+      "sha256": "90b22b2e2ad29a2ca05a22357e80bbca33bb2d1cf3d841a6bc956c5f0a00aa9c"
+    },
+    "research/alphazero_exploration_confirmation/results/analysis-final/provenance.json": {
+      "bytes": 4989,
+      "sha256": "9636b7efd698ad2855797fb55b13895be81345ef20430199e9b226065bd050e3"
+    },
+    "research/alphazero_exploration_confirmation/results/analysis-final/results.json": {
+      "bytes": 115611,
+      "sha256": "5ccb3c5f77b884d9b2dbb86389454d39e30e4e0660dea25c1c6b6b474d9dafe0"
+    },
+    "research/alphazero_exploration_confirmation/results/analysis-final/unresolved.jsonl.gz": {
+      "bytes": 16434,
+      "sha256": "b127a50f039b56cee44b962b5cb67e491645cf0d00fb40a172f969d01d051779"
+    },
+    "research/alphazero_exploration_confirmation/results/analysis/decisions.jsonl.gz": {
+      "bytes": 212886,
+      "sha256": "d7d7ee1c107c3ffba7b79fe26cf56555fe4c5adad1fb8ab87304dbee2e238b9e"
+    },
+    "research/alphazero_exploration_confirmation/results/analysis/execution.json": {
+      "bytes": 62,
+      "sha256": "39b7dcab8b18905fb6010cab4dfe8b26586ac43b4ee5009d570a8b54464c234c"
+    },
+    "research/alphazero_exploration_confirmation/results/analysis/preservation.json": {
+      "bytes": 149,
+      "sha256": "90b22b2e2ad29a2ca05a22357e80bbca33bb2d1cf3d841a6bc956c5f0a00aa9c"
+    },
+    "research/alphazero_exploration_confirmation/results/analysis/provenance.json": {
+      "bytes": 4523,
+      "sha256": "64b2cd2c6d323f070a4e811607ff8434dbb248e50c2fe91b85510bb57ade854a"
+    },
+    "research/alphazero_exploration_confirmation/results/analysis/results.json": {
+      "bytes": 111685,
+      "sha256": "4695e3e0ee1da476dad0c2c5c8c5f9957d993386c379b1d85ce78ad0a7588bfe"
+    },
+    "research/alphazero_exploration_confirmation/results/analysis/unresolved.jsonl.gz": {
+      "bytes": 16434,
+      "sha256": "b25a3c204e82a9afbc22b98db6f98f3d93060439c55327eb6d8b2255069f823a"
+    },
+    "research/alphazero_exploration_confirmation/results/compression.json": {
+      "bytes": 3739,
+      "sha256": "25ca4e04821621261189cca4a918ede96cdae7aa826ee80e9467eb7f3c12f3bb"
+    },
+    "research/alphazero_exploration_confirmation/results/exact/failed-summary.json": {
+      "bytes": 389,
+      "sha256": "da796aa3224d9cde0e0415d0454838e6bcfedf9e88940801dfa3a4e4031da604"
+    },
+    "research/alphazero_exploration_confirmation/results/exact/preservation.json": {
+      "bytes": 149,
+      "sha256": "90b22b2e2ad29a2ca05a22357e80bbca33bb2d1cf3d841a6bc956c5f0a00aa9c"
+    },
+    "research/alphazero_exploration_confirmation/results/exact/proofs.json": {
+      "bytes": 5965528,
+      "sha256": "eec94608715590091a2d23d177528da38fe9f971f838f71babe6da4bc9026b35"
+    },
+    "research/alphazero_exploration_confirmation/results/feasibility/benchmark.json": {
+      "bytes": 15523,
+      "sha256": "298155f89b78ebb000e3148e0012c04916e70e85502e35c6c8c1a38f87f87f7e"
+    },
+    "research/alphazero_exploration_confirmation/results/main/campaign_before.json": {
+      "bytes": 26108,
+      "sha256": "8062805c6a2eb8e9f029066093a7babccb2e5d4530256fd7914d7c6bc173ea7f"
+    },
+    "research/alphazero_exploration_confirmation/results/main/cells.json": {
+      "bytes": 56330,
+      "sha256": "246c31d5f2c76181ff07c67647ee140bf5e8ad74c061da8940bdd2cd31c3e492"
+    },
+    "research/alphazero_exploration_confirmation/results/main/main-314159-g20-c0-extended.jsonl.gz": {
+      "bytes": 171980,
+      "sha256": "2919280be92e62ac5a5439dfe068743b658d093a11d0894e317ace2d519d9c1e"
+    },
+    "research/alphazero_exploration_confirmation/results/main/main-314159-g20-c0-original.jsonl.gz": {
+      "bytes": 165496,
+      "sha256": "480730d8dbb2ff6407672c2c4e711c7ed1b2f426f777f5cb2933ac4fc78abe3b"
+    },
+    "research/alphazero_exploration_confirmation/results/main/main-314159-g20-c1-extended.jsonl.gz": {
+      "bytes": 162964,
+      "sha256": "6dc9b9052088952c82d89095dd3d466032e24ce6e2c23e56591d4117e2c6562f"
+    },
+    "research/alphazero_exploration_confirmation/results/main/main-314159-g20-c1-original.jsonl.gz": {
+      "bytes": 161104,
+      "sha256": "f4a4584852ec462a2c906963020e75c441fac517e9c70c53831338e84c985a66"
+    },
+    "research/alphazero_exploration_confirmation/results/main/main-42-g20-c0-extended.jsonl.gz": {
+      "bytes": 154319,
+      "sha256": "2e8a2c805c1ec499d208eb79b1bd9e6b2569fe29d1461fc828edd021ddba48e8"
+    },
+    "research/alphazero_exploration_confirmation/results/main/main-42-g20-c0-original.jsonl.gz": {
+      "bytes": 160732,
+      "sha256": "066d121ea1ad530847c8d9efdd9f7a2fb9381d1e52355e339b0e94ab1f9f171f"
+    },
+    "research/alphazero_exploration_confirmation/results/main/main-42-g20-c1-extended.jsonl.gz": {
+      "bytes": 159385,
+      "sha256": "f50aa164ff88eb6dd29c782b9bd7e9f5f1a5b65b42bceffbe41149d6b8b379c2"
+    },
+    "research/alphazero_exploration_confirmation/results/main/main-42-g20-c1-original.jsonl.gz": {
+      "bytes": 154336,
+      "sha256": "4b77a2ac1a61c4430af334188bdc3df6dfc9ad558d38535212a3afff4b7d8b92"
+    },
+    "research/alphazero_exploration_confirmation/results/main/preservation.json": {
+      "bytes": 149,
+      "sha256": "90b22b2e2ad29a2ca05a22357e80bbca33bb2d1cf3d841a6bc956c5f0a00aa9c"
+    },
+    "research/alphazero_exploration_confirmation/results/main/provenance.json": {
+      "bytes": 10641,
+      "sha256": "6c44ecf1600767689b2603ece26585f6cf3a39d94b459df3bf16497bdd27b1b5"
+    },
+    "research/alphazero_exploration_confirmation/results/main/source.tar.gz": {
+      "bytes": 123164,
+      "sha256": "f731c7a15551b2e7f90abf4b5a16f622083e3b7b26dc365c1ac3d64ddab3c0ba"
+    },
+    "research/alphazero_exploration_confirmation/results/main/status.json": {
+      "bytes": 156,
+      "sha256": "459de65283b930c796477d014fd96a7c8d4d102d01a21c955c1620200b637d04"
+    },
+    "research/alphazero_exploration_confirmation/results/native-build.json": {
+      "bytes": 702,
+      "sha256": "82ed635a36c6914c41ec2f9a1498906b5eb50c6b5f060dee81d9f9bca84e4db3"
+    },
+    "research/alphazero_exploration_confirmation/results/preservation-final.json": {
+      "bytes": 30380,
+      "sha256": "e2f6037555bd7787bd99e5c7f1a24c98a4760856436e72ac3149a16c8c5660ae"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/campaign_before.json": {
+      "bytes": 26108,
+      "sha256": "8062805c6a2eb8e9f029066093a7babccb2e5d4530256fd7914d7c6bc173ea7f"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/cells.json": {
+      "bytes": 18196,
+      "sha256": "b3e956481b9bf6f3960e8fbd57f56bfb627d269bd65d79e7aacd9501ba1da2dc"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/preservation.json": {
+      "bytes": 149,
+      "sha256": "90b22b2e2ad29a2ca05a22357e80bbca33bb2d1cf3d841a6bc956c5f0a00aa9c"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/provenance.json": {
+      "bytes": 11202,
+      "sha256": "c2f7519be8245b3ac25252bcb5e28a66e9a982cf5ba790b52a2e1c8087b0a64b"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/regression-314159-g20-default.jsonl.gz": {
+      "bytes": 40652,
+      "sha256": "789442ca86702b5793122671d694d9255751e07b90df7594f431ffa1adf13fce"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/regression-314159-g20-original.jsonl.gz": {
+      "bytes": 40646,
+      "sha256": "2802af4e6f70111c61fe1689c3bdcd09291f66e6c2986903610ed223563e9ece"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/regression-42-g20-default.jsonl.gz": {
+      "bytes": 8714,
+      "sha256": "6d330be7330d4336a5725ef7e9624245b9b63fbdef13e771ff2a2d5feb8975ac"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/regression-42-g20-extended-0.jsonl.gz": {
+      "bytes": 8093,
+      "sha256": "d7137de2d1765913e2878bb0f76fd19c9570ef61d0239a5134f684ac73f381ac"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/regression-42-g20-extended-1.jsonl.gz": {
+      "bytes": 8091,
+      "sha256": "6f7a74a8c8dbfac6e76768b9b182c66623775cff6a13a8789a7e4889f4f9962a"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/regression-42-g20-extended_smoothed-0.jsonl.gz": {
+      "bytes": 9118,
+      "sha256": "719525087c5685e465bb0cb22f6308fe135b5057651b686715c4265d40a03330"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/regression-42-g20-extended_smoothed-1.jsonl.gz": {
+      "bytes": 9120,
+      "sha256": "28f68fa0b49254de6a0b367af9ebb352ceca953a3e8f2e6e8abdc814d5657933"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/regression-42-g20-original.jsonl.gz": {
+      "bytes": 8718,
+      "sha256": "615fa86835acfb5b18e472379dfda4a28e5e90bcee3e5fa141b106b7a6b20833"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/regression-42-g20-smoothed-0.jsonl.gz": {
+      "bytes": 12151,
+      "sha256": "a45fea3471691da1ece5bb7672f4d195a250d7a4d76134e6c45e81d4da6d167d"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/regression-42-g20-smoothed-1.jsonl.gz": {
+      "bytes": 12153,
+      "sha256": "0ac3617395aa6b4f57f6dfbb5d338af2e7bac79ed250668d90e7a86e2f63f959"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/regression.json": {
+      "bytes": 1353,
+      "sha256": "ccf4ce3f5d08c46af5528be25853a7e7b7fe9576c6477368bb1f4bcbb23ae7e9"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/source.tar.gz": {
+      "bytes": 139124,
+      "sha256": "94f935e81ebafeb71c44b4cce1e1d9071054533c1b4c3571097edf337322423a"
+    },
+    "research/alphazero_exploration_confirmation/results/regression/status.json": {
+      "bytes": 159,
+      "sha256": "54e7f6c566fb1b70c141695435d7da6eedc374ac91a3383893596ff96fd3e285"
+    },
+    "research/alphazero_exploration_confirmation/results/reproduction.json": {
+      "bytes": 712,
+      "sha256": "30d8c1b251dbde5ee0be09b189048037034837db0fd152d149cf4365b1ecd46b"
+    },
+    "research/alphazero_exploration_confirmation/results/run_registry.json": {
+      "bytes": 2739,
+      "sha256": "38f95946378933ebcf18b2bac2561c1db67edbb0d761965f4f859dfe970c79b4"
+    },
+    "research/alphazero_exploration_confirmation/results/tests-delivered.txt": {
+      "bytes": 341,
+      "sha256": "8c8661cda1fc3b5a8c1cecacf0187f06039fcbcfbb05d2c3b78bc61e86e443b8"
+    },
+    "research/alphazero_exploration_confirmation/results/tests-final.txt": {
+      "bytes": 341,
+      "sha256": "dff999cff9f4ef44aaa217c49694c0e04ffc90dc7916ec00bffcc10c8d8413bc"
+    },
+    "research/alphazero_exploration_confirmation/results/tests.txt": {
+      "bytes": 341,
+      "sha256": "8a4157b65ffa8816ca0222152de5117998be219bcd2790b84bfb2b5ac785a43d"
+    },
+    "research/alphazero_exploration_confirmation/results/validation/independent-final-recompute.json": {
+      "bytes": 2325,
+      "sha256": "3b4c2c901732f05475219eb6cd81394bcf6134d1425337b35cbb864b82d50b70"
+    },
+    "research/alphazero_exploration_confirmation/results/validation/independent-native-validation.json": {
+      "bytes": 1205,
+      "sha256": "43fb5c7e38c8fe352bd10447f136c063a8fc2cd44bc6126ae970678f8760ab5e"
+    },
+    "research/alphazero_exploration_confirmation/results/validation/independent-new-error-solver-validation.json": {
+      "bytes": 9463,
+      "sha256": "d45910dfd873edda531abd851c29063faa1a633ba4f3c131bab1019585d01c80"
+    },
+    "research/alphazero_exploration_confirmation/results/validation/independent-prefix-validation.json": {
+      "bytes": 1103,
+      "sha256": "6737c01ef901d73243481c863a97416a9dc5cc91e383be029dc86cf4fdb9fa59"
+    },
+    "research/alphazero_exploration_confirmation/results/validation/independent-preservation.json": {
+      "bytes": 563,
+      "sha256": "bbcd5e9c29aa47a169b5c9458c120ab29d9017052c52de7db996eb48adc219b4"
+    },
+    "research/alphazero_exploration_confirmation/results/validation/independent-recompute.json": {
+      "bytes": 2249,
+      "sha256": "6ad71ab5836d3dd7f8cedad5529974119ed3137f8863c13274e0ab8b8c483cd8"
+    },
+    "research/alphazero_exploration_confirmation/results/validation/independent-recompute.py": {
+      "bytes": 10499,
+      "sha256": "6dccba3fd165005f0e2a1e4711b95f256f448bc7388d7032abcf5205aa7c69a9"
+    },
+    "research/alphazero_exploration_confirmation/schedules.py": {
+      "bytes": 409,
+      "sha256": "0ba71bdce08d2f5f404cfa8d014ab15a09033751724809a97a98e6df853c480c"
+    },
+    "research/alphazero_exploration_confirmation/solver.py": {
+      "bytes": 2947,
+      "sha256": "d6112cf1260aad08e70ccf0ddb67f913e18babde989849e00b51647366ad5da7"
+    },
+    "tests/test_alphazero_exploration_confirmation.py": {
+      "bytes": 8410,
+      "sha256": "4553b5b0de44bbb72eae8e45e42796bde7a99634222c0c9f8f1fdec8f87eb0a8"
+    }
+  },
+  "frozen_design_commit": "89c8822",
+  "source_commit": "4609518bc6431b15106a428b1c03bd9dfeb9acef"
+}

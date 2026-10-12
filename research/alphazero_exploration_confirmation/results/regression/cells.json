@@ -1,0 +1,664 @@
+[
+  {
+    "base_seed": 4404003,
+    "batch_sizes": {
+      "1": 140,
+      "2": 1113,
+      "3": 734,
+      "4": 156,
+      "5": 1060,
+      "6": 548,
+      "7": 391,
+      "8": 12839
+    },
+    "check": "default",
+    "complete": true,
+    "completed_games": 16,
+    "cpu_seconds": 17.587861,
+    "explicit_schedule": false,
+    "file": "regression-314159-g20-default.jsonl",
+    "forward_calls": 16981,
+    "games_per_second": 0.9093445353065682,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "inference_seconds": 14.214731615036726,
+    "max_active": 8,
+    "mean_batch": 7.021317943584005,
+    "neural_positions": 119229,
+    "peak_rss_mib": 303.109375,
+    "plies": 603,
+    "pool": 8,
+    "positions_per_second": 34.27092217436629,
+    "records_sha256": "28aa82e9479a661e0e8d56c4621ecfb8c55cc405f8e2d69eee773d89c3dcc1bf",
+    "rng_sha256": {
+      "0": "19e25eb699215fdb55581a36ed7eac302a5ded152010423a845f2f79f7c5be6a",
+      "1": "719834a2d9ab099855657d2fcf3e69b271eb17592a73dbe17863da5c8d0646de",
+      "10": "5eb059acf8809331b325ef8a61be67353f8c0e6c73a2d5d93af323b51d0e4381",
+      "11": "7e4568ce36c538cdba7f53ce953bdeb0937da9480556fc330a357b3fb791a034",
+      "12": "3eec88568ed5138e5508fb49fb9841d4e40a0665de2ca663e2b565c493a2966b",
+      "13": "ffcb3bc221440f8e30a4a4b28b484a2d8511f76040b1cbc5c016bbddf988ec5b",
+      "14": "90a66ac8dffb95c208864d31db6f287d42bcf015a7d847827589b6f1920f0e8a",
+      "15": "a9902f5e48c417a424358900b5a46053e4b7e8e032c263a8df34f61c73d9c5f3",
+      "2": "fabe7c18d5e6eccbce0c0d3c132492e0be3b6a2901fd076a096b1024df38e8e7",
+      "3": "58e36218bc9950591734dfa4968e02032140b586d25b7b0e107fbb4665acf49b",
+      "4": "c07e37416da3f33e7133bd00780cdd8150d6563593ff1156f08913722e2073da",
+      "5": "d501866c8cb633ae74099f13137a0c21bb86f083a5489650020e099306d4b700",
+      "6": "9005884cf5ed88aa3b9cbe2aceef55edf2cff079517133cfb7ce69687193cbd2",
+      "7": "44ab13a6b9d287b21b5672e06cca7bf099dbf936168cbb77ed6247ecfc2dbd1d",
+      "8": "3ad9abe207fc8a6e3df733684aae59835ea4e41b0c31efa097848e259d54ebb4",
+      "9": "81ef797baaa911b402945c83bd73f3669bc17275cfb09cf8013aad8ea150b0f3"
+    },
+    "schedule": {
+      "name": "original",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          8,
+          0.0
+        ]
+      ]
+    },
+    "seed": 314159,
+    "simulations": 154368,
+    "stop_reason": null,
+    "terminal_leaves": 35742,
+    "wall_seconds": 17.595091165974736,
+    "weights_sha256": "9d4c5a6aa4fe68d1aaa3a3f80c8f6b53609d4953076c12e106dca8cbe752ef8e"
+  },
+  {
+    "base_seed": 4404003,
+    "batch_sizes": {
+      "1": 140,
+      "2": 1113,
+      "3": 734,
+      "4": 156,
+      "5": 1060,
+      "6": 548,
+      "7": 391,
+      "8": 12839
+    },
+    "check": "original",
+    "complete": true,
+    "completed_games": 16,
+    "cpu_seconds": 17.647919999999996,
+    "explicit_schedule": true,
+    "file": "regression-314159-g20-original.jsonl",
+    "forward_calls": 16981,
+    "games_per_second": 0.9063738581541412,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "inference_seconds": 14.31540110707283,
+    "max_active": 8,
+    "mean_batch": 7.021317943584005,
+    "neural_positions": 119229,
+    "peak_rss_mib": 303.375,
+    "plies": 603,
+    "pool": 8,
+    "positions_per_second": 34.158964779184195,
+    "records_sha256": "28aa82e9479a661e0e8d56c4621ecfb8c55cc405f8e2d69eee773d89c3dcc1bf",
+    "rng_sha256": {
+      "0": "19e25eb699215fdb55581a36ed7eac302a5ded152010423a845f2f79f7c5be6a",
+      "1": "719834a2d9ab099855657d2fcf3e69b271eb17592a73dbe17863da5c8d0646de",
+      "10": "5eb059acf8809331b325ef8a61be67353f8c0e6c73a2d5d93af323b51d0e4381",
+      "11": "7e4568ce36c538cdba7f53ce953bdeb0937da9480556fc330a357b3fb791a034",
+      "12": "3eec88568ed5138e5508fb49fb9841d4e40a0665de2ca663e2b565c493a2966b",
+      "13": "ffcb3bc221440f8e30a4a4b28b484a2d8511f76040b1cbc5c016bbddf988ec5b",
+      "14": "90a66ac8dffb95c208864d31db6f287d42bcf015a7d847827589b6f1920f0e8a",
+      "15": "a9902f5e48c417a424358900b5a46053e4b7e8e032c263a8df34f61c73d9c5f3",
+      "2": "fabe7c18d5e6eccbce0c0d3c132492e0be3b6a2901fd076a096b1024df38e8e7",
+      "3": "58e36218bc9950591734dfa4968e02032140b586d25b7b0e107fbb4665acf49b",
+      "4": "c07e37416da3f33e7133bd00780cdd8150d6563593ff1156f08913722e2073da",
+      "5": "d501866c8cb633ae74099f13137a0c21bb86f083a5489650020e099306d4b700",
+      "6": "9005884cf5ed88aa3b9cbe2aceef55edf2cff079517133cfb7ce69687193cbd2",
+      "7": "44ab13a6b9d287b21b5672e06cca7bf099dbf936168cbb77ed6247ecfc2dbd1d",
+      "8": "3ad9abe207fc8a6e3df733684aae59835ea4e41b0c31efa097848e259d54ebb4",
+      "9": "81ef797baaa911b402945c83bd73f3669bc17275cfb09cf8013aad8ea150b0f3"
+    },
+    "schedule": {
+      "name": "original",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          8,
+          0.0
+        ]
+      ]
+    },
+    "seed": 314159,
+    "simulations": 154368,
+    "stop_reason": null,
+    "terminal_leaves": 35742,
+    "wall_seconds": 17.652759792283177,
+    "weights_sha256": "9d4c5a6aa4fe68d1aaa3a3f80c8f6b53609d4953076c12e106dca8cbe752ef8e"
+  },
+  {
+    "base_seed": 4404003,
+    "batch_sizes": {
+      "1": 2687,
+      "2": 755,
+      "3": 2490,
+      "4": 1310
+    },
+    "check": "default",
+    "complete": true,
+    "completed_games": 4,
+    "cpu_seconds": 3.066046,
+    "explicit_schedule": false,
+    "file": "regression-42-g20-default.jsonl",
+    "forward_calls": 7242,
+    "games_per_second": 1.3045440219425355,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "inference_seconds": 2.5840300070121884,
+    "max_active": 4,
+    "mean_batch": 2.3345760839547087,
+    "neural_positions": 16907,
+    "peak_rss_mib": 331.84375,
+    "plies": 85,
+    "pool": 8,
+    "positions_per_second": 27.72156046627888,
+    "records_sha256": "c3d59d125a70e818110850389bc405e82f3dc3f76965db0f3e42d604948f770c",
+    "rng_sha256": {
+      "0": "6c1387df627cd84be77da7238a90ac25942236065016ae3ee3f750e0643ebed3",
+      "1": "2f7cce8310c8aa9594cc331b12c654cde146a20ac43eacf131bdda0d845d2361",
+      "2": "92b98a6542940fd24195a0a695f2d8891259c42ace1c055f81673e5e6836e77f",
+      "3": "c31274da871d956a5faa4b2ec1defb8a5a17a08848964d136cd5fdba8a5674cd"
+    },
+    "schedule": {
+      "name": "original",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          8,
+          0.0
+        ]
+      ]
+    },
+    "seed": 42,
+    "simulations": 21760,
+    "stop_reason": null,
+    "terminal_leaves": 4938,
+    "wall_seconds": 3.0662054577842355,
+    "weights_sha256": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d"
+  },
+  {
+    "base_seed": 4404003,
+    "batch_sizes": {
+      "1": 2687,
+      "2": 755,
+      "3": 2490,
+      "4": 1310
+    },
+    "check": "original",
+    "complete": true,
+    "completed_games": 4,
+    "cpu_seconds": 3.0566090000000017,
+    "explicit_schedule": true,
+    "file": "regression-42-g20-original.jsonl",
+    "forward_calls": 7242,
+    "games_per_second": 1.308550121360463,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "inference_seconds": 2.58342788182199,
+    "max_active": 4,
+    "mean_batch": 2.3345760839547087,
+    "neural_positions": 16907,
+    "peak_rss_mib": 331.84375,
+    "plies": 85,
+    "pool": 8,
+    "positions_per_second": 27.806690078909835,
+    "records_sha256": "c3d59d125a70e818110850389bc405e82f3dc3f76965db0f3e42d604948f770c",
+    "rng_sha256": {
+      "0": "6c1387df627cd84be77da7238a90ac25942236065016ae3ee3f750e0643ebed3",
+      "1": "2f7cce8310c8aa9594cc331b12c654cde146a20ac43eacf131bdda0d845d2361",
+      "2": "92b98a6542940fd24195a0a695f2d8891259c42ace1c055f81673e5e6836e77f",
+      "3": "c31274da871d956a5faa4b2ec1defb8a5a17a08848964d136cd5fdba8a5674cd"
+    },
+    "schedule": {
+      "name": "original",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          8,
+          0.0
+        ]
+      ]
+    },
+    "seed": 42,
+    "simulations": 21760,
+    "stop_reason": null,
+    "terminal_leaves": 4938,
+    "wall_seconds": 3.0568183325231075,
+    "weights_sha256": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d"
+  },
+  {
+    "base_seed": 4404003,
+    "batch_sizes": {
+      "1": 2217,
+      "2": 1204,
+      "3": 1927,
+      "4": 1310
+    },
+    "check": "repeat-0",
+    "complete": true,
+    "completed_games": 4,
+    "cpu_seconds": 2.819316999999998,
+    "explicit_schedule": true,
+    "file": "regression-42-g20-extended-0.jsonl",
+    "forward_calls": 6658,
+    "games_per_second": 1.4187496274453202,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "inference_seconds": 2.337905057705939,
+    "max_active": 4,
+    "mean_batch": 2.349954941423851,
+    "neural_positions": 15646,
+    "peak_rss_mib": 331.84375,
+    "plies": 70,
+    "pool": 8,
+    "positions_per_second": 24.828118480293103,
+    "records_sha256": "c995f47be020d6a8bed9353c333f8eb7b2cc3ed244914572768b4f0d6b9d4417",
+    "rng_sha256": {
+      "0": "23130afe347928289b6c170ad9157c0c2dd38ed7d420418ee5013bb5a00ec86b",
+      "1": "2f7cce8310c8aa9594cc331b12c654cde146a20ac43eacf131bdda0d845d2361",
+      "2": "a3bec52dea64c07ea4437cb8918e69687392d3ae4fe8915693719a42d9699122",
+      "3": "00b9f95f9d111919b6ee9ee8a7e8c3e909b47ecc0834acbd6a144b1f83122b7a"
+    },
+    "schedule": {
+      "name": "extended",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          16,
+          0.0
+        ]
+      ]
+    },
+    "seed": 42,
+    "simulations": 17920,
+    "stop_reason": null,
+    "terminal_leaves": 2344,
+    "wall_seconds": 2.819384000264108,
+    "weights_sha256": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d"
+  },
+  {
+    "base_seed": 4404003,
+    "batch_sizes": {
+      "1": 2217,
+      "2": 1204,
+      "3": 1927,
+      "4": 1310
+    },
+    "check": "repeat-1",
+    "complete": true,
+    "completed_games": 4,
+    "cpu_seconds": 2.824652999999998,
+    "explicit_schedule": true,
+    "file": "regression-42-g20-extended-1.jsonl",
+    "forward_calls": 6658,
+    "games_per_second": 1.4160099037442877,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "inference_seconds": 2.344602764584124,
+    "max_active": 4,
+    "mean_batch": 2.349954941423851,
+    "neural_positions": 15646,
+    "peak_rss_mib": 331.84375,
+    "plies": 70,
+    "pool": 8,
+    "positions_per_second": 24.780173315525037,
+    "records_sha256": "c995f47be020d6a8bed9353c333f8eb7b2cc3ed244914572768b4f0d6b9d4417",
+    "rng_sha256": {
+      "0": "23130afe347928289b6c170ad9157c0c2dd38ed7d420418ee5013bb5a00ec86b",
+      "1": "2f7cce8310c8aa9594cc331b12c654cde146a20ac43eacf131bdda0d845d2361",
+      "2": "a3bec52dea64c07ea4437cb8918e69687392d3ae4fe8915693719a42d9699122",
+      "3": "00b9f95f9d111919b6ee9ee8a7e8c3e909b47ecc0834acbd6a144b1f83122b7a"
+    },
+    "schedule": {
+      "name": "extended",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          16,
+          0.0
+        ]
+      ]
+    },
+    "seed": 42,
+    "simulations": 17920,
+    "stop_reason": null,
+    "terminal_leaves": 2344,
+    "wall_seconds": 2.824838999658823,
+    "weights_sha256": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d"
+  },
+  {
+    "base_seed": 4404003,
+    "batch_sizes": {
+      "1": 2911,
+      "2": 133,
+      "3": 2888,
+      "4": 1310
+    },
+    "check": "repeat-0",
+    "complete": true,
+    "completed_games": 4,
+    "cpu_seconds": 3.102057000000002,
+    "explicit_schedule": true,
+    "file": "regression-42-g20-smoothed-0.jsonl",
+    "forward_calls": 7242,
+    "games_per_second": 1.2893767601342627,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "inference_seconds": 2.614759455434978,
+    "max_active": 4,
+    "mean_batch": 2.3586025959679646,
+    "neural_positions": 17081,
+    "peak_rss_mib": 331.84375,
+    "plies": 89,
+    "pool": 8,
+    "positions_per_second": 28.688632912987345,
+    "records_sha256": "a4661e96ce3d5039b5c36807d9f979a451486b7ab9e38ff8edc1672d4f55b66a",
+    "rng_sha256": {
+      "0": "65e369a2b2fa302aaa75dba09700bfc2eb222a08b0da357688db53ad84391d1e",
+      "1": "2f7cce8310c8aa9594cc331b12c654cde146a20ac43eacf131bdda0d845d2361",
+      "2": "fa9fa4c3ca38ed7b9fca6b7a01248f329f1ad4cb6a5c550e6a44b456f292d075",
+      "3": "c31274da871d956a5faa4b2ec1defb8a5a17a08848964d136cd5fdba8a5674cd"
+    },
+    "schedule": {
+      "name": "smoothed",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          8,
+          0.3
+        ],
+        [
+          30,
+          0.0
+        ]
+      ]
+    },
+    "seed": 42,
+    "simulations": 22784,
+    "stop_reason": null,
+    "terminal_leaves": 5792,
+    "wall_seconds": 3.102274000644684,
+    "weights_sha256": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d"
+  },
+  {
+    "base_seed": 4404003,
+    "batch_sizes": {
+      "1": 2911,
+      "2": 133,
+      "3": 2888,
+      "4": 1310
+    },
+    "check": "repeat-1",
+    "complete": true,
+    "completed_games": 4,
+    "cpu_seconds": 3.095302999999994,
+    "explicit_schedule": true,
+    "file": "regression-42-g20-smoothed-1.jsonl",
+    "forward_calls": 7242,
+    "games_per_second": 1.2922293137619185,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "inference_seconds": 2.606137290596962,
+    "max_active": 4,
+    "mean_batch": 2.3586025959679646,
+    "neural_positions": 17081,
+    "peak_rss_mib": 331.84375,
+    "plies": 89,
+    "pool": 8,
+    "positions_per_second": 28.752102231202688,
+    "records_sha256": "a4661e96ce3d5039b5c36807d9f979a451486b7ab9e38ff8edc1672d4f55b66a",
+    "rng_sha256": {
+      "0": "65e369a2b2fa302aaa75dba09700bfc2eb222a08b0da357688db53ad84391d1e",
+      "1": "2f7cce8310c8aa9594cc331b12c654cde146a20ac43eacf131bdda0d845d2361",
+      "2": "fa9fa4c3ca38ed7b9fca6b7a01248f329f1ad4cb6a5c550e6a44b456f292d075",
+      "3": "c31274da871d956a5faa4b2ec1defb8a5a17a08848964d136cd5fdba8a5674cd"
+    },
+    "schedule": {
+      "name": "smoothed",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          8,
+          0.3
+        ],
+        [
+          30,
+          0.0
+        ]
+      ]
+    },
+    "seed": 42,
+    "simulations": 22784,
+    "stop_reason": null,
+    "terminal_leaves": 5792,
+    "wall_seconds": 3.095425833016634,
+    "weights_sha256": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d"
+  },
+  {
+    "base_seed": 4404003,
+    "batch_sizes": {
+      "1": 2307,
+      "2": 1204,
+      "3": 1927,
+      "4": 1310
+    },
+    "check": "repeat-0",
+    "complete": true,
+    "completed_games": 4,
+    "cpu_seconds": 2.840695999999994,
+    "explicit_schedule": true,
+    "file": "regression-42-g20-extended_smoothed-0.jsonl",
+    "forward_calls": 6748,
+    "games_per_second": 1.408052520387814,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "inference_seconds": 2.3549263337627053,
+    "max_active": 4,
+    "mean_batch": 2.33195020746888,
+    "neural_positions": 15736,
+    "peak_rss_mib": 331.84375,
+    "plies": 70,
+    "pool": 8,
+    "positions_per_second": 24.640919106786747,
+    "records_sha256": "a0d94a6a62e9a87d3fa8c7bad2b1a5a1062af595d6e8b0f4fd5f81ea42ee455c",
+    "rng_sha256": {
+      "0": "23130afe347928289b6c170ad9157c0c2dd38ed7d420418ee5013bb5a00ec86b",
+      "1": "2f7cce8310c8aa9594cc331b12c654cde146a20ac43eacf131bdda0d845d2361",
+      "2": "87e6e0ff8b303841da6e48919a0b67eb3434438581db868f8888b62dde581743",
+      "3": "00b9f95f9d111919b6ee9ee8a7e8c3e909b47ecc0834acbd6a144b1f83122b7a"
+    },
+    "schedule": {
+      "name": "extended_smoothed",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          16,
+          0.3
+        ],
+        [
+          30,
+          0.0
+        ]
+      ]
+    },
+    "seed": 42,
+    "simulations": 17920,
+    "stop_reason": null,
+    "terminal_leaves": 2254,
+    "wall_seconds": 2.8408031249418855,
+    "weights_sha256": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d"
+  },
+  {
+    "base_seed": 4404003,
+    "batch_sizes": {
+      "1": 2307,
+      "2": 1204,
+      "3": 1927,
+      "4": 1310
+    },
+    "check": "repeat-1",
+    "complete": true,
+    "completed_games": 4,
+    "cpu_seconds": 2.842394000000006,
+    "explicit_schedule": true,
+    "file": "regression-42-g20-extended_smoothed-1.jsonl",
+    "forward_calls": 6748,
+    "games_per_second": 1.4072222752014225,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "inference_seconds": 2.352815710939467,
+    "max_active": 4,
+    "mean_batch": 2.33195020746888,
+    "neural_positions": 15736,
+    "peak_rss_mib": 331.84375,
+    "plies": 70,
+    "pool": 8,
+    "positions_per_second": 24.626389816024897,
+    "records_sha256": "a0d94a6a62e9a87d3fa8c7bad2b1a5a1062af595d6e8b0f4fd5f81ea42ee455c",
+    "rng_sha256": {
+      "0": "23130afe347928289b6c170ad9157c0c2dd38ed7d420418ee5013bb5a00ec86b",
+      "1": "2f7cce8310c8aa9594cc331b12c654cde146a20ac43eacf131bdda0d845d2361",
+      "2": "87e6e0ff8b303841da6e48919a0b67eb3434438581db868f8888b62dde581743",
+      "3": "00b9f95f9d111919b6ee9ee8a7e8c3e909b47ecc0834acbd6a144b1f83122b7a"
+    },
+    "schedule": {
+      "name": "extended_smoothed",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          16,
+          0.3
+        ],
+        [
+          30,
+          0.0
+        ]
+      ]
+    },
+    "seed": 42,
+    "simulations": 17920,
+    "stop_reason": null,
+    "terminal_leaves": 2254,
+    "wall_seconds": 2.842479166574776,
+    "weights_sha256": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d"
+  }
+]

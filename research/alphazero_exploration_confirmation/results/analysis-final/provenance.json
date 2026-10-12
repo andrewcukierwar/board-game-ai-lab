@@ -1,0 +1,45 @@
+{
+  "collection_provenance_sha256": "6c44ecf1600767689b2603ece26585f6cf3a39d94b459df3bf16497bdd27b1b5",
+  "commit": "4609518bc6431b15106a428b1c03bd9dfeb9acef",
+  "design_sha256": "e90aecd6f0deed6cec2c2034d2be12c9a1a3dd51f18c8bdc1472f05e37b32713",
+  "elapsed_seconds": 6.967934000305831,
+  "reused_proofs": true,
+  "runtime": {
+    "commit": "4609518bc6431b15106a428b1c03bd9dfeb9acef",
+    "cpu_count": 10,
+    "deterministic_algorithms": true,
+    "device": "cpu",
+    "dtype": "float32",
+    "env": {
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "PYTHONHASHSEED": null,
+      "VECLIB_MAXIMUM_THREADS": "1"
+    },
+    "executable": "/Users/andrewcukierwar/.venvs/board-game-alphazero-m4/bin/python",
+    "interop": 1,
+    "intraop": 1,
+    "machine": "arm64",
+    "matmul_precision": "highest",
+    "numpy": "1.26.4",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "processor": "arm",
+    "python": "3.11.17 (main, Oct  8 2026, 10:33:40) [Clang 21.0.0 (clang-2100.1.1.101)]",
+    "tool_sha256": "81c3811be6f0cd1a35a0feae396814a124d3892c1502e229a8e01277d0650a74",
+    "torch": "2.10.0",
+    "torch_config": "PyTorch built with:\n  - GCC 4.2\n  - C++ Version: 201703\n  - clang 15.0.0\n  - OpenMP 201811\n  - LAPACK is enabled (usually provided by MKL)\n  - NNPACK is enabled\n  - CPU capability usage: DEFAULT\n  - Build settings: BLAS_INFO=accelerate, BUILD_TYPE=Release, COMMIT_SHA=449b1768410104d3ed79d3bcfe4ba1d65c7f22c0, CXX_COMPILER=/usr/bin/c++, CXX_FLAGS= -fvisibility-inlines-hidden -DUSE_PTHREADPOOL -DNDEBUG -DUSE_KINETO -DLIBKINETO_NOCUPTI -DLIBKINETO_NOROCTRACER -DLIBKINETO_NOXPUPTI=ON -DUSE_PYTORCH_QNNPACK -DAT_BUILD_ARM_VEC256_WITH_SLEEF -DUSE_XNNPACK -DUSE_PYTORCH_METAL_EXPORT -DSYMBOLICATE_MOBILE_DEBUG_HANDLE -DUSE_COREML_DELEGATE -O2 -fPIC -DC10_NODEPRECATED -Wall -Wextra -Werror=return-type -Werror=non-virtual-dtor -Werror=braced-scalar-init -Werror=range-loop-construct -Werror=bool-operation -Wnarrowing -Wno-missing-field-initializers -Wno-unknown-pragmas -Wno-unused-parameter -Wno-strict-overflow -Wno-strict-aliasing -Wvla-extension -Wsuggest-override -Wnewline-eof -Winconsistent-missing-override -Winconsistent-missing-destructor-override -Wno-pass-failed -Wno-error=old-style-cast -Wconstant-conversion -Qunused-arguments -faligned-new -fno-math-errno -fno-trapping-math -Werror=format -DUSE_MPS -Wno-missing-braces, LAPACK_INFO=accelerate, TORCH_VERSION=2.10.0, USE_CUDA=OFF, USE_CUDNN=OFF, USE_CUSPARSELT=OFF, USE_EIGEN_FOR_BLAS=ON, USE_GFLAGS=OFF, USE_GLOG=OFF, USE_GLOO=ON, USE_MKL=OFF, USE_MKLDNN=OFF, USE_MPI=OFF, USE_NCCL=OFF, USE_NNPACK=ON, USE_OPENMP=ON, USE_ROCM=OFF, USE_ROCM_KERNEL_ASSERT=OFF, USE_XCCL=OFF, USE_XPU=OFF, \n",
+    "tracked_status": "?? docs/phase4d4e-alphazero-exploration-confirmation.md\n?? research/alphazero_exploration_confirmation/README.md\n?? research/alphazero_exploration_confirmation/results/analysis-final/\n?? research/alphazero_exploration_confirmation/results/analysis/\n?? research/alphazero_exploration_confirmation/results/compression.json\n?? research/alphazero_exploration_confirmation/results/exact/\n?? research/alphazero_exploration_confirmation/results/main/\n?? research/alphazero_exploration_confirmation/results/regression/\n?? research/alphazero_exploration_confirmation/results/tests-delivered.txt\n?? research/alphazero_exploration_confirmation/results/tests-final.txt\n?? research/alphazero_exploration_confirmation/results/tests.txt\n?? research/alphazero_exploration_confirmation/results/validation/independent-new-error-solver-validation.json\n?? research/alphazero_exploration_confirmation/results/validation/independent-prefix-validation.json\n?? research/alphazero_exploration_confirmation/results/validation/independent-preservation.json\n?? research/alphazero_exploration_confirmation/results/validation/independent-recompute.json\n?? research/alphazero_exploration_confirmation/results/validation/independent-recompute.py"
+  },
+  "solver_seconds": 0,
+  "sources": {
+    "research/alphazero_exploration_confirmation/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "research/alphazero_exploration_confirmation/analyze.py": "aed68afcf6da2db1c23c5e09364022926d317a227872e1304273630cdda93104",
+    "research/alphazero_exploration_confirmation/collect.py": "1ec324136334bbd1ba9b5edc1b2f9293c14b0282b893d3c12e26b69907e5948c",
+    "research/alphazero_exploration_confirmation/feasibility.py": "fda3b6da6ed3e96831efc2556fadf96f1bff775de1f68273535301f47dc515ee",
+    "research/alphazero_exploration_confirmation/native_oracle.py": "c61160336cb995b3b08daf8db8dcec4a44be703e4d5b4ca5aec4c73c162692c4",
+    "research/alphazero_exploration_confirmation/schedules.py": "0ba71bdce08d2f5f404cfa8d014ab15a09033751724809a97a98e6df853c480c",
+    "research/alphazero_exploration_confirmation/solver.py": "d6112cf1260aad08e70ccf0ddb67f913e18babde989849e00b51647366ad5da7"
+  }
+}

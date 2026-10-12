@@ -1,0 +1,92 @@
+{
+  "all_values_independently_reconstructed": true,
+  "decisions_checked": 11884,
+  "elapsed_seconds": 9.061186209321022,
+  "games_checked": 512,
+  "new_games": 0,
+  "new_solves": 0,
+  "numeric_discrepancies": 0,
+  "paired_prefix_decisions": 2040,
+  "paired_prefix_mismatches": 0,
+  "pooled": {
+    "confirmed_difference": -0.125,
+    "confirmed_interval": [
+      -0.4169273528464505,
+      0.1669273528464505
+    ],
+    "identification_interval": [
+      -2.7734375,
+      2.16796875
+    ],
+    "uncertainty_interval": [
+      -3.1603372356952484,
+      2.54789535983623
+    ]
+  },
+  "profiles": {
+    "314159": {
+      "extended": {
+        "actual_outcomes": {
+          "-1": 29,
+          "0": 72,
+          "1": 27
+        },
+        "collision_probability": 0.019544359499241062,
+        "confirmed_errors": 217,
+        "duplicate_fraction": 0.12508272667107878,
+        "games": 128,
+        "mirror_duplicate_fraction": 0.1512243547319656,
+        "unresolved": 386
+      },
+      "original": {
+        "actual_outcomes": {
+          "-1": 41,
+          "0": 66,
+          "1": 21
+        },
+        "collision_probability": 0.04125228737369719,
+        "confirmed_errors": 218,
+        "duplicate_fraction": 0.37374926427310184,
+        "games": 128,
+        "mirror_duplicate_fraction": 0.3987639788110653,
+        "unresolved": 447
+      }
+    },
+    "42": {
+      "extended": {
+        "actual_outcomes": {
+          "-1": 19,
+          "0": 74,
+          "1": 35
+        },
+        "collision_probability": 0.005751043310210903,
+        "confirmed_errors": 141,
+        "duplicate_fraction": 0.10745098039215684,
+        "games": 128,
+        "mirror_duplicate_fraction": 0.12352941176470589,
+        "unresolved": 201
+      },
+      "original": {
+        "actual_outcomes": {
+          "-1": 36,
+          "0": 68,
+          "1": 24
+        },
+        "collision_probability": 0.021037326487493468,
+        "confirmed_errors": 172,
+        "duplicate_fraction": 0.3397391901166781,
+        "games": 128,
+        "mirror_duplicate_fraction": 0.3541523678792038,
+        "unresolved": 231
+      }
+    }
+  },
+  "root_value_diagnostic_mismatches": 3,
+  "safety_conclusion": "INCONCLUSIVE",
+  "sampling_comparisons": {
+    "better_all": 23,
+    "equal_all": 1249,
+    "unresolved": 509,
+    "worse_all": 69
+  }
+}
