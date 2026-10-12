@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 846" width="940" height="846" role="img" aria-label="Tactical reliability on tactical200">
+<rect width="940" height="846" fill="#fcfcfb"/>
+<text x="24" y="30" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="15" font-weight="600" fill="#0b0b0b">Tactical reliability on tactical200</text>
+<text x="24" y="49" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="11.5" fill="#52514e">Safe-response accuracy, raw policy (every generation) and raw PUCT (generations 0, 2, 4, 6), and PUCT immediate-win accuracy.</text>
+<circle cx="30.0" cy="66.0" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN</title></circle>
+<text x="40" y="70" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="11.5" fill="#0b0b0b">CNN</text>
+<rect x="135.8" y="61.8" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64</title></rect>
+<text x="150" y="70" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="11.5" fill="#0b0b0b">ResNet 3x64</text>
+<text x="78" y="98" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b">Raw policy, safe response — seed 42</text>
+<line x1="78" x2="368" y1="260.0" y2="260.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="71" y="263.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.12</text>
+<line x1="78" x2="368" y1="222.5" y2="222.5" stroke="#e4e3de" stroke-width="1"/>
+<text x="71" y="226.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.23</text>
+<line x1="78" x2="368" y1="185.0" y2="185.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="71" y="188.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.34</text>
+<line x1="78" x2="368" y1="147.5" y2="147.5" stroke="#e4e3de" stroke-width="1"/>
+<text x="71" y="151.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.46</text>
+<line x1="78" x2="368" y1="110.0" y2="110.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="71" y="113.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.57</text>
+<text x="78.0" y="275" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">0</text>
+<text x="150.5" y="275" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">200</text>
+<text x="223.0" y="275" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">400</text>
+<text x="295.5" y="275" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">600</text>
+<text x="368.0" y="275" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">800</text>
+<text x="223.0" y="291" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">cumulative self-play + update seconds</text>
+<text x="36" y="185.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle" transform="rotate(-90 36 185.0)">accuracy</text>
+<path d="M78.0,249.7 L123.1,170.1 L171.4,146.9 L218.3,156.8 L265.6,156.8 L308.3,156.8 L355.3,160.1" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="78.0" cy="249.7" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 0: 0.150</title></circle>
+<circle cx="123.1" cy="170.1" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 1: 0.390</title></circle>
+<circle cx="171.4" cy="146.9" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 2: 0.460</title></circle>
+<circle cx="218.3" cy="156.8" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 3: 0.430</title></circle>
+<circle cx="265.6" cy="156.8" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 4: 0.430</title></circle>
+<circle cx="308.3" cy="156.8" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 5: 0.430</title></circle>
+<circle cx="355.3" cy="160.1" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 6: 0.420</title></circle>
+<path d="M78.0,236.4 L122.2,156.8 L171.1,130.3 L215.3,120.3 L261.7,123.7 L301.8,123.7 L346.3,120.3" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<rect x="73.8" y="232.2" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 0: 0.190</title></rect>
+<rect x="118.0" y="152.6" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 1: 0.430</title></rect>
+<rect x="166.9" y="126.1" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 2: 0.510</title></rect>
+<rect x="211.1" y="116.1" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 3: 0.540</title></rect>
+<rect x="257.5" y="119.5" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 4: 0.530</title></rect>
+<rect x="297.6" y="119.5" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 5: 0.530</title></rect>
+<rect x="342.1" y="116.1" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 6: 0.540</title></rect>
+<text x="355.3" y="123.8" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#0b0b0b">ResNet 3x64</text>
+<text x="364.3" y="163.6" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#0b0b0b">CNN</text>
+<text x="538" y="98" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b">Raw policy, safe response — seed 314159</text>
+<line x1="538" x2="828" y1="260.0" y2="260.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="531" y="263.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.12</text>
+<line x1="538" x2="828" y1="222.5" y2="222.5" stroke="#e4e3de" stroke-width="1"/>
+<text x="531" y="226.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.23</text>
+<line x1="538" x2="828" y1="185.0" y2="185.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="531" y="188.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.34</text>
+<line x1="538" x2="828" y1="147.5" y2="147.5" stroke="#e4e3de" stroke-width="1"/>
+<text x="531" y="151.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.46</text>
+<line x1="538" x2="828" y1="110.0" y2="110.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="531" y="113.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.57</text>
+<text x="538.0" y="275" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">0</text>
+<text x="610.5" y="275" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">200</text>
+<text x="683.0" y="275" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">400</text>
+<text x="755.5" y="275" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">600</text>
+<text x="828.0" y="275" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">800</text>
+<text x="683.0" y="291" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">cumulative self-play + update seconds</text>
+<text x="496" y="185.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle" transform="rotate(-90 496 185.0)">accuracy</text>
+<path d="M538.0,243.0 L580.9,193.3 L627.2,143.6 L672.5,183.3 L721.4,183.3 L767.9,170.1 L816.2,170.1" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="538.0" cy="243.0" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 0: 0.170</title></circle>
+<circle cx="580.9" cy="193.3" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 1: 0.320</title></circle>
+<circle cx="627.2" cy="143.6" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 2: 0.470</title></circle>
+<circle cx="672.5" cy="183.3" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 3: 0.350</title></circle>
+<circle cx="721.4" cy="183.3" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 4: 0.350</title></circle>
+<circle cx="767.9" cy="170.1" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 5: 0.390</title></circle>
+<circle cx="816.2" cy="170.1" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 6: 0.390</title></circle>
+<path d="M538.0,223.1 L579.2,176.7 L619.1,130.3 L668.1,130.3 L715.6,130.3 L760.4,163.4 L806.7,136.9" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<rect x="533.8" y="218.9" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 0: 0.230</title></rect>
+<rect x="575.0" y="172.5" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 1: 0.370</title></rect>
+<rect x="614.9" y="126.1" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 2: 0.510</title></rect>
+<rect x="663.9" y="126.1" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 3: 0.510</title></rect>
+<rect x="711.4" y="126.1" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 4: 0.510</title></rect>
+<rect x="756.2" y="159.2" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 5: 0.410</title></rect>
+<rect x="802.5" y="132.7" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 6: 0.490</title></rect>
+<text x="815.7" y="140.4" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#0b0b0b">ResNet 3x64</text>
+<text x="825.2" y="173.6" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#0b0b0b">CNN</text>
+<text x="78" y="348" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b">Raw PUCT, safe response — seed 42</text>
+<line x1="78" x2="368" y1="510.0" y2="510.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="71" y="513.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.83</text>
+<line x1="78" x2="368" y1="472.5" y2="472.5" stroke="#e4e3de" stroke-width="1"/>
+<text x="71" y="476.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.87</text>
+<line x1="78" x2="368" y1="435.0" y2="435.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="71" y="438.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.91</text>
+<line x1="78" x2="368" y1="397.5" y2="397.5" stroke="#e4e3de" stroke-width="1"/>
+<text x="71" y="401.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.96</text>
+<line x1="78" x2="368" y1="360.0" y2="360.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="71" y="363.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">1.00</text>
+<text x="78.0" y="525" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">0</text>
+<text x="150.5" y="525" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">200</text>
+<text x="223.0" y="525" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">400</text>
+<text x="295.5" y="525" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">600</text>
+<text x="368.0" y="525" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">800</text>
+<text x="223.0" y="541" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">cumulative self-play + update seconds</text>
+<text x="36" y="435.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle" transform="rotate(-90 36 435.0)">accuracy</text>
+<path d="M78.0,360.0 L171.4,394.7 L265.6,446.8 L355.3,446.8" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="78.0" cy="360.0" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 0: 1.000</title></circle>
+<circle cx="171.4" cy="394.7" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 2: 0.960</title></circle>
+<circle cx="265.6" cy="446.8" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 4: 0.900</title></circle>
+<circle cx="355.3" cy="446.8" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 6: 0.900</title></circle>
+<path d="M78.0,360.0 L171.1,429.4 L261.7,446.8 L346.3,446.8" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<rect x="73.8" y="355.8" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 0: 1.000</title></rect>
+<rect x="166.9" y="425.2" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 2: 0.920</title></rect>
+<rect x="257.5" y="442.6" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 4: 0.900</title></rect>
+<rect x="342.1" y="442.6" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 6: 0.900</title></rect>
+<text x="364.3" y="443.8" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#0b0b0b">CNN</text>
+<text x="355.3" y="456.8" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#0b0b0b">ResNet 3x64</text>
+<text x="538" y="348" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b">Raw PUCT, safe response — seed 314159</text>
+<line x1="538" x2="828" y1="510.0" y2="510.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="531" y="513.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.83</text>
+<line x1="538" x2="828" y1="472.5" y2="472.5" stroke="#e4e3de" stroke-width="1"/>
+<text x="531" y="476.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.87</text>
+<line x1="538" x2="828" y1="435.0" y2="435.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="531" y="438.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.91</text>
+<line x1="538" x2="828" y1="397.5" y2="397.5" stroke="#e4e3de" stroke-width="1"/>
+<text x="531" y="401.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.96</text>
+<line x1="538" x2="828" y1="360.0" y2="360.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="531" y="363.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">1.00</text>
+<text x="538.0" y="525" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">0</text>
+<text x="610.5" y="525" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">200</text>
+<text x="683.0" y="525" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">400</text>
+<text x="755.5" y="525" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">600</text>
+<text x="828.0" y="525" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">800</text>
+<text x="683.0" y="541" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">cumulative self-play + update seconds</text>
+<text x="496" y="435.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle" transform="rotate(-90 496 435.0)">accuracy</text>
+<path d="M538.0,360.0 L627.2,420.8 L721.4,498.9 L816.2,472.8" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="538.0" cy="360.0" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 0: 1.000</title></circle>
+<circle cx="627.2" cy="420.8" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 2: 0.930</title></circle>
+<circle cx="721.4" cy="498.9" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 4: 0.840</title></circle>
+<circle cx="816.2" cy="472.8" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 6: 0.870</title></circle>
+<path d="M538.0,360.0 L619.1,403.4 L715.6,420.8 L806.7,420.8" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<rect x="533.8" y="355.8" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 0: 1.000</title></rect>
+<rect x="614.9" y="399.2" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 2: 0.950</title></rect>
+<rect x="711.4" y="416.6" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 4: 0.930</title></rect>
+<rect x="802.5" y="416.6" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 6: 0.930</title></rect>
+<text x="815.7" y="424.3" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#0b0b0b">ResNet 3x64</text>
+<text x="825.2" y="476.3" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#0b0b0b">CNN</text>
+<text x="78" y="598" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b">Raw PUCT, immediate win — seed 42</text>
+<line x1="78" x2="368" y1="760.0" y2="760.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="71" y="763.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.957</text>
+<line x1="78" x2="368" y1="722.5" y2="722.5" stroke="#e4e3de" stroke-width="1"/>
+<text x="71" y="726.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.968</text>
+<line x1="78" x2="368" y1="685.0" y2="685.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="71" y="688.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.978</text>
+<line x1="78" x2="368" y1="647.5" y2="647.5" stroke="#e4e3de" stroke-width="1"/>
+<text x="71" y="651.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.989</text>
+<line x1="78" x2="368" y1="610.0" y2="610.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="71" y="613.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">1.000</text>
+<text x="78.0" y="775" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">0</text>
+<text x="150.5" y="775" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">200</text>
+<text x="223.0" y="775" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">400</text>
+<text x="295.5" y="775" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">600</text>
+<text x="368.0" y="775" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">800</text>
+<text x="223.0" y="791" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">cumulative self-play + update seconds</text>
+<text x="36" y="685.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle" transform="rotate(-90 36 685.0)">accuracy</text>
+<path d="M78.0,610.0 L171.4,679.4 L265.6,714.2 L355.3,714.2" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="78.0" cy="610.0" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 0: 1.000</title></circle>
+<circle cx="171.4" cy="679.4" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 2: 0.980</title></circle>
+<circle cx="265.6" cy="714.2" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 4: 0.970</title></circle>
+<circle cx="355.3" cy="714.2" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 6: 0.970</title></circle>
+<path d="M78.0,610.0 L171.1,610.0 L261.7,610.0 L346.3,714.2" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<rect x="73.8" y="605.8" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 0: 1.000</title></rect>
+<rect x="166.9" y="605.8" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 2: 1.000</title></rect>
+<rect x="257.5" y="605.8" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 4: 1.000</title></rect>
+<rect x="342.1" y="710.0" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 6: 0.970</title></rect>
+<text x="364.3" y="711.2" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#0b0b0b">CNN</text>
+<text x="355.3" y="724.2" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#0b0b0b">ResNet 3x64</text>
+<text x="538" y="598" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="12.5" font-weight="600" fill="#0b0b0b">Raw PUCT, immediate win — seed 314159</text>
+<line x1="538" x2="828" y1="760.0" y2="760.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="531" y="763.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.957</text>
+<line x1="538" x2="828" y1="722.5" y2="722.5" stroke="#e4e3de" stroke-width="1"/>
+<text x="531" y="726.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.968</text>
+<line x1="538" x2="828" y1="685.0" y2="685.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="531" y="688.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.978</text>
+<line x1="538" x2="828" y1="647.5" y2="647.5" stroke="#e4e3de" stroke-width="1"/>
+<text x="531" y="651.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">0.989</text>
+<line x1="538" x2="828" y1="610.0" y2="610.0" stroke="#e4e3de" stroke-width="1"/>
+<text x="531" y="613.5" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="end">1.000</text>
+<text x="538.0" y="775" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">0</text>
+<text x="610.5" y="775" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">200</text>
+<text x="683.0" y="775" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">400</text>
+<text x="755.5" y="775" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">600</text>
+<text x="828.0" y="775" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">800</text>
+<text x="683.0" y="791" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle">cumulative self-play + update seconds</text>
+<text x="496" y="685.0" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#52514e" text-anchor="middle" transform="rotate(-90 496 685.0)">accuracy</text>
+<path d="M538.0,610.0 L627.2,679.4 L721.4,748.9 L816.2,644.7" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round"/>
+<circle cx="538.0" cy="610.0" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 0: 1.000</title></circle>
+<circle cx="627.2" cy="679.4" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 2: 0.980</title></circle>
+<circle cx="721.4" cy="748.9" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 4: 0.960</title></circle>
+<circle cx="816.2" cy="644.7" r="4.5" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"><title>CNN, generation 6: 0.990</title></circle>
+<path d="M538.0,610.0 L619.1,679.4 L715.6,679.4 L806.7,748.9" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round"/>
+<rect x="533.8" y="605.8" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 0: 1.000</title></rect>
+<rect x="614.9" y="675.2" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 2: 0.980</title></rect>
+<rect x="711.4" y="675.2" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 4: 0.980</title></rect>
+<rect x="802.5" y="744.7" width="8.4" height="8.4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"><title>ResNet 3x64, generation 6: 0.960</title></rect>
+<text x="825.2" y="648.2" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#0b0b0b">CNN</text>
+<text x="815.7" y="752.4" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#0b0b0b">ResNet 3x64</text>
+</svg>

@@ -16,7 +16,23 @@ Protocol, frozen before training: [DESIGN.md](DESIGN.md).
 | `measures.py` | Read-only training-dynamics measures | Yes |
 | `analyze.py` | Evidence-only analysis and decision rules | Yes |
 | `fixtures.json` | Phase 4D.4G's development fixtures, byte-identical | Yes |
+| `publish_evidence.py` | Copies JSON and log evidence from the run directory; never a checkpoint | No, written after the freeze |
+| `report.py` | Renders `tables.md` and the figures from `analysis.json`; computes no statistic | No, written after the freeze |
+| `independent_review.py` | The independent reviewer's own recomputation; shares no code with the analysis | No, written after the run |
+| `independent-results-review.md` | The independent results review | — |
 | `results/` | Calibration, smoke, validation, design, freeze, then run evidence and analysis | Design inputs yes |
+
+## Results files
+
+| File | Content |
+|---|---|
+| `results/analysis.json` | Output of the frozen analysis: verdicts, contrasts, trajectories, computation, dynamics |
+| `results/tables.md` | Every table, including all 28 checkpoint identities |
+| `results/figure-*.svg` | Strength, tactics, policy and value, training losses |
+| `results/run-evidence/` | Supervisor ledger, logs and every task's JSON output |
+| `results/evidence-manifest.json` | Hashes of the published evidence and of every local checkpoint |
+| `results/independent-recomputed.json` | The reviewer's recomputed numbers |
+| `results/regression-tests.txt` | Full AlphaZero regression sweep after the run |
 
 Checkpoints are local and ignored by git, under
 `experiment-output/phase4d4h-c/` in this worktree. Their hashes are in
