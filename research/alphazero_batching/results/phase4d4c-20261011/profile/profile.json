@@ -1,0 +1,209 @@
+[
+  {
+    "calls": {
+      "backup": 75520,
+      "encoding_tensor": 57801,
+      "expansion": 57801,
+      "inference_pipeline": 57801,
+      "legal_softmax": 57801,
+      "neural_forward": 57801,
+      "selection": 336418,
+      "state_transition": 330704
+    },
+    "condition": "serial",
+    "exclusive_seconds": {
+      "backup": 0.04181825742125511,
+      "encoding_tensor": 0.3569307019934058,
+      "expansion": 0.26123841013759375,
+      "inference_pipeline": 1.750343861989677,
+      "legal_softmax": 0.43290188536047935,
+      "neural_forward": 9.816711293533444,
+      "selection": 0.6346586653962731,
+      "state_transition": 0.4144899956882
+    },
+    "games": 8,
+    "inclusive_seconds": {
+      "backup": 0.04181825742125511,
+      "encoding_tensor": 0.3569307019934058,
+      "expansion": 13.0326161487028,
+      "inference_pipeline": 12.356887742877007,
+      "legal_softmax": 0.43290188536047935,
+      "neural_forward": 9.816711293533444,
+      "selection": 0.6346586653962731,
+      "state_transition": 0.4144899956882
+    },
+    "instrumented_wall_seconds": 13.973651625216007,
+    "note": "Exclusive categories plus other are additive. Inclusive categories overlap; neural_forward includes contract validation. Instrumented times include wrapper overhead.",
+    "other_seconds": 0.2645585536956787,
+    "plies": 295,
+    "scheduler_overhead_seconds": null
+  },
+  {
+    "calls": {
+      "backup": 75520,
+      "batch_state_validation": 57801,
+      "encoding_tensor": 57801,
+      "expansion": 57801,
+      "inference_pipeline": 115602,
+      "legal_softmax": 57801,
+      "neural_forward": 57801,
+      "selection": 336418,
+      "state_transition": 330999
+    },
+    "condition": "1",
+    "exclusive_seconds": {
+      "backup": 0.04557620361447334,
+      "batch_state_validation": 0.13182519935071468,
+      "encoding_tensor": 0.3621339211240411,
+      "expansion": 0.23117490205913782,
+      "inference_pipeline": 1.8675043564289808,
+      "legal_softmax": 0.44616167433559895,
+      "neural_forward": 9.806362487375736,
+      "selection": 0.6497215246781707,
+      "state_transition": 0.4300935147330165
+    },
+    "games": 8,
+    "inclusive_seconds": {
+      "backup": 0.04557620361447334,
+      "batch_state_validation": 0.13182519935071468,
+      "encoding_tensor": 0.3621339211240411,
+      "expansion": 0.6605722662061453,
+      "inference_pipeline": 25.023119752295315,
+      "legal_softmax": 0.44616167433559895,
+      "neural_forward": 9.806362487375736,
+      "selection": 0.6497215246781707,
+      "state_transition": 0.4300935147330165
+    },
+    "instrumented_wall_seconds": 14.331277250312269,
+    "note": "Exclusive categories plus other are additive. Inclusive categories overlap; neural_forward includes contract validation. Instrumented times include wrapper overhead.",
+    "other_seconds": 0.3607234666123986,
+    "plies": 295,
+    "scheduler_overhead_seconds": 0.05125853046774864
+  },
+  {
+    "calls": {
+      "backup": 75520,
+      "batch_state_validation": 57801,
+      "encoding_tensor": 49,
+      "expansion": 57801,
+      "inference_pipeline": 28974,
+      "legal_softmax": 57801,
+      "neural_forward": 28925,
+      "selection": 336418,
+      "state_transition": 330999
+    },
+    "condition": "2",
+    "exclusive_seconds": {
+      "backup": 0.04291271138936281,
+      "batch_state_validation": 0.12515032663941383,
+      "encoding_tensor": 0.0003194548189640045,
+      "expansion": 0.22797004971653223,
+      "inference_pipeline": 1.1134259849786758,
+      "legal_softmax": 0.40496776439249516,
+      "neural_forward": 7.726965119130909,
+      "selection": 0.6393769690766931,
+      "state_transition": 0.5644550807774067
+    },
+    "games": 8,
+    "inclusive_seconds": {
+      "backup": 0.04291271138936281,
+      "batch_state_validation": 0.12515032663941383,
+      "encoding_tensor": 0.0003194548189640045,
+      "expansion": 0.7917419588193297,
+      "inference_pipeline": 9.381159360520542,
+      "legal_softmax": 0.40496776439249516,
+      "neural_forward": 7.726965119130909,
+      "selection": 0.6393769690766931,
+      "state_transition": 0.5644550807774067
+    },
+    "instrumented_wall_seconds": 11.163354207761586,
+    "note": "Exclusive categories plus other are additive. Inclusive categories overlap; neural_forward includes contract validation. Instrumented times include wrapper overhead.",
+    "other_seconds": 0.31781074684113264,
+    "plies": 295,
+    "scheduler_overhead_seconds": 0.031028191559016705
+  },
+  {
+    "calls": {
+      "backup": 75520,
+      "batch_state_validation": 57801,
+      "encoding_tensor": 579,
+      "expansion": 57801,
+      "inference_pipeline": 16559,
+      "legal_softmax": 57801,
+      "neural_forward": 15980,
+      "selection": 336418,
+      "state_transition": 330999
+    },
+    "condition": "4",
+    "exclusive_seconds": {
+      "backup": 0.04115367215126753,
+      "batch_state_validation": 0.11862031742930412,
+      "encoding_tensor": 0.0035280901938676834,
+      "expansion": 0.22380365431308746,
+      "inference_pipeline": 0.7878621174022555,
+      "legal_softmax": 0.37226743064820766,
+      "neural_forward": 6.791948474943638,
+      "selection": 0.6809969777241349,
+      "state_transition": 0.6692318366840482
+    },
+    "games": 8,
+    "inclusive_seconds": {
+      "backup": 0.04115367215126753,
+      "batch_state_validation": 0.11862031742930412,
+      "encoding_tensor": 0.0035280901938676834,
+      "expansion": 0.8923687012866139,
+      "inference_pipeline": 8.19290167465806,
+      "legal_softmax": 0.37226743064820766,
+      "neural_forward": 6.791948474943638,
+      "selection": 0.6809969777241349,
+      "state_transition": 0.6692318366840482
+    },
+    "instrumented_wall_seconds": 9.983195167034864,
+    "note": "Exclusive categories plus other are additive. Inclusive categories overlap; neural_forward includes contract validation. Instrumented times include wrapper overhead.",
+    "other_seconds": 0.2937825955450535,
+    "plies": 295,
+    "scheduler_overhead_seconds": 0.020589916966855526
+  },
+  {
+    "calls": {
+      "backup": 75520,
+      "batch_state_validation": 57801,
+      "encoding_tensor": 478,
+      "expansion": 57801,
+      "inference_pipeline": 8876,
+      "legal_softmax": 57801,
+      "neural_forward": 8398,
+      "selection": 336418,
+      "state_transition": 330999
+    },
+    "condition": "8",
+    "exclusive_seconds": {
+      "backup": 0.039624784141778946,
+      "batch_state_validation": 0.11142192129045725,
+      "encoding_tensor": 0.003015550784766674,
+      "expansion": 0.22056234907358885,
+      "inference_pipeline": 0.59361716452986,
+      "legal_softmax": 0.348207738250494,
+      "neural_forward": 6.048205398954451,
+      "selection": 0.7428120505064726,
+      "state_transition": 0.6428304221481085
+    },
+    "games": 8,
+    "inclusive_seconds": {
+      "backup": 0.039624784141778946,
+      "batch_state_validation": 0.11142192129045725,
+      "encoding_tensor": 0.003015550784766674,
+      "expansion": 0.8627220252528787,
+      "inference_pipeline": 7.204417337663472,
+      "legal_softmax": 0.348207738250494,
+      "neural_forward": 6.048205398954451,
+      "selection": 0.7428120505064726,
+      "state_transition": 0.6428304221481085
+    },
+    "instrumented_wall_seconds": 9.027987333014607,
+    "note": "Exclusive categories plus other are additive. Inclusive categories overlap; neural_forward includes contract validation. Instrumented times include wrapper overhead.",
+    "other_seconds": 0.27768995333462954,
+    "plies": 295,
+    "scheduler_overhead_seconds": 0.013462886214256287
+  }
+]

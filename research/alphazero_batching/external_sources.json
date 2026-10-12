@@ -1,0 +1,50 @@
+[
+  {
+    "repository": "eugeneyp/connect4-alphazero",
+    "commit": "a936aadd74a6a6dd9035e576b89aeb5a3ea7ef73",
+    "files": [
+      {
+        "path": "src/training/self_play.py",
+        "url": "https://github.com/eugeneyp/connect4-alphazero/blob/a936aadd74a6a6dd9035e576b89aeb5a3ea7ef73/src/training/self_play.py",
+        "sha256": "8a9dd644a6e31e151dd3365cde84f31565435adb2c704c5e0ff1ee9ebb5a87cb"
+      },
+      {
+        "path": "src/mcts/search.py",
+        "url": "https://github.com/eugeneyp/connect4-alphazero/blob/a936aadd74a6a6dd9035e576b89aeb5a3ea7ef73/src/mcts/search.py",
+        "sha256": "6ad97e6b18ba48af4da463b46d194bfa4bf35f69db460cfe9c12b32fdf97efd6"
+      }
+    ]
+  },
+  {
+    "repository": "suharshkumar/connect4-selfplay-rl",
+    "commit": "ed5c601783610e1df7b7e32758140160449e973e",
+    "files": [
+      {
+        "path": "c4/selfplay.py",
+        "url": "https://github.com/suharshkumar/connect4-selfplay-rl/blob/ed5c601783610e1df7b7e32758140160449e973e/c4/selfplay.py",
+        "sha256": "e05ab0667e9b1b0710280362d46aa44b8210686e866245156cb0ed9f6abacc20"
+      },
+      {
+        "path": "c4/mcts.py",
+        "url": "https://github.com/suharshkumar/connect4-selfplay-rl/blob/ed5c601783610e1df7b7e32758140160449e973e/c4/mcts.py",
+        "sha256": "2cf1d30f519bbca62f6ef2a0c0057101af12e7f9fe4bfae952ef445aeafd2c8b"
+      }
+    ]
+  },
+  {
+    "repository": "kuotunyu/alphazero-connect4",
+    "commit": "0ca5789237911127edea8dca3b3786d0c148ee89",
+    "files": [
+      {
+        "path": "src/az/selfplay.py",
+        "url": "https://github.com/kuotunyu/alphazero-connect4/blob/0ca5789237911127edea8dca3b3786d0c148ee89/src/az/selfplay.py",
+        "sha256": "9c75ef7356a13f01f11483aa63ed0bf77d646539c958ef2a02a8f9e2f479af1e"
+      }
+    ]
+  },
+  {
+    "repository": "AlphaZero.jl",
+    "url": "https://jonathan-laurent.github.io/AlphaZero.jl/stable/reference/params/",
+    "method": "Independent simulation workers submit requests to an inference server; batch_size <= num_workers; optional fill_batches. We use synchronous CPU coroutine requests without padding or workers."
+  }
+]

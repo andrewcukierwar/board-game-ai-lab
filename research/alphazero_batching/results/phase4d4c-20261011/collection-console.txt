@@ -1,0 +1,21 @@
+0 42/g10 serial: 25.503s 2258.5 games/h
+0 42/g10 1: 26.122s 2205.0 games/h
+0 42/g10 2: 20.779s 2772.0 games/h
+0 42/g10 4: 18.482s 3116.5 games/h
+0 42/g10 8: 16.199s 3555.9 games/h
+0 314159/g20 8: 17.672s 3259.5 games/h
+0 314159/g20 4: 19.642s 2932.5 games/h
+0 314159/g20 2: 22.685s 2539.2 games/h
+0 314159/g20 1: 28.239s 2039.7 games/h
+0 314159/g20 serial: 27.516s 2093.3 games/h
+1 42/g10 8: 16.208s 3553.8 games/h
+1 42/g10 4: 18.010s 3198.2 games/h
+1 42/g10 2: 20.473s 2813.4 games/h
+1 42/g10 1: 25.671s 2243.7 games/h
+1 42/g10 serial: 25.116s 2293.3 games/h
+1 314159/g20 serial: 27.600s 2086.9 games/h
+1 314159/g20 1: 28.405s 2027.8 games/h
+1 314159/g20 2: 22.587s 2550.1 games/h
+1 314159/g20 4: 19.677s 2927.3 games/h
+1 314159/g20 8: 17.663s 3261.1 games/h
+{'serial': {'wall_seconds': 105.73592145740986, 'games': 64, 'plies': 2272, 'games_per_hour': 2179.0134972513056, 'positions_per_second': 21.487494209005927, 'neural_positions': 453870, 'forward_calls': 453870, 'inference_fraction': 0.9071211320478799, 'speedup': 1.0}, '1': {'wall_seconds': 108.43754958361387, 'games': 64, 'plies': 2272, 'games_per_hour': 2124.72525324213, 'positions_per_second': 20.952151802804337, 'neural_positions': 453870, 'forward_calls': 453870, 'inference_fraction': 0.9013075641698151, 'speedup': 0.975085861525109}, '2': {'wall_seconds': 86.52460516896099, 'games': 64, 'plies': 2272, 'games_per_hour': 2662.8263665588097, 'positions_per_second': 26.25842667023271, 'neural_positions': 453870, 'forward_calls': 236542, 'inference_fraction': 0.8633739235531288, 'speedup': 1.2220329841544375}, '4': {'wall_seconds': 75.81132704298943, 'games': 64, 'plies': 2272, 'games_per_hour': 3039.123690175609, 'positions_per_second': 29.969136389231704, 'neural_positions': 453870, 'forward_calls': 127526, 'inference_fraction': 0.8305934387425574, 'speedup': 1.3947245824816052}, '8': {'wall_seconds': 67.74089091550559, 'games': 64, 'plies': 2272, 'games_per_hour': 3401.195302957884, 'positions_per_second': 33.53956479305691, 'neural_positions': 453870, 'forward_calls': 65304, 'inference_fraction': 0.8111840409673312, 'speedup': 1.5608876710714676}}

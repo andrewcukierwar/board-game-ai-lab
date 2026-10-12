@@ -1,0 +1,92 @@
+{
+  "best_pool": 8,
+  "checkpoints": 8,
+  "confirmation_speedup": 1.5475214243518505,
+  "criteria": {
+    "1": "PASS",
+    "10": "PASS",
+    "2": "PASS",
+    "3": "PASS",
+    "4": "PASS",
+    "5": "PASS",
+    "6": "PASS",
+    "7": "PASS",
+    "8": "PASS",
+    "9": "PASS"
+  },
+  "measured_seconds": 1145.329056874849,
+  "measured_speedup": 1.5608876710714676,
+  "memory": {
+    "pool8_peak_rss_mib": 354.21875,
+    "pool8_traced_peak_bytes": 29467896
+  },
+  "numerical_error_criteria": {
+    "action_disagreement": 0.05,
+    "logits": 2e-05,
+    "outcome_screen": 0.05,
+    "policy": 2e-06,
+    "trajectory_screen": 0.1,
+    "value": 2e-06,
+    "visit_l1": 0.1
+  },
+  "official_files": 150,
+  "overall": "PASS",
+  "primary_root_errors": {
+    "1": {
+      "changed_actions": 0,
+      "changed_visits": 0,
+      "max_errors": {
+        "logits": 0.0,
+        "policy": 0.0,
+        "value": 0.0
+      },
+      "numerical_pass": true,
+      "positions": 2272
+    },
+    "2": {
+      "changed_actions": 0,
+      "changed_visits": 0,
+      "max_errors": {
+        "logits": 1.9073486328125e-06,
+        "policy": 1.7878048164110538e-07,
+        "value": 4.470348358154297e-07
+      },
+      "numerical_pass": true,
+      "positions": 2272
+    },
+    "4": {
+      "changed_actions": 0,
+      "changed_visits": 0,
+      "max_errors": {
+        "logits": 1.1444091796875e-05,
+        "policy": 9.340885382957964e-07,
+        "value": 4.470348358154297e-07
+      },
+      "numerical_pass": true,
+      "positions": 2272
+    },
+    "8": {
+      "changed_actions": 0,
+      "changed_visits": 0,
+      "max_errors": {
+        "logits": 1.1444091796875e-05,
+        "policy": 9.340885382957964e-07,
+        "value": 4.470348358154297e-07
+      },
+      "numerical_pass": true,
+      "positions": 2272
+    }
+  },
+  "qualifications": [
+    "Experimental per-game RNG protocol does not reproduce official campaign streams.",
+    "Larger-batch neural outputs differ numerically; no observed trajectory/outcome divergence.",
+    "Acceptance is bounded to declared runtime and sample; size16 fixed jobs have actual maximum14.",
+    "Structural validation assumes input histories are legal; no exhaustive reachability solver."
+  ],
+  "tests": {
+    "new_focused_tests": 69,
+    "passed": 776,
+    "seconds": 281.45,
+    "skipped": 2
+  }
+}
