@@ -1,0 +1,14 @@
+{
+  "changes": {
+    "games/connect4/alphazero_v2/provenance.py": {
+      "delivered": "4e21e2dc7ade962068c85b1c6831c047bba2cfab6e8e97cd5ee9254fdbabe636",
+      "measured": "5988074b8aaeb32964bcb1a4faf59d67d963594f3d6d3a37e4807335ae3e6609"
+    },
+    "research/alphazero_bitboard/benchmark.py": {
+      "delivered": "c2ad8ac0aa00379c99de11e01a49e73a2dfde54659c44dc087ed0d624e0e6bc2",
+      "measured": "1c4a64afe216f97d50ff62197c0e2944dd9e8af5f2dae30f43386c652a91e4e0"
+    }
+  },
+  "core_search_sources_unchanged": true,
+  "note": "provenance.py adds bitboard training-path classification; benchmark.py adds focus/-O/timestamps and supported peak-RSS reporting. Search operations unchanged."
+}

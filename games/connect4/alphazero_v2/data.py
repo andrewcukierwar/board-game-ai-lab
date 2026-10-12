@@ -11,6 +11,7 @@ import random
 
 from ..connect4 import Connect4
 from .config import ENCODING, POLICY_TARGET, VALUE_TARGET
+from .bitboard import BitboardState
 
 
 def pre_move_ply(game):
@@ -106,7 +107,12 @@ def capture_example(game, decision):
     """Capture the searched pre-move state; call BEFORE applying decision.action.move."""
     if game.is_game_over():
         raise ValueError("Training observation must be pre-move and nonterminal")
-    if decision.search.root.game_state.__dict__ != game.__dict__ or decision.ply != pre_move_ply(game):
+    searched = decision.search.root.game_state
+    # Immutable bitboards have no __dict__. Compare their complete canonical
+    # state; preserve the historical strict engine ownership check otherwise.
+    matches = (searched == BitboardState.from_game(game) if isinstance(searched, BitboardState)
+               else searched.__dict__ == game.__dict__)
+    if not matches or decision.ply != pre_move_ply(game):
         raise ValueError("Decision does not belong to this pre-move state")
     return V2Example(encode_board(game), game.current_player, decision.ply, decision.search.visits,
                      decision.action.move, decision.action.temperature)

@@ -1,0 +1,9 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4b-worktree/research/alphazero_bitboard/benchmark.py", line 451, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4b-worktree/research/alphazero_bitboard/benchmark.py", line 389, in main
+    raise RuntimeError('Normal Python required: -O disables scientific equivalence gates')
+RuntimeError: Normal Python required: -O disables scientific equivalence gates

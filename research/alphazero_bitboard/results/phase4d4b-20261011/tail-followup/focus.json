@@ -1,0 +1,1338 @@
+{
+  "exact": true,
+  "generation": 10,
+  "note": "Preserved follow-up; original outlier is retained, never excluded or replaced.",
+  "p95_ratio": 0.5283300456456903,
+  "position": "tactical_midgame",
+  "seed": 42,
+  "simulations": 256,
+  "speedup": 1.9206712634508052,
+  "statistics": {
+    "bitboard": {
+      "cpu": {
+        "max": 0.052680000000000504,
+        "mean": 0.05089327499999998,
+        "median": 0.05072900000000047,
+        "min": 0.04997199999999857,
+        "n": 40,
+        "p95": 0.052031549999998726,
+        "stdev": 0.000582018635154264
+      },
+      "wall": {
+        "max": 0.05276024993509054,
+        "mean": 0.0508943812455982,
+        "median": 0.05072431219741702,
+        "min": 0.04996679164469242,
+        "n": 40,
+        "p95": 0.0520353714004159,
+        "stdev": 0.0005907263316359997
+      }
+    },
+    "engine": {
+      "cpu": {
+        "max": 0.0985030000000009,
+        "mean": 0.09738532500000008,
+        "median": 0.09742749999999978,
+        "min": 0.09597100000000047,
+        "n": 40,
+        "p95": 0.09846980000000057,
+        "stdev": 0.0006802496671189152
+      },
+      "wall": {
+        "max": 0.09853470791131258,
+        "mean": 0.09738619043491781,
+        "median": 0.09742472879588604,
+        "min": 0.09596716612577438,
+        "n": 40,
+        "p95": 0.09849027483724057,
+        "stdev": 0.0006836989881120109
+      }
+    }
+  },
+  "trials": {
+    "bitboard": [
+      {
+        "cpu_seconds": 0.05047899999999994,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 0,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05047629214823246
+      },
+      {
+        "cpu_seconds": 0.05144099999999985,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 1,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05143533367663622
+      },
+      {
+        "cpu_seconds": 0.0505199999999999,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 2,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.050515624694526196
+      },
+      {
+        "cpu_seconds": 0.05124899999999988,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 3,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05125462543219328
+      },
+      {
+        "cpu_seconds": 0.05143500000000012,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 4,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05144287459552288
+      },
+      {
+        "cpu_seconds": 0.05148099999999989,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 5,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.0514771668240428
+      },
+      {
+        "cpu_seconds": 0.05055399999999999,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 6,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.050549792125821114
+      },
+      {
+        "cpu_seconds": 0.05105700000000013,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 7,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.0510539161041379
+      },
+      {
+        "cpu_seconds": 0.05069800000000013,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 8,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.050693792290985584
+      },
+      {
+        "cpu_seconds": 0.05061600000000066,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 9,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05061945877969265
+      },
+      {
+        "cpu_seconds": 0.05135999999999985,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 10,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05135558359324932
+      },
+      {
+        "cpu_seconds": 0.05086699999999933,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 11,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.0508711664006114
+      },
+      {
+        "cpu_seconds": 0.05121400000000076,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 12,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05121975019574165
+      },
+      {
+        "cpu_seconds": 0.05117599999999989,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 13,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.051173499785363674
+      },
+      {
+        "cpu_seconds": 0.05022199999999977,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 14,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05021620728075504
+      },
+      {
+        "cpu_seconds": 0.051296999999999926,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 15,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05129399988800287
+      },
+      {
+        "cpu_seconds": 0.05060900000000057,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 16,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05060579162091017
+      },
+      {
+        "cpu_seconds": 0.05215600000000009,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 17,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05215958412736654
+      },
+      {
+        "cpu_seconds": 0.0502419999999999,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 18,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05023849941790104
+      },
+      {
+        "cpu_seconds": 0.05017700000000058,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 19,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05017304141074419
+      },
+      {
+        "cpu_seconds": 0.050997000000000625,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 20,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.050986708141863346
+      },
+      {
+        "cpu_seconds": 0.052680000000000504,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 21,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05276024993509054
+      },
+      {
+        "cpu_seconds": 0.050169999999999604,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 22,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.050166500732302666
+      },
+      {
+        "cpu_seconds": 0.050497999999999266,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 23,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05050470773130655
+      },
+      {
+        "cpu_seconds": 0.050836000000000325,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 24,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05083291605114937
+      },
+      {
+        "cpu_seconds": 0.05052699999999888,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 25,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05052329134196043
+      },
+      {
+        "cpu_seconds": 0.052024999999998656,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 26,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05202883388847113
+      },
+      {
+        "cpu_seconds": 0.05069599999999852,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 27,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05069220904260874
+      },
+      {
+        "cpu_seconds": 0.05054200000000009,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 28,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.050538916140794754
+      },
+      {
+        "cpu_seconds": 0.05127700000000068,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 29,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05128520913422108
+      },
+      {
+        "cpu_seconds": 0.051400000000001,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 30,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05141983274370432
+      },
+      {
+        "cpu_seconds": 0.05028199999999927,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 31,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.050277999602258205
+      },
+      {
+        "cpu_seconds": 0.05119700000000016,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 32,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05120099987834692
+      },
+      {
+        "cpu_seconds": 0.05073900000000009,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 33,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.050732958130538464
+      },
+      {
+        "cpu_seconds": 0.050191999999999126,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 34,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05018891580402851
+      },
+      {
+        "cpu_seconds": 0.05045900000000003,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 35,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.050453417003154755
+      },
+      {
+        "cpu_seconds": 0.05071900000000085,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 36,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05071566626429558
+      },
+      {
+        "cpu_seconds": 0.05095400000000083,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 37,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.05095833446830511
+      },
+      {
+        "cpu_seconds": 0.05071900000000085,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 38,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.050714791752398014
+      },
+      {
+        "cpu_seconds": 0.04997199999999857,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 39,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.04996679164469242
+      }
+    ],
+    "engine": [
+      {
+        "cpu_seconds": 0.09767100000000006,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 0,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.0976742496713996
+      },
+      {
+        "cpu_seconds": 0.09845700000000002,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 1,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.0984550416469574
+      },
+      {
+        "cpu_seconds": 0.09707500000000002,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 2,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.0970793329179287
+      },
+      {
+        "cpu_seconds": 0.09701599999999999,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 3,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09701341670006514
+      },
+      {
+        "cpu_seconds": 0.09694699999999967,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 4,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09694366529583931
+      },
+      {
+        "cpu_seconds": 0.09744699999999984,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 5,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09744454082101583
+      },
+      {
+        "cpu_seconds": 0.09695200000000037,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 6,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09694750048220158
+      },
+      {
+        "cpu_seconds": 0.09772900000000018,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 7,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09772487543523312
+      },
+      {
+        "cpu_seconds": 0.09694800000000026,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 8,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.0969679169356823
+      },
+      {
+        "cpu_seconds": 0.09791799999999995,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 9,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09791441634297371
+      },
+      {
+        "cpu_seconds": 0.09638300000000033,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 10,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09638091642409563
+      },
+      {
+        "cpu_seconds": 0.09712599999999938,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 11,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09712216723710299
+      },
+      {
+        "cpu_seconds": 0.09650600000000065,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 12,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09650174994021654
+      },
+      {
+        "cpu_seconds": 0.09767299999999945,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 13,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09766774997115135
+      },
+      {
+        "cpu_seconds": 0.09782400000000013,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 14,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09783054143190384
+      },
+      {
+        "cpu_seconds": 0.09771399999999986,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 15,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09770779125392437
+      },
+      {
+        "cpu_seconds": 0.09846900000000058,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 16,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09853470791131258
+      },
+      {
+        "cpu_seconds": 0.09766499999999922,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 17,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09766095783561468
+      },
+      {
+        "cpu_seconds": 0.09616800000000048,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 18,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09616450034081936
+      },
+      {
+        "cpu_seconds": 0.09751699999999985,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 19,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09751266706734896
+      },
+      {
+        "cpu_seconds": 0.097715,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 20,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09771920926868916
+      },
+      {
+        "cpu_seconds": 0.09733700000000045,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 21,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09733312483876944
+      },
+      {
+        "cpu_seconds": 0.09659899999999944,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 22,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09659199975430965
+      },
+      {
+        "cpu_seconds": 0.09652100000000097,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 23,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09651670791208744
+      },
+      {
+        "cpu_seconds": 0.09728199999999987,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 24,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09731116611510515
+      },
+      {
+        "cpu_seconds": 0.0985030000000009,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 25,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09850737452507019
+      },
+      {
+        "cpu_seconds": 0.09830400000000061,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 26,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.098301125690341
+      },
+      {
+        "cpu_seconds": 0.09653400000000012,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 27,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09653112478554249
+      },
+      {
+        "cpu_seconds": 0.09841000000000122,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 28,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09840645734220743
+      },
+      {
+        "cpu_seconds": 0.09672499999999928,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 29,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09671929199248552
+      },
+      {
+        "cpu_seconds": 0.09704200000000007,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 30,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09704445768147707
+      },
+      {
+        "cpu_seconds": 0.09759999999999991,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 31,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09760541655123234
+      },
+      {
+        "cpu_seconds": 0.09795800000000021,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 32,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09795349929481745
+      },
+      {
+        "cpu_seconds": 0.09740799999999972,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 33,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09740491677075624
+      },
+      {
+        "cpu_seconds": 0.0966850000000008,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 34,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09668112453073263
+      },
+      {
+        "cpu_seconds": 0.09807299999999941,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 35,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09806887432932854
+      },
+      {
+        "cpu_seconds": 0.09848500000000016,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 36,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.0984893748536706
+      },
+      {
+        "cpu_seconds": 0.0972729999999995,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 37,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09726816695183516
+      },
+      {
+        "cpu_seconds": 0.09778299999999973,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 38,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09777833241969347
+      },
+      {
+        "cpu_seconds": 0.09597100000000047,
+        "inference_calls": 225,
+        "terminal_leaves": 32,
+        "trial": 39,
+        "visits": [
+          2,
+          2,
+          0,
+          7,
+          235,
+          4,
+          6
+        ],
+        "wall_seconds": 0.09596716612577438
+      }
+    ]
+  }
+}

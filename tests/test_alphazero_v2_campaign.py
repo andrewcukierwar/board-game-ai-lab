@@ -417,12 +417,17 @@ def test_old_multi_command_workflow_no_longer_exists():
 
 
 def test_frozen_declaration_is_the_new_format_3_declaration():
-    """The repository's frozen declaration is the re-frozen one: valid, bound, and not a rejected token."""
+    """Historical declaration stays frozen; changed development sources cannot launch it."""
     token = hashlib.sha256(FROZEN_DECLARATION.read_bytes()).hexdigest()
+    assert token == '2e39713f6e2791c735406c3bec7def0d336adb6add1cd43d49319e83aac486ab'
     assert token not in OLD_TOKENS.values()
     declaration, digest = C.load_declaration(FROZEN_DECLARATION)
     assert digest == token and declaration['format_version'] == 3 and declaration['kind'] == 'research'
-    assert declaration['execution_source'] == C.execution_source_declaration()  # matches this tree's sources
+    # Phase 4D.4B intentionally changes search sources. Never re-freeze the
+    # completed scientific declaration to make it match a development tree.
+    assert declaration['execution_source']['sha256'] == 'bbc74893998e1971dcb245611b5ac94d6266fcf9b339f3750aa3c545fc03fa29'
+    assert declaration['execution_source'] != C.execution_source_declaration()
+    assert any('source' in problem for problem in C.identity_problems(declaration, declaration['runtime_identity']))
     assert declaration['launch_control'] == C.launch_control_declaration()
     assert sorted(declaration['frozen_records']) == sorted(C.FROZEN_RECORD_NAMES)
     assert declaration['budgets'] == C.build_declaration({})['budgets']

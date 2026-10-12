@@ -1,0 +1,42 @@
+{
+  "campaign_files": 150,
+  "campaign_inventory_unchanged": true,
+  "canonical_benchmark_or_services_touched": false,
+  "checkpoint_and_evaluation_evidence_unchanged": true,
+  "core_sha256": {
+    "games/connect4/alphazero_v2/bitboard.py": "61a262e45191b1e22b57a224f848668315b60ddd5d7785d620c3dd4de2965229",
+    "games/connect4/alphazero_v2/data.py": "dbe4fec9b4d3300943a175a52d07a8f9cdbbde159f4d102a69c4e93d26f7e254",
+    "games/connect4/alphazero_v2/network.py": "871fe2a16cd631838feae879f1ac725e3d503541771579be36e9dc37771fadf8",
+    "games/connect4/alphazero_v2/search.py": "49d719dfb30caf97ab562502584b4cd0ca3b3a8a9f82fd9c986a91f0c6ba993d"
+  },
+  "frozen_repository_evidence_unchanged": true,
+  "historical_repository_declaration_sha256": "2e39713f6e2791c735406c3bec7def0d336adb6add1cd43d49319e83aac486ab",
+  "measured_core_sources_unchanged": true,
+  "official_declaration_sha256": "c8ab2227d4b2c707b3185da8695a991f0914faede88ecd5f1c7fc84fb017b716",
+  "tests": {
+    "exit_code": 0,
+    "new_tests": 44,
+    "passed": 707,
+    "seconds": 276.32,
+    "skipped": 2,
+    "skips": "Optional retained Phase 4D.2f v1 checkpoint absent in isolated worktree"
+  },
+  "training_started": false,
+  "worktrees": {
+    "baseline": {
+      "clean": true,
+      "commit": "2fbbdeed452e9d73461f36601296b01e5fb34af6",
+      "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4a-worktree"
+    },
+    "historical": {
+      "clean": true,
+      "commit": "1894bc4d8f035cf738df8e3fc0ce234f1ce2c8be",
+      "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4"
+    },
+    "main-reference": {
+      "clean": true,
+      "commit": "8704142702da273e6571f0ca9df3fd4a793be285",
+      "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4a-main-reference"
+    }
+  }
+}

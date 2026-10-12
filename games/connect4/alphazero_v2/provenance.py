@@ -44,7 +44,7 @@ SOURCE_SCHEME = "sha256(json(sorted relative path -> file sha256))-v1"
 # (A) modules a GenerationRunner loads to collect, train, save and resume; (B) everything
 # else in the closure: evaluation, solver, arena, statistics, packages and the launcher.
 TRAINING_SOURCE_FILES = tuple(f"{V2_PACKAGE}/{name}.py" for name in (
-    "__init__", "artifacts", "config", "data", "diagnostics", "generation", "network", "oracle",
+    "__init__", "artifacts", "bitboard", "config", "data", "diagnostics", "generation", "network", "oracle",
     "provenance", "search", "selfplay", "training")) + EXECUTION_DEPENDENCIES
 SOURCE_GROUPS = ("training", "evaluation_and_launch")
 

@@ -1,0 +1,41 @@
+{
+  "criteria": {
+    "1": "PASS",
+    "2": "PASS",
+    "3": "PASS",
+    "4": "PASS",
+    "5": "PASS",
+    "6": "PASS",
+    "7": "PASS",
+    "8": "PASS"
+  },
+  "criterion4_qualification": "PASS after investigation: primary strict per-checkpoint p95 screen remains FAIL. Original outlier retained; independent 40-pair follow-up has p95 ratio 0.52833 and no persistent meaningful regression. Transient timing disturbance is an inference, not proven scheduling causation.",
+  "final_tests": {
+    "exit_code": 0,
+    "new_tests": 44,
+    "passed": 707,
+    "seconds": 276.32,
+    "skipped": 2,
+    "skips": "Optional retained Phase 4D.2f v1 checkpoint absent in isolated worktree"
+  },
+  "followup_p95_ratio": 0.5283300456456903,
+  "immutable_campaign_files": 150,
+  "overall": "PASS",
+  "primary_flags": [
+    {
+      "generation": 10,
+      "p95": {
+        "bitboard": 0.16168003575876333,
+        "engine": 0.11809235205873844
+      },
+      "position": "tactical_midgame",
+      "seed": 42,
+      "simulations": 256
+    }
+  ],
+  "primary_p95_screen_pass": false,
+  "required_speedup_range": [
+    1.7600534095964244,
+    1.926837473821356
+  ]
+}

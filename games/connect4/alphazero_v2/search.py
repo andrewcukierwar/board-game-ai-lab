@@ -18,6 +18,7 @@ from ..agents.mcts_nn_agent import Node, backup, terminal_value, visit_policy
 from .config import PUCT_EXPLORATION, V2Config, action_temperature
 from .data import pre_move_ply, visit_target
 from .network import V2Inference, legal_moves_tuple
+from .bitboard import BitboardState
 
 
 class V2RootNoise:
@@ -98,18 +99,24 @@ def select_action(visits, temperature, rng):
 
 
 class PUCTSearch:
-    def __init__(self, inference, simulations):
+    def __init__(self, inference, simulations, *, backend='engine'):
         if isinstance(simulations, bool) or type(simulations) is not int or simulations < 1:
             raise ValueError("simulations must be a positive integer")
         self.inference = inference if isinstance(inference, V2Inference) else V2Inference(inference)
         self.simulations = simulations
+        if backend not in ('engine', 'bitboard'):
+            raise ValueError("backend must be 'engine' or 'bitboard'")
+        self.backend = backend
 
     def _expand(self, node):
         prediction = self.inference.predict(node.game_state)
         for move in node.game_state.get_valid_moves():
-            after = deepcopy(node.game_state)
-            if not after.make_move(move):
-                raise RuntimeError("Engine rejected a legal search move")
+            if self.backend == 'bitboard':
+                after = node.game_state.drop(move)
+            else:
+                after = deepcopy(node.game_state)
+                if not after.make_move(move):
+                    raise RuntimeError("Engine rejected a legal search move")
             node.children[move] = Node(after, parent=node, move=move, prior_p=prediction.policy[move])
         return prediction
 
@@ -120,7 +127,7 @@ class PUCTSearch:
         return node.children[rng.choice([move for move, score in scores.items() if score == best])]
 
     def run(self, game, *, rng, root_noise=None):
-        root = Node(deepcopy(game))
+        root = Node(BitboardState.from_game(game) if self.backend == 'bitboard' else deepcopy(game))
         if root.game_state.is_game_over() or not root.game_state.get_valid_moves():
             raise ValueError("Cannot search a terminal position or without legal moves")
         prediction = self._expand(root)
@@ -162,10 +169,10 @@ class SelfPlayDecision:
 class SelfPlayer:
     """Self-play policy: root noise ON, temperature 1 for plies < exploratory_plies, else 0."""
 
-    def __init__(self, inference, config, *, search_rng, action_rng, root_noise):
+    def __init__(self, inference, config, *, search_rng, action_rng, root_noise, backend='engine'):
         if not isinstance(root_noise, V2RootNoise):
             raise ValueError("Self-play requires an owned V2RootNoise stream")
-        self.search = PUCTSearch(inference, config.self_play_simulations)
+        self.search = PUCTSearch(inference, config.self_play_simulations, backend=backend)
         self.config, self.search_rng, self.action_rng, self.root_noise = config, search_rng, action_rng, root_noise
 
     def decide(self, game):
@@ -181,8 +188,8 @@ class EvaluationAgent:
     Default 512 simulations. Pass independent per-call rngs for concurrent use.
     """
 
-    def __init__(self, inference, simulations=512, *, rng=None):
-        self.search_engine = PUCTSearch(inference, simulations)
+    def __init__(self, inference, simulations=512, *, rng=None, backend='engine'):
+        self.search_engine = PUCTSearch(inference, simulations, backend=backend)
         self.rng = random.Random(0) if rng is None else rng
 
     def search(self, game, *, rng=None):

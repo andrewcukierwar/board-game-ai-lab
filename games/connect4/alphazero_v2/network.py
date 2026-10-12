@@ -15,6 +15,20 @@ from torch.nn import functional as F
 
 from ..neural_mcts import encode_current_player, validate_input
 from .config import ARCHITECTURE, INFERENCE_CONTRACT
+from .bitboard import BitboardState, INPUT_MASKS
+
+
+def encode_bitboard_current_player(state):
+    """Direct CPU float32 (1,1,6,7) input, without an array board view.
+
+    Preserve even the engine encoder's negative zero on empty O-to-move
+    cells, by multiplying absolute floating values by the actor sign.
+    """
+    x, o = state.pieces
+    sign = 1.0 if state.current_player == 0 else -1.0
+    cells = [(1.0 if x & mask else -1.0 if o & mask else 0.0) * sign
+             for mask in INPUT_MASKS]
+    return torch.tensor(cells, dtype=torch.float32, device='cpu').reshape(1, 1, 6, 7)
 
 
 class AlphaZeroV2Net(nn.Module):
@@ -110,7 +124,9 @@ class V2Inference:
             raise ValueError("Cannot predict actions for a terminal position or without legal moves")
         self._check_eval()
         with torch.inference_mode():
-            policy, value = self.model(encode_current_player(game))
+            states = (encode_bitboard_current_player(game) if isinstance(game, BitboardState)
+                      else encode_current_player(game))
+            policy, value = self.model(states)
         validate_outputs(policy, value, 1)
         logits = tuple(float(x) for x in policy[0])
         return V2Prediction(logits, tuple(float(p) for p in legal_policy_from_logits(logits, game.get_valid_moves())),

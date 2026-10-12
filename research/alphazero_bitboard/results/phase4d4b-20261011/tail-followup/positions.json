@@ -1,0 +1,262 @@
+[
+  {
+    "id": "audit-empty",
+    "label": "empty",
+    "moves": []
+  },
+  {
+    "family": "development-prefix-00",
+    "id": "development-prefix-00-base",
+    "label": "early_opening",
+    "moves": [
+      6,
+      2
+    ],
+    "pair_seed": 20,
+    "stratum": "prefix",
+    "to_move": 0
+  },
+  {
+    "action_values": {
+      "0": -1,
+      "1": -1,
+      "4": -1,
+      "5": 1,
+      "6": -1
+    },
+    "actor": 0,
+    "family": "development-W-x-001",
+    "forced_block_loses": false,
+    "id": "development-W-x-001-base",
+    "label": "quiet_midgame",
+    "labels": {
+      "method_a": "connect4-bitboard-alphabeta-wdl-v1",
+      "method_b": null
+    },
+    "losing_actions": [
+      0,
+      1,
+      4,
+      6
+    ],
+    "moves": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      2,
+      2,
+      5,
+      2,
+      2,
+      2,
+      3,
+      1,
+      2,
+      6,
+      6,
+      6,
+      6,
+      5,
+      5
+    ],
+    "opponent_threat": false,
+    "optimal_actions": [
+      5
+    ],
+    "ply": 20,
+    "stage": "s20_27",
+    "value": 1
+  },
+  {
+    "actor": 0,
+    "category": "unique_safe",
+    "direction": "horizontal",
+    "expected_action": 4,
+    "family": "development-unique_safe-x-001",
+    "id": "development-unique_safe-x-001-base",
+    "immediate_wins": [],
+    "label": "tactical_midgame",
+    "legal": [
+      0,
+      1,
+      3,
+      4,
+      5,
+      6
+    ],
+    "moves": [
+      2,
+      2,
+      2,
+      5,
+      2,
+      2,
+      5,
+      5,
+      2,
+      5,
+      5,
+      3,
+      3,
+      6
+    ],
+    "opponent_threats": [
+      4
+    ],
+    "ply": 14,
+    "safe_actions": [
+      4
+    ],
+    "stage": "middle"
+  },
+  {
+    "action_values": {
+      "0": -1,
+      "1": -1,
+      "5": -1,
+      "6": 0
+    },
+    "actor": 1,
+    "family": "development-D-o-002",
+    "forced_block_loses": false,
+    "id": "development-D-o-002-base",
+    "label": "late_game",
+    "labels": {
+      "method_a": "connect4-bitboard-alphabeta-wdl-v1",
+      "method_b": "connect4-column-stack-exhaustive-minimax-v1"
+    },
+    "losing_actions": [
+      0,
+      1,
+      5
+    ],
+    "moves": [
+      3,
+      3,
+      3,
+      3,
+      3,
+      4,
+      4,
+      4,
+      4,
+      4,
+      3,
+      6,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      6,
+      0,
+      0,
+      0,
+      0,
+      5,
+      5,
+      5,
+      5,
+      0,
+      5,
+      6,
+      6,
+      4,
+      1,
+      1,
+      6
+    ],
+    "opponent_threat": true,
+    "optimal_actions": [
+      6
+    ],
+    "ply": 35,
+    "stage": "s28_41",
+    "value": 0
+  },
+  {
+    "actor": 0,
+    "category": "unique_win",
+    "direction": "horizontal",
+    "expected_action": 1,
+    "family": "development-unique_win-x-000",
+    "id": "development-unique_win-x-000-base",
+    "immediate_wins": [
+      1
+    ],
+    "label": "immediate_win",
+    "legal": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "moves": [
+      4,
+      0,
+      3,
+      5,
+      2,
+      4
+    ],
+    "opponent_threats": [],
+    "ply": 6,
+    "safe_actions": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "stage": "early"
+  },
+  {
+    "actor": 0,
+    "category": "unique_safe",
+    "direction": "horizontal",
+    "expected_action": 4,
+    "family": "development-unique_safe-x-000",
+    "id": "development-unique_safe-x-000-base",
+    "immediate_wins": [],
+    "label": "mandatory_block",
+    "legal": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "moves": [
+      3,
+      4,
+      1,
+      1,
+      0,
+      2,
+      3,
+      3,
+      2,
+      1,
+      4,
+      2
+    ],
+    "opponent_threats": [
+      4
+    ],
+    "ply": 12,
+    "safe_actions": [
+      4
+    ],
+    "stage": "early"
+  }
+]

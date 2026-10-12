@@ -1,0 +1,66 @@
+{
+  "benchmark_commands": [
+    {
+      "backend": "engine",
+      "campaign": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d3c-alphazero-v2-official-m4-20261008-110950",
+      "games": 4,
+      "mode": "all",
+      "output": "experiment-output/phase4d4b-20261011-paired-final",
+      "repeats": 10,
+      "seconds": 1500.0,
+      "validation_trials": 3
+    },
+    {
+      "backend": "engine",
+      "campaign": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d3c-alphazero-v2-official-m4-20261008-110950",
+      "games": 4,
+      "generation": 10,
+      "mode": "focus",
+      "output": "experiment-output/phase4d4b-20261011-tail-followup",
+      "position": "tactical_midgame",
+      "repeats": 40,
+      "seconds": 90.0,
+      "seed": 42,
+      "simulations": 256,
+      "validation_trials": 3
+    },
+    {
+      "backend": "engine",
+      "campaign": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d3c-alphazero-v2-official-m4-20261008-110950",
+      "games": 4,
+      "generation": 10,
+      "mode": "rss",
+      "output": "experiment-output/phase4d4b-20261011-rss-engine-final",
+      "position": "tactical_midgame",
+      "repeats": 10,
+      "seconds": 60.0,
+      "seed": 42,
+      "simulations": 256,
+      "validation_trials": 3
+    },
+    {
+      "backend": "bitboard",
+      "campaign": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d3c-alphazero-v2-official-m4-20261008-110950",
+      "games": 4,
+      "generation": 10,
+      "mode": "rss",
+      "output": "experiment-output/phase4d4b-20261011-rss-bitboard-final",
+      "position": "tactical_midgame",
+      "repeats": 10,
+      "seconds": 60.0,
+      "seed": 42,
+      "simulations": 256,
+      "validation_trials": 3
+    }
+  ],
+  "environment": {
+    "MKL_NUM_THREADS": "1",
+    "NUMEXPR_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "interpreter": "/Users/andrewcukierwar/.venvs/board-game-alphazero-m4/bin/python",
+  "reproduce": "See research/alphazero_bitboard/README.md; output paths must be fresh",
+  "tests": "python -m pytest -q tests/test_alphazero*.py tests/test_connect4_neural_mcts.py tests/test_neural_mcts_import_isolation.py tests/test_connect4_mcts.py tests/test_connect4_mcts_api.py"
+}
