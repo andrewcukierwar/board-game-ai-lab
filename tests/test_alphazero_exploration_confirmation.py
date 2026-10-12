@@ -88,4 +88,23 @@ def test_unresolved_coverage_is_not_safe():
     rows=[dict(id=[42],schedule='original',ply=8,stage='8-15',categories=['nonmax_visit'],classification='unresolved',unresolved_reason='node_limit'),
           dict(id=[42],schedule='original',ply=9,stage='8-15',categories=['max_visit'],classification='neutral')]
     c=analyze.coverage(rows)['all']
-    assert c==dict(eligible=2,unresolved=1,resolved=1,neutral=1,coverage=.5)
+    assert c==dict(eligible=2,unresolved=1,resolved=1,neutral=1,coverage=.5,pre_value_exact=0,executed_value_exact=0)
+
+
+def test_incomplete_block_cannot_selectively_keep_one_arm():
+    games=[dict(id=(42,20,c,i)) for c in (0,1) for i in range(2)]
+    cells=[dict(seed=42,generation=20,cohort=c,schedule=dict(name=n),ids=[0,1],complete=not(c==1 and n=='extended')) for c in (0,1) for n in ('original','extended')]
+    kept,excluded=analyze.matched_games(games,cells)
+    assert len(kept)==2 and all(g['id'][2]==0 for g in kept)
+    assert excluded==[dict(block=(42,20,1),reason='incomplete_or_unmatched_checkpoint_cohort')]
+
+
+@pytest.mark.parametrize('adequate,complete,cp_upper,expected',[(True,True,.04,'NO MATERIAL HARM WITHIN THE DECLARED MARGIN'),(False,True,.04,'INCONCLUSIVE'),(True,False,.04,'INCONCLUSIVE'),(True,True,.05,'INCONCLUSIVE')])
+def test_noninferiority_requires_coverage_both_checkpoints_and_completion(adequate,complete,cp_upper,expected):
+    pooled=dict(uncertainty_interval=[-.01,.04]); parts=[dict(uncertainty_interval=[-.02,.02]),dict(uncertainty_interval=[-.01,cp_upper])]
+    assert analyze.safety_conclusion(pooled,parts,adequate,complete)==expected
+
+def test_material_harm_needs_complete_design_but_not_full_coverage():
+    pooled=dict(uncertainty_interval=[.06,1.0]); parts=[pooled,pooled]
+    assert analyze.safety_conclusion(pooled,parts,False,True)=='MATERIAL HARM'
+    assert analyze.safety_conclusion(pooled,parts,True,False)=='INCONCLUSIVE'

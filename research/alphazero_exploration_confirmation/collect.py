@@ -150,7 +150,7 @@ def main():
     parser.add_argument('--games', type=int, help='games per checkpoint/schedule/cohort cell')
     args = parser.parse_args()
     games = args.games or 64
-    require(0 < args.seconds <= BUDGET_SECONDS and games > 0, 'Invalid budget')
+    require(0 < args.seconds <= 650 and games == 64, 'Frozen main design requires 64 games/cell and at most 650 seconds')
     require(all(os.environ.get(k) == '1' for k in ('OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'OPENBLAS_NUM_THREADS',
                                                    'VECLIB_MAXIMUM_THREADS', 'NUMEXPR_NUM_THREADS')),
             'Set all five vector thread environment variables to 1 before Python starts')

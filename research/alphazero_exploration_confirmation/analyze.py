@@ -48,7 +48,7 @@ def action_value(state, action, values):
 def collect_proofs(games, output, ceiling=600):
     started=time.perf_counter()
     roots,values=roots_for(games)
-    ordered=sorted(roots, key=lambda k:(-roots[k]['ply'], k))
+    ordered=sorted(roots, key=lambda k:(-roots[k]['ply'], tuple(map(int,k.split(':')))))
     queries=[]
     for pass_id,(nodes,seconds) in enumerate(((200_000,.3),(2_000_000,.5)),1):
         session=NativeSession(nodes,seconds)
@@ -167,11 +167,10 @@ def coverage(decisions):
         for name in names:
             c=buckets[name]; c['eligible']+=1
             c['unresolved' if r['classification']=='unresolved' else 'resolved']+=1
-            c[r['classification']]+=1
+            if r['classification']!='unresolved': c[r['classification']]+=1
+            c['pre_value_exact']+=r.get('before') is not None
+            c['executed_value_exact']+=r.get('action_value') is not None
         if r['classification']=='unresolved': buckets['reasons'][r['unresolved_reason']]+=1
-    # Avoid double counting 'unresolved': the classification and coverage share a name.
-    for name,c in buckets.items():
-        if name!='reasons': c['unresolved']//=2
     return {name:dict(c,coverage=c.get('resolved',0)/c['eligible']) if 'eligible' in c else dict(c) for name,c in sorted(buckets.items())}
 
 def verify_records(games,cells):
@@ -181,12 +180,30 @@ def verify_records(games,cells):
     for cell in cells:
         if not cell['complete']: continue
         members=sorted(grouped[(cell['seed'],cell['generation'],cell['cohort']),cell['schedule']['name']],key=lambda g:g['id'])
+        if not members: continue # Entire unmatched block excluded, never only its adverse games.
         completed=replay.completed_games(members,s.GENERATION)
         require(digest(game_records(completed))==cell['records_sha256'],'Cell record hash mismatch')
         for g,c in zip(members,completed): require(digest(game_records([c]))==g['record_sha256'],'Game record hash mismatch'); checked+=1
     return checked
 
-def summarize(games,decisions,cells):
+def matched_games(games,cells):
+    by_block=defaultdict(dict)
+    for c in cells: by_block[(c['seed'],c['generation'],c['cohort'])][c['schedule']['name']]=c
+    accepted=set(); excluded=[]
+    for block,arms in sorted(by_block.items()):
+        if set(arms)==set(s.BY_NAME) and all(c['complete'] for c in arms.values()) and arms['original']['ids']==arms['extended']['ids']:
+            accepted.add(block)
+        else: excluded.append(dict(block=block,reason='incomplete_or_unmatched_checkpoint_cohort'))
+    return [g for g in games if g['id'][:3] in accepted],excluded
+
+def safety_conclusion(pooled,parts,adequate,complete):
+    if not complete: return 'INCONCLUSIVE'
+    conclusion=decision_interval(*pooled['uncertainty_interval'])
+    if conclusion.startswith('NO MATERIAL') and (not adequate or any(p['uncertainty_interval'][1]>=.05 for p in parts)):
+        return 'INCONCLUSIVE'
+    return conclusion
+
+def summarize(games,decisions,cells,excluded=None):
     data=defaultdict(lambda:defaultdict(list))
     for g in games: data[g['id'][0]][g['schedule']].append(g)
     primary={str(seed):effect_bounds(by['original'],by['extended']) for seed,by in sorted(data.items())}
@@ -194,9 +211,7 @@ def summarize(games,decisions,cells):
     cov=coverage(decisions)
     adequate=all(v['coverage']>=.99 for k,v in cov.items() if k.startswith('cell_stage:'))
     complete=all(c['complete'] for c in cells) and len(cells)==8 and len(games)==512
-    conclusion=decision_interval(*pooled['uncertainty_interval'])
-    if conclusion.startswith('NO MATERIAL') and (not adequate or not complete or any(p['uncertainty_interval'][1]>=.05 for p in primary.values())):
-        conclusion='INCONCLUSIVE'
+    conclusion=safety_conclusion(pooled,list(primary.values()),adequate,complete and not excluded)
     profiles={}; secondary={}; cohorts={}
     for seed,by in sorted(data.items()):
         profiles[str(seed)]={}
@@ -213,8 +228,14 @@ def summarize(games,decisions,cells):
                          o_win_share=lambda gs:sum(g['winner']==1 for g in gs)/len(gs),
                          draw_share=lambda gs:sum(g['winner']==-1 for g in gs)/len(gs))
         secondary[str(seed)]={n:a.paired_difference(by['original'],by['extended'],fn) for n,fn in endpoints.items()}
-        cohorts[str(seed)]={str(cohort):dict(primary=effect_bounds([g for g in by['original'] if g['id'][2]==cohort],[g for g in by['extended'] if g['id'][2]==cohort]),
-            duplicate_fraction={name:a.duplicate_fraction([g for g in group if g['id'][2]==cohort],8,42) for name,group in by.items()}) for cohort in (0,1)}
+        cohorts[str(seed)]={}
+        for cohort in (0,1):
+            groups={name:[g for g in group if g['id'][2]==cohort] for name,group in by.items()}
+            if not all(groups.values()):
+                cohorts[str(seed)][str(cohort)]=dict(excluded=True)
+                continue
+            cohorts[str(seed)][str(cohort)]=dict(primary=effect_bounds(groups['original'],groups['extended']),
+                duplicate_fraction={name:a.duplicate_fraction(group,8,42) for name,group in groups.items()})
     prefix_mismatches=[]
     for seed,by in data.items():
         for r,c in a.pair(by['original'],by['extended']):
@@ -226,7 +247,7 @@ def summarize(games,decisions,cells):
     resolved=[r for r in sampling if r['sampling_comparison']['kind']!='unresolved']
     diversity_confirmed=all(secondary[str(seed)]['d1_duplicate_fraction_8_plus']['high']<0 and
         all(secondary[str(seed)][n]['estimate']<0 for n in ('d2_mirror_duplicate_fraction_8_plus','d3_collision_probability_8_plus')) and
-        all(v['duplicate_fraction']['extended']<v['duplicate_fraction']['original'] for v in cohorts[str(seed)].values()) for seed in data)
+        all(v.get('excluded') or v['duplicate_fraction']['extended']<v['duplicate_fraction']['original'] for v in cohorts[str(seed)].values()) for seed in data)
     unresolved=[r for r in decisions if r['classification']=='unresolved']
     return clean(dict(primary=dict(by_checkpoint=primary,pooled=pooled,margin=.05,conclusion=conclusion,adequate_coverage=adequate,complete_design=complete),
         profiles=profiles,secondary_paired=secondary,cohorts=cohorts,coverage=cov,
@@ -238,7 +259,7 @@ def summarize(games,decisions,cells):
             expected_equal_count=sum(r['sampling_comparison']['equal_fraction'] for r in resolved)),
         correctness=dict(checked_records=verify_records(games,cells),paired_prefix_mismatches=prefix_mismatches,
                          paired_games=sum(p['n'] for p in primary.values())),
-        diversity_confirmed=diversity_confirmed,unresolved_decisions=len(unresolved)))
+        diversity_confirmed=diversity_confirmed,unresolved_decisions=len(unresolved),excluded_blocks=excluded or []))
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
@@ -248,17 +269,21 @@ def main():
     parser.add_argument('--proofs',type=Path)
     parser.add_argument('--ceiling',type=float,default=600)
     args=parser.parse_args(); started=time.perf_counter()
+    require(0 < args.ceiling <= 600, 'Frozen solver launch ceiling is at most 600 seconds')
     output=audit.fresh_output(args.campaign,args.output)
     before=audit.campaign_fingerprint(args.campaign)
     require(len(before)==150 and before==audit.read('research/alphazero_baseline/results/phase4d4a-20261011/profile/campaign_before.json'),'Campaign inventory mismatch')
     require(audit.sha(args.campaign/'declaration.json')==audit.DECLARATION,'Declaration mismatch')
     try:
         games,cells,skipped=a.load_collection(args.collection)
-        require(not skipped,'Primary collection contains incomplete cells')
+        games,excluded=matched_games(games,cells)
+        if {g['id'][0] for g in games}!={42,314159}:
+            audit.write(output/'results.json',dict(primary=dict(conclusion='INCONCLUSIVE',reason='insufficient_matched_checkpoints'),excluded_blocks=excluded))
+            return
         proofs=json.loads(args.proofs.read_text()) if args.proofs else collect_proofs(games,output,args.ceiling)
         require(proofs['design_sha256']==audit.sha(ROOT/'DESIGN.md'),'Proof/design hash mismatch')
         decisions=adjudicate(games,proofs)
-        audit.write(output/'results.json',summarize(games,decisions,cells))
+        audit.write(output/'results.json',summarize(games,decisions,cells,excluded))
         for name,rows in (('decisions',decisions),('unresolved',[r for r in decisions if r['classification']=='unresolved'])):
             with gzip.open(output/f'{name}.jsonl.gz','xt') as stream:
                 for r in rows: stream.write(json.dumps(r,sort_keys=True)+'\n')
