@@ -1,0 +1,272 @@
+{
+  "config": {
+    "training": {
+      "seed": 44046,
+      "self_play_simulations": 2,
+      "evaluation_simulations": 512,
+      "interactive_simulations": 512,
+      "root_noise_epsilon": 0.25,
+      "root_dirichlet_alpha": 1.0,
+      "exploratory_plies": 8,
+      "games_per_generation": 8,
+      "replay_generations": 2,
+      "replay_max_games": 16,
+      "batch_size": 2,
+      "samples_per_new_position": 4,
+      "learning_rate": 0.0003,
+      "adam_betas": [
+        0.9,
+        0.999
+      ],
+      "adam_eps": 1e-08,
+      "weight_decay": 0.0001,
+      "max_grad_norm": 5.0,
+      "reflection_probability": 0.5,
+      "max_generations": 1
+    },
+    "optimizer_updates": 1,
+    "architecture": "connect4-conv64-128-128-policy7-scalar-tanh-v2",
+    "pool_size": 8,
+    "rng_protocol": "connect4-az-independent-games-v1"
+  },
+  "runtime": {
+    "python_implementation": "CPython",
+    "python": "3.11.17",
+    "torch": "2.10.0",
+    "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0",
+    "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+    "numpy": "1.26.4",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "cpu_model": "Apple M4",
+    "cpu_capability": "DEFAULT",
+    "intra_op_threads": 1,
+    "inter_op_threads": 1,
+    "deterministic_algorithms": true,
+    "deterministic_warn_only": false,
+    "float32_matmul_precision": "highest",
+    "mkldnn_enabled": true,
+    "thread_environment": {
+      "OMP_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1"
+    }
+  },
+  "source": {
+    "execution": {
+      "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
+      "sha256": "b8aae0d6e14292dad2d2bcdb86f6048fad93a5eeaa5d342d7b5c340e9fc2bde5",
+      "files": {
+        "games/connect4/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+        "games/connect4/agents/mcts_nn_agent.py": "721b7ffe0b146d127641656e54219d55af2a52ce9a68e182df80fe202763df9f",
+        "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
+        "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
+        "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
+        "games/connect4/alphazero_v2/batching.py": "a7af8493083b18ef3671868fbd9595d62a054f35366472cd9b4b76c94ba56088",
+        "games/connect4/alphazero_v2/bitboard.py": "61a262e45191b1e22b57a224f848668315b60ddd5d7785d620c3dd4de2965229",
+        "games/connect4/alphazero_v2/campaign.py": "111365d403db0e14d70ae91fc272c53028eefae30f96e4d45f280d78e34ea0ab",
+        "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
+        "games/connect4/alphazero_v2/data.py": "dbe4fec9b4d3300943a175a52d07a8f9cdbbde159f4d102a69c4e93d26f7e254",
+        "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
+        "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
+        "games/connect4/alphazero_v2/experimental.py": "47f12c3c95fd511b83b1349c7af9249d690d0182b91e72e9178293da37d0fa57",
+        "games/connect4/alphazero_v2/experimental_cli.py": "04357efe5a17bc612bddba691f1830165ddc3286cb84e274894a661f99d85588",
+        "games/connect4/alphazero_v2/experimental_import.py": "dc913fbd156c88def0ed366d90f86e65264d249d068969a06141786702fc1017",
+        "games/connect4/alphazero_v2/experimental_models.py": "2b92139e129c157929aa9ac77e1488737fde8ebac4f115285b9bf36e73edc804",
+        "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
+        "games/connect4/alphazero_v2/launch_control.py": "b5b9e405c823cc976e0e7202d9b03175acf88c429919d4a597304736936820bd",
+        "games/connect4/alphazero_v2/network.py": "097712ae8a304a3d0ca38f4ef71fb6aeaf0a7ff8808e532ffd5475473f80ee5c",
+        "games/connect4/alphazero_v2/official_evidence.py": "eaa94dced355c10dc204fa196f6a65cde2adfb5339a8f14ffcf0f8c500720d74",
+        "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+        "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+        "games/connect4/alphazero_v2/profiling.py": "1a8fc4e7c0554dfe1b2fec5aefcaad965504939a7344daab33eb5c4be3669e46",
+        "games/connect4/alphazero_v2/provenance.py": "4e21e2dc7ade962068c85b1c6831c047bba2cfab6e8e97cd5ee9254fdbabe636",
+        "games/connect4/alphazero_v2/reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2",
+        "games/connect4/alphazero_v2/search.py": "49d719dfb30caf97ab562502584b4cd0ca3b3a8a9f82fd9c986a91f0c6ba993d",
+        "games/connect4/alphazero_v2/selfplay.py": "351b6bdf14e8a9a368b53795c1b9ccff5db02cb4975a3635a901d8143ff2df17",
+        "games/connect4/alphazero_v2/statistics.py": "72943fb3d8b8e039787e1d5c1db5e67837066818051a084e7ad4c4170df66cdf",
+        "games/connect4/alphazero_v2/training.py": "fa43a7b58707699b01d75128a8701ad0cd65d06ada07bafcfdde77701ff29b21",
+        "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+        "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+        "games/connect4/neural_mcts.py": "3cb50524922d42672c3d66f497a2e7491c503e9d22b8f53f17ac7f1703a881ec"
+      }
+    },
+    "git": {
+      "available": true,
+      "commit": "a1639463ef5d66f0f12ab090674d5b861612a11c",
+      "tracked_dirty": false,
+      "untracked_files": 13,
+      "untracked_execution_files": [
+        "games/connect4/alphazero_v2/experimental.py",
+        "games/connect4/alphazero_v2/experimental_cli.py",
+        "games/connect4/alphazero_v2/experimental_import.py",
+        "games/connect4/alphazero_v2/experimental_models.py"
+      ],
+      "execution_diff_from_head_sha256": null,
+      "execution_matches_commit": false
+    }
+  },
+  "initial_file_sha256": "c65954c44e3e91f2acfbcbcf1649792bb65d6e3b3172857a968f1a4fdac4d312",
+  "completed": {
+    "generation": 1,
+    "games": 8,
+    "new_positions": 116,
+    "updates": 1,
+    "trainer_steps": 1,
+    "collection_weights_sha256": "ae8b386270a70d27801dc67d7cdf873c663b901c14a7c3925cc4f41b2b54cffd",
+    "learner_weights_sha256": "20209b55851667ff1f70b7bb9f52771db86e7d322d1f688702e9fe676274cd15",
+    "schedule": {
+      "name": "original",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          8,
+          0.0
+        ]
+      ]
+    },
+    "protocol": "connect4-az-independent-games-v1",
+    "replay_digest": "021a2c1d30510074ecb9ae3ab468249582fdc7ced064025e16b230c5a690d100",
+    "evicted_generations": [],
+    "metrics": [
+      {
+        "combined_loss": 2.9199488162994385,
+        "policy_loss": 1.9194457530975342,
+        "value_mse": 1.0005030632019043,
+        "gradient_norm": 0.9654492735862732,
+        "clipped_gradient_norm": 0.9654492735862732,
+        "clipped": false
+      }
+    ],
+    "collection": {
+      "forward_calls": 81,
+      "neural_positions": 332,
+      "batch_sizes": {
+        "8": 19,
+        "7": 1,
+        "6": 2,
+        "5": 15,
+        "4": 6,
+        "3": 3,
+        "2": 18,
+        "1": 17
+      },
+      "max_active": 8,
+      "search": {
+        "decisions": 116,
+        "mean_root_prior_entropy": 1.9196390757432356,
+        "mean_visit_target_entropy": 0.6453439267282256,
+        "mean_illegal_raw_policy_mass": 0.02393989071034925,
+        "mean_raw_root_value": -0.016395112218592186,
+        "mean_root_search_value": 0.08413199331322364,
+        "root_visit_coverage": 0.28247162673392184,
+        "max_search_depth": 2,
+        "mean_leaf_depth": 1.0043103448275863,
+        "terminal_leaf_fraction": 0.06896551724137931
+      }
+    },
+    "diagnostics": {
+      "games": {
+        "game_length": {
+          "mean": 14.5,
+          "min": 7,
+          "max": 28
+        },
+        "draw_games": 0,
+        "unique_positions": 104,
+        "unique_reflection_families": 102,
+        "proven_positions": 25,
+        "contradictions": 3,
+        "contradiction_rate_proven": 0.12,
+        "contradiction_rate_all": 0.02586206896551724,
+        "contradictions_by_actor_value_ply": {
+          "o/loss/ply00+": {
+            "contradictions": 0,
+            "proven": 1
+          },
+          "o/win/ply06+": {
+            "contradictions": 0,
+            "proven": 4
+          },
+          "o/win/ply12+": {
+            "contradictions": 1,
+            "proven": 5
+          },
+          "o/win/ply18+": {
+            "contradictions": 0,
+            "proven": 3
+          },
+          "o/win/ply24+": {
+            "contradictions": 0,
+            "proven": 2
+          },
+          "x/loss/ply06+": {
+            "contradictions": 0,
+            "proven": 1
+          },
+          "x/loss/ply24+": {
+            "contradictions": 0,
+            "proven": 2
+          },
+          "x/win/ply06+": {
+            "contradictions": 0,
+            "proven": 3
+          },
+          "x/win/ply12+": {
+            "contradictions": 0,
+            "proven": 2
+          },
+          "x/win/ply18+": {
+            "contradictions": 2,
+            "proven": 2
+          }
+        }
+      },
+      "replay": {
+        "unique_positions": 104,
+        "unique_reflection_families": 102
+      },
+      "sampling": {
+        "samples_by_source_generation": {
+          "1": 2
+        },
+        "samples_by_age": {
+          "0": 2
+        },
+        "unique_sampled_positions": 2
+      },
+      "gradients": {
+        "gradient_norm": {
+          "p50": 0.9654492735862732,
+          "p95": 0.9654492735862732,
+          "p100": 0.9654492735862732
+        },
+        "finite_updates": 1,
+        "clipped_fraction": 0.0
+      }
+    },
+    "boundary_sha256": "24512f4b4d3a34a9471765b84682ea6be6dc9e56b20054c351460d244442ba4b",
+    "resources": {
+      "collection_seconds": 0.08113774936646223,
+      "training_and_persistence_seconds": 0.21521874982863665,
+      "wall_seconds": 0.2963564991950989
+    }
+  },
+  "round_trip_identical": true,
+  "model_hash": "20209b55851667ff1f70b7bb9f52771db86e7d322d1f688702e9fe676274cd15",
+  "optimizer_digest": "bc6eec9cf4d67c8be7c3945c8cfd8aa8a19bb74c438c6415557c611ea12be5a2",
+  "replay_digest": "021a2c1d30510074ecb9ae3ab468249582fdc7ced064025e16b230c5a690d100",
+  "counters": {
+    "completed_generations": 1,
+    "total_games": 8,
+    "total_positions": 116,
+    "trainer_steps": 1
+  },
+  "global_rng_digest": "678af70d5662c379f23c33eda7d30844a708217a7059a348cd51cf678877df78"
+}

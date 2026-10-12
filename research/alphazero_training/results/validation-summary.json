@@ -1,0 +1,174 @@
+{
+  "status": "PASS",
+  "experimental_cases": 56,
+  "independent_experimental_seconds": 43.99,
+  "top_level_alphazero_tests": {
+    "passed": 609,
+    "skipped": 2,
+    "seconds": 337.36,
+    "includes_isolated_56_case_wrapper": true
+  },
+  "dependency_tests": {
+    "passed": 307,
+    "skipped": 0,
+    "seconds": 3.54
+  },
+  "targeted_runtime_isolation": {
+    "passed": 2,
+    "seconds": 44.07,
+    "child_cases": 56
+  },
+  "seeds_ready": [
+    42,
+    314159
+  ],
+  "official_files_unchanged": 150,
+  "measured_scratch_seconds": 0.5904424581676722,
+  "real_parent_training_updates": 0,
+  "real_parent_collection_games": 0,
+  "actual_ablation_launched": false,
+  "resnet_implemented": false,
+  "execution_source_sha256": "b8aae0d6e14292dad2d2bcdb86f6048fad93a5eeaa5d342d7b5c340e9fc2bde5",
+  "cases": [
+    {
+      "requirement": "Historical-boundary integrity",
+      "status": "PASS",
+      "evidence": "strict real-parent reader for both seeds; expected hashes"
+    },
+    {
+      "requirement": "Safe experimental fork",
+      "status": "PASS",
+      "evidence": "strict isolated original reader and four real fork reloads"
+    },
+    {
+      "requirement": "Identical two-arm initialization",
+      "status": "PASS",
+      "evidence": "both real seeds equal initial_state_sha256"
+    },
+    {
+      "requirement": "Original/extended schedule records",
+      "status": "PASS",
+      "evidence": "explicit TemperatureSchedule metadata and scratch suite"
+    },
+    {
+      "requirement": "Mixed-schedule replay",
+      "status": "PASS",
+      "evidence": "test_identical_arm_initialization_and_mixed_schedule_expiration"
+    },
+    {
+      "requirement": "Replay expiration",
+      "status": "PASS",
+      "evidence": "test_identical_arm_initialization_and_mixed_schedule_expiration"
+    },
+    {
+      "requirement": "Historical temperature rejection",
+      "status": "PASS",
+      "evidence": "test_fork_rejections[historical_temperature] and [legacy_schedule]"
+    },
+    {
+      "requirement": "Experimental temperature rejection",
+      "status": "PASS",
+      "evidence": "test_adversarial_boundary_validation[temperature]"
+    },
+    {
+      "requirement": "Tampered game rejection",
+      "status": "PASS",
+      "evidence": "adversarial move/visits/winner/schedule and integrity tests"
+    },
+    {
+      "requirement": "Visit budgets",
+      "status": "PASS",
+      "evidence": "test_adversarial_boundary_validation[visits]"
+    },
+    {
+      "requirement": "Outcomes/value labels",
+      "status": "PASS",
+      "evidence": "legal finalization, full completed-example equality and winner rejection"
+    },
+    {
+      "requirement": "Optimizer compatibility",
+      "status": "PASS",
+      "evidence": "groups/moment/step corruption and actual parent optimizer equality"
+    },
+    {
+      "requirement": "Unsupported architecture",
+      "status": "PASS",
+      "evidence": "test_factory_owns_optimizer_restoration and architecture rejection"
+    },
+    {
+      "requirement": "Runtime/source identity",
+      "status": "PASS",
+      "evidence": "strict loader and live identity drift tests"
+    },
+    {
+      "requirement": "Corrupted files",
+      "status": "PASS",
+      "evidence": "test_integrity_and_file_corruption"
+    },
+    {
+      "requirement": "Interrupted collection",
+      "status": "PASS",
+      "evidence": "test_mid_search_interruption and interruption matrix"
+    },
+    {
+      "requirement": "Interrupted finalization",
+      "status": "PASS",
+      "evidence": "test_game_finalization_failure"
+    },
+    {
+      "requirement": "Interrupted replay",
+      "status": "PASS",
+      "evidence": "before_replay/after_replay matrix cases"
+    },
+    {
+      "requirement": "Interrupted optimization",
+      "status": "PASS",
+      "evidence": "before_update/after_update matrix cases"
+    },
+    {
+      "requirement": "Interrupted checkpoint serialization",
+      "status": "PASS",
+      "evidence": "test_checkpoint_interruption[serialization]"
+    },
+    {
+      "requirement": "Interrupted boundary validation",
+      "status": "PASS",
+      "evidence": "test_checkpoint_interruption[validation] and matrix"
+    },
+    {
+      "requirement": "Atomic/no-overwrite persistence",
+      "status": "PASS",
+      "evidence": "atomic publication, fsync cases, temp cleanup"
+    },
+    {
+      "requirement": "Exact experimental resume",
+      "status": "PASS",
+      "evidence": "in-process and fresh-process equality plus recovery matrix"
+    },
+    {
+      "requirement": "RNG restoration",
+      "status": "PASS",
+      "evidence": "test_exact_resume_pool_eight_and_rng"
+    },
+    {
+      "requirement": "Repeated collection",
+      "status": "PASS",
+      "evidence": "test_repeated_deterministic_collection and CLI smoke repeat"
+    },
+    {
+      "requirement": "Official isolation",
+      "status": "PASS",
+      "evidence": "all150 inventories, original module bytes and campaign/symlink output guards"
+    },
+    {
+      "requirement": "Evaluation hooks",
+      "status": "PASS",
+      "evidence": "test_evaluation_hook_is_rng_neutral"
+    },
+    {
+      "requirement": "Test runtime isolation",
+      "status": "PASS",
+      "evidence": "wrapper56cases and legacy fresh-process check; final full suite"
+    }
+  ]
+}

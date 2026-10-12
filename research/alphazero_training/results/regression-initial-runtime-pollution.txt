@@ -1,0 +1,46 @@
+........................................................................ [ 10%]
+........................................................................ [ 21%]
+........................................................................ [ 32%]
+.......................F................................................ [ 43%]
+........................................................................ [ 54%]
+.................................s...................................... [ 64%]
+........................................................................ [ 75%]
+......................s................................................. [ 86%]
+........................................................................ [ 97%]
+..................                                                       [100%]
+=================================== FAILURES ===================================
+________________ test_resume_continues_exactly_in_fresh_process ________________
+
+tmp_path = PosixPath('/private/var/folders/3v/1hxvmw1s3_sdqzk17lv2bmgc0000gn/T/pytest-of-andrewcukierwar/pytest-24/test_resume_continues_exactly_1')
+
+    def test_resume_continues_exactly_in_fresh_process(tmp_path):
+        config = tiny_config()
+        runner = GenerationRunner(config)
+        runner.run_generation()
+        runner.save_resume_boundary(tmp_path / 'boundary.pt')
+        expected = runner.run_generation()
+        script = f'''
+    import json, torch
+    torch.set_num_threads(1)
+    from games.connect4.alphazero_v2.generation import load_resume_boundary
+    runner = load_resume_boundary({str(tmp_path / 'boundary.pt')!r})
+    summary = runner.run_generation()
+    summary.pop('resources')
+    print(json.dumps(dict(summary=summary, state=runner.state_sha256())))
+    '''
+        result = subprocess.run([sys.executable, '-c', script], capture_output=True, text=True,
+                                timeout=120, cwd=ROOT, env=dict(os.environ, PYTHONDONTWRITEBYTECODE='1'))
+>       assert result.returncode == 0, result.stderr
+E       AssertionError: Traceback (most recent call last):
+E           File "<string>", line 5, in <module>
+E           File "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4f-worktree/games/connect4/alphazero_v2/generation.py", line 368, in load_resume_boundary
+E             raise ValueError(f"Runtime identity differs; exact continuation is not promised: {runtime_changes}")
+E         ValueError: Runtime identity differs; exact continuation is not promised: ['deterministic_algorithms', 'inter_op_threads']
+E
+E       assert 1 == 0
+E        +  where 1 = CompletedProcess(args=['/Users/andrewcukierwar/.venvs/board-game-alphazero-m4/bin/python', '-c', "\nimport json, torch... Runtime identity differs; exact continuation is not promised: [\'deterministic_algorithms\', \'inter_op_threads\']\n').returncode
+
+tests/test_alphazero_v2.py:804: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_alphazero_v2.py::test_resume_continues_exactly_in_fresh_process
+1 failed, 663 passed, 2 skipped in 337.40s (0:05:37)

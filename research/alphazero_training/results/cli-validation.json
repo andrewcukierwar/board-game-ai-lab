@@ -1,0 +1,22 @@
+[
+  {
+    "command": "inspect",
+    "seed": 42,
+    "passed": true
+  },
+  {
+    "command": "inspect",
+    "seed": 314159,
+    "passed": true
+  },
+  {
+    "command": "run-one",
+    "scratch_only": true,
+    "passed": true,
+    "resources": {
+      "collection_seconds": 0.0789391677826643,
+      "training_and_persistence_seconds": 0.21514679118990898,
+      "wall_seconds": 0.2940859589725733
+    }
+  }
+]
