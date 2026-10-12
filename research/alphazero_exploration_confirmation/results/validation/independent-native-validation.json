@@ -1,0 +1,29 @@
+{
+  "checks": [
+    "All legal action values identical across all three solvers",
+    "All8 reflected legal-action vectors map c to6-c correctly"
+  ],
+  "command_wall_seconds": 0.8,
+  "discrepancies": 0,
+  "fresh_games_collected": 0,
+  "historical_source_byte_identical": true,
+  "histories": "The eight ply32/40 histories in results/feasibility/benchmark.json, prior4D data only",
+  "late_positions_crosschecked": 8,
+  "limits": {
+    "exhaustive_states": 200000,
+    "native_nodes_per_position": 200000,
+    "native_wall_seconds_per_position": 0.3,
+    "python_nodes": 200000
+  },
+  "measured_exact_execution_seconds": 0.009555624797940254,
+  "native_nodes": 144,
+  "purpose": "Independent bounded validation of unchanged historical native exact solver",
+  "reference_methods": [
+    "Existing Python BitboardSolver.action_values",
+    "Independent exhaustive_action_values column-stack minimax"
+  ],
+  "reflection_checks": 8,
+  "reviewer": "independent_review agent (implementation-independent, same hardware)",
+  "source_reference": "8704142702da273e6571f0ca9df3fd4a793be285:tests/victor_validation/c4_oracle.c",
+  "source_sha256": "b60dc839edebdcc92cee1a210b795956125bf10a5989dfa346d4e18e9525c942"
+}
