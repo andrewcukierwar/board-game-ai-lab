@@ -1,0 +1,23 @@
+{
+ "command_directory_scope_protected_files": [
+  "games/connect4/alphazero_v2/frozen/openings-sealed.json",
+  "games/connect4/alphazero_v2/frozen/solved-sealed.json",
+  "games/connect4/alphazero_v2/frozen/tactical-sealed.json"
+ ],
+ "incident_call_id": "call_9e42512ca12748c29c6a2bdaf9e73a29",
+ "limits": "Tool response was truncated; visible lines bound actual reviewer exposure, not full rg file-read scope. No protected field values/row identities are reproduced.",
+ "method": "In-memory parse of only the offending logged tool response; emit filenames/counts/line-number ranges/hash only. Metadata-only file listing for directory scope.",
+ "protected_content_reproduced": false,
+ "sealed_fixtures_reopened": false,
+ "timestamp_utc": "2026-10-12T22:00:06.942Z",
+ "tool_response_sha256": "08c36113abc454232dc4470972dac279dbe0e80cb9b3a97128fa7e91a3071083",
+ "truncated": true,
+ "visible_output_scope": {
+  "games/connect4/alphazero_v2/frozen/solved-sealed.json": {
+   "line_number_max": 33400,
+   "line_number_min": 30511,
+   "matching_lines_visible": 149,
+   "serialized_fragment_characters": 3177
+  }
+ }
+}

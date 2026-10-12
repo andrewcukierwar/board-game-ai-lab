@@ -1,0 +1,27 @@
+{
+ "charge_method": "Conservative upper charge covering both validation runs (final10.429s), cost-only pilot19.381s, prelaunch synthetic probes and hashing/freezes; noncompute agent drafting time excluded.",
+ "clean_review_path": "research/alphazero_value_diagnostics/independent-clean-prelaunch-review.md",
+ "clean_review_sha256": "c9bdb8b390b7fb27e2bed5d1e76cadbaf4129696a1f5d9b639c0a874a4f26fb0",
+ "clean_reviewer_no_inherited_history": true,
+ "cleanup_reserve_seconds": 30,
+ "contaminated_reviewer_retired": true,
+ "earlier_access_violation_erased": false,
+ "hard_total_seconds": 3600,
+ "incident_scope_sha256": "6567d4c5d9a4f06936cef62cf2a4b1704334210ae953e12853dc37b5053bfec1",
+ "integrity_isolation": "preincident fixed inputs + original reviewer retirement + independent clean reconstruction",
+ "launch_disposition": "PASS",
+ "no_measured_work_before_clean_review": true,
+ "old_review_used_for_launch_or_results": false,
+ "original_freeze_sha256": "db1baaac6d1dfee64486c2b8bf66e2c099ed6299faf3111c2234acb52aed2dba",
+ "original_prospective_commit": "c993d87c92215e39f1144cdcc0a0f84d1c3480da",
+ "prelaunch_charge_seconds": 180,
+ "protected_content_in_new_artifacts": false,
+ "provenance_audit_sha256": "72d4af491e639086d715e4ba28097287869ebeb2a9fb216be7635197022463c6",
+ "reviewed_original_frozen_hashes": 55,
+ "supplemental_sources": {
+  "research/alphazero_value_diagnostics/independent_clean_rerun.py": "1e9458f73ed9f67831086a5d89ba037f96b4b12204a059454bce72e4598223d7",
+  "research/alphazero_value_diagnostics/independent_clean_review.py": "64f30517f9b25d77b1b0703e4a9cb8d8b3b0f949266ec78e77b794f39ff12143",
+  "research/alphazero_value_diagnostics/report_lifecycle.py": "cfc2048ae162d2419b31d58df61f739101892e848aeaa1c2fd4f1243a5413de6"
+ },
+ "unchanged_scientific_protocol": true
+}
