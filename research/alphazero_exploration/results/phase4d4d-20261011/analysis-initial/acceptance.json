@@ -1,0 +1,72 @@
+[
+  {
+    "criterion": "Original schedule matches retained Phase 4D.4C records and RNG states exactly",
+    "evidence": "regression.json: default and explicit ORIGINAL vs 4C pool-eight trial (16 games) and validation (4 games)",
+    "result": "PASS"
+  },
+  {
+    "criterion": "Same checkpoint/config/identity reproduces records and RNG states",
+    "evidence": "regression.json: each new schedule collected twice",
+    "result": "PASS"
+  },
+  {
+    "criterion": "No schedule-dependent RNG draws; matched identities share searched prefixes",
+    "evidence": "1024 matched prefix comparisons, 0 mismatches",
+    "result": "PASS"
+  },
+  {
+    "criterion": "Exactly 256 simulations per search",
+    "evidence": "collector accounting per cell and stored root visits summing to 256 for every analyzed position",
+    "result": "PASS"
+  },
+  {
+    "criterion": "Network frozen; checkpoints hash-verified",
+    "evidence": "weights SHA-256 before/after every cell; checkpoint file hashes in provenance.json",
+    "result": "PASS"
+  },
+  {
+    "criterion": "Search, noise, config defaults and target code unchanged from 99cec1c",
+    "evidence": "git diff --quiet 99cec1c for config/search/selfplay/data/bitboard/network/mcts_nn_agent/connect4",
+    "result": "PASS"
+  },
+  {
+    "criterion": "Targets are normalized raw visits; temperature affects execution only",
+    "evidence": "loader verified execution distribution == visit_policy(visits, temperature) and tau-0 argmax for every move",
+    "result": "PASS"
+  },
+  {
+    "criterion": "Pre-move positions, actor-relative outcomes and legal replay of every trajectory",
+    "evidence": "1024 games replayed through the engine by the loader without a violation",
+    "result": "PASS"
+  },
+  {
+    "criterion": "No incomplete game or unmatched cell analyzed",
+    "evidence": "4 complete matched blocks; 0 incomplete cells excluded",
+    "result": "PASS"
+  },
+  {
+    "criterion": "Every schedule applied correctly by ply",
+    "evidence": "loader compared every recorded temperature with its schedule",
+    "result": "PASS"
+  },
+  {
+    "criterion": "Mirror and canonical counting agree with independent Phase 4D.4A and campaign figures",
+    "evidence": "archive_cross_checks in results.json",
+    "result": "PASS"
+  },
+  {
+    "criterion": "Official campaign preserved in every invocation",
+    "evidence": "preservation.json of each invocation: 150 files byte-identical, declaration SHA-256 unchanged",
+    "result": "PASS"
+  },
+  {
+    "criterion": "Measured execution under 30 minutes",
+    "evidence": "1194.0 s across 4 invocations",
+    "result": "PASS"
+  },
+  {
+    "criterion": "All declared primary cells completed",
+    "evidence": "4 of 4 checkpoint x cohort blocks complete",
+    "result": "PASS"
+  }
+]

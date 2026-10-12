@@ -14,7 +14,7 @@ from games.connect4.alphazero_v2.generation import rebuild_game
 from games.connect4.alphazero_v2.network import V2Inference, V2Prediction, legal_policy_from_logits
 from games.connect4.alphazero_v2.oracle import engine_position
 from research.alphazero_baseline import audit
-from research.alphazero_exploration import analysis as a, analyze, collect, replay, schedules as s
+from research.alphazero_exploration import analysis as a, analyze, collect, exact, package, replay, schedules as s
 
 
 class FakeInference(V2Inference):
@@ -255,15 +255,76 @@ def test_predeclared_tactical_classification():
 def test_recommendation_prefers_smallest_eligible_change():
     grade = lambda **k: {n: dict(classification=k.get(n, 'NONE')) for n in analyze.ORDER}
     clear = grade(extended='NO MATERIAL REGRESSION', smoothed='INCONCLUSIVE', extended_smoothed='MATERIAL REGRESSION')
-    none = analyze.recommend(grade(), clear, {})
+    no_gain = lambda smaller, larger: {}
+    none = analyze.recommend(grade(), clear, no_gain)
     assert none['recommended_schedule'] == 'original' and not none['training_ablation_justified']
-    only_d = analyze.recommend(grade(extended_smoothed='MATERIAL'), clear, {})
+    only_d = analyze.recommend(grade(extended_smoothed='MATERIAL'), clear, no_gain)
     assert only_d['recommended_schedule'] == 'original' and only_d['eligible'] == []
-    smoothed = analyze.recommend(grade(smoothed='MATERIAL', extended_smoothed='MATERIAL'), clear, {})
+    smoothed = analyze.recommend(grade(smoothed='MATERIAL', extended_smoothed='MATERIAL'), clear, no_gain)
     assert smoothed['recommended_schedule'] == 'smoothed' and smoothed['conditional_on_tactical_monitoring']
     assert smoothed['training_ablation_justified']
-    extended = analyze.recommend(grade(extended='MATERIAL'), clear, {})
+    extended = analyze.recommend(grade(extended='MATERIAL'), clear, no_gain)
     assert extended['recommended_schedule'] == 'extended' and not extended['conditional_on_tactical_monitoring']
+
+
+@pytest.mark.parametrize('gains,chosen', [
+    ({}, 'extended'),                                                        # no evidence never escalates
+    ({'a': interval(-.12, -.2, -.04), 'b': interval(-.11, -.2, -.02)}, 'smoothed'),
+    ({'a': interval(-.12, -.2, -.04), 'b': interval(-.09, -.2, -.02)}, 'extended'),   # under 10 points in one
+    ({'a': interval(-.12, -.2, -.04), 'b': interval(-.11, -.3, .08)}, 'extended')])   # interval includes zero
+def test_larger_change_needs_ten_points_in_every_checkpoint(gains, chosen):
+    diversity = {n: dict(classification='MATERIAL' if n != 'extended_smoothed' else 'NONE') for n in analyze.ORDER}
+    tactics = {n: dict(classification='NO MATERIAL REGRESSION') for n in analyze.ORDER}
+    calls = []
+    result = analyze.recommend(diversity, tactics, lambda smaller, larger: calls.append((smaller, larger)) or gains)
+    assert result['recommended_schedule'] == chosen and calls == [('extended', 'smoothed')]
+    assert result['escalation_checks'][0]['replaces'] == (chosen == 'smoothed')
+
+
+def test_predeclared_diversity_conditions():
+    lower = interval(-.01, -.02, -.001)
+    cohorts = {0: (.10, .30), 1: (.12, .32)}
+    passing = analyze.diversity_checks(.40, interval(-.12, -.18, -.06), lower, lower, cohorts)
+    assert passing['material'] and passing['suggestive'] and passing['relative_reduction'] == pytest.approx(.30)
+    cases = dict(
+        relative=analyze.diversity_checks(.40, interval(-.099, -.15, -.05), lower, lower, cohorts),      # 24.75%
+        absolute=analyze.diversity_checks(.16, interval(-.045, -.08, -.01), lower, lower, cohorts),      # 4.5 points
+        interval=analyze.diversity_checks(.40, interval(-.12, -.25, .01), lower, lower, cohorts),
+        cohort=analyze.diversity_checks(.40, interval(-.12, -.18, -.06), lower, lower, {0: (.10, .30), 1: (.33, .32)}),
+        d2=analyze.diversity_checks(.40, interval(-.12, -.18, -.06), interval(.01, -.01, .03), lower, cohorts),
+        d3=analyze.diversity_checks(.40, interval(-.12, -.18, -.06), lower, interval(.001, -.01, .02), cohorts))
+    assert not any(c['material'] for c in cases.values())
+    assert cases['relative']['suggestive'] and not cases['relative']['meets_relative']
+    assert cases['absolute']['meets_relative'] and not cases['absolute']['meets_absolute']
+    assert not analyze.diversity_checks(.40, interval(-.039, -.08, -.001), lower, lower, cohorts)['suggestive']
+    assert analyze.diversity_checks(.40, interval(-.10, -.15, -.05), lower, lower, cohorts)['material']   # exactly 25%
+    assert not analyze.diversity_checks(0., interval(0., 0., 0.), lower, lower, cohorts)['suggestive']
+
+
+def test_exact_context_separates_value_neutral_events():
+    values = {BLUNDER[:5]: -1}      # pretend O was already lost before its unsafe move
+    counts = exact.game_exact(game(BLUNDER, visits={5: [200, 56, 0, 0, 0, 0, 0]}), lambda moves: values[tuple(moves)])
+    assert counts['unsafe'] == counts['unsafe:already_lost'] == counts['unsafe:already_lost:sampling'] == 1
+    assert counts['game_ending_errors:already_lost'] == 1 and counts['value_changing_errors'] == 0
+    assert counts['value_changing_game_endings'] == 0 and counts['unsafe:already_lost@0-7'] == 1
+    counts = exact.game_exact(game(BLUNDER), lambda moves: 0)
+    assert counts['unsafe:value_changing:search'] == 1 and counts['value_changing_errors'] == 1
+    assert counts['game_ending_errors:value_changing:search'] == counts['value_changing_game_endings'] == 1
+    # Real solver: X's missed win at ply 6 hands O an immediate win, so it is value-changing ...
+    value = exact.ExactValues(max_nodes=10_000)
+    missed = exact.game_exact(game(MISSED, visits={5: [0, 256, 0, 0, 0, 0, 0]}), lambda moves: (
+        value(moves) if len(moves) > 5 else 0))
+    assert missed['missed_wins'] == missed['missed_wins:value_changing'] == 1 and missed['missed_wins:still_winning'] == 0
+    # ... while a missed win that still wins by force is value-neutral; unsolved positions count as changing.
+    assert exact.game_exact(game(MISSED), lambda moves: -1)['missed_wins:still_winning'] == 1
+    unsolved = exact.game_exact(game(MISSED), lambda moves: None)
+    assert unsolved['unsolved'] == 2 and unsolved['value_changing_errors'] == 2
+    tiny = exact.ExactValues(max_nodes=1)
+    assert tiny(()) is None and tiny.unsolved == 1 and tiny(()) is None and tiny.unsolved == 1
+    games = [game(BLUNDER, (1, 20, 0, 0)), game(MISSED, (1, 20, 0, 1))]
+    exact.attach(games, lambda moves: 0)
+    assert exact.rate(games, 'value_changing_errors', 'games') == 1.5
+    assert exact.profile(games)['rates']['already_lost_share_of_unsafe'] == 0
 
 
 def test_collection_cells_load_match_and_classify(tmp_path, monkeypatch):
@@ -312,7 +373,24 @@ def test_collection_cells_load_match_and_classify(tmp_path, monkeypatch):
     tactics = {n: analyze.classify_tactics(analyze.comparisons(pooled['original'], pooled[n], analyze.TACTICAL))
                for n in analyze.ORDER}
     assert all(d['classification'] in ('MATERIAL', 'SUGGESTIVE', 'NONE') for d in diversity.values())
-    decision = dict(diversity=diversity, tactics=tactics, recommendation=analyze.recommend(diversity, tactics, data))
+    decision = dict(diversity=diversity, tactics=tactics,
+                    recommendation=analyze.recommend(diversity, tactics, analyze.d1_gain(data)))
+    assert analyze.verify_record_hashes(games, loaded) == len(games)
+    exact.attach(games, lambda moves: -1)
+    sensitivity = analyze.robustness(data, pooled, tactics)
+    assert set(sensitivity) == set(analyze.ORDER)
+    assert sensitivity['extended']['most_influential_identity']['classification_with_all_identities'] == \
+        tactics['extended']['classification']
+    # Committed evidence is gzip-compressed: packaging round-trips and the loader reads it transparently.
+    registry = package.package(dict(main=tmp_path), tmp_path.parent / 'packaged' / tmp_path.name)
+    packaged = tmp_path.parent / 'packaged' / tmp_path.name / 'main'
+    assert registry[0]['name'] == 'main' and not list(packaged.glob('*.jsonl')) and len(list(packaged.glob('*.gz'))) == 16
+    again, _, _ = a.load_collection(packaged)
+    assert [(g['id'], g['schedule'], g['moves'], g['record_sha256']) for g in again] == \
+        [(g['id'], g['schedule'], g['moves'], g['record_sha256']) for g in games]
+    assert set(package.manifest(packaged)) == {p.name for p in packaged.iterdir()}
+    with pytest.raises(FileExistsError):
+        package.package(dict(main=tmp_path), tmp_path.parent / 'packaged' / tmp_path.name)
     text = analyze.tables(analyze.clean(results), analyze.clean(decision),
                           [dict(criterion='x', result='PASS', evidence='y')])
     assert '42/g20: diversity' in text and 'extended_smoothed' in text

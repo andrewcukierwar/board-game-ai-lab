@@ -1,0 +1,54 @@
+[
+  {
+    "check": "314159/g20 16 games pool 8, default schedule vs retained 4C trial",
+    "games": 16,
+    "records_exact": true,
+    "rng_exact": true
+  },
+  {
+    "check": "314159/g20 16 games pool 8, original schedule vs retained 4C trial",
+    "games": 16,
+    "records_exact": true,
+    "rng_exact": true
+  },
+  {
+    "check": "42/g20 4 games pool 8, default schedule vs retained 4C validation",
+    "games": 4,
+    "records_exact": true
+  },
+  {
+    "check": "42/g20 4 games pool 8, original schedule vs retained 4C validation",
+    "games": 4,
+    "records_exact": true
+  },
+  {
+    "check": "42/g20 explicit ORIGINAL equals default records and final RNG states",
+    "games": 4,
+    "records_exact": true,
+    "rng_exact": true
+  },
+  {
+    "check": "42/g20 extended repeated identities reproduce exactly",
+    "games": 4,
+    "prefix_exact": true,
+    "records_exact": true,
+    "rng_exact": true,
+    "shared_prefix_plies": 8
+  },
+  {
+    "check": "42/g20 smoothed repeated identities reproduce exactly",
+    "games": 4,
+    "prefix_exact": true,
+    "records_exact": true,
+    "rng_exact": true,
+    "shared_prefix_plies": 8
+  },
+  {
+    "check": "42/g20 extended_smoothed repeated identities reproduce exactly",
+    "games": 4,
+    "prefix_exact": true,
+    "records_exact": true,
+    "rng_exact": true,
+    "shared_prefix_plies": 8
+  }
+]

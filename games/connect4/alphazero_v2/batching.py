@@ -8,6 +8,7 @@ from dataclasses import dataclass, field
 import hashlib
 import math
 import random
+import re
 import time
 
 from ..connect4 import Connect4
@@ -66,8 +67,8 @@ class TemperatureSchedule:
     segments: tuple
 
     def __post_init__(self):
-        if type(self.name) is not str or not self.name or not self.name.isascii():
-            raise ValueError('Schedule name must be a nonempty ASCII string')
+        if type(self.name) is not str or not re.fullmatch('[a-z0-9_]+', self.name):
+            raise ValueError('Schedule name must be lowercase letters, digits and underscores')
         if type(self.segments) not in (tuple, list) or not self.segments:
             raise ValueError('Schedule needs at least one (first ply, temperature) segment')
         segments = []
@@ -95,7 +96,8 @@ class TemperatureSchedule:
 
     @classmethod
     def from_dict(cls, data):
-        if not isinstance(data, dict) or set(data) != {'name', 'segments'}:
+        if (not isinstance(data, dict) or set(data) != {'name', 'segments'}
+                or type(data['segments']) not in (tuple, list)):
             raise ValueError('Schedule fields do not match TemperatureSchedule')
         return cls(data['name'], tuple(tuple(s) if type(s) is list else s for s in data['segments']))
 

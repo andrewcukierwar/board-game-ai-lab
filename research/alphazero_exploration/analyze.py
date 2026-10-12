@@ -16,11 +16,11 @@ from games.connect4.alphazero_v2.config import V2Config
 from games.connect4.alphazero_v2.data import GenerationReplay
 from games.connect4.alphazero_v2.diagnostics import family
 from research.alphazero_baseline import audit
-from research.alphazero_batching.benchmark import require
-from . import analysis as a, replay, schedules as s
+from research.alphazero_batching.benchmark import digest, game_records, require
+from . import analysis as a, exact, replay, schedules as s
 from .collect import BASE, BASE_COMMIT, BUDGET_SECONDS
 
-# Thresholds restated from DESIGN.md, which was committed before any collection.
+# Thresholds restated from DESIGN.md, which was committed before the measured collection.
 CRITERIA = dict(
     diversity=dict(material_relative=.25, material_absolute=.05, suggestive_relative=.10, larger_change_absolute=.10),
     tactics=dict(missed_win_rate=.05, unsafe_rate=.02, errors_per_game=.15, game_ending_error_share=.05))
@@ -124,28 +124,37 @@ def comparisons(reference, candidate, functions):
     return {name: a.paired_difference(reference, candidate, f) for name, f in functions.items()}
 
 
+def diversity_checks(reference, d1, d2, d3, cohort_values):
+    """DESIGN.md MATERIAL/SUGGESTIVE conditions for one checkpoint.
+
+    ``reference`` is schedule A's D1, d1..d3 are paired differences from it and
+    ``cohort_values`` are (candidate D1, original D1) per cohort.
+    """
+    criteria = CRITERIA['diversity']
+    relative = -d1['estimate'] / reference if reference else 0.
+    checks = dict(relative_reduction=relative, absolute_reduction=-d1['estimate'],
+                  meets_relative=relative >= criteria['material_relative'],
+                  meets_absolute=-d1['estimate'] >= criteria['material_absolute'],
+                  interval_excludes_zero=d1['high'] < 0,
+                  lower_in_every_cohort=all(x < y for x, y in cohort_values.values()),
+                  cohort_values={str(k): dict(candidate=x, original=y) for k, (x, y) in cohort_values.items()},
+                  d2_lower=d2['estimate'] < 0, d3_lower=d3['estimate'] < 0)
+    checks['material'] = all(checks[k] for k in ('meets_relative', 'meets_absolute', 'interval_excludes_zero',
+                                                 'lower_in_every_cohort', 'd2_lower', 'd3_lower'))
+    checks['suggestive'] = relative >= criteria['suggestive_relative']
+    return checks
+
+
 def classify_diversity(name, data, blocks, paired):
-    criteria, per_checkpoint, material, suggestive = CRITERIA['diversity'], {}, True, True
+    d1_of, per_checkpoint = ENDPOINTS['d1_duplicate_fraction_8_plus'], {}
     for checkpoint, by_schedule in data.items():
-        reference = ENDPOINTS['d1_duplicate_fraction_8_plus'](by_schedule['original'])
-        d1 = paired[label(checkpoint)][name]['d1_duplicate_fraction_8_plus']
-        d2 = paired[label(checkpoint)][name]['d2_mirror_duplicate_fraction_8_plus']
-        d3 = paired[label(checkpoint)][name]['d3_collision_probability_8_plus']
-        relative = -d1['estimate'] / reference if reference else 0.
-        block_values = {b[2]: (ENDPOINTS['d1_duplicate_fraction_8_plus'](v[name]),
-                               ENDPOINTS['d1_duplicate_fraction_8_plus'](v['original']))
-                        for b, v in blocks.items() if b[:2] == checkpoint}
-        checks = dict(relative_reduction=relative, absolute_reduction=-d1['estimate'],
-                      meets_relative=relative >= criteria['material_relative'],
-                      meets_absolute=-d1['estimate'] >= criteria['material_absolute'],
-                      interval_excludes_zero=d1['high'] < 0,
-                      lower_in_every_cohort=all(x < y for x, y in block_values.values()),
-                      cohort_values={str(k): dict(candidate=x, original=y) for k, (x, y) in block_values.items()},
-                      d2_lower=d2['estimate'] < 0, d3_lower=d3['estimate'] < 0)
-        per_checkpoint[label(checkpoint)] = checks
-        material &= all(checks[k] for k in ('meets_relative', 'meets_absolute', 'interval_excludes_zero',
-                                            'lower_in_every_cohort', 'd2_lower', 'd3_lower'))
-        suggestive &= relative >= criteria['suggestive_relative']
+        differences = paired[label(checkpoint)][name]
+        cohorts = {b[2]: (d1_of(v[name]), d1_of(v['original'])) for b, v in blocks.items() if b[:2] == checkpoint}
+        per_checkpoint[label(checkpoint)] = diversity_checks(
+            d1_of(by_schedule['original']), differences['d1_duplicate_fraction_8_plus'],
+            differences['d2_mirror_duplicate_fraction_8_plus'], differences['d3_collision_probability_8_plus'], cohorts)
+    material = all(c['material'] for c in per_checkpoint.values())
+    suggestive = all(c['suggestive'] for c in per_checkpoint.values())
     return dict(classification='MATERIAL' if material else 'SUGGESTIVE' if suggestive else 'NONE',
                 checkpoints=per_checkpoint)
 
@@ -174,15 +183,22 @@ def factorial(by_schedule):
         interaction=a.jackknife(quads, lambda u: (lambda v: (v[3] - v[2]) - (v[1] - v[0]))(values(u))))
 
 
-def recommend(diversity, tactics, data):
+def d1_gain(data):
+    """Paired D1 difference (larger change minus smaller change) per checkpoint."""
+    return lambda smaller, larger: {label(c): a.paired_difference(v[smaller], v[larger],
+                                                                  ENDPOINTS['d1_duplicate_fraction_8_plus'])
+                                    for c, v in data.items()}
+
+
+def recommend(diversity, tactics, gain):
+    """``gain(smaller, larger)`` returns the per-checkpoint paired D1 difference of two eligible schedules."""
     eligible = [n for n in ORDER if diversity[n]['classification'] == 'MATERIAL'
                 and tactics[n]['classification'] != 'MATERIAL REGRESSION']
     chosen, escalations = (eligible[0] if eligible else None), []
     for larger in eligible[1:]:
-        gains = {label(c): a.paired_difference(v[chosen], v[larger], ENDPOINTS['d1_duplicate_fraction_8_plus'])
-                 for c, v in data.items()}
-        replace = all(g['estimate'] <= -CRITERIA['diversity']['larger_change_absolute'] and g['high'] < 0
-                      for g in gains.values())
+        gains = gain(chosen, larger)
+        replace = bool(gains) and all(g['estimate'] <= -CRITERIA['diversity']['larger_change_absolute']
+                                      and g['high'] < 0 for g in gains.values())
         escalations.append(dict(smaller=chosen, larger=larger, d1_difference=gains, replaces=replace))
         if replace:
             chosen = larger
@@ -191,6 +207,90 @@ def recommend(diversity, tactics, data):
                 training_ablation_justified=chosen is not None, escalation_checks=escalations,
                 rule='DESIGN.md: MATERIAL diversity and not MATERIAL REGRESSION; smallest change unless a larger '
                      'one lowers D1 by >= 10 points in both checkpoints with paired intervals excluding zero')
+
+
+def robustness(data, pooled, tactics):
+    """POST HOC sensitivity of each predeclared label to single game identities (review finding)."""
+    d1_of, result = ENDPOINTS['d1_duplicate_fraction_8_plus'], {}
+    for name in ORDER:
+        entry = dict(diversity={}, tactics={})
+        for checkpoint, by_schedule in data.items():
+            relative = a.paired_statistic(by_schedule['original'], by_schedule[name],
+                                          lambda r, c: 1 - d1_of(c) / d1_of(r) if d1_of(r) else float('nan'),
+                                          replicates=True)
+            absolute = a.paired_difference(by_schedule['original'], by_schedule[name], d1_of, replicates=True)
+            entry['diversity'][label(checkpoint)] = dict(
+                relative_reduction={k: relative[k] for k in ('estimate', 'low', 'high')},
+                delete_one_replicates=relative['units'],
+                replicates_below_relative_threshold=sum(
+                    x < CRITERIA['diversity']['material_relative'] for x in relative['leave_one_out']),
+                replicates_below_absolute_threshold=sum(
+                    -x < CRITERIA['diversity']['material_absolute'] for x in absolute['leave_one_out']),
+                absolute_interval_lower_bound_meets_threshold=(
+                    absolute['high'] is not None and -absolute['high'] >= CRITERIA['diversity']['material_absolute']))
+        pairs = a.pair(pooled['original'], pooled[name])
+        for endpoint in DECISION_TACTICS:
+            d = a.paired_difference(pooled['original'], pooled[name], TACTICAL[endpoint], replicates=True)
+            entry['tactics'][endpoint] = dict(
+                estimate=d['estimate'], margin=CRITERIA['tactics'][endpoint],
+                delete_one_minimum=min(d['leave_one_out']),
+                replicates_below_margin=sum(x < CRITERIA['tactics'][endpoint] for x in d['leave_one_out']),
+                delete_one_replicates=d['units'])
+        # The identity with the largest increase in executed errors, and the label without it.
+        influence = max(pairs, key=lambda u: u[1]['tactics']['errors'] - u[0]['tactics']['errors'])
+        rest = [u for u in pairs if u is not influence]
+        without = classify_tactics(comparisons([u[0] for u in rest], [u[1] for u in rest],
+                                               {k: TACTICAL[k] for k in DECISION_TACTICS}))
+        entry['most_influential_identity'] = dict(
+            identity=list(influence[0]['id']), original_errors=influence[0]['tactics']['errors'],
+            schedule_errors=influence[1]['tactics']['errors'],
+            classification_with_all_identities=tactics[name]['classification'],
+            classification_without_it=without['classification'],
+            errors_per_game_without_it=without['endpoints']['errors_per_game']['estimate'])
+        nonzero = [u[1]['tactics']['errors'] - u[0]['tactics']['errors'] for u in pairs]
+        entry['error_difference_signs'] = dict(positive=sum(x > 0 for x in nonzero), negative=sum(x < 0 for x in nonzero),
+                                               zero=sum(x == 0 for x in nonzero))
+        result[name] = entry
+    return result
+
+
+def exact_context(data, pooled):
+    """POST HOC exact-value breakdown of the one-reply events (review finding); never a decision input."""
+    value = exact.ExactValues()
+    for games in pooled.values():
+        exact.attach(games, value)
+    functions = {name: (lambda g, n=n, d=d: exact.rate(g, n, d)) for name, (n, d) in exact.RATES.items()}
+    decision_like = {k: functions[k] for k in ('value_changing_errors_per_game', 'value_changing_game_ending_share')}
+    return dict(
+        note='Post hoc, added after independent review. Not a predeclared endpoint and not used by the decision '
+             'rule. Value-neutral under perfect play is not necessarily neutral against a 256-simulation opponent. '
+             'Unsolved positions, if any, are counted as value-changing.',
+        solver=dict(version=exact.BitboardSolver.__name__, max_nodes=value.solver.max_nodes,
+                    positions_solved=len(value.cache), unsolved=value.unsolved),
+        pooled={n: exact.profile(g) for n, g in pooled.items()},
+        by_checkpoint={label(c): {n: exact.profile(g) for n, g in v.items()} for c, v in data.items()},
+        pooled_paired_vs_original={n: comparisons(pooled['original'], pooled[n], decision_like) for n in ORDER},
+        by_checkpoint_paired_vs_original={label(c): {n: comparisons(v['original'], v[n], decision_like) for n in ORDER}
+                                          for c, v in data.items()})
+
+
+def verify_record_hashes(games, cells):
+    """Rebuild every stored game as a CompletedGame and compare record hashes with the collector's."""
+    by_cell = defaultdict(list)
+    for game in games:
+        by_cell[game['id'][:3], game['schedule']].append(game)
+    checked = 0
+    for cell in cells:
+        if not cell['complete']:
+            continue
+        members = by_cell[(cell['seed'], cell['generation'], cell.get('cohort', 0)), cell['schedule']['name']]
+        rebuilt = replay.completed_games(members, s.GENERATION)
+        require(digest(game_records(rebuilt)) == cell['records_sha256'], 'Cell record hash mismatch')
+        for game, completed in zip(sorted(members, key=lambda g: g['id']), rebuilt):
+            require(completed.index == game['id'][3] and digest(game_records([completed])) == game['record_sha256'],
+                    'Game record hash mismatch')
+            checked += 1
+    return checked
 
 
 def archived_reference(campaign, seed):
@@ -282,10 +382,12 @@ def performance(directories):
 def analyze(args):
     campaign = args.campaign.resolve()
     directories = {k: v for k, v in dict(regression=args.regression, pilot=args.pilot, main=args.main,
-                                         supplement=args.supplement).items() if v is not None}
+                                         supplement=args.supplement,
+                                         regression_final=args.regression_final).items() if v is not None}
     results = dict(criteria=CRITERIA, design_sha256=audit.sha('research/alphazero_exploration/DESIGN.md'),
                    schedules=[x.to_dict() for x in s.SCHEDULES])
-    games, _, skipped = a.load_collection(args.main)
+    games, main_cells, skipped = a.load_collection(args.main)
+    hashed = verify_record_hashes(games, main_cells)
     blocks = matched_blocks(games)
     data = datasets(blocks)
     require(set(data) == set(s.PRIMARY), 'A primary checkpoint has no complete matched cohort')
@@ -320,8 +422,10 @@ def analyze(args):
 
     diversity = {n: classify_diversity(n, data, blocks, results['paired_vs_original']) for n in ORDER}
     tactics = {n: classify_tactics(results['pooled']['paired_tactics_vs_original'][n]) for n in ORDER}
-    decision = dict(diversity=diversity, tactics=tactics, recommendation=recommend(diversity, tactics, data),
-                    criteria=CRITERIA)
+    decision = dict(diversity=diversity, tactics=tactics,
+                    recommendation=recommend(diversity, tactics, d1_gain(data)), criteria=CRITERIA)
+    results['post_hoc'] = dict(robustness=robustness(data, pooled, tactics), exact_values=exact_context(data, pooled))
+    print('post hoc exact values and robustness', flush=True)
 
     # Replay analysis: historical reference, dataset profiles and counterfactual sampling.
     results['archived'], results['replay'], results['counterfactual_replay'], checks = {}, {}, {}, {}
@@ -355,7 +459,8 @@ def analyze(args):
     results['archive_cross_checks'] = checks
 
     if args.supplement is not None:
-        extra, _, _ = a.load_collection(args.supplement)
+        extra, extra_cells, _ = a.load_collection(args.supplement)
+        hashed += verify_record_hashes(extra, extra_cells)
         extra_data = datasets(matched_blocks(extra))
         results['supplement'] = {label(c): dict(
             conditions={n: condition_summary(g) for n, g in v.items()},
@@ -370,9 +475,17 @@ def analyze(args):
                                 'games/connect4/agents/mcts_nn_agent.py', 'games/connect4/connect4.py']).returncode == 0
     perf = results['performance']
     acceptance = [
-        ('Original schedule matches retained Phase 4D.4C records and RNG states exactly',
+        ('Original schedule matches retained Phase 4D.4C evidence exactly',
          all(c['records_exact'] and c.get('rng_exact', True) for c in regression if 'repeated' not in c['check']),
-         'regression.json: default and explicit ORIGINAL vs 4C pool-eight trial (16 games) and validation (4 games)'),
+         'regression.json: default and explicit ORIGINAL vs the 4C pool-eight trial (314159/g20, 16 games, records and '
+         'RNG hashes) and the 4C validation games (42/g20, 4 games, records; default vs explicit RNG states equal)'),
+        *([] if args.regression_final is None else [(
+            'Delivered collector source reproduces the first regression and the 4C evidence',
+            [(c['records_sha256'], c['rng_sha256']) for c in audit.read(args.regression_final / 'cells.json')]
+            == [(c['records_sha256'], c['rng_sha256']) for c in audit.read(args.regression / 'cells.json')]
+            and all(v for c in audit.read(args.regression_final / 'regression.json')
+                    for k, v in c.items() if k.endswith('_exact')),
+            'post-review regression with the delivered batching.py: all ten cells equal in records and RNG hashes')]),
         ('Same checkpoint/config/identity reproduces records and RNG states',
          all(c['records_exact'] and c['rng_exact'] for c in regression if 'repeated' in c['check']),
          'regression.json: each new schedule collected twice'),
@@ -387,14 +500,18 @@ def analyze(args):
          'weights SHA-256 before/after every cell; checkpoint file hashes in provenance.json'),
         ('Search, noise, config defaults and target code unchanged from 99cec1c', unchanged,
          'git diff --quiet 99cec1c for config/search/selfplay/data/bitboard/network/mcts_nn_agent/connect4'),
+        # The loader raises on any violation, so reaching this point is the evidence for the next three rows.
         ('Targets are normalized raw visits; temperature affects execution only', True,
-         'loader verified execution distribution == visit_policy(visits, temperature) and tau-0 argmax for every move'),
+         'loader raises unless execution distribution == visit_policy(visits, temperature) and tau-0 actions are '
+         f'maximum-visit; {sum(len(g["plies"]) for g in games)} main positions checked'),
         ('Pre-move positions, actor-relative outcomes and legal replay of every trajectory', True,
-         f'{len(games)} games replayed through the engine by the loader without a violation'),
+         f'{len(games)} main games replayed through the engine; {hashed} main and supplement games rebuilt and '
+         'matched to the collector record hashes'),
         ('No incomplete game or unmatched cell analyzed', len(analyzed) == sum(
             len(g) for v in data.values() for g in v.values()),
          f'{len(blocks)} complete matched blocks; {len(skipped)} incomplete cells excluded'),
-        ('Every schedule applied correctly by ply', True, 'loader compared every recorded temperature with its schedule'),
+        ('Every schedule applied correctly by ply', True,
+         'loader raises unless every recorded temperature equals its schedule at that ply'),
         ('Mirror and canonical counting agree with independent Phase 4D.4A and campaign figures',
          all(all(v.values()) for v in checks.values()), 'archive_cross_checks in results.json'),
         ('Official campaign preserved in every invocation',
@@ -506,6 +623,43 @@ def tables(results, decision, acceptance):
                      decision['tactics'][n]['classification'], decision['diversity'][n]['classification']])
     out.append('Paired differences from original (margins: T1 +5.0, T2 +2.0 points, T3 +0.15, T4 +5.0 points):\n')
     out.append(table(['Schedule', 'T1', 'T2', 'T3', 'T4', 'Tactics', 'Diversity'], rows))
+    out.append('Per-checkpoint paired tactical differences (the decision pools both checkpoints):\n')
+    rows = []
+    for key in results['paired_vs_original']:
+        for n in ORDER:
+            q = results['paired_vs_original'][key][n]
+            rows.append([f'{key} {n}', points(q['missed_win_rate']), points(q['unsafe_rate'], 2),
+                         f'{q["errors_per_game"]["estimate"]:+.3f} [{q["errors_per_game"]["low"]:+.3f}, '
+                         f'{q["errors_per_game"]["high"]:+.3f}]', points(q['game_ending_error_share'])])
+    out.append(table(['Checkpoint / schedule', 'T1', 'T2', 'T3', 'T4'], rows))
+    post = results.get('post_hoc')
+    if post:
+        out.append('## Post hoc (after review): exact-value context of the one-reply events\n')
+        out.append(post['exact_values']['note'] + '\n')
+        rows = []
+        for n in names:
+            c = post['exact_values']['pooled'][n]['counts']
+            get = lambda k: c.get(k, 0)
+            rows.append([n, get('unsafe'), get('unsafe:already_lost'), get('unsafe:value_changing'),
+                         get('missed_wins'), get('missed_wins:still_winning'), get('game_ending_errors'),
+                         get('game_ending_errors:already_lost'), get('game_ending_errors:value_changing'),
+                         f'{get("game_ending_errors:value_changing:search")}/{get("game_ending_errors:value_changing:sampling")}',
+                         f'{post["exact_values"]["pooled"][n]["rates"]["value_changing_errors_per_game"]:.3f}'])
+        out.append(table(['Schedule', 'Unsafe', 'already lost', 'value-changing', 'Missed wins', 'still winning',
+                          'Game-ending', 'already lost', 'value-changing', 'value-changing search/sampling',
+                          'Value-changing errors/game'], rows))
+        rows = []
+        for n in ORDER:
+            q = post['exact_values']['pooled_paired_vs_original'][n]
+            e, g = q['value_changing_errors_per_game'], q['value_changing_game_ending_share']
+            r = post['robustness'][n]
+            rows.append([n, f'{e["estimate"]:+.3f} [{e["low"]:+.3f}, {e["high"]:+.3f}]', points(g),
+                         r['most_influential_identity']['classification_without_it'],
+                         '; '.join(f'{k} {v["replicates_below_relative_threshold"]}/{v["delete_one_replicates"]}'
+                                   for k, v in r['diversity'].items())])
+        out.append(table(['Schedule', 'Value-changing errors/game vs original', 'Value-changing game endings (points)',
+                          'Tactics label without the most influential identity',
+                          'Delete-one replicates below the 25% D1 threshold'], rows))
     out.append('## Correctness and execution\n')
     out.append(table(['Criterion', 'Result', 'Evidence'], [[r['criterion'], r['result'], r['evidence']] for r in acceptance])
                .replace('|---|---:|---:|', '|---|---|---|'))
@@ -518,6 +672,7 @@ def main():
     for name in ('regression', 'pilot', 'main'):
         parser.add_argument(f'--{name}', type=Path, required=True)
     parser.add_argument('--supplement', type=Path)
+    parser.add_argument('--regression-final', type=Path, help='post-review regression with the delivered source')
     parser.add_argument('--output', type=Path, required=True)
     args = parser.parse_args()
     campaign = args.campaign.resolve()

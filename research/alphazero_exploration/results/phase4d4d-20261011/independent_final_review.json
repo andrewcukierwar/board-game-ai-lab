@@ -1,0 +1,17 @@
+{
+  "decision_identical_before_and_after_review": true,
+  "delivered_analysis_reproduces_decision_from_packaged_evidence": true,
+  "focused_tests_passed": 147,
+  "independent_campaign_rehashes": 3,
+  "independently_recomputed_numbers_discrepancies": 0,
+  "material_findings_first_pass": 2,
+  "material_findings_unresolved": 0,
+  "official_files": 150,
+  "passes": 2,
+  "scope": "dedicated branch commit/push; no merge/deploy/training",
+  "status": "NO MATERIAL FINDING UNRESOLVED",
+  "unresolved_notes": [
+    "analyze driver, archived_reference, cross_check and performance have no unit tests; exercised by the real analysis runs",
+    "robustness is only shape-checked by unit tests"
+  ]
+}

@@ -1,0 +1,310 @@
+{
+  "criteria": {
+    "diversity": {
+      "larger_change_absolute": 0.1,
+      "material_absolute": 0.05,
+      "material_relative": 0.25,
+      "suggestive_relative": 0.1
+    },
+    "tactics": {
+      "errors_per_game": 0.15,
+      "game_ending_error_share": 0.05,
+      "missed_win_rate": 0.05,
+      "unsafe_rate": 0.02
+    }
+  },
+  "diversity": {
+    "extended": {
+      "checkpoints": {
+        "314159/g20": {
+          "absolute_reduction": 0.2756283090505407,
+          "cohort_values": {
+            "0": {
+              "candidate": 0.10498338870431889,
+              "original": 0.3054272517321016
+            },
+            "1": {
+              "candidate": 0.1288766368022054,
+              "original": 0.34124293785310733
+            }
+          },
+          "d2_lower": true,
+          "d3_lower": true,
+          "interval_excludes_zero": true,
+          "lower_in_every_cohort": true,
+          "meets_absolute": true,
+          "meets_relative": true,
+          "relative_reduction": 0.6452208143683111
+        },
+        "42/g20": {
+          "absolute_reduction": 0.21370799304386878,
+          "cohort_values": {
+            "0": {
+              "candidate": 0.036115569823435,
+              "original": 0.1872791519434629
+            },
+            "1": {
+              "candidate": 0.08884297520661155,
+              "original": 0.24161073825503354
+            }
+          },
+          "d2_lower": true,
+          "d3_lower": true,
+          "interval_excludes_zero": true,
+          "lower_in_every_cohort": true,
+          "meets_absolute": true,
+          "meets_relative": true,
+          "relative_reduction": 0.6867496900358836
+        }
+      },
+      "classification": "MATERIAL"
+    },
+    "extended_smoothed": {
+      "checkpoints": {
+        "314159/g20": {
+          "absolute_reduction": 0.3015596742833295,
+          "cohort_values": {
+            "0": {
+              "candidate": 0.09980302035456334,
+              "original": 0.3054272517321016
+            },
+            "1": {
+              "candidate": 0.10893098782138022,
+              "original": 0.34124293785310733
+            }
+          },
+          "d2_lower": true,
+          "d3_lower": true,
+          "interval_excludes_zero": true,
+          "lower_in_every_cohort": true,
+          "meets_absolute": true,
+          "meets_relative": true,
+          "relative_reduction": 0.7059237829814304
+        },
+        "42/g20": {
+          "absolute_reduction": 0.22402320889716598,
+          "cohort_values": {
+            "0": {
+              "candidate": 0.03629032258064513,
+              "original": 0.1872791519434629
+            },
+            "1": {
+              "candidate": 0.07031778228532792,
+              "original": 0.24161073825503354
+            }
+          },
+          "d2_lower": true,
+          "d3_lower": true,
+          "interval_excludes_zero": true,
+          "lower_in_every_cohort": true,
+          "meets_absolute": true,
+          "meets_relative": true,
+          "relative_reduction": 0.719897590537906
+        }
+      },
+      "classification": "MATERIAL"
+    },
+    "smoothed": {
+      "checkpoints": {
+        "314159/g20": {
+          "absolute_reduction": 0.1568828418894871,
+          "cohort_values": {
+            "0": {
+              "candidate": 0.1885680612846199,
+              "original": 0.3054272517321016
+            },
+            "1": {
+              "candidate": 0.2255853797829811,
+              "original": 0.34124293785310733
+            }
+          },
+          "d2_lower": true,
+          "d3_lower": true,
+          "interval_excludes_zero": true,
+          "lower_in_every_cohort": true,
+          "meets_absolute": true,
+          "meets_relative": true,
+          "relative_reduction": 0.3672484707867538
+        },
+        "42/g20": {
+          "absolute_reduction": 0.07927857931677484,
+          "cohort_values": {
+            "0": {
+              "candidate": 0.1594516594516594,
+              "original": 0.1872791519434629
+            },
+            "1": {
+              "candidate": 0.15633245382585748,
+              "original": 0.24161073825503354
+            }
+          },
+          "d2_lower": true,
+          "d3_lower": true,
+          "interval_excludes_zero": true,
+          "lower_in_every_cohort": true,
+          "meets_absolute": true,
+          "meets_relative": true,
+          "relative_reduction": 0.25476136384428194
+        }
+      },
+      "classification": "MATERIAL"
+    }
+  },
+  "recommendation": {
+    "conditional_on_tactical_monitoring": false,
+    "eligible": [],
+    "escalation_checks": [],
+    "recommended_schedule": "original",
+    "rule": "DESIGN.md: MATERIAL diversity and not MATERIAL REGRESSION; smallest change unless a larger one lowers D1 by >= 10 points in both checkpoints with paired intervals excluding zero",
+    "training_ablation_justified": false
+  },
+  "tactics": {
+    "extended": {
+      "classification": "MATERIAL REGRESSION",
+      "endpoints": {
+        "errors_per_game": {
+          "at_least_margin": true,
+          "estimate": 0.26171875,
+          "high": 0.40180355360857356,
+          "low": 0.12163394639142641,
+          "lower_bound_above_zero": true,
+          "margin": 0.15,
+          "se": 0.07147183857580285,
+          "units": 256,
+          "upper_bound_below_margin": false
+        },
+        "game_ending_error_share": {
+          "at_least_margin": true,
+          "estimate": 0.125,
+          "high": 0.19361372411737252,
+          "low": 0.056386275882627485,
+          "lower_bound_above_zero": true,
+          "margin": 0.05,
+          "se": 0.03500700210070026,
+          "units": 256,
+          "upper_bound_below_margin": false
+        },
+        "missed_win_rate": {
+          "at_least_margin": true,
+          "estimate": 0.05158922885974854,
+          "high": 0.12558433672863362,
+          "low": -0.02240587900913653,
+          "lower_bound_above_zero": false,
+          "margin": 0.05,
+          "se": 0.037752606055553604,
+          "units": 256,
+          "upper_bound_below_margin": false
+        },
+        "unsafe_rate": {
+          "at_least_margin": true,
+          "estimate": 0.036361958290639505,
+          "high": 0.055572694420918466,
+          "low": 0.017151222160360545,
+          "lower_bound_above_zero": true,
+          "margin": 0.02,
+          "se": 0.009801395984836205,
+          "units": 256,
+          "upper_bound_below_margin": false
+        }
+      }
+    },
+    "extended_smoothed": {
+      "classification": "MATERIAL REGRESSION",
+      "endpoints": {
+        "errors_per_game": {
+          "at_least_margin": true,
+          "estimate": 0.28125,
+          "high": 0.4464492075836767,
+          "low": 0.11605079241632335,
+          "lower_bound_above_zero": true,
+          "margin": 0.15,
+          "se": 0.08428530999167176,
+          "units": 256,
+          "upper_bound_below_margin": false
+        },
+        "game_ending_error_share": {
+          "at_least_margin": true,
+          "estimate": 0.1484375,
+          "high": 0.2229550429034507,
+          "low": 0.07391995709654929,
+          "lower_bound_above_zero": true,
+          "margin": 0.05,
+          "se": 0.03801915454257689,
+          "units": 256,
+          "upper_bound_below_margin": false
+        },
+        "missed_win_rate": {
+          "at_least_margin": true,
+          "estimate": 0.05468945991470453,
+          "high": 0.13529233565129783,
+          "low": -0.02591341582188879,
+          "lower_bound_above_zero": false,
+          "margin": 0.05,
+          "se": 0.04112391619213945,
+          "units": 256,
+          "upper_bound_below_margin": false
+        },
+        "unsafe_rate": {
+          "at_least_margin": true,
+          "estimate": 0.03467174782236184,
+          "high": 0.05527173972160608,
+          "low": 0.014071755923117605,
+          "lower_bound_above_zero": true,
+          "margin": 0.02,
+          "se": 0.010510199948593998,
+          "units": 256,
+          "upper_bound_below_margin": false
+        }
+      }
+    },
+    "smoothed": {
+      "classification": "MATERIAL REGRESSION",
+      "endpoints": {
+        "errors_per_game": {
+          "at_least_margin": true,
+          "estimate": 0.1875,
+          "high": 0.3482304862671871,
+          "low": 0.02676951373281286,
+          "lower_bound_above_zero": true,
+          "margin": 0.15,
+          "se": 0.08200535013631997,
+          "units": 256,
+          "upper_bound_below_margin": false
+        },
+        "game_ending_error_share": {
+          "at_least_margin": false,
+          "estimate": 0.0390625,
+          "high": 0.09523016509592878,
+          "low": -0.017105165095928784,
+          "lower_bound_above_zero": false,
+          "margin": 0.05,
+          "se": 0.028656971987718768,
+          "units": 256,
+          "upper_bound_below_margin": false
+        },
+        "missed_win_rate": {
+          "at_least_margin": true,
+          "estimate": 0.06973211819939243,
+          "high": 0.1567257402543854,
+          "low": -0.017261503855600532,
+          "lower_bound_above_zero": false,
+          "margin": 0.05,
+          "se": 0.0443845010484658,
+          "units": 256,
+          "upper_bound_below_margin": false
+        },
+        "unsafe_rate": {
+          "at_least_margin": false,
+          "estimate": 0.015890067531833522,
+          "high": 0.03150648620185628,
+          "low": 0.0002736488618107647,
+          "lower_bound_above_zero": true,
+          "margin": 0.02,
+          "se": 0.007967560545929979,
+          "units": 256,
+          "upper_bound_below_margin": false
+        }
+      }
+    }
+  }
+}

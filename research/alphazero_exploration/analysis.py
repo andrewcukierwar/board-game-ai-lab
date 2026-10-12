@@ -45,7 +45,7 @@ def tactics(key, history):
     return found
 
 
-def build_game(identity, schedule, moves, winner, plies, *, outcomes=None, verify=True):
+def build_game(identity, schedule, moves, winner, plies, *, outcomes=None, verify=True, record_sha256=None):
     """Replay one record through the engine and attach positions, tactics and checks.
 
     ``plies`` rows need visits, action, temperature; distribution/root_prior are
@@ -97,7 +97,7 @@ def build_game(identity, schedule, moves, winner, plies, *, outcomes=None, verif
     if not game.is_game_over() or game.check_winner() != winner:
         raise ValueError('Recorded game is incomplete or its winner is wrong')
     result = dict(id=tuple(identity), schedule=None if schedule is None else schedule.name, moves=moves,
-                  winner=winner, plies=built)
+                  winner=winner, plies=built, record_sha256=record_sha256)
     result['tactics'] = game_tactics(result)
     result['sums'] = game_sums(result)
     return result
@@ -127,7 +127,7 @@ def load_collection(directory):
         for line in sorted(lines, key=lambda r: r['index']):
             games.append(build_game((cell['seed'], cell['generation'], cell.get('cohort', 0), line['index']),
                                     schedule, line['moves'], line['winner'], line['plies'],
-                                    outcomes=line['outcomes']))
+                                    outcomes=line['outcomes'], record_sha256=line['record_sha256']))
     return games, cells, skipped
 
 
@@ -362,17 +362,24 @@ def tactical_profile(games):
 
 # Uncertainty --------------------------------------------------------------------------------
 
-def jackknife(units, statistic):
-    """Delete-one jackknife over sampling units; 95% = estimate +/- 1.96 SE (descriptive)."""
+def jackknife(units, statistic, *, replicates=False):
+    """Delete-one jackknife over sampling units; 95% = estimate +/- 1.96 SE (descriptive).
+
+    ``replicates`` also returns the delete-one values, for sensitivity checks.
+    """
     n = len(units)
     estimate = statistic(units)
     leave_one_out = [statistic(units[:i] + units[i + 1:]) for i in range(n)]
     usable = [x for x in leave_one_out if not math.isnan(x)]
     if math.isnan(estimate) or len(usable) < n:
-        return dict(estimate=None if math.isnan(estimate) else estimate, se=None, low=None, high=None, units=n)
+        return dict(estimate=None if math.isnan(estimate) else estimate, se=None, low=None, high=None, units=n,
+                    **(dict(leave_one_out=leave_one_out) if replicates else {}))
     mean = sum(usable) / n
     se = math.sqrt((n - 1) / n * sum((x - mean) ** 2 for x in usable))
-    return dict(estimate=estimate, se=se, low=estimate - 1.96 * se, high=estimate + 1.96 * se, units=n)
+    result = dict(estimate=estimate, se=se, low=estimate - 1.96 * se, high=estimate + 1.96 * se, units=n)
+    if replicates:
+        result['leave_one_out'] = leave_one_out
+    return result
 
 
 def pair(reference, candidate):
@@ -383,10 +390,15 @@ def pair(reference, candidate):
     return [(g, by_id[g['id']]) for g in sorted(reference, key=lambda g: g['id'])]
 
 
-def paired_difference(reference, candidate, statistic):
-    """Candidate minus reference with a paired delete-one-identity jackknife."""
+def paired_statistic(reference, candidate, statistic, *, replicates=False):
+    """``statistic(reference games, candidate games)`` with a paired delete-one-identity jackknife."""
     return jackknife(pair(reference, candidate),
-                     lambda units: statistic([u[1] for u in units]) - statistic([u[0] for u in units]))
+                     lambda units: statistic([u[0] for u in units], [u[1] for u in units]), replicates=replicates)
+
+
+def paired_difference(reference, candidate, statistic, *, replicates=False):
+    """Candidate minus reference with a paired delete-one-identity jackknife."""
+    return paired_statistic(reference, candidate, lambda r, c: statistic(c) - statistic(r), replicates=replicates)
 
 
 def stratified(statistic):

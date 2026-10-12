@@ -59,7 +59,8 @@ def test_declared_schedules_by_ply():
 
 
 @pytest.mark.parametrize('name,segments', [
-    ('', ((0, 1.),)), (3, ((0, 1.),)), ('é', ((0, 1.),)), ('x', ()), ('x', None), ('x', ((1, 1.),)),
+    ('', ((0, 1.),)), (3, ((0, 1.),)), ('é', ((0, 1.),)), ('a/b', ((0, 1.),)), ('A', ((0, 1.),)),
+    ('a\n', ((0, 1.),)), ('a b', ((0, 1.),)), ('x', ()), ('x', None), ('x', ((1, 1.),)),
     ('x', ((0, 1.), (0, 0.))), ('x', ((0, 1.), (8, 1.))), ('x', ((0, 1.), (9, .5), (8, 0.))),
     ('x', ((0, 1.), (42, 0.))), ('x', ((0, -1.),)), ('x', ((0, float('nan')),)), ('x', ((0, float('inf')),)),
     ('x', ((0, True),)), ('x', ((0., 1.),)), ('x', ((True, 1.),)), ('x', ((0, 1., 2),)), ('x', ((0, '1'),)),
@@ -76,7 +77,8 @@ def test_invalid_ply_and_schedule_argument(ply):
     for bad in ('original', ((0, 1.),), s.ORIGINAL.to_dict(), 8):
         with pytest.raises(ValueError):
             b.collect_batched(FakeInference(), CONFIG, 21, range(2), batch_size=2, temperature_schedule=bad)
-    for bad in ({}, dict(name='x'), dict(name='x', segments=[[0, 1.]], extra=1), None):
+    for bad in ({}, dict(name='x'), dict(name='x', segments=[[0, 1.]], extra=1), None,
+                dict(name='x', segments=7), dict(name='x', segments='ab'), dict(name='x', segments=[7])):
         with pytest.raises(ValueError):
             TemperatureSchedule.from_dict(bad)
 

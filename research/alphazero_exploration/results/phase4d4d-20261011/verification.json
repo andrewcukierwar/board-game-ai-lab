@@ -1,0 +1,50 @@
+{
+  "classifications": {
+    "extended": {
+      "diversity": "MATERIAL",
+      "tactics": "MATERIAL REGRESSION"
+    },
+    "extended_smoothed": {
+      "diversity": "MATERIAL",
+      "tactics": "MATERIAL REGRESSION"
+    },
+    "smoothed": {
+      "diversity": "MATERIAL",
+      "tactics": "MATERIAL REGRESSION"
+    }
+  },
+  "declaration_sha256": "c8ab2227d4b2c707b3185da8695a991f0914faede88ecd5f1c7fc84fb017b716",
+  "delivered_batching_matches_regression_final": true,
+  "delivered_batching_sha256": "a7af8493083b18ef3671868fbd9595d62a054f35366472cd9b4b76c94ba56088",
+  "design_sha256": "42ba03dd32eaad3afc09a0b59a53178b2270301e0b38f29e97e13f462629d985",
+  "design_unchanged_since_9f8db74": true,
+  "main_collection_batching_sha256": "396783892300792c9a07988498e146599c45d02337f410955914ea172533dd55",
+  "measured_seconds": 1255.0076417494565,
+  "note": "batching.py differs from the main-collection snapshot only in TemperatureSchedule name/from_dict validation; regression-final shows identical records and RNG hashes with the delivered file. No training, resume, merge or deployment.",
+  "official_files": 150,
+  "official_unchanged": true,
+  "recommendation": "original",
+  "tests": {
+    "new_tests": 78,
+    "passed": 854,
+    "seconds": 277.08,
+    "skipped": 2
+  },
+  "unchanged_baseline_sources": [
+    "config.py",
+    "search.py",
+    "selfplay.py",
+    "data.py",
+    "bitboard.py",
+    "network.py",
+    "generation.py",
+    "oracle.py",
+    "campaign.py",
+    "training.py",
+    "games/connect4/agents/*",
+    "games/connect4/connect4.py",
+    "api/*",
+    "ui/*"
+  ],
+  "unchanged_baseline_sources_equal_99cec1c": true
+}

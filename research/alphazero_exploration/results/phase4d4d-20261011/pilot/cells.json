@@ -1,0 +1,594 @@
+[
+  {
+    "base_seed": 4404400,
+    "batch_sizes": {
+      "1": 115,
+      "2": 54,
+      "3": 433,
+      "4": 2,
+      "5": 11,
+      "6": 335,
+      "7": 3923,
+      "8": 2720
+    },
+    "cohort": 0,
+    "complete": true,
+    "completed_games": 8,
+    "cpu_seconds": 7.843323,
+    "explicit_schedule": true,
+    "file": "pilot-42-g20-c0-original.jsonl",
+    "forward_calls": 7593,
+    "games_per_second": 1.0197693062992246,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "inference_seconds": 6.293985545635223,
+    "max_active": 8,
+    "mean_batch": 6.955880416172791,
+    "mode": "pilot",
+    "neural_positions": 52816,
+    "peak_rss_mib": 294.421875,
+    "plies": 284,
+    "pool": 8,
+    "positions_per_second": 36.20181037362247,
+    "records_sha256": "9f544c4418672f3928b064fd36a5f1ada99e28546e8c5344c59220bb29699a2e",
+    "rng_sha256": {
+      "0": "7323efc513b0551562b483dc5d9f1cd852c7fbfb32dd5943e157d6b0563c5d40",
+      "1": "e0fbc0f4735736f02bebcd1797e92a08e843a6a543b4570a1d95e455e8c82ffa",
+      "2": "6816e8bec2099f281ff7502e5292aed7284747db018f9a247d362e06d92b5c0e",
+      "3": "d9a3b432ab7a1041759b9181d348c1e5851b278da74800f9ea008dce38b4c3c9",
+      "4": "05f5a9460c06cf2c1fe4d5f99e46ca3c40b4b41933d72bd376f46489715165d0",
+      "5": "dc2a79cec6c00deba30dc8b5dd60241da715fb23cf20cafa2ad209b3dda6b67a",
+      "6": "d8eae59a40f1605a170145c9c15140bc22ab2913db8912b57cc84ea8bd6b70c0",
+      "7": "79f37915a9121937771f067e61b647525b8b733524178e639abf53fc50f7f9b0"
+    },
+    "schedule": {
+      "name": "original",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          8,
+          0.0
+        ]
+      ]
+    },
+    "seed": 42,
+    "simulations": 72704,
+    "stop_reason": null,
+    "terminal_leaves": 20172,
+    "wall_seconds": 7.8449115408584476,
+    "weights_sha256": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d"
+  },
+  {
+    "base_seed": 4404400,
+    "batch_sizes": {
+      "1": 662,
+      "2": 135,
+      "3": 2049,
+      "4": 323,
+      "5": 777,
+      "6": 679,
+      "7": 853,
+      "8": 2310
+    },
+    "cohort": 0,
+    "complete": true,
+    "completed_games": 8,
+    "cpu_seconds": 6.298881,
+    "explicit_schedule": true,
+    "file": "pilot-42-g20-c0-extended.jsonl",
+    "forward_calls": 7788,
+    "games_per_second": 1.2700068832102878,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "inference_seconds": 5.096596028655767,
+    "max_active": 8,
+    "mean_batch": 5.2363893168977915,
+    "mode": "pilot",
+    "neural_positions": 40781,
+    "peak_rss_mib": 294.421875,
+    "plies": 199,
+    "pool": 8,
+    "positions_per_second": 31.591421219855906,
+    "records_sha256": "e9fa9e162aac1f0dd58116bcf44d2fcaeeaab3dee7cc36c7334ebf2c4d2614c9",
+    "rng_sha256": {
+      "0": "0153bddcd1d2e2cdcd3f28e689edacd82d78445e248f6800f073db1af650dbde",
+      "1": "57c51f4c46cf4a194c5a5f508b4c774b7a58544908fb7d1ef456cbad115b870d",
+      "2": "061b49c7e188fe9308dfc916c414b82ea0b515c20c309133ddd830fed66b3ddd",
+      "3": "cdd37b8d70c6f94e09f13976fce169946f7c19204d72ce80ae6788f942fb4a98",
+      "4": "ebeeab472a6657ef30f9bb8550e888e1de280de6162a2da0284a6a3c13cab93b",
+      "5": "13c679ec797835c4be8b3994fa1111483d913ddcefe006016551a3b463a90ec3",
+      "6": "d8eae59a40f1605a170145c9c15140bc22ab2913db8912b57cc84ea8bd6b70c0",
+      "7": "ed91c4063d7fdcf83e3802078674f396d219467642a2274ba18c272f428064c6"
+    },
+    "schedule": {
+      "name": "extended",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          16,
+          0.0
+        ]
+      ]
+    },
+    "seed": 42,
+    "simulations": 50944,
+    "stop_reason": null,
+    "terminal_leaves": 10362,
+    "wall_seconds": 6.299178457818925,
+    "weights_sha256": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d"
+  },
+  {
+    "base_seed": 4404400,
+    "batch_sizes": {
+      "1": 379,
+      "2": 9,
+      "3": 504,
+      "4": 224,
+      "5": 15,
+      "6": 300,
+      "7": 3058,
+      "8": 3299
+    },
+    "cohort": 0,
+    "complete": true,
+    "completed_games": 8,
+    "cpu_seconds": 7.852394,
+    "explicit_schedule": true,
+    "file": "pilot-42-g20-c0-smoothed.jsonl",
+    "forward_calls": 7788,
+    "games_per_second": 1.018758311802073,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "inference_seconds": 6.353722461499274,
+    "max_active": 8,
+    "mean_batch": 6.738315356959425,
+    "mode": "pilot",
+    "neural_positions": 52478,
+    "peak_rss_mib": 294.625,
+    "plies": 274,
+    "pool": 8,
+    "positions_per_second": 34.89247217922101,
+    "records_sha256": "7a47b66255c0f4da3562a8e3775cac5e3fa2d7aea3f7b6e2520a33261dd1da9d",
+    "rng_sha256": {
+      "0": "570746dd9cc35f53f748fa14a05ad99d4bb2bc9169d6ceef6046a44c26d47aef",
+      "1": "968fac7296099e4e2281ed0b4d3bb060fa06f446ae490921cc5dd063c994dff5",
+      "2": "52c7c5a65bade6f4232b4d2dcb0baf2348178ed5eb0c778fd2fd7e52652e1825",
+      "3": "cdd37b8d70c6f94e09f13976fce169946f7c19204d72ce80ae6788f942fb4a98",
+      "4": "53a31f50b32cde923c0919a19046c94711f9164273a69e6d71d8de92c4487500",
+      "5": "10439514df9cb7de18e738b8cd35071162289716c10dea69900a7193e3497d8a",
+      "6": "cf6b453fc874b4feda9800e057d13fb77dd867bea2323f90fb23bb6d9fd12ea9",
+      "7": "86f44e60de390579fe760b799c60c3a5003d31aee62d4a3a5fa3ca47c7b5cd97"
+    },
+    "schedule": {
+      "name": "smoothed",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          8,
+          0.3
+        ],
+        [
+          30,
+          0.0
+        ]
+      ]
+    },
+    "seed": 42,
+    "simulations": 70144,
+    "stop_reason": null,
+    "terminal_leaves": 17940,
+    "wall_seconds": 7.8526966674253345,
+    "weights_sha256": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d"
+  },
+  {
+    "base_seed": 4404400,
+    "batch_sizes": {
+      "1": 662,
+      "2": 454,
+      "3": 1774,
+      "4": 279,
+      "5": 777,
+      "6": 679,
+      "7": 853,
+      "8": 2310
+    },
+    "cohort": 0,
+    "complete": true,
+    "completed_games": 8,
+    "cpu_seconds": 6.241781,
+    "explicit_schedule": true,
+    "file": "pilot-42-g20-c0-extended_smoothed.jsonl",
+    "forward_calls": 7788,
+    "games_per_second": 1.2816426984248754,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "inference_seconds": 5.057812315411866,
+    "max_active": 8,
+    "mean_batch": 5.1897791474062664,
+    "mode": "pilot",
+    "neural_positions": 40418,
+    "peak_rss_mib": 294.625,
+    "plies": 191,
+    "pool": 8,
+    "positions_per_second": 30.599219424893903,
+    "records_sha256": "43ef397ed46596a0c3f50069419afa1d24b39dbef15944edfd507fbd78e470bc",
+    "rng_sha256": {
+      "0": "0153bddcd1d2e2cdcd3f28e689edacd82d78445e248f6800f073db1af650dbde",
+      "1": "857bc9484a07293a8d0f5c6d5f8756d78b0f1b75f6a09c46d235d6dca80b2f92",
+      "2": "061b49c7e188fe9308dfc916c414b82ea0b515c20c309133ddd830fed66b3ddd",
+      "3": "cdd37b8d70c6f94e09f13976fce169946f7c19204d72ce80ae6788f942fb4a98",
+      "4": "ebeeab472a6657ef30f9bb8550e888e1de280de6162a2da0284a6a3c13cab93b",
+      "5": "13c679ec797835c4be8b3994fa1111483d913ddcefe006016551a3b463a90ec3",
+      "6": "cf6b453fc874b4feda9800e057d13fb77dd867bea2323f90fb23bb6d9fd12ea9",
+      "7": "ed91c4063d7fdcf83e3802078674f396d219467642a2274ba18c272f428064c6"
+    },
+    "schedule": {
+      "name": "extended_smoothed",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          16,
+          0.3
+        ],
+        [
+          30,
+          0.0
+        ]
+      ]
+    },
+    "seed": 42,
+    "simulations": 48896,
+    "stop_reason": null,
+    "terminal_leaves": 8669,
+    "wall_seconds": 6.24198929220438,
+    "weights_sha256": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d"
+  },
+  {
+    "base_seed": 4404400,
+    "batch_sizes": {
+      "1": 76,
+      "2": 72,
+      "3": 144,
+      "4": 25,
+      "5": 151,
+      "6": 113,
+      "7": 1978,
+      "8": 5191
+    },
+    "cohort": 0,
+    "complete": true,
+    "completed_games": 8,
+    "cpu_seconds": 8.463715999999998,
+    "explicit_schedule": true,
+    "file": "pilot-314159-g20-c0-extended.jsonl",
+    "forward_calls": 7750,
+    "games_per_second": 0.9451801517954157,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "inference_seconds": 6.85939025785774,
+    "max_active": 8,
+    "mean_batch": 7.426967741935484,
+    "mode": "pilot",
+    "neural_positions": 57559,
+    "peak_rss_mib": 297.078125,
+    "plies": 312,
+    "pool": 8,
+    "positions_per_second": 36.86202592002121,
+    "records_sha256": "ca573bbb3646969a45680bfafde753caf098aeacd799cfd48d3e3fd412e79b2d",
+    "rng_sha256": {
+      "0": "257716f85f2caadeba084af5ef6bd1b0d580562d0f6a0f397c4fd05314c5e8bf",
+      "1": "2b73db59bb7024b4210cb5a198c7ec14a74f7dee237f924b1d83ae45104c7dba",
+      "2": "bd35f91946ea0d49412a8599a973284b3014f32d62f73e3cd1cba5ce5dd208be",
+      "3": "58c67ec4bb23f7a6403175cdd2d4ba398f90e3d2a698ec5c00c1cf2b23cd7f4f",
+      "4": "cc08239a7b8c6bf67fab25826582ee7181e91233f230fe5e11eca646ade9d36a",
+      "5": "a3ac1a9bdcccddf923d1f73a2b6ee5a517aacc5fdb1e15855f1bdc493595087b",
+      "6": "040b0bfb28394b1fef84aa42800ccb144b9811aef707b1686051c9bd3aba015f",
+      "7": "a03161430e8eb90a80e1132014fb2df3af21306962b1ac44ae0c8602d17d9b7f"
+    },
+    "schedule": {
+      "name": "extended",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          16,
+          0.0
+        ]
+      ]
+    },
+    "seed": 314159,
+    "simulations": 79872,
+    "stop_reason": null,
+    "terminal_leaves": 22625,
+    "wall_seconds": 8.463994916528463,
+    "weights_sha256": "9d4c5a6aa4fe68d1aaa3a3f80c8f6b53609d4953076c12e106dca8cbe752ef8e"
+  },
+  {
+    "base_seed": 4404400,
+    "batch_sizes": {
+      "1": 97,
+      "2": 339,
+      "3": 500,
+      "4": 41,
+      "5": 51,
+      "6": 53,
+      "7": 173,
+      "8": 7089
+    },
+    "cohort": 0,
+    "complete": true,
+    "completed_games": 8,
+    "cpu_seconds": 8.915936000000002,
+    "explicit_schedule": true,
+    "file": "pilot-314159-g20-c0-smoothed.jsonl",
+    "forward_calls": 8343,
+    "games_per_second": 0.8972458658387853,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "inference_seconds": 7.175539182499051,
+    "max_active": 8,
+    "mean_batch": 7.303727675895961,
+    "mode": "pilot",
+    "neural_positions": 60935,
+    "peak_rss_mib": 297.828125,
+    "plies": 311,
+    "pool": 8,
+    "positions_per_second": 34.88043303448278,
+    "records_sha256": "0121bdefcf59d8480adf500c1c62cf6b68ad57eb083bf8c620f58d3932856bbf",
+    "rng_sha256": {
+      "0": "e7c09aeb3d2d84274b9e4cd06193e3c5b713face28cef1672fd467de9c6dc222",
+      "1": "ee341fabbf667241fb59c9cd5a15fdb4fc858f67d9c72f08d064bb7851ac7110",
+      "2": "0852a9467bf96323f3417311d6392712c17f0d680690bd1f042daae542c1de27",
+      "3": "161eb38dfffeb7e90a25614efa42632957f9e3dd56fc409f689c828ab665a5cf",
+      "4": "57d48e86845fd0c70e4653171605ece08321317439ea1cd39bb1632f3fd72d47",
+      "5": "d30af25fcc5b5b4e198ecb0b5da336ddfc372bde58c4f9dc4351248689cd11b8",
+      "6": "66fe107ad6407df702d3ca654cd337011d10080aa4a0c77b34b76408c9a8bc78",
+      "7": "902c22e602642ddf3131f92d803ab90f3858f48bf60a519775d4f2c8285ca414"
+    },
+    "schedule": {
+      "name": "smoothed",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          8,
+          0.3
+        ],
+        [
+          30,
+          0.0
+        ]
+      ]
+    },
+    "seed": 314159,
+    "simulations": 79616,
+    "stop_reason": null,
+    "terminal_leaves": 18992,
+    "wall_seconds": 8.91617370955646,
+    "weights_sha256": "9d4c5a6aa4fe68d1aaa3a3f80c8f6b53609d4953076c12e106dca8cbe752ef8e"
+  },
+  {
+    "base_seed": 4404400,
+    "batch_sizes": {
+      "1": 311,
+      "2": 249,
+      "3": 43,
+      "4": 77,
+      "5": 283,
+      "6": 875,
+      "7": 1032,
+      "8": 5191
+    },
+    "cohort": 0,
+    "complete": true,
+    "completed_games": 8,
+    "cpu_seconds": 8.386992,
+    "explicit_schedule": true,
+    "file": "pilot-314159-g20-c0-extended_smoothed.jsonl",
+    "forward_calls": 8061,
+    "games_per_second": 0.9536181251947887,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "inference_seconds": 6.756844313815236,
+    "max_active": 8,
+    "mean_batch": 7.029276764669396,
+    "mode": "pilot",
+    "neural_positions": 56663,
+    "peak_rss_mib": 297.84375,
+    "plies": 303,
+    "pool": 8,
+    "positions_per_second": 36.11828649175262,
+    "records_sha256": "c6a66a013eaf40638efb238f2e39402e840ff7bba97d2736c64cbda11221c541",
+    "rng_sha256": {
+      "0": "423ca8a529133d29de9bbb07dfb375bcb8f7413f324a274a9fc2a30441ba1f54",
+      "1": "27c24ee150888e475eed232d6b9e35fdb0d9b90077a91dc614f7c9cfb33e005f",
+      "2": "05a2bbba779f34b67b64b1110b17a59c2667040e47ac4e043f0eb0cde9518fa3",
+      "3": "58c67ec4bb23f7a6403175cdd2d4ba398f90e3d2a698ec5c00c1cf2b23cd7f4f",
+      "4": "110be9596aeccf941dc08ae7f195db72c0403e8512c860975fac68c242092481",
+      "5": "a3ac1a9bdcccddf923d1f73a2b6ee5a517aacc5fdb1e15855f1bdc493595087b",
+      "6": "040b0bfb28394b1fef84aa42800ccb144b9811aef707b1686051c9bd3aba015f",
+      "7": "fda9185a92f55fde2bedf5be54c0017dc9c914d8e2c8fe051741c031bf9de209"
+    },
+    "schedule": {
+      "name": "extended_smoothed",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          16,
+          0.3
+        ],
+        [
+          30,
+          0.0
+        ]
+      ]
+    },
+    "seed": 314159,
+    "simulations": 77568,
+    "stop_reason": null,
+    "terminal_leaves": 21208,
+    "wall_seconds": 8.389102292247117,
+    "weights_sha256": "9d4c5a6aa4fe68d1aaa3a3f80c8f6b53609d4953076c12e106dca8cbe752ef8e"
+  },
+  {
+    "base_seed": 4404400,
+    "batch_sizes": {
+      "1": 104,
+      "2": 270,
+      "3": 326,
+      "4": 213,
+      "5": 7,
+      "6": 307,
+      "7": 67,
+      "8": 7407
+    },
+    "cohort": 0,
+    "complete": true,
+    "completed_games": 8,
+    "cpu_seconds": 9.391701999999995,
+    "explicit_schedule": true,
+    "file": "pilot-314159-g20-c0-original.jsonl",
+    "forward_calls": 8701,
+    "games_per_second": 0.8504119339208656,
+    "generation": 20,
+    "generation_id": 21,
+    "ids": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "inference_seconds": 7.667546956799924,
+    "max_active": 8,
+    "mean_batch": 7.3642110102287095,
+    "mode": "pilot",
+    "neural_positions": 64076,
+    "peak_rss_mib": 298.0625,
+    "plies": 322,
+    "pool": 8,
+    "positions_per_second": 34.22908034031484,
+    "records_sha256": "654661bcc9b86435fa541b11d35dbcfa92330f307dbb43bfb8f4bc38aa2d11d1",
+    "rng_sha256": {
+      "0": "e7c09aeb3d2d84274b9e4cd06193e3c5b713face28cef1672fd467de9c6dc222",
+      "1": "24369041b5cf01e354e25ced7f400604d9e510f972d0ee3083630a6b9f7662df",
+      "2": "01d47d374a2954d20c49c618073a2409f4a7e467f5bdd27e024a1cc748bbf65d",
+      "3": "18f32aa8610426ff969ad1f004217bb0219687b953808e0851fcb64d81fe660c",
+      "4": "334b2b1382d17f620d0e61f659a110831220b911732e82ba4369ccafe3bc14e3",
+      "5": "32bbc9e13b35f68eebb7d74774c4266fa83117537aa13bfca0ea14e464f99459",
+      "6": "129ceb8836f1c9ce1389fc91ca14c0d12a484129e4f0ef170a68885a3eec4f09",
+      "7": "6f44bc6b72f89fa929e4b3718bc13a15c0bafd0df73c87d843290172d4539f63"
+    },
+    "schedule": {
+      "name": "original",
+      "segments": [
+        [
+          0,
+          1.0
+        ],
+        [
+          8,
+          0.0
+        ]
+      ]
+    },
+    "seed": 314159,
+    "simulations": 82432,
+    "stop_reason": null,
+    "terminal_leaves": 18678,
+    "wall_seconds": 9.407205709256232,
+    "weights_sha256": "9d4c5a6aa4fe68d1aaa3a3f80c8f6b53609d4953076c12e106dca8cbe752ef8e"
+  }
+]
