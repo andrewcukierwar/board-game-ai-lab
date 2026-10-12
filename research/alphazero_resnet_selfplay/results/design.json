@@ -1,0 +1,414 @@
+{
+ "analysis": {
+  "bootstrap_replicates": 10000,
+  "bootstrap_seed": 4404903,
+  "consistency_checkpoint": 4,
+  "decision_checkpoint": 6,
+  "equal_compute": {
+   "approximately_equal": [
+    0.9,
+    1.1
+   ],
+   "qualified": [
+    0.8,
+    1.25
+   ],
+   "quantity": "ResNet / CNN ratio of realized self-play collection seconds plus optimizer-update seconds, all generations",
+   "rule": "inside approximately_equal: equal-compute claim allowed; inside qualified only: comparison described as roughly comparable computation; outside: no equal-compute claim of any kind"
+  },
+  "interval": "two-sided 95% percentile",
+  "multiplicity": "none declared; one primary endpoint, everything else is supporting",
+  "recommendation": {
+   "keep_cnn": "strength FAIL or tactical gate FAIL",
+   "next_investment_indicators": {
+    "replay_optimization": "generation-6 replay mirror-duplicate fraction above 0.40, or generation-6 post-ply-8 self-play duplicate fraction above 0.30, in the better arm",
+    "tactical_search": "generation-6 raw-PUCT immediate-win or safe-response accuracy below 0.95 in the better arm",
+    "value_learning": "generation-6 raw exact-value MSE on solved300 at or above 0.9 x the constant-zero MSE in both architectures, or prequential held-out value MSE above the constant-zero MSE"
+   },
+   "note": "the indicators inform a judgment; they are not an automatic selection",
+   "otherwise": "no demonstrated advantage: the CNN stays the default because it is cheaper per position; the ResNet is not rejected",
+   "replace": "strength PASS, equal-compute claim not invalid, tactical gate not FAIL"
+  },
+  "resampling": "paired cluster bootstrap within seed: opening families for matches (both colors stay together), Phase 4D.4G mirror/prefix clusters for position suites; pooled = equal-weight mean of the two seeds, resampled independently",
+  "secondary_pairings": {
+   "equal_compute": "same generation index (2, 4, 6): the arms have had about the same computation",
+   "equal_games": "CNN generation 4 against ResNet generation 6 (576 games and 576 updates each); raw-network measures also CNN generation 2 against ResNet generation 3 (288 each). Descriptive: these checkpoints differ in generation count, replay refreshes and wall time and are not a matched experiment"
+  },
+  "strength": {
+   "FAIL": "both seeds < 0 and pooled 95% upper bound < 0",
+   "INCONCLUSIVE": "anything else, and always when the endpoint is saturated",
+   "PASS": "both seeds > 0, pooled difference >= +0.05, pooled 95% lower bound > 0, and pooled difference at generation 4 >= 0",
+   "endpoint": "ResNet minus CNN match score against the fixed opponent at generation 6 of each arm",
+   "practical_margin": 0.05,
+   "saturated": "mean generation-6 score of the four arms outside [0.10, 0.90]",
+   "saturation": [
+    0.1,
+    0.9
+   ]
+  },
+  "supporting_rule": "BETTER/WORSE for any other contrast: both seeds agree in sign and the pooled 95% interval excludes zero; otherwise INCONCLUSIVE (signs oriented so that lower loss/error and higher accuracy/score favor the ResNet)",
+  "tactical": {
+   "FAIL": "any category: pooled difference <= -0.05 and pooled 95% upper bound < 0",
+   "INCONCLUSIVE": "anything else",
+   "PASS": "both categories: pooled difference >= -0.03 and pooled 95% lower bound >= -0.10",
+   "endpoint": "ResNet minus CNN raw-PUCT accuracy on tactical200 at generation 6, immediate-win and safe-response categories separately; the same rule on the raw policy is reported and is not binding",
+   "fail_point": -0.05,
+   "pass_lower": -0.1,
+   "pass_point": -0.03
+  },
+  "value": {
+   "BETTER": "both seeds < 0 and pooled 95% upper bound < 0",
+   "INCONCLUSIVE": "anything else",
+   "WORSE": "both seeds > 0 and pooled 95% lower bound > 0",
+   "endpoint": "ResNet minus CNN raw exact-value MSE on solved300 at generation 6 (supporting only)"
+  }
+ },
+ "arms": {
+  "cnn": {
+   "games_per_generation": 144,
+   "optimizer_updates": 144
+  },
+  "resnet3x64": {
+   "games_per_generation": 96,
+   "optimizer_updates": 96
+  }
+ },
+ "budget": {
+  "contingency": 1.25,
+  "evaluation_cpu_seconds": 1718.6905144103043,
+  "evaluation_wall_seconds": 744.7658895777986,
+  "expected_per_architecture_per_seed": {
+   "cnn": {
+    "games": 864,
+    "self_play_seconds": 813.7747511216439,
+    "total_seconds": 852.6395905246027,
+    "update_seconds": 38.86483940295875,
+    "updates": 864
+   },
+   "resnet3x64": {
+    "games": 576,
+    "self_play_seconds": 826.2068591276184,
+    "total_seconds": 863.7116410927847,
+    "update_seconds": 37.50478196516634,
+    "updates": 576
+   }
+  },
+  "expected_ratio_resnet_over_cnn": 1.012985616304035,
+  "feasible": true,
+  "hard_maximum_seconds": 7200,
+  "prior_measured_seconds": 610.3892271518707,
+  "projected_seconds": 4627.468352812573,
+  "projected_total_with_prior": 5237.857579964444,
+  "projected_with_contingency": 5784.335441015717,
+  "run_ceiling_seconds": 6589.610772848129,
+  "target_seconds": 5400,
+  "training_seconds": 3432.7024632347748,
+  "training_task_overhead_seconds": 360
+ },
+ "calibration_sha256": "b22e7c42cf65333e2ace22ffbdc895eb94c103bbffdea9efb5f53db3aa8a4349",
+ "configurations": {
+  "314159-cnn": {
+   "architecture": "connect4-conv64-128-128-policy7-scalar-tanh-v2",
+   "optimizer_updates": 144,
+   "pool_size": 8,
+   "rng_protocol": "connect4-az-independent-games-v1",
+   "training": {
+    "adam_betas": [
+     0.9,
+     0.999
+    ],
+    "adam_eps": 1e-08,
+    "batch_size": 128,
+    "evaluation_simulations": 512,
+    "exploratory_plies": 8,
+    "games_per_generation": 144,
+    "interactive_simulations": 512,
+    "learning_rate": 0.0003,
+    "max_generations": 6,
+    "max_grad_norm": 5.0,
+    "reflection_probability": 0.5,
+    "replay_generations": 8,
+    "replay_max_games": 2048,
+    "root_dirichlet_alpha": 1.0,
+    "root_noise_epsilon": 0.25,
+    "samples_per_new_position": 4,
+    "seed": 314159,
+    "self_play_simulations": 256,
+    "weight_decay": 0.0001
+   }
+  },
+  "314159-resnet3x64": {
+   "architecture": "connect4-resnet3x64-bn-policy32-value32x64-scalar-tanh-v1",
+   "optimizer_updates": 96,
+   "pool_size": 8,
+   "rng_protocol": "connect4-az-independent-games-v1",
+   "training": {
+    "adam_betas": [
+     0.9,
+     0.999
+    ],
+    "adam_eps": 1e-08,
+    "batch_size": 128,
+    "evaluation_simulations": 512,
+    "exploratory_plies": 8,
+    "games_per_generation": 96,
+    "interactive_simulations": 512,
+    "learning_rate": 0.0003,
+    "max_generations": 6,
+    "max_grad_norm": 5.0,
+    "reflection_probability": 0.5,
+    "replay_generations": 8,
+    "replay_max_games": 2048,
+    "root_dirichlet_alpha": 1.0,
+    "root_noise_epsilon": 0.25,
+    "samples_per_new_position": 4,
+    "seed": 314159,
+    "self_play_simulations": 256,
+    "weight_decay": 0.0001
+   }
+  },
+  "42-cnn": {
+   "architecture": "connect4-conv64-128-128-policy7-scalar-tanh-v2",
+   "optimizer_updates": 144,
+   "pool_size": 8,
+   "rng_protocol": "connect4-az-independent-games-v1",
+   "training": {
+    "adam_betas": [
+     0.9,
+     0.999
+    ],
+    "adam_eps": 1e-08,
+    "batch_size": 128,
+    "evaluation_simulations": 512,
+    "exploratory_plies": 8,
+    "games_per_generation": 144,
+    "interactive_simulations": 512,
+    "learning_rate": 0.0003,
+    "max_generations": 6,
+    "max_grad_norm": 5.0,
+    "reflection_probability": 0.5,
+    "replay_generations": 8,
+    "replay_max_games": 2048,
+    "root_dirichlet_alpha": 1.0,
+    "root_noise_epsilon": 0.25,
+    "samples_per_new_position": 4,
+    "seed": 42,
+    "self_play_simulations": 256,
+    "weight_decay": 0.0001
+   }
+  },
+  "42-resnet3x64": {
+   "architecture": "connect4-resnet3x64-bn-policy32-value32x64-scalar-tanh-v1",
+   "optimizer_updates": 96,
+   "pool_size": 8,
+   "rng_protocol": "connect4-az-independent-games-v1",
+   "training": {
+    "adam_betas": [
+     0.9,
+     0.999
+    ],
+    "adam_eps": 1e-08,
+    "batch_size": 128,
+    "evaluation_simulations": 512,
+    "exploratory_plies": 8,
+    "games_per_generation": 96,
+    "interactive_simulations": 512,
+    "learning_rate": 0.0003,
+    "max_generations": 6,
+    "max_grad_norm": 5.0,
+    "reflection_probability": 0.5,
+    "replay_generations": 8,
+    "replay_max_games": 2048,
+    "root_dirichlet_alpha": 1.0,
+    "root_noise_epsilon": 0.25,
+    "samples_per_new_position": 4,
+    "seed": 42,
+    "self_play_simulations": 256,
+    "weight_decay": 0.0001
+   }
+  }
+ },
+ "evaluation": {
+  "games_per_checkpoint": 80,
+  "generations": [
+   0,
+   2,
+   4,
+   6
+  ],
+  "match_seed": 4404902,
+  "openings": [
+   "development-prefix-00-base",
+   "development-prefix-01-base",
+   "development-prefix-02-base",
+   "development-prefix-03-base",
+   "development-prefix-04-base",
+   "development-prefix-05-base",
+   "development-prefix-06-base",
+   "development-prefix-07-base",
+   "development-prefix-08-base",
+   "development-prefix-09-base",
+   "development-prefix-10-base",
+   "development-prefix-11-base",
+   "development-prefix-12-base",
+   "development-prefix-13-base",
+   "development-prefix-14-base",
+   "development-prefix-15-base",
+   "development-prefix-16-base",
+   "development-prefix-17-base",
+   "development-prefix-18-base",
+   "development-prefix-19-base",
+   "development-prefix-20-base",
+   "development-prefix-21-base",
+   "development-prefix-22-base",
+   "development-prefix-23-base",
+   "development-prefix-24-base",
+   "development-prefix-25-base",
+   "development-prefix-26-base",
+   "development-prefix-27-base",
+   "development-prefix-28-base",
+   "development-prefix-29-base",
+   "development-prefix-30-base",
+   "development-prefix-31-base",
+   "development-prefix-32-base",
+   "development-prefix-33-base",
+   "development-prefix-34-base",
+   "development-prefix-35-base",
+   "development-prefix-36-base",
+   "development-prefix-37-base",
+   "development-prefix-38-base",
+   "development-prefix-39-base"
+  ],
+  "opponent": "reference negamax (connect4-reference-negamax-v1), seeded uniform ties",
+  "opponent_depth": 3,
+  "search_seed": 4404901,
+  "simulations": 256,
+  "suites": {
+   "deep": 128,
+   "solved": 300,
+   "tactical": 200
+  },
+  "workers": 3
+ },
+ "fixtures_sha256": "80f6851838b18172d6f818ebd306ce0cd36e4796cac1e3a71df29694feb3ca2c",
+ "generations": 6,
+ "order": [
+  [
+   [
+    42,
+    "cnn"
+   ],
+   [
+    42,
+    "resnet3x64"
+   ],
+   [
+    314159,
+    "resnet3x64"
+   ],
+   [
+    314159,
+    "cnn"
+   ]
+  ],
+  [
+   [
+    314159,
+    "cnn"
+   ],
+   [
+    314159,
+    "resnet3x64"
+   ],
+   [
+    42,
+    "resnet3x64"
+   ],
+   [
+    42,
+    "cnn"
+   ]
+  ],
+  [
+   [
+    42,
+    "cnn"
+   ],
+   [
+    42,
+    "resnet3x64"
+   ],
+   [
+    314159,
+    "resnet3x64"
+   ],
+   [
+    314159,
+    "cnn"
+   ]
+  ],
+  [
+   [
+    314159,
+    "cnn"
+   ],
+   [
+    314159,
+    "resnet3x64"
+   ],
+   [
+    42,
+    "resnet3x64"
+   ],
+   [
+    42,
+    "cnn"
+   ]
+  ],
+  [
+   [
+    42,
+    "cnn"
+   ],
+   [
+    42,
+    "resnet3x64"
+   ],
+   [
+    314159,
+    "resnet3x64"
+   ],
+   [
+    314159,
+    "cnn"
+   ]
+  ],
+  [
+   [
+    314159,
+    "cnn"
+   ],
+   [
+    314159,
+    "resnet3x64"
+   ],
+   [
+    42,
+    "resnet3x64"
+   ],
+   [
+    42,
+    "cnn"
+   ]
+  ]
+ ],
+ "schedule": "original: temperature 1 at plies 0-7, then 0",
+ "seeds": [
+  42,
+  314159
+ ],
+ "smoke": false,
+ "smoke_sha256": "ddcbc17e9143c230d8b3c216e8755c611bca55c7269114140a1f1020660b973e",
+ "training_overrides": {},
+ "validation_sha256": "aa51cc47aa992dc4266cd979df00331888dff3a5979c2fe51fa0e275937c7707"
+}

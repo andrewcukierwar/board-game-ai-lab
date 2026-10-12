@@ -1,0 +1,661 @@
+{
+ "chains": {
+  "314159-cnn": [
+   {
+    "augmentation": "5429e584959a778eb22fa10301bae15dc1e31e84a0a58aecf060ef111840ca1b",
+    "buffers": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "content": "c446779282e5f8561e0c1986456648c77a1dd9250d75b379030f469d57a36b08",
+    "counters": {
+     "completed_generations": 1,
+     "total_games": 12,
+     "total_positions": 225,
+     "trainer_steps": 6
+    },
+    "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+    "model": "3f093b30e4ea944762662b93a6326ecee815a758c3de2cbaf8d502c64d03557f",
+    "optimizer": "237894d11021d8252996e2284a9883d32f36f3cfb2ae5052ffc50fd994ef6a48",
+    "replay": "96162c82c1e7c5b462e9754117a584c8b3949e5fc6e8933d6b9a0e331a85064a",
+    "sampling": "83412161b88440fc0b85824d19468b9b6e2f57c46ee1c00690045e77083d02c3"
+   },
+   {
+    "augmentation": "039282e9f2a51f553f426d479d940136a9175451ab4904ff17fb4abdab8cd5bf",
+    "buffers": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "content": "7785cd51f016669d59269be557bc293c2a25709358cef79546a85c550fb33e20",
+    "counters": {
+     "completed_generations": 2,
+     "total_games": 24,
+     "total_positions": 419,
+     "trainer_steps": 12
+    },
+    "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+    "model": "b4301edeaf8ede086e2dc45fb64dff4be3191d7e9482b34c0232767083ed87f5",
+    "optimizer": "63542d0ceff51561548dec4589a2e85e8debfc57645c7435b2dfbbc4780d0c41",
+    "replay": "2f8cd2b0461fbe960474715fca70380b4ac32d73a43fae19dc557eeadf4c8cc8",
+    "sampling": "6a4d4d4f6da10ce7fb858531dfa484d228ff47523f99de2eaf20aa46aa425d11"
+   }
+  ],
+  "314159-resnet3x64": [
+   {
+    "augmentation": "71e54cb98f6b251a91e7a1fb5e1614718a31022edf7b9e52c167402e842e0f0a",
+    "buffers": "d79dd7ec26e4c113f992f2406c0344a0162d314b9065fe935a885ce3c420ada2",
+    "content": "76b7e25315688ad8c3b8c86af31de02d896fc77f4d770a2dc9e123ec315e636c",
+    "counters": {
+     "completed_generations": 1,
+     "total_games": 8,
+     "total_positions": 128,
+     "trainer_steps": 4
+    },
+    "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+    "model": "3d40366f76dd7fc985822f13b6c4cc012d8b9a8a9ccb001cb827d08cacc9d91d",
+    "optimizer": "b25d4957348bc5935dd49953813a8e319b5318e373d9f3fabee849f011ec39db",
+    "replay": "8e0af78cd1f4e31b227effffc7c6c907bb8f5948dbc44f346b2fbe1a9fdf7100",
+    "sampling": "8f214be013fc44bde760c84e8438c900872d454e7720a01e74e27e197dee1ba1"
+   },
+   {
+    "augmentation": "e675c1170e41a952dff73d8c1bd565fbbb4a24059dd3814e1451772d3d790d16",
+    "buffers": "05fcb938ca03dfd692da732a609e41eb642a783f59ca481e51de696c09bac92f",
+    "content": "41e7278a5d9ebfd15c91e7b571b93266b801415632f2631222bbe5e9f943d486",
+    "counters": {
+     "completed_generations": 2,
+     "total_games": 16,
+     "total_positions": 287,
+     "trainer_steps": 8
+    },
+    "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+    "model": "39cc3b3e2ddb671a2f58206264b96429e4ce0048d5ae77e6778ee6c15eed4c70",
+    "optimizer": "ff5fbca93cbf6a853b28bb465a72ebaf3b7c1d8e7e959aa8bcd1e4061626237b",
+    "replay": "26e0e56363a7b44472f5bf61f89d1e5fefdf2305af649d88a4e508e46d42a3f1",
+    "sampling": "bd141d4b1e3d8e1efdbe4714fde3e58214c93fd7b1b1221fee7668a671c04f60"
+   }
+  ],
+  "42-cnn": [
+   {
+    "augmentation": "3bbf758d2b2d13938848420f0d16e09a407f4440b3bef8f90ac141fb101c07ba",
+    "buffers": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "content": "a8c86e85f595d80878fca7edf5e03156d63c6a155c773a5b2cff851f1edf15c7",
+    "counters": {
+     "completed_generations": 1,
+     "total_games": 12,
+     "total_positions": 213,
+     "trainer_steps": 6
+    },
+    "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+    "model": "4d44252e3740f611c3ff50f3834a6b6c7c0b0097fcdb4612ff879ec54d807e6a",
+    "optimizer": "dab72cb37fd7c08bd9404599d46b5f8a61014be4165a94de88526fb0bcdb48cc",
+    "replay": "b73ddf3f259c59583268c2a33d7f2126d1162f529f2582a8f762465c78806486",
+    "sampling": "577e69c0b4c5bce5dd54370fa24dd8eedec867c83eef1d623a869fe6ca08eeea"
+   },
+   {
+    "augmentation": "38618aad382f1c68f443a8a4905a8dde1daafdca86b2d57ece11a4dfed08b335",
+    "buffers": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "content": "bda8f938ac1f693fe26d6263e24d476fa1f81744286df20afcd42dde9a20bbc4",
+    "counters": {
+     "completed_generations": 2,
+     "total_games": 24,
+     "total_positions": 405,
+     "trainer_steps": 12
+    },
+    "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+    "model": "7108af168ef4ba76202e90082f90a0364a96a8e9326ee793e6f05746ef122c96",
+    "optimizer": "beb3f9bb8e00b9203bbd080cffdadbb8513b28d3493c8f490c0a773395c5f2d7",
+    "replay": "8530310968b16e31d5f691397d8e203c19311af82a32f8d1051c1fbaef72923b",
+    "sampling": "534688633b5436b6b3431e449117259f369882337acb3766215377c916523dbe"
+   }
+  ],
+  "42-resnet3x64": [
+   {
+    "augmentation": "a30e814d529e2ee9fa80bca0140c76d43910fd8666135349640d1dc63a3d48c4",
+    "buffers": "c1f04de406636b5eb346f29050e09291d943408aebfdd481709bd93425f116d2",
+    "content": "5e4e844aaa982c62efba2978cc0dc420c8c70342d668f06dc8676f8530fb7881",
+    "counters": {
+     "completed_generations": 1,
+     "total_games": 8,
+     "total_positions": 126,
+     "trainer_steps": 4
+    },
+    "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+    "model": "be13695ee89146e6a44f4c4073c2999a74f5748519859c45553878a2215fba52",
+    "optimizer": "01b0aa35a1511f9d5d17d156dd217e2e81b33232b907dd70b2796dad53085085",
+    "replay": "519d27f14d7e79fb22f0d786c645b2ce0a97898317d8e34aee0b9ad894bf1a86",
+    "sampling": "9aa4533cd8a84bdc6aa7f4cb4b7ff0c56a3e0b458ede8cf8b6cfc3ac31558e17"
+   },
+   {
+    "augmentation": "3194f87df6d10cc2d44b133a4e2373e6d8386d4b86ba761514d094f742ad21d1",
+    "buffers": "4a58036676a27d4d65e8c8aab4a6d8d89967daa45f87c3af43751cec689b7a66",
+    "content": "8fa4dca97a80143561bbbd07601a53b7fc8950460ed76ece6f0a7d473cf2be6b",
+    "counters": {
+     "completed_generations": 2,
+     "total_games": 16,
+     "total_positions": 250,
+     "trainer_steps": 8
+    },
+    "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+    "model": "7caf5f777369e9c2f3855df3c543ff4645d7a9a2673311b886a4c6c48c38e11a",
+    "optimizer": "ecbfa3d4c3989ebccfd92052730227a875d488713073e0866aacf214ca20c23a",
+    "replay": "64803247a0360a7ae1202afe4b4ec2accd7353dc39a4d89c7050afd8a1a7912e",
+    "sampling": "61305e994180e9c5211e100a61805fd78eae352371b2c66aac5c8b70012d3e0a"
+   }
+  ]
+ },
+ "checks": [
+  {
+   "check": "cnn: registered architecture identity",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "cnn: parameter count",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "cnn: seed-determined initialization",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "cnn: the other architecture adapter refuses this model",
+   "detail": 4,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: registered architecture identity",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: parameter count",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: seed-determined initialization",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: the other architecture adapter refuses this model",
+   "detail": 4,
+   "passed": true
+  },
+  {
+   "check": "smoke: supervisor completed",
+   "detail": "COMPLETE_PENDING_ANALYSIS",
+   "passed": true
+  },
+  {
+   "check": "smoke: every task complete, none retried",
+   "detail": 28,
+   "passed": true
+  },
+  {
+   "check": "smoke: integrity checks passed",
+   "detail": {
+    "checkpoint_hashes": "PASS",
+    "frozen_sources_runtime_design": "NOT APPLICABLE (smoke)",
+    "official_campaign_150_files": "PASS",
+    "protected_experiment_bytes": "PASS"
+   },
+   "passed": true
+  },
+  {
+   "check": "smoke: frozen analysis ran end to end",
+   "detail": [
+    "equal_compute_claim",
+    "recommendation_rule",
+    "strength",
+    "tactical_policy",
+    "tactical_puct",
+    "value"
+   ],
+   "passed": true
+  },
+  {
+   "check": "smoke: task count equals the declared schedule",
+   "detail": 28,
+   "passed": true
+  },
+  {
+   "check": "42-cnn: generation zero has empty replay and zero optimizer steps",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "42-cnn: generation zero is the fresh seed-determined initialization",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "42-cnn: boundary refuses the other architecture's configuration",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "42-cnn: boundary refuses a wrong file hash",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "42-cnn: generation 1 from fresh interpreters is bit-identical to one uninterrupted interpreter",
+   "detail": {
+    "fresh": {
+     "augmentation": "3bbf758d2b2d13938848420f0d16e09a407f4440b3bef8f90ac141fb101c07ba",
+     "buffers": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+     "content": "a8c86e85f595d80878fca7edf5e03156d63c6a155c773a5b2cff851f1edf15c7",
+     "counters": {
+      "completed_generations": 1,
+      "total_games": 12,
+      "total_positions": 213,
+      "trainer_steps": 6
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "4d44252e3740f611c3ff50f3834a6b6c7c0b0097fcdb4612ff879ec54d807e6a",
+     "optimizer": "dab72cb37fd7c08bd9404599d46b5f8a61014be4165a94de88526fb0bcdb48cc",
+     "replay": "b73ddf3f259c59583268c2a33d7f2126d1162f529f2582a8f762465c78806486",
+     "sampling": "577e69c0b4c5bce5dd54370fa24dd8eedec867c83eef1d623a869fe6ca08eeea"
+    },
+    "uninterrupted": {
+     "augmentation": "3bbf758d2b2d13938848420f0d16e09a407f4440b3bef8f90ac141fb101c07ba",
+     "buffers": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+     "content": "a8c86e85f595d80878fca7edf5e03156d63c6a155c773a5b2cff851f1edf15c7",
+     "counters": {
+      "completed_generations": 1,
+      "total_games": 12,
+      "total_positions": 213,
+      "trainer_steps": 6
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "4d44252e3740f611c3ff50f3834a6b6c7c0b0097fcdb4612ff879ec54d807e6a",
+     "optimizer": "dab72cb37fd7c08bd9404599d46b5f8a61014be4165a94de88526fb0bcdb48cc",
+     "replay": "b73ddf3f259c59583268c2a33d7f2126d1162f529f2582a8f762465c78806486",
+     "sampling": "577e69c0b4c5bce5dd54370fa24dd8eedec867c83eef1d623a869fe6ca08eeea"
+    }
+   },
+   "passed": true
+  },
+  {
+   "check": "42-cnn: generation 2 from fresh interpreters is bit-identical to one uninterrupted interpreter",
+   "detail": {
+    "fresh": {
+     "augmentation": "38618aad382f1c68f443a8a4905a8dde1daafdca86b2d57ece11a4dfed08b335",
+     "buffers": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+     "content": "bda8f938ac1f693fe26d6263e24d476fa1f81744286df20afcd42dde9a20bbc4",
+     "counters": {
+      "completed_generations": 2,
+      "total_games": 24,
+      "total_positions": 405,
+      "trainer_steps": 12
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "7108af168ef4ba76202e90082f90a0364a96a8e9326ee793e6f05746ef122c96",
+     "optimizer": "beb3f9bb8e00b9203bbd080cffdadbb8513b28d3493c8f490c0a773395c5f2d7",
+     "replay": "8530310968b16e31d5f691397d8e203c19311af82a32f8d1051c1fbaef72923b",
+     "sampling": "534688633b5436b6b3431e449117259f369882337acb3766215377c916523dbe"
+    },
+    "uninterrupted": {
+     "augmentation": "38618aad382f1c68f443a8a4905a8dde1daafdca86b2d57ece11a4dfed08b335",
+     "buffers": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+     "content": "bda8f938ac1f693fe26d6263e24d476fa1f81744286df20afcd42dde9a20bbc4",
+     "counters": {
+      "completed_generations": 2,
+      "total_games": 24,
+      "total_positions": 405,
+      "trainer_steps": 12
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "7108af168ef4ba76202e90082f90a0364a96a8e9326ee793e6f05746ef122c96",
+     "optimizer": "beb3f9bb8e00b9203bbd080cffdadbb8513b28d3493c8f490c0a773395c5f2d7",
+     "replay": "8530310968b16e31d5f691397d8e203c19311af82a32f8d1051c1fbaef72923b",
+     "sampling": "534688633b5436b6b3431e449117259f369882337acb3766215377c916523dbe"
+    }
+   },
+   "passed": true
+  },
+  {
+   "check": "42-cnn: a generation beyond the declaration is refused",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "42-resnet3x64: generation zero has empty replay and zero optimizer steps",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "42-resnet3x64: generation zero is the fresh seed-determined initialization",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "42-resnet3x64: boundary refuses the other architecture's configuration",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "42-resnet3x64: boundary refuses a wrong file hash",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "42-resnet3x64: generation 1 from fresh interpreters is bit-identical to one uninterrupted interpreter",
+   "detail": {
+    "fresh": {
+     "augmentation": "a30e814d529e2ee9fa80bca0140c76d43910fd8666135349640d1dc63a3d48c4",
+     "buffers": "c1f04de406636b5eb346f29050e09291d943408aebfdd481709bd93425f116d2",
+     "content": "5e4e844aaa982c62efba2978cc0dc420c8c70342d668f06dc8676f8530fb7881",
+     "counters": {
+      "completed_generations": 1,
+      "total_games": 8,
+      "total_positions": 126,
+      "trainer_steps": 4
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "be13695ee89146e6a44f4c4073c2999a74f5748519859c45553878a2215fba52",
+     "optimizer": "01b0aa35a1511f9d5d17d156dd217e2e81b33232b907dd70b2796dad53085085",
+     "replay": "519d27f14d7e79fb22f0d786c645b2ce0a97898317d8e34aee0b9ad894bf1a86",
+     "sampling": "9aa4533cd8a84bdc6aa7f4cb4b7ff0c56a3e0b458ede8cf8b6cfc3ac31558e17"
+    },
+    "uninterrupted": {
+     "augmentation": "a30e814d529e2ee9fa80bca0140c76d43910fd8666135349640d1dc63a3d48c4",
+     "buffers": "c1f04de406636b5eb346f29050e09291d943408aebfdd481709bd93425f116d2",
+     "content": "5e4e844aaa982c62efba2978cc0dc420c8c70342d668f06dc8676f8530fb7881",
+     "counters": {
+      "completed_generations": 1,
+      "total_games": 8,
+      "total_positions": 126,
+      "trainer_steps": 4
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "be13695ee89146e6a44f4c4073c2999a74f5748519859c45553878a2215fba52",
+     "optimizer": "01b0aa35a1511f9d5d17d156dd217e2e81b33232b907dd70b2796dad53085085",
+     "replay": "519d27f14d7e79fb22f0d786c645b2ce0a97898317d8e34aee0b9ad894bf1a86",
+     "sampling": "9aa4533cd8a84bdc6aa7f4cb4b7ff0c56a3e0b458ede8cf8b6cfc3ac31558e17"
+    }
+   },
+   "passed": true
+  },
+  {
+   "check": "42-resnet3x64: generation 1 batch-norm counters equal trainer steps",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "42-resnet3x64: generation 2 from fresh interpreters is bit-identical to one uninterrupted interpreter",
+   "detail": {
+    "fresh": {
+     "augmentation": "3194f87df6d10cc2d44b133a4e2373e6d8386d4b86ba761514d094f742ad21d1",
+     "buffers": "4a58036676a27d4d65e8c8aab4a6d8d89967daa45f87c3af43751cec689b7a66",
+     "content": "8fa4dca97a80143561bbbd07601a53b7fc8950460ed76ece6f0a7d473cf2be6b",
+     "counters": {
+      "completed_generations": 2,
+      "total_games": 16,
+      "total_positions": 250,
+      "trainer_steps": 8
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "7caf5f777369e9c2f3855df3c543ff4645d7a9a2673311b886a4c6c48c38e11a",
+     "optimizer": "ecbfa3d4c3989ebccfd92052730227a875d488713073e0866aacf214ca20c23a",
+     "replay": "64803247a0360a7ae1202afe4b4ec2accd7353dc39a4d89c7050afd8a1a7912e",
+     "sampling": "61305e994180e9c5211e100a61805fd78eae352371b2c66aac5c8b70012d3e0a"
+    },
+    "uninterrupted": {
+     "augmentation": "3194f87df6d10cc2d44b133a4e2373e6d8386d4b86ba761514d094f742ad21d1",
+     "buffers": "4a58036676a27d4d65e8c8aab4a6d8d89967daa45f87c3af43751cec689b7a66",
+     "content": "8fa4dca97a80143561bbbd07601a53b7fc8950460ed76ece6f0a7d473cf2be6b",
+     "counters": {
+      "completed_generations": 2,
+      "total_games": 16,
+      "total_positions": 250,
+      "trainer_steps": 8
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "7caf5f777369e9c2f3855df3c543ff4645d7a9a2673311b886a4c6c48c38e11a",
+     "optimizer": "ecbfa3d4c3989ebccfd92052730227a875d488713073e0866aacf214ca20c23a",
+     "replay": "64803247a0360a7ae1202afe4b4ec2accd7353dc39a4d89c7050afd8a1a7912e",
+     "sampling": "61305e994180e9c5211e100a61805fd78eae352371b2c66aac5c8b70012d3e0a"
+    }
+   },
+   "passed": true
+  },
+  {
+   "check": "42-resnet3x64: generation 2 batch-norm counters equal trainer steps",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "42-resnet3x64: a generation beyond the declaration is refused",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "314159-cnn: generation zero has empty replay and zero optimizer steps",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "314159-cnn: generation zero is the fresh seed-determined initialization",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "314159-cnn: boundary refuses the other architecture's configuration",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "314159-cnn: boundary refuses a wrong file hash",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "314159-cnn: generation 1 from fresh interpreters is bit-identical to one uninterrupted interpreter",
+   "detail": {
+    "fresh": {
+     "augmentation": "5429e584959a778eb22fa10301bae15dc1e31e84a0a58aecf060ef111840ca1b",
+     "buffers": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+     "content": "c446779282e5f8561e0c1986456648c77a1dd9250d75b379030f469d57a36b08",
+     "counters": {
+      "completed_generations": 1,
+      "total_games": 12,
+      "total_positions": 225,
+      "trainer_steps": 6
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "3f093b30e4ea944762662b93a6326ecee815a758c3de2cbaf8d502c64d03557f",
+     "optimizer": "237894d11021d8252996e2284a9883d32f36f3cfb2ae5052ffc50fd994ef6a48",
+     "replay": "96162c82c1e7c5b462e9754117a584c8b3949e5fc6e8933d6b9a0e331a85064a",
+     "sampling": "83412161b88440fc0b85824d19468b9b6e2f57c46ee1c00690045e77083d02c3"
+    },
+    "uninterrupted": {
+     "augmentation": "5429e584959a778eb22fa10301bae15dc1e31e84a0a58aecf060ef111840ca1b",
+     "buffers": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+     "content": "c446779282e5f8561e0c1986456648c77a1dd9250d75b379030f469d57a36b08",
+     "counters": {
+      "completed_generations": 1,
+      "total_games": 12,
+      "total_positions": 225,
+      "trainer_steps": 6
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "3f093b30e4ea944762662b93a6326ecee815a758c3de2cbaf8d502c64d03557f",
+     "optimizer": "237894d11021d8252996e2284a9883d32f36f3cfb2ae5052ffc50fd994ef6a48",
+     "replay": "96162c82c1e7c5b462e9754117a584c8b3949e5fc6e8933d6b9a0e331a85064a",
+     "sampling": "83412161b88440fc0b85824d19468b9b6e2f57c46ee1c00690045e77083d02c3"
+    }
+   },
+   "passed": true
+  },
+  {
+   "check": "314159-cnn: generation 2 from fresh interpreters is bit-identical to one uninterrupted interpreter",
+   "detail": {
+    "fresh": {
+     "augmentation": "039282e9f2a51f553f426d479d940136a9175451ab4904ff17fb4abdab8cd5bf",
+     "buffers": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+     "content": "7785cd51f016669d59269be557bc293c2a25709358cef79546a85c550fb33e20",
+     "counters": {
+      "completed_generations": 2,
+      "total_games": 24,
+      "total_positions": 419,
+      "trainer_steps": 12
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "b4301edeaf8ede086e2dc45fb64dff4be3191d7e9482b34c0232767083ed87f5",
+     "optimizer": "63542d0ceff51561548dec4589a2e85e8debfc57645c7435b2dfbbc4780d0c41",
+     "replay": "2f8cd2b0461fbe960474715fca70380b4ac32d73a43fae19dc557eeadf4c8cc8",
+     "sampling": "6a4d4d4f6da10ce7fb858531dfa484d228ff47523f99de2eaf20aa46aa425d11"
+    },
+    "uninterrupted": {
+     "augmentation": "039282e9f2a51f553f426d479d940136a9175451ab4904ff17fb4abdab8cd5bf",
+     "buffers": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+     "content": "7785cd51f016669d59269be557bc293c2a25709358cef79546a85c550fb33e20",
+     "counters": {
+      "completed_generations": 2,
+      "total_games": 24,
+      "total_positions": 419,
+      "trainer_steps": 12
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "b4301edeaf8ede086e2dc45fb64dff4be3191d7e9482b34c0232767083ed87f5",
+     "optimizer": "63542d0ceff51561548dec4589a2e85e8debfc57645c7435b2dfbbc4780d0c41",
+     "replay": "2f8cd2b0461fbe960474715fca70380b4ac32d73a43fae19dc557eeadf4c8cc8",
+     "sampling": "6a4d4d4f6da10ce7fb858531dfa484d228ff47523f99de2eaf20aa46aa425d11"
+    }
+   },
+   "passed": true
+  },
+  {
+   "check": "314159-cnn: a generation beyond the declaration is refused",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "314159-resnet3x64: generation zero has empty replay and zero optimizer steps",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "314159-resnet3x64: generation zero is the fresh seed-determined initialization",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "314159-resnet3x64: boundary refuses the other architecture's configuration",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "314159-resnet3x64: boundary refuses a wrong file hash",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "314159-resnet3x64: generation 1 from fresh interpreters is bit-identical to one uninterrupted interpreter",
+   "detail": {
+    "fresh": {
+     "augmentation": "71e54cb98f6b251a91e7a1fb5e1614718a31022edf7b9e52c167402e842e0f0a",
+     "buffers": "d79dd7ec26e4c113f992f2406c0344a0162d314b9065fe935a885ce3c420ada2",
+     "content": "76b7e25315688ad8c3b8c86af31de02d896fc77f4d770a2dc9e123ec315e636c",
+     "counters": {
+      "completed_generations": 1,
+      "total_games": 8,
+      "total_positions": 128,
+      "trainer_steps": 4
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "3d40366f76dd7fc985822f13b6c4cc012d8b9a8a9ccb001cb827d08cacc9d91d",
+     "optimizer": "b25d4957348bc5935dd49953813a8e319b5318e373d9f3fabee849f011ec39db",
+     "replay": "8e0af78cd1f4e31b227effffc7c6c907bb8f5948dbc44f346b2fbe1a9fdf7100",
+     "sampling": "8f214be013fc44bde760c84e8438c900872d454e7720a01e74e27e197dee1ba1"
+    },
+    "uninterrupted": {
+     "augmentation": "71e54cb98f6b251a91e7a1fb5e1614718a31022edf7b9e52c167402e842e0f0a",
+     "buffers": "d79dd7ec26e4c113f992f2406c0344a0162d314b9065fe935a885ce3c420ada2",
+     "content": "76b7e25315688ad8c3b8c86af31de02d896fc77f4d770a2dc9e123ec315e636c",
+     "counters": {
+      "completed_generations": 1,
+      "total_games": 8,
+      "total_positions": 128,
+      "trainer_steps": 4
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "3d40366f76dd7fc985822f13b6c4cc012d8b9a8a9ccb001cb827d08cacc9d91d",
+     "optimizer": "b25d4957348bc5935dd49953813a8e319b5318e373d9f3fabee849f011ec39db",
+     "replay": "8e0af78cd1f4e31b227effffc7c6c907bb8f5948dbc44f346b2fbe1a9fdf7100",
+     "sampling": "8f214be013fc44bde760c84e8438c900872d454e7720a01e74e27e197dee1ba1"
+    }
+   },
+   "passed": true
+  },
+  {
+   "check": "314159-resnet3x64: generation 1 batch-norm counters equal trainer steps",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "314159-resnet3x64: generation 2 from fresh interpreters is bit-identical to one uninterrupted interpreter",
+   "detail": {
+    "fresh": {
+     "augmentation": "e675c1170e41a952dff73d8c1bd565fbbb4a24059dd3814e1451772d3d790d16",
+     "buffers": "05fcb938ca03dfd692da732a609e41eb642a783f59ca481e51de696c09bac92f",
+     "content": "41e7278a5d9ebfd15c91e7b571b93266b801415632f2631222bbe5e9f943d486",
+     "counters": {
+      "completed_generations": 2,
+      "total_games": 16,
+      "total_positions": 287,
+      "trainer_steps": 8
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "39cc3b3e2ddb671a2f58206264b96429e4ce0048d5ae77e6778ee6c15eed4c70",
+     "optimizer": "ff5fbca93cbf6a853b28bb465a72ebaf3b7c1d8e7e959aa8bcd1e4061626237b",
+     "replay": "26e0e56363a7b44472f5bf61f89d1e5fefdf2305af649d88a4e508e46d42a3f1",
+     "sampling": "bd141d4b1e3d8e1efdbe4714fde3e58214c93fd7b1b1221fee7668a671c04f60"
+    },
+    "uninterrupted": {
+     "augmentation": "e675c1170e41a952dff73d8c1bd565fbbb4a24059dd3814e1451772d3d790d16",
+     "buffers": "05fcb938ca03dfd692da732a609e41eb642a783f59ca481e51de696c09bac92f",
+     "content": "41e7278a5d9ebfd15c91e7b571b93266b801415632f2631222bbe5e9f943d486",
+     "counters": {
+      "completed_generations": 2,
+      "total_games": 16,
+      "total_positions": 287,
+      "trainer_steps": 8
+     },
+     "global_rng": "658bdce407add5a3d6ca53da68f6750480f5fd53b32435e2e5f29183b6787d98",
+     "model": "39cc3b3e2ddb671a2f58206264b96429e4ce0048d5ae77e6778ee6c15eed4c70",
+     "optimizer": "ff5fbca93cbf6a853b28bb465a72ebaf3b7c1d8e7e959aa8bcd1e4061626237b",
+     "replay": "26e0e56363a7b44472f5bf61f89d1e5fefdf2305af649d88a4e508e46d42a3f1",
+     "sampling": "bd141d4b1e3d8e1efdbe4714fde3e58214c93fd7b1b1221fee7668a671c04f60"
+    }
+   },
+   "passed": true
+  },
+  {
+   "check": "314159-resnet3x64: generation 2 batch-norm counters equal trainer steps",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "314159-resnet3x64: a generation beyond the declaration is refused",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "cancel file stops a worker check",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "passed deadline stops a worker check",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "official campaign unchanged",
+   "detail": null,
+   "passed": true
+  }
+ ],
+ "count": 48,
+ "passed": true,
+ "wall_seconds": 8.820627927780151
+}

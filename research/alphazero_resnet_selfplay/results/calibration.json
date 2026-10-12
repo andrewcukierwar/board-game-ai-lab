@@ -1,0 +1,462 @@
+{
+ "arms_trained": 0,
+ "calibration_seed": 20261012,
+ "ceiling_seconds": 900,
+ "checkpoints_written": 0,
+ "collection": {
+  "cnn": {
+   "cpu_over_wall": 0.9996457752943962,
+   "cpu_seconds": 180.77477600000003,
+   "games": 192,
+   "mean_game_length": 32.223958333333336,
+   "ms_per_neural_position": 0.149770699267861,
+   "ms_per_ply": 29.228840081232832,
+   "neural_positions": 1207438,
+   "plies": 6187,
+   "seconds_per_game": 0.9418689249093101,
+   "wall_seconds": 180.83883358258754
+  },
+  "resnet3x64": {
+   "cpu_over_wall": 0.9997151589520002,
+   "cpu_seconds": 183.54922699999997,
+   "games": 128,
+   "mean_game_length": 33.1953125,
+   "ms_per_neural_position": 0.2230022266643126,
+   "ms_per_ply": 43.21052582974391,
+   "neural_positions": 823317,
+   "plies": 4249,
+   "seconds_per_game": 1.4343869082076708,
+   "wall_seconds": 183.60152425058186
+  }
+ },
+ "collection_blocks": [
+  {
+   "architecture": "cnn",
+   "cpu_seconds": 88.45868300000001,
+   "draws": 20,
+   "first_game": 0,
+   "forward_calls": 77405,
+   "games": 96,
+   "inference_seconds": 70.52225481718779,
+   "mean_batch": 7.649144112137459,
+   "mean_game_length": 31.96875,
+   "ms_per_neural_position": 0.1494217252975779,
+   "ms_per_ply": 28.82695143618134,
+   "neural_positions": 592082,
+   "plies": 3069,
+   "seconds_per_game": 0.9215616037254222,
+   "simulations": 785664,
+   "wall_seconds": 88.46991395764053,
+   "weights": {
+    "file_sha256": "451b11ad8199a49f32bdeaf381e79e3f0ca60b21c4d37f954efd47463b5a6447",
+    "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-b-worktree/experiment-output/phase4d4h-b/run/learning-seed-42/cnn-model-03000.pt",
+    "updates": 3000,
+    "weights_sha256": "4d546cd23385b1714f306a3ed82150c49b55ebfe48be6bc1edc45303aae71fb1"
+   },
+   "weights_seed": 42
+  },
+  {
+   "architecture": "resnet3x64",
+   "cpu_seconds": 90.03625699999999,
+   "draws": 15,
+   "first_game": 0,
+   "forward_calls": 53899,
+   "games": 64,
+   "inference_seconds": 78.11234035156667,
+   "mean_batch": 7.46297704966697,
+   "mean_game_length": 32.125,
+   "ms_per_neural_position": 0.2239049350683777,
+   "ms_per_ply": 43.80597685624986,
+   "neural_positions": 402247,
+   "plies": 2056,
+   "seconds_per_game": 1.407267006507027,
+   "simulations": 526336,
+   "wall_seconds": 90.06508841644973,
+   "weights": {
+    "file_sha256": "5e2d9190e3a045a8b76c2f74a0126e6caebc0c804c9b4a9eea700dd7cd1a5699",
+    "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-b-worktree/experiment-output/phase4d4h-b/run/learning-seed-42/resnet3x64-model-03000.pt",
+    "updates": 3000,
+    "weights_sha256": "581d359ba90ccff7d679e5bbeda50ec13132ea9c4a573bc6a27ed65276e2b5cf"
+   },
+   "weights_seed": 42
+  },
+  {
+   "architecture": "resnet3x64",
+   "cpu_seconds": 93.51297,
+   "draws": 15,
+   "first_game": 64,
+   "forward_calls": 55929,
+   "games": 64,
+   "inference_seconds": 80.82243060041219,
+   "mean_batch": 7.528652398576767,
+   "mean_game_length": 34.265625,
+   "ms_per_neural_position": 0.22213987183635056,
+   "ms_per_ply": 42.652273522176074,
+   "neural_positions": 421070,
+   "plies": 2193,
+   "seconds_per_game": 1.4615068099083146,
+   "simulations": 561408,
+   "wall_seconds": 93.53643583413213,
+   "weights": {
+    "file_sha256": "5f29ee10b3c4e52e7a7db6f1aa6bc411ccb7bd64a49d86111559961e936f01fa",
+    "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-b-worktree/experiment-output/phase4d4h-b/run/learning-seed-314159/resnet3x64-model-03000.pt",
+    "updates": 3000,
+    "weights_sha256": "e3b16b1561c105c8cf41778d41b8765ee7096e4c4301dfbf38f8c1e0a3379ae0"
+   },
+   "weights_seed": 314159
+  },
+  {
+   "architecture": "cnn",
+   "cpu_seconds": 92.31609300000002,
+   "draws": 6,
+   "first_game": 96,
+   "forward_calls": 79698,
+   "games": 96,
+   "inference_seconds": 73.68501919321716,
+   "mean_batch": 7.721097141709955,
+   "mean_game_length": 32.479166666666664,
+   "ms_per_neural_position": 0.15010647434159577,
+   "ms_per_ply": 29.6244129650247,
+   "neural_positions": 615356,
+   "plies": 3118,
+   "seconds_per_game": 0.9621762460931981,
+   "simulations": 798208,
+   "wall_seconds": 92.36891962494701,
+   "weights": {
+    "file_sha256": "999a8eb9292639aa226e3b0ae90ab3c31be799a8dd71e957e9ee4073e9dc248e",
+    "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-b-worktree/experiment-output/phase4d4h-b/run/learning-seed-314159/cnn-model-03000.pt",
+    "updates": 3000,
+    "weights_sha256": "ae894c2ebe3f8e2f0a24e841545f1f64e872efa62edd22f757637303dedde7b8"
+   },
+   "weights_seed": 314159
+  }
+ ],
+ "cpu_seconds": 549.4203610000001,
+ "historical_checkout": "/Volumes/Mini SSD/code/board-game-ai-lab-m4",
+ "match_cost": {
+  "cnn": {
+   "games": 8,
+   "mean_plies": 26.375,
+   "seconds_per_game": 0.5706537811784074
+  },
+  "resnet3x64": {
+   "games": 8,
+   "mean_plies": 23.625,
+   "seconds_per_game": 0.832585817668587
+  }
+ },
+ "official_files": 150,
+ "opponent": {
+  "by_depth": {
+   "1": {
+    "eligible": true,
+    "mean": 0.6750000000000002,
+    "scores": [
+     0.7375,
+     0.675,
+     0.6125
+    ],
+    "seconds_per_game": 0.35174264965268476
+   },
+   "2": {
+    "eligible": true,
+    "mean": 0.30416666666666664,
+    "scores": [
+     0.3125,
+     0.225,
+     0.375
+    ],
+    "seconds_per_game": 0.5594163697911426
+   },
+   "3": {
+    "eligible": true,
+    "mean": 0.4708333333333334,
+    "scores": [
+     0.525,
+     0.4125,
+     0.475
+    ],
+    "seconds_per_game": 0.44622005209481963
+   }
+  },
+  "chosen_depth": 3,
+  "openings": [
+   "development-prefix-00-base",
+   "development-prefix-01-base",
+   "development-prefix-02-base",
+   "development-prefix-03-base",
+   "development-prefix-04-base",
+   "development-prefix-05-base",
+   "development-prefix-06-base",
+   "development-prefix-07-base",
+   "development-prefix-08-base",
+   "development-prefix-09-base",
+   "development-prefix-10-base",
+   "development-prefix-11-base",
+   "development-prefix-12-base",
+   "development-prefix-13-base",
+   "development-prefix-14-base",
+   "development-prefix-15-base",
+   "development-prefix-16-base",
+   "development-prefix-17-base",
+   "development-prefix-18-base",
+   "development-prefix-19-base"
+  ],
+  "probes": [
+   {
+    "checkpoint": {
+     "file_sha256": "7e60478c729c81772533231dcb570dce787b85441a74f9eebc165a24dce4913c",
+     "generation": 2,
+     "seed": 42,
+     "weights_sha256": "9c2e001c2a3cacff7dc50ab1442be57abda58223abf34b9e94ee6e3837122a05"
+    },
+    "depth": 1,
+    "draws": 1,
+    "games": 40,
+    "losses": 10,
+    "mean_plies": 14.55,
+    "score": 0.7375,
+    "seconds_per_game": 0.3245241552125663,
+    "wins": 29
+   },
+   {
+    "checkpoint": {
+     "file_sha256": "7e60478c729c81772533231dcb570dce787b85441a74f9eebc165a24dce4913c",
+     "generation": 2,
+     "seed": 42,
+     "weights_sha256": "9c2e001c2a3cacff7dc50ab1442be57abda58223abf34b9e94ee6e3837122a05"
+    },
+    "depth": 2,
+    "draws": 1,
+    "games": 40,
+    "losses": 27,
+    "mean_plies": 23.8,
+    "score": 0.3125,
+    "seconds_per_game": 0.502626373944804,
+    "wins": 12
+   },
+   {
+    "checkpoint": {
+     "file_sha256": "7e60478c729c81772533231dcb570dce787b85441a74f9eebc165a24dce4913c",
+     "generation": 2,
+     "seed": 42,
+     "weights_sha256": "9c2e001c2a3cacff7dc50ab1442be57abda58223abf34b9e94ee6e3837122a05"
+    },
+    "depth": 3,
+    "draws": 2,
+    "games": 40,
+    "losses": 18,
+    "mean_plies": 18.45,
+    "score": 0.525,
+    "seconds_per_game": 0.40581710936967286,
+    "wins": 20
+   },
+   {
+    "checkpoint": {
+     "file_sha256": "e9eb72f07c6ae97356581ac3508d8c1cca34505fc1214a542c894fe1afa7e43f",
+     "generation": 4,
+     "seed": 42,
+     "weights_sha256": "48dfa8fddc2407a5814165bac81b8873ef3583edace86dd49c313dbdacefc908"
+    },
+    "depth": 1,
+    "draws": 0,
+    "games": 40,
+    "losses": 13,
+    "mean_plies": 15.575,
+    "score": 0.675,
+    "seconds_per_game": 0.3437676677014679,
+    "wins": 27
+   },
+   {
+    "checkpoint": {
+     "file_sha256": "e9eb72f07c6ae97356581ac3508d8c1cca34505fc1214a542c894fe1afa7e43f",
+     "generation": 4,
+     "seed": 42,
+     "weights_sha256": "48dfa8fddc2407a5814165bac81b8873ef3583edace86dd49c313dbdacefc908"
+    },
+    "depth": 2,
+    "draws": 2,
+    "games": 40,
+    "losses": 30,
+    "mean_plies": 26.1,
+    "score": 0.225,
+    "seconds_per_game": 0.5648284968687222,
+    "wins": 8
+   },
+   {
+    "checkpoint": {
+     "file_sha256": "e9eb72f07c6ae97356581ac3508d8c1cca34505fc1214a542c894fe1afa7e43f",
+     "generation": 4,
+     "seed": 42,
+     "weights_sha256": "48dfa8fddc2407a5814165bac81b8873ef3583edace86dd49c313dbdacefc908"
+    },
+    "depth": 3,
+    "draws": 1,
+    "games": 40,
+    "losses": 23,
+    "mean_plies": 19.75,
+    "score": 0.4125,
+    "seconds_per_game": 0.4553020229330286,
+    "wins": 16
+   },
+   {
+    "checkpoint": {
+     "file_sha256": "01fa87045ca41979cb00246f058830692c0c2a707a1985fa8b6839e7abb07e7f",
+     "generation": 3,
+     "seed": 314159,
+     "weights_sha256": "40def164b6dbccd3c24573a30afdbb96585f31ce1200146bd46fb9c91713ea27"
+    },
+    "depth": 1,
+    "draws": 1,
+    "games": 40,
+    "losses": 15,
+    "mean_plies": 17.55,
+    "score": 0.6125,
+    "seconds_per_game": 0.38693612604402006,
+    "wins": 24
+   },
+   {
+    "checkpoint": {
+     "file_sha256": "01fa87045ca41979cb00246f058830692c0c2a707a1985fa8b6839e7abb07e7f",
+     "generation": 3,
+     "seed": 314159,
+     "weights_sha256": "40def164b6dbccd3c24573a30afdbb96585f31ce1200146bd46fb9c91713ea27"
+    },
+    "depth": 2,
+    "draws": 6,
+    "games": 40,
+    "losses": 22,
+    "mean_plies": 29.4,
+    "score": 0.375,
+    "seconds_per_game": 0.6107942385599017,
+    "wins": 12
+   },
+   {
+    "checkpoint": {
+     "file_sha256": "01fa87045ca41979cb00246f058830692c0c2a707a1985fa8b6839e7abb07e7f",
+     "generation": 3,
+     "seed": 314159,
+     "weights_sha256": "40def164b6dbccd3c24573a30afdbb96585f31ce1200146bd46fb9c91713ea27"
+    },
+    "depth": 3,
+    "draws": 2,
+    "games": 40,
+    "losses": 20,
+    "mean_plies": 21.475,
+    "score": 0.475,
+    "seconds_per_game": 0.47754102398175746,
+    "wins": 18
+   }
+  ],
+  "rule": "choose the depth whose mean score over the probed official checkpoints is closest to 0.50, among depths where every probed checkpoint scores within [0.15, 0.85]"
+ },
+ "peak_rss_mib": 310.890625,
+ "pool": 8,
+ "proposed_games": {
+  "cnn": 192,
+  "resnet3x64": 128
+ },
+ "protected": {
+  "historical-games-source": {
+   "files": 77,
+   "intact": true
+  },
+  "phase4d4g-output": {
+   "files": 151,
+   "intact": true
+  },
+  "phase4d4g-results": {
+   "files": 132,
+   "intact": true
+  },
+  "phase4d4h-b-output": {
+   "files": 78,
+   "intact": true
+  },
+  "phase4d4h-b-results": {
+   "files": 37,
+   "intact": true
+  }
+ },
+ "ratios": {
+  "search_per_fixture": 1.7878143751793338,
+  "self_play_per_game": 1.5229156311169136,
+  "self_play_per_neural_position": 1.4889576382726166,
+  "self_play_per_ply": 1.478352398167466,
+  "update": 1.447508179937743
+ },
+ "runtime": {
+  "cpu_capability": "DEFAULT",
+  "cpu_model": "Apple M4",
+  "deterministic_algorithms": true,
+  "deterministic_warn_only": false,
+  "float32_matmul_precision": "highest",
+  "inter_op_threads": 1,
+  "intra_op_threads": 1,
+  "machine": "arm64",
+  "mkldnn_enabled": true,
+  "numpy": "1.26.4",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.11.17",
+  "python_implementation": "CPython",
+  "thread_environment": {
+   "MKL_NUM_THREADS": "1",
+   "NUMEXPR_NUM_THREADS": "1",
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1",
+   "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "torch": "2.10.0",
+  "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+  "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+ },
+ "schedule": "original eight-ply",
+ "search": {
+  "cnn": {
+   "architecture": "cnn",
+   "searches": 43,
+   "seconds_per_search": 0.04145494961114817
+  },
+  "resnet3x64": {
+   "architecture": "resnet3x64",
+   "searches": 43,
+   "seconds_per_search": 0.07411375483714563
+  }
+ },
+ "simulations": 256,
+ "update_blocks": [
+  {
+   "architecture": "cnn",
+   "max_ms": 45.42062524706125,
+   "mean_ms": 44.952110930656396,
+   "min_ms": 44.45370938628912,
+   "updates": 24
+  },
+  {
+   "architecture": "resnet3x64",
+   "max_ms": 66.38695765286684,
+   "mean_ms": 64.87746350467205,
+   "min_ms": 64.30737487971783,
+   "updates": 24
+  },
+  {
+   "architecture": "resnet3x64",
+   "max_ms": 75.98749920725822,
+   "mean_ms": 65.34747387437771,
+   "min_ms": 64.30150009691715,
+   "updates": 24
+  },
+  {
+   "architecture": "cnn",
+   "max_ms": 46.56041692942381,
+   "mean_ms": 45.01279509471109,
+   "min_ms": 44.62449997663498,
+   "updates": 24
+  }
+ ],
+ "update_ms": {
+  "cnn": 44.98245301268374,
+  "resnet3x64": 65.11246868952489
+ },
+ "wall_seconds": 549.7118630409241
+}

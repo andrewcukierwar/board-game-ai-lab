@@ -1,0 +1,317 @@
+{
+ "design": {
+  "analysis": {
+   "bootstrap_replicates": 10000,
+   "bootstrap_seed": 4404903,
+   "consistency_checkpoint": 2,
+   "decision_checkpoint": 2,
+   "equal_compute": {
+    "approximately_equal": [
+     0.9,
+     1.1
+    ],
+    "qualified": [
+     0.8,
+     1.25
+    ],
+    "quantity": "ResNet / CNN ratio of realized self-play collection seconds plus optimizer-update seconds, all generations",
+    "rule": "inside approximately_equal: equal-compute claim allowed; inside qualified only: comparison described as roughly comparable computation; outside: no equal-compute claim of any kind"
+   },
+   "interval": "two-sided 95% percentile",
+   "multiplicity": "none declared; one primary endpoint, everything else is supporting",
+   "recommendation": {
+    "keep_cnn": "strength FAIL or tactical gate FAIL",
+    "next_investment_indicators": {
+     "replay_optimization": "generation-6 replay mirror-duplicate fraction above 0.40, or generation-6 post-ply-8 self-play duplicate fraction above 0.30, in the better arm",
+     "tactical_search": "generation-6 raw-PUCT immediate-win or safe-response accuracy below 0.95 in the better arm",
+     "value_learning": "generation-6 raw exact-value MSE on solved300 at or above 0.9 x the constant-zero MSE in both architectures, or prequential held-out value MSE above the constant-zero MSE"
+    },
+    "note": "the indicators inform a judgment; they are not an automatic selection",
+    "otherwise": "no demonstrated advantage: the CNN stays the default because it is cheaper per position; the ResNet is not rejected",
+    "replace": "strength PASS, equal-compute claim not invalid, tactical gate not FAIL"
+   },
+   "resampling": "paired cluster bootstrap within seed: opening families for matches (both colors stay together), Phase 4D.4G mirror/prefix clusters for position suites; pooled = equal-weight mean of the two seeds, resampled independently",
+   "secondary_pairings": {
+    "equal_compute": "same generation index (2, 4, 6): the arms have had about the same computation",
+    "equal_games": "CNN generation 4 against ResNet generation 6 (576 games and 576 updates each); raw-network measures also CNN generation 2 against ResNet generation 3 (288 each). Descriptive: these checkpoints differ in generation count, replay refreshes and wall time and are not a matched experiment"
+   },
+   "strength": {
+    "FAIL": "both seeds < 0 and pooled 95% upper bound < 0",
+    "INCONCLUSIVE": "anything else, and always when the endpoint is saturated",
+    "PASS": "both seeds > 0, pooled difference >= +0.05, pooled 95% lower bound > 0, and pooled difference at generation 4 >= 0",
+    "endpoint": "ResNet minus CNN match score against the fixed opponent at generation 6 of each arm",
+    "practical_margin": 0.05,
+    "saturated": "mean generation-6 score of the four arms outside [0.10, 0.90]",
+    "saturation": [
+     0.1,
+     0.9
+    ]
+   },
+   "supporting_rule": "BETTER/WORSE for any other contrast: both seeds agree in sign and the pooled 95% interval excludes zero; otherwise INCONCLUSIVE (signs oriented so that lower loss/error and higher accuracy/score favor the ResNet)",
+   "tactical": {
+    "FAIL": "any category: pooled difference <= -0.05 and pooled 95% upper bound < 0",
+    "INCONCLUSIVE": "anything else",
+    "PASS": "both categories: pooled difference >= -0.03 and pooled 95% lower bound >= -0.10",
+    "endpoint": "ResNet minus CNN raw-PUCT accuracy on tactical200 at generation 6, immediate-win and safe-response categories separately; the same rule on the raw policy is reported and is not binding",
+    "fail_point": -0.05,
+    "pass_lower": -0.1,
+    "pass_point": -0.03
+   },
+   "value": {
+    "BETTER": "both seeds < 0 and pooled 95% upper bound < 0",
+    "INCONCLUSIVE": "anything else",
+    "WORSE": "both seeds > 0 and pooled 95% lower bound > 0",
+    "endpoint": "ResNet minus CNN raw exact-value MSE on solved300 at generation 6 (supporting only)"
+   }
+  },
+  "arms": {
+   "cnn": {
+    "games_per_generation": 12,
+    "optimizer_updates": 6
+   },
+   "resnet3x64": {
+    "games_per_generation": 8,
+    "optimizer_updates": 4
+   }
+  },
+  "budget": {
+   "run_ceiling_seconds": 600
+  },
+  "configurations": {
+   "314159-cnn": {
+    "architecture": "connect4-conv64-128-128-policy7-scalar-tanh-v2",
+    "optimizer_updates": 6,
+    "pool_size": 8,
+    "rng_protocol": "connect4-az-independent-games-v1",
+    "training": {
+     "adam_betas": [
+      0.9,
+      0.999
+     ],
+     "adam_eps": 1e-08,
+     "batch_size": 32,
+     "evaluation_simulations": 512,
+     "exploratory_plies": 8,
+     "games_per_generation": 12,
+     "interactive_simulations": 512,
+     "learning_rate": 0.0003,
+     "max_generations": 2,
+     "max_grad_norm": 5.0,
+     "reflection_probability": 0.5,
+     "replay_generations": 8,
+     "replay_max_games": 2048,
+     "root_dirichlet_alpha": 1.0,
+     "root_noise_epsilon": 0.25,
+     "samples_per_new_position": 4,
+     "seed": 314159,
+     "self_play_simulations": 16,
+     "weight_decay": 0.0001
+    }
+   },
+   "314159-resnet3x64": {
+    "architecture": "connect4-resnet3x64-bn-policy32-value32x64-scalar-tanh-v1",
+    "optimizer_updates": 4,
+    "pool_size": 8,
+    "rng_protocol": "connect4-az-independent-games-v1",
+    "training": {
+     "adam_betas": [
+      0.9,
+      0.999
+     ],
+     "adam_eps": 1e-08,
+     "batch_size": 32,
+     "evaluation_simulations": 512,
+     "exploratory_plies": 8,
+     "games_per_generation": 8,
+     "interactive_simulations": 512,
+     "learning_rate": 0.0003,
+     "max_generations": 2,
+     "max_grad_norm": 5.0,
+     "reflection_probability": 0.5,
+     "replay_generations": 8,
+     "replay_max_games": 2048,
+     "root_dirichlet_alpha": 1.0,
+     "root_noise_epsilon": 0.25,
+     "samples_per_new_position": 4,
+     "seed": 314159,
+     "self_play_simulations": 16,
+     "weight_decay": 0.0001
+    }
+   },
+   "42-cnn": {
+    "architecture": "connect4-conv64-128-128-policy7-scalar-tanh-v2",
+    "optimizer_updates": 6,
+    "pool_size": 8,
+    "rng_protocol": "connect4-az-independent-games-v1",
+    "training": {
+     "adam_betas": [
+      0.9,
+      0.999
+     ],
+     "adam_eps": 1e-08,
+     "batch_size": 32,
+     "evaluation_simulations": 512,
+     "exploratory_plies": 8,
+     "games_per_generation": 12,
+     "interactive_simulations": 512,
+     "learning_rate": 0.0003,
+     "max_generations": 2,
+     "max_grad_norm": 5.0,
+     "reflection_probability": 0.5,
+     "replay_generations": 8,
+     "replay_max_games": 2048,
+     "root_dirichlet_alpha": 1.0,
+     "root_noise_epsilon": 0.25,
+     "samples_per_new_position": 4,
+     "seed": 42,
+     "self_play_simulations": 16,
+     "weight_decay": 0.0001
+    }
+   },
+   "42-resnet3x64": {
+    "architecture": "connect4-resnet3x64-bn-policy32-value32x64-scalar-tanh-v1",
+    "optimizer_updates": 4,
+    "pool_size": 8,
+    "rng_protocol": "connect4-az-independent-games-v1",
+    "training": {
+     "adam_betas": [
+      0.9,
+      0.999
+     ],
+     "adam_eps": 1e-08,
+     "batch_size": 32,
+     "evaluation_simulations": 512,
+     "exploratory_plies": 8,
+     "games_per_generation": 8,
+     "interactive_simulations": 512,
+     "learning_rate": 0.0003,
+     "max_generations": 2,
+     "max_grad_norm": 5.0,
+     "reflection_probability": 0.5,
+     "replay_generations": 8,
+     "replay_max_games": 2048,
+     "root_dirichlet_alpha": 1.0,
+     "root_noise_epsilon": 0.25,
+     "samples_per_new_position": 4,
+     "seed": 42,
+     "self_play_simulations": 16,
+     "weight_decay": 0.0001
+    }
+   }
+  },
+  "evaluation": {
+   "games_per_checkpoint": 6,
+   "generations": [
+    0,
+    2
+   ],
+   "match_seed": 4404902,
+   "openings": [
+    "development-prefix-00-base",
+    "development-prefix-01-base",
+    "development-prefix-02-base"
+   ],
+   "opponent": "reference negamax (connect4-reference-negamax-v1), seeded uniform ties",
+   "opponent_depth": 2,
+   "search_seed": 4404901,
+   "simulations": 16,
+   "suites": {
+    "deep": 128,
+    "solved": 300,
+    "tactical": 200
+   },
+   "workers": 3
+  },
+  "generations": 2,
+  "order": [
+   [
+    [
+     42,
+     "cnn"
+    ],
+    [
+     42,
+     "resnet3x64"
+    ],
+    [
+     314159,
+     "resnet3x64"
+    ],
+    [
+     314159,
+     "cnn"
+    ]
+   ],
+   [
+    [
+     314159,
+     "cnn"
+    ],
+    [
+     314159,
+     "resnet3x64"
+    ],
+    [
+     42,
+     "resnet3x64"
+    ],
+    [
+     42,
+     "cnn"
+    ]
+   ]
+  ],
+  "schedule": "original: temperature 1 at plies 0-7, then 0",
+  "seeds": [
+   42,
+   314159
+  ],
+  "smoke": true,
+  "training_overrides": {
+   "batch_size": 32,
+   "self_play_simulations": 16
+  }
+ },
+ "elapsed_seconds": 51.856736183166504,
+ "integrity": {
+  "checkpoint_hashes": "PASS",
+  "frozen_sources_runtime_design": "NOT APPLICABLE (smoke)",
+  "official_campaign_150_files": "PASS",
+  "protected_experiment_bytes": "PASS"
+ },
+ "note": "Disposable tiny-budget pipeline test in a separate directory. Its networks, games and numbers are not results and are not used for any design choice other than confirming that the pipeline runs.",
+ "status": "COMPLETE_PENDING_ANALYSIS",
+ "tasks": 28,
+ "train_task_overhead_seconds": [
+  1.4284242391586304,
+  1.5047803977504373,
+  1.511861702427268,
+  1.4112974861636758,
+  1.6567329047247767,
+  1.745024586096406,
+  1.4814352439716458,
+  1.4780152179300785
+ ],
+ "work": {
+  "314159-cnn": {
+   "games": 24,
+   "generations": 2,
+   "updates": 12
+  },
+  "314159-resnet3x64": {
+   "games": 16,
+   "generations": 2,
+   "updates": 8
+  },
+  "42-cnn": {
+   "games": 24,
+   "generations": 2,
+   "updates": 12
+  },
+  "42-resnet3x64": {
+   "games": 16,
+   "generations": 2,
+   "updates": 8
+  }
+ }
+}
