@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/research/alphazero_training_ablation_postexecution/audit.py", line 193, in <module>
+    if __name__=='__main__': main()
+                             ^^^^^^
+  File "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/research/alphazero_training_ablation_postexecution/audit.py", line 182, in main
+    result=dict(structure=structure(),boundaries=boundaries(),official_files=official,
+                                                 ^^^^^^^^^^^^
+  File "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/research/alphazero_training_ablation_postexecution/audit.py", line 157, in boundaries
+    require(completion['result']==runner.history[-1] | {'boundary_sha256':source['sha256'],'resources':completion['result']['resources']},'Deterministic history differs')
+  File "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/research/alphazero_training_ablation_postexecution/audit.py", line 21, in require
+    if not condition: raise ValueError(message)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Deterministic history differs

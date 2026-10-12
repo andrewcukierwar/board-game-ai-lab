@@ -1,0 +1,514 @@
+{
+  "deadline_epoch": 1791827907.0296478,
+  "design_commit": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+  "elapsed_seconds": 2016.158602166921,
+  "last_boundaries": {
+    "314159-control": {
+      "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g22/generation-0022.pt",
+      "sha256": "0e8cb2c7395519615ac437331d1876127bc111a0f2a4da3f6e974e3975b50e70"
+    },
+    "314159-treatment": {
+      "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g22/generation-0022.pt",
+      "sha256": "2ced466df262427574e2045b29ef3754add4a263a5ea359c9d80543e5eaf0a8f"
+    },
+    "42-control": {
+      "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g22/generation-0022.pt",
+      "sha256": "dd42b1527b29de89620411d7bb8189b811f55ef28e301a83f7072c3b4b4cc5df"
+    },
+    "42-treatment": {
+      "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g22/generation-0022.pt",
+      "sha256": "59214468b2d08c9590af8a21aebdebc1ad76f8806d1b8a15563893218ea08206"
+    }
+  },
+  "official_preservation": "PASS",
+  "order": [
+    [
+      42,
+      "control",
+      21
+    ],
+    [
+      42,
+      "treatment",
+      21
+    ],
+    [
+      314159,
+      "treatment",
+      21
+    ],
+    [
+      314159,
+      "control",
+      21
+    ],
+    [
+      42,
+      "treatment",
+      22
+    ],
+    [
+      42,
+      "control",
+      22
+    ],
+    [
+      314159,
+      "control",
+      22
+    ],
+    [
+      314159,
+      "treatment",
+      22
+    ]
+  ],
+  "pid": 3046,
+  "primary_games": 512,
+  "primary_updates": 512,
+  "start_epoch": 1791817107.0296478,
+  "status": "COMPLETE_PENDING_FINAL_ANALYSIS",
+  "tasks": [
+    {
+      "key": [
+        42,
+        "control"
+      ],
+      "label": "parent-42",
+      "limit_seconds": 10769.997466249391,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/parent-42.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/parent-42",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 61.206948,
+        "peak_rss_mib": 370.9375,
+        "task": "positions",
+        "wall_seconds": 61.4060088749975
+      },
+      "start_elapsed": 0.002542625181376934,
+      "state": "COMPLETE",
+      "task": "positions"
+    },
+    {
+      "key": [
+        314159,
+        "control"
+      ],
+      "label": "parent-314159",
+      "limit_seconds": 10707.521108124405,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/parent-314159.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/parent-314159",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 60.795804,
+        "peak_rss_mib": 365.578125,
+        "task": "positions",
+        "wall_seconds": 60.92205037549138
+      },
+      "start_elapsed": 62.478907791897655,
+      "state": "COMPLETE",
+      "task": "positions"
+    },
+    {
+      "key": [
+        42,
+        "control"
+      ],
+      "label": "42-control-g21",
+      "limit_seconds": 1200,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g21.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g21",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 84.493084,
+        "peak_rss_mib": 424.90625,
+        "task": "train",
+        "wall_seconds": 84.8110850835219
+      },
+      "start_elapsed": 124.77949729189277,
+      "state": "COMPLETE",
+      "task": "train"
+    },
+    {
+      "key": [
+        42,
+        "control"
+      ],
+      "label": "42-control-g21-evaluation",
+      "limit_seconds": 10559.035507957451,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g21-evaluation.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g21-evaluation",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 59.908484,
+        "peak_rss_mib": 364.03125,
+        "task": "positions",
+        "wall_seconds": 59.92516970820725
+      },
+      "start_elapsed": 210.96450587548316,
+      "state": "COMPLETE",
+      "task": "positions"
+    },
+    {
+      "key": [
+        42,
+        "treatment"
+      ],
+      "label": "42-treatment-g21",
+      "limit_seconds": 1200,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g21.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g21",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 78.550901,
+        "peak_rss_mib": 483.796875,
+        "task": "train",
+        "wall_seconds": 78.71867674961686
+      },
+      "start_elapsed": 272.1833625426516,
+      "state": "COMPLETE",
+      "task": "train"
+    },
+    {
+      "key": [
+        42,
+        "treatment"
+      ],
+      "label": "42-treatment-g21-evaluation",
+      "limit_seconds": 10417.792895624414,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g21-evaluation.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g21-evaluation",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 60.32476,
+        "peak_rss_mib": 363.265625,
+        "task": "positions",
+        "wall_seconds": 60.7005588747561
+      },
+      "start_elapsed": 352.2071294169873,
+      "state": "COMPLETE",
+      "task": "positions"
+    },
+    {
+      "key": [
+        314159,
+        "treatment"
+      ],
+      "label": "314159-treatment-g21",
+      "limit_seconds": 1200,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g21.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g21",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 91.242714,
+        "peak_rss_mib": 408.796875,
+        "task": "train",
+        "wall_seconds": 91.7162397922948
+      },
+      "start_elapsed": 414.2574672503397,
+      "state": "COMPLETE",
+      "task": "train"
+    },
+    {
+      "key": [
+        314159,
+        "treatment"
+      ],
+      "label": "314159-treatment-g21-evaluation",
+      "limit_seconds": 10262.615060249344,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g21-evaluation.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g21-evaluation",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 61.686627,
+        "peak_rss_mib": 359.953125,
+        "task": "positions",
+        "wall_seconds": 62.07597937434912
+      },
+      "start_elapsed": 507.3849610844627,
+      "state": "COMPLETE",
+      "task": "positions"
+    },
+    {
+      "key": [
+        314159,
+        "control"
+      ],
+      "label": "314159-control-g21",
+      "limit_seconds": 1200,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g21.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g21",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 95.368312,
+        "peak_rss_mib": 475.734375,
+        "task": "train",
+        "wall_seconds": 96.00135070923716
+      },
+      "start_elapsed": 570.8752635419369,
+      "state": "COMPLETE",
+      "task": "train"
+    },
+    {
+      "key": [
+        314159,
+        "control"
+      ],
+      "label": "314159-control-g21-evaluation",
+      "limit_seconds": 10101.751935165375,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g21-evaluation.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g21-evaluation",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 60.360914,
+        "peak_rss_mib": 360.625,
+        "task": "positions",
+        "wall_seconds": 60.43845199979842
+      },
+      "start_elapsed": 668.2480779588223,
+      "state": "COMPLETE",
+      "task": "positions"
+    },
+    {
+      "key": [
+        42,
+        "treatment"
+      ],
+      "label": "42-treatment-g22",
+      "limit_seconds": 1200,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g22.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g22",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 87.00922100000001,
+        "peak_rss_mib": 404.3125,
+        "task": "train",
+        "wall_seconds": 87.36498583294451
+      },
+      "start_elapsed": 730.0897586671636,
+      "state": "COMPLETE",
+      "task": "train"
+    },
+    {
+      "key": [
+        42,
+        "treatment"
+      ],
+      "label": "42-treatment-g22-evaluation",
+      "limit_seconds": 9951.1671504993,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g22-evaluation.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g22-evaluation",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 59.935561,
+        "peak_rss_mib": 352.4375,
+        "task": "positions",
+        "wall_seconds": 60.198104958981276
+      },
+      "start_elapsed": 818.832864000462,
+      "state": "COMPLETE",
+      "task": "positions"
+    },
+    {
+      "key": [
+        42,
+        "control"
+      ],
+      "label": "42-control-g22",
+      "limit_seconds": 1200,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g22.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g22",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 94.41589,
+        "peak_rss_mib": 471.984375,
+        "task": "train",
+        "wall_seconds": 95.01319287531078
+      },
+      "start_elapsed": 880.4056150419638,
+      "state": "COMPLETE",
+      "task": "train"
+    },
+    {
+      "key": [
+        42,
+        "control"
+      ],
+      "label": "42-control-g22-evaluation",
+      "limit_seconds": 9793.169921499677,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g22-evaluation.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g22-evaluation",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 61.710874999999994,
+        "peak_rss_mib": 353.4375,
+        "task": "positions",
+        "wall_seconds": 62.37719087488949
+      },
+      "start_elapsed": 976.8301039170474,
+      "state": "COMPLETE",
+      "task": "positions"
+    },
+    {
+      "key": [
+        314159,
+        "control"
+      ],
+      "label": "314159-control-g22",
+      "limit_seconds": 1200,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g22.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g22",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 94.593896,
+        "peak_rss_mib": 386.40625,
+        "task": "train",
+        "wall_seconds": 95.34652645792812
+      },
+      "start_elapsed": 1040.6598525838926,
+      "state": "COMPLETE",
+      "task": "train"
+    },
+    {
+      "key": [
+        314159,
+        "control"
+      ],
+      "label": "314159-control-g22-evaluation",
+      "limit_seconds": 9632.487676790915,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g22-evaluation.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g22-evaluation",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 60.160383,
+        "peak_rss_mib": 350.15625,
+        "task": "positions",
+        "wall_seconds": 60.28837937489152
+      },
+      "start_elapsed": 1137.5123340422288,
+      "state": "COMPLETE",
+      "task": "positions"
+    },
+    {
+      "key": [
+        314159,
+        "treatment"
+      ],
+      "label": "314159-treatment-g22",
+      "limit_seconds": 1200,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g22.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g22",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 91.687263,
+        "peak_rss_mib": 396.265625,
+        "task": "train",
+        "wall_seconds": 92.07184579130262
+      },
+      "start_elapsed": 1199.207696375437,
+      "state": "COMPLETE",
+      "task": "train"
+    },
+    {
+      "key": [
+        314159,
+        "treatment"
+      ],
+      "label": "314159-treatment-g22-evaluation",
+      "limit_seconds": 9477.358894332312,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g22-evaluation.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g22-evaluation",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 59.802538000000006,
+        "peak_rss_mib": 350.140625,
+        "task": "positions",
+        "wall_seconds": 59.85806508269161
+      },
+      "start_elapsed": 1292.6411160426214,
+      "state": "COMPLETE",
+      "task": "positions"
+    },
+    {
+      "key": [
+        42,
+        "control"
+      ],
+      "label": "42-control-strength",
+      "limit_seconds": 9416.109391666017,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-strength.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-strength",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 166.81002800000002,
+        "peak_rss_mib": 367.453125,
+        "task": "matches",
+        "wall_seconds": 166.9599710414186
+      },
+      "start_elapsed": 1353.890618249774,
+      "state": "COMPLETE",
+      "task": "matches"
+    },
+    {
+      "key": [
+        42,
+        "treatment"
+      ],
+      "label": "42-treatment-strength",
+      "limit_seconds": 9247.749115291052,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-strength.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-strength",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 164.671847,
+        "peak_rss_mib": 432.40625,
+        "task": "matches",
+        "wall_seconds": 165.4100438747555
+      },
+      "start_elapsed": 1522.2509008338675,
+      "state": "COMPLETE",
+      "task": "matches"
+    },
+    {
+      "key": [
+        314159,
+        "treatment"
+      ],
+      "label": "314159-treatment-strength",
+      "limit_seconds": 9080.945164916106,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-strength.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-strength",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 165.622716,
+        "peak_rss_mib": 393.3125,
+        "task": "matches",
+        "wall_seconds": 166.03356466721743
+      },
+      "start_elapsed": 1689.0548593755811,
+      "state": "COMPLETE",
+      "task": "matches"
+    },
+    {
+      "key": [
+        314159,
+        "control"
+      ],
+      "label": "314159-control-strength",
+      "limit_seconds": 8913.788826957345,
+      "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-strength.log",
+      "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-strength",
+      "resources": {
+        "complete": true,
+        "cpu_seconds": 158.277218,
+        "peak_rss_mib": 380.171875,
+        "task": "matches",
+        "wall_seconds": 158.6368023743853
+      },
+      "start_elapsed": 1856.2111923340708,
+      "state": "COMPLETE",
+      "task": "matches"
+    }
+  ],
+  "wall_ceiling_seconds": 10800
+}

@@ -1,0 +1,712 @@
+{
+  "interpretation": "Postexecution descriptive check only. Absence from observed replay does not establish unseen generalization; no unseen heldout split or comparable train-vs-test loss was prospectively defined.",
+  "model_queries": 0,
+  "optimizer_updates": 0,
+  "results": {
+    "314159-control-g20": {
+      "deep": {
+        "identities": {
+          "deep-001-base": [
+            17,
+            20
+          ],
+          "deep-001-mirror": [
+            17,
+            20
+          ],
+          "deep-043-base": [
+            19
+          ],
+          "deep-043-mirror": [
+            19
+          ],
+          "deep-045-base": [
+            19
+          ],
+          "deep-045-mirror": [
+            19
+          ]
+        },
+        "matching_rows": 6,
+        "observed_replay_absent_rows": 122,
+        "rows": 128
+      },
+      "solved": {
+        "absent": {
+          "metrics": {
+            "accuracy": 0.6858108108108109,
+            "ce": 0.6461521056318642,
+            "mse": 0.5981101680544124
+          },
+          "n": 296
+        },
+        "identities": {
+          "development-D-x-005-base": [
+            13
+          ],
+          "development-D-x-005-mirror": [
+            13
+          ],
+          "development-W-x-000-base": [
+            17,
+            19
+          ],
+          "development-W-x-000-mirror": [
+            17,
+            19
+          ]
+        },
+        "matching_rows": 4,
+        "observed_replay_absent_rows": 296,
+        "overlap": {
+          "metrics": {
+            "accuracy": 1.0,
+            "ce": 0.33096119330367024,
+            "mse": 0.3571569973957329
+          },
+          "n": 4
+        },
+        "rows": 300
+      },
+      "tactical": {
+        "identities": {},
+        "matching_rows": 0,
+        "observed_replay_absent_rows": 200,
+        "rows": 200
+      }
+    },
+    "314159-control-g22": {
+      "deep": {
+        "identities": {
+          "deep-000-base": [
+            21
+          ],
+          "deep-000-mirror": [
+            21
+          ],
+          "deep-001-base": [
+            17,
+            20
+          ],
+          "deep-001-mirror": [
+            17,
+            20
+          ],
+          "deep-043-base": [
+            19,
+            22
+          ],
+          "deep-043-mirror": [
+            19,
+            22
+          ],
+          "deep-045-base": [
+            19
+          ],
+          "deep-045-mirror": [
+            19
+          ]
+        },
+        "matching_rows": 8,
+        "observed_replay_absent_rows": 120,
+        "rows": 128
+      },
+      "solved": {
+        "absent": {
+          "metrics": {
+            "accuracy": 0.6946308724832215,
+            "ce": 0.6377223794924485,
+            "mse": 0.520235766590908
+          },
+          "n": 298
+        },
+        "identities": {
+          "development-W-x-000-base": [
+            17,
+            19
+          ],
+          "development-W-x-000-mirror": [
+            17,
+            19
+          ]
+        },
+        "matching_rows": 2,
+        "observed_replay_absent_rows": 298,
+        "overlap": {
+          "metrics": {
+            "accuracy": 1.0,
+            "ce": 0.32802037352892083,
+            "mse": 0.08085749744838111
+          },
+          "n": 2
+        },
+        "rows": 300
+      },
+      "tactical": {
+        "identities": {},
+        "matching_rows": 0,
+        "observed_replay_absent_rows": 200,
+        "rows": 200
+      }
+    },
+    "314159-treatment-g22": {
+      "deep": {
+        "identities": {
+          "deep-000-base": [
+            22
+          ],
+          "deep-000-mirror": [
+            22
+          ],
+          "deep-001-base": [
+            17,
+            20
+          ],
+          "deep-001-mirror": [
+            17,
+            20
+          ],
+          "deep-043-base": [
+            19
+          ],
+          "deep-043-mirror": [
+            19
+          ],
+          "deep-045-base": [
+            19
+          ],
+          "deep-045-mirror": [
+            19
+          ]
+        },
+        "matching_rows": 8,
+        "observed_replay_absent_rows": 120,
+        "rows": 128
+      },
+      "solved": {
+        "absent": {
+          "metrics": {
+            "accuracy": 0.6946308724832215,
+            "ce": 0.638698240470588,
+            "mse": 0.561497918040622
+          },
+          "n": 298
+        },
+        "identities": {
+          "development-W-x-000-base": [
+            17,
+            19
+          ],
+          "development-W-x-000-mirror": [
+            17,
+            19
+          ]
+        },
+        "matching_rows": 2,
+        "observed_replay_absent_rows": 298,
+        "overlap": {
+          "metrics": {
+            "accuracy": 1.0,
+            "ce": 0.31202454496980225,
+            "mse": 0.13109141046396822
+          },
+          "n": 2
+        },
+        "rows": 300
+      },
+      "tactical": {
+        "identities": {},
+        "matching_rows": 0,
+        "observed_replay_absent_rows": 200,
+        "rows": 200
+      }
+    },
+    "42-control-g20": {
+      "deep": {
+        "identities": {
+          "deep-001-base": [
+            15
+          ],
+          "deep-001-mirror": [
+            15
+          ],
+          "deep-002-base": [
+            19,
+            20
+          ],
+          "deep-002-mirror": [
+            19,
+            20
+          ],
+          "deep-004-base": [
+            19,
+            20
+          ],
+          "deep-004-mirror": [
+            19,
+            20
+          ],
+          "deep-005-base": [
+            19,
+            20
+          ],
+          "deep-005-mirror": [
+            19,
+            20
+          ],
+          "deep-006-base": [
+            20
+          ],
+          "deep-006-mirror": [
+            20
+          ],
+          "deep-007-base": [
+            20
+          ],
+          "deep-007-mirror": [
+            20
+          ],
+          "deep-012-base": [
+            18,
+            20
+          ],
+          "deep-012-mirror": [
+            18,
+            20
+          ],
+          "deep-013-base": [
+            18,
+            20
+          ],
+          "deep-013-mirror": [
+            18,
+            20
+          ],
+          "deep-015-base": [
+            19
+          ],
+          "deep-015-mirror": [
+            19
+          ],
+          "deep-029-base": [
+            18
+          ],
+          "deep-029-mirror": [
+            18
+          ],
+          "deep-036-base": [
+            14,
+            15,
+            17
+          ],
+          "deep-036-mirror": [
+            14,
+            15,
+            17
+          ],
+          "deep-038-base": [
+            19
+          ],
+          "deep-038-mirror": [
+            19
+          ],
+          "deep-048-base": [
+            16,
+            20
+          ],
+          "deep-048-mirror": [
+            16,
+            20
+          ],
+          "deep-049-base": [
+            16,
+            20
+          ],
+          "deep-049-mirror": [
+            16,
+            20
+          ]
+        },
+        "matching_rows": 28,
+        "observed_replay_absent_rows": 100,
+        "rows": 128
+      },
+      "solved": {
+        "absent": {
+          "metrics": {
+            "accuracy": 0.7315436241610739,
+            "ce": 0.6708231532283471,
+            "mse": 0.615815575274641
+          },
+          "n": 298
+        },
+        "identities": {
+          "development-W-o-018-base": [
+            16,
+            17,
+            19,
+            20
+          ],
+          "development-W-o-018-mirror": [
+            16,
+            17,
+            19,
+            20
+          ]
+        },
+        "matching_rows": 2,
+        "observed_replay_absent_rows": 298,
+        "overlap": {
+          "metrics": {
+            "accuracy": 1.0,
+            "ce": 0.06032317739084948,
+            "mse": 0.01101758371642525
+          },
+          "n": 2
+        },
+        "rows": 300
+      },
+      "tactical": {
+        "identities": {},
+        "matching_rows": 0,
+        "observed_replay_absent_rows": 200,
+        "rows": 200
+      }
+    },
+    "42-control-g22": {
+      "deep": {
+        "identities": {
+          "deep-001-base": [
+            15
+          ],
+          "deep-001-mirror": [
+            15
+          ],
+          "deep-002-base": [
+            19,
+            20,
+            21
+          ],
+          "deep-002-mirror": [
+            19,
+            20,
+            21
+          ],
+          "deep-004-base": [
+            19,
+            20,
+            21
+          ],
+          "deep-004-mirror": [
+            19,
+            20,
+            21
+          ],
+          "deep-005-base": [
+            19,
+            20,
+            21
+          ],
+          "deep-005-mirror": [
+            19,
+            20,
+            21
+          ],
+          "deep-006-base": [
+            20,
+            21
+          ],
+          "deep-006-mirror": [
+            20,
+            21
+          ],
+          "deep-007-base": [
+            20,
+            21
+          ],
+          "deep-007-mirror": [
+            20,
+            21
+          ],
+          "deep-012-base": [
+            18,
+            20
+          ],
+          "deep-012-mirror": [
+            18,
+            20
+          ],
+          "deep-013-base": [
+            18,
+            20
+          ],
+          "deep-013-mirror": [
+            18,
+            20
+          ],
+          "deep-015-base": [
+            19
+          ],
+          "deep-015-mirror": [
+            19
+          ],
+          "deep-029-base": [
+            18
+          ],
+          "deep-029-mirror": [
+            18
+          ],
+          "deep-036-base": [
+            15,
+            17
+          ],
+          "deep-036-mirror": [
+            15,
+            17
+          ],
+          "deep-038-base": [
+            19
+          ],
+          "deep-038-mirror": [
+            19
+          ],
+          "deep-048-base": [
+            16,
+            20
+          ],
+          "deep-048-mirror": [
+            16,
+            20
+          ],
+          "deep-049-base": [
+            16,
+            20
+          ],
+          "deep-049-mirror": [
+            16,
+            20
+          ]
+        },
+        "matching_rows": 28,
+        "observed_replay_absent_rows": 100,
+        "rows": 128
+      },
+      "solved": {
+        "absent": {
+          "metrics": {
+            "accuracy": 0.7416107382550335,
+            "ce": 0.6685568670259472,
+            "mse": 0.605613393771492
+          },
+          "n": 298
+        },
+        "identities": {
+          "development-W-o-018-base": [
+            16,
+            17,
+            19,
+            20
+          ],
+          "development-W-o-018-mirror": [
+            16,
+            17,
+            19,
+            20
+          ]
+        },
+        "matching_rows": 2,
+        "observed_replay_absent_rows": 298,
+        "overlap": {
+          "metrics": {
+            "accuracy": 1.0,
+            "ce": 0.05514819998542981,
+            "mse": 0.0064893162881976
+          },
+          "n": 2
+        },
+        "rows": 300
+      },
+      "tactical": {
+        "identities": {},
+        "matching_rows": 0,
+        "observed_replay_absent_rows": 200,
+        "rows": 200
+      }
+    },
+    "42-treatment-g22": {
+      "deep": {
+        "identities": {
+          "deep-001-base": [
+            15
+          ],
+          "deep-001-mirror": [
+            15
+          ],
+          "deep-002-base": [
+            19,
+            20
+          ],
+          "deep-002-mirror": [
+            19,
+            20
+          ],
+          "deep-003-base": [
+            22
+          ],
+          "deep-003-mirror": [
+            22
+          ],
+          "deep-004-base": [
+            19,
+            20
+          ],
+          "deep-004-mirror": [
+            19,
+            20
+          ],
+          "deep-005-base": [
+            19,
+            20
+          ],
+          "deep-005-mirror": [
+            19,
+            20
+          ],
+          "deep-006-base": [
+            20
+          ],
+          "deep-006-mirror": [
+            20
+          ],
+          "deep-007-base": [
+            20
+          ],
+          "deep-007-mirror": [
+            20
+          ],
+          "deep-008-base": [
+            22
+          ],
+          "deep-008-mirror": [
+            22
+          ],
+          "deep-009-base": [
+            22
+          ],
+          "deep-009-mirror": [
+            22
+          ],
+          "deep-012-base": [
+            18,
+            20,
+            22
+          ],
+          "deep-012-mirror": [
+            18,
+            20,
+            22
+          ],
+          "deep-013-base": [
+            18,
+            20,
+            22
+          ],
+          "deep-013-mirror": [
+            18,
+            20,
+            22
+          ],
+          "deep-015-base": [
+            19
+          ],
+          "deep-015-mirror": [
+            19
+          ],
+          "deep-029-base": [
+            18
+          ],
+          "deep-029-mirror": [
+            18
+          ],
+          "deep-036-base": [
+            15,
+            17
+          ],
+          "deep-036-mirror": [
+            15,
+            17
+          ],
+          "deep-038-base": [
+            19
+          ],
+          "deep-038-mirror": [
+            19
+          ],
+          "deep-048-base": [
+            16,
+            20
+          ],
+          "deep-048-mirror": [
+            16,
+            20
+          ],
+          "deep-049-base": [
+            16,
+            20
+          ],
+          "deep-049-mirror": [
+            16,
+            20
+          ]
+        },
+        "matching_rows": 34,
+        "observed_replay_absent_rows": 94,
+        "rows": 128
+      },
+      "solved": {
+        "absent": {
+          "metrics": {
+            "accuracy": 0.7248322147651006,
+            "ce": 0.6704914939056027,
+            "mse": 0.5910700794916358
+          },
+          "n": 298
+        },
+        "identities": {
+          "development-W-o-018-base": [
+            16,
+            17,
+            19,
+            20
+          ],
+          "development-W-o-018-mirror": [
+            16,
+            17,
+            19,
+            20
+          ]
+        },
+        "matching_rows": 2,
+        "observed_replay_absent_rows": 298,
+        "overlap": {
+          "metrics": {
+            "accuracy": 1.0,
+            "ce": 0.06360049254854448,
+            "mse": 0.02899808115340541
+          },
+          "n": 2
+        },
+        "rows": 300
+      },
+      "tactical": {
+        "identities": {},
+        "matching_rows": 0,
+        "observed_replay_absent_rows": 200,
+        "rows": 200
+      }
+    }
+  },
+  "scope": "Reflection/actor board overlap with retained parent generations13-20 or current generations15-22; historical generations1-12 are not available in these boundaries.",
+  "search_queries": 0,
+  "wall_seconds": 46.92107733245939
+}

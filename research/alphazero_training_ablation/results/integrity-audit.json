@@ -1,0 +1,2370 @@
+{
+  "boundaries": {
+    "evaluation_checkpoint_assignment": "Reconstructed from frozen manager current-boundary transitions/order and strict evaluate_boundary loader; no per-row checkpoint attestation and no repeated neural queries",
+    "records": {
+      "314159-control-g20": {
+        "atomic_publication": "Frozen fsync/strict-reload/no-replace-link/directory-fsync path; successful task and no temp remnants",
+        "boundary_integrity": "15c58a1e593c763ec68bcce0a868772a96291b2111b7278bd93adda171fdda81",
+        "computational_state_sha256": "5aa9916bc689710aa8ed4e6a5d268cb94d913cb8375e5d14542280587be29c77",
+        "file_sha256": "b321b415c7065c0080f3d866f650e566e1f2abf8f82a9fbab371e4b2c07a31c3",
+        "model_collection_immutability": "parent",
+        "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/seed-314159/control/fork-0020.pt",
+        "replay_counts": {
+          "13": {
+            "games": 256,
+            "positions": 7727
+          },
+          "14": {
+            "games": 256,
+            "positions": 7440
+          },
+          "15": {
+            "games": 256,
+            "positions": 7913
+          },
+          "16": {
+            "games": 256,
+            "positions": 8026
+          },
+          "17": {
+            "games": 256,
+            "positions": 7960
+          },
+          "18": {
+            "games": 256,
+            "positions": 8437
+          },
+          "19": {
+            "games": 256,
+            "positions": 8181
+          },
+          "20": {
+            "games": 256,
+            "positions": 8830
+          }
+        },
+        "source_runtime_strict_reload": true,
+        "state": {
+          "augmentation": "4ada1ff56fca6a9e9439083a3ff8ee2670df82c1cdc2dd470e392b5db0622602",
+          "counters": {
+            "completed_generations": 20,
+            "total_games": 5120,
+            "total_positions": 156213,
+            "trainer_steps": 4890
+          },
+          "global_rng": "32fcd47997406ba87b42bdd7ade19077625c5c07f3317c96899f4043689caf74",
+          "model": "9d4c5a6aa4fe68d1aaa3a3f80c8f6b53609d4953076c12e106dca8cbe752ef8e",
+          "optimizer": "f4fb02095c9ac95a777e52d56acca7c386eb69665c93b70230065249620ebe0a",
+          "replay": "e59a240190ccd415eb6ed98ad88a08a448c99ae5b4e278d1593c79b3a6378596",
+          "runtime": {
+            "cpu_capability": "DEFAULT",
+            "cpu_model": "Apple M4",
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "float32_matmul_precision": "highest",
+            "inter_op_threads": 1,
+            "intra_op_threads": 1,
+            "machine": "arm64",
+            "mkldnn_enabled": true,
+            "numpy": "1.26.4",
+            "platform": "macOS-26.6.2-arm64-arm-64bit",
+            "python": "3.11.17",
+            "python_implementation": "CPython",
+            "thread_environment": {
+              "MKL_NUM_THREADS": "1",
+              "NUMEXPR_NUM_THREADS": "1",
+              "OMP_NUM_THREADS": "1",
+              "OPENBLAS_NUM_THREADS": "1",
+              "VECLIB_MAXIMUM_THREADS": "1"
+            },
+            "torch": "2.10.0",
+            "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+            "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+          },
+          "sampling": "0551dfc0a40d97f1007b835749cdcef95c1e0634f42394c53bdd655fc713431c",
+          "source": {
+            "execution": {
+              "files": {
+                "games/connect4/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+                "games/connect4/agents/mcts_nn_agent.py": "721b7ffe0b146d127641656e54219d55af2a52ce9a68e182df80fe202763df9f",
+                "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
+                "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
+                "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
+                "games/connect4/alphazero_v2/batching.py": "a7af8493083b18ef3671868fbd9595d62a054f35366472cd9b4b76c94ba56088",
+                "games/connect4/alphazero_v2/bitboard.py": "61a262e45191b1e22b57a224f848668315b60ddd5d7785d620c3dd4de2965229",
+                "games/connect4/alphazero_v2/campaign.py": "111365d403db0e14d70ae91fc272c53028eefae30f96e4d45f280d78e34ea0ab",
+                "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
+                "games/connect4/alphazero_v2/data.py": "dbe4fec9b4d3300943a175a52d07a8f9cdbbde159f4d102a69c4e93d26f7e254",
+                "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
+                "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
+                "games/connect4/alphazero_v2/experimental.py": "47f12c3c95fd511b83b1349c7af9249d690d0182b91e72e9178293da37d0fa57",
+                "games/connect4/alphazero_v2/experimental_cli.py": "04357efe5a17bc612bddba691f1830165ddc3286cb84e274894a661f99d85588",
+                "games/connect4/alphazero_v2/experimental_import.py": "dc913fbd156c88def0ed366d90f86e65264d249d068969a06141786702fc1017",
+                "games/connect4/alphazero_v2/experimental_models.py": "2b92139e129c157929aa9ac77e1488737fde8ebac4f115285b9bf36e73edc804",
+                "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
+                "games/connect4/alphazero_v2/launch_control.py": "b5b9e405c823cc976e0e7202d9b03175acf88c429919d4a597304736936820bd",
+                "games/connect4/alphazero_v2/network.py": "097712ae8a304a3d0ca38f4ef71fb6aeaf0a7ff8808e532ffd5475473f80ee5c",
+                "games/connect4/alphazero_v2/official_evidence.py": "eaa94dced355c10dc204fa196f6a65cde2adfb5339a8f14ffcf0f8c500720d74",
+                "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+                "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+                "games/connect4/alphazero_v2/profiling.py": "1a8fc4e7c0554dfe1b2fec5aefcaad965504939a7344daab33eb5c4be3669e46",
+                "games/connect4/alphazero_v2/provenance.py": "4e21e2dc7ade962068c85b1c6831c047bba2cfab6e8e97cd5ee9254fdbabe636",
+                "games/connect4/alphazero_v2/reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2",
+                "games/connect4/alphazero_v2/search.py": "49d719dfb30caf97ab562502584b4cd0ca3b3a8a9f82fd9c986a91f0c6ba993d",
+                "games/connect4/alphazero_v2/selfplay.py": "351b6bdf14e8a9a368b53795c1b9ccff5db02cb4975a3635a901d8143ff2df17",
+                "games/connect4/alphazero_v2/statistics.py": "72943fb3d8b8e039787e1d5c1db5e67837066818051a084e7ad4c4170df66cdf",
+                "games/connect4/alphazero_v2/training.py": "fa43a7b58707699b01d75128a8701ad0cd65d06ada07bafcfdde77701ff29b21",
+                "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+                "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+                "games/connect4/neural_mcts.py": "3cb50524922d42672c3d66f497a2e7491c503e9d22b8f53f17ac7f1703a881ec"
+              },
+              "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
+              "sha256": "b8aae0d6e14292dad2d2bcdb86f6048fad93a5eeaa5d342d7b5c340e9fc2bde5"
+            },
+            "git": {
+              "available": true,
+              "commit": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+              "execution_diff_from_head_sha256": null,
+              "execution_matches_commit": true,
+              "tracked_dirty": false,
+              "untracked_execution_files": [],
+              "untracked_files": 10
+            }
+          }
+        }
+      },
+      "314159-control-g21": {
+        "atomic_publication": "Frozen fsync/strict-reload/no-replace-link/directory-fsync path; successful task and no temp remnants",
+        "boundary_integrity": "5074108b39a1239d5c4020100a3ecf713da3226fffcee660a98566fd1946aab0",
+        "computational_state_sha256": "fa58df0fbb9706478c69a1a78d41ef7f633bb83bb180519befcb04f748266f55",
+        "file_sha256": "3dc87ec24cb90260999b6818a4b6e6c1f28b5dc19fe47206dda3b5cd87d99e65",
+        "model_collection_immutability": "Frozen execution checks both snapshot/learner before replay; model hash chain verified",
+        "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g21/generation-0021.pt",
+        "replay_counts": {
+          "14": {
+            "games": 256,
+            "positions": 7440
+          },
+          "15": {
+            "games": 256,
+            "positions": 7913
+          },
+          "16": {
+            "games": 256,
+            "positions": 8026
+          },
+          "17": {
+            "games": 256,
+            "positions": 7960
+          },
+          "18": {
+            "games": 256,
+            "positions": 8437
+          },
+          "19": {
+            "games": 256,
+            "positions": 8181
+          },
+          "20": {
+            "games": 256,
+            "positions": 8830
+          },
+          "21": {
+            "games": 64,
+            "positions": 2179
+          }
+        },
+        "source_runtime_strict_reload": true,
+        "state": {
+          "augmentation": "63020429037ac4f08e15ab9541508f1168a1a443a610414662adefb74e49a513",
+          "counters": {
+            "completed_generations": 21,
+            "total_games": 5184,
+            "total_positions": 158392,
+            "trainer_steps": 4954
+          },
+          "global_rng": "32fcd47997406ba87b42bdd7ade19077625c5c07f3317c96899f4043689caf74",
+          "model": "1f60899f3a979abffda23165d393526cd19ab7bf0c53dbee4c9d1d65e4567fed",
+          "optimizer": "5ec74ca418a7f49261ce56a3b96bfd86d8e1d457825d352a0c44831820575c65",
+          "replay": "84e40afbead405d4c78e037503a786b7bae3581ebd57ce2de23eb860e86b440c",
+          "runtime": {
+            "cpu_capability": "DEFAULT",
+            "cpu_model": "Apple M4",
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "float32_matmul_precision": "highest",
+            "inter_op_threads": 1,
+            "intra_op_threads": 1,
+            "machine": "arm64",
+            "mkldnn_enabled": true,
+            "numpy": "1.26.4",
+            "platform": "macOS-26.6.2-arm64-arm-64bit",
+            "python": "3.11.17",
+            "python_implementation": "CPython",
+            "thread_environment": {
+              "MKL_NUM_THREADS": "1",
+              "NUMEXPR_NUM_THREADS": "1",
+              "OMP_NUM_THREADS": "1",
+              "OPENBLAS_NUM_THREADS": "1",
+              "VECLIB_MAXIMUM_THREADS": "1"
+            },
+            "torch": "2.10.0",
+            "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+            "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+          },
+          "sampling": "39f366c99c7a54da0e85827867b54bf39acbcb8a0ecc353b7273a28596087ee1",
+          "source": {
+            "execution": {
+              "files": {
+                "games/connect4/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+                "games/connect4/agents/mcts_nn_agent.py": "721b7ffe0b146d127641656e54219d55af2a52ce9a68e182df80fe202763df9f",
+                "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
+                "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
+                "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
+                "games/connect4/alphazero_v2/batching.py": "a7af8493083b18ef3671868fbd9595d62a054f35366472cd9b4b76c94ba56088",
+                "games/connect4/alphazero_v2/bitboard.py": "61a262e45191b1e22b57a224f848668315b60ddd5d7785d620c3dd4de2965229",
+                "games/connect4/alphazero_v2/campaign.py": "111365d403db0e14d70ae91fc272c53028eefae30f96e4d45f280d78e34ea0ab",
+                "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
+                "games/connect4/alphazero_v2/data.py": "dbe4fec9b4d3300943a175a52d07a8f9cdbbde159f4d102a69c4e93d26f7e254",
+                "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
+                "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
+                "games/connect4/alphazero_v2/experimental.py": "47f12c3c95fd511b83b1349c7af9249d690d0182b91e72e9178293da37d0fa57",
+                "games/connect4/alphazero_v2/experimental_cli.py": "04357efe5a17bc612bddba691f1830165ddc3286cb84e274894a661f99d85588",
+                "games/connect4/alphazero_v2/experimental_import.py": "dc913fbd156c88def0ed366d90f86e65264d249d068969a06141786702fc1017",
+                "games/connect4/alphazero_v2/experimental_models.py": "2b92139e129c157929aa9ac77e1488737fde8ebac4f115285b9bf36e73edc804",
+                "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
+                "games/connect4/alphazero_v2/launch_control.py": "b5b9e405c823cc976e0e7202d9b03175acf88c429919d4a597304736936820bd",
+                "games/connect4/alphazero_v2/network.py": "097712ae8a304a3d0ca38f4ef71fb6aeaf0a7ff8808e532ffd5475473f80ee5c",
+                "games/connect4/alphazero_v2/official_evidence.py": "eaa94dced355c10dc204fa196f6a65cde2adfb5339a8f14ffcf0f8c500720d74",
+                "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+                "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+                "games/connect4/alphazero_v2/profiling.py": "1a8fc4e7c0554dfe1b2fec5aefcaad965504939a7344daab33eb5c4be3669e46",
+                "games/connect4/alphazero_v2/provenance.py": "4e21e2dc7ade962068c85b1c6831c047bba2cfab6e8e97cd5ee9254fdbabe636",
+                "games/connect4/alphazero_v2/reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2",
+                "games/connect4/alphazero_v2/search.py": "49d719dfb30caf97ab562502584b4cd0ca3b3a8a9f82fd9c986a91f0c6ba993d",
+                "games/connect4/alphazero_v2/selfplay.py": "351b6bdf14e8a9a368b53795c1b9ccff5db02cb4975a3635a901d8143ff2df17",
+                "games/connect4/alphazero_v2/statistics.py": "72943fb3d8b8e039787e1d5c1db5e67837066818051a084e7ad4c4170df66cdf",
+                "games/connect4/alphazero_v2/training.py": "fa43a7b58707699b01d75128a8701ad0cd65d06ada07bafcfdde77701ff29b21",
+                "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+                "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+                "games/connect4/neural_mcts.py": "3cb50524922d42672c3d66f497a2e7491c503e9d22b8f53f17ac7f1703a881ec"
+              },
+              "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
+              "sha256": "b8aae0d6e14292dad2d2bcdb86f6048fad93a5eeaa5d342d7b5c340e9fc2bde5"
+            },
+            "git": {
+              "available": true,
+              "commit": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+              "execution_diff_from_head_sha256": null,
+              "execution_matches_commit": true,
+              "tracked_dirty": false,
+              "untracked_execution_files": [],
+              "untracked_files": 10
+            }
+          }
+        }
+      },
+      "314159-control-g22": {
+        "atomic_publication": "Frozen fsync/strict-reload/no-replace-link/directory-fsync path; successful task and no temp remnants",
+        "boundary_integrity": "a0d5b2861912d5d25c4d76b9fd40e965833814d531c1bda6ef59e0ce09f163cd",
+        "computational_state_sha256": "432514e573ea01a6e6398ee3bc57ca91c3ac8caa66925acff4a142a43b3c156a",
+        "file_sha256": "0e8cb2c7395519615ac437331d1876127bc111a0f2a4da3f6e974e3975b50e70",
+        "model_collection_immutability": "Frozen execution checks both snapshot/learner before replay; model hash chain verified",
+        "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g22/generation-0022.pt",
+        "replay_counts": {
+          "15": {
+            "games": 256,
+            "positions": 7913
+          },
+          "16": {
+            "games": 256,
+            "positions": 8026
+          },
+          "17": {
+            "games": 256,
+            "positions": 7960
+          },
+          "18": {
+            "games": 256,
+            "positions": 8437
+          },
+          "19": {
+            "games": 256,
+            "positions": 8181
+          },
+          "20": {
+            "games": 256,
+            "positions": 8830
+          },
+          "21": {
+            "games": 64,
+            "positions": 2179
+          },
+          "22": {
+            "games": 64,
+            "positions": 2230
+          }
+        },
+        "source_runtime_strict_reload": true,
+        "state": {
+          "augmentation": "2bc49d0d0c50f46845b0ea96030ff749c90d2e9b71d136ce34d60ad870295b28",
+          "counters": {
+            "completed_generations": 22,
+            "total_games": 5248,
+            "total_positions": 160622,
+            "trainer_steps": 5018
+          },
+          "global_rng": "32fcd47997406ba87b42bdd7ade19077625c5c07f3317c96899f4043689caf74",
+          "model": "2748717235344afd1ea52cad9b23018f304b0b78e5a5e3ecab5413cdea24e705",
+          "optimizer": "ee2191217ebf48f8eee2cda6d3248c79b98f8bf6d9a896fe156dc647131f05d5",
+          "replay": "831270001d3203b662073765bb18562c98f0c7a6fb22f9995d48d1eaf582d8cc",
+          "runtime": {
+            "cpu_capability": "DEFAULT",
+            "cpu_model": "Apple M4",
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "float32_matmul_precision": "highest",
+            "inter_op_threads": 1,
+            "intra_op_threads": 1,
+            "machine": "arm64",
+            "mkldnn_enabled": true,
+            "numpy": "1.26.4",
+            "platform": "macOS-26.6.2-arm64-arm-64bit",
+            "python": "3.11.17",
+            "python_implementation": "CPython",
+            "thread_environment": {
+              "MKL_NUM_THREADS": "1",
+              "NUMEXPR_NUM_THREADS": "1",
+              "OMP_NUM_THREADS": "1",
+              "OPENBLAS_NUM_THREADS": "1",
+              "VECLIB_MAXIMUM_THREADS": "1"
+            },
+            "torch": "2.10.0",
+            "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+            "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+          },
+          "sampling": "fb98751eb3b52a95b6f0ba155f018a61627eca59f07cbc587446166f7745b1be",
+          "source": {
+            "execution": {
+              "files": {
+                "games/connect4/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+                "games/connect4/agents/mcts_nn_agent.py": "721b7ffe0b146d127641656e54219d55af2a52ce9a68e182df80fe202763df9f",
+                "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
+                "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
+                "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
+                "games/connect4/alphazero_v2/batching.py": "a7af8493083b18ef3671868fbd9595d62a054f35366472cd9b4b76c94ba56088",
+                "games/connect4/alphazero_v2/bitboard.py": "61a262e45191b1e22b57a224f848668315b60ddd5d7785d620c3dd4de2965229",
+                "games/connect4/alphazero_v2/campaign.py": "111365d403db0e14d70ae91fc272c53028eefae30f96e4d45f280d78e34ea0ab",
+                "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
+                "games/connect4/alphazero_v2/data.py": "dbe4fec9b4d3300943a175a52d07a8f9cdbbde159f4d102a69c4e93d26f7e254",
+                "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
+                "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
+                "games/connect4/alphazero_v2/experimental.py": "47f12c3c95fd511b83b1349c7af9249d690d0182b91e72e9178293da37d0fa57",
+                "games/connect4/alphazero_v2/experimental_cli.py": "04357efe5a17bc612bddba691f1830165ddc3286cb84e274894a661f99d85588",
+                "games/connect4/alphazero_v2/experimental_import.py": "dc913fbd156c88def0ed366d90f86e65264d249d068969a06141786702fc1017",
+                "games/connect4/alphazero_v2/experimental_models.py": "2b92139e129c157929aa9ac77e1488737fde8ebac4f115285b9bf36e73edc804",
+                "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
+                "games/connect4/alphazero_v2/launch_control.py": "b5b9e405c823cc976e0e7202d9b03175acf88c429919d4a597304736936820bd",
+                "games/connect4/alphazero_v2/network.py": "097712ae8a304a3d0ca38f4ef71fb6aeaf0a7ff8808e532ffd5475473f80ee5c",
+                "games/connect4/alphazero_v2/official_evidence.py": "eaa94dced355c10dc204fa196f6a65cde2adfb5339a8f14ffcf0f8c500720d74",
+                "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+                "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+                "games/connect4/alphazero_v2/profiling.py": "1a8fc4e7c0554dfe1b2fec5aefcaad965504939a7344daab33eb5c4be3669e46",
+                "games/connect4/alphazero_v2/provenance.py": "4e21e2dc7ade962068c85b1c6831c047bba2cfab6e8e97cd5ee9254fdbabe636",
+                "games/connect4/alphazero_v2/reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2",
+                "games/connect4/alphazero_v2/search.py": "49d719dfb30caf97ab562502584b4cd0ca3b3a8a9f82fd9c986a91f0c6ba993d",
+                "games/connect4/alphazero_v2/selfplay.py": "351b6bdf14e8a9a368b53795c1b9ccff5db02cb4975a3635a901d8143ff2df17",
+                "games/connect4/alphazero_v2/statistics.py": "72943fb3d8b8e039787e1d5c1db5e67837066818051a084e7ad4c4170df66cdf",
+                "games/connect4/alphazero_v2/training.py": "fa43a7b58707699b01d75128a8701ad0cd65d06ada07bafcfdde77701ff29b21",
+                "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+                "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+                "games/connect4/neural_mcts.py": "3cb50524922d42672c3d66f497a2e7491c503e9d22b8f53f17ac7f1703a881ec"
+              },
+              "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
+              "sha256": "b8aae0d6e14292dad2d2bcdb86f6048fad93a5eeaa5d342d7b5c340e9fc2bde5"
+            },
+            "git": {
+              "available": true,
+              "commit": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+              "execution_diff_from_head_sha256": null,
+              "execution_matches_commit": true,
+              "tracked_dirty": false,
+              "untracked_execution_files": [],
+              "untracked_files": 10
+            }
+          }
+        }
+      },
+      "314159-treatment-g20": {
+        "atomic_publication": "Frozen fsync/strict-reload/no-replace-link/directory-fsync path; successful task and no temp remnants",
+        "boundary_integrity": "80dc612db709f7605db042366f1cbfd41e14d423def4c9d24d445846be864395",
+        "computational_state_sha256": "5aa9916bc689710aa8ed4e6a5d268cb94d913cb8375e5d14542280587be29c77",
+        "file_sha256": "e5a814915d813523f25cd63ca55a28ba92f985ce26e4749f24f14e59a823fdd1",
+        "model_collection_immutability": "parent",
+        "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/seed-314159/treatment/fork-0020.pt",
+        "replay_counts": {
+          "13": {
+            "games": 256,
+            "positions": 7727
+          },
+          "14": {
+            "games": 256,
+            "positions": 7440
+          },
+          "15": {
+            "games": 256,
+            "positions": 7913
+          },
+          "16": {
+            "games": 256,
+            "positions": 8026
+          },
+          "17": {
+            "games": 256,
+            "positions": 7960
+          },
+          "18": {
+            "games": 256,
+            "positions": 8437
+          },
+          "19": {
+            "games": 256,
+            "positions": 8181
+          },
+          "20": {
+            "games": 256,
+            "positions": 8830
+          }
+        },
+        "source_runtime_strict_reload": true,
+        "state": {
+          "augmentation": "4ada1ff56fca6a9e9439083a3ff8ee2670df82c1cdc2dd470e392b5db0622602",
+          "counters": {
+            "completed_generations": 20,
+            "total_games": 5120,
+            "total_positions": 156213,
+            "trainer_steps": 4890
+          },
+          "global_rng": "32fcd47997406ba87b42bdd7ade19077625c5c07f3317c96899f4043689caf74",
+          "model": "9d4c5a6aa4fe68d1aaa3a3f80c8f6b53609d4953076c12e106dca8cbe752ef8e",
+          "optimizer": "f4fb02095c9ac95a777e52d56acca7c386eb69665c93b70230065249620ebe0a",
+          "replay": "e59a240190ccd415eb6ed98ad88a08a448c99ae5b4e278d1593c79b3a6378596",
+          "runtime": {
+            "cpu_capability": "DEFAULT",
+            "cpu_model": "Apple M4",
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "float32_matmul_precision": "highest",
+            "inter_op_threads": 1,
+            "intra_op_threads": 1,
+            "machine": "arm64",
+            "mkldnn_enabled": true,
+            "numpy": "1.26.4",
+            "platform": "macOS-26.6.2-arm64-arm-64bit",
+            "python": "3.11.17",
+            "python_implementation": "CPython",
+            "thread_environment": {
+              "MKL_NUM_THREADS": "1",
+              "NUMEXPR_NUM_THREADS": "1",
+              "OMP_NUM_THREADS": "1",
+              "OPENBLAS_NUM_THREADS": "1",
+              "VECLIB_MAXIMUM_THREADS": "1"
+            },
+            "torch": "2.10.0",
+            "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+            "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+          },
+          "sampling": "0551dfc0a40d97f1007b835749cdcef95c1e0634f42394c53bdd655fc713431c",
+          "source": {
+            "execution": {
+              "files": {
+                "games/connect4/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+                "games/connect4/agents/mcts_nn_agent.py": "721b7ffe0b146d127641656e54219d55af2a52ce9a68e182df80fe202763df9f",
+                "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
+                "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
+                "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
+                "games/connect4/alphazero_v2/batching.py": "a7af8493083b18ef3671868fbd9595d62a054f35366472cd9b4b76c94ba56088",
+                "games/connect4/alphazero_v2/bitboard.py": "61a262e45191b1e22b57a224f848668315b60ddd5d7785d620c3dd4de2965229",
+                "games/connect4/alphazero_v2/campaign.py": "111365d403db0e14d70ae91fc272c53028eefae30f96e4d45f280d78e34ea0ab",
+                "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
+                "games/connect4/alphazero_v2/data.py": "dbe4fec9b4d3300943a175a52d07a8f9cdbbde159f4d102a69c4e93d26f7e254",
+                "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
+                "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
+                "games/connect4/alphazero_v2/experimental.py": "47f12c3c95fd511b83b1349c7af9249d690d0182b91e72e9178293da37d0fa57",
+                "games/connect4/alphazero_v2/experimental_cli.py": "04357efe5a17bc612bddba691f1830165ddc3286cb84e274894a661f99d85588",
+                "games/connect4/alphazero_v2/experimental_import.py": "dc913fbd156c88def0ed366d90f86e65264d249d068969a06141786702fc1017",
+                "games/connect4/alphazero_v2/experimental_models.py": "2b92139e129c157929aa9ac77e1488737fde8ebac4f115285b9bf36e73edc804",
+                "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
+                "games/connect4/alphazero_v2/launch_control.py": "b5b9e405c823cc976e0e7202d9b03175acf88c429919d4a597304736936820bd",
+                "games/connect4/alphazero_v2/network.py": "097712ae8a304a3d0ca38f4ef71fb6aeaf0a7ff8808e532ffd5475473f80ee5c",
+                "games/connect4/alphazero_v2/official_evidence.py": "eaa94dced355c10dc204fa196f6a65cde2adfb5339a8f14ffcf0f8c500720d74",
+                "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+                "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+                "games/connect4/alphazero_v2/profiling.py": "1a8fc4e7c0554dfe1b2fec5aefcaad965504939a7344daab33eb5c4be3669e46",
+                "games/connect4/alphazero_v2/provenance.py": "4e21e2dc7ade962068c85b1c6831c047bba2cfab6e8e97cd5ee9254fdbabe636",
+                "games/connect4/alphazero_v2/reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2",
+                "games/connect4/alphazero_v2/search.py": "49d719dfb30caf97ab562502584b4cd0ca3b3a8a9f82fd9c986a91f0c6ba993d",
+                "games/connect4/alphazero_v2/selfplay.py": "351b6bdf14e8a9a368b53795c1b9ccff5db02cb4975a3635a901d8143ff2df17",
+                "games/connect4/alphazero_v2/statistics.py": "72943fb3d8b8e039787e1d5c1db5e67837066818051a084e7ad4c4170df66cdf",
+                "games/connect4/alphazero_v2/training.py": "fa43a7b58707699b01d75128a8701ad0cd65d06ada07bafcfdde77701ff29b21",
+                "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+                "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+                "games/connect4/neural_mcts.py": "3cb50524922d42672c3d66f497a2e7491c503e9d22b8f53f17ac7f1703a881ec"
+              },
+              "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
+              "sha256": "b8aae0d6e14292dad2d2bcdb86f6048fad93a5eeaa5d342d7b5c340e9fc2bde5"
+            },
+            "git": {
+              "available": true,
+              "commit": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+              "execution_diff_from_head_sha256": null,
+              "execution_matches_commit": true,
+              "tracked_dirty": false,
+              "untracked_execution_files": [],
+              "untracked_files": 13
+            }
+          }
+        }
+      },
+      "314159-treatment-g21": {
+        "atomic_publication": "Frozen fsync/strict-reload/no-replace-link/directory-fsync path; successful task and no temp remnants",
+        "boundary_integrity": "2b11d36746fee54d7a916e6b773e0c0d11faa1ca6f5cd35329fc798c09b2b8ea",
+        "computational_state_sha256": "726fd4022fe7260894a6fb743e46c538c64b9d31afa313a8c68e243edd76c043",
+        "file_sha256": "41fc326b6eeadf8556824afb5c5667efb946cc1fecb5dbd283c843d4bcb3c15b",
+        "model_collection_immutability": "Frozen execution checks both snapshot/learner before replay; model hash chain verified",
+        "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g21/generation-0021.pt",
+        "replay_counts": {
+          "14": {
+            "games": 256,
+            "positions": 7440
+          },
+          "15": {
+            "games": 256,
+            "positions": 7913
+          },
+          "16": {
+            "games": 256,
+            "positions": 8026
+          },
+          "17": {
+            "games": 256,
+            "positions": 7960
+          },
+          "18": {
+            "games": 256,
+            "positions": 8437
+          },
+          "19": {
+            "games": 256,
+            "positions": 8181
+          },
+          "20": {
+            "games": 256,
+            "positions": 8830
+          },
+          "21": {
+            "games": 64,
+            "positions": 2081
+          }
+        },
+        "source_runtime_strict_reload": true,
+        "state": {
+          "augmentation": "63020429037ac4f08e15ab9541508f1168a1a443a610414662adefb74e49a513",
+          "counters": {
+            "completed_generations": 21,
+            "total_games": 5184,
+            "total_positions": 158294,
+            "trainer_steps": 4954
+          },
+          "global_rng": "32fcd47997406ba87b42bdd7ade19077625c5c07f3317c96899f4043689caf74",
+          "model": "34c77a1c23cbd6b75be714ec393739c9ed000cb2984e602e604c4cee5c8ccd30",
+          "optimizer": "94364e0f379568846e3793543883a7e29cce3b7681b1d4607f96858bd9a8c390",
+          "replay": "04bf13fbd41a91c02b3dc29e684431ce303a5035959f80ba4921a351c4a55d46",
+          "runtime": {
+            "cpu_capability": "DEFAULT",
+            "cpu_model": "Apple M4",
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "float32_matmul_precision": "highest",
+            "inter_op_threads": 1,
+            "intra_op_threads": 1,
+            "machine": "arm64",
+            "mkldnn_enabled": true,
+            "numpy": "1.26.4",
+            "platform": "macOS-26.6.2-arm64-arm-64bit",
+            "python": "3.11.17",
+            "python_implementation": "CPython",
+            "thread_environment": {
+              "MKL_NUM_THREADS": "1",
+              "NUMEXPR_NUM_THREADS": "1",
+              "OMP_NUM_THREADS": "1",
+              "OPENBLAS_NUM_THREADS": "1",
+              "VECLIB_MAXIMUM_THREADS": "1"
+            },
+            "torch": "2.10.0",
+            "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+            "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+          },
+          "sampling": "202654090a0021233f5ca2c4dffb57275ff7e00a6942fa558982174a089bdb1a",
+          "source": {
+            "execution": {
+              "files": {
+                "games/connect4/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+                "games/connect4/agents/mcts_nn_agent.py": "721b7ffe0b146d127641656e54219d55af2a52ce9a68e182df80fe202763df9f",
+                "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
+                "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
+                "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
+                "games/connect4/alphazero_v2/batching.py": "a7af8493083b18ef3671868fbd9595d62a054f35366472cd9b4b76c94ba56088",
+                "games/connect4/alphazero_v2/bitboard.py": "61a262e45191b1e22b57a224f848668315b60ddd5d7785d620c3dd4de2965229",
+                "games/connect4/alphazero_v2/campaign.py": "111365d403db0e14d70ae91fc272c53028eefae30f96e4d45f280d78e34ea0ab",
+                "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
+                "games/connect4/alphazero_v2/data.py": "dbe4fec9b4d3300943a175a52d07a8f9cdbbde159f4d102a69c4e93d26f7e254",
+                "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
+                "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
+                "games/connect4/alphazero_v2/experimental.py": "47f12c3c95fd511b83b1349c7af9249d690d0182b91e72e9178293da37d0fa57",
+                "games/connect4/alphazero_v2/experimental_cli.py": "04357efe5a17bc612bddba691f1830165ddc3286cb84e274894a661f99d85588",
+                "games/connect4/alphazero_v2/experimental_import.py": "dc913fbd156c88def0ed366d90f86e65264d249d068969a06141786702fc1017",
+                "games/connect4/alphazero_v2/experimental_models.py": "2b92139e129c157929aa9ac77e1488737fde8ebac4f115285b9bf36e73edc804",
+                "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
+                "games/connect4/alphazero_v2/launch_control.py": "b5b9e405c823cc976e0e7202d9b03175acf88c429919d4a597304736936820bd",
+                "games/connect4/alphazero_v2/network.py": "097712ae8a304a3d0ca38f4ef71fb6aeaf0a7ff8808e532ffd5475473f80ee5c",
+                "games/connect4/alphazero_v2/official_evidence.py": "eaa94dced355c10dc204fa196f6a65cde2adfb5339a8f14ffcf0f8c500720d74",
+                "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+                "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+                "games/connect4/alphazero_v2/profiling.py": "1a8fc4e7c0554dfe1b2fec5aefcaad965504939a7344daab33eb5c4be3669e46",
+                "games/connect4/alphazero_v2/provenance.py": "4e21e2dc7ade962068c85b1c6831c047bba2cfab6e8e97cd5ee9254fdbabe636",
+                "games/connect4/alphazero_v2/reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2",
+                "games/connect4/alphazero_v2/search.py": "49d719dfb30caf97ab562502584b4cd0ca3b3a8a9f82fd9c986a91f0c6ba993d",
+                "games/connect4/alphazero_v2/selfplay.py": "351b6bdf14e8a9a368b53795c1b9ccff5db02cb4975a3635a901d8143ff2df17",
+                "games/connect4/alphazero_v2/statistics.py": "72943fb3d8b8e039787e1d5c1db5e67837066818051a084e7ad4c4170df66cdf",
+                "games/connect4/alphazero_v2/training.py": "fa43a7b58707699b01d75128a8701ad0cd65d06ada07bafcfdde77701ff29b21",
+                "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+                "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+                "games/connect4/neural_mcts.py": "3cb50524922d42672c3d66f497a2e7491c503e9d22b8f53f17ac7f1703a881ec"
+              },
+              "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
+              "sha256": "b8aae0d6e14292dad2d2bcdb86f6048fad93a5eeaa5d342d7b5c340e9fc2bde5"
+            },
+            "git": {
+              "available": true,
+              "commit": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+              "execution_diff_from_head_sha256": null,
+              "execution_matches_commit": true,
+              "tracked_dirty": false,
+              "untracked_execution_files": [],
+              "untracked_files": 13
+            }
+          }
+        }
+      },
+      "314159-treatment-g22": {
+        "atomic_publication": "Frozen fsync/strict-reload/no-replace-link/directory-fsync path; successful task and no temp remnants",
+        "boundary_integrity": "8aabd3a0e86e7493135eb9b9123b424ab0cbae2f5fcbf612514d7c03e313edde",
+        "computational_state_sha256": "2f823e7f7518192fbf17ffdf1f6e9a79a9333669d443c468fc540ed2be7fd997",
+        "file_sha256": "2ced466df262427574e2045b29ef3754add4a263a5ea359c9d80543e5eaf0a8f",
+        "model_collection_immutability": "Frozen execution checks both snapshot/learner before replay; model hash chain verified",
+        "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g22/generation-0022.pt",
+        "replay_counts": {
+          "15": {
+            "games": 256,
+            "positions": 7913
+          },
+          "16": {
+            "games": 256,
+            "positions": 8026
+          },
+          "17": {
+            "games": 256,
+            "positions": 7960
+          },
+          "18": {
+            "games": 256,
+            "positions": 8437
+          },
+          "19": {
+            "games": 256,
+            "positions": 8181
+          },
+          "20": {
+            "games": 256,
+            "positions": 8830
+          },
+          "21": {
+            "games": 64,
+            "positions": 2081
+          },
+          "22": {
+            "games": 64,
+            "positions": 2133
+          }
+        },
+        "source_runtime_strict_reload": true,
+        "state": {
+          "augmentation": "2bc49d0d0c50f46845b0ea96030ff749c90d2e9b71d136ce34d60ad870295b28",
+          "counters": {
+            "completed_generations": 22,
+            "total_games": 5248,
+            "total_positions": 160427,
+            "trainer_steps": 5018
+          },
+          "global_rng": "32fcd47997406ba87b42bdd7ade19077625c5c07f3317c96899f4043689caf74",
+          "model": "05d9559cd0a5e06148c5e45a194c824d0d2f2f9b976afedeb5a20d2f88c0404e",
+          "optimizer": "1821b22941c63de623f5b2b6eecfe594d4539907e64ea951988ad0d576a31db2",
+          "replay": "7407e989ef62d49601dfc26409cc849b8051124ae757e362e3ff6974d5401cff",
+          "runtime": {
+            "cpu_capability": "DEFAULT",
+            "cpu_model": "Apple M4",
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "float32_matmul_precision": "highest",
+            "inter_op_threads": 1,
+            "intra_op_threads": 1,
+            "machine": "arm64",
+            "mkldnn_enabled": true,
+            "numpy": "1.26.4",
+            "platform": "macOS-26.6.2-arm64-arm-64bit",
+            "python": "3.11.17",
+            "python_implementation": "CPython",
+            "thread_environment": {
+              "MKL_NUM_THREADS": "1",
+              "NUMEXPR_NUM_THREADS": "1",
+              "OMP_NUM_THREADS": "1",
+              "OPENBLAS_NUM_THREADS": "1",
+              "VECLIB_MAXIMUM_THREADS": "1"
+            },
+            "torch": "2.10.0",
+            "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+            "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+          },
+          "sampling": "b99745573c04f3b99c023cb3b8af8c5ae43b9cfa8c5c7c8210191660a8a2692a",
+          "source": {
+            "execution": {
+              "files": {
+                "games/connect4/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+                "games/connect4/agents/mcts_nn_agent.py": "721b7ffe0b146d127641656e54219d55af2a52ce9a68e182df80fe202763df9f",
+                "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
+                "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
+                "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
+                "games/connect4/alphazero_v2/batching.py": "a7af8493083b18ef3671868fbd9595d62a054f35366472cd9b4b76c94ba56088",
+                "games/connect4/alphazero_v2/bitboard.py": "61a262e45191b1e22b57a224f848668315b60ddd5d7785d620c3dd4de2965229",
+                "games/connect4/alphazero_v2/campaign.py": "111365d403db0e14d70ae91fc272c53028eefae30f96e4d45f280d78e34ea0ab",
+                "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
+                "games/connect4/alphazero_v2/data.py": "dbe4fec9b4d3300943a175a52d07a8f9cdbbde159f4d102a69c4e93d26f7e254",
+                "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
+                "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
+                "games/connect4/alphazero_v2/experimental.py": "47f12c3c95fd511b83b1349c7af9249d690d0182b91e72e9178293da37d0fa57",
+                "games/connect4/alphazero_v2/experimental_cli.py": "04357efe5a17bc612bddba691f1830165ddc3286cb84e274894a661f99d85588",
+                "games/connect4/alphazero_v2/experimental_import.py": "dc913fbd156c88def0ed366d90f86e65264d249d068969a06141786702fc1017",
+                "games/connect4/alphazero_v2/experimental_models.py": "2b92139e129c157929aa9ac77e1488737fde8ebac4f115285b9bf36e73edc804",
+                "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
+                "games/connect4/alphazero_v2/launch_control.py": "b5b9e405c823cc976e0e7202d9b03175acf88c429919d4a597304736936820bd",
+                "games/connect4/alphazero_v2/network.py": "097712ae8a304a3d0ca38f4ef71fb6aeaf0a7ff8808e532ffd5475473f80ee5c",
+                "games/connect4/alphazero_v2/official_evidence.py": "eaa94dced355c10dc204fa196f6a65cde2adfb5339a8f14ffcf0f8c500720d74",
+                "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+                "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+                "games/connect4/alphazero_v2/profiling.py": "1a8fc4e7c0554dfe1b2fec5aefcaad965504939a7344daab33eb5c4be3669e46",
+                "games/connect4/alphazero_v2/provenance.py": "4e21e2dc7ade962068c85b1c6831c047bba2cfab6e8e97cd5ee9254fdbabe636",
+                "games/connect4/alphazero_v2/reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2",
+                "games/connect4/alphazero_v2/search.py": "49d719dfb30caf97ab562502584b4cd0ca3b3a8a9f82fd9c986a91f0c6ba993d",
+                "games/connect4/alphazero_v2/selfplay.py": "351b6bdf14e8a9a368b53795c1b9ccff5db02cb4975a3635a901d8143ff2df17",
+                "games/connect4/alphazero_v2/statistics.py": "72943fb3d8b8e039787e1d5c1db5e67837066818051a084e7ad4c4170df66cdf",
+                "games/connect4/alphazero_v2/training.py": "fa43a7b58707699b01d75128a8701ad0cd65d06ada07bafcfdde77701ff29b21",
+                "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+                "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+                "games/connect4/neural_mcts.py": "3cb50524922d42672c3d66f497a2e7491c503e9d22b8f53f17ac7f1703a881ec"
+              },
+              "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
+              "sha256": "b8aae0d6e14292dad2d2bcdb86f6048fad93a5eeaa5d342d7b5c340e9fc2bde5"
+            },
+            "git": {
+              "available": true,
+              "commit": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+              "execution_diff_from_head_sha256": null,
+              "execution_matches_commit": true,
+              "tracked_dirty": false,
+              "untracked_execution_files": [],
+              "untracked_files": 13
+            }
+          }
+        }
+      },
+      "42-control-g20": {
+        "atomic_publication": "Frozen fsync/strict-reload/no-replace-link/directory-fsync path; successful task and no temp remnants",
+        "boundary_integrity": "c6462853fd5be823ca4da6295fff0f2f94b337d7512846fd0ef3e8a6cd209b13",
+        "computational_state_sha256": "2dd15035fd4e10654a80a78cf5dec16425d4ad6e23f21323adcc219ca8bee5e4",
+        "file_sha256": "33411a7b81e33e24f15fb72e81a78432ae2451b1fe8120d67d13b6d61e6883e3",
+        "model_collection_immutability": "parent",
+        "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/seed-42/control/fork-0020.pt",
+        "replay_counts": {
+          "13": {
+            "games": 256,
+            "positions": 8200
+          },
+          "14": {
+            "games": 256,
+            "positions": 8367
+          },
+          "15": {
+            "games": 256,
+            "positions": 8503
+          },
+          "16": {
+            "games": 256,
+            "positions": 9183
+          },
+          "17": {
+            "games": 256,
+            "positions": 8893
+          },
+          "18": {
+            "games": 256,
+            "positions": 8481
+          },
+          "19": {
+            "games": 256,
+            "positions": 8636
+          },
+          "20": {
+            "games": 256,
+            "positions": 8593
+          }
+        },
+        "source_runtime_strict_reload": true,
+        "state": {
+          "augmentation": "2e3cbcfc3cc59a77fb53fdba3b02f16dc9f9bde1df4ff5ba864153e488f95e47",
+          "counters": {
+            "completed_generations": 20,
+            "total_games": 5120,
+            "total_positions": 158305,
+            "trainer_steps": 4957
+          },
+          "global_rng": "32fcd47997406ba87b42bdd7ade19077625c5c07f3317c96899f4043689caf74",
+          "model": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d",
+          "optimizer": "a1607432de4194668173cd87acb8d73102db838bfe7c9d2ae237f58464cc3896",
+          "replay": "02da9caa29bc70e8d5153109de7ceddebfd0ce9aa12e5edf55820e4596370ab1",
+          "runtime": {
+            "cpu_capability": "DEFAULT",
+            "cpu_model": "Apple M4",
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "float32_matmul_precision": "highest",
+            "inter_op_threads": 1,
+            "intra_op_threads": 1,
+            "machine": "arm64",
+            "mkldnn_enabled": true,
+            "numpy": "1.26.4",
+            "platform": "macOS-26.6.2-arm64-arm-64bit",
+            "python": "3.11.17",
+            "python_implementation": "CPython",
+            "thread_environment": {
+              "MKL_NUM_THREADS": "1",
+              "NUMEXPR_NUM_THREADS": "1",
+              "OMP_NUM_THREADS": "1",
+              "OPENBLAS_NUM_THREADS": "1",
+              "VECLIB_MAXIMUM_THREADS": "1"
+            },
+            "torch": "2.10.0",
+            "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+            "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+          },
+          "sampling": "b9995255fdc6ba7135fad52c5576b5ae076150bf120de3d948629a800cd4b4af",
+          "source": {
+            "execution": {
+              "files": {
+                "games/connect4/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+                "games/connect4/agents/mcts_nn_agent.py": "721b7ffe0b146d127641656e54219d55af2a52ce9a68e182df80fe202763df9f",
+                "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
+                "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
+                "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
+                "games/connect4/alphazero_v2/batching.py": "a7af8493083b18ef3671868fbd9595d62a054f35366472cd9b4b76c94ba56088",
+                "games/connect4/alphazero_v2/bitboard.py": "61a262e45191b1e22b57a224f848668315b60ddd5d7785d620c3dd4de2965229",
+                "games/connect4/alphazero_v2/campaign.py": "111365d403db0e14d70ae91fc272c53028eefae30f96e4d45f280d78e34ea0ab",
+                "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
+                "games/connect4/alphazero_v2/data.py": "dbe4fec9b4d3300943a175a52d07a8f9cdbbde159f4d102a69c4e93d26f7e254",
+                "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
+                "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
+                "games/connect4/alphazero_v2/experimental.py": "47f12c3c95fd511b83b1349c7af9249d690d0182b91e72e9178293da37d0fa57",
+                "games/connect4/alphazero_v2/experimental_cli.py": "04357efe5a17bc612bddba691f1830165ddc3286cb84e274894a661f99d85588",
+                "games/connect4/alphazero_v2/experimental_import.py": "dc913fbd156c88def0ed366d90f86e65264d249d068969a06141786702fc1017",
+                "games/connect4/alphazero_v2/experimental_models.py": "2b92139e129c157929aa9ac77e1488737fde8ebac4f115285b9bf36e73edc804",
+                "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
+                "games/connect4/alphazero_v2/launch_control.py": "b5b9e405c823cc976e0e7202d9b03175acf88c429919d4a597304736936820bd",
+                "games/connect4/alphazero_v2/network.py": "097712ae8a304a3d0ca38f4ef71fb6aeaf0a7ff8808e532ffd5475473f80ee5c",
+                "games/connect4/alphazero_v2/official_evidence.py": "eaa94dced355c10dc204fa196f6a65cde2adfb5339a8f14ffcf0f8c500720d74",
+                "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+                "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+                "games/connect4/alphazero_v2/profiling.py": "1a8fc4e7c0554dfe1b2fec5aefcaad965504939a7344daab33eb5c4be3669e46",
+                "games/connect4/alphazero_v2/provenance.py": "4e21e2dc7ade962068c85b1c6831c047bba2cfab6e8e97cd5ee9254fdbabe636",
+                "games/connect4/alphazero_v2/reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2",
+                "games/connect4/alphazero_v2/search.py": "49d719dfb30caf97ab562502584b4cd0ca3b3a8a9f82fd9c986a91f0c6ba993d",
+                "games/connect4/alphazero_v2/selfplay.py": "351b6bdf14e8a9a368b53795c1b9ccff5db02cb4975a3635a901d8143ff2df17",
+                "games/connect4/alphazero_v2/statistics.py": "72943fb3d8b8e039787e1d5c1db5e67837066818051a084e7ad4c4170df66cdf",
+                "games/connect4/alphazero_v2/training.py": "fa43a7b58707699b01d75128a8701ad0cd65d06ada07bafcfdde77701ff29b21",
+                "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+                "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+                "games/connect4/neural_mcts.py": "3cb50524922d42672c3d66f497a2e7491c503e9d22b8f53f17ac7f1703a881ec"
+              },
+              "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
+              "sha256": "b8aae0d6e14292dad2d2bcdb86f6048fad93a5eeaa5d342d7b5c340e9fc2bde5"
+            },
+            "git": {
+              "available": true,
+              "commit": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+              "execution_diff_from_head_sha256": null,
+              "execution_matches_commit": true,
+              "tracked_dirty": false,
+              "untracked_execution_files": [],
+              "untracked_files": 10
+            }
+          }
+        }
+      },
+      "42-control-g21": {
+        "atomic_publication": "Frozen fsync/strict-reload/no-replace-link/directory-fsync path; successful task and no temp remnants",
+        "boundary_integrity": "b3a987a319be6f399756b3b738d7de04fcfb5b6f2ae7f67497abab47f3971bda",
+        "computational_state_sha256": "eb3d6eed7eeeec88fd330e11f6417cb21357ddc1bbdb1e39be1ab0b4b95c8199",
+        "file_sha256": "952b5bb4a1cc5b0767e8a5c875e7169511a899f4012d3da87753b1204f556106",
+        "model_collection_immutability": "Frozen execution checks both snapshot/learner before replay; model hash chain verified",
+        "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g21/generation-0021.pt",
+        "replay_counts": {
+          "14": {
+            "games": 256,
+            "positions": 8367
+          },
+          "15": {
+            "games": 256,
+            "positions": 8503
+          },
+          "16": {
+            "games": 256,
+            "positions": 9183
+          },
+          "17": {
+            "games": 256,
+            "positions": 8893
+          },
+          "18": {
+            "games": 256,
+            "positions": 8481
+          },
+          "19": {
+            "games": 256,
+            "positions": 8636
+          },
+          "20": {
+            "games": 256,
+            "positions": 8593
+          },
+          "21": {
+            "games": 64,
+            "positions": 1871
+          }
+        },
+        "source_runtime_strict_reload": true,
+        "state": {
+          "augmentation": "58baa8cc55594e1f10ecedad06b008452d2e9006b6adc018435c9958ec3cd30b",
+          "counters": {
+            "completed_generations": 21,
+            "total_games": 5184,
+            "total_positions": 160176,
+            "trainer_steps": 5021
+          },
+          "global_rng": "32fcd47997406ba87b42bdd7ade19077625c5c07f3317c96899f4043689caf74",
+          "model": "63b7f89b663909286b5db57447b7262a83239dea6ed8cd257866028989fd8b20",
+          "optimizer": "715298377a89aa22622d324d1cee8b6453b7cc86b8e3a3ecc408b6ccd6533481",
+          "replay": "404e3ff6c7feb5ddee861117111ac152d182a20c82b73f86fb42c57ac9fa525c",
+          "runtime": {
+            "cpu_capability": "DEFAULT",
+            "cpu_model": "Apple M4",
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "float32_matmul_precision": "highest",
+            "inter_op_threads": 1,
+            "intra_op_threads": 1,
+            "machine": "arm64",
+            "mkldnn_enabled": true,
+            "numpy": "1.26.4",
+            "platform": "macOS-26.6.2-arm64-arm-64bit",
+            "python": "3.11.17",
+            "python_implementation": "CPython",
+            "thread_environment": {
+              "MKL_NUM_THREADS": "1",
+              "NUMEXPR_NUM_THREADS": "1",
+              "OMP_NUM_THREADS": "1",
+              "OPENBLAS_NUM_THREADS": "1",
+              "VECLIB_MAXIMUM_THREADS": "1"
+            },
+            "torch": "2.10.0",
+            "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+            "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+          },
+          "sampling": "c366ce4f1c0cb5959348988349533d1f6c8f9aa1b686ed143376902f93eaac27",
+          "source": {
+            "execution": {
+              "files": {
+                "games/connect4/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+                "games/connect4/agents/mcts_nn_agent.py": "721b7ffe0b146d127641656e54219d55af2a52ce9a68e182df80fe202763df9f",
+                "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
+                "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
+                "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
+                "games/connect4/alphazero_v2/batching.py": "a7af8493083b18ef3671868fbd9595d62a054f35366472cd9b4b76c94ba56088",
+                "games/connect4/alphazero_v2/bitboard.py": "61a262e45191b1e22b57a224f848668315b60ddd5d7785d620c3dd4de2965229",
+                "games/connect4/alphazero_v2/campaign.py": "111365d403db0e14d70ae91fc272c53028eefae30f96e4d45f280d78e34ea0ab",
+                "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
+                "games/connect4/alphazero_v2/data.py": "dbe4fec9b4d3300943a175a52d07a8f9cdbbde159f4d102a69c4e93d26f7e254",
+                "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
+                "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
+                "games/connect4/alphazero_v2/experimental.py": "47f12c3c95fd511b83b1349c7af9249d690d0182b91e72e9178293da37d0fa57",
+                "games/connect4/alphazero_v2/experimental_cli.py": "04357efe5a17bc612bddba691f1830165ddc3286cb84e274894a661f99d85588",
+                "games/connect4/alphazero_v2/experimental_import.py": "dc913fbd156c88def0ed366d90f86e65264d249d068969a06141786702fc1017",
+                "games/connect4/alphazero_v2/experimental_models.py": "2b92139e129c157929aa9ac77e1488737fde8ebac4f115285b9bf36e73edc804",
+                "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
+                "games/connect4/alphazero_v2/launch_control.py": "b5b9e405c823cc976e0e7202d9b03175acf88c429919d4a597304736936820bd",
+                "games/connect4/alphazero_v2/network.py": "097712ae8a304a3d0ca38f4ef71fb6aeaf0a7ff8808e532ffd5475473f80ee5c",
+                "games/connect4/alphazero_v2/official_evidence.py": "eaa94dced355c10dc204fa196f6a65cde2adfb5339a8f14ffcf0f8c500720d74",
+                "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+                "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+                "games/connect4/alphazero_v2/profiling.py": "1a8fc4e7c0554dfe1b2fec5aefcaad965504939a7344daab33eb5c4be3669e46",
+                "games/connect4/alphazero_v2/provenance.py": "4e21e2dc7ade962068c85b1c6831c047bba2cfab6e8e97cd5ee9254fdbabe636",
+                "games/connect4/alphazero_v2/reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2",
+                "games/connect4/alphazero_v2/search.py": "49d719dfb30caf97ab562502584b4cd0ca3b3a8a9f82fd9c986a91f0c6ba993d",
+                "games/connect4/alphazero_v2/selfplay.py": "351b6bdf14e8a9a368b53795c1b9ccff5db02cb4975a3635a901d8143ff2df17",
+                "games/connect4/alphazero_v2/statistics.py": "72943fb3d8b8e039787e1d5c1db5e67837066818051a084e7ad4c4170df66cdf",
+                "games/connect4/alphazero_v2/training.py": "fa43a7b58707699b01d75128a8701ad0cd65d06ada07bafcfdde77701ff29b21",
+                "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+                "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+                "games/connect4/neural_mcts.py": "3cb50524922d42672c3d66f497a2e7491c503e9d22b8f53f17ac7f1703a881ec"
+              },
+              "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
+              "sha256": "b8aae0d6e14292dad2d2bcdb86f6048fad93a5eeaa5d342d7b5c340e9fc2bde5"
+            },
+            "git": {
+              "available": true,
+              "commit": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+              "execution_diff_from_head_sha256": null,
+              "execution_matches_commit": true,
+              "tracked_dirty": false,
+              "untracked_execution_files": [],
+              "untracked_files": 10
+            }
+          }
+        }
+      },
+      "42-control-g22": {
+        "atomic_publication": "Frozen fsync/strict-reload/no-replace-link/directory-fsync path; successful task and no temp remnants",
+        "boundary_integrity": "b215796321d9b04b123c8ab71729edbc072d0d83c69999eca862a92cc56a630c",
+        "computational_state_sha256": "16cbafb5a5ad89d28841b79a69804f7c5764f1e87fa51bf0553e97b0863f8622",
+        "file_sha256": "dd42b1527b29de89620411d7bb8189b811f55ef28e301a83f7072c3b4b4cc5df",
+        "model_collection_immutability": "Frozen execution checks both snapshot/learner before replay; model hash chain verified",
+        "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g22/generation-0022.pt",
+        "replay_counts": {
+          "15": {
+            "games": 256,
+            "positions": 8503
+          },
+          "16": {
+            "games": 256,
+            "positions": 9183
+          },
+          "17": {
+            "games": 256,
+            "positions": 8893
+          },
+          "18": {
+            "games": 256,
+            "positions": 8481
+          },
+          "19": {
+            "games": 256,
+            "positions": 8636
+          },
+          "20": {
+            "games": 256,
+            "positions": 8593
+          },
+          "21": {
+            "games": 64,
+            "positions": 1871
+          },
+          "22": {
+            "games": 64,
+            "positions": 2254
+          }
+        },
+        "source_runtime_strict_reload": true,
+        "state": {
+          "augmentation": "235949d414766096ac7e991568e96caa96a3472528271d469079a43f1cbb0692",
+          "counters": {
+            "completed_generations": 22,
+            "total_games": 5248,
+            "total_positions": 162430,
+            "trainer_steps": 5085
+          },
+          "global_rng": "32fcd47997406ba87b42bdd7ade19077625c5c07f3317c96899f4043689caf74",
+          "model": "b82f45164ccced0fc4bf84b4d19372c22fc84435f8029fdc595c07ae9dc06656",
+          "optimizer": "5bcfd49a1c3790fcd1c292eafc0db7f97b227b1df63d1e4aaacfc6456de4887a",
+          "replay": "efdb2359ee1a5d4e67a5a6ae1e8f825ee289491c2ba280431de1f52711a7f56a",
+          "runtime": {
+            "cpu_capability": "DEFAULT",
+            "cpu_model": "Apple M4",
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "float32_matmul_precision": "highest",
+            "inter_op_threads": 1,
+            "intra_op_threads": 1,
+            "machine": "arm64",
+            "mkldnn_enabled": true,
+            "numpy": "1.26.4",
+            "platform": "macOS-26.6.2-arm64-arm-64bit",
+            "python": "3.11.17",
+            "python_implementation": "CPython",
+            "thread_environment": {
+              "MKL_NUM_THREADS": "1",
+              "NUMEXPR_NUM_THREADS": "1",
+              "OMP_NUM_THREADS": "1",
+              "OPENBLAS_NUM_THREADS": "1",
+              "VECLIB_MAXIMUM_THREADS": "1"
+            },
+            "torch": "2.10.0",
+            "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+            "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+          },
+          "sampling": "8a44f79fa47d454517081615c9f152dc7788577d27863c1f5f4c68d51913db84",
+          "source": {
+            "execution": {
+              "files": {
+                "games/connect4/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+                "games/connect4/agents/mcts_nn_agent.py": "721b7ffe0b146d127641656e54219d55af2a52ce9a68e182df80fe202763df9f",
+                "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
+                "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
+                "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
+                "games/connect4/alphazero_v2/batching.py": "a7af8493083b18ef3671868fbd9595d62a054f35366472cd9b4b76c94ba56088",
+                "games/connect4/alphazero_v2/bitboard.py": "61a262e45191b1e22b57a224f848668315b60ddd5d7785d620c3dd4de2965229",
+                "games/connect4/alphazero_v2/campaign.py": "111365d403db0e14d70ae91fc272c53028eefae30f96e4d45f280d78e34ea0ab",
+                "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
+                "games/connect4/alphazero_v2/data.py": "dbe4fec9b4d3300943a175a52d07a8f9cdbbde159f4d102a69c4e93d26f7e254",
+                "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
+                "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
+                "games/connect4/alphazero_v2/experimental.py": "47f12c3c95fd511b83b1349c7af9249d690d0182b91e72e9178293da37d0fa57",
+                "games/connect4/alphazero_v2/experimental_cli.py": "04357efe5a17bc612bddba691f1830165ddc3286cb84e274894a661f99d85588",
+                "games/connect4/alphazero_v2/experimental_import.py": "dc913fbd156c88def0ed366d90f86e65264d249d068969a06141786702fc1017",
+                "games/connect4/alphazero_v2/experimental_models.py": "2b92139e129c157929aa9ac77e1488737fde8ebac4f115285b9bf36e73edc804",
+                "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
+                "games/connect4/alphazero_v2/launch_control.py": "b5b9e405c823cc976e0e7202d9b03175acf88c429919d4a597304736936820bd",
+                "games/connect4/alphazero_v2/network.py": "097712ae8a304a3d0ca38f4ef71fb6aeaf0a7ff8808e532ffd5475473f80ee5c",
+                "games/connect4/alphazero_v2/official_evidence.py": "eaa94dced355c10dc204fa196f6a65cde2adfb5339a8f14ffcf0f8c500720d74",
+                "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+                "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+                "games/connect4/alphazero_v2/profiling.py": "1a8fc4e7c0554dfe1b2fec5aefcaad965504939a7344daab33eb5c4be3669e46",
+                "games/connect4/alphazero_v2/provenance.py": "4e21e2dc7ade962068c85b1c6831c047bba2cfab6e8e97cd5ee9254fdbabe636",
+                "games/connect4/alphazero_v2/reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2",
+                "games/connect4/alphazero_v2/search.py": "49d719dfb30caf97ab562502584b4cd0ca3b3a8a9f82fd9c986a91f0c6ba993d",
+                "games/connect4/alphazero_v2/selfplay.py": "351b6bdf14e8a9a368b53795c1b9ccff5db02cb4975a3635a901d8143ff2df17",
+                "games/connect4/alphazero_v2/statistics.py": "72943fb3d8b8e039787e1d5c1db5e67837066818051a084e7ad4c4170df66cdf",
+                "games/connect4/alphazero_v2/training.py": "fa43a7b58707699b01d75128a8701ad0cd65d06ada07bafcfdde77701ff29b21",
+                "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+                "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+                "games/connect4/neural_mcts.py": "3cb50524922d42672c3d66f497a2e7491c503e9d22b8f53f17ac7f1703a881ec"
+              },
+              "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
+              "sha256": "b8aae0d6e14292dad2d2bcdb86f6048fad93a5eeaa5d342d7b5c340e9fc2bde5"
+            },
+            "git": {
+              "available": true,
+              "commit": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+              "execution_diff_from_head_sha256": null,
+              "execution_matches_commit": true,
+              "tracked_dirty": false,
+              "untracked_execution_files": [],
+              "untracked_files": 10
+            }
+          }
+        }
+      },
+      "42-treatment-g20": {
+        "atomic_publication": "Frozen fsync/strict-reload/no-replace-link/directory-fsync path; successful task and no temp remnants",
+        "boundary_integrity": "a025425fb1895217cdf79364050b2ac630b51ad350838cca240ca495c11b8de9",
+        "computational_state_sha256": "2dd15035fd4e10654a80a78cf5dec16425d4ad6e23f21323adcc219ca8bee5e4",
+        "file_sha256": "c5b676c1f67269004eb819f86652d85c07a33d57daa39339d8212134b55b4239",
+        "model_collection_immutability": "parent",
+        "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/seed-42/treatment/fork-0020.pt",
+        "replay_counts": {
+          "13": {
+            "games": 256,
+            "positions": 8200
+          },
+          "14": {
+            "games": 256,
+            "positions": 8367
+          },
+          "15": {
+            "games": 256,
+            "positions": 8503
+          },
+          "16": {
+            "games": 256,
+            "positions": 9183
+          },
+          "17": {
+            "games": 256,
+            "positions": 8893
+          },
+          "18": {
+            "games": 256,
+            "positions": 8481
+          },
+          "19": {
+            "games": 256,
+            "positions": 8636
+          },
+          "20": {
+            "games": 256,
+            "positions": 8593
+          }
+        },
+        "source_runtime_strict_reload": true,
+        "state": {
+          "augmentation": "2e3cbcfc3cc59a77fb53fdba3b02f16dc9f9bde1df4ff5ba864153e488f95e47",
+          "counters": {
+            "completed_generations": 20,
+            "total_games": 5120,
+            "total_positions": 158305,
+            "trainer_steps": 4957
+          },
+          "global_rng": "32fcd47997406ba87b42bdd7ade19077625c5c07f3317c96899f4043689caf74",
+          "model": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d",
+          "optimizer": "a1607432de4194668173cd87acb8d73102db838bfe7c9d2ae237f58464cc3896",
+          "replay": "02da9caa29bc70e8d5153109de7ceddebfd0ce9aa12e5edf55820e4596370ab1",
+          "runtime": {
+            "cpu_capability": "DEFAULT",
+            "cpu_model": "Apple M4",
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "float32_matmul_precision": "highest",
+            "inter_op_threads": 1,
+            "intra_op_threads": 1,
+            "machine": "arm64",
+            "mkldnn_enabled": true,
+            "numpy": "1.26.4",
+            "platform": "macOS-26.6.2-arm64-arm-64bit",
+            "python": "3.11.17",
+            "python_implementation": "CPython",
+            "thread_environment": {
+              "MKL_NUM_THREADS": "1",
+              "NUMEXPR_NUM_THREADS": "1",
+              "OMP_NUM_THREADS": "1",
+              "OPENBLAS_NUM_THREADS": "1",
+              "VECLIB_MAXIMUM_THREADS": "1"
+            },
+            "torch": "2.10.0",
+            "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+            "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+          },
+          "sampling": "b9995255fdc6ba7135fad52c5576b5ae076150bf120de3d948629a800cd4b4af",
+          "source": {
+            "execution": {
+              "files": {
+                "games/connect4/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+                "games/connect4/agents/mcts_nn_agent.py": "721b7ffe0b146d127641656e54219d55af2a52ce9a68e182df80fe202763df9f",
+                "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
+                "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
+                "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
+                "games/connect4/alphazero_v2/batching.py": "a7af8493083b18ef3671868fbd9595d62a054f35366472cd9b4b76c94ba56088",
+                "games/connect4/alphazero_v2/bitboard.py": "61a262e45191b1e22b57a224f848668315b60ddd5d7785d620c3dd4de2965229",
+                "games/connect4/alphazero_v2/campaign.py": "111365d403db0e14d70ae91fc272c53028eefae30f96e4d45f280d78e34ea0ab",
+                "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
+                "games/connect4/alphazero_v2/data.py": "dbe4fec9b4d3300943a175a52d07a8f9cdbbde159f4d102a69c4e93d26f7e254",
+                "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
+                "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
+                "games/connect4/alphazero_v2/experimental.py": "47f12c3c95fd511b83b1349c7af9249d690d0182b91e72e9178293da37d0fa57",
+                "games/connect4/alphazero_v2/experimental_cli.py": "04357efe5a17bc612bddba691f1830165ddc3286cb84e274894a661f99d85588",
+                "games/connect4/alphazero_v2/experimental_import.py": "dc913fbd156c88def0ed366d90f86e65264d249d068969a06141786702fc1017",
+                "games/connect4/alphazero_v2/experimental_models.py": "2b92139e129c157929aa9ac77e1488737fde8ebac4f115285b9bf36e73edc804",
+                "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
+                "games/connect4/alphazero_v2/launch_control.py": "b5b9e405c823cc976e0e7202d9b03175acf88c429919d4a597304736936820bd",
+                "games/connect4/alphazero_v2/network.py": "097712ae8a304a3d0ca38f4ef71fb6aeaf0a7ff8808e532ffd5475473f80ee5c",
+                "games/connect4/alphazero_v2/official_evidence.py": "eaa94dced355c10dc204fa196f6a65cde2adfb5339a8f14ffcf0f8c500720d74",
+                "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+                "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+                "games/connect4/alphazero_v2/profiling.py": "1a8fc4e7c0554dfe1b2fec5aefcaad965504939a7344daab33eb5c4be3669e46",
+                "games/connect4/alphazero_v2/provenance.py": "4e21e2dc7ade962068c85b1c6831c047bba2cfab6e8e97cd5ee9254fdbabe636",
+                "games/connect4/alphazero_v2/reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2",
+                "games/connect4/alphazero_v2/search.py": "49d719dfb30caf97ab562502584b4cd0ca3b3a8a9f82fd9c986a91f0c6ba993d",
+                "games/connect4/alphazero_v2/selfplay.py": "351b6bdf14e8a9a368b53795c1b9ccff5db02cb4975a3635a901d8143ff2df17",
+                "games/connect4/alphazero_v2/statistics.py": "72943fb3d8b8e039787e1d5c1db5e67837066818051a084e7ad4c4170df66cdf",
+                "games/connect4/alphazero_v2/training.py": "fa43a7b58707699b01d75128a8701ad0cd65d06ada07bafcfdde77701ff29b21",
+                "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+                "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+                "games/connect4/neural_mcts.py": "3cb50524922d42672c3d66f497a2e7491c503e9d22b8f53f17ac7f1703a881ec"
+              },
+              "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
+              "sha256": "b8aae0d6e14292dad2d2bcdb86f6048fad93a5eeaa5d342d7b5c340e9fc2bde5"
+            },
+            "git": {
+              "available": true,
+              "commit": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+              "execution_diff_from_head_sha256": null,
+              "execution_matches_commit": true,
+              "tracked_dirty": false,
+              "untracked_execution_files": [],
+              "untracked_files": 10
+            }
+          }
+        }
+      },
+      "42-treatment-g21": {
+        "atomic_publication": "Frozen fsync/strict-reload/no-replace-link/directory-fsync path; successful task and no temp remnants",
+        "boundary_integrity": "61f597d867b458a78e2b9ceb1ed4121d3b55c44feac627ee2ba368d85983632d",
+        "computational_state_sha256": "6d256aa3f90cfe66be8d02bc7c5151763d9886dbb729f1bbea3970f57e554857",
+        "file_sha256": "09e54ce1770a1ba4384320cf18be829de53b2831e62ae40f822bfce4d3b7eb5f",
+        "model_collection_immutability": "Frozen execution checks both snapshot/learner before replay; model hash chain verified",
+        "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g21/generation-0021.pt",
+        "replay_counts": {
+          "14": {
+            "games": 256,
+            "positions": 8367
+          },
+          "15": {
+            "games": 256,
+            "positions": 8503
+          },
+          "16": {
+            "games": 256,
+            "positions": 9183
+          },
+          "17": {
+            "games": 256,
+            "positions": 8893
+          },
+          "18": {
+            "games": 256,
+            "positions": 8481
+          },
+          "19": {
+            "games": 256,
+            "positions": 8636
+          },
+          "20": {
+            "games": 256,
+            "positions": 8593
+          },
+          "21": {
+            "games": 64,
+            "positions": 1617
+          }
+        },
+        "source_runtime_strict_reload": true,
+        "state": {
+          "augmentation": "58baa8cc55594e1f10ecedad06b008452d2e9006b6adc018435c9958ec3cd30b",
+          "counters": {
+            "completed_generations": 21,
+            "total_games": 5184,
+            "total_positions": 159922,
+            "trainer_steps": 5021
+          },
+          "global_rng": "32fcd47997406ba87b42bdd7ade19077625c5c07f3317c96899f4043689caf74",
+          "model": "3925343a3784c68878683a06aecfffa2ebe1ab406fe3475df02bbf18a3a30605",
+          "optimizer": "eae5a3f1bc023583a1e16a4fd1ff658972758203ba257b2fb8567836c2266b6f",
+          "replay": "736ce56140f31b6dbd66ce2b456942c1716081f47693d36bf3f8af2fa3ddd24e",
+          "runtime": {
+            "cpu_capability": "DEFAULT",
+            "cpu_model": "Apple M4",
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "float32_matmul_precision": "highest",
+            "inter_op_threads": 1,
+            "intra_op_threads": 1,
+            "machine": "arm64",
+            "mkldnn_enabled": true,
+            "numpy": "1.26.4",
+            "platform": "macOS-26.6.2-arm64-arm-64bit",
+            "python": "3.11.17",
+            "python_implementation": "CPython",
+            "thread_environment": {
+              "MKL_NUM_THREADS": "1",
+              "NUMEXPR_NUM_THREADS": "1",
+              "OMP_NUM_THREADS": "1",
+              "OPENBLAS_NUM_THREADS": "1",
+              "VECLIB_MAXIMUM_THREADS": "1"
+            },
+            "torch": "2.10.0",
+            "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+            "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+          },
+          "sampling": "1841ce33aeb7adb36a673f4eb556a46520aeff3e7fdf1437b94dbb921754a23e",
+          "source": {
+            "execution": {
+              "files": {
+                "games/connect4/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+                "games/connect4/agents/mcts_nn_agent.py": "721b7ffe0b146d127641656e54219d55af2a52ce9a68e182df80fe202763df9f",
+                "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
+                "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
+                "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
+                "games/connect4/alphazero_v2/batching.py": "a7af8493083b18ef3671868fbd9595d62a054f35366472cd9b4b76c94ba56088",
+                "games/connect4/alphazero_v2/bitboard.py": "61a262e45191b1e22b57a224f848668315b60ddd5d7785d620c3dd4de2965229",
+                "games/connect4/alphazero_v2/campaign.py": "111365d403db0e14d70ae91fc272c53028eefae30f96e4d45f280d78e34ea0ab",
+                "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
+                "games/connect4/alphazero_v2/data.py": "dbe4fec9b4d3300943a175a52d07a8f9cdbbde159f4d102a69c4e93d26f7e254",
+                "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
+                "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
+                "games/connect4/alphazero_v2/experimental.py": "47f12c3c95fd511b83b1349c7af9249d690d0182b91e72e9178293da37d0fa57",
+                "games/connect4/alphazero_v2/experimental_cli.py": "04357efe5a17bc612bddba691f1830165ddc3286cb84e274894a661f99d85588",
+                "games/connect4/alphazero_v2/experimental_import.py": "dc913fbd156c88def0ed366d90f86e65264d249d068969a06141786702fc1017",
+                "games/connect4/alphazero_v2/experimental_models.py": "2b92139e129c157929aa9ac77e1488737fde8ebac4f115285b9bf36e73edc804",
+                "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
+                "games/connect4/alphazero_v2/launch_control.py": "b5b9e405c823cc976e0e7202d9b03175acf88c429919d4a597304736936820bd",
+                "games/connect4/alphazero_v2/network.py": "097712ae8a304a3d0ca38f4ef71fb6aeaf0a7ff8808e532ffd5475473f80ee5c",
+                "games/connect4/alphazero_v2/official_evidence.py": "eaa94dced355c10dc204fa196f6a65cde2adfb5339a8f14ffcf0f8c500720d74",
+                "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+                "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+                "games/connect4/alphazero_v2/profiling.py": "1a8fc4e7c0554dfe1b2fec5aefcaad965504939a7344daab33eb5c4be3669e46",
+                "games/connect4/alphazero_v2/provenance.py": "4e21e2dc7ade962068c85b1c6831c047bba2cfab6e8e97cd5ee9254fdbabe636",
+                "games/connect4/alphazero_v2/reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2",
+                "games/connect4/alphazero_v2/search.py": "49d719dfb30caf97ab562502584b4cd0ca3b3a8a9f82fd9c986a91f0c6ba993d",
+                "games/connect4/alphazero_v2/selfplay.py": "351b6bdf14e8a9a368b53795c1b9ccff5db02cb4975a3635a901d8143ff2df17",
+                "games/connect4/alphazero_v2/statistics.py": "72943fb3d8b8e039787e1d5c1db5e67837066818051a084e7ad4c4170df66cdf",
+                "games/connect4/alphazero_v2/training.py": "fa43a7b58707699b01d75128a8701ad0cd65d06ada07bafcfdde77701ff29b21",
+                "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+                "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+                "games/connect4/neural_mcts.py": "3cb50524922d42672c3d66f497a2e7491c503e9d22b8f53f17ac7f1703a881ec"
+              },
+              "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
+              "sha256": "b8aae0d6e14292dad2d2bcdb86f6048fad93a5eeaa5d342d7b5c340e9fc2bde5"
+            },
+            "git": {
+              "available": true,
+              "commit": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+              "execution_diff_from_head_sha256": null,
+              "execution_matches_commit": true,
+              "tracked_dirty": false,
+              "untracked_execution_files": [],
+              "untracked_files": 10
+            }
+          }
+        }
+      },
+      "42-treatment-g22": {
+        "atomic_publication": "Frozen fsync/strict-reload/no-replace-link/directory-fsync path; successful task and no temp remnants",
+        "boundary_integrity": "7df1695d6c898ceccca4b67ff4259993be42af7e885b219e6d8ed66838f9dd15",
+        "computational_state_sha256": "f23d44cf988d3beac42910a1d69a41540c7418d2dd947c3725c188551fc9c905",
+        "file_sha256": "59214468b2d08c9590af8a21aebdebc1ad76f8806d1b8a15563893218ea08206",
+        "model_collection_immutability": "Frozen execution checks both snapshot/learner before replay; model hash chain verified",
+        "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g22/generation-0022.pt",
+        "replay_counts": {
+          "15": {
+            "games": 256,
+            "positions": 8503
+          },
+          "16": {
+            "games": 256,
+            "positions": 9183
+          },
+          "17": {
+            "games": 256,
+            "positions": 8893
+          },
+          "18": {
+            "games": 256,
+            "positions": 8481
+          },
+          "19": {
+            "games": 256,
+            "positions": 8636
+          },
+          "20": {
+            "games": 256,
+            "positions": 8593
+          },
+          "21": {
+            "games": 64,
+            "positions": 1617
+          },
+          "22": {
+            "games": 64,
+            "positions": 2032
+          }
+        },
+        "source_runtime_strict_reload": true,
+        "state": {
+          "augmentation": "235949d414766096ac7e991568e96caa96a3472528271d469079a43f1cbb0692",
+          "counters": {
+            "completed_generations": 22,
+            "total_games": 5248,
+            "total_positions": 161954,
+            "trainer_steps": 5085
+          },
+          "global_rng": "32fcd47997406ba87b42bdd7ade19077625c5c07f3317c96899f4043689caf74",
+          "model": "049f5e34c9a3acb9198f55f930c6b5d76baf953192e93952df8cdae1c4586226",
+          "optimizer": "ff349d35860496a39285639e2c56007c8ccdbb7e1515251a7be34b54ff21fc14",
+          "replay": "1322d1d6d205bafc76a394885479151af68261d7bdb2c15151ac75879e3a8948",
+          "runtime": {
+            "cpu_capability": "DEFAULT",
+            "cpu_model": "Apple M4",
+            "deterministic_algorithms": true,
+            "deterministic_warn_only": false,
+            "float32_matmul_precision": "highest",
+            "inter_op_threads": 1,
+            "intra_op_threads": 1,
+            "machine": "arm64",
+            "mkldnn_enabled": true,
+            "numpy": "1.26.4",
+            "platform": "macOS-26.6.2-arm64-arm-64bit",
+            "python": "3.11.17",
+            "python_implementation": "CPython",
+            "thread_environment": {
+              "MKL_NUM_THREADS": "1",
+              "NUMEXPR_NUM_THREADS": "1",
+              "OMP_NUM_THREADS": "1",
+              "OPENBLAS_NUM_THREADS": "1",
+              "VECLIB_MAXIMUM_THREADS": "1"
+            },
+            "torch": "2.10.0",
+            "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+            "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+          },
+          "sampling": "cd5720fd0de66a535a97d4b97d8777fb9548d5ed01e1f3642ab4c71321173896",
+          "source": {
+            "execution": {
+              "files": {
+                "games/connect4/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+                "games/connect4/agents/mcts_agent.py": "6441cea39d2f1ac94ea76d2aa0a1bd6ca0ace716d776e024fdfc1047ee129594",
+                "games/connect4/agents/mcts_nn_agent.py": "721b7ffe0b146d127641656e54219d55af2a52ce9a68e182df80fe202763df9f",
+                "games/connect4/alphazero_v2/__init__.py": "3349be5d25645ec613637343252fc41a1b732fe49ba4f97864e75a984eb4e60a",
+                "games/connect4/alphazero_v2/arena.py": "ed15db7db0972fc5cc80e9ba6bb9db7cca90297ef60637b74b66dfa78d1df101",
+                "games/connect4/alphazero_v2/artifacts.py": "f35598891607edd88180d8957e94d6c494b1e152147c7a85fda3d96b6226215f",
+                "games/connect4/alphazero_v2/batching.py": "a7af8493083b18ef3671868fbd9595d62a054f35366472cd9b4b76c94ba56088",
+                "games/connect4/alphazero_v2/bitboard.py": "61a262e45191b1e22b57a224f848668315b60ddd5d7785d620c3dd4de2965229",
+                "games/connect4/alphazero_v2/campaign.py": "111365d403db0e14d70ae91fc272c53028eefae30f96e4d45f280d78e34ea0ab",
+                "games/connect4/alphazero_v2/config.py": "d31678150221b984e24a92bbd299659ddd0ae59bd35e1ca94ca78202b1f7762e",
+                "games/connect4/alphazero_v2/data.py": "dbe4fec9b4d3300943a175a52d07a8f9cdbbde159f4d102a69c4e93d26f7e254",
+                "games/connect4/alphazero_v2/diagnostics.py": "8f0006c20c099cc6b04a6e312e67920efa589f5a9bb83d59dce8bad7a694c4a0",
+                "games/connect4/alphazero_v2/evaluation.py": "b0dc3303d456086b15c68635607c308a34dd38a9c0466e9d422be050d9ceee8e",
+                "games/connect4/alphazero_v2/experimental.py": "47f12c3c95fd511b83b1349c7af9249d690d0182b91e72e9178293da37d0fa57",
+                "games/connect4/alphazero_v2/experimental_cli.py": "04357efe5a17bc612bddba691f1830165ddc3286cb84e274894a661f99d85588",
+                "games/connect4/alphazero_v2/experimental_import.py": "dc913fbd156c88def0ed366d90f86e65264d249d068969a06141786702fc1017",
+                "games/connect4/alphazero_v2/experimental_models.py": "2b92139e129c157929aa9ac77e1488737fde8ebac4f115285b9bf36e73edc804",
+                "games/connect4/alphazero_v2/generation.py": "c2b6afa4424cc93cc8abadf59f3a25993699ace54bef60b384aea8db4330395b",
+                "games/connect4/alphazero_v2/launch_control.py": "b5b9e405c823cc976e0e7202d9b03175acf88c429919d4a597304736936820bd",
+                "games/connect4/alphazero_v2/network.py": "097712ae8a304a3d0ca38f4ef71fb6aeaf0a7ff8808e532ffd5475473f80ee5c",
+                "games/connect4/alphazero_v2/official_evidence.py": "eaa94dced355c10dc204fa196f6a65cde2adfb5339a8f14ffcf0f8c500720d74",
+                "games/connect4/alphazero_v2/oracle.py": "f9d86ba0eb5356e744bbdea4fba8f5b9285702415bfacdd943515080fd01a6f2",
+                "games/connect4/alphazero_v2/packages.py": "d00d9978e750fee21230d17cd04857525fc28f0e22493b4efb90a5b2019bb05a",
+                "games/connect4/alphazero_v2/profiling.py": "1a8fc4e7c0554dfe1b2fec5aefcaad965504939a7344daab33eb5c4be3669e46",
+                "games/connect4/alphazero_v2/provenance.py": "4e21e2dc7ade962068c85b1c6831c047bba2cfab6e8e97cd5ee9254fdbabe636",
+                "games/connect4/alphazero_v2/reference_negamax.py": "16ef04537250610df45c51967411472978558a40fbc3801d2615fae99e5798e2",
+                "games/connect4/alphazero_v2/search.py": "49d719dfb30caf97ab562502584b4cd0ca3b3a8a9f82fd9c986a91f0c6ba993d",
+                "games/connect4/alphazero_v2/selfplay.py": "351b6bdf14e8a9a368b53795c1b9ccff5db02cb4975a3635a901d8143ff2df17",
+                "games/connect4/alphazero_v2/statistics.py": "72943fb3d8b8e039787e1d5c1db5e67837066818051a084e7ad4c4170df66cdf",
+                "games/connect4/alphazero_v2/training.py": "fa43a7b58707699b01d75128a8701ad0cd65d06ada07bafcfdde77701ff29b21",
+                "games/connect4/board.py": "da9fcd4ae3cbe77f92e6a31d140d9e1e2258bb38611282dc6fe7fb966d142477",
+                "games/connect4/connect4.py": "0e8e9776824b73000d3405042a9fe6544364cdd1659836c3982d6cbbf446ca2a",
+                "games/connect4/neural_mcts.py": "3cb50524922d42672c3d66f497a2e7491c503e9d22b8f53f17ac7f1703a881ec"
+              },
+              "scheme": "sha256(json(sorted relative path -> file sha256))-v1",
+              "sha256": "b8aae0d6e14292dad2d2bcdb86f6048fad93a5eeaa5d342d7b5c340e9fc2bde5"
+            },
+            "git": {
+              "available": true,
+              "commit": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+              "execution_diff_from_head_sha256": null,
+              "execution_matches_commit": true,
+              "tracked_dirty": false,
+              "untracked_execution_files": [],
+              "untracked_files": 10
+            }
+          }
+        }
+      }
+    },
+    "selfplay_simulations": 4197632
+  },
+  "caveats": [
+    "Git reporting changes are excluded from computational equality; execution-content/runtime remain strictly enforced.",
+    "Atomic syscall provenance follows frozen reviewed source and successful completion; not an independent syscall trace.",
+    "No inference/search/training rerun; evaluation identities follow the frozen orchestrator, not per-row signatures."
+  ],
+  "fixture_sha256": "80f6851838b18172d6f818ebd306ce0cd36e4796cac1e3a71df29694feb3ca2c",
+  "freeze_sha256": "4f366322dee6f3ea0d68ebe05039350dcd680f580a35608fd959cb6319782e01",
+  "official_files": {
+    "campaign.lock": "6d1dde03718703b6ef318f16cff8018e066e0745d792d854b7473a4595fa1aaf",
+    "declaration.json": "c8ab2227d4b2c707b3185da8695a991f0914faede88ecd5f1c7fc84fb017b716",
+    "final/seed-314159.json": "5b03ceec58b401a25f1a2a1fe5394a0b0fc1679db3375c165d49aa755a6dd5f7",
+    "final/seed-42.json": "87c9b8a659bd75fdf401458a622397d21176193be74fb294182b48c59a250091",
+    "final/started.json": "73464609088cba5b774bc05c1bdcebce6d9da74bc6eb83cd9cb2003b978db3c5",
+    "packages/openings-development.json": "3990bc230084bd5c9293c15a44eae05f35749d2a3a18e66566461dae98f82f72",
+    "packages/openings-sealed.json": "d30683aa300fb7fe095da3f867c8bb9b301d387532aebe751660b90fb8aa34eb",
+    "packages/solved-development.json": "41ffd4dfcdd85b939c8afaea692566339e612224f16d2a62797c2960192f37b9",
+    "packages/solved-sealed.json": "2c5f70dcbb9bd0e3242a760e240eec3ca52cd075a066eedaf5fa39472376394b",
+    "packages/tactical-development.json": "106cc315c7e8d9b44a260df1a3407578ce1197411a6e614be3a7c38a5b9e6d9d",
+    "packages/tactical-sealed.json": "cb4e2e1e4ef1b877d8ecce840e04b04e8522df08747ba765c0d5608134af6f47",
+    "runs/seed-314159/champion-check-0005.json": "29967acb7bc351abb05cc9a65aee273cca8b1343390a47d3801d00c2eec286ca",
+    "runs/seed-314159/champion-check-0010.json": "0b26c345a24b98d18fe3800be9b54b89a05970c45624ed09be412227de04f1d3",
+    "runs/seed-314159/champion-check-0015.json": "1a20c15bf4da220330abcfa663b6f0754255054155f2b86a4fabbb9e3f96fd0e",
+    "runs/seed-314159/champion-check-0020.json": "1b2cc7e0805f4f5ee758db16641912963023ff02abda103253f726cda3790f7b",
+    "runs/seed-314159/generations/generation-0000/generation-0000.inference.pt": "93dfb2c022568badb36f91e084cc5a20fe7a5b429bb7dc20873d25a262a05051",
+    "runs/seed-314159/generations/generation-0001/generation-0001.games.jsonl": "8c5bcf734e2332eb81b5eb79bb88b3383d7c22f07e4f1b0f00ae97bdc076c7c4",
+    "runs/seed-314159/generations/generation-0001/generation-0001.inference.pt": "ed26351b6939c9c5eb594dabdcbe932c9ea6b15ffc1777edb89bfaf3de9c472a",
+    "runs/seed-314159/generations/generation-0001/summary.json": "8d6485cb832c4b80e536f9d1866290472cc71f460cd13df0e3a2124a8f371141",
+    "runs/seed-314159/generations/generation-0002/generation-0002.games.jsonl": "8d7558e8226f86e380b18505c22b305a4d90c15989fcf263a8d1a3b887618cac",
+    "runs/seed-314159/generations/generation-0002/generation-0002.inference.pt": "af31509de30a825b7cd22a6ce9a76734af37657e64b2a14af0968d33f538a9e7",
+    "runs/seed-314159/generations/generation-0002/summary.json": "04794d6418439fa3da564b27ae9130356b469796fa35d2d3061dccaaf7674e33",
+    "runs/seed-314159/generations/generation-0003/generation-0003.games.jsonl": "3e084bb76ac53a36d6f91a98bac74e4c59f72698f34311a29b6063049259974c",
+    "runs/seed-314159/generations/generation-0003/generation-0003.inference.pt": "01fa87045ca41979cb00246f058830692c0c2a707a1985fa8b6839e7abb07e7f",
+    "runs/seed-314159/generations/generation-0003/summary.json": "b61292b8e6ea9753163da3edc148db392bb9792778ba8fe04c76491e7159d072",
+    "runs/seed-314159/generations/generation-0004/generation-0004.games.jsonl": "512f42d55c4cf1147a0f5cdf4a17e779b399b4856b170d4507a3d6777bd11629",
+    "runs/seed-314159/generations/generation-0004/generation-0004.inference.pt": "b21b1db0467703a2ed123d46cba814678b68c0ef72b22a62798ff06dab57b210",
+    "runs/seed-314159/generations/generation-0004/summary.json": "2e5754fe2bee46f87579a6424ec9b1c5cec8208d6481d2f04631c725a1d5d9b7",
+    "runs/seed-314159/generations/generation-0005/generation-0005.games.jsonl": "bc3b57151be95a1a2000a4eef068df2a2060b5c57a2b92000425e313a7b84149",
+    "runs/seed-314159/generations/generation-0005/generation-0005.inference.pt": "8726030bd141f4bcd162d6a710557752124f1e22359aa4142eb7c058262da5cf",
+    "runs/seed-314159/generations/generation-0005/summary.json": "7a7f6075f446d140ec1251589781834f3842b6b188f58c2f9db990e19dc63b64",
+    "runs/seed-314159/generations/generation-0006/generation-0006.games.jsonl": "2160e68163d5d23f0407531feba6195d0bb74b2f17e160eaba3b187b2f32e5df",
+    "runs/seed-314159/generations/generation-0006/generation-0006.inference.pt": "fd71d443a99b7ccd7de0f110a85fc4df61b0987b62f73c3950b278853180f98e",
+    "runs/seed-314159/generations/generation-0006/summary.json": "c058ca8c8eb45f452ff79b6159930f2b36492f48142772872752886f4d9d7d29",
+    "runs/seed-314159/generations/generation-0007/generation-0007.games.jsonl": "a1d3080fbdc64c7c30fd608a43556908ee68f1f336b0180d077bb461298cb841",
+    "runs/seed-314159/generations/generation-0007/generation-0007.inference.pt": "e2dd90966ea4b455f0974eabb5b078d9783e279fd0e66cfa1e0759deec5a459d",
+    "runs/seed-314159/generations/generation-0007/summary.json": "d93ca28caf958340b6fcdc998fedecb1856e064b7466c4770b663f2a7adb3e16",
+    "runs/seed-314159/generations/generation-0008/generation-0008.games.jsonl": "cb1af79e7021a6404c6cb10aa44fb9332ff3bdfd40876c99e1c83f56b07510a2",
+    "runs/seed-314159/generations/generation-0008/generation-0008.inference.pt": "207ed3de10a3d863ff65a599cf2b4d6d3b8276cbefaaa705f1aea1c1b29939f4",
+    "runs/seed-314159/generations/generation-0008/summary.json": "3a3f1cf6185e371dfe6991006454a7251bcce54e0d85ba9591cef171950ea4d1",
+    "runs/seed-314159/generations/generation-0009/generation-0009.games.jsonl": "f37f3d783072625dde37e99051fda1c8cabbd0293fe6852318a0a482611494bb",
+    "runs/seed-314159/generations/generation-0009/generation-0009.inference.pt": "e6cad80f7d93bb1081ac6f63754eddcd9ccbdc19957ba9842fd005d64a0fa6d8",
+    "runs/seed-314159/generations/generation-0009/summary.json": "b9372c4e9ac9a6c4e905f1254599b1442328120b9d6212612a344c9677eb868d",
+    "runs/seed-314159/generations/generation-0010/generation-0010.games.jsonl": "31cdb978e1f6e5b62d2f599b6ef143e135f8e303bed98237c0d44a7bef50ab45",
+    "runs/seed-314159/generations/generation-0010/generation-0010.inference.pt": "a96c87e6b9185eded4d6360af9fc0cb375e91238235f1203ba0b906783596ad3",
+    "runs/seed-314159/generations/generation-0010/summary.json": "ac860b9b22d9fa549f9ab3869a036125b569f397942d734061dd291cca00d3d4",
+    "runs/seed-314159/generations/generation-0011/generation-0011.games.jsonl": "4119fc4c86bb9484334d16601d61b579946a3d86b6a8de655497368a749fd886",
+    "runs/seed-314159/generations/generation-0011/generation-0011.inference.pt": "36cb0e7f2fd138ebbb0587c92fa6f133ddaf8dd4ebea75217ef72186c6a4e31e",
+    "runs/seed-314159/generations/generation-0011/summary.json": "fc1e5ab539a2d49de550d96b32b93f3fa30a9a710af7464a5cf3bf6d242cf3c3",
+    "runs/seed-314159/generations/generation-0012/generation-0012.games.jsonl": "fb0641870c4c2b04fa4713acf709d323ffb65fd1ae01d7c84aee5619ef3e9b18",
+    "runs/seed-314159/generations/generation-0012/generation-0012.inference.pt": "4f90d1dc0b349169b7ec26521332d893e3532690745c50f73f81e0b2fbca3dd1",
+    "runs/seed-314159/generations/generation-0012/summary.json": "f15432475b3b690ceb12e5c12a98115461092347a165112a6d5d41f6ccb6b02c",
+    "runs/seed-314159/generations/generation-0013/generation-0013.games.jsonl": "c82c58da1e4b77c2f65ec2075ea78da659eb9b38e1b301bfe66122232f5fe026",
+    "runs/seed-314159/generations/generation-0013/generation-0013.inference.pt": "34c4dfe19e608c39a9a9faca845482d1042f65c5f5f347320892314b4888e9d3",
+    "runs/seed-314159/generations/generation-0013/summary.json": "61d64c7643e17f2960336dba2156c4944954333cd25c70105173d562e3756081",
+    "runs/seed-314159/generations/generation-0014/generation-0014.games.jsonl": "466fdc4bbdea578f25a6cea08de609a1e2193d424168ff6d3050c0157d8e44c4",
+    "runs/seed-314159/generations/generation-0014/generation-0014.inference.pt": "f197aa1ad18b7f519a8a8086ea94f4a17d9d853e745d0d78f695e82e0ab0ea2e",
+    "runs/seed-314159/generations/generation-0014/summary.json": "5f57748b36d93b2def8a06f4e2b44be51f885ebac517a1e24fd700dabc3db00c",
+    "runs/seed-314159/generations/generation-0015/generation-0015.games.jsonl": "089efe548580ecc089d386c0c383de7546d8b384cda79ceafd6088ddf19e1a3f",
+    "runs/seed-314159/generations/generation-0015/generation-0015.inference.pt": "6923a8b2cef8471742e82d7d493beb5b44cd3180a03d2061523bb84bf115a03e",
+    "runs/seed-314159/generations/generation-0015/summary.json": "b8d20272d3f766f1206461a393d13cc01240e5bbe3f508b7cfc208ef3bb0f0d5",
+    "runs/seed-314159/generations/generation-0016/generation-0016.games.jsonl": "4477366c01300f458e17fb415b1f26a99917b73b69793f24d4e4e55764d266ce",
+    "runs/seed-314159/generations/generation-0016/generation-0016.inference.pt": "68fa827600daafa55af0045c8c2b92ecdd905f5174dba0021a3a4446d2e6a457",
+    "runs/seed-314159/generations/generation-0016/summary.json": "dd1d33adfef88c9453d8332eb719779ecdd985f7309d6e3e3a3e0d7f3eeb389c",
+    "runs/seed-314159/generations/generation-0017/generation-0017.games.jsonl": "5a64994813fa96ce6377e926566b39b396b2c61d7573d1640d3bce94863f738a",
+    "runs/seed-314159/generations/generation-0017/generation-0017.inference.pt": "41ad2d082cc0edcd6e738d1a07259cfc7dbfc743b41e33cdaee8727ba2fed83a",
+    "runs/seed-314159/generations/generation-0017/summary.json": "a7600f9c3eaa409cef465f1fa851c253e3a52120caba0b01738e26fcd1bdb9dd",
+    "runs/seed-314159/generations/generation-0018/generation-0018.games.jsonl": "4b90fc68fd33468ad7cd9a91c0147ade37e9e8987d66b273a41237672f0e3000",
+    "runs/seed-314159/generations/generation-0018/generation-0018.inference.pt": "224083bbb3431cc84562211c923b7adedb6ee5c3d7adfd5070749506b574682c",
+    "runs/seed-314159/generations/generation-0018/summary.json": "d385317049b954fa31731d328508d4b20aebace226a0996c5a00e075e4317ff4",
+    "runs/seed-314159/generations/generation-0019/generation-0019.games.jsonl": "af5b82306e9c4c39beb59a88e75cee8a63e6c1859db185cf51b6b6f5a27f68be",
+    "runs/seed-314159/generations/generation-0019/generation-0019.inference.pt": "9823d2032a5d5b522541c0a314a85377315c98d6014b522cc0783a20798370ca",
+    "runs/seed-314159/generations/generation-0019/generation-0019.resume.pt": "a4eb14a586313b2d22edc68bee7a71631bc9ec2155e60f52a095b7d98572fe0b",
+    "runs/seed-314159/generations/generation-0019/summary.json": "346764fa7683c4c50460f9e93868f4a460eaa5392a2b8b9bd15bc7f2afac86dd",
+    "runs/seed-314159/generations/generation-0020/generation-0020.games.jsonl": "5954e7f84d73b0208c7a03f8bba879c7698fcd9a1ad187746e5a1608d171c23d",
+    "runs/seed-314159/generations/generation-0020/generation-0020.inference.pt": "83dd7c5c17f42a5358d83be17615d9aabca4d2344c74738dbf3350d1da7fd154",
+    "runs/seed-314159/generations/generation-0020/generation-0020.resume.pt": "328022e5f4c45c11650b7fd2b76fbafbbe4734f1161a75d91b5d0b4cb274f9d6",
+    "runs/seed-314159/generations/generation-0020/summary.json": "66bc8caa1139f1ac685c8cf203f02ff0858494fd33670b89a476408a1a592679",
+    "runs/seed-314159/selection.json": "885ce16b26081735eba21a9bfd1700962f368af5d25fece005476e5ed42ff5e7",
+    "runs/seed-42/champion-check-0005.json": "85652801667c830bc1fc32ebe31b23ab7d5d4bb99d53944d1f77458f5d2b9995",
+    "runs/seed-42/champion-check-0010.json": "0eb133254da24c89421a53e1fd4ecda5814c1e3bfef3e36b4002345f7f277ec5",
+    "runs/seed-42/champion-check-0015.json": "d0f973c6018b600d195aa0ffc6f096b896622256c0c323ba33ef147e61633701",
+    "runs/seed-42/champion-check-0020.json": "9ae6fb1cdd070d9f00585fc53132ef7ae1170a3a10d589102bfe5737d52bf475",
+    "runs/seed-42/generations/generation-0000/generation-0000.inference.pt": "29f5504975c7ecb877a09cd2db888ae6d5932c046b1461097d7f5512c5866729",
+    "runs/seed-42/generations/generation-0001/generation-0001.games.jsonl": "983720ae5136dd295341773f81af0d109b73fde4a5b814c6f812f72332bc5dc9",
+    "runs/seed-42/generations/generation-0001/generation-0001.inference.pt": "73fc51d51a9a0129bc86e22eb51e6764a9ea8c9171f0881621531b6892070f7b",
+    "runs/seed-42/generations/generation-0001/summary.json": "02540897eaa0468e08cebf741b0c685851459663c18e7915c318d672e76f3b43",
+    "runs/seed-42/generations/generation-0002/generation-0002.games.jsonl": "03ab6153b29171fdc310fccfeb9c02c19c73499f4a4db1f3ab6541ca4c3b1932",
+    "runs/seed-42/generations/generation-0002/generation-0002.inference.pt": "7e60478c729c81772533231dcb570dce787b85441a74f9eebc165a24dce4913c",
+    "runs/seed-42/generations/generation-0002/summary.json": "96ade240edb11e5dc60957d14a49ebf8bd8b74a777d5dc00f51c3b0fbed76cb4",
+    "runs/seed-42/generations/generation-0003/generation-0003.games.jsonl": "ed551547db4ff6e67ba1563b08a6131a0584b83071d5e74d27825c258dcbd910",
+    "runs/seed-42/generations/generation-0003/generation-0003.inference.pt": "82578ca21d2895759fe825ac04057f8d1ca7cf49e764380f72fdaafc64465e59",
+    "runs/seed-42/generations/generation-0003/summary.json": "2d748a5218351a22d3cd52ab6020a5e57d55a10b0ced9867017a39ee13dbaaea",
+    "runs/seed-42/generations/generation-0004/generation-0004.games.jsonl": "855843fb02fec41defa4cbdc273cae6ba51c6e81362ce9c1bd58df6d204fdb9a",
+    "runs/seed-42/generations/generation-0004/generation-0004.inference.pt": "e9eb72f07c6ae97356581ac3508d8c1cca34505fc1214a542c894fe1afa7e43f",
+    "runs/seed-42/generations/generation-0004/summary.json": "ae5bf1e608d9adb9cefc66c0630085e1d37f87e4d80764d6078d8c7c7b100115",
+    "runs/seed-42/generations/generation-0005/generation-0005.games.jsonl": "be5b83d5aa6f43620e9107b9c7d48cb85815da6b320de0de9aa6075eea47ca0f",
+    "runs/seed-42/generations/generation-0005/generation-0005.inference.pt": "6ca9a0b6e23a7b74d50fea858397c6530edb8c5bc5e43ab2c7c34702a4f11547",
+    "runs/seed-42/generations/generation-0005/summary.json": "447e31d5ae4c776aff9553d9d304f2d700d6669bc6562e47b82aceec13956f19",
+    "runs/seed-42/generations/generation-0006/generation-0006.games.jsonl": "df7de2667823b71be6117bb891f5c42c78f7e72f693ead637306ea19a72242d6",
+    "runs/seed-42/generations/generation-0006/generation-0006.inference.pt": "af855e93ad0c5c142ceb59e94a5eb0e60068312e6af1ced70dc7b3e1bc976065",
+    "runs/seed-42/generations/generation-0006/summary.json": "c77b756f064688e082930719488f53b52ef7dc544c41af545a0f85fa86b1b919",
+    "runs/seed-42/generations/generation-0007/generation-0007.games.jsonl": "4bd546f790097445bf57d9f35ae6ea7e37b7d34e48986f6ecd0447d014641446",
+    "runs/seed-42/generations/generation-0007/generation-0007.inference.pt": "511eec99b471b6db395a45169320cf6e53aad2b0aed28842ad7540ced773469f",
+    "runs/seed-42/generations/generation-0007/summary.json": "bba7c2394865b82da62238f98769d0dc3adf6bccfdd2d0b2153b8a3e577605ce",
+    "runs/seed-42/generations/generation-0008/generation-0008.games.jsonl": "6b51abd4d42e0ad9469939e4e4416596ec85923cc54f7e1d2cc8d9b15f0cde14",
+    "runs/seed-42/generations/generation-0008/generation-0008.inference.pt": "65bca073874fc270bc08619c740962939c16d21c555915b9fb49840f090e2ccf",
+    "runs/seed-42/generations/generation-0008/summary.json": "c710e2cd1346a68461c6df1e7aa839195f89d40c9337b62f0bc45fb78d19e768",
+    "runs/seed-42/generations/generation-0009/generation-0009.games.jsonl": "d423dbf98e135aadc0c4b0c3c87bf19711b02d23566be618b60fe3abafd5136e",
+    "runs/seed-42/generations/generation-0009/generation-0009.inference.pt": "a8493d358da0267df47fd653f40e623768851fb102dbae0aebfc214357185c7e",
+    "runs/seed-42/generations/generation-0009/summary.json": "6399214f318337192ed57500dc7018dac561b7790c599bd2955a31856995cdba",
+    "runs/seed-42/generations/generation-0010/generation-0010.games.jsonl": "24187ae8b54cbd0233b2718c441a1a945345318f593bdb83fa91af581f5683ee",
+    "runs/seed-42/generations/generation-0010/generation-0010.inference.pt": "8a39029106ba0290a83339253869a86f097a27f295461a1daa9d221fd85430c8",
+    "runs/seed-42/generations/generation-0010/summary.json": "9d3df638e158b21453a5d489991af1f0ccf5294dfd3f8e892c89d6209156268b",
+    "runs/seed-42/generations/generation-0011/generation-0011.games.jsonl": "f276c5ec1d6fb675bbde596dccaff91cc5708e9b74fd17f93174040646e82d9b",
+    "runs/seed-42/generations/generation-0011/generation-0011.inference.pt": "e2e88bb441ea80c36deda94d6d64f893a06e3dab838951ce2486134af9393772",
+    "runs/seed-42/generations/generation-0011/summary.json": "4203036593871788bed6fd09ef12d34cc7873e1ea66e9ac41cc304ba84f65d07",
+    "runs/seed-42/generations/generation-0012/generation-0012.games.jsonl": "bf89bcb901afe836ba10a7a98d2d015e85523c497368d008c87ef38c6fad77bd",
+    "runs/seed-42/generations/generation-0012/generation-0012.inference.pt": "f620448dfd4943ec98d27872341704577c56666caa6e74bc0cefc59f78bf8a6c",
+    "runs/seed-42/generations/generation-0012/summary.json": "2f1b8ce03d4f29db4645ce781381738c0a3673471ac12e029ddcf11149ef9019",
+    "runs/seed-42/generations/generation-0013/generation-0013.games.jsonl": "288395e633d77d03e1c89e6bc1eb6ea2e4c1f15a8e9d94c2956d87c9dbda7b2f",
+    "runs/seed-42/generations/generation-0013/generation-0013.inference.pt": "4f0aecfe0dbb4c8cf30a1703e93ee4c5069884e432c0979a78d824d78d010d81",
+    "runs/seed-42/generations/generation-0013/summary.json": "0078facee193f87031541c05e261c2a2d5795ec10ab5ca09be5ff3f22ab654dc",
+    "runs/seed-42/generations/generation-0014/generation-0014.games.jsonl": "244a064a69f61ae4aafd704214874804dc88cd9b208906e5a6859364e0b295a6",
+    "runs/seed-42/generations/generation-0014/generation-0014.inference.pt": "92ae8a6e1854bf3714e3b11cca618e5fc53e7171ecf3f43a39c216c6370789b3",
+    "runs/seed-42/generations/generation-0014/summary.json": "94546b66e752e9856a9f70b912c78d5f92e0b032343eec7884e06fa0e56babce",
+    "runs/seed-42/generations/generation-0015/generation-0015.games.jsonl": "e206271fdbf311fd4e4815ef252d5749ef9f3ca27a6ba08c09543e3c2c9003fc",
+    "runs/seed-42/generations/generation-0015/generation-0015.inference.pt": "ea8522db4024971516a1fa9f67a8a02ae9bed745e913eb14974077fc0051013f",
+    "runs/seed-42/generations/generation-0015/summary.json": "3b0b0ebd1f0ca20a595e1dd209955132baaf6f6fb6870216721050ea9009a072",
+    "runs/seed-42/generations/generation-0016/generation-0016.games.jsonl": "9170936246c8e5452221ce0c0556e5fcc1f1d2c6101b37c2c61fdc9dd600beff",
+    "runs/seed-42/generations/generation-0016/generation-0016.inference.pt": "e7c7a30e37c07864edf6ae9462e029bf76017ab1436e17d90385b5bf80eb6dd5",
+    "runs/seed-42/generations/generation-0016/summary.json": "afdb196149c0acce5b7331df0e820bbf9cf6bf4cdc0dfa9ab8c4b1c5bda8fee2",
+    "runs/seed-42/generations/generation-0017/generation-0017.games.jsonl": "e1c0851796bbdb245a696d96a7e6e27c6377d3df0209eae9201117ba589a143e",
+    "runs/seed-42/generations/generation-0017/generation-0017.inference.pt": "27beeae672e3fa8e57ed7dbad7504718d5394f7fb8964ae35b9df861ccbe1a78",
+    "runs/seed-42/generations/generation-0017/summary.json": "60bd8fab02b664973fe9e367b06e55690aaa2987c8ecf15fbf546680e0b7199e",
+    "runs/seed-42/generations/generation-0018/generation-0018.games.jsonl": "28d824d8c8924290c8d91ec392155c1cc04acbbd8fd4d97ebcf7c598f1d96d5d",
+    "runs/seed-42/generations/generation-0018/generation-0018.inference.pt": "f76bef8cf6449cebae13ac1e050d9aa712c285d85b9b4f9f9976bbfafc9da1b6",
+    "runs/seed-42/generations/generation-0018/summary.json": "5b10c170b8653669ddff81ae58126039e01b6aef9b83d1193d8d8bc8fc7d8c86",
+    "runs/seed-42/generations/generation-0019/generation-0019.games.jsonl": "b7bf456d82425490811c37f560c52c6d84448a5df7a5765328c7795378764293",
+    "runs/seed-42/generations/generation-0019/generation-0019.inference.pt": "02cea8cf27661ece4431eef5779d52ad57d585e0eb3754f91e971e64ae00938b",
+    "runs/seed-42/generations/generation-0019/generation-0019.resume.pt": "438ff5e71c0d8ff9fbbadb0e2898fa350e037e2e296f88b0be67f1e4d4384bfa",
+    "runs/seed-42/generations/generation-0019/summary.json": "882965a5c22f6bd26bb41cb83ad1d197bfde2567a87a0d99b7b2c796e81c946e",
+    "runs/seed-42/generations/generation-0020/generation-0020.games.jsonl": "47ba9d663101a6f612f56db1baaa93f0e50cb0060afad9242bc3abee49c86356",
+    "runs/seed-42/generations/generation-0020/generation-0020.inference.pt": "3e0878c7c661bca8b26ead13052981726c6a02f6664e34224a45ca5bfa72842a",
+    "runs/seed-42/generations/generation-0020/generation-0020.resume.pt": "2866722b5e55726b75ae27d4bdb70e98d9b01b9ca503b0925fe9aa8b17d210b1",
+    "runs/seed-42/generations/generation-0020/summary.json": "ec48ccbffec4b0195fd0c4c550d3ff2039249812a8cd94a2b6cbb61b581ab384",
+    "runs/seed-42/selection.json": "7f5013a608c5f1e9bdf5bfe339a7ac673accc6ae870d5ba0172b3344df7ec690",
+    "source/source.json": "757860968782ca0360a908bb75d69c742b2580f11bde95145672d716049b1dde",
+    "source/tracked.patch": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "state.json": "1c2262991cb797cad1f1b7faac2ee32db1c0fcde631f1fe77522351a5c5e10db"
+  },
+  "prospective_commit": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+  "protected_reporting": {
+    "resnet-b": {
+      "after": "?? research/alphazero_resnet_benchmark/architecture-review.md\n?? research/alphazero_resnet_benchmark/report.py",
+      "before": ""
+    }
+  },
+  "status": "PASS",
+  "structure": {
+    "counts": {
+      "games": 512,
+      "matches": 256,
+      "updates": 512
+    },
+    "evaluation_search_roots": 6280,
+    "evidence_hashes": {
+      "execution/314159-control-g21-evaluation/deep.json": "df58cab2805e96527a1201372f27e282fc6bf8a3f243f6fd02a7d6351cb0ffcf",
+      "execution/314159-control-g21-evaluation/solved.json": "5ac9775e3eb8021cda31f726316189434d8fca950c6f86f345163205ce088406",
+      "execution/314159-control-g21-evaluation/tactical.json": "f33f0ec546c0ca08b76cd2ef39a51087aa8aab1ee4e934745ae391f8fa8c94d5",
+      "execution/314159-control-g21-evaluation/task-complete.json": "d8e84552b888b99ac629eccd874f4ccf005518e85e1d41fd36bd21853eb9deaf",
+      "execution/314159-control-g21/complete.json": "10e06291a2d4372ce6d7f8dec6fb3170188cd9e3c25508bc8252d8c1dcfa6cfc",
+      "execution/314159-control-g21/games.json": "fd2712c16c13d57435140c33269dd721d2e7d0c23744df16e0d5e46099c871a0",
+      "execution/314159-control-g21/progress.json": "fcbe7fd1012b0b7b1e4edf51918bc710cb48698c28a8336525983700b7d36f0d",
+      "execution/314159-control-g21/task-complete.json": "13c037b12fe1fdedcee41abb123d2160de3893643632469de6ec48fa3e153ee0",
+      "execution/314159-control-g22-evaluation/deep.json": "c392705a9ab2d1e1f410f4c0da20689084cb19dea7978a9a27c3ef6e9985c06b",
+      "execution/314159-control-g22-evaluation/solved.json": "179f900d92ed7333f5199dfa20111b3a21a8279ee7a8643e37104f0c6f5ce324",
+      "execution/314159-control-g22-evaluation/tactical.json": "0533537a6ccca7a2f7cfda9e9f6a827f6b94ee0ad92a02bf2c3f4f126ab8a6f5",
+      "execution/314159-control-g22-evaluation/task-complete.json": "69f8f2a3ca1661336c336ef4dc1b67463fcf5e071ff03493c72ec5d6151936a5",
+      "execution/314159-control-g22/complete.json": "b446e53db6421a62a22ee4ced80409636e7e92f3d1f8484a6190ddd6101a6281",
+      "execution/314159-control-g22/games.json": "92fa177462cddc4ff16f412ea5a6d42655651ff75f6c1c6e571a7d7ebaf3c055",
+      "execution/314159-control-g22/progress.json": "0f4a467e4ce52f3921b896584efbc7aea7cbe4dbc2811d69e850da89e41e6b9f",
+      "execution/314159-control-g22/task-complete.json": "3b64df9acb41a7d26f2b8f7fe16557aa1b400e0afa9f8fa99dd2e51110bfd864",
+      "execution/314159-control-strength/matches.json": "237d45b9f4dc8dde15386db47d9a27a9fa95dfa5e4db717334238c42b08cb711",
+      "execution/314159-control-strength/task-complete.json": "85833f76ed799fc9842b302f14edc239ab915335d0a30280485e70f3536f44a8",
+      "execution/314159-treatment-g21-evaluation/deep.json": "e93b6814245f68221d1d0fabd5c463c2bf66b7414242a00ab9fa63168b6003e3",
+      "execution/314159-treatment-g21-evaluation/solved.json": "1c8eb0ddf7337a69cc41e1f7a51e270a2be1284ec84eeb0ecac0f25108dd71fc",
+      "execution/314159-treatment-g21-evaluation/tactical.json": "72cc98022094e41046eebfccc6ec3bb08c6c66d78131bb7d591c7c93c0564d44",
+      "execution/314159-treatment-g21-evaluation/task-complete.json": "e5ac30c38d49b3093dc37b249d8d5df04e072145fdbf0c868cb323dc7f016d31",
+      "execution/314159-treatment-g21/complete.json": "57f43f16e96dfa4cb01a66eb132ccac70dea0c47ee65df3dcbc1e4e9d6e67d7e",
+      "execution/314159-treatment-g21/games.json": "61573871363884f1a30070693fdfe0332f3784200cc28549413bf6c7f2901a69",
+      "execution/314159-treatment-g21/progress.json": "42ff73933137469a01ecbbde9ec91d6b9c035097300731f2207d56852982b232",
+      "execution/314159-treatment-g21/task-complete.json": "a36a57cfe0d5fe5c6a0b3cbe2c40700b384570494c21f5a53ca084e86538c069",
+      "execution/314159-treatment-g22-evaluation/deep.json": "b1d87970fe467b786f07ea56abb798f36a9254caa290c9453f85331b8efdaa69",
+      "execution/314159-treatment-g22-evaluation/solved.json": "779d62cdfa33506a7d2e0efb1d35024f261ea535d5cd2614186b4c9d997cc503",
+      "execution/314159-treatment-g22-evaluation/tactical.json": "d07193f470c45b5bf9efa486abe3832f1b3bcfff22a27c24d165a347e9956b94",
+      "execution/314159-treatment-g22-evaluation/task-complete.json": "a41045f8aad1e742d2bf1e85f4e40b7bee0fc07ef7b49e0142df2ce8621a4f0e",
+      "execution/314159-treatment-g22/complete.json": "8afb770292db6842d9a708b7f7ee29ddf0db31c5e1823320164fe610175afa99",
+      "execution/314159-treatment-g22/games.json": "b465e5234c455cd2f5db9477fd1e64a2796d7e073d0f0309ac652f1cd195ead8",
+      "execution/314159-treatment-g22/progress.json": "8b708fe3e4acfa72de00c2b596b1d2af55a1b9e8201e76256e5d87bd88936a87",
+      "execution/314159-treatment-g22/task-complete.json": "115c48b3d422aaca48e9b02b879792b299107d2550ee190432e93d8e4a232212",
+      "execution/314159-treatment-strength/matches.json": "1c058a527f816bcdb99cae44f3f52c33e2a5c4f41c636c4f9e3bd404a88a4c02",
+      "execution/314159-treatment-strength/task-complete.json": "f0b1baf3f28be66467dc76c69c907f21f02008bca4a525ca6b7e8380bf008670",
+      "execution/42-control-g21-evaluation/deep.json": "d6c429a683c46a3b066d620320db3a3d85df3ad12992f9f2222c0a4731ea8d09",
+      "execution/42-control-g21-evaluation/solved.json": "28d6e164f6c0a81b86aff955cde041e157092465574279b02cb9124419451b7b",
+      "execution/42-control-g21-evaluation/tactical.json": "59fbe10e12cad2a289526433425ae14b7574a75f6ddc1fd56007d1a477d4e5f8",
+      "execution/42-control-g21-evaluation/task-complete.json": "a2217629370e88a7e74b55e4b8ec5e295006c7c4a6f41a87757787ab2c6e3ef0",
+      "execution/42-control-g21/complete.json": "af007097297eab2cf656114e6cba74713d973489034eeb3d642b5eca59b6aaf2",
+      "execution/42-control-g21/games.json": "98868e5406ae46c6ccc6bfa9e6d6db35b3631dab3906cf4e124c6521865e10e4",
+      "execution/42-control-g21/progress.json": "947f21119f9373b37d42bab67e207b83674201aab4bbb49188b5553af2c8f0a8",
+      "execution/42-control-g21/task-complete.json": "987b9846c48c275c40b7e18792c2437239263b7f87b6a8648d1ec982b3e0e65f",
+      "execution/42-control-g22-evaluation/deep.json": "3638e2d73eee8b2007adb386321e4b58ab92b2c3d5f72855ac5806f1b3b9f385",
+      "execution/42-control-g22-evaluation/solved.json": "52e80ce0d8ceb981868e27008e996cb4ab0a16463473e145b9c8f454295f5a36",
+      "execution/42-control-g22-evaluation/tactical.json": "1f733dd25268790d8d69389e549049e803a2f38006b682c471c2c7314770931b",
+      "execution/42-control-g22-evaluation/task-complete.json": "3069ebd70cc6e0733d5050db287e28dd56659aae852914e2ec297c52e81255cd",
+      "execution/42-control-g22/complete.json": "24ba9ac550989f91a3b3b6afd06465d72e3fce0ddfac2b0e698870b2895ad300",
+      "execution/42-control-g22/games.json": "f42fa36cd175fd487cfb8ac7c774fca5e15353f41970faf6a09b51783425a427",
+      "execution/42-control-g22/progress.json": "e3e6a88488a6725224a6ec7e00335dbf7a35c5884f040516b4c9e62e6a2a45b2",
+      "execution/42-control-g22/task-complete.json": "acc8a776f083bd3b500985c2befdaec03f0de915167466bfef318b4658f3904a",
+      "execution/42-control-strength/matches.json": "34737b5ae78c3ce414d022f35f243aab727cf708b2fe88dac6cb11ee2c6b3854",
+      "execution/42-control-strength/task-complete.json": "9695eaa1e84e87a5d125541a8d79b0818eaa818ae75e451060730dc89e9162c3",
+      "execution/42-treatment-g21-evaluation/deep.json": "ab0531d4e7ded01118233e295019944fa20f324faf931d8f8cc67c26308da6e5",
+      "execution/42-treatment-g21-evaluation/solved.json": "434c9ed882b3dfb677ad17c1369c768a80dd3955c56174c835ba2247fdb60f8f",
+      "execution/42-treatment-g21-evaluation/tactical.json": "c3274d3de3bbe80372fca9e4b681ec833bbf7ee7cc453908ea7f9c29ddc4aef8",
+      "execution/42-treatment-g21-evaluation/task-complete.json": "c60ecdcf833e8e72c45d1a8adad9c0f6768c0c9917068bd205b9e426e727f64e",
+      "execution/42-treatment-g21/complete.json": "479d37a305789bdb5dab09a62da45b6862d071e88357789ed04ad53cd570cebc",
+      "execution/42-treatment-g21/games.json": "eca81ef42d7bfa31ff7e06fd05b7ea098afd927f82100d923894c5abd4306dd3",
+      "execution/42-treatment-g21/progress.json": "b063e5241663357c98e8cff124a17102b14f65559e076a7e4870cb29ac440ac7",
+      "execution/42-treatment-g21/task-complete.json": "2dc83287bc5cb7ef2a8e5668513149a14e82647295efede1aabc0df6ae4458ae",
+      "execution/42-treatment-g22-evaluation/deep.json": "b8eb70abffd4b39ada77c31f70211826a120cf212db215619e9899c50b9d13e9",
+      "execution/42-treatment-g22-evaluation/solved.json": "944a158e1b3a85be14009779829032c0d96abd92a59fccdba0a9ec1394aa5bf0",
+      "execution/42-treatment-g22-evaluation/tactical.json": "279593500293ee7814770d781df9e176fbabeeabf49a00a6c7c11536b5415be9",
+      "execution/42-treatment-g22-evaluation/task-complete.json": "db0c3e470cc3d000eac9d0a6b13e5d2ae9b9bb7bf2fc10fadc74ab49cf433510",
+      "execution/42-treatment-g22/complete.json": "be03d658f7061b9d82d5f75a8a4aa4ef44c8332bfcc072344fffa42a3a50f548",
+      "execution/42-treatment-g22/games.json": "1c614ac4588508cdae0055151ee01a595bd02afc607c88d8d90a448ccb53acf8",
+      "execution/42-treatment-g22/progress.json": "ed6550b6c38c07c14bbe97f156a25896d4b1f07e62691c20f94a173d4d45f45c",
+      "execution/42-treatment-g22/task-complete.json": "78c6b65b2d4a9994f9befed57f3b0bba13ca0031f0bf0819b4e3efc1f4a3f356",
+      "execution/42-treatment-strength/matches.json": "e2ecde1d6187913f42d19a90629fa3d679384efde03c52bb08f173d7c5d1c65a",
+      "execution/42-treatment-strength/task-complete.json": "408d51d93b0b36a7d18fdfdb0ee905eb77746c47385c1dba08dc574de2da9f00",
+      "execution/parent-314159/deep.json": "4d2321a771a3597041e42d74ce7054a5185e0d05fec863463269ac3b21fd5030",
+      "execution/parent-314159/solved.json": "41d30669cf7fab1438fd2c5f3e0d0cd60c7ff4853b74e3ac2909ef4190d308cf",
+      "execution/parent-314159/tactical.json": "29c059e518735f1e1f432c5854f67038ba9896e995ff701d0dfbea6b1452b4e7",
+      "execution/parent-314159/task-complete.json": "87da945a9376b1930e9f81816180ceb4a8c04dfef6bff98db38c94aab1963c6c",
+      "execution/parent-42/deep.json": "cb581a436e9df1036962d6e92ddf3b7235f6a0f9749fcc2951d0d6fa46cbd034",
+      "execution/parent-42/solved.json": "a45dded61c3a56c202f78bf1ea03e0f926df73ba84780f521c14b248e6519dc4",
+      "execution/parent-42/tactical.json": "7a3ad97a02c6b20752297cfe5d02196bccf2e01e2699d9a59b5d436fae19c855",
+      "execution/parent-42/task-complete.json": "583355c9ae457db174cd1043db9cf17c01fa12eed481f4a4ef0d6f85fe9fd310"
+    },
+    "position_evaluation_simulations": 3215360,
+    "retry_evidence": "Exact task/directory/order equality, all expected success markers, empty failure logs, no tmp archives; no observed retry",
+    "selfplay_simulations": 4197632,
+    "status": {
+      "deadline_epoch": 1791827907.0296478,
+      "design_commit": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+      "elapsed_seconds": 2016.158602166921,
+      "last_boundaries": {
+        "314159-control": {
+          "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g22/generation-0022.pt",
+          "sha256": "0e8cb2c7395519615ac437331d1876127bc111a0f2a4da3f6e974e3975b50e70"
+        },
+        "314159-treatment": {
+          "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g22/generation-0022.pt",
+          "sha256": "2ced466df262427574e2045b29ef3754add4a263a5ea359c9d80543e5eaf0a8f"
+        },
+        "42-control": {
+          "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g22/generation-0022.pt",
+          "sha256": "dd42b1527b29de89620411d7bb8189b811f55ef28e301a83f7072c3b4b4cc5df"
+        },
+        "42-treatment": {
+          "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g22/generation-0022.pt",
+          "sha256": "59214468b2d08c9590af8a21aebdebc1ad76f8806d1b8a15563893218ea08206"
+        }
+      },
+      "official_preservation": "PASS",
+      "order": [
+        [
+          42,
+          "control",
+          21
+        ],
+        [
+          42,
+          "treatment",
+          21
+        ],
+        [
+          314159,
+          "treatment",
+          21
+        ],
+        [
+          314159,
+          "control",
+          21
+        ],
+        [
+          42,
+          "treatment",
+          22
+        ],
+        [
+          42,
+          "control",
+          22
+        ],
+        [
+          314159,
+          "control",
+          22
+        ],
+        [
+          314159,
+          "treatment",
+          22
+        ]
+      ],
+      "pid": 3046,
+      "primary_games": 512,
+      "primary_updates": 512,
+      "start_epoch": 1791817107.0296478,
+      "status": "COMPLETE_PENDING_FINAL_ANALYSIS",
+      "tasks": [
+        {
+          "key": [
+            42,
+            "control"
+          ],
+          "label": "parent-42",
+          "limit_seconds": 10769.997466249391,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/parent-42.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/parent-42",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 61.206948,
+            "peak_rss_mib": 370.9375,
+            "task": "positions",
+            "wall_seconds": 61.4060088749975
+          },
+          "start_elapsed": 0.002542625181376934,
+          "state": "COMPLETE",
+          "task": "positions"
+        },
+        {
+          "key": [
+            314159,
+            "control"
+          ],
+          "label": "parent-314159",
+          "limit_seconds": 10707.521108124405,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/parent-314159.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/parent-314159",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 60.795804,
+            "peak_rss_mib": 365.578125,
+            "task": "positions",
+            "wall_seconds": 60.92205037549138
+          },
+          "start_elapsed": 62.478907791897655,
+          "state": "COMPLETE",
+          "task": "positions"
+        },
+        {
+          "key": [
+            42,
+            "control"
+          ],
+          "label": "42-control-g21",
+          "limit_seconds": 1200,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g21.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g21",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 84.493084,
+            "peak_rss_mib": 424.90625,
+            "task": "train",
+            "wall_seconds": 84.8110850835219
+          },
+          "start_elapsed": 124.77949729189277,
+          "state": "COMPLETE",
+          "task": "train"
+        },
+        {
+          "key": [
+            42,
+            "control"
+          ],
+          "label": "42-control-g21-evaluation",
+          "limit_seconds": 10559.035507957451,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g21-evaluation.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g21-evaluation",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 59.908484,
+            "peak_rss_mib": 364.03125,
+            "task": "positions",
+            "wall_seconds": 59.92516970820725
+          },
+          "start_elapsed": 210.96450587548316,
+          "state": "COMPLETE",
+          "task": "positions"
+        },
+        {
+          "key": [
+            42,
+            "treatment"
+          ],
+          "label": "42-treatment-g21",
+          "limit_seconds": 1200,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g21.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g21",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 78.550901,
+            "peak_rss_mib": 483.796875,
+            "task": "train",
+            "wall_seconds": 78.71867674961686
+          },
+          "start_elapsed": 272.1833625426516,
+          "state": "COMPLETE",
+          "task": "train"
+        },
+        {
+          "key": [
+            42,
+            "treatment"
+          ],
+          "label": "42-treatment-g21-evaluation",
+          "limit_seconds": 10417.792895624414,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g21-evaluation.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g21-evaluation",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 60.32476,
+            "peak_rss_mib": 363.265625,
+            "task": "positions",
+            "wall_seconds": 60.7005588747561
+          },
+          "start_elapsed": 352.2071294169873,
+          "state": "COMPLETE",
+          "task": "positions"
+        },
+        {
+          "key": [
+            314159,
+            "treatment"
+          ],
+          "label": "314159-treatment-g21",
+          "limit_seconds": 1200,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g21.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g21",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 91.242714,
+            "peak_rss_mib": 408.796875,
+            "task": "train",
+            "wall_seconds": 91.7162397922948
+          },
+          "start_elapsed": 414.2574672503397,
+          "state": "COMPLETE",
+          "task": "train"
+        },
+        {
+          "key": [
+            314159,
+            "treatment"
+          ],
+          "label": "314159-treatment-g21-evaluation",
+          "limit_seconds": 10262.615060249344,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g21-evaluation.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g21-evaluation",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 61.686627,
+            "peak_rss_mib": 359.953125,
+            "task": "positions",
+            "wall_seconds": 62.07597937434912
+          },
+          "start_elapsed": 507.3849610844627,
+          "state": "COMPLETE",
+          "task": "positions"
+        },
+        {
+          "key": [
+            314159,
+            "control"
+          ],
+          "label": "314159-control-g21",
+          "limit_seconds": 1200,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g21.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g21",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 95.368312,
+            "peak_rss_mib": 475.734375,
+            "task": "train",
+            "wall_seconds": 96.00135070923716
+          },
+          "start_elapsed": 570.8752635419369,
+          "state": "COMPLETE",
+          "task": "train"
+        },
+        {
+          "key": [
+            314159,
+            "control"
+          ],
+          "label": "314159-control-g21-evaluation",
+          "limit_seconds": 10101.751935165375,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g21-evaluation.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g21-evaluation",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 60.360914,
+            "peak_rss_mib": 360.625,
+            "task": "positions",
+            "wall_seconds": 60.43845199979842
+          },
+          "start_elapsed": 668.2480779588223,
+          "state": "COMPLETE",
+          "task": "positions"
+        },
+        {
+          "key": [
+            42,
+            "treatment"
+          ],
+          "label": "42-treatment-g22",
+          "limit_seconds": 1200,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g22.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g22",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 87.00922100000001,
+            "peak_rss_mib": 404.3125,
+            "task": "train",
+            "wall_seconds": 87.36498583294451
+          },
+          "start_elapsed": 730.0897586671636,
+          "state": "COMPLETE",
+          "task": "train"
+        },
+        {
+          "key": [
+            42,
+            "treatment"
+          ],
+          "label": "42-treatment-g22-evaluation",
+          "limit_seconds": 9951.1671504993,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g22-evaluation.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-g22-evaluation",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 59.935561,
+            "peak_rss_mib": 352.4375,
+            "task": "positions",
+            "wall_seconds": 60.198104958981276
+          },
+          "start_elapsed": 818.832864000462,
+          "state": "COMPLETE",
+          "task": "positions"
+        },
+        {
+          "key": [
+            42,
+            "control"
+          ],
+          "label": "42-control-g22",
+          "limit_seconds": 1200,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g22.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g22",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 94.41589,
+            "peak_rss_mib": 471.984375,
+            "task": "train",
+            "wall_seconds": 95.01319287531078
+          },
+          "start_elapsed": 880.4056150419638,
+          "state": "COMPLETE",
+          "task": "train"
+        },
+        {
+          "key": [
+            42,
+            "control"
+          ],
+          "label": "42-control-g22-evaluation",
+          "limit_seconds": 9793.169921499677,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g22-evaluation.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-g22-evaluation",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 61.710874999999994,
+            "peak_rss_mib": 353.4375,
+            "task": "positions",
+            "wall_seconds": 62.37719087488949
+          },
+          "start_elapsed": 976.8301039170474,
+          "state": "COMPLETE",
+          "task": "positions"
+        },
+        {
+          "key": [
+            314159,
+            "control"
+          ],
+          "label": "314159-control-g22",
+          "limit_seconds": 1200,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g22.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g22",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 94.593896,
+            "peak_rss_mib": 386.40625,
+            "task": "train",
+            "wall_seconds": 95.34652645792812
+          },
+          "start_elapsed": 1040.6598525838926,
+          "state": "COMPLETE",
+          "task": "train"
+        },
+        {
+          "key": [
+            314159,
+            "control"
+          ],
+          "label": "314159-control-g22-evaluation",
+          "limit_seconds": 9632.487676790915,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g22-evaluation.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-g22-evaluation",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 60.160383,
+            "peak_rss_mib": 350.15625,
+            "task": "positions",
+            "wall_seconds": 60.28837937489152
+          },
+          "start_elapsed": 1137.5123340422288,
+          "state": "COMPLETE",
+          "task": "positions"
+        },
+        {
+          "key": [
+            314159,
+            "treatment"
+          ],
+          "label": "314159-treatment-g22",
+          "limit_seconds": 1200,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g22.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g22",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 91.687263,
+            "peak_rss_mib": 396.265625,
+            "task": "train",
+            "wall_seconds": 92.07184579130262
+          },
+          "start_elapsed": 1199.207696375437,
+          "state": "COMPLETE",
+          "task": "train"
+        },
+        {
+          "key": [
+            314159,
+            "treatment"
+          ],
+          "label": "314159-treatment-g22-evaluation",
+          "limit_seconds": 9477.358894332312,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g22-evaluation.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-g22-evaluation",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 59.802538000000006,
+            "peak_rss_mib": 350.140625,
+            "task": "positions",
+            "wall_seconds": 59.85806508269161
+          },
+          "start_elapsed": 1292.6411160426214,
+          "state": "COMPLETE",
+          "task": "positions"
+        },
+        {
+          "key": [
+            42,
+            "control"
+          ],
+          "label": "42-control-strength",
+          "limit_seconds": 9416.109391666017,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-strength.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-control-strength",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 166.81002800000002,
+            "peak_rss_mib": 367.453125,
+            "task": "matches",
+            "wall_seconds": 166.9599710414186
+          },
+          "start_elapsed": 1353.890618249774,
+          "state": "COMPLETE",
+          "task": "matches"
+        },
+        {
+          "key": [
+            42,
+            "treatment"
+          ],
+          "label": "42-treatment-strength",
+          "limit_seconds": 9247.749115291052,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-strength.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/42-treatment-strength",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 164.671847,
+            "peak_rss_mib": 432.40625,
+            "task": "matches",
+            "wall_seconds": 165.4100438747555
+          },
+          "start_elapsed": 1522.2509008338675,
+          "state": "COMPLETE",
+          "task": "matches"
+        },
+        {
+          "key": [
+            314159,
+            "treatment"
+          ],
+          "label": "314159-treatment-strength",
+          "limit_seconds": 9080.945164916106,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-strength.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-treatment-strength",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 165.622716,
+            "peak_rss_mib": 393.3125,
+            "task": "matches",
+            "wall_seconds": 166.03356466721743
+          },
+          "start_elapsed": 1689.0548593755811,
+          "state": "COMPLETE",
+          "task": "matches"
+        },
+        {
+          "key": [
+            314159,
+            "control"
+          ],
+          "label": "314159-control-strength",
+          "limit_seconds": 8913.788826957345,
+          "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-strength.log",
+          "output": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4g-worktree/experiment-output/phase4d4g-primary/execution/314159-control-strength",
+          "resources": {
+            "complete": true,
+            "cpu_seconds": 158.277218,
+            "peak_rss_mib": 380.171875,
+            "task": "matches",
+            "wall_seconds": 158.6368023743853
+          },
+          "start_elapsed": 1856.2111923340708,
+          "state": "COMPLETE",
+          "task": "matches"
+        }
+      ],
+      "wall_ceiling_seconds": 10800
+    },
+    "strength_decisions": 7274,
+    "strength_simulations": 3724288,
+    "task_count": 22
+  },
+  "wall_seconds": 129.56522512435913
+}
