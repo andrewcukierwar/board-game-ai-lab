@@ -1,0 +1,79 @@
+{
+ "analysis_seed": 4410903,
+ "exploration": 1.41,
+ "hard_total_seconds": 3600,
+ "match_seed": 4404902,
+ "matches": 1600,
+ "openings": [
+  "development-prefix-00-base",
+  "development-prefix-01-base",
+  "development-prefix-02-base",
+  "development-prefix-03-base",
+  "development-prefix-04-base",
+  "development-prefix-05-base",
+  "development-prefix-06-base",
+  "development-prefix-07-base",
+  "development-prefix-08-base",
+  "development-prefix-09-base",
+  "development-prefix-10-base",
+  "development-prefix-11-base",
+  "development-prefix-12-base",
+  "development-prefix-13-base",
+  "development-prefix-14-base",
+  "development-prefix-15-base",
+  "development-prefix-16-base",
+  "development-prefix-17-base",
+  "development-prefix-18-base",
+  "development-prefix-19-base",
+  "development-prefix-20-base",
+  "development-prefix-21-base",
+  "development-prefix-22-base",
+  "development-prefix-23-base",
+  "development-prefix-24-base",
+  "development-prefix-25-base",
+  "development-prefix-26-base",
+  "development-prefix-27-base",
+  "development-prefix-28-base",
+  "development-prefix-29-base",
+  "development-prefix-30-base",
+  "development-prefix-31-base",
+  "development-prefix-32-base",
+  "development-prefix-33-base",
+  "development-prefix-34-base",
+  "development-prefix-35-base",
+  "development-prefix-36-base",
+  "development-prefix-37-base",
+  "development-prefix-38-base",
+  "development-prefix-39-base"
+ ],
+ "resamples": 10000,
+ "roots": 15072,
+ "run_ceiling_seconds": 2700,
+ "search_seed": 4404901,
+ "selfplay_collection": false,
+ "simulations": 256,
+ "training": false,
+ "variants": {
+  "A": [
+   "learned",
+   1.0
+  ],
+  "B": [
+   "learned",
+   0.0
+  ],
+  "C": [
+   "uniform",
+   1.0
+  ],
+  "D": [
+   "uniform",
+   0.0
+  ],
+  "E": [
+   "learned",
+   0.5
+  ]
+ },
+ "workers": 3
+}

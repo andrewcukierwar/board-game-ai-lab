@@ -1,0 +1,34 @@
+{
+ "contingency_seconds": 1595.7449945960195,
+ "cost_only": true,
+ "matches": 1600,
+ "positions": 15072,
+ "projected_wall_seconds_three_workers": 886.5249969977885,
+ "rows": [
+  {
+   "arm": "42-cnn",
+   "load_seconds": 2.919538790360093,
+   "seconds_per_match": 0.8411752288229764,
+   "seconds_per_root": 0.04557767362954716
+  },
+  {
+   "arm": "42-resnet3x64",
+   "load_seconds": 1.8935385420918465,
+   "seconds_per_match": 1.0253817499615252,
+   "seconds_per_root": 0.08302411809563637
+  },
+  {
+   "arm": "314159-cnn",
+   "load_seconds": 2.977502374909818,
+   "seconds_per_match": 0.4611321249976754,
+   "seconds_per_root": 0.049207711747537054
+  },
+  {
+   "arm": "314159-resnet3x64",
+   "load_seconds": 1.843071250244975,
+   "seconds_per_match": 0.9913918334059417,
+   "seconds_per_root": 0.08130376739427447
+  }
+ ],
+ "seconds": 19.38126525003463
+}
