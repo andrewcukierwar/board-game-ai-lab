@@ -1,0 +1,177 @@
+{
+ "analysis": {
+  "bootstrap_replicates": 10000,
+  "bootstrap_seed": 4404801,
+  "interval": "two-sided 95% percentile",
+  "memory_acceptable": "peak resident memory at most 1.5x the CNN and at most 2048 MiB in every benchmark",
+  "primary_learning_endpoint": "novel held-out combined loss = policy cross-entropy + value MSE (the training objective)",
+  "throughput_classes": "cost per neural position against the CNN: <=1.25x comparable; <=2.0x acceptable with a proportionally smaller equal-wall budget; >2.0x costly, needs a compensating equal-update advantage",
+  "verdict": "BETTER: both seeds favor the ResNet and the pooled interval excludes zero in its favor; WORSE: both seeds favor the CNN and the pooled interval excludes zero against the ResNet; otherwise INCONCLUSIVE"
+ },
+ "budget": {
+  "collection_seconds_upper_bound": 251.35019010543823,
+  "contingency": 1.25,
+  "feasible": true,
+  "hard_maximum_seconds": 4500,
+  "inference_seconds": 180,
+  "learning_per_architecture": {
+   "cnn": {
+    "evaluation_seconds": 85.8589506872404,
+    "milestones": 17,
+    "optimizer_seconds": 315.78514642454684
+   },
+   "resnet3x64": {
+    "evaluation_seconds": 71.29805372393457,
+    "milestones": 14,
+    "optimizer_seconds": 313.43490868148706
+   },
+   "resnet5x64": {
+    "evaluation_seconds": 80.50114994510841,
+    "milestones": 11,
+    "optimizer_seconds": 314.7349928272888
+   }
+  },
+  "learning_seconds_per_seed": 1216.613202289606,
+  "prior_measured_seconds": 173.86911824990065,
+  "projected_seconds": 3048.162404673738,
+  "projected_total_with_prior": 3222.0315229236385,
+  "projected_with_contingency": 3810.2030058421724,
+  "run_ceiling_seconds": 4266.130881750099,
+  "scoring_positions_per_second": {
+   "cnn": 5443.736743863277,
+   "resnet3x64": 5387.61755307318,
+   "resnet5x64": 3489.8703142547215
+  },
+  "search_seconds_per_neural_position": {
+   "cnn": 0.00014562938798917457,
+   "resnet3x64": 0.00021481473959283903,
+   "resnet5x64": 0.0003177732683252543
+  },
+  "target_seconds": 3600,
+  "training_benchmark_children": 10,
+  "training_benchmark_seconds": 183.58580998908727,
+  "update_seconds": {
+   "cnn": 0.045086400117725134,
+   "resnet3x64": 0.06474590140084426,
+   "resnet5x64": 0.10185598473375042
+  }
+ },
+ "collection": {
+  "blocks": [
+   {
+    "count": 16,
+    "first": 0,
+    "order": [
+     "cnn",
+     "resnet3x64",
+     "resnet5x64"
+    ]
+   },
+   {
+    "count": 16,
+    "first": 16,
+    "order": [
+     "resnet5x64",
+     "resnet3x64",
+     "cnn"
+    ]
+   }
+  ],
+  "generation": 1,
+  "pool": 8,
+  "reference_plies": 30,
+  "seed": 20261012,
+  "simulations": 256
+ },
+ "dataset_freeze_sha256": "46d8d6406ed2df95a2f6e9a62a7cbc2197db98135689c63620b566f1102bd791",
+ "inference": {
+  "allowance_seconds": 180,
+  "batches": [
+   1,
+   8,
+   16,
+   32
+  ],
+  "calls": {
+   "1": 400,
+   "16": 160,
+   "32": 100,
+   "8": 250
+  },
+  "repetitions": 7,
+  "warmup": 20
+ },
+ "learning": {
+  "batch_size": 128,
+  "common_updates": 3000,
+  "equal_time_points_seconds": [
+   60,
+   120,
+   240
+  ],
+  "equal_update_points": [
+   400,
+   800,
+   1600,
+   3000
+  ],
+  "milestones": [
+   0,
+   50,
+   100,
+   200,
+   400,
+   800,
+   1200,
+   1600,
+   2000,
+   2500,
+   3000,
+   3500,
+   4000,
+   4700,
+   5400,
+   6100,
+   6800
+  ],
+  "nominal_train_seconds": 305,
+  "order": {
+   "314159": [
+    "resnet5x64",
+    "resnet3x64",
+    "cnn"
+   ],
+   "42": [
+    "cnn",
+    "resnet3x64",
+    "resnet5x64"
+   ]
+  },
+  "reflection_probability": 0.5,
+  "sampling": "uniform over training positions, without replacement within a batch",
+  "sampling_domain": "phase4d4h-b-fixed-data-sampling",
+  "updates": {
+   "cnn": 6800,
+   "resnet3x64": 4700,
+   "resnet5x64": 3000
+  }
+ },
+ "pilot_sha256": "08e28b0feb68fd0a4f91d272c8c826ff95fad5a76bb8c1c31d67813340a81c86",
+ "smoke_sha256": "007d05c48122aa3f94ff1b019e5c0aa3b0ffde755c52bd1e4975fe48af11bc0f",
+ "training": {
+  "passes": [
+   [
+    "cnn",
+    "resnet3x64",
+    "resnet5x64"
+   ],
+   [
+    "resnet5x64",
+    "resnet3x64",
+    "cnn"
+   ]
+  ],
+  "updates": 60
+ },
+ "validation_sha256": "1d300b8b6a54bc5a800032878be4fa9b54d2e60e56a0f5fc69bce1b2d78fc35c"
+}

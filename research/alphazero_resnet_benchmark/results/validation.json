@@ -1,0 +1,736 @@
+{
+ "architecture_review": {
+  "resnet3x64": {
+   "batch_norm_layers": 9,
+   "corner_to_corner_response": 0.00017783045768737793,
+   "initialization_gap": 3.4723930407432047e-07,
+   "parameters": 322440,
+   "row_independence_gap": 5.066394805908203e-07,
+   "six_step_losses": [
+    3.1044483184814453,
+    2.8967347145080566,
+    2.9514896869659424,
+    3.0118377208709717,
+    2.907167911529541,
+    2.77655029296875
+   ],
+   "statistic_gap": 2.1378972525631923e-07,
+   "train_mode_gap": 1.3091809988541314e-05,
+   "trained_eval_gap": 5.906071354061515e-07
+  },
+  "resnet5x64": {
+   "batch_norm_layers": 13,
+   "corner_to_corner_response": 0.0006439238786697388,
+   "initialization_gap": 3.471618340855631e-07,
+   "parameters": 470408,
+   "row_independence_gap": 7.301568984985352e-07,
+   "six_step_losses": [
+    2.939342498779297,
+    2.8496322631835938,
+    3.038142681121826,
+    3.009960889816284,
+    2.8476955890655518,
+    2.61079740524292
+   ],
+   "statistic_gap": 2.5190006081032834e-07,
+   "train_mode_gap": 1.2643477338980524e-05,
+   "trained_eval_gap": 6.821267382328688e-07
+  }
+ },
+ "checkpoint_contracts": {
+  "cnn": {
+   "artifact_sha256": "9431a6506ea8a27a06d160aba6d3c38bdf4d45e79772913a89f15b22203c2517",
+   "state_tensors": 16,
+   "weights_sha256": "1ef4d288ba051a8f955757d4db6483191fdf6f4797e513ac9cbaa5fc2c0af521"
+  },
+  "resnet3x64": {
+   "artifact_sha256": "e48b3caa59ca89c9016c67b4bca6c52ef153200584af8572a94e02f77dd9ab3f",
+   "state_tensors": 60,
+   "weights_sha256": "28da32b78ca46f2f41fcdb805c9a8aa535b731039956f01c3b7c4ed8d257bfc0"
+  },
+  "resnet5x64": {
+   "artifact_sha256": "9ed31517164cdb936ca3b295eff8d0dc81300ce5db48b91122f7716de98c68b2",
+   "state_tensors": 84,
+   "weights_sha256": "9876b64465712160089f6b5c0145ce4c89ef187bb92fa0cfdcf8a6e2d91744c8"
+  }
+ },
+ "checks": [
+  {
+   "check": "experimental output is refused anywhere inside the official campaign",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "historical checkout is at the pinned reader commit",
+   "detail": "1894bc4d8f035cf738df8e3fc0ce234f1ce2c8be",
+   "passed": true
+  },
+  {
+   "check": "no package, API, UI or model file differs from the Phase 4D.4H-A commit",
+   "detail": "",
+   "passed": true
+  },
+  {
+   "check": "Phase 4D.4G worktree is at its frozen commit and clean",
+   "detail": {
+    "clean": true,
+    "files": 151,
+    "head": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+    "inventory_sha256": "7db4f97fdd4016239317d7b4251b96cf2eaae490f85e8bcbb9a69f85aa5f4aa2"
+   },
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: parameter count",
+   "detail": 322440,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: batch-norm layer count and defaults",
+   "detail": 9,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: every convolution is bias-free and feeds a batch norm",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: eval forward equals independent float64 reference at initialization",
+   "detail": 3.4723930407432047e-07,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: running statistics equal an independent exponential-average recomputation",
+   "detail": 2.1378972525631923e-07,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: every batch-norm counter equals the trainer step count",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: trainer leaves the model in eval mode with finite loss",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: eval forward equals the reference after training (running statistics in use)",
+   "detail": 5.906071354061515e-07,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: eval inference leaves weights and statistics unchanged",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: train-mode forward equals the batch-statistics reference",
+   "detail": 1.3091809988541314e-05,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: train- and eval-mode outputs differ (statistics source matters)",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: eval-mode rows are batch-independent",
+   "detail": 5.066394805908203e-07,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: trunk receptive field covers the whole board",
+   "detail": 0.00017783045768737793,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: decay groups partition the parameters; batch-norm affines and biases never decay",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: parameter count",
+   "detail": 470408,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: batch-norm layer count and defaults",
+   "detail": 13,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: every convolution is bias-free and feeds a batch norm",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: eval forward equals independent float64 reference at initialization",
+   "detail": 3.471618340855631e-07,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: running statistics equal an independent exponential-average recomputation",
+   "detail": 2.5190006081032834e-07,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: every batch-norm counter equals the trainer step count",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: trainer leaves the model in eval mode with finite loss",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: eval forward equals the reference after training (running statistics in use)",
+   "detail": 6.821267382328688e-07,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: eval inference leaves weights and statistics unchanged",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: train-mode forward equals the batch-statistics reference",
+   "detail": 1.2643477338980524e-05,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: train- and eval-mode outputs differ (statistics source matters)",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: eval-mode rows are batch-independent",
+   "detail": 7.301568984985352e-07,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: trunk receptive field covers the whole board",
+   "detail": 0.0006439238786697388,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: decay groups partition the parameters; batch-norm affines and biases never decay",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "cnn: inference artifact round trip is bit-identical",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "cnn: artifact publication refuses to overwrite",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: inference artifact round trip is bit-identical",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: artifact publication refuses to overwrite",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: inference artifact round trip is bit-identical",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: artifact publication refuses to overwrite",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "all six ordered cross-architecture artifact loads and state restores are rejected",
+   "detail": [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+   ],
+   "passed": true
+  },
+  {
+   "check": "cnn: optimizer restore continues bit-identically",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "cnn: AdamW with the declared settings and two groups",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: optimizer restore continues bit-identically",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: AdamW with the declared settings and two groups",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: optimizer restore continues bit-identically",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: AdamW with the declared settings and two groups",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "optimizer settings other than parameter membership are identical across architectures",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: rejects the cnn optimizer state",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: rejects the cnn optimizer state",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "cnn: rejects the resnet3x64 optimizer state",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: rejects the resnet3x64 optimizer state",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "cnn: rejects the resnet5x64 optimizer state",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: rejects the resnet5x64 optimizer state",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "cnn: fresh interpreter resumed and published generation 2",
+   "detail": "",
+   "passed": true
+  },
+  {
+   "check": "cnn: fresh-process continuation is bit-identical to the in-process one",
+   "detail": {
+    "actual": {
+     "augmentation": "2ec6e0a5765d57432f7c5ffc8345daaf115565101b519db04334a1cd67e0d6ee",
+     "buffers": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+     "content": "c1e44011558346802963654e61dd2a4e5926d970effedb5beaaa049a73beaf11",
+     "counters": {
+      "completed_generations": 2,
+      "total_games": 16,
+      "total_positions": 238,
+      "trainer_steps": 16
+     },
+     "global_rng": "bef62204b441c3716de82f7ad5e7193d0eb9099adba27c95576f3eaa3f227dad",
+     "model": "40b812b7cd60f115d0b2a3130dfa97595d02d10f75d4a6caa8fbef379c30c56e",
+     "optimizer": "53cc39ef963ef288979e731fa21482cbb1bb305cd879032cf36b37318ed424fb",
+     "replay": "0eac1dc3e1973e67023b10c101b3183df9c1885c4e9b594ae958c56a30d147e7",
+     "sampling": "d614a1b366f37c421fc9ee2d19215d4353fcc9968cffe485b24a45c398ed32c0"
+    },
+    "expected": {
+     "augmentation": "2ec6e0a5765d57432f7c5ffc8345daaf115565101b519db04334a1cd67e0d6ee",
+     "buffers": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+     "content": "c1e44011558346802963654e61dd2a4e5926d970effedb5beaaa049a73beaf11",
+     "counters": {
+      "completed_generations": 2,
+      "total_games": 16,
+      "total_positions": 238,
+      "trainer_steps": 16
+     },
+     "global_rng": "bef62204b441c3716de82f7ad5e7193d0eb9099adba27c95576f3eaa3f227dad",
+     "model": "40b812b7cd60f115d0b2a3130dfa97595d02d10f75d4a6caa8fbef379c30c56e",
+     "optimizer": "53cc39ef963ef288979e731fa21482cbb1bb305cd879032cf36b37318ed424fb",
+     "replay": "0eac1dc3e1973e67023b10c101b3183df9c1885c4e9b594ae958c56a30d147e7",
+     "sampling": "d614a1b366f37c421fc9ee2d19215d4353fcc9968cffe485b24a45c398ed32c0"
+    }
+   },
+   "passed": true
+  },
+  {
+   "check": "cnn: live in-process runner equals its reloaded boundary",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: fresh interpreter resumed and published generation 2",
+   "detail": "",
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: fresh-process continuation is bit-identical to the in-process one",
+   "detail": {
+    "actual": {
+     "augmentation": "2ec6e0a5765d57432f7c5ffc8345daaf115565101b519db04334a1cd67e0d6ee",
+     "buffers": "fb63b2c7ee3461713db62d44dcf9e0021934c9342752ccd8c0801b638d32e5f8",
+     "content": "4e2dcc897543f525babd4b18ea30377d17511968d01d39eb8c9fc2429a27550b",
+     "counters": {
+      "completed_generations": 2,
+      "total_games": 16,
+      "total_positions": 228,
+      "trainer_steps": 16
+     },
+     "global_rng": "bef62204b441c3716de82f7ad5e7193d0eb9099adba27c95576f3eaa3f227dad",
+     "model": "3925be489ab107f8c908846253e192ffebbcf34797ffc65412493bc91de1c40d",
+     "optimizer": "b8b36801c2dfaabd619a038367bd765c53917ef8a54edb176525e28d06f385dd",
+     "replay": "f4e5c7659f8b266502f60480b9cc568345bc35dc8f62de1c0758257320540b9f",
+     "sampling": "3eba0e49c31f6a6fb78a0a75754a68a60c7de8c328acc344d709e452ad321bf4"
+    },
+    "expected": {
+     "augmentation": "2ec6e0a5765d57432f7c5ffc8345daaf115565101b519db04334a1cd67e0d6ee",
+     "buffers": "fb63b2c7ee3461713db62d44dcf9e0021934c9342752ccd8c0801b638d32e5f8",
+     "content": "4e2dcc897543f525babd4b18ea30377d17511968d01d39eb8c9fc2429a27550b",
+     "counters": {
+      "completed_generations": 2,
+      "total_games": 16,
+      "total_positions": 228,
+      "trainer_steps": 16
+     },
+     "global_rng": "bef62204b441c3716de82f7ad5e7193d0eb9099adba27c95576f3eaa3f227dad",
+     "model": "3925be489ab107f8c908846253e192ffebbcf34797ffc65412493bc91de1c40d",
+     "optimizer": "b8b36801c2dfaabd619a038367bd765c53917ef8a54edb176525e28d06f385dd",
+     "replay": "f4e5c7659f8b266502f60480b9cc568345bc35dc8f62de1c0758257320540b9f",
+     "sampling": "3eba0e49c31f6a6fb78a0a75754a68a60c7de8c328acc344d709e452ad321bf4"
+    }
+   },
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: live in-process runner equals its reloaded boundary",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet3x64: resumed batch-norm counters equal trainer steps",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: fresh interpreter resumed and published generation 2",
+   "detail": "",
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: fresh-process continuation is bit-identical to the in-process one",
+   "detail": {
+    "actual": {
+     "augmentation": "2ec6e0a5765d57432f7c5ffc8345daaf115565101b519db04334a1cd67e0d6ee",
+     "buffers": "2cb91e5cb80588c5daf97c793c92ddf055b287f05cdfd9140969fcd17169e1e6",
+     "content": "0c8e9ff1151db2f85e0b4c51cecd21db0a36d8a037ed20c6c42fd8375e08aea9",
+     "counters": {
+      "completed_generations": 2,
+      "total_games": 16,
+      "total_positions": 246,
+      "trainer_steps": 16
+     },
+     "global_rng": "bef62204b441c3716de82f7ad5e7193d0eb9099adba27c95576f3eaa3f227dad",
+     "model": "a011d9d3b89349057b39aa4d949e38c40d49bd5fd849db547d96a630abc875fc",
+     "optimizer": "38b6d733e01420230ea9fc5e3ad788a60fe5afd2e5b7ab4a77854f9549ce8cc7",
+     "replay": "ac791cd83c62763fb36901e33c5e29e695b95b12b645f1499b777d3f441b28d4",
+     "sampling": "e086272b404049510a850b149d5d072a212dcb7f1b3613037f10d4af7c8e2169"
+    },
+    "expected": {
+     "augmentation": "2ec6e0a5765d57432f7c5ffc8345daaf115565101b519db04334a1cd67e0d6ee",
+     "buffers": "2cb91e5cb80588c5daf97c793c92ddf055b287f05cdfd9140969fcd17169e1e6",
+     "content": "0c8e9ff1151db2f85e0b4c51cecd21db0a36d8a037ed20c6c42fd8375e08aea9",
+     "counters": {
+      "completed_generations": 2,
+      "total_games": 16,
+      "total_positions": 246,
+      "trainer_steps": 16
+     },
+     "global_rng": "bef62204b441c3716de82f7ad5e7193d0eb9099adba27c95576f3eaa3f227dad",
+     "model": "a011d9d3b89349057b39aa4d949e38c40d49bd5fd849db547d96a630abc875fc",
+     "optimizer": "38b6d733e01420230ea9fc5e3ad788a60fe5afd2e5b7ab4a77854f9549ce8cc7",
+     "replay": "ac791cd83c62763fb36901e33c5e29e695b95b12b645f1499b777d3f441b28d4",
+     "sampling": "e086272b404049510a850b149d5d072a212dcb7f1b3613037f10d4af7c8e2169"
+    }
+   },
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: live in-process runner equals its reloaded boundary",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "resnet5x64: resumed batch-norm counters equal trainer steps",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "default experimental architecture is the CNN",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "CNN parameter count",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "seed 42: official inference artifact loads and matches the boundary weights",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "seed 42: strict historical read forks through the current CNN factory",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "seed 42: resnet3x64 refuses the historical CNN weights",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "seed 42: a resnet3x64 fork of the historical boundary is refused",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "seed 42: resnet5x64 refuses the historical CNN weights",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "seed 42: a resnet5x64 fork of the historical boundary is refused",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "seed 314159: official inference artifact loads and matches the boundary weights",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "seed 314159: strict historical read forks through the current CNN factory",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "seed 314159: resnet3x64 refuses the historical CNN weights",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "seed 314159: a resnet3x64 fork of the historical boundary is refused",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "seed 314159: resnet5x64 refuses the historical CNN weights",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "seed 314159: a resnet5x64 fork of the historical boundary is refused",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "all 150 official files are byte-identical before and after validation",
+   "detail": null,
+   "passed": true
+  },
+  {
+   "check": "Phase 4D.4G output inventory is unchanged by validation",
+   "detail": null,
+   "passed": true
+  }
+ ],
+ "cnn_backward_compatibility": {
+  "314159": {
+   "resume_sha256": "328022e5f4c45c11650b7fd2b76fbafbbe4734f1161a75d91b5d0b4cb274f9d6",
+   "summary_resume_sha256": "328022e5f4c45c11650b7fd2b76fbafbbe4734f1161a75d91b5d0b4cb274f9d6",
+   "trainer_steps": 4890,
+   "weights_sha256": "9d4c5a6aa4fe68d1aaa3a3f80c8f6b53609d4953076c12e106dca8cbe752ef8e"
+  },
+  "42": {
+   "resume_sha256": "2866722b5e55726b75ae27d4bdb70e98d9b01b9ca503b0925fe9aa8b17d210b1",
+   "summary_resume_sha256": "2866722b5e55726b75ae27d4bdb70e98d9b01b9ca503b0925fe9aa8b17d210b1",
+   "trainer_steps": 4957,
+   "weights_sha256": "f58b6d42a69f2658b1c6e5ff73f5c9b7565728743f5550da71aec4e92682ac2d"
+  }
+ },
+ "execution_source_sha256": "3523ee04a4b523a915941379ed66871687e6163baa8c363fedddbce2c84da934",
+ "fresh_process_resume": {
+  "cnn": {
+   "generation1_boundary_sha256": "354c436c9409ef8b5fb5b165f47a3b854c6401cb86fe46fdb0efffdba0f51e2d",
+   "generation1_positions": 119,
+   "pool_batches": {
+    "1": 39,
+    "2": 9,
+    "3": 4,
+    "4": 6,
+    "5": 44,
+    "6": 84,
+    "7": 28,
+    "8": 111
+   },
+   "state": {
+    "augmentation": "2ec6e0a5765d57432f7c5ffc8345daaf115565101b519db04334a1cd67e0d6ee",
+    "buffers": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "content": "c1e44011558346802963654e61dd2a4e5926d970effedb5beaaa049a73beaf11",
+    "counters": {
+     "completed_generations": 2,
+     "total_games": 16,
+     "total_positions": 238,
+     "trainer_steps": 16
+    },
+    "global_rng": "bef62204b441c3716de82f7ad5e7193d0eb9099adba27c95576f3eaa3f227dad",
+    "model": "40b812b7cd60f115d0b2a3130dfa97595d02d10f75d4a6caa8fbef379c30c56e",
+    "optimizer": "53cc39ef963ef288979e731fa21482cbb1bb305cd879032cf36b37318ed424fb",
+    "replay": "0eac1dc3e1973e67023b10c101b3183df9c1885c4e9b594ae958c56a30d147e7",
+    "sampling": "d614a1b366f37c421fc9ee2d19215d4353fcc9968cffe485b24a45c398ed32c0"
+   }
+  },
+  "resnet3x64": {
+   "generation1_boundary_sha256": "22dfaf621bc9e26a0307c0a0831796d449dcab575297b79cc437f51d59ef872e",
+   "generation1_positions": 109,
+   "pool_batches": {
+    "1": 102,
+    "2": 30,
+    "3": 121,
+    "4": 32,
+    "5": 9,
+    "6": 1,
+    "7": 24,
+    "8": 105
+   },
+   "state": {
+    "augmentation": "2ec6e0a5765d57432f7c5ffc8345daaf115565101b519db04334a1cd67e0d6ee",
+    "buffers": "fb63b2c7ee3461713db62d44dcf9e0021934c9342752ccd8c0801b638d32e5f8",
+    "content": "4e2dcc897543f525babd4b18ea30377d17511968d01d39eb8c9fc2429a27550b",
+    "counters": {
+     "completed_generations": 2,
+     "total_games": 16,
+     "total_positions": 228,
+     "trainer_steps": 16
+    },
+    "global_rng": "bef62204b441c3716de82f7ad5e7193d0eb9099adba27c95576f3eaa3f227dad",
+    "model": "3925be489ab107f8c908846253e192ffebbcf34797ffc65412493bc91de1c40d",
+    "optimizer": "b8b36801c2dfaabd619a038367bd765c53917ef8a54edb176525e28d06f385dd",
+    "replay": "f4e5c7659f8b266502f60480b9cc568345bc35dc8f62de1c0758257320540b9f",
+    "sampling": "3eba0e49c31f6a6fb78a0a75754a68a60c7de8c328acc344d709e452ad321bf4"
+   }
+  },
+  "resnet5x64": {
+   "generation1_boundary_sha256": "39a63545e135dc4e713802467505c7fbe02cf0adf92982c84d8b9f384029fcd5",
+   "generation1_positions": 108,
+   "pool_batches": {
+    "1": 109,
+    "2": 35,
+    "3": 84,
+    "4": 51,
+    "5": 8,
+    "6": 4,
+    "7": 21,
+    "8": 106
+   },
+   "state": {
+    "augmentation": "2ec6e0a5765d57432f7c5ffc8345daaf115565101b519db04334a1cd67e0d6ee",
+    "buffers": "2cb91e5cb80588c5daf97c793c92ddf055b287f05cdfd9140969fcd17169e1e6",
+    "content": "0c8e9ff1151db2f85e0b4c51cecd21db0a36d8a037ed20c6c42fd8375e08aea9",
+    "counters": {
+     "completed_generations": 2,
+     "total_games": 16,
+     "total_positions": 246,
+     "trainer_steps": 16
+    },
+    "global_rng": "bef62204b441c3716de82f7ad5e7193d0eb9099adba27c95576f3eaa3f227dad",
+    "model": "a011d9d3b89349057b39aa4d949e38c40d49bd5fd849db547d96a630abc875fc",
+    "optimizer": "38b6d733e01420230ea9fc5e3ad788a60fe5afd2e5b7ab4a77854f9549ce8cc7",
+    "replay": "ac791cd83c62763fb36901e33c5e29e695b95b12b645f1499b777d3f441b28d4",
+    "sampling": "e086272b404049510a850b149d5d072a212dcb7f1b3613037f10d4af7c8e2169"
+   }
+  }
+ },
+ "isolation": {
+  "historical_head": "1894bc4d8f035cf738df8e3fc0ce234f1ce2c8be",
+  "phase4d4g": {
+   "clean": true,
+   "files": 151,
+   "head": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+   "inventory_sha256": "7db4f97fdd4016239317d7b4251b96cf2eaae490f85e8bcbb9a69f85aa5f4aa2"
+  }
+ },
+ "optimizer": {
+  "cnn": {
+   "decay_parameters": 325440,
+   "decay_tensors": 8,
+   "no_decay_parameters": 456,
+   "no_decay_tensors": 8,
+   "settings": "0d468a907a83ac188201068bf3ad650cfc39b569a5d390215cb687125731b2a0"
+  },
+  "resnet3x64": {
+   "decay_parameters": 321344,
+   "decay_tensors": 12,
+   "no_decay_parameters": 1096,
+   "no_decay_tensors": 21,
+   "settings": "0d468a907a83ac188201068bf3ad650cfc39b569a5d390215cb687125731b2a0"
+  },
+  "resnet5x64": {
+   "decay_parameters": 468800,
+   "decay_tensors": 16,
+   "no_decay_parameters": 1608,
+   "no_decay_tensors": 29,
+   "settings": "0d468a907a83ac188201068bf3ad650cfc39b569a5d390215cb687125731b2a0"
+  }
+ },
+ "passed": 79,
+ "runtime": {
+  "cpu_capability": "DEFAULT",
+  "cpu_model": "Apple M4",
+  "deterministic_algorithms": true,
+  "deterministic_warn_only": false,
+  "float32_matmul_precision": "highest",
+  "inter_op_threads": 1,
+  "intra_op_threads": 1,
+  "machine": "arm64",
+  "mkldnn_enabled": true,
+  "numpy": "1.26.4",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.11.17",
+  "python_implementation": "CPython",
+  "thread_environment": {
+   "MKL_NUM_THREADS": "1",
+   "NUMEXPR_NUM_THREADS": "1",
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1",
+   "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "torch": "2.10.0",
+  "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+  "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+ }
+}

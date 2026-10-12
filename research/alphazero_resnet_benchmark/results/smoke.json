@@ -1,0 +1,52 @@
+{
+ "collection_games_per_architecture": 4,
+ "comparisons": [
+  "equal_seconds_0.5",
+  "equal_seconds_matched",
+  "equal_updates_10",
+  "equal_updates_20",
+  "equal_wall_final"
+ ],
+ "frozen_replay_read": true,
+ "prior_invocation_seconds": 139.08,
+ "purpose": "pipeline verification only; metrics are not evidence and set no budget or endpoint",
+ "runtime": {
+  "cpu_capability": "DEFAULT",
+  "cpu_model": "Apple M4",
+  "deterministic_algorithms": true,
+  "deterministic_warn_only": false,
+  "float32_matmul_precision": "highest",
+  "inter_op_threads": 1,
+  "intra_op_threads": 1,
+  "machine": "arm64",
+  "mkldnn_enabled": true,
+  "numpy": "1.26.4",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.11.17",
+  "python_implementation": "CPython",
+  "thread_environment": {
+   "MKL_NUM_THREADS": "1",
+   "NUMEXPR_NUM_THREADS": "1",
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1",
+   "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "torch": "2.10.0",
+  "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+  "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+ },
+ "seed": 42,
+ "stages": [
+  "inference",
+  "training",
+  "collection",
+  "learning",
+  "analysis"
+ ],
+ "updates": {
+  "cnn": 60,
+  "resnet3x64": 40,
+  "resnet5x64": 20
+ },
+ "wall_seconds": 139.2355066248402
+}
