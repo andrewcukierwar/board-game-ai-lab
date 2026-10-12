@@ -99,6 +99,8 @@ def adjudicate(games, proofs):
         for p in g['plies']:
             if p['ply']>=8:
                 k=key(state); before=values.get(k); after=action_value(state,p['action'],values)
+                if before is not None and after is not None and after>before:
+                    raise ValueError('Cached state/action exact proofs contradict minimax')
                 if before==-1: after=-1   # Every action from an exactly lost state loses.
                 if after==1: before=1     # Achievable win is the maximum possible value.
                 kind=classify(before,after)
@@ -164,6 +166,7 @@ def coverage(decisions):
         names=['all',f'checkpoint:{seed}',f'schedule:{schedule}',f'cell:{seed}:{schedule}',
                f'ply:{r["ply"]}',f'stage:{r["stage"]}',f'cell_stage:{seed}:{schedule}:{r["stage"]}']
         names.extend('category:'+c for c in r['categories'])
+        names.extend(f'cell_category:{seed}:{schedule}:{c}' for c in r['categories'])
         for name in names:
             c=buckets[name]; c['eligible']+=1
             c['unresolved' if r['classification']=='unresolved' else 'resolved']+=1
@@ -270,6 +273,9 @@ def main():
     parser.add_argument('--ceiling',type=float,default=600)
     args=parser.parse_args(); started=time.perf_counter()
     require(0 < args.ceiling <= 600, 'Frozen solver launch ceiling is at most 600 seconds')
+    audit.torch.set_num_threads(1)
+    audit.torch.set_num_interop_threads(1)
+    audit.torch.use_deterministic_algorithms(True)
     output=audit.fresh_output(args.campaign,args.output)
     before=audit.campaign_fingerprint(args.campaign)
     require(len(before)==150 and before==audit.read('research/alphazero_baseline/results/phase4d4a-20261011/profile/campaign_before.json'),'Campaign inventory mismatch')
@@ -289,7 +295,7 @@ def main():
                 for r in rows: stream.write(json.dumps(r,sort_keys=True)+'\n')
         audit.write(output/'provenance.json',dict(commit=audit.command('git','rev-parse','HEAD'),
              design_sha256=audit.sha(ROOT/'DESIGN.md'),sources={str(p):audit.sha(p) for p in ROOT.glob('*.py')},
-             collection_provenance_sha256=audit.sha(args.collection/'provenance.json'),elapsed_seconds=time.perf_counter()-started,
+             collection_provenance_sha256=audit.sha(args.collection/'provenance.json'),runtime=audit.runtime(),elapsed_seconds=time.perf_counter()-started,
              reused_proofs=args.proofs is not None,solver_seconds=proofs['elapsed_seconds'] if not args.proofs else 0))
     finally:
         after=audit.campaign_fingerprint(args.campaign)

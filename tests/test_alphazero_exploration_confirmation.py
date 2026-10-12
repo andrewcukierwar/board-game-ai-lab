@@ -108,3 +108,34 @@ def test_material_harm_needs_complete_design_but_not_full_coverage():
     pooled=dict(uncertainty_interval=[.06,1.0]); parts=[pooled,pooled]
     assert analyze.safety_conclusion(pooled,parts,False,True)=='MATERIAL HARM'
     assert analyze.safety_conclusion(pooled,parts,True,False)=='INCONCLUSIVE'
+
+
+def old_decisive_game():
+    import gzip,json
+    from pathlib import Path
+    from games.connect4.alphazero_v2.oracle import engine_position
+    from games.connect4.alphazero_v2.bitboard import BitboardState
+    for file in sorted(Path('research/alphazero_exploration/results/phase4d4d-20261011/main').glob('*original.jsonl.gz')):
+        raw=next((json.loads(line) for line in gzip.open(file,'rt') if len(json.loads(line)['moves'])>8 and json.loads(line)['winner']!=-1),None)
+        if raw:
+            state=BitboardState.from_game(engine_position([])); rows=[]
+            for ply,action in enumerate(raw['moves']):
+                rows.append(dict(ply=ply,action=action,top={action},wins={c for c in state.get_valid_moves() if state.drop(c).winner==state.current_player},threats=[]))
+                state=state.drop(action)
+            return dict(id=(42,20,0,0),moves=raw['moves'],schedule='extended',plies=rows)
+    pytest.fail('Missing old decisive fixture')
+
+
+def test_terminal_executed_win_proves_neutral_with_missing_pre_value():
+    g=old_decisive_game()
+    rows=analyze.adjudicate([g],dict(values={},queries=[]))
+    last=rows[-1]
+    assert last['classification']=='neutral' and last['before']==1 and last['action_value']==1
+    assert g['exact']['unresolved']>0 and g['exact'].get('errors',0)==0
+
+
+def test_impossible_lost_scalar_on_winning_action_is_rejected():
+    from games.connect4.alphazero_v2.oracle import engine_position
+    from games.connect4.alphazero_v2.bitboard import BitboardState
+    g=old_decisive_game(); state=BitboardState.from_game(engine_position(g['moves'][:-1]))
+    with pytest.raises(ValueError): analyze.adjudicate([g],dict(values={analyze.key(state):-1},queries=[]))
