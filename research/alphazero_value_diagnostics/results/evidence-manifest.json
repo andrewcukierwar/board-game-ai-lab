@@ -1,0 +1,1220 @@
+{
+ "files": {
+  "docs/phase4d4i-a-alphazero-value-diagnostics.md": {
+   "bytes": 38070,
+   "sha256": "0e84ff3565a44c42af5a76f8509491c5264580641f64be3b94835c19c926a5a8"
+  },
+  "research/alphazero_value_diagnostics/DESIGN.md": {
+   "bytes": 8780,
+   "sha256": "df1ef2a40361daf0f606f8387547f98f2d5bb493213e3c80eb2407742af6e4f8"
+  },
+  "research/alphazero_value_diagnostics/README.md": {
+   "bytes": 3526,
+   "sha256": "7a95464cf9e74f995b77c5cd0fd8f4fd31d56c8139ad688f758b177c1ae2e0df"
+  },
+  "research/alphazero_value_diagnostics/__init__.py": {
+   "bytes": 83,
+   "sha256": "243a1770ff867e1eab719d8669f69a46520bbe573904405284020f80465f9656"
+  },
+  "research/alphazero_value_diagnostics/analyze.py": {
+   "bytes": 10296,
+   "sha256": "dabad4ad3f6434b60c2eee9efcad44b5d2c0d751bbe7703a77b4f10bb78d0816"
+  },
+  "research/alphazero_value_diagnostics/common.py": {
+   "bytes": 4000,
+   "sha256": "c7200fff06e99e6734ade1eaff20044d649eb44a3c36f1ed63869a1c3915c83e"
+  },
+  "research/alphazero_value_diagnostics/evaluate.py": {
+   "bytes": 3196,
+   "sha256": "7e70bdd6f7a361e15c283604b418676f24218dc7a57a66b9680130681e09f9b0"
+  },
+  "research/alphazero_value_diagnostics/independent-clean-prelaunch-review.md": {
+   "bytes": 11368,
+   "sha256": "9034ac63f9239e1f1799e0366803aba44d5304d48b7d9e2521b0854b08f56cd5"
+  },
+  "research/alphazero_value_diagnostics/independent-clean-results-review.md": {
+   "bytes": 14078,
+   "sha256": "20e26b714e4c255166a2c8e8b11a7fa55475ada9200cc2be78a9b3b6bcf269f6"
+  },
+  "research/alphazero_value_diagnostics/independent-incident-attestation.md": {
+   "bytes": 7972,
+   "sha256": "58933fbd5f2ca404ded978ad43f3d375f6772a72eb3af06df9751dcd427ff2a4"
+  },
+  "research/alphazero_value_diagnostics/independent-prelaunch-review.md": {
+   "bytes": 5951,
+   "sha256": "2c9b24f9f2413fb325b6961ce829d8943a24ce79c3bf56d64ef0b036ceb6a46d"
+  },
+  "research/alphazero_value_diagnostics/independent_clean_rerun.py": {
+   "bytes": 349,
+   "sha256": "1e9458f73ed9f67831086a5d89ba037f96b4b12204a059454bce72e4598223d7"
+  },
+  "research/alphazero_value_diagnostics/independent_clean_review.py": {
+   "bytes": 24374,
+   "sha256": "64f30517f9b25d77b1b0703e4a9cb8d8b3b0f949266ec78e77b794f39ff12143"
+  },
+  "research/alphazero_value_diagnostics/independent_review.py": {
+   "bytes": 10739,
+   "sha256": "66216321455ba3cb523e4196e88ecf0be02453e72e4814c799c4663f21e98bf7"
+  },
+  "research/alphazero_value_diagnostics/integrity-resolution.md": {
+   "bytes": 6374,
+   "sha256": "bae13f82f70f50527530045644bf13bf4fe14e8047e56f93c19e442f66b46681"
+  },
+  "research/alphazero_value_diagnostics/interventions.py": {
+   "bytes": 1775,
+   "sha256": "4e64ab2b9db8280108b98cf93c7522db94f071ea6623327139e13fb1345beef0"
+  },
+  "research/alphazero_value_diagnostics/manage.py": {
+   "bytes": 4434,
+   "sha256": "64623a9de7c542eaa643cb389d6a3ebfbc9c7df179d8207b9c402ef036a7b142"
+  },
+  "research/alphazero_value_diagnostics/pilot.py": {
+   "bytes": 1690,
+   "sha256": "16a088e5002013d65cbeac7f4188227eab049a900fda0bdc166391ce9209cb0c"
+  },
+  "research/alphazero_value_diagnostics/prepare.py": {
+   "bytes": 1696,
+   "sha256": "ee4be106dc5b1495448cb59f81bfa47621a376c1598eb0303efc3373bf987bf6"
+  },
+  "research/alphazero_value_diagnostics/report.py": {
+   "bytes": 31459,
+   "sha256": "18f9a293293ec5cbd110c7c29543bb1eef7ff27251caee2677bf9e2b724f22b4"
+  },
+  "research/alphazero_value_diagnostics/report_lifecycle.py": {
+   "bytes": 6298,
+   "sha256": "cfc2048ae162d2419b31d58df61f739101892e848aeaa1c2fd4f1243a5413de6"
+  },
+  "research/alphazero_value_diagnostics/report_results.py": {
+   "bytes": 5235,
+   "sha256": "39c323bd749823af4d34841846ebc16887733e278d437948eac945945e08aaea"
+  },
+  "research/alphazero_value_diagnostics/results/314159-cnn-g0-A-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-cnn-g6-A-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-cnn-g6-A-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-cnn-g6-B-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-cnn-g6-B-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-cnn-g6-C-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-cnn-g6-C-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-cnn-g6-D-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-cnn-g6-D-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-cnn-g6-E-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-cnn-g6-E-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-cnn-values.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-resnet3x64-g0-A-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-resnet3x64-g6-A-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-resnet3x64-g6-A-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-resnet3x64-g6-B-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-resnet3x64-g6-B-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-resnet3x64-g6-C-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-resnet3x64-g6-C-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-resnet3x64-g6-D-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-resnet3x64-g6-D-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-resnet3x64-g6-E-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-resnet3x64-g6-E-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/314159-resnet3x64-values.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-cnn-g0-A-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-cnn-g6-A-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-cnn-g6-A-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-cnn-g6-B-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-cnn-g6-B-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-cnn-g6-C-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-cnn-g6-C-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-cnn-g6-D-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-cnn-g6-D-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-cnn-g6-E-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-cnn-g6-E-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-cnn-values.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-resnet3x64-g0-A-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-resnet3x64-g6-A-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-resnet3x64-g6-A-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-resnet3x64-g6-B-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-resnet3x64-g6-B-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-resnet3x64-g6-C-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-resnet3x64-g6-C-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-resnet3x64-g6-D-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-resnet3x64-g6-D-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-resnet3x64-g6-E-matches.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-resnet3x64-g6-E-positions.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/42-resnet3x64-values.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/analysis.json": {
+   "bytes": 751783,
+   "sha256": "1c7f11d7ed1b11ad0b5d89cc3a6a688ecec4b79028c2cbc806fb0b50301629b5"
+  },
+  "research/alphazero_value_diagnostics/results/design.json": {
+   "bytes": 1794,
+   "sha256": "34123aaa56a3621dd47b21620fadcc0ddce0e8793e1d08f4cc72db4974988853"
+  },
+  "research/alphazero_value_diagnostics/results/final-integrity-audit.json": {
+   "bytes": 46635,
+   "sha256": "2411e5558bec1d3857ee8126df0c9e28e3aaba2afab11ee3c3c138a400cf05ba"
+  },
+  "research/alphazero_value_diagnostics/results/final-status.json": {
+   "bytes": 1301,
+   "sha256": "0e0b99c933f73e37e61baef88abe517a90838a77392075b11ac7eed2a0f48c92"
+  },
+  "research/alphazero_value_diagnostics/results/freeze.json": {
+   "bytes": 19790,
+   "sha256": "db1baaac6d1dfee64486c2b8bf66e2c099ed6299faf3111c2234acb52aed2dba"
+  },
+  "research/alphazero_value_diagnostics/results/incident-scope.json": {
+   "bytes": 1109,
+   "sha256": "6567d4c5d9a4f06936cef62cf2a4b1704334210ae953e12853dc37b5053bfec1"
+  },
+  "research/alphazero_value_diagnostics/results/independent-clean-model-rerun.json": {
+   "bytes": 720744,
+   "sha256": "19a4522ab7afcac7def012657f4c2aaed8d97274e5ffe863daebfb1b2d324e28"
+  },
+  "research/alphazero_value_diagnostics/results/independent-clean-recomputed.json": {
+   "bytes": 120251,
+   "sha256": "89447e721bef69c6ce585917fa6bc0508c8757ff5f18c5d44d5fa7e6dd22c6af"
+  },
+  "research/alphazero_value_diagnostics/results/integrity-resolution.json": {
+   "bytes": 1792,
+   "sha256": "c04c53420efa7af9ec2d4185c716a6fb879dab74a867d0cb2cb2c8fe284281eb"
+  },
+  "research/alphazero_value_diagnostics/results/lifecycle-analysis.log": {
+   "bytes": 30,
+   "sha256": "bbae5b3aeb29ed9833ec78e9fa1aa45a6acaef69026ba02e11fd5ba179f26c26"
+  },
+  "research/alphazero_value_diagnostics/results/lifecycle-independent-arithmetic.log": {
+   "bytes": 227,
+   "sha256": "ff6ad9893f3bc76e7c607cfa312c498f8c2f15c10e55e75457eca78d5440aa2c"
+  },
+  "research/alphazero_value_diagnostics/results/lifecycle-independent-model-rerun.log": {
+   "bytes": 70,
+   "sha256": "c117352144e7f46e0172a44b639466dcf8e02e3fe723fc0bba8e1ad934672fc7"
+  },
+  "research/alphazero_value_diagnostics/results/lifecycle-measured.log": {
+   "bytes": 0,
+   "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "research/alphazero_value_diagnostics/results/lifecycle.json": {
+   "bytes": 1252,
+   "sha256": "3568f2fa3a53ef26be8d0db6ecba36c063d8bca0c59122b2993347bef2d46e97"
+  },
+  "research/alphazero_value_diagnostics/results/pilot.json": {
+   "bytes": 851,
+   "sha256": "387e492b4740383e97a6c3601812ea0bdb87ee5603dd78ebcb02ea80da709f11"
+  },
+  "research/alphazero_value_diagnostics/results/prelaunch-provenance-audit.json": {
+   "bytes": 1686,
+   "sha256": "72d4af491e639086d715e4ba28097287869ebeb2a9fb216be7635197022463c6"
+  },
+  "research/alphazero_value_diagnostics/results/protected-before.json": {
+   "bytes": 217555,
+   "sha256": "54d79c388333bf5c2169b4d0119f9b4dfcb5d2f5ac153af7f5fb1c9e3cef4c38"
+  },
+  "research/alphazero_value_diagnostics/results/report-generation.json": {
+   "bytes": 81,
+   "sha256": "e48dfa9156a8a716c371de95d50dc18a2d2d630ed9fc0ed258c5f96bf594f06d"
+  },
+  "research/alphazero_value_diagnostics/results/report-supplement.json": {
+   "bytes": 1406634,
+   "sha256": "916e61a52c1eeeb7195ef255beb69fb0244c90194ff2b69ac16426e87ba8e9ef"
+  },
+  "research/alphazero_value_diagnostics/results/resource-final.json": {
+   "bytes": 711,
+   "sha256": "ae05282cc759307235e39c28049a13f6458046991098169604231a6694368180"
+  },
+  "research/alphazero_value_diagnostics/results/status.json": {
+   "bytes": 3096,
+   "sha256": "d35acafeefdd4c01d84040f062c489bc1c39ae6651f207756c41ed1c167ab041"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g0-A-positions/complete.json": {
+   "bytes": 199,
+   "sha256": "86dd424d23ff3215e7c0b1509cb68cc1289cd5da727fa6c09cc464feed733c13"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g0-A-positions/deep.json": {
+   "bytes": 72163,
+   "sha256": "0a81239bdf4aaff578977fd1556ffe362ea3a966e384d6d81d1cb0a9277b1cd3"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g0-A-positions/identity.json": {
+   "bytes": 427,
+   "sha256": "0d25af17ff4597aab85c4c0f8771945fbb86bb65d5e238fdec853a583af7a93c"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g0-A-positions/solved.json": {
+   "bytes": 173826,
+   "sha256": "a7e3b38b6ba0a45343dbd978f46079085499527b7b8860db768cc192c6b72b73"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g0-A-positions/tactical.json": {
+   "bytes": 106930,
+   "sha256": "1a9a580fc8ddeec928b1cbc70bff508a6c8ceafb8c4a21306b38d1913589a73e"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-A-matches/complete.json": {
+   "bytes": 187,
+   "sha256": "8edad8d37b14f6cc183a6222168f10e7da3b7fdbe5a39f4f793e023699b53b31"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-A-matches/identity.json": {
+   "bytes": 441,
+   "sha256": "d94ec5650d47cd39d5b541517d06888ff8410a5aafd6d421a63f53f5f264087d"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-A-matches/matches-progress.json": {
+   "bytes": 197323,
+   "sha256": "2b40a7c0b22efff8b478cec773a2422cd174a660ef384a8fb5c38bfc866996f0"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-A-matches/matches.json": {
+   "bytes": 197322,
+   "sha256": "dbd55bbf8fa0cbe24e3f4f964336fdbfe2992e0b0d5ab00a58daa8b7a8a082a2"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-A-positions/complete.json": {
+   "bytes": 194,
+   "sha256": "fcf4d0e08375c7332e91d807939bd67b2da1582e8ffc225f552343c08f3e4aa2"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-A-positions/deep.json": {
+   "bytes": 72077,
+   "sha256": "7df2b49acab04bdb556e0d21cd4846e4d6d4965da57d0a490f63c0f9577483e5"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-A-positions/identity.json": {
+   "bytes": 441,
+   "sha256": "d94ec5650d47cd39d5b541517d06888ff8410a5aafd6d421a63f53f5f264087d"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-A-positions/solved.json": {
+   "bytes": 173454,
+   "sha256": "8c68c24805d8e964be8093370517c9b7e48e9435fbfb757c80e16251daea89d0"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-A-positions/tactical.json": {
+   "bytes": 106995,
+   "sha256": "fec95fbd2e2401297805bff9fa86150647ab06c635f6943c77ef1229568249b1"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-B-matches/complete.json": {
+   "bytes": 198,
+   "sha256": "0a08d0d4f089cc1f88d793916dd3c02858ea91501907d81252e35ee836dfea30"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-B-matches/identity.json": {
+   "bytes": 441,
+   "sha256": "9b0f2b204d298ca3af12f50446f628f2f601d3fb862c8fe30f63463d14587d19"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-B-matches/matches-progress.json": {
+   "bytes": 203188,
+   "sha256": "e93f2f5d4159718734276bcf94495417565f2ed68d2674b780ba82c40704ea67"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-B-matches/matches.json": {
+   "bytes": 203187,
+   "sha256": "4b12c5ff7f5adb8cf5f7f391820f6129399c1222c78657b97cca00562b2807f9"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-B-positions/complete.json": {
+   "bytes": 192,
+   "sha256": "6cfdc82c08a987bd71620c8a93c3bbea349566625cc53b4ef505f007c8bd25f4"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-B-positions/deep.json": {
+   "bytes": 70153,
+   "sha256": "9db0c1b00dd292376ed69ee8b76e6743dd421bd8eebb89882c31db89d8087569"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-B-positions/identity.json": {
+   "bytes": 441,
+   "sha256": "9b0f2b204d298ca3af12f50446f628f2f601d3fb862c8fe30f63463d14587d19"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-B-positions/solved.json": {
+   "bytes": 169053,
+   "sha256": "286dccbbad6f411e6bced4823cf1fe8f51e42ed0fb70959d631e03fd11be5399"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-B-positions/tactical.json": {
+   "bytes": 103954,
+   "sha256": "ea2eac7a2c6d6703388d6137573561a9dc1e28ff2ffcc5c731fa02a91815d704"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-C-matches/complete.json": {
+   "bytes": 191,
+   "sha256": "a367f721e83f46fdb54a0c5d5c45debc64b966c5b4009a392a355701b23f1478"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-C-matches/identity.json": {
+   "bytes": 441,
+   "sha256": "06c4bac1161a764c6fdd59e9c283f9af37e38a126d82f8828309394f3ca38d67"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-C-matches/matches-progress.json": {
+   "bytes": 202524,
+   "sha256": "578457afbcbacf6cfb26e257998ca215a88a78b044c139c1c6f93d34706941ac"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-C-matches/matches.json": {
+   "bytes": 202523,
+   "sha256": "11c44a3ab384d4c9bd4d69a3ac0d684e269523243fc783e80f4714447395cf2a"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-C-positions/complete.json": {
+   "bytes": 191,
+   "sha256": "d3ae99e654bd06dbe4187408ed99e75a9d79150c8eadb8e1f6d3b1c1f27b9436"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-C-positions/deep.json": {
+   "bytes": 68207,
+   "sha256": "3efc7ff470ef9cfb51dda5556bbf630e551e28c5dd9b58dd2f0cc0d894673fd7"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-C-positions/identity.json": {
+   "bytes": 441,
+   "sha256": "06c4bac1161a764c6fdd59e9c283f9af37e38a126d82f8828309394f3ca38d67"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-C-positions/solved.json": {
+   "bytes": 166189,
+   "sha256": "e59f98272371e8edf32dc5103718266adcf1c0987e049b4ad71a198a457e752d"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-C-positions/tactical.json": {
+   "bytes": 103047,
+   "sha256": "a362604d989917727669cda9d2070bacf5690aaf9ebbe5b972a22bdf8e74384f"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-D-matches/complete.json": {
+   "bytes": 189,
+   "sha256": "619bfcea8bbcff3611ecdf2787e401ca3b9c2b3daa36096c81cd2d2b92ab7918"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-D-matches/identity.json": {
+   "bytes": 441,
+   "sha256": "69ee51b0a4b7ecac2c67af913e25800d8ead01d59f52b88129ab5962fd269e1f"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-D-matches/matches-progress.json": {
+   "bytes": 158160,
+   "sha256": "4baf475944341201ff537825d13aa75ff3ba4154dfa315cfeaba261a4038bad2"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-D-matches/matches.json": {
+   "bytes": 158159,
+   "sha256": "83414bd4237cb6f3c47fcee87327c36b3999e9231b0409ddbf25eae18ac09156"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-D-positions/complete.json": {
+   "bytes": 201,
+   "sha256": "18a04822c7e02e4043c97fcef4214cb8aef700b91af1a78feaec46bf1fec7e14"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-D-positions/deep.json": {
+   "bytes": 66254,
+   "sha256": "0bd66daa1e8bb730a71187bd86000bc91810029ba7b9a6fbe0668b7a18693121"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-D-positions/identity.json": {
+   "bytes": 441,
+   "sha256": "69ee51b0a4b7ecac2c67af913e25800d8ead01d59f52b88129ab5962fd269e1f"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-D-positions/solved.json": {
+   "bytes": 161686,
+   "sha256": "a085c478955d488335ffe400b184224cd4f925954bba98a2ec20d39472ba81c8"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-D-positions/tactical.json": {
+   "bytes": 99916,
+   "sha256": "dfd6ac63ed48153304807c2b0a3779fa88ddf199f83c7367af45f791c7bedddb"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-E-matches/complete.json": {
+   "bytes": 198,
+   "sha256": "525f94c529d642b6a0af854a99da6356c27a303e51e859905d826a5441cf0232"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-E-matches/identity.json": {
+   "bytes": 441,
+   "sha256": "1a9a653cf5d55382f92ee429dfddef31c4b11d7da1fa58b96916cd8fc48eaaff"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-E-matches/matches-progress.json": {
+   "bytes": 199049,
+   "sha256": "b7a3320d7b0a04a0a5c862560ead5e523784680d28b43914e3068896505d3ef3"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-E-matches/matches.json": {
+   "bytes": 199048,
+   "sha256": "6055032a9c4b7a5b6a4f098cb5261a48a7d601a623f50552e23eef6d8055b6d3"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-E-positions/complete.json": {
+   "bytes": 193,
+   "sha256": "1ba476c848205a7ba174bc7a1f05840d78c37d6a9a518286200537a0c74b9211"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-E-positions/deep.json": {
+   "bytes": 72120,
+   "sha256": "206af67aca4f943b163eedda3ba5a32e6f91a5ff29c2eb58390e99ae4eabb3e2"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-E-positions/identity.json": {
+   "bytes": 441,
+   "sha256": "1a9a653cf5d55382f92ee429dfddef31c4b11d7da1fa58b96916cd8fc48eaaff"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-E-positions/solved.json": {
+   "bytes": 173642,
+   "sha256": "86168c981fdea68539defec30c695ad785206b418d00b40aacba3077e34f2c3a"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-g6-E-positions/tactical.json": {
+   "bytes": 107077,
+   "sha256": "dfe1454a567a7fc32ad0884cdcaa4428f8717a92377a2fb1f77c8a487493dffe"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-values/complete.json": {
+   "bytes": 189,
+   "sha256": "9c93dd7ed0daf49f7dd8f98bda9e10bacf5e5b1780073de790e6b6948c5f7982"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-cnn-values/values.json": {
+   "bytes": 16763141,
+   "sha256": "f34bf9114f1dcd1d7f70ec707526df49dbb416a9e844294c31a7105c72cc70cc"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g0-A-positions/complete.json": {
+   "bytes": 197,
+   "sha256": "5a558a5a7474183ff587d48e42bc23c335e6396f1728d2e762d425c609d90b02"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g0-A-positions/deep.json": {
+   "bytes": 72232,
+   "sha256": "40cd655c3f999e1101d3af0ea156c41956085cce111c6610003603384829da68"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g0-A-positions/identity.json": {
+   "bytes": 441,
+   "sha256": "baeba73e6b981b758e79a0b5bcd751a4eba8f7c9da8c4b4ded273c1f77583714"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g0-A-positions/solved.json": {
+   "bytes": 173772,
+   "sha256": "eb0b12375281c77c9eee966d84bd300b07aea4e0e012f0da54477f317a6d40ab"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g0-A-positions/tactical.json": {
+   "bytes": 107017,
+   "sha256": "3b39450aa646a17110997cabc5c905c955f3e1abb8a12ddb46500d3217444132"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-A-matches/complete.json": {
+   "bytes": 198,
+   "sha256": "53e2142140a78cfbc58f5cd77d9cf4008d4acbeeafe500145a0e89fd2abc0dfb"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-A-matches/identity.json": {
+   "bytes": 455,
+   "sha256": "96c8def218c3d4996295991cfcd1b14e566766ded1eeddabafa15ebdf5e6bf33"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-A-matches/matches-progress.json": {
+   "bytes": 193148,
+   "sha256": "e6fc17bb3229e2776c0803ef722b8f6f3dcca53a8b910334bd2569e697e097a9"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-A-matches/matches.json": {
+   "bytes": 193147,
+   "sha256": "c218bdf00cd6a0fc0277a2c500c91bcd1152ccfeca2135e8653df25f2a765dbf"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-A-positions/complete.json": {
+   "bytes": 208,
+   "sha256": "64e81843e64c516d88dbf189b767d1fb49bc0579280b4fc5f774a0b6f58f2694"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-A-positions/deep.json": {
+   "bytes": 71983,
+   "sha256": "960a08fb6ba24aee0feeec1958026bf991e9b3de630a2efd020f8407c9ccbaa5"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-A-positions/identity.json": {
+   "bytes": 455,
+   "sha256": "96c8def218c3d4996295991cfcd1b14e566766ded1eeddabafa15ebdf5e6bf33"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-A-positions/solved.json": {
+   "bytes": 173400,
+   "sha256": "ce272d458ff247611b18de1061ce8d0f02638eac9d6b413fde337662dc25aaa8"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-A-positions/tactical.json": {
+   "bytes": 106933,
+   "sha256": "73cb512ab26bba6d5fbba9742260d761d81d7581c10c734ea7a6ce5d1e312c8d"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-B-matches/complete.json": {
+   "bytes": 197,
+   "sha256": "8f3c36e63fb58de8775fbabc1677aae5d9e4f42ee093eda2496709a12e44c46b"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-B-matches/identity.json": {
+   "bytes": 455,
+   "sha256": "13578d32244102f2f330b704dd7230e309a612908a4b040f5c6c36f31c95bae3"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-B-matches/matches-progress.json": {
+   "bytes": 180263,
+   "sha256": "ebb8a8132b00146adbd181db64511d24b6f427ae3b4ff7b8a69d036fa87c8b0e"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-B-matches/matches.json": {
+   "bytes": 180262,
+   "sha256": "4e02c367ae415cf708da9c5091ca84b4381f984fdec0e40fcb0b17477dcc009c"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-B-positions/complete.json": {
+   "bytes": 196,
+   "sha256": "0711d3cf61871c9c6e7df4e08e2435384ae37d2d5588c91fa620f256a3e344e9"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-B-positions/deep.json": {
+   "bytes": 70124,
+   "sha256": "8f99be756622f41775e0400014a47ca9fd436a4249861d4ba1a66e75a9b9036a"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-B-positions/identity.json": {
+   "bytes": 455,
+   "sha256": "13578d32244102f2f330b704dd7230e309a612908a4b040f5c6c36f31c95bae3"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-B-positions/solved.json": {
+   "bytes": 168904,
+   "sha256": "b1f9cec95e47e08ec29ddd29f03fa232ae7c2645d177c588a2697a0f69154c7c"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-B-positions/tactical.json": {
+   "bytes": 103858,
+   "sha256": "6a2a25d3dce6e8ea0e71f34ea657a8da3313bdc70c651fa9efbe406a3505f0d1"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-C-matches/complete.json": {
+   "bytes": 198,
+   "sha256": "40837ad38147412995400fdae37a4e626892d8e14d973ebfb0a8790dbf09cc94"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-C-matches/identity.json": {
+   "bytes": 455,
+   "sha256": "9a9481e68025c4b09486faafc3989c6e8aa00b980429f863130d9e19b1b33bf9"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-C-matches/matches-progress.json": {
+   "bytes": 204494,
+   "sha256": "e849b1ec9f991ed8bf099e74ea9602d7e40d75974ab40440dd064256c9c63972"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-C-matches/matches.json": {
+   "bytes": 204493,
+   "sha256": "bbefd67a93f33f762b4d306e16e6eb7e850a0b24e090cfe533ddf0c725376acc"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-C-positions/complete.json": {
+   "bytes": 199,
+   "sha256": "3ca173f454fd4577928cfa1bdffb42c75a4c5fb9da5a2ea95c2fc79e4818da73"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-C-positions/deep.json": {
+   "bytes": 68156,
+   "sha256": "fe1e0ba97225ac6d03f4a3a448e24a42034850e1825bda7a3860bd1f6b7ac95b"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-C-positions/identity.json": {
+   "bytes": 455,
+   "sha256": "9a9481e68025c4b09486faafc3989c6e8aa00b980429f863130d9e19b1b33bf9"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-C-positions/solved.json": {
+   "bytes": 166258,
+   "sha256": "81a45e9867f8ac4f56059c30d2cdbfdce813436469babeeb01c772e0dc52006b"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-C-positions/tactical.json": {
+   "bytes": 103024,
+   "sha256": "cf53659d361df27badb53b726d34eec48a469d9ddd152d710801f07b055fce5e"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-D-matches/complete.json": {
+   "bytes": 206,
+   "sha256": "f1c7a9d4d2d24cb1a44e459db67bb22284e8d2bca2446b2257b51f5c81837086"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-D-matches/identity.json": {
+   "bytes": 455,
+   "sha256": "cd189aa2aac2dfaf611987707da026e1d9edefb4de7cec98c97a30381fce75ab"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-D-matches/matches-progress.json": {
+   "bytes": 157945,
+   "sha256": "e8b439f6661c0e9e9ed8807004cff39340a52fba7da36fdeb32448fe1457245d"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-D-matches/matches.json": {
+   "bytes": 157944,
+   "sha256": "098e896bd11c1f5b3ddb883aa159ef79836e55de0b2ddf69f1197a5e8848bb21"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-D-positions/complete.json": {
+   "bytes": 207,
+   "sha256": "a9cf9a80713d5a7a74345031bafb069e7d6b8fd206ef52c1b906042f0c42896c"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-D-positions/deep.json": {
+   "bytes": 66221,
+   "sha256": "1ede4eb32f1f05813f8402e135c28288c414ba72849432e36979b5c383ad0303"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-D-positions/identity.json": {
+   "bytes": 455,
+   "sha256": "cd189aa2aac2dfaf611987707da026e1d9edefb4de7cec98c97a30381fce75ab"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-D-positions/solved.json": {
+   "bytes": 161619,
+   "sha256": "538b213fff0667c48dd7810ea135940c85192930976283cfd5cf87830932a85c"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-D-positions/tactical.json": {
+   "bytes": 99868,
+   "sha256": "bae297eb058ff4af27d9ca0a55d5e7d168a15b712e8813fee8d071e5643230d3"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-E-matches/complete.json": {
+   "bytes": 198,
+   "sha256": "40c0bf5fa62e9725fbf5cf00b0709744a623bd7deecd0fbb7f789503e4e949d4"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-E-matches/identity.json": {
+   "bytes": 455,
+   "sha256": "e3fc253040f1231a3a49c477d1f5c31d65746d2be04567d088bbf38b6ad30283"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-E-matches/matches-progress.json": {
+   "bytes": 201355,
+   "sha256": "0560e5ba701ea50b35bed02313a6e0b9ecf2c9eb2817ee4b8ce7d362fdbead4d"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-E-matches/matches.json": {
+   "bytes": 201354,
+   "sha256": "c967cf21f7d5c5ba1b8c5f53f3f7d9f941d020ea5d58453616ddf297a2d52a9e"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-E-positions/complete.json": {
+   "bytes": 208,
+   "sha256": "cb5f26fb5c1bf21e9adfd5e9f5271984cc45e78d079fb20e2c198c89543ae99e"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-E-positions/deep.json": {
+   "bytes": 72091,
+   "sha256": "d561841910ea5349d60984062bb3e2161582cd2f99bdee98bbc10ded50c783a1"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-E-positions/identity.json": {
+   "bytes": 455,
+   "sha256": "e3fc253040f1231a3a49c477d1f5c31d65746d2be04567d088bbf38b6ad30283"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-E-positions/solved.json": {
+   "bytes": 173641,
+   "sha256": "f2b3053acb3d741b2234a14bbd4ca19f62507afa99ff85712e03d062cab81921"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-g6-E-positions/tactical.json": {
+   "bytes": 107013,
+   "sha256": "29b7cb6117cc06b01c9c6475bd5ce7616c9f7c833fee3c0dae7ae12c7c7543af"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-values/complete.json": {
+   "bytes": 195,
+   "sha256": "24462294e65b2d3ea09d27adadec19ec292af70c3cf373400d9c04971850df0a"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/314159-resnet3x64-values/values.json": {
+   "bytes": 10487211,
+   "sha256": "f4078d6d93c77aacbc5088c1459a3eba95a900e102422c8eaddf48ff70251842"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g0-A-positions/complete.json": {
+   "bytes": 188,
+   "sha256": "a88105ff362f69b1f209909d7bff2643dac72ac8b49d6bfda4d96b212eeef701"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g0-A-positions/deep.json": {
+   "bytes": 72080,
+   "sha256": "75bfdc5bb4ed514c2966b6f53cd249269b189a4e61ad889e573760e86fe25b11"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g0-A-positions/identity.json": {
+   "bytes": 419,
+   "sha256": "371634bdddf2c3074525b2f713db6d93d0547aa6965894c2f8c0cc2af750f868"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g0-A-positions/solved.json": {
+   "bytes": 173496,
+   "sha256": "c70c00f2e5c80ed0e94c6c6a087a3c4d5f752e305c546560bd174c3a15ec66fa"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g0-A-positions/tactical.json": {
+   "bytes": 106776,
+   "sha256": "ca2abe834b731b85f99fb9b2d9b7090943c8f3f54cd1fd7c3827d9f100877ed4"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-A-matches/complete.json": {
+   "bytes": 187,
+   "sha256": "1b3d23e266b07ee6b6215f50a0c411d623f817cf817d0b0dd42089c517e42830"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-A-matches/identity.json": {
+   "bytes": 433,
+   "sha256": "4403cf090cc782331a227f953e66d4a95a2cf7646dd22167a3678782154ac0dc"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-A-matches/matches-progress.json": {
+   "bytes": 203034,
+   "sha256": "338d059db7b59388fe77d7403205f091cddbe893f6fa06dd5e046799e6e01c9f"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-A-matches/matches.json": {
+   "bytes": 203033,
+   "sha256": "37c8d6b59f9a5dfae6f39b566e591e8beb124899f65e38434c586d82e58489df"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-A-positions/complete.json": {
+   "bytes": 184,
+   "sha256": "141cb7f06a4d7724b0b10c415e434a42939a25c7b2d03e914e182e2edf78917b"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-A-positions/deep.json": {
+   "bytes": 72004,
+   "sha256": "0c17f12b1bacbc71fb7216b2ac16f87767f9ede1c5c169624aa3f078a0906cb2"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-A-positions/identity.json": {
+   "bytes": 433,
+   "sha256": "4403cf090cc782331a227f953e66d4a95a2cf7646dd22167a3678782154ac0dc"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-A-positions/solved.json": {
+   "bytes": 173527,
+   "sha256": "c7510710c518de137f4eb18c7cd073f6222d1c75da84a52227b84d896506ac69"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-A-positions/tactical.json": {
+   "bytes": 107044,
+   "sha256": "547cd50797a8f8981e4468e96263e26e0d7747e79d7c29747e96b16ec9a7f75e"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-B-matches/complete.json": {
+   "bytes": 197,
+   "sha256": "0ce5f8e484a6f7f26f2b1d66d708951f020341fe1071c9aa07ff9a308ee81a49"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-B-matches/identity.json": {
+   "bytes": 433,
+   "sha256": "f5e0538cda8329e6116d0f14b8bcb82a1fc94543c50cd0f1ca7eaa4f172e0761"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-B-matches/matches-progress.json": {
+   "bytes": 186155,
+   "sha256": "14ffa3435e3aacf6bc3fe36c44218220fb6e845f67814988bf7dc5ffdf268aa0"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-B-matches/matches.json": {
+   "bytes": 186154,
+   "sha256": "e7392b6606869ae7c32412819ab42b05f6119fd8fb72517af711ed4d155b8877"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-B-positions/complete.json": {
+   "bytes": 187,
+   "sha256": "a9fa9736ec31bd3cc28f515585820b254ed4531a65476cbccdcfa4e8301af71e"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-B-positions/deep.json": {
+   "bytes": 70127,
+   "sha256": "bccc3414d9e407324b51b6be7f5fe6ccd6b01c0673f154970473f8d79a8034a4"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-B-positions/identity.json": {
+   "bytes": 433,
+   "sha256": "f5e0538cda8329e6116d0f14b8bcb82a1fc94543c50cd0f1ca7eaa4f172e0761"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-B-positions/solved.json": {
+   "bytes": 169104,
+   "sha256": "9374209554fa4e00d8b4586996aa451b96a5ca98069838fe39a863522a449a20"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-B-positions/tactical.json": {
+   "bytes": 103949,
+   "sha256": "ee2a7dbc9bee4242fa54291a766350f1b672751a342e1f767668fb7966ee06a0"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-C-matches/complete.json": {
+   "bytes": 185,
+   "sha256": "96c2259bb9627c8d13703c831e7b812d7eb85664ee8534fca15f7a2bf8a7e6ce"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-C-matches/identity.json": {
+   "bytes": 433,
+   "sha256": "e804a01304f6b03757c5eff4ab40075d33f495dd5c51e4f67f0eb749b5cd2823"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-C-matches/matches-progress.json": {
+   "bytes": 206750,
+   "sha256": "a94b52a6e8a8df0b693dafbe194e25514691a8898c5d11de66956384d918417e"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-C-matches/matches.json": {
+   "bytes": 206749,
+   "sha256": "3a87a19fa433bd8e733c8503f1726890929d811aa3450ed4e192fcc1864eac64"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-C-positions/complete.json": {
+   "bytes": 196,
+   "sha256": "3f061fd10f2aa6198de6e63124b3345b63a41c5dc1e9e67e4df0efb159045df6"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-C-positions/deep.json": {
+   "bytes": 68204,
+   "sha256": "7f5b250e5e87205d2b2195beffdb1867b46934d95030acb51fa0d0a7809aad5b"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-C-positions/identity.json": {
+   "bytes": 433,
+   "sha256": "e804a01304f6b03757c5eff4ab40075d33f495dd5c51e4f67f0eb749b5cd2823"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-C-positions/solved.json": {
+   "bytes": 166326,
+   "sha256": "d862042728f802e44ecd02ef00ffd71d53639bbabd1cb7b0d3190fc073acf898"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-C-positions/tactical.json": {
+   "bytes": 103179,
+   "sha256": "baba827af32078076655891d4251da7f88b88484718223e37a3d34678a2d8484"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-D-matches/complete.json": {
+   "bytes": 185,
+   "sha256": "ecee260347970d269f2c357f75f9df92de45ec550239be2f629474c5452c467f"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-D-matches/identity.json": {
+   "bytes": 433,
+   "sha256": "444a79062b9f4c7a8d8f9a87ac43e05a676bb862d506027f286557f095cbbde5"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-D-matches/matches-progress.json": {
+   "bytes": 158169,
+   "sha256": "94e7793b7aa4a7f4661e2195782f8e8631d71bfe4f28a54db927293c9106c751"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-D-matches/matches.json": {
+   "bytes": 158168,
+   "sha256": "c0087b960d88cceacf7e436d5c431b3f42f21ef1f70f2c4baa231db0de1c9026"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-D-positions/complete.json": {
+   "bytes": 190,
+   "sha256": "fa6ece924efd458bffaec43c19a432642f708f11608cc0f97b037bc4e4eba6b8"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-D-positions/deep.json": {
+   "bytes": 66250,
+   "sha256": "e7c45db33df07c941aa98e76cf671b7efb5b1b87d18c71386a5765de62aed429"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-D-positions/identity.json": {
+   "bytes": 433,
+   "sha256": "444a79062b9f4c7a8d8f9a87ac43e05a676bb862d506027f286557f095cbbde5"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-D-positions/solved.json": {
+   "bytes": 161705,
+   "sha256": "d4d8b6f0f52e1c9702e5cba69e8e28865a70a028cf302ab19914d6451e9c309b"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-D-positions/tactical.json": {
+   "bytes": 99938,
+   "sha256": "54b04bca85e5cc1eb3eae35b7e8da338ce9c85e253e857137fc6e22fe8a59a24"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-E-matches/complete.json": {
+   "bytes": 187,
+   "sha256": "c1e4fc3c5cbb2cdcd7623be931163e918da22d9046f43af6f67f1c8ecfc7603d"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-E-matches/identity.json": {
+   "bytes": 433,
+   "sha256": "5318298c17b82dc62b81bf188613e05a862a2bc3ec3edaf928a02e4ec544ad66"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-E-matches/matches-progress.json": {
+   "bytes": 209087,
+   "sha256": "308cbf5f3a57b3085ab1982c144f3adf4d72c0472e937a8f161dc48761c56424"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-E-matches/matches.json": {
+   "bytes": 209086,
+   "sha256": "21c4bd6ea277c6c679bfddf837f31163a27e4fe2e2c1920e96e5463ea7aa22e5"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-E-positions/complete.json": {
+   "bytes": 186,
+   "sha256": "94501b354d62689d517920302b36d05e11c1fb4f70a619d2fd774566e404258e"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-E-positions/deep.json": {
+   "bytes": 72088,
+   "sha256": "b457ca17f4a91f932c4e6123256ab6cc9eb518a4fd1da668e1d3e8ff7f7104fc"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-E-positions/identity.json": {
+   "bytes": 433,
+   "sha256": "5318298c17b82dc62b81bf188613e05a862a2bc3ec3edaf928a02e4ec544ad66"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-E-positions/solved.json": {
+   "bytes": 173734,
+   "sha256": "f71a522a0df92fcab699a7bd118a30847aeb9a93a4f5fedf21b3c04c5d076d1e"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-g6-E-positions/tactical.json": {
+   "bytes": 107134,
+   "sha256": "9fb10e9c17e8d14ca59e931ee202378d0dcce95787306ff4c5668ae645e61cfc"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-values/complete.json": {
+   "bytes": 186,
+   "sha256": "5e63b7e2cf8ead819ba564990fc07fbb097afe20e68b8bdf3f562d8990a01029"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-cnn-values/values.json": {
+   "bytes": 16215825,
+   "sha256": "d91534f503503d8943e5c2e171806ad4e45b43e076634eb6c61ef095ef4890be"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g0-A-positions/complete.json": {
+   "bytes": 197,
+   "sha256": "d12c0a238de5715ccb988e5d8853580187d19869da888a9dcff77fa406f30b9d"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g0-A-positions/deep.json": {
+   "bytes": 72195,
+   "sha256": "4099886838c585c914b3561b354a0c26f33112b109909522a3201a50d2ee6410"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g0-A-positions/identity.json": {
+   "bytes": 433,
+   "sha256": "181523c17c02c5f9703e233397e8dc58de4a8424eb04d9fba24ddaa4afb7b53f"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g0-A-positions/solved.json": {
+   "bytes": 173664,
+   "sha256": "e5b48c44a77b25d2b5d5502fe341322a3d5c1afbebb0e7bca09baccb1784ef51"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g0-A-positions/tactical.json": {
+   "bytes": 107002,
+   "sha256": "a40d665aaeb7ec24362a9380f084603dd8ebed5f6cfe494765a7650b2e7ba4ee"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-A-matches/complete.json": {
+   "bytes": 192,
+   "sha256": "9d64e29966a5114452004a37d87dadb92a53be517f776d1969c9c60763ec5c48"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-A-matches/identity.json": {
+   "bytes": 447,
+   "sha256": "6c8ee8b27983574d2995e1738b3bc29d969b82fbb17cb10d3c1943420dfc0a18"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-A-matches/matches-progress.json": {
+   "bytes": 206121,
+   "sha256": "b15d280f09e8c027fb6991287bab21406c661b0bc72be2b8efb3def9800ec3a6"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-A-matches/matches.json": {
+   "bytes": 206120,
+   "sha256": "1180b882cf1199f48be4d2e79ee6d38a3f8314ea64397103cc6604ad72c865dc"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-A-positions/complete.json": {
+   "bytes": 204,
+   "sha256": "4813f1694d0f88649212a68469b3d5685b667198c31566ec59db79ae7911f945"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-A-positions/deep.json": {
+   "bytes": 72030,
+   "sha256": "283aa9471277fd5290dbc1ca5261b69e4b2ef618624d01180fbc0c8a66d0ecdc"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-A-positions/identity.json": {
+   "bytes": 447,
+   "sha256": "6c8ee8b27983574d2995e1738b3bc29d969b82fbb17cb10d3c1943420dfc0a18"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-A-positions/solved.json": {
+   "bytes": 173366,
+   "sha256": "98e6a04c348b66ad61add8544c9ef0e5aa8b0a3481132907c7836809e9df69a7"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-A-positions/tactical.json": {
+   "bytes": 106935,
+   "sha256": "a78f0419ae3f8a983e5aebf0fabd0af40f70c9e846c481e318641d57a62e8bfe"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-B-matches/complete.json": {
+   "bytes": 194,
+   "sha256": "fd71d6261d4aa63c42f0ec418d8d2b482e6ce1e133ef5ef8e2c2a1ef5f203bee"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-B-matches/identity.json": {
+   "bytes": 447,
+   "sha256": "b87bfd6cb992d4e1aa2aceeae816fef389b6afb6a8fa18dec261f9d5186df233"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-B-matches/matches-progress.json": {
+   "bytes": 193911,
+   "sha256": "e6b62ef5ff947e19a6f6e6863221e96b63db30829892649ba56583623cac6ebe"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-B-matches/matches.json": {
+   "bytes": 193910,
+   "sha256": "a0c7fabf2e395ad761d76201842ec2cdfa234263c7085ebc290de001c8bddad0"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-B-positions/complete.json": {
+   "bytes": 196,
+   "sha256": "29a48afa9737360fbc4aeba004e001e6528b726ebe23108563305ae098bb1d56"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-B-positions/deep.json": {
+   "bytes": 70176,
+   "sha256": "6b61d10add792d75252f943ae15a7117e3b943e2eb5d4766708ef4a59f3d74cf"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-B-positions/identity.json": {
+   "bytes": 447,
+   "sha256": "b87bfd6cb992d4e1aa2aceeae816fef389b6afb6a8fa18dec261f9d5186df233"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-B-positions/solved.json": {
+   "bytes": 168971,
+   "sha256": "f0d6909bff7ce61cb125ac8135e48d5a91986f8646902263c722979b4e180d77"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-B-positions/tactical.json": {
+   "bytes": 103825,
+   "sha256": "1e532fabcd8fde9d39d0740e473242c08f42921eab1d46037c0e0133d565f1dc"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-C-matches/complete.json": {
+   "bytes": 193,
+   "sha256": "f404433b69d275cbf88da7820460968f9a11512f1ab52a65a6d47408eb8a74f1"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-C-matches/identity.json": {
+   "bytes": 447,
+   "sha256": "16f90e37bf2146f50180155169e287a79105f4e39c457bcbaa171af316b247f4"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-C-matches/matches-progress.json": {
+   "bytes": 190907,
+   "sha256": "708f94ff60b6a3324b6f9a5efeda57b1b797919bbc7582160969766cd25a38b9"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-C-matches/matches.json": {
+   "bytes": 190906,
+   "sha256": "3be851f5112cb02ddcc567e07b993cf563340bb24235694a07e22f1669299588"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-C-positions/complete.json": {
+   "bytes": 196,
+   "sha256": "8b2965af1de4f7a45dba73ebf454a393fcc45f8e58dc0f0a0c994750fd7c8ac7"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-C-positions/deep.json": {
+   "bytes": 68149,
+   "sha256": "1522ba900fde9a05d1286d0d4f67ef919b1a5dc87685dc2a4ac9377a19fc8891"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-C-positions/identity.json": {
+   "bytes": 447,
+   "sha256": "16f90e37bf2146f50180155169e287a79105f4e39c457bcbaa171af316b247f4"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-C-positions/solved.json": {
+   "bytes": 166208,
+   "sha256": "12f25ead2b4d903011277f020e8d33ff22417f14a10c5e0767ad2b17e039d91f"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-C-positions/tactical.json": {
+   "bytes": 103107,
+   "sha256": "16909de8cea94a331787d786c0e3d9f91c20736976b7e80c3b4630e2a399dc2f"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-D-matches/complete.json": {
+   "bytes": 191,
+   "sha256": "4a9c9289942f7a774febddcfa6be978e5f1d50c9639965d2462d72bc797a9f25"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-D-matches/identity.json": {
+   "bytes": 447,
+   "sha256": "10dba23cc58be12c177d9896129060953fb855404df1f41698a900cf27773def"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-D-matches/matches-progress.json": {
+   "bytes": 157991,
+   "sha256": "86eb99519131397fb469b3c9de7f6bce9172a9b40b6f1d5648add785d2c1d659"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-D-matches/matches.json": {
+   "bytes": 157990,
+   "sha256": "e4209b80569aa74513f46be22b467805a3b3e519003308491f31087d05c0c18e"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-D-positions/complete.json": {
+   "bytes": 205,
+   "sha256": "7a682885e149b65f328d4a38c3dba4b877fa9f05949a150d567594644a5e4095"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-D-positions/deep.json": {
+   "bytes": 66232,
+   "sha256": "e7e7e9c098a294a910d67447c13c10c6660180bd332d36f9f2928cdca3ca9730"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-D-positions/identity.json": {
+   "bytes": 447,
+   "sha256": "10dba23cc58be12c177d9896129060953fb855404df1f41698a900cf27773def"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-D-positions/solved.json": {
+   "bytes": 161651,
+   "sha256": "44d5044fb1cb14a2b971f5592f86d823e0399618b456fcdf10fda361ec49d84c"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-D-positions/tactical.json": {
+   "bytes": 99893,
+   "sha256": "cdd3d83f8ed8f8148fc5e3961d8fda09a1f6edf06a1c11782fb89b0b899cf85a"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-E-matches/complete.json": {
+   "bytes": 192,
+   "sha256": "1c67713cc1e4c3b4a9f37ca4234d2e8837ebec253ea693a2e4be40ea4afe677b"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-E-matches/identity.json": {
+   "bytes": 447,
+   "sha256": "f551f1b4594abaff956bb0f1c2e9cff55e0d95062d11da361e6eb984587b53b1"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-E-matches/matches-progress.json": {
+   "bytes": 199171,
+   "sha256": "9b634cd44ac9daaf7fcfd9f799367c6fcc1ba0032a481e9dce3fda1120f4fef3"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-E-matches/matches.json": {
+   "bytes": 199170,
+   "sha256": "b798f31a16be63cf8d9057415f04f32027596a1bb3ce703fa2e3fe096ac1afa5"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-E-positions/complete.json": {
+   "bytes": 194,
+   "sha256": "b65d9c7bf5b1c5767e6dae0dd4b7e3aa73382c789bfa64e64bfae7fc8b99201f"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-E-positions/deep.json": {
+   "bytes": 72101,
+   "sha256": "53ece95a7576d4aee5a628356ab4b87a81f575f8af2b9b976dd9763a1a024b73"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-E-positions/identity.json": {
+   "bytes": 447,
+   "sha256": "f551f1b4594abaff956bb0f1c2e9cff55e0d95062d11da361e6eb984587b53b1"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-E-positions/solved.json": {
+   "bytes": 173619,
+   "sha256": "6d9ee2a1ab7033f8bc86b79a5c10583de44efa8ab801e16de47dc22f00b68497"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-g6-E-positions/tactical.json": {
+   "bytes": 106943,
+   "sha256": "882cbfc1ce08ab7284a1564ff2e2fa0c3ebafecd42e94e3f516a273f1a86f190"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-values/complete.json": {
+   "bytes": 194,
+   "sha256": "35a78a53f57b3b34c81a9587fc417043e278de518d79877353250082b38ed6e0"
+  },
+  "research/alphazero_value_diagnostics/results/tasks/42-resnet3x64-values/values.json": {
+   "bytes": 10439910,
+   "sha256": "8d3b557af1121f276cd483170b72286ce05682a124b547988bf1bfe4cfb8ece0"
+  },
+  "research/alphazero_value_diagnostics/results/validation.json": {
+   "bytes": 1403,
+   "sha256": "f21f2d8f8f905ee0083eb5a63bbc988553fb0cce67ed1ba4a35cb6f8f8fea129"
+  },
+  "research/alphazero_value_diagnostics/validate.py": {
+   "bytes": 4547,
+   "sha256": "fb418a2253340d40952e526f351badf42061aa591500ff74659f04437ca729a0"
+  },
+  "research/alphazero_value_diagnostics/values.py": {
+   "bytes": 4066,
+   "sha256": "e662b4158d41c8fb5280b44d0ee3721531dcbec35fe4bf2802a4299451faae29"
+  },
+  "research/alphazero_value_diagnostics/worker.py": {
+   "bytes": 2186,
+   "sha256": "426ff3dfd9ad8156462cc79ffbb19d51f81ac5f79af3b17adbca89ac51251690"
+  }
+ },
+ "files_count": 303,
+ "publication_paths_only_new_phase": true,
+ "scope": "Entire new research package and final report, including local task logs; manifest itself excluded. No checkpoint binaries, protected fixture files or raw exposure transcripts.",
+ "total_bytes": 73329298
+}

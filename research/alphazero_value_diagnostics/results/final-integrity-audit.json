@@ -1,0 +1,1329 @@
+{
+ "actual_frozen_package_files": [
+  {
+   "base_git_blob": "c28268178c8be2e2fd6fa5b38ee16fa12b636048",
+   "current_git_blob": "c28268178c8be2e2fd6fa5b38ee16fa12b636048",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/build-provenance.json"
+  },
+  {
+   "base_git_blob": "6611e7460c50e27cf8ab51d7f111ca98569c3675",
+   "current_git_blob": "6611e7460c50e27cf8ab51d7f111ca98569c3675",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/campaign-declaration-m4.json"
+  },
+  {
+   "base_git_blob": "ec64f6aea263ffedf300134a9d650ccc80bb980d",
+   "current_git_blob": "ec64f6aea263ffedf300134a9d650ccc80bb980d",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/campaign-declaration.json"
+  },
+  {
+   "base_git_blob": "479fc02636776323c839258c05cca84331662f8e",
+   "current_git_blob": "479fc02636776323c839258c05cca84331662f8e",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/exclusions.json"
+  },
+  {
+   "base_git_blob": "2886a359dc1348002eadfeb7b5f4a4f36e30e3c8",
+   "current_git_blob": "2886a359dc1348002eadfeb7b5f4a4f36e30e3c8",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/manifest.json"
+  },
+  {
+   "base_git_blob": "a3b333506f202d5ffe62b6ab292218a6b6108e46",
+   "current_git_blob": "a3b333506f202d5ffe62b6ab292218a6b6108e46",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/openings-development.json"
+  },
+  {
+   "base_git_blob": "4aaa7abb328b72dbba5b2b3bc5d165787808a7cc",
+   "current_git_blob": "4aaa7abb328b72dbba5b2b3bc5d165787808a7cc",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/openings-sealed.json"
+  },
+  {
+   "base_git_blob": "7ffa948e0d30015b516e15ad71afde5048254b2a",
+   "current_git_blob": "7ffa948e0d30015b516e15ad71afde5048254b2a",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/solved-development.json"
+  },
+  {
+   "base_git_blob": "f5a4c9e1c11ed8b6485c274c94047cd1a6158129",
+   "current_git_blob": "f5a4c9e1c11ed8b6485c274c94047cd1a6158129",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/solved-sealed.json"
+  },
+  {
+   "base_git_blob": "59d0c45c1f02cfacb0d3508e07566bcf0ceb162c",
+   "current_git_blob": "59d0c45c1f02cfacb0d3508e07566bcf0ceb162c",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/tactical-development.json"
+  },
+  {
+   "base_git_blob": "f3e9e364f0d8ec71076341de0f983a43904c5bfe",
+   "current_git_blob": "f3e9e364f0d8ec71076341de0f983a43904c5bfe",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/tactical-sealed.json"
+  }
+ ],
+ "all_identical": true,
+ "base_blob_comparisons": [
+  {
+   "base_git_blob": "27a9f1beba9d5f959aff391053ad1976d6350f14",
+   "current_git_blob": "27a9f1beba9d5f959aff391053ad1976d6350f14",
+   "identical": true,
+   "path": "api/__init__.py"
+  },
+  {
+   "base_git_blob": "371413422794a5a070ea5de7aada9d24fa83e077",
+   "current_git_blob": "371413422794a5a070ea5de7aada9d24fa83e077",
+   "identical": true,
+   "path": "api/app.py"
+  },
+  {
+   "base_git_blob": "7c58996d7f677d501895ea292141572c8da1284d",
+   "current_git_blob": "7c58996d7f677d501895ea292141572c8da1284d",
+   "identical": true,
+   "path": "api/connect4/__init__.py"
+  },
+  {
+   "base_git_blob": "7c1b5c537f94628fc9f3d4904e6ef12ef1da4421",
+   "current_git_blob": "7c1b5c537f94628fc9f3d4904e6ef12ef1da4421",
+   "identical": true,
+   "path": "api/connect4/evidence.py"
+  },
+  {
+   "base_git_blob": "c4bd2796fa3864f951494083678df25690149efc",
+   "current_git_blob": "c4bd2796fa3864f951494083678df25690149efc",
+   "identical": true,
+   "path": "api/connect4/explanation_focus.py"
+  },
+  {
+   "base_git_blob": "d60c430b66a047478dea0517f3dc96851463d184",
+   "current_git_blob": "d60c430b66a047478dea0517f3dc96851463d184",
+   "identical": true,
+   "path": "api/connect4/explanations.py"
+  },
+  {
+   "base_git_blob": "16aa73bdcaaf9da39c42908cc13a33ec5d6aa758",
+   "current_git_blob": "16aa73bdcaaf9da39c42908cc13a33ec5d6aa758",
+   "identical": true,
+   "path": "api/connect4/legacy/main.py"
+  },
+  {
+   "base_git_blob": "069e3ad0bb0bab05d637a118f7a025d4e0974bb2",
+   "current_git_blob": "069e3ad0bb0bab05d637a118f7a025d4e0974bb2",
+   "identical": true,
+   "path": "api/connect4/legacy/state.py"
+  },
+  {
+   "base_git_blob": "5570529f0bf3c8b39d6df3178418e45c253f268e",
+   "current_git_blob": "5570529f0bf3c8b39d6df3178418e45c253f268e",
+   "identical": true,
+   "path": "api/connect4/openai_provider.py"
+  },
+  {
+   "base_git_blob": "0504e0d53ace8492bde543255bd78ef88808720b",
+   "current_git_blob": "0504e0d53ace8492bde543255bd78ef88808720b",
+   "identical": true,
+   "path": "api/connect4/state.py"
+  },
+  {
+   "base_git_blob": "0be1a78d3609ddae7104fcb4ac233cef1e6efce7",
+   "current_git_blob": "0be1a78d3609ddae7104fcb4ac233cef1e6efce7",
+   "identical": true,
+   "path": "api/cors.py"
+  },
+  {
+   "base_git_blob": "11c3a26a185bb81fa63a87b241eaef1fde3f664b",
+   "current_git_blob": "11c3a26a185bb81fa63a87b241eaef1fde3f664b",
+   "identical": true,
+   "path": "api/gunicorn_config.py"
+  },
+  {
+   "base_git_blob": "4c8186b3e78a7b17fc42df9cc550e2ff222cabdd",
+   "current_git_blob": "4c8186b3e78a7b17fc42df9cc550e2ff222cabdd",
+   "identical": true,
+   "path": "docker/api.Dockerfile"
+  },
+  {
+   "base_git_blob": "c3a3b4a71652705cfbd47d410f37927122e3a2c2",
+   "current_git_blob": "c3a3b4a71652705cfbd47d410f37927122e3a2c2",
+   "identical": true,
+   "path": "docker/ui.Dockerfile"
+  },
+  {
+   "base_git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+   "current_git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+   "identical": true,
+   "path": "games/connect4/__init__.py"
+  },
+  {
+   "base_git_blob": "c23befe22ad9f8cb8887567dd26d846f3b21fec4",
+   "current_git_blob": "c23befe22ad9f8cb8887567dd26d846f3b21fec4",
+   "identical": true,
+   "path": "games/connect4/agents/agent_factory.py"
+  },
+  {
+   "base_git_blob": "5e9d239524dc3ddf16f91c4c3920e68a3eb65deb",
+   "current_git_blob": "5e9d239524dc3ddf16f91c4c3920e68a3eb65deb",
+   "identical": true,
+   "path": "games/connect4/agents/dqn_agent.py"
+  },
+  {
+   "base_git_blob": "6021ab57eac7055d71554f2f0d76889562812855",
+   "current_git_blob": "6021ab57eac7055d71554f2f0d76889562812855",
+   "identical": true,
+   "path": "games/connect4/agents/human.py"
+  },
+  {
+   "base_git_blob": "6124eeba490fc86cfaa6b41e87dc4e66b8c10e38",
+   "current_git_blob": "6124eeba490fc86cfaa6b41e87dc4e66b8c10e38",
+   "identical": true,
+   "path": "games/connect4/agents/mcts_agent.py"
+  },
+  {
+   "base_git_blob": "a04afe8f4e55f60b3734d4253f9a7d73337fb320",
+   "current_git_blob": "a04afe8f4e55f60b3734d4253f9a7d73337fb320",
+   "identical": true,
+   "path": "games/connect4/agents/mcts_nn_agent.py"
+  },
+  {
+   "base_git_blob": "acfd2f0a717356edd822b0df4b84ab99a02152d6",
+   "current_git_blob": "acfd2f0a717356edd822b0df4b84ab99a02152d6",
+   "identical": true,
+   "path": "games/connect4/agents/negamax_agent.py"
+  },
+  {
+   "base_git_blob": "8f12000851109d4767812ce133e7f203b646bebe",
+   "current_git_blob": "8f12000851109d4767812ce133e7f203b646bebe",
+   "identical": true,
+   "path": "games/connect4/agents/random_agent.py"
+  },
+  {
+   "base_git_blob": "288104699fa1afdc172805c9bc6d2f96b7d44913",
+   "current_git_blob": "288104699fa1afdc172805c9bc6d2f96b7d44913",
+   "identical": true,
+   "path": "games/connect4/agents/victor_agent.py"
+  },
+  {
+   "base_git_blob": "239a267ec7454ea7068606a2774132003672c219",
+   "current_git_blob": "239a267ec7454ea7068606a2774132003672c219",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/__init__.py"
+  },
+  {
+   "base_git_blob": "23631fb3a6e771a00cc8553dd5366a57e094aa2a",
+   "current_git_blob": "23631fb3a6e771a00cc8553dd5366a57e094aa2a",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/arena.py"
+  },
+  {
+   "base_git_blob": "bf91a8c388ec8fcd0d9abf52cb41bde67569976c",
+   "current_git_blob": "bf91a8c388ec8fcd0d9abf52cb41bde67569976c",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/artifacts.py"
+  },
+  {
+   "base_git_blob": "43e0ef69491b65fa856a8cefe2fa92589fe4cfcc",
+   "current_git_blob": "43e0ef69491b65fa856a8cefe2fa92589fe4cfcc",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/batching.py"
+  },
+  {
+   "base_git_blob": "add3f2862f2025c40d72ec8fbe1761e6ca9dbe36",
+   "current_git_blob": "add3f2862f2025c40d72ec8fbe1761e6ca9dbe36",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/bitboard.py"
+  },
+  {
+   "base_git_blob": "9549c25395f1b3ad98aabd0504a162acd1973d23",
+   "current_git_blob": "9549c25395f1b3ad98aabd0504a162acd1973d23",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/campaign.py"
+  },
+  {
+   "base_git_blob": "294021dac474c0a391b169ab62ad59f926c878f2",
+   "current_git_blob": "294021dac474c0a391b169ab62ad59f926c878f2",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/config.py"
+  },
+  {
+   "base_git_blob": "814d017ce9f57ef4039ad2f0a2f549e33563b000",
+   "current_git_blob": "814d017ce9f57ef4039ad2f0a2f549e33563b000",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/data.py"
+  },
+  {
+   "base_git_blob": "73ea9a9b1dc428ebe43242b85006a87f8a38d987",
+   "current_git_blob": "73ea9a9b1dc428ebe43242b85006a87f8a38d987",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/diagnostics.py"
+  },
+  {
+   "base_git_blob": "ac76475b79a198c75a37de189d38cdb8873f1642",
+   "current_git_blob": "ac76475b79a198c75a37de189d38cdb8873f1642",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/evaluation.py"
+  },
+  {
+   "base_git_blob": "a23f5ac1f1358d40437563597079ede35f568048",
+   "current_git_blob": "a23f5ac1f1358d40437563597079ede35f568048",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/experimental.py"
+  },
+  {
+   "base_git_blob": "001c32fed656ef0d37abefa8b7fb0a34baf1b288",
+   "current_git_blob": "001c32fed656ef0d37abefa8b7fb0a34baf1b288",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/experimental_cli.py"
+  },
+  {
+   "base_git_blob": "4c54c8b516b4fcc6efdc9013b4a017b25a398c37",
+   "current_git_blob": "4c54c8b516b4fcc6efdc9013b4a017b25a398c37",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/experimental_import.py"
+  },
+  {
+   "base_git_blob": "de186ecf42b6ecf932588c447e64ef8cf33d4fbe",
+   "current_git_blob": "de186ecf42b6ecf932588c447e64ef8cf33d4fbe",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/experimental_models.py"
+  },
+  {
+   "base_git_blob": "c28268178c8be2e2fd6fa5b38ee16fa12b636048",
+   "current_git_blob": "c28268178c8be2e2fd6fa5b38ee16fa12b636048",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/build-provenance.json"
+  },
+  {
+   "base_git_blob": "6611e7460c50e27cf8ab51d7f111ca98569c3675",
+   "current_git_blob": "6611e7460c50e27cf8ab51d7f111ca98569c3675",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/campaign-declaration-m4.json"
+  },
+  {
+   "base_git_blob": "ec64f6aea263ffedf300134a9d650ccc80bb980d",
+   "current_git_blob": "ec64f6aea263ffedf300134a9d650ccc80bb980d",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/campaign-declaration.json"
+  },
+  {
+   "base_git_blob": "479fc02636776323c839258c05cca84331662f8e",
+   "current_git_blob": "479fc02636776323c839258c05cca84331662f8e",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/exclusions.json"
+  },
+  {
+   "base_git_blob": "2886a359dc1348002eadfeb7b5f4a4f36e30e3c8",
+   "current_git_blob": "2886a359dc1348002eadfeb7b5f4a4f36e30e3c8",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/manifest.json"
+  },
+  {
+   "base_git_blob": "a3b333506f202d5ffe62b6ab292218a6b6108e46",
+   "current_git_blob": "a3b333506f202d5ffe62b6ab292218a6b6108e46",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/openings-development.json"
+  },
+  {
+   "base_git_blob": "4aaa7abb328b72dbba5b2b3bc5d165787808a7cc",
+   "current_git_blob": "4aaa7abb328b72dbba5b2b3bc5d165787808a7cc",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/openings-sealed.json"
+  },
+  {
+   "base_git_blob": "7ffa948e0d30015b516e15ad71afde5048254b2a",
+   "current_git_blob": "7ffa948e0d30015b516e15ad71afde5048254b2a",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/solved-development.json"
+  },
+  {
+   "base_git_blob": "f5a4c9e1c11ed8b6485c274c94047cd1a6158129",
+   "current_git_blob": "f5a4c9e1c11ed8b6485c274c94047cd1a6158129",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/solved-sealed.json"
+  },
+  {
+   "base_git_blob": "59d0c45c1f02cfacb0d3508e07566bcf0ceb162c",
+   "current_git_blob": "59d0c45c1f02cfacb0d3508e07566bcf0ceb162c",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/tactical-development.json"
+  },
+  {
+   "base_git_blob": "f3e9e364f0d8ec71076341de0f983a43904c5bfe",
+   "current_git_blob": "f3e9e364f0d8ec71076341de0f983a43904c5bfe",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/frozen/tactical-sealed.json"
+  },
+  {
+   "base_git_blob": "3be3260b1fba751135c1863c3ce16f365bd658e0",
+   "current_git_blob": "3be3260b1fba751135c1863c3ce16f365bd658e0",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/generation.py"
+  },
+  {
+   "base_git_blob": "958fbd3d7162623e6b32054c155461aba0341f5b",
+   "current_git_blob": "958fbd3d7162623e6b32054c155461aba0341f5b",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/launch_control.py"
+  },
+  {
+   "base_git_blob": "8bf36d679cfcba6597b4569e90156b56b381b2a2",
+   "current_git_blob": "8bf36d679cfcba6597b4569e90156b56b381b2a2",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/network.py"
+  },
+  {
+   "base_git_blob": "9720b00a7ef046e48221f22bd25dace5f9b2df8d",
+   "current_git_blob": "9720b00a7ef046e48221f22bd25dace5f9b2df8d",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/official_evidence.py"
+  },
+  {
+   "base_git_blob": "ba1908d9a5e9001f47c72b10b6494f0da0ffc18a",
+   "current_git_blob": "ba1908d9a5e9001f47c72b10b6494f0da0ffc18a",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/oracle.py"
+  },
+  {
+   "base_git_blob": "3c19d727c618fb08b106a0fdd914adc65ef54ae3",
+   "current_git_blob": "3c19d727c618fb08b106a0fdd914adc65ef54ae3",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/packages.py"
+  },
+  {
+   "base_git_blob": "34d05d71f4da5f71196293a23d8bbe8238f76853",
+   "current_git_blob": "34d05d71f4da5f71196293a23d8bbe8238f76853",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/profiling.py"
+  },
+  {
+   "base_git_blob": "8aa9305a7ac0596b70e9757ae3084239236f4def",
+   "current_git_blob": "8aa9305a7ac0596b70e9757ae3084239236f4def",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/provenance.py"
+  },
+  {
+   "base_git_blob": "03a6f88c3c5fe0c14213e83bee0567d1789d9bf4",
+   "current_git_blob": "03a6f88c3c5fe0c14213e83bee0567d1789d9bf4",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/reference_negamax.py"
+  },
+  {
+   "base_git_blob": "9164a5cc1905eb83c433ab3e74f3f3c255916558",
+   "current_git_blob": "9164a5cc1905eb83c433ab3e74f3f3c255916558",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/resnet.py"
+  },
+  {
+   "base_git_blob": "d804c3ebdc581311a4a92a0711269c71ce6e7526",
+   "current_git_blob": "d804c3ebdc581311a4a92a0711269c71ce6e7526",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/search.py"
+  },
+  {
+   "base_git_blob": "04595060d7c592804fd9bfe57d08b6ba9c65ca9d",
+   "current_git_blob": "04595060d7c592804fd9bfe57d08b6ba9c65ca9d",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/selfplay.py"
+  },
+  {
+   "base_git_blob": "0afb39f49c56224fa85e37fcaaceda3dc0cd8607",
+   "current_git_blob": "0afb39f49c56224fa85e37fcaaceda3dc0cd8607",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/statistics.py"
+  },
+  {
+   "base_git_blob": "2c328d635b728db52982cdb5e9d4801cb8b7d7f3",
+   "current_git_blob": "2c328d635b728db52982cdb5e9d4801cb8b7d7f3",
+   "identical": true,
+   "path": "games/connect4/alphazero_v2/training.py"
+  },
+  {
+   "base_git_blob": "147e3959cb30c74e2f0c94fe9000f1b6f0211d53",
+   "current_git_blob": "147e3959cb30c74e2f0c94fe9000f1b6f0211d53",
+   "identical": true,
+   "path": "games/connect4/battle.py"
+  },
+  {
+   "base_git_blob": "e048591bdd343154d0ea5618ec0d951358aa4189",
+   "current_git_blob": "e048591bdd343154d0ea5618ec0d951358aa4189",
+   "identical": true,
+   "path": "games/connect4/board.py"
+  },
+  {
+   "base_git_blob": "b014126ae132538ebb758468d8124c1e0cee6d42",
+   "current_git_blob": "b014126ae132538ebb758468d8124c1e0cee6d42",
+   "identical": true,
+   "path": "games/connect4/connect4.py"
+  },
+  {
+   "base_git_blob": "4bca43671ed25087796438712819392f3b029ca0",
+   "current_git_blob": "4bca43671ed25087796438712819392f3b029ca0",
+   "identical": true,
+   "path": "games/connect4/dqn/__init__.py"
+  },
+  {
+   "base_git_blob": "bb02907c8531d987ac6573c1033806e75b9c5390",
+   "current_git_blob": "bb02907c8531d987ac6573c1033806e75b9c5390",
+   "identical": true,
+   "path": "games/connect4/dqn/checkpoint.py"
+  },
+  {
+   "base_git_blob": "b73d59d25346d7a0d1c98c06a0f85e148df846d5",
+   "current_git_blob": "b73d59d25346d7a0d1c98c06a0f85e148df846d5",
+   "identical": true,
+   "path": "games/connect4/dqn/diagnostic_positions.json"
+  },
+  {
+   "base_git_blob": "bfa42f673385a2870e52cf1089c329b172fd24d2",
+   "current_git_blob": "bfa42f673385a2870e52cf1089c329b172fd24d2",
+   "identical": true,
+   "path": "games/connect4/dqn/diagnostics.py"
+  },
+  {
+   "base_git_blob": "e5df1314ea0ef815df34e5682be53c579e38f9bc",
+   "current_git_blob": "e5df1314ea0ef815df34e5682be53c579e38f9bc",
+   "identical": true,
+   "path": "games/connect4/dqn/encoding.py"
+  },
+  {
+   "base_git_blob": "21810b8383f529d83e09aa271e724887c49d6468",
+   "current_git_blob": "21810b8383f529d83e09aa271e724887c49d6468",
+   "identical": true,
+   "path": "games/connect4/dqn/experiment.py"
+  },
+  {
+   "base_git_blob": "7259cc0bc96ce854f3a529c419c24810ffaca6d1",
+   "current_git_blob": "7259cc0bc96ce854f3a529c419c24810ffaca6d1",
+   "identical": true,
+   "path": "games/connect4/dqn/network.py"
+  },
+  {
+   "base_git_blob": "41fc96789fc07e968454d48b63bef55f42fa0f6e",
+   "current_git_blob": "41fc96789fc07e968454d48b63bef55f42fa0f6e",
+   "identical": true,
+   "path": "games/connect4/dqn/replication.py"
+  },
+  {
+   "base_git_blob": "5a72b53a09d980211611e7a7459c7b8b103665a9",
+   "current_git_blob": "5a72b53a09d980211611e7a7459c7b8b103665a9",
+   "identical": true,
+   "path": "games/connect4/dqn/replication_positions.json"
+  },
+  {
+   "base_git_blob": "4a7781a5a0e8c55bf4882863045116d4e3cd1c26",
+   "current_git_blob": "4a7781a5a0e8c55bf4882863045116d4e3cd1c26",
+   "identical": true,
+   "path": "games/connect4/dqn/training.py"
+  },
+  {
+   "base_git_blob": "6fb563fede17421c691e55d2bc84204f910327af",
+   "current_git_blob": "6fb563fede17421c691e55d2bc84204f910327af",
+   "identical": true,
+   "path": "games/connect4/dqn/validation.py"
+  },
+  {
+   "base_git_blob": "65b064c2504feaeeb60db153524e5818b088a441",
+   "current_git_blob": "65b064c2504feaeeb60db153524e5818b088a441",
+   "identical": true,
+   "path": "games/connect4/dqn/validation_holdout.py"
+  },
+  {
+   "base_git_blob": "e978889e135b3f4ee0df004743deb66acf4a9912",
+   "current_git_blob": "e978889e135b3f4ee0df004743deb66acf4a9912",
+   "identical": true,
+   "path": "games/connect4/dqn/validation_positions.json"
+  },
+  {
+   "base_git_blob": "07d2aee8c394895edf9646b826b01b7c9fddff3c",
+   "current_git_blob": "07d2aee8c394895edf9646b826b01b7c9fddff3c",
+   "identical": true,
+   "path": "games/connect4/grounding/__init__.py"
+  },
+  {
+   "base_git_blob": "24ff07131dedbd2fae34d71abe2ed9b70d79f783",
+   "current_git_blob": "24ff07131dedbd2fae34d71abe2ed9b70d79f783",
+   "identical": true,
+   "path": "games/connect4/grounding/analysis.py"
+  },
+  {
+   "base_git_blob": "4c51d06b8bd8aa132793d5a81fe8020f51cfba11",
+   "current_git_blob": "4c51d06b8bd8aa132793d5a81fe8020f51cfba11",
+   "identical": true,
+   "path": "games/connect4/grounding/context.py"
+  },
+  {
+   "base_git_blob": "9e4035a49b964fc7fddae9f08a60e05a48465692",
+   "current_git_blob": "9e4035a49b964fc7fddae9f08a60e05a48465692",
+   "identical": true,
+   "path": "games/connect4/grounding/history.py"
+  },
+  {
+   "base_git_blob": "c4bfc94e85c53026969d60d97770147a037c68bb",
+   "current_git_blob": "c4bfc94e85c53026969d60d97770147a037c68bb",
+   "identical": true,
+   "path": "games/connect4/grounding/knowledge.py"
+  },
+  {
+   "base_git_blob": "596fe854741647bdc5bd0add9b47c196f4fbc24d",
+   "current_git_blob": "596fe854741647bdc5bd0add9b47c196f4fbc24d",
+   "identical": true,
+   "path": "games/connect4/neural_evaluation.py"
+  },
+  {
+   "base_git_blob": "4548656141584044a74e5216a4ad0c6a131696d3",
+   "current_git_blob": "4548656141584044a74e5216a4ad0c6a131696d3",
+   "identical": true,
+   "path": "games/connect4/neural_exact_value_diagnostics.py"
+  },
+  {
+   "base_git_blob": "764b9bd2cb3db3ae058dda71a130459c46c230ab",
+   "current_git_blob": "764b9bd2cb3db3ae058dda71a130459c46c230ab",
+   "identical": true,
+   "path": "games/connect4/neural_mcts.py"
+  },
+  {
+   "base_git_blob": "6e433b76899e4c07eec26244340a89f846f07a0f",
+   "current_git_blob": "6e433b76899e4c07eec26244340a89f846f07a0f",
+   "identical": true,
+   "path": "games/connect4/neural_self_play.py"
+  },
+  {
+   "base_git_blob": "6f4135f4989d16f92b31c7bd8997421828748291",
+   "current_git_blob": "6f4135f4989d16f92b31c7bd8997421828748291",
+   "identical": true,
+   "path": "games/connect4/neural_symmetry_diagnostics.py"
+  },
+  {
+   "base_git_blob": "ceabf61b4f0a674bb056be93b1b5c6059f4e5a43",
+   "current_git_blob": "ceabf61b4f0a674bb056be93b1b5c6059f4e5a43",
+   "identical": true,
+   "path": "games/connect4/neural_value_target_audit.py"
+  },
+  {
+   "base_git_blob": "269496a4b854b37d87586dc15586ee6ee75aece6",
+   "current_git_blob": "269496a4b854b37d87586dc15586ee6ee75aece6",
+   "identical": true,
+   "path": "games/connect4/player.py"
+  },
+  {
+   "base_git_blob": "f600fa25d5563c63b832c2444309fce82cd06a85",
+   "current_git_blob": "f600fa25d5563c63b832c2444309fce82cd06a85",
+   "identical": true,
+   "path": "games/connect4/tactical_value.py"
+  },
+  {
+   "base_git_blob": "54994d0fff068e925556fe5e9901477f2fc0843c",
+   "current_git_blob": "54994d0fff068e925556fe5e9901477f2fc0843c",
+   "identical": true,
+   "path": "games/connect4/train_mcts_nn.py"
+  },
+  {
+   "base_git_blob": "c779c7e3e83462b93ba78bdfe101302bb95e9646",
+   "current_git_blob": "c779c7e3e83462b93ba78bdfe101302bb95e9646",
+   "identical": true,
+   "path": "games/mancala/agents/human.py"
+  },
+  {
+   "base_git_blob": "f8946be63685586d57ba7a873988ee00520ae5f1",
+   "current_git_blob": "f8946be63685586d57ba7a873988ee00520ae5f1",
+   "identical": true,
+   "path": "games/mancala/agents/minimax_agent.py"
+  },
+  {
+   "base_git_blob": "4818bd68dd9d883faca31fc711f6abd25196a6ae",
+   "current_git_blob": "4818bd68dd9d883faca31fc711f6abd25196a6ae",
+   "identical": true,
+   "path": "games/mancala/agents/negamax_agent.py"
+  },
+  {
+   "base_git_blob": "1ca2a330b70c359121090c10bb947b09f23db773",
+   "current_git_blob": "1ca2a330b70c359121090c10bb947b09f23db773",
+   "identical": true,
+   "path": "games/mancala/agents/random_agent.py"
+  },
+  {
+   "base_git_blob": "82cd06b53174e92d2b469fe08d222d0f23e28a01",
+   "current_git_blob": "82cd06b53174e92d2b469fe08d222d0f23e28a01",
+   "identical": true,
+   "path": "games/mancala/agents/simple_agent.py"
+  },
+  {
+   "base_git_blob": "7b50845123f76255415bd30f79271c99b2197e1b",
+   "current_git_blob": "7b50845123f76255415bd30f79271c99b2197e1b",
+   "identical": true,
+   "path": "games/mancala/mancala.py"
+  },
+  {
+   "base_git_blob": "2ed664b80e5d3ba522e1b9eaecf543e248cb90b1",
+   "current_git_blob": "2ed664b80e5d3ba522e1b9eaecf543e248cb90b1",
+   "identical": true,
+   "path": "models/connect4/connect4_model_iter_10.pt"
+  },
+  {
+   "base_git_blob": "ab8e5a5b4fc3f6185cc10956121d9502af173701",
+   "current_git_blob": "ab8e5a5b4fc3f6185cc10956121d9502af173701",
+   "identical": true,
+   "path": "models/connect4/connect4_model_iter_100.pt"
+  },
+  {
+   "base_git_blob": "676a80eeb8e88ea3265c8a0df8d139ad9e0f5e78",
+   "current_git_blob": "676a80eeb8e88ea3265c8a0df8d139ad9e0f5e78",
+   "identical": true,
+   "path": "models/connect4/connect4_model_iter_20.pt"
+  },
+  {
+   "base_git_blob": "f1110f94027903fa5433625449c88269765566ec",
+   "current_git_blob": "f1110f94027903fa5433625449c88269765566ec",
+   "identical": true,
+   "path": "models/connect4/connect4_model_iter_30.pt"
+  },
+  {
+   "base_git_blob": "598979679be984f58d3e17251f011a4e6a0883e6",
+   "current_git_blob": "598979679be984f58d3e17251f011a4e6a0883e6",
+   "identical": true,
+   "path": "models/connect4/connect4_model_iter_40.pt"
+  },
+  {
+   "base_git_blob": "f21bb4d8053c61312d7324da2813125c66b435a5",
+   "current_git_blob": "f21bb4d8053c61312d7324da2813125c66b435a5",
+   "identical": true,
+   "path": "models/connect4/connect4_model_iter_50.pt"
+  },
+  {
+   "base_git_blob": "acfab9dfdd1ec0b523516752343c103ea254a369",
+   "current_git_blob": "acfab9dfdd1ec0b523516752343c103ea254a369",
+   "identical": true,
+   "path": "models/connect4/connect4_model_iter_60.pt"
+  },
+  {
+   "base_git_blob": "ea3564ea2700a891cb6e6d7beab03d0c41d08513",
+   "current_git_blob": "ea3564ea2700a891cb6e6d7beab03d0c41d08513",
+   "identical": true,
+   "path": "models/connect4/connect4_model_iter_70.pt"
+  },
+  {
+   "base_git_blob": "c49df358f2ea3bf4d1a1db6c546c485185caabf5",
+   "current_git_blob": "c49df358f2ea3bf4d1a1db6c546c485185caabf5",
+   "identical": true,
+   "path": "models/connect4/connect4_model_iter_80.pt"
+  },
+  {
+   "base_git_blob": "92b40f84f823d237463ca19db7081a69f676c837",
+   "current_git_blob": "92b40f84f823d237463ca19db7081a69f676c837",
+   "identical": true,
+   "path": "models/connect4/connect4_model_iter_90.pt"
+  },
+  {
+   "base_git_blob": "14488ccd7a066370a556e651ae45eeba0b3be7a4",
+   "current_git_blob": "14488ccd7a066370a556e651ae45eeba0b3be7a4",
+   "identical": true,
+   "path": "tests/alphazero_experimental_cases.py"
+  },
+  {
+   "base_git_blob": "9813daa1f82b9b23bebc066906336925c1919dae",
+   "current_git_blob": "9813daa1f82b9b23bebc066906336925c1919dae",
+   "identical": true,
+   "path": "tests/alphazero_resnet_cases.py"
+  },
+  {
+   "base_git_blob": "ed11c0b244c60d71ee7eb1672c0cd495a9e5feb4",
+   "current_git_blob": "ed11c0b244c60d71ee7eb1672c0cd495a9e5feb4",
+   "identical": true,
+   "path": "tests/conftest.py"
+  },
+  {
+   "base_git_blob": "c3feafb5766af977876c5e4d429e4e2de5e51c4d",
+   "current_git_blob": "c3feafb5766af977876c5e4d429e4e2de5e51c4d",
+   "identical": true,
+   "path": "tests/test_alphazero_baseline.py"
+  },
+  {
+   "base_git_blob": "3af8d417956b3979b32ec561aa55c07837627aa1",
+   "current_git_blob": "3af8d417956b3979b32ec561aa55c07837627aa1",
+   "identical": true,
+   "path": "tests/test_alphazero_experimental.py"
+  },
+  {
+   "base_git_blob": "676f3e005e931af31922adf7d681ea828f139515",
+   "current_git_blob": "676f3e005e931af31922adf7d681ea828f139515",
+   "identical": true,
+   "path": "tests/test_alphazero_exploration.py"
+  },
+  {
+   "base_git_blob": "26db7b3cadc3afbf3429f40c61d4e4b4edf4f94f",
+   "current_git_blob": "26db7b3cadc3afbf3429f40c61d4e4b4edf4f94f",
+   "identical": true,
+   "path": "tests/test_alphazero_exploration_confirmation.py"
+  },
+  {
+   "base_git_blob": "eff2b41234388148600e60992651398e4e0fa028",
+   "current_git_blob": "eff2b41234388148600e60992651398e4e0fa028",
+   "identical": true,
+   "path": "tests/test_alphazero_resnet.py"
+  },
+  {
+   "base_git_blob": "00824bbf4d7c0f1ba4b184896effd7dd7dac5574",
+   "current_git_blob": "00824bbf4d7c0f1ba4b184896effd7dd7dac5574",
+   "identical": true,
+   "path": "tests/test_alphazero_resnet_benchmark.py"
+  },
+  {
+   "base_git_blob": "873eb22764fccd4344f39b55ec9fd32cbe47bc7b",
+   "current_git_blob": "873eb22764fccd4344f39b55ec9fd32cbe47bc7b",
+   "identical": true,
+   "path": "tests/test_alphazero_resnet_selfplay.py"
+  },
+  {
+   "base_git_blob": "b4c67babfe576e3a2a3138311ad940cb341711d0",
+   "current_git_blob": "b4c67babfe576e3a2a3138311ad940cb341711d0",
+   "identical": true,
+   "path": "tests/test_alphazero_v2.py"
+  },
+  {
+   "base_git_blob": "0822cb930afe63ad837ce1580b243b3a26e6df67",
+   "current_git_blob": "0822cb930afe63ad837ce1580b243b3a26e6df67",
+   "identical": true,
+   "path": "tests/test_alphazero_v2_batching.py"
+  },
+  {
+   "base_git_blob": "9a20c3a24d7431c9f853ad364295415a9469f31e",
+   "current_git_blob": "9a20c3a24d7431c9f853ad364295415a9469f31e",
+   "identical": true,
+   "path": "tests/test_alphazero_v2_bitboard.py"
+  },
+  {
+   "base_git_blob": "0d581dc75170c512bee25fdb52a6ff0bb4cffa2c",
+   "current_git_blob": "0d581dc75170c512bee25fdb52a6ff0bb4cffa2c",
+   "identical": true,
+   "path": "tests/test_alphazero_v2_campaign.py"
+  },
+  {
+   "base_git_blob": "0f44477d5433f45c8ff24400b548bf75cd796e36",
+   "current_git_blob": "0f44477d5433f45c8ff24400b548bf75cd796e36",
+   "identical": true,
+   "path": "tests/test_alphazero_v2_evaluation_core.py"
+  },
+  {
+   "base_git_blob": "9cb49d0c35fe7d1ef70d6dc73d86628aabfeccb0",
+   "current_git_blob": "9cb49d0c35fe7d1ef70d6dc73d86628aabfeccb0",
+   "identical": true,
+   "path": "tests/test_alphazero_v2_exploration.py"
+  },
+  {
+   "base_git_blob": "eefe3a2300d3e756e6fa3cdacace533eba9effd5",
+   "current_git_blob": "eefe3a2300d3e756e6fa3cdacace533eba9effd5",
+   "identical": true,
+   "path": "tests/test_alphazero_v2_launch_control.py"
+  },
+  {
+   "base_git_blob": "578519a853ac6055e610b986be48e0bfc9d9f9c2",
+   "current_git_blob": "578519a853ac6055e610b986be48e0bfc9d9f9c2",
+   "identical": true,
+   "path": "tests/test_connect4_api.py"
+  },
+  {
+   "base_git_blob": "6e5d636000912adcaaf0749485330353fe5ecae7",
+   "current_git_blob": "6e5d636000912adcaaf0749485330353fe5ecae7",
+   "identical": true,
+   "path": "tests/test_connect4_dqn.py"
+  },
+  {
+   "base_git_blob": "003a6445a85925b073514da1e1b50b68bfafcb30",
+   "current_git_blob": "003a6445a85925b073514da1e1b50b68bfafcb30",
+   "identical": true,
+   "path": "tests/test_connect4_engine.py"
+  },
+  {
+   "base_git_blob": "f3d4f3d5c0bfa3eb106a0bf24605ebd62f06a67e",
+   "current_git_blob": "f3d4f3d5c0bfa3eb106a0bf24605ebd62f06a67e",
+   "identical": true,
+   "path": "tests/test_connect4_evidence.py"
+  },
+  {
+   "base_git_blob": "6f58837968044de4b367a69670586b6b109f8432",
+   "current_git_blob": "6f58837968044de4b367a69670586b6b109f8432",
+   "identical": true,
+   "path": "tests/test_connect4_explanations.py"
+  },
+  {
+   "base_git_blob": "8cdb2a2c293fef1fdd83e2446bcf18ec48bb3ccb",
+   "current_git_blob": "8cdb2a2c293fef1fdd83e2446bcf18ec48bb3ccb",
+   "identical": true,
+   "path": "tests/test_connect4_grounding.py"
+  },
+  {
+   "base_git_blob": "6d7779d06a15c316db833c30bae60b2505fbf8bd",
+   "current_git_blob": "6d7779d06a15c316db833c30bae60b2505fbf8bd",
+   "identical": true,
+   "path": "tests/test_connect4_mcts.py"
+  },
+  {
+   "base_git_blob": "5c53e3802bcb3103d1c3485b06cba3ac182625ee",
+   "current_git_blob": "5c53e3802bcb3103d1c3485b06cba3ac182625ee",
+   "identical": true,
+   "path": "tests/test_connect4_mcts_api.py"
+  },
+  {
+   "base_git_blob": "62fbf7ce6689821361300bf07b576c69105924c9",
+   "current_git_blob": "62fbf7ce6689821361300bf07b576c69105924c9",
+   "identical": true,
+   "path": "tests/test_connect4_neural_mcts.py"
+  },
+  {
+   "base_git_blob": "96cdcc993ee495f8b1ce3456cfe46fc458b19567",
+   "current_git_blob": "96cdcc993ee495f8b1ce3456cfe46fc458b19567",
+   "identical": true,
+   "path": "tests/test_cors.py"
+  },
+  {
+   "base_git_blob": "f2415d7c74e401d931f990c2eaeda8dbaf34565b",
+   "current_git_blob": "f2415d7c74e401d931f990c2eaeda8dbaf34565b",
+   "identical": true,
+   "path": "tests/test_dqn_diagnostics.py"
+  },
+  {
+   "base_git_blob": "aca0963fdc4a3cd06a71f45675578803f6356d73",
+   "current_git_blob": "aca0963fdc4a3cd06a71f45675578803f6356d73",
+   "identical": true,
+   "path": "tests/test_dqn_experiment.py"
+  },
+  {
+   "base_git_blob": "e050449cf63e73d0f50b97da430386d39b64a959",
+   "current_git_blob": "e050449cf63e73d0f50b97da430386d39b64a959",
+   "identical": true,
+   "path": "tests/test_dqn_import_isolation.py"
+  },
+  {
+   "base_git_blob": "d000a193de8f4d30fd53bf1810ce8cebe3e4076b",
+   "current_git_blob": "d000a193de8f4d30fd53bf1810ce8cebe3e4076b",
+   "identical": true,
+   "path": "tests/test_dqn_replication.py"
+  },
+  {
+   "base_git_blob": "30914d902b4813ca1fba8b126a22e47e5aa61dba",
+   "current_git_blob": "30914d902b4813ca1fba8b126a22e47e5aa61dba",
+   "identical": true,
+   "path": "tests/test_dqn_symmetry.py"
+  },
+  {
+   "base_git_blob": "ae7a16600d913d646d8f2c8d6f67a8b7a4cb96a6",
+   "current_git_blob": "ae7a16600d913d646d8f2c8d6f67a8b7a4cb96a6",
+   "identical": true,
+   "path": "tests/test_dqn_validation.py"
+  },
+  {
+   "base_git_blob": "7cb2ceaa24319ffc1ca8cb93f28b4954daa951d6",
+   "current_git_blob": "7cb2ceaa24319ffc1ca8cb93f28b4954daa951d6",
+   "identical": true,
+   "path": "tests/test_neural_mcts_import_isolation.py"
+  },
+  {
+   "base_git_blob": "31a13944437a00b64063de5efd3a991e513fc37f",
+   "current_git_blob": "31a13944437a00b64063de5efd3a991e513fc37f",
+   "identical": true,
+   "path": "tests/test_neural_root_noise.py"
+  },
+  {
+   "base_git_blob": "394bc923b9a2b0ee74f6302fc1552e235b5d0594",
+   "current_git_blob": "394bc923b9a2b0ee74f6302fc1552e235b5d0594",
+   "identical": true,
+   "path": "tests/test_neural_scaled.py"
+  },
+  {
+   "base_git_blob": "3b6a8c5e3a5bff223a70b8f8a9fb70b74737ef10",
+   "current_git_blob": "3b6a8c5e3a5bff223a70b8f8a9fb70b74737ef10",
+   "identical": true,
+   "path": "tests/test_neural_self_play.py"
+  },
+  {
+   "base_git_blob": "dbcaa3e4a19b5da17268baf6bd55505d601d6862",
+   "current_git_blob": "dbcaa3e4a19b5da17268baf6bd55505d601d6862",
+   "identical": true,
+   "path": "tests/test_neural_symmetry.py"
+  },
+  {
+   "base_git_blob": "ccbfde9edd0a6949b5fa96566c7cd5cd6db2b7e9",
+   "current_git_blob": "ccbfde9edd0a6949b5fa96566c7cd5cd6db2b7e9",
+   "identical": true,
+   "path": "tests/test_neural_value_anchoring.py"
+  },
+  {
+   "base_git_blob": "d5eb339e7ddfe9f1cc491b634c4505e1d5cb4ea4",
+   "current_git_blob": "d5eb339e7ddfe9f1cc491b634c4505e1d5cb4ea4",
+   "identical": true,
+   "path": "tests/test_neural_value_target_audit.py"
+  },
+  {
+   "base_git_blob": "879ab425a87770db6cdcd4f56ee6c1956932ea47",
+   "current_git_blob": "879ab425a87770db6cdcd4f56ee6c1956932ea47",
+   "identical": true,
+   "path": "ui/.env.production"
+  },
+  {
+   "base_git_blob": "dbe8c857c6988f43b6b02cbf8a3cb1cbcb73c122",
+   "current_git_blob": "dbe8c857c6988f43b6b02cbf8a3cb1cbcb73c122",
+   "identical": true,
+   "path": "ui/connect4/connect4.css"
+  },
+  {
+   "base_git_blob": "276e4f50d153e8dbbbb08caa789566b48c88e7aa",
+   "current_git_blob": "276e4f50d153e8dbbbb08caa789566b48c88e7aa",
+   "identical": true,
+   "path": "ui/connect4/connect4.html"
+  },
+  {
+   "base_git_blob": "905179ce6848e24246513612df4ea9ad6edcba74",
+   "current_git_blob": "905179ce6848e24246513612df4ea9ad6edcba74",
+   "identical": true,
+   "path": "ui/connect4/connect4.js"
+  },
+  {
+   "base_git_blob": "0943c13f8d5a71d766254a80fce99c927861d23f",
+   "current_git_blob": "0943c13f8d5a71d766254a80fce99c927861d23f",
+   "identical": true,
+   "path": "ui/connect4/old/connect4_old.html"
+  },
+  {
+   "base_git_blob": "9002e5c947c08abfa288f04b47a746f5175e1424",
+   "current_git_blob": "9002e5c947c08abfa288f04b47a746f5175e1424",
+   "identical": true,
+   "path": "ui/e2e/connect4.spec.js"
+  },
+  {
+   "base_git_blob": "49ea497f4bf6b284cb7536ad81ef45ef6f33c623",
+   "current_git_blob": "49ea497f4bf6b284cb7536ad81ef45ef6f33c623",
+   "identical": true,
+   "path": "ui/e2e/explanations.spec.js"
+  },
+  {
+   "base_git_blob": "5e6380bdb805cde6dcc69b3e1c0eafd2dbec58d3",
+   "current_git_blob": "5e6380bdb805cde6dcc69b3e1c0eafd2dbec58d3",
+   "identical": true,
+   "path": "ui/index.html"
+  },
+  {
+   "base_git_blob": "6c00d9af3e5502f35cd2e13e1b740ff633e0f1d8",
+   "current_git_blob": "6c00d9af3e5502f35cd2e13e1b740ff633e0f1d8",
+   "identical": true,
+   "path": "ui/legacy/connect4.js"
+  },
+  {
+   "base_git_blob": "4ed5f44c88e5f0a88983aceef767a814107b9d5b",
+   "current_git_blob": "4ed5f44c88e5f0a88983aceef767a814107b9d5b",
+   "identical": true,
+   "path": "ui/legacy/explanations.js"
+  },
+  {
+   "base_git_blob": "c87681925285be75019c49d5f26425786a0c74a7",
+   "current_git_blob": "c87681925285be75019c49d5f26425786a0c74a7",
+   "identical": true,
+   "path": "ui/nginx.conf"
+  },
+  {
+   "base_git_blob": "3230fa2c92fd8a9aabd29082d838db1fede3ef4e",
+   "current_git_blob": "3230fa2c92fd8a9aabd29082d838db1fede3ef4e",
+   "identical": true,
+   "path": "ui/package-lock.json"
+  },
+  {
+   "base_git_blob": "9fd900f31beea84dbae7f34a97a767f07f6975bd",
+   "current_git_blob": "9fd900f31beea84dbae7f34a97a767f07f6975bd",
+   "identical": true,
+   "path": "ui/package.json"
+  },
+  {
+   "base_git_blob": "0183b3025f6a33b29c57daa510ec11b5fdcf8923",
+   "current_git_blob": "0183b3025f6a33b29c57daa510ec11b5fdcf8923",
+   "identical": true,
+   "path": "ui/playwright.config.js"
+  },
+  {
+   "base_git_blob": "9b5371f598509cb3ab9310db0ea73a94ea4362be",
+   "current_git_blob": "9b5371f598509cb3ab9310db0ea73a94ea4362be",
+   "identical": true,
+   "path": "ui/src/api-config.js"
+  },
+  {
+   "base_git_blob": "dcb39ea4aa0385c0afa2bd91a992e6c2d59dfdbb",
+   "current_git_blob": "dcb39ea4aa0385c0afa2bd91a992e6c2d59dfdbb",
+   "identical": true,
+   "path": "ui/src/main.jsx"
+  },
+  {
+   "base_git_blob": "c5bd37cc89b83531318102a08ac62c75352dcf96",
+   "current_git_blob": "c5bd37cc89b83531318102a08ac62c75352dcf96",
+   "identical": true,
+   "path": "ui/src/pages/Connect4.jsx"
+  },
+  {
+   "base_git_blob": "fc68d4c5391c4294a69d27cee137452029fc7ead",
+   "current_git_blob": "fc68d4c5391c4294a69d27cee137452029fc7ead",
+   "identical": true,
+   "path": "ui/src/pages/connect4.css"
+  },
+  {
+   "base_git_blob": "3d067b97bbb7b55cedb304815248f8e86cfd379b",
+   "current_git_blob": "3d067b97bbb7b55cedb304815248f8e86cfd379b",
+   "identical": true,
+   "path": "ui/tests/api-config.test.js"
+  },
+  {
+   "base_git_blob": "e7aac43a6ad4c5c3a6e6ea406851025a7fea8b29",
+   "current_git_blob": "e7aac43a6ad4c5c3a6e6ea406851025a7fea8b29",
+   "identical": true,
+   "path": "ui/tests/connect4.test.js"
+  },
+  {
+   "base_git_blob": "de0cb0579cdd315a23aed5ed2192261ec08178e1",
+   "current_git_blob": "de0cb0579cdd315a23aed5ed2192261ec08178e1",
+   "identical": true,
+   "path": "ui/tests/explanations.test.js"
+  },
+  {
+   "base_git_blob": "7be3660a39ccd19e484e3586f90af1fc34ad085d",
+   "current_git_blob": "7be3660a39ccd19e484e3586f90af1fc34ad085d",
+   "identical": true,
+   "path": "ui/vite.config.js"
+  }
+ ],
+ "base_commit": "3b563e1753ad93a1315b7d0f88a7cc45e1ee7359",
+ "canonical_inventory_correction": "Original manager canonical-benchmarks label pointed to a nonexistent root benchmarks/ directory and inventoried0files. Its unchanged0file record is not evidence. Actual canonical frozen packages are protected by launch hc-source84/historical-games77 inventories, including frozen file hashes, and now independently compared against starting Git blobs. No original record modified; no semantic fixture content read.",
+ "checkpoints": [
+  {
+   "arm": "314159-cnn",
+   "generation": 0,
+   "identical": true,
+   "sha256": "de89e765309e30376ac3e3e3f16861533751de2ab0264a79a8d6285525bdbe41"
+  },
+  {
+   "arm": "314159-cnn",
+   "generation": 1,
+   "identical": true,
+   "sha256": "50e07ea776c2e8d3f9b9edef26e1732285f5b6d7b44b74b4b64419a9d8146bf6"
+  },
+  {
+   "arm": "314159-cnn",
+   "generation": 2,
+   "identical": true,
+   "sha256": "801d0499a99513c88a1ef92b2b42d90108692927193c2752126c947fd6c744e6"
+  },
+  {
+   "arm": "314159-cnn",
+   "generation": 3,
+   "identical": true,
+   "sha256": "56c033d5b17885a8623706da5092142eaa901b0f38082ee8013ef2504da7b48b"
+  },
+  {
+   "arm": "314159-cnn",
+   "generation": 4,
+   "identical": true,
+   "sha256": "6fada250e62e1cc9a3e68d615844ea63b5cd2de039c59f245da10988d5f10eda"
+  },
+  {
+   "arm": "314159-cnn",
+   "generation": 5,
+   "identical": true,
+   "sha256": "15d3afe28c28a48987a55d8dfcedd9de34bb10d6708a79f26b1d8cccb99b6b64"
+  },
+  {
+   "arm": "314159-cnn",
+   "generation": 6,
+   "identical": true,
+   "sha256": "2646d7cdee7d7b069412688bf95fd9794bea30402b4952120c904dbcb399401d"
+  },
+  {
+   "arm": "314159-resnet3x64",
+   "generation": 0,
+   "identical": true,
+   "sha256": "60c864e8a0303d80844b129cedd694a31cd3a0b34e063c2516fdf1958cd87c4f"
+  },
+  {
+   "arm": "314159-resnet3x64",
+   "generation": 1,
+   "identical": true,
+   "sha256": "a1c7177dcca33f2c3655edc3913a48275a1e8e17bde2b67dfe95daf0803b2433"
+  },
+  {
+   "arm": "314159-resnet3x64",
+   "generation": 2,
+   "identical": true,
+   "sha256": "7e6a98d3f30adb51d89286d94f0146d3a6faeb625d9a0ad519f9d838867307b5"
+  },
+  {
+   "arm": "314159-resnet3x64",
+   "generation": 3,
+   "identical": true,
+   "sha256": "3f9036814fc7c39233ec2e5437d27a0e80cd5c4bfba56e439f598fb1bfdcabfd"
+  },
+  {
+   "arm": "314159-resnet3x64",
+   "generation": 4,
+   "identical": true,
+   "sha256": "d4a52771f7d3ca4bb154fb6d6f62dc93d26b5c986cc65ef3b44e850dbbc55b5c"
+  },
+  {
+   "arm": "314159-resnet3x64",
+   "generation": 5,
+   "identical": true,
+   "sha256": "b7801756d133c26907e5b9ce0173031938bcc55d4dfa0c48c0d96ad5d43f8dbe"
+  },
+  {
+   "arm": "314159-resnet3x64",
+   "generation": 6,
+   "identical": true,
+   "sha256": "b688095312730bc34886a9819864b772498544c83b6d0ae84ac3eb656879ec9d"
+  },
+  {
+   "arm": "42-cnn",
+   "generation": 0,
+   "identical": true,
+   "sha256": "5f9800bc86ff1efa21f4d2be5af04fa882c0a7015a454651c351479579e7ac21"
+  },
+  {
+   "arm": "42-cnn",
+   "generation": 1,
+   "identical": true,
+   "sha256": "f30234b7768985fa6549ada8e47b4ea333e25f095139a08325986d2d3d64360b"
+  },
+  {
+   "arm": "42-cnn",
+   "generation": 2,
+   "identical": true,
+   "sha256": "551676d688b53c88ec2f9d6fa538a46339736cf54c7c094c21d4d26d0bb5aaa0"
+  },
+  {
+   "arm": "42-cnn",
+   "generation": 3,
+   "identical": true,
+   "sha256": "cbb6063f227b653f4d9cd520fa77dd5b9ff2b39a029f64967ac9f68056afd8d3"
+  },
+  {
+   "arm": "42-cnn",
+   "generation": 4,
+   "identical": true,
+   "sha256": "373689494cb38b7145ff8a111287bffb6df5f306118995b805bfe705f62b456c"
+  },
+  {
+   "arm": "42-cnn",
+   "generation": 5,
+   "identical": true,
+   "sha256": "4418c2b4fa1ec26bccaae098fc86e7ce42b5847b51967de1011a651798d371be"
+  },
+  {
+   "arm": "42-cnn",
+   "generation": 6,
+   "identical": true,
+   "sha256": "ba2bde2ec71b3ac7486046d1cc26ab591bb59d6b764193ece08c6d6a6f24f58b"
+  },
+  {
+   "arm": "42-resnet3x64",
+   "generation": 0,
+   "identical": true,
+   "sha256": "a514f4df9c5b432f17f6ab06f177441272f4d2a0adb28b52f0294a71a145fc86"
+  },
+  {
+   "arm": "42-resnet3x64",
+   "generation": 1,
+   "identical": true,
+   "sha256": "631cf22b2a900a0c0704a8c29f3d5ab4b6266da2b2159e83c9d1897a7d7253e6"
+  },
+  {
+   "arm": "42-resnet3x64",
+   "generation": 2,
+   "identical": true,
+   "sha256": "bb790f0838965aee77a7590ce56b1fb620cc25e10c31fa9377433a2d4bdc05be"
+  },
+  {
+   "arm": "42-resnet3x64",
+   "generation": 3,
+   "identical": true,
+   "sha256": "b2235e5358d91b736f9e773fbdbaba327338e040622f7c52c528a12e020ec4be"
+  },
+  {
+   "arm": "42-resnet3x64",
+   "generation": 4,
+   "identical": true,
+   "sha256": "3c65d0dc7ffc68c3ba6ef35de97fa4a234a31df09ab32b98b6b44ce194705ee3"
+  },
+  {
+   "arm": "42-resnet3x64",
+   "generation": 5,
+   "identical": true,
+   "sha256": "102249ac6ff6d854a3c7d365c28380760e4a2975e2bf330d1c92106a76df804f"
+  },
+  {
+   "arm": "42-resnet3x64",
+   "generation": 6,
+   "identical": true,
+   "sha256": "429289d22e8b37354f9bd77dae97975081d3cdbae8c65357be4ad53b748d5503"
+  }
+ ],
+ "frozen_package_files": 11,
+ "protected_content_printed": false,
+ "source_checks": {
+  "games/connect4/__init__.py": true,
+  "games/connect4/agents/mcts_agent.py": true,
+  "games/connect4/agents/mcts_nn_agent.py": true,
+  "games/connect4/alphazero_v2/__init__.py": true,
+  "games/connect4/alphazero_v2/arena.py": true,
+  "games/connect4/alphazero_v2/artifacts.py": true,
+  "games/connect4/alphazero_v2/batching.py": true,
+  "games/connect4/alphazero_v2/bitboard.py": true,
+  "games/connect4/alphazero_v2/campaign.py": true,
+  "games/connect4/alphazero_v2/config.py": true,
+  "games/connect4/alphazero_v2/data.py": true,
+  "games/connect4/alphazero_v2/diagnostics.py": true,
+  "games/connect4/alphazero_v2/evaluation.py": true,
+  "games/connect4/alphazero_v2/experimental.py": true,
+  "games/connect4/alphazero_v2/experimental_cli.py": true,
+  "games/connect4/alphazero_v2/experimental_import.py": true,
+  "games/connect4/alphazero_v2/experimental_models.py": true,
+  "games/connect4/alphazero_v2/frozen/openings-development.json": true,
+  "games/connect4/alphazero_v2/generation.py": true,
+  "games/connect4/alphazero_v2/launch_control.py": true,
+  "games/connect4/alphazero_v2/network.py": true,
+  "games/connect4/alphazero_v2/official_evidence.py": true,
+  "games/connect4/alphazero_v2/oracle.py": true,
+  "games/connect4/alphazero_v2/packages.py": true,
+  "games/connect4/alphazero_v2/profiling.py": true,
+  "games/connect4/alphazero_v2/provenance.py": true,
+  "games/connect4/alphazero_v2/reference_negamax.py": true,
+  "games/connect4/alphazero_v2/resnet.py": true,
+  "games/connect4/alphazero_v2/search.py": true,
+  "games/connect4/alphazero_v2/selfplay.py": true,
+  "games/connect4/alphazero_v2/statistics.py": true,
+  "games/connect4/alphazero_v2/training.py": true,
+  "games/connect4/board.py": true,
+  "games/connect4/connect4.py": true,
+  "games/connect4/neural_mcts.py": true,
+  "research/alphazero_resnet_selfplay/common.py": true,
+  "research/alphazero_resnet_selfplay/evaluate.py": true,
+  "research/alphazero_resnet_selfplay/fixtures.json": true,
+  "research/alphazero_resnet_selfplay/measures.py": true,
+  "research/alphazero_resnet_selfplay/results/design.json": true,
+  "research/alphazero_resnet_selfplay/worker.py": true,
+  "research/alphazero_value_diagnostics/DESIGN.md": true,
+  "research/alphazero_value_diagnostics/__init__.py": true,
+  "research/alphazero_value_diagnostics/analyze.py": true,
+  "research/alphazero_value_diagnostics/common.py": true,
+  "research/alphazero_value_diagnostics/evaluate.py": true,
+  "research/alphazero_value_diagnostics/interventions.py": true,
+  "research/alphazero_value_diagnostics/manage.py": true,
+  "research/alphazero_value_diagnostics/pilot.py": true,
+  "research/alphazero_value_diagnostics/prepare.py": true,
+  "research/alphazero_value_diagnostics/results/design.json": true,
+  "research/alphazero_value_diagnostics/results/pilot.json": true,
+  "research/alphazero_value_diagnostics/validate.py": true,
+  "research/alphazero_value_diagnostics/values.py": true,
+  "research/alphazero_value_diagnostics/worker.py": true
+ },
+ "supplemental_checks": {
+  "research/alphazero_value_diagnostics/independent_clean_rerun.py": true,
+  "research/alphazero_value_diagnostics/independent_clean_review.py": true,
+  "research/alphazero_value_diagnostics/report_lifecycle.py": true
+ }
+}

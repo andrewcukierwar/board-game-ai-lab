@@ -1,0 +1,10171 @@
+{
+ "complete": true,
+ "records": [
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.1186339994892478
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0017680833116173744
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.11719970777630806
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0021492503583431244
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.01815170794725418
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.002237500622868538
+    }
+   ],
+   "family": "development-prefix-00",
+   "game_index": 0,
+   "moves": [
+    6,
+    2,
+    2,
+    3,
+    3,
+    4,
+    5,
+    1
+   ],
+   "opening_id": "development-prefix-00-base",
+   "opponent": "negamax3",
+   "prefix_length": 2,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.2606620416045189,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.001765124499797821
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.11764770932495594
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0017416253685951233
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10807112511247396
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0016665002331137657
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10637466702610254
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.003565584309399128
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.11246229242533445
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0018680421635508537
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10917537473142147
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0022590840235352516
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.062271542847156525
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0014748340472579002
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.015613958239555359
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0016224579885601997
+    }
+   ],
+   "family": "development-prefix-00",
+   "game_index": 1,
+   "moves": [
+    6,
+    2,
+    3,
+    2,
+    2,
+    2,
+    4,
+    5,
+    4,
+    0,
+    3,
+    3,
+    5,
+    6,
+    4,
+    3,
+    4
+   ],
+   "opening_id": "development-prefix-00-base",
+   "opponent": "negamax3",
+   "prefix_length": 2,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.6488587073981762,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10851616598665714
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0018598753958940506
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.11449441593140364
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0017320001497864723
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.12058183364570141
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0018340414389967918
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.11729720886796713
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0017647501081228256
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.11444083414971828
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0016043325886130333
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.09709708392620087
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0013191252946853638
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.04347995761781931
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0007361248135566711
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.01009516604244709
+    }
+   ],
+   "family": "development-prefix-01",
+   "game_index": 0,
+   "moves": [
+    2,
+    6,
+    6,
+    4,
+    3,
+    3,
+    0,
+    1,
+    1,
+    4,
+    4,
+    2,
+    2,
+    5,
+    5,
+    1,
+    5,
+    6,
+    3
+   ],
+   "opening_id": "development-prefix-01-base",
+   "opponent": "negamax3",
+   "prefix_length": 4,
+   "result": "win",
+   "score": 1.0,
+   "seconds": 0.7380585828796029,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0018527088686823845
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.11175470799207687
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0019525839015841484
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10745758283883333
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0014509586617350578
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10884974990040064
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.001889125443994999
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.1516088331118226
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0018125418573617935
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10312495846301317
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0019087912514805794
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10875770822167397
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.002099250443279743
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.011495834216475487
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.002304917201399803
+    }
+   ],
+   "family": "development-prefix-01",
+   "game_index": 1,
+   "moves": [
+    2,
+    6,
+    6,
+    4,
+    3,
+    4,
+    4,
+    1,
+    4,
+    3,
+    3,
+    2,
+    1,
+    5,
+    5,
+    0,
+    5,
+    2,
+    6
+   ],
+   "opening_id": "development-prefix-01-base",
+   "opponent": "negamax3",
+   "prefix_length": 4,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.7193929171189666,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.09928062465041876
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.001955999992787838
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.09887654054909945
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.001965000294148922
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10811108443886042
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0019394587725400925
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10795675031840801
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.001969624310731888
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10901675000786781
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.001355375163257122
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.09243716765195131
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.001258542761206627
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10161395836621523
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.001019541174173355
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.09549562446773052
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.000791667029261589
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10734204202890396
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0011267922818660736
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10463179089128971
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0012891246005892754
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0922155836597085
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0005275830626487732
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10127025004476309
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0004904996603727341
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.08958270959556103
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0003127502277493477
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0842144163325429
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0002910410985350609
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.032707625068724155
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0002761250361800194
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.014249582774937153
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.00011675059795379639
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.0034703752025961876
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 6.291642785072327e-05
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.001535874791443348
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 5.229096859693527e-05
+    }
+   ],
+   "family": "development-prefix-02",
+   "game_index": 0,
+   "moves": [
+    1,
+    0,
+    1,
+    5,
+    4,
+    4,
+    1,
+    1,
+    3,
+    2,
+    4,
+    4,
+    4,
+    5,
+    4,
+    2,
+    3,
+    3,
+    3,
+    2,
+    2,
+    3,
+    5,
+    0,
+    2,
+    3,
+    1,
+    1,
+    0,
+    2,
+    6,
+    6,
+    6,
+    0,
+    6,
+    6,
+    6,
+    0,
+    0,
+    5,
+    5,
+    5
+   ],
+   "opening_id": "development-prefix-02-base",
+   "opponent": "negamax3",
+   "prefix_length": 6,
+   "result": "draw",
+   "score": 0.5,
+   "seconds": 1.4636589167639613,
+   "stratum": "prefix",
+   "winner": -1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.002603958360850811
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10572187509387732
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0024953754618763924
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.1155928336083889
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.002588958479464054
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.1064632497727871
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.0019017495214939117
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.09195791743695736
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.001903042197227478
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.09259062446653843
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0014804592356085777
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0906976256519556
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0019681667909026146
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.08383224997669458
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0013498757034540176
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.09138791728764772
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0020012492313981056
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.09676279127597809
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0008619176223874092
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.09828399959951639
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0012387903407216072
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.09757345914840698
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0009137913584709167
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.08725129161030054
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.000500124879181385
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.05091529246419668
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.00043845828622579575
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.01287237461656332
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.00017879251390695572
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0030952496454119682
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 6.0374848544597626e-05
+    }
+   ],
+   "family": "development-prefix-02",
+   "game_index": 1,
+   "moves": [
+    1,
+    0,
+    1,
+    5,
+    4,
+    4,
+    3,
+    2,
+    2,
+    0,
+    2,
+    0,
+    0,
+    1,
+    3,
+    1,
+    3,
+    3,
+    4,
+    4,
+    2,
+    2,
+    1,
+    3,
+    3,
+    6,
+    2,
+    6,
+    6,
+    1,
+    4,
+    6,
+    4,
+    6,
+    6,
+    0,
+    0
+   ],
+   "opening_id": "development-prefix-02-base",
+   "opponent": "negamax3",
+   "prefix_length": 6,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.249896083958447,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.11821900028735399
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0020758341997861862
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.060557374730706215
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0015682904049754143
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.008041500113904476
+    }
+   ],
+   "family": "development-prefix-03",
+   "game_index": 0,
+   "moves": [
+    4,
+    5,
+    4,
+    0,
+    1,
+    3,
+    2,
+    4,
+    2,
+    2,
+    3,
+    6,
+    1
+   ],
+   "opening_id": "development-prefix-03-base",
+   "opponent": "negamax3",
+   "prefix_length": 8,
+   "result": "win",
+   "score": 1.0,
+   "seconds": 0.1909090420231223,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0021806247532367706
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.11717175040394068
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0018894588574767113
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.015264417044818401
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0020311670377850533
+    }
+   ],
+   "family": "development-prefix-03",
+   "game_index": 1,
+   "moves": [
+    4,
+    5,
+    4,
+    0,
+    1,
+    3,
+    2,
+    4,
+    2,
+    0,
+    3,
+    5,
+    1
+   ],
+   "opening_id": "development-prefix-03-base",
+   "opponent": "negamax3",
+   "prefix_length": 8,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.13894587568938732,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.11281245853751898
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.001368250697851181
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.1090574162080884
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0016219168901443481
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.1094892080873251
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0014180829748511314
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.15526641625910997
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0017265835776925087
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.09899066761136055
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0015991255640983582
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10034445766359568
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0012284591794013977
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.1004048753529787
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0012895409017801285
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0997401662170887
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0011882912367582321
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10034533403813839
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0012226253747940063
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.01612624991685152
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0010811248794198036
+    }
+   ],
+   "family": "development-prefix-04",
+   "game_index": 0,
+   "moves": [
+    6,
+    3,
+    4,
+    4,
+    2,
+    3,
+    4,
+    2,
+    4,
+    2,
+    4,
+    4,
+    2,
+    6,
+    0,
+    0,
+    6,
+    6,
+    0,
+    5,
+    5,
+    5
+   ],
+   "opening_id": "development-prefix-04-base",
+   "opponent": "negamax3",
+   "prefix_length": 2,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.01786879170686,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0016739163547754288
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.1079062083736062
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.001613125205039978
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.04322791751474142
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.001653917133808136
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.009393167681992054
+    }
+   ],
+   "family": "development-prefix-04",
+   "game_index": 1,
+   "moves": [
+    6,
+    3,
+    3,
+    4,
+    4,
+    2,
+    1,
+    5
+   ],
+   "opening_id": "development-prefix-04-base",
+   "opponent": "negamax3",
+   "prefix_length": 2,
+   "result": "win",
+   "score": 1.0,
+   "seconds": 0.16591595765203238,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10825062450021505
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0013609156012535095
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.11350820865482092
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0016348343342542648
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10246141627430916
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0019789589568972588
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10692662466317415
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0019025402143597603
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.09394166525453329
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.000983458012342453
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10878091678023338
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.001370999962091446
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10867899935692549
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.001937415450811386
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.014851625077426434
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0015085004270076752
+    }
+   ],
+   "family": "development-prefix-05",
+   "game_index": 0,
+   "moves": [
+    0,
+    4,
+    3,
+    3,
+    1,
+    2,
+    0,
+    4,
+    0,
+    0,
+    2,
+    4,
+    4,
+    3,
+    0,
+    2,
+    6,
+    1,
+    1,
+    1
+   ],
+   "opening_id": "development-prefix-05-base",
+   "opponent": "negamax3",
+   "prefix_length": 4,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.7713114582002163,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0017475411295890808
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10907758306711912
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.001756499521434307
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10348666738718748
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0013388749212026596
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.1077349167317152
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0016014175489544868
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.1086284164339304
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0014205416664481163
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.09960954170674086
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0017570005729794502
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10848054196685553
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0017179595306515694
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.03207887522876263
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0004891669377684593
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.007303791120648384
+    }
+   ],
+   "family": "development-prefix-05",
+   "game_index": 1,
+   "moves": [
+    0,
+    4,
+    3,
+    3,
+    3,
+    4,
+    3,
+    4,
+    4,
+    1,
+    1,
+    5,
+    3,
+    3,
+    4,
+    5,
+    5,
+    2,
+    5,
+    2
+   ],
+   "opening_id": "development-prefix-05-base",
+   "opponent": "negamax3",
+   "prefix_length": 4,
+   "result": "win",
+   "score": 1.0,
+   "seconds": 0.6893319161608815,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10845137480646372
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0015973756089806557
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10791679192334414
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.00203066598623991
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10868841595947742
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0015047909691929817
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.1008404167369008
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0026528332382440567
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.105382208712399
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.002110707573592663
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10200037527829409
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.001843833364546299
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.09040820877999067
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.002217124216258526
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.15121470857411623
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0009598750621080399
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10242241621017456
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0016471249982714653
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10652733407914639
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.001814291812479496
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.03416062518954277
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0012595001608133316
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.013460250571370125
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0010622506961226463
+    }
+   ],
+   "family": "development-prefix-06",
+   "game_index": 0,
+   "moves": [
+    0,
+    2,
+    6,
+    6,
+    2,
+    5,
+    3,
+    2,
+    4,
+    4,
+    3,
+    3,
+    2,
+    4,
+    0,
+    0,
+    1,
+    1,
+    1,
+    0,
+    3,
+    3,
+    4,
+    1,
+    6,
+    2,
+    3,
+    1,
+    4,
+    0
+   ],
+   "opening_id": "development-prefix-06-base",
+   "opponent": "negamax3",
+   "prefix_length": 6,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.1538995001465082,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0019317492842674255
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10895608272403479
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0015900423750281334
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10876387543976307
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0013485420495271683
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10134933423250914
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.001377500593662262
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10592737514525652
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0018632495775818825
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.011846667155623436
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.002300041727721691
+    }
+   ],
+   "family": "development-prefix-06",
+   "game_index": 1,
+   "moves": [
+    0,
+    2,
+    6,
+    6,
+    2,
+    5,
+    3,
+    4,
+    3,
+    5,
+    2,
+    5,
+    5,
+    1,
+    1,
+    4,
+    0
+   ],
+   "opening_id": "development-prefix-06-base",
+   "opponent": "negamax3",
+   "prefix_length": 6,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.44803737476468086,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10165737476199865
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0015098340809345245
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10837545897811651
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.002297166734933853
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10863099992275238
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.002164708450436592
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.09492470882833004
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0020901672542095184
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10391724947839975
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0008045407012104988
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10000349953770638
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0023398753255605698
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10642504040151834
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.001128166913986206
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.09900529216974974
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0012612072750926018
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.09944216720759869
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.001210041344165802
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.09079129248857498
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0006298748776316643
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.010762958787381649
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0002098744735121727
+    }
+   ],
+   "family": "development-prefix-07",
+   "game_index": 0,
+   "moves": [
+    4,
+    4,
+    6,
+    5,
+    1,
+    1,
+    5,
+    1,
+    3,
+    2,
+    2,
+    4,
+    2,
+    4,
+    4,
+    2,
+    1,
+    3,
+    3,
+    2,
+    4,
+    3,
+    6,
+    3,
+    6,
+    6,
+    3,
+    2,
+    5,
+    5
+   ],
+   "opening_id": "development-prefix-07-base",
+   "opponent": "negamax3",
+   "prefix_length": 8,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.041219917126,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.001944250427186489
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10508891753852367
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0016997074708342552
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10763108357787132
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0019314996898174286
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.11738704144954681
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0028720004484057426
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.04472808260470629
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0023739589378237724
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.01876833289861679
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.000895082950592041
+    }
+   ],
+   "family": "development-prefix-07",
+   "game_index": 1,
+   "moves": [
+    4,
+    4,
+    6,
+    5,
+    1,
+    1,
+    5,
+    1,
+    4,
+    1,
+    1,
+    6,
+    5,
+    0,
+    2,
+    3,
+    5,
+    5,
+    3
+   ],
+   "opening_id": "development-prefix-07-base",
+   "opponent": "negamax3",
+   "prefix_length": 8,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.4062381247058511,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.11569783370941877
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0017610415816307068
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.11829654034227133
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0017020413652062416
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.11053079087287188
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0014697089791297913
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.15825641714036465
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0021950406953692436
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.09762062504887581
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0018929168581962585
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.09927845746278763
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0016334587708115578
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10517512541264296
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0008584167808294296
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.013001000508666039
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0006205830723047256
+    }
+   ],
+   "family": "development-prefix-08",
+   "game_index": 0,
+   "moves": [
+    4,
+    4,
+    5,
+    3,
+    6,
+    3,
+    5,
+    4,
+    5,
+    5,
+    2,
+    4,
+    4,
+    2,
+    4,
+    1,
+    1,
+    3
+   ],
+   "opening_id": "development-prefix-08-base",
+   "opponent": "negamax3",
+   "prefix_length": 2,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.8312880005687475,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0015467079356312752
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.1073206253349781
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0018070423975586891
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.014347000047564507
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0018839165568351746
+    }
+   ],
+   "family": "development-prefix-08",
+   "game_index": 1,
+   "moves": [
+    4,
+    4,
+    3,
+    0,
+    2,
+    5,
+    1
+   ],
+   "opening_id": "development-prefix-08-base",
+   "opponent": "negamax3",
+   "prefix_length": 2,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.12726229149848223,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.03538645803928375
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.001511499285697937
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.007525666616857052
+    }
+   ],
+   "family": "development-prefix-09",
+   "game_index": 0,
+   "moves": [
+    2,
+    6,
+    4,
+    6,
+    3,
+    0,
+    1
+   ],
+   "opening_id": "development-prefix-09-base",
+   "opponent": "negamax3",
+   "prefix_length": 4,
+   "result": "win",
+   "score": 1.0,
+   "seconds": 0.044649332761764526,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0015014586970210075
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.011895000003278255
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.002314959652721882
+    }
+   ],
+   "family": "development-prefix-09",
+   "game_index": 1,
+   "moves": [
+    2,
+    6,
+    4,
+    6,
+    3,
+    1,
+    5
+   ],
+   "opening_id": "development-prefix-09-base",
+   "opponent": "negamax3",
+   "prefix_length": 4,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.015929916873574257,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10297675058245659
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0013107508420944214
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10629529133439064
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0013061249628663063
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.015571207739412785
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0016430001705884933
+    }
+   ],
+   "family": "development-prefix-10",
+   "game_index": 0,
+   "moves": [
+    4,
+    5,
+    2,
+    3,
+    2,
+    3,
+    2,
+    2,
+    1,
+    3,
+    3,
+    4
+   ],
+   "opening_id": "development-prefix-10-base",
+   "opponent": "negamax3",
+   "prefix_length": 6,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.22957429196685553,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0016589583829045296
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10940208286046982
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0014224164187908173
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10925458278506994
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.001938583329319954
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10782837495207787
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0011756252497434616
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10701850056648254
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0014326246455311775
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.1063045421615243
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0012126248329877853
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10022899974137545
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0009846249595284462
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10686887428164482
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0015375837683677673
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10315124969929457
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.0008387910202145576
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10407925024628639
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0006254585459828377
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.06467000022530556
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.0004275403916835785
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.03190545830875635
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.00027187447994947433
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.015656042844057083
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0002111252397298813
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.007258749566972256
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0001389589160680771
+    }
+   ],
+   "family": "development-prefix-10",
+   "game_index": 1,
+   "moves": [
+    4,
+    5,
+    2,
+    3,
+    2,
+    3,
+    3,
+    2,
+    3,
+    3,
+    2,
+    3,
+    4,
+    0,
+    2,
+    4,
+    4,
+    1,
+    4,
+    0,
+    2,
+    0,
+    0,
+    4,
+    1,
+    0,
+    0,
+    6,
+    5,
+    6,
+    5,
+    5,
+    5
+   ],
+   "opening_id": "development-prefix-10-base",
+   "opponent": "negamax3",
+   "prefix_length": 6,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.0895463339984417,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.1076506245881319
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.001931958831846714
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10892995912581682
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.002137250266969204
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10564916674047709
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.002295833081007004
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10961891710758209
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.002272750250995159
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.09379204176366329
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.002097124233841896
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10761033277958632
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0014897910878062248
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.012850875034928322
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0019523752853274345
+    }
+   ],
+   "family": "development-prefix-11",
+   "game_index": 0,
+   "moves": [
+    3,
+    6,
+    1,
+    2,
+    0,
+    4,
+    2,
+    1,
+    1,
+    2,
+    0,
+    2,
+    0,
+    0,
+    0,
+    1,
+    3,
+    4,
+    1,
+    3,
+    3,
+    5
+   ],
+   "opening_id": "development-prefix-11-base",
+   "opponent": "negamax3",
+   "prefix_length": 8,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.6613607089966536,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.002243500202894211
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10896704066544771
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0017524166032671928
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10844679176807404
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0018614577129483223
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.1050851671025157
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0016836673021316528
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.106605333276093
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.051569292321801186
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.017471207305788994
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0008185002952814102
+    }
+   ],
+   "family": "development-prefix-11",
+   "game_index": 1,
+   "moves": [
+    3,
+    6,
+    1,
+    2,
+    0,
+    4,
+    2,
+    1,
+    4,
+    4,
+    4,
+    1,
+    2,
+    1,
+    1,
+    5,
+    3,
+    5,
+    3
+   ],
+   "opening_id": "development-prefix-11-base",
+   "opponent": "negamax3",
+   "prefix_length": 8,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.5073903743177652,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.1100004157051444
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.00216504093259573
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10893924999982119
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0018209582194685936
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10832729190587997
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0019164159893989563
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10935545898973942
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0018172916024923325
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.1086144158616662
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0014301668852567673
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10869091656059027
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0013639163225889206
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.1021729577332735
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.002414500340819359
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10424450039863586
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0024180421605706215
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10762999951839447
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0025530830025672913
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10219754185527563
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0018331659957766533
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10751504171639681
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.00285474956035614
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.1034137075766921
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0014224173501133919
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.09752804227173328
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.000756499357521534
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.08719291724264622
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0007044160738587379
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.015101666562259197
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.00017254147678613663
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0031613335013389587
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 6.633251905441284e-05
+    }
+   ],
+   "family": "development-prefix-12",
+   "game_index": 0,
+   "moves": [
+    5,
+    6,
+    6,
+    2,
+    2,
+    5,
+    3,
+    2,
+    0,
+    3,
+    1,
+    3,
+    6,
+    3,
+    3,
+    5,
+    6,
+    6,
+    2,
+    5,
+    5,
+    2,
+    0,
+    0,
+    3,
+    5,
+    0,
+    4,
+    0,
+    2,
+    0,
+    6,
+    1,
+    1
+   ],
+   "opening_id": "development-prefix-12-base",
+   "opponent": "negamax3",
+   "prefix_length": 2,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.5121189998462796,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.002126624807715416
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10891683399677277
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0015777917578816414
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10894900001585484
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.001832542009651661
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.1082407096400857
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0018610823899507523
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10785604175180197
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0017622914165258408
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10043137520551682
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0014289580285549164
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10662975069135427
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0017446661368012428
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.017478500492870808
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.003086416982114315
+    }
+   ],
+   "family": "development-prefix-12",
+   "game_index": 1,
+   "moves": [
+    5,
+    6,
+    3,
+    4,
+    4,
+    0,
+    4,
+    4,
+    5,
+    3,
+    5,
+    5,
+    3,
+    5,
+    6,
+    1,
+    6
+   ],
+   "opening_id": "development-prefix-12-base",
+   "opponent": "negamax3",
+   "prefix_length": 2,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.6749362079426646,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10598687455058098
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.001480707898736
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.11029662471264601
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.002066667191684246
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0964216673746705
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0020978329703211784
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.09498683270066977
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.001918042078614235
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.09694075025618076
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.00084687490016222
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.05310679227113724
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.002226332202553749
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.017555291764438152
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0010282928124070168
+    }
+   ],
+   "family": "development-prefix-13",
+   "game_index": 0,
+   "moves": [
+    3,
+    3,
+    6,
+    6,
+    5,
+    4,
+    1,
+    4,
+    5,
+    3,
+    2,
+    0,
+    4,
+    3,
+    3,
+    1,
+    4,
+    2
+   ],
+   "opening_id": "development-prefix-13-base",
+   "opponent": "negamax3",
+   "prefix_length": 4,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.5879503330215812,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0017463751137256622
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.15461045876145363
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0018277503550052643
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10073987487703562
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0019172923639416695
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10260270815342665
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.001511874608695507
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10678491741418839
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0025297077372670174
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.09878145903348923
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.001628750003874302
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.09369537513703108
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0021445415914058685
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.09142116736620665
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0023077502846717834
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10671241767704487
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.001775749959051609
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10221000015735626
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.0011318325996398926
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.09766345843672752
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0011563748121261597
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10230849962681532
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0010421667248010635
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.08868975006043911
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0008903751149773598
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.03077154140919447
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.00040183402597904205
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.011386125348508358
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.00022116675972938538
+    }
+   ],
+   "family": "development-prefix-13",
+   "game_index": 1,
+   "moves": [
+    3,
+    3,
+    6,
+    6,
+    3,
+    2,
+    5,
+    4,
+    3,
+    5,
+    4,
+    3,
+    4,
+    5,
+    4,
+    4,
+    2,
+    1,
+    3,
+    0,
+    4,
+    0,
+    0,
+    0,
+    6,
+    6,
+    6,
+    0,
+    6,
+    1,
+    1,
+    2,
+    2
+   ],
+   "opening_id": "development-prefix-13-base",
+   "opponent": "negamax3",
+   "prefix_length": 4,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.3128714999184012,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.11170204170048237
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0019840821623802185
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.11085604131221771
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0013848748058080673
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10896470863372087
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0014710845425724983
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10817433428019285
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.001228666864335537
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.09953412506729364
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0007460843771696091
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10558204259723425
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0008942503482103348
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10819016676396132
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0006920425221323967
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10517637524753809
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0004676664248108864
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10487474966794252
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.00048237480223178864
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10246841702610254
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.00045724958181381226
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10431754123419523
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.00041720829904079437
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0768992081284523
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.000394333153963089
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.037133291363716125
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.00030108261853456497
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.019760040566325188
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 8.912477642297745e-05
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.009964791126549244
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.00010608416050672531
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.00486395787447691
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 7.058307528495789e-05
+    }
+   ],
+   "family": "development-prefix-14",
+   "game_index": 0,
+   "moves": [
+    3,
+    2,
+    0,
+    5,
+    5,
+    5,
+    0,
+    3,
+    0,
+    0,
+    0,
+    5,
+    0,
+    5,
+    5,
+    3,
+    3,
+    3,
+    3,
+    6,
+    2,
+    2,
+    6,
+    6,
+    2,
+    2,
+    6,
+    2,
+    1,
+    6,
+    1,
+    6,
+    1,
+    1,
+    4,
+    4,
+    4,
+    4
+   ],
+   "opening_id": "development-prefix-14-base",
+   "opponent": "negamax3",
+   "prefix_length": 6,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.332036416977644,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0014144591987133026
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10786774940788746
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0014394167810678482
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10969945788383484
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0014471253380179405
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.11444137524813414
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0016537923365831375
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.11272316705435514
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0017052926123142242
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.11439337488263845
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0018248343840241432
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10909525025635958
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.001428249292075634
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.09916562493890524
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0009127911180257797
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.09771212469786406
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0008741673082113266
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.089844667352736
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0009469166398048401
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0892943749204278
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0006144596263766289
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.08764091599732637
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0005259169265627861
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.011210749857127666
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0002593332901597023
+    }
+   ],
+   "family": "development-prefix-14",
+   "game_index": 1,
+   "moves": [
+    3,
+    2,
+    0,
+    5,
+    5,
+    5,
+    2,
+    2,
+    2,
+    0,
+    5,
+    1,
+    3,
+    1,
+    1,
+    5,
+    2,
+    5,
+    2,
+    6,
+    6,
+    6,
+    1,
+    1,
+    1,
+    3,
+    3,
+    6,
+    4,
+    6,
+    4
+   ],
+   "opening_id": "development-prefix-14-base",
+   "opponent": "negamax3",
+   "prefix_length": 6,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.1600766675546765,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10394566599279642
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0017113341018557549
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10825191531330347
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0014370419085025787
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10153441689908504
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0017509162425994873
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.1062099589034915
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0017662504687905312
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.1040764581412077
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0014384156093001366
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10454445891082287
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0016948748379945755
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.019078957848250866
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0012888750061392784
+    }
+   ],
+   "family": "development-prefix-15",
+   "game_index": 0,
+   "moves": [
+    0,
+    5,
+    3,
+    6,
+    3,
+    3,
+    0,
+    1,
+    0,
+    0,
+    1,
+    3,
+    2,
+    2,
+    2,
+    2,
+    0,
+    5,
+    6,
+    4,
+    2,
+    4
+   ],
+   "opening_id": "development-prefix-15-base",
+   "opponent": "negamax3",
+   "prefix_length": 8,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.6597894579172134,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0019823750481009483
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10924483276903629
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.002392541617155075
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10792175028473139
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0026247501373291016
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.11328400019556284
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.002775833010673523
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10952095966786146
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0017154170200228691
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.108560542576015
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.002140709199011326
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10639754123985767
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0016675004735589027
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10204933304339647
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0009625423699617386
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0146271251142025
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.00105179101228714
+    }
+   ],
+   "family": "development-prefix-15",
+   "game_index": 1,
+   "moves": [
+    0,
+    5,
+    3,
+    6,
+    3,
+    3,
+    0,
+    1,
+    3,
+    1,
+    1,
+    3,
+    1,
+    5,
+    3,
+    5,
+    5,
+    6,
+    6,
+    4,
+    4,
+    4,
+    4,
+    6,
+    4
+   ],
+   "opening_id": "development-prefix-15-base",
+   "opponent": "negamax3",
+   "prefix_length": 8,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.7902385415509343,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10749933402985334
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0020764581859111786
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10870612505823374
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0014703338965773582
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10256579145789146
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0022198325023055077
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10667016636580229
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.001633916050195694
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.1080970000475645
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0015144171193242073
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10866954177618027
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0014825835824012756
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.09963120799511671
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0016627078875899315
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10657458286732435
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0012120828032493591
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10116245783865452
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.001271875575184822
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.1015997501090169
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0012135831639170647
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10060604102909565
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.001179458573460579
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10142895765602589
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0007595419883728027
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.0924487505108118
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0007316246628761292
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.06829333305358887
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.00041737500578165054
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.015433291904628277
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0001816246658563614
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.003127666190266609
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 5.3999945521354675e-05
+    }
+   ],
+   "family": "development-prefix-16",
+   "game_index": 0,
+   "moves": [
+    1,
+    1,
+    6,
+    3,
+    6,
+    1,
+    6,
+    6,
+    3,
+    3,
+    1,
+    3,
+    2,
+    3,
+    3,
+    1,
+    4,
+    4,
+    0,
+    4,
+    6,
+    0,
+    4,
+    4,
+    4,
+    0,
+    0,
+    1,
+    0,
+    5,
+    6,
+    0,
+    5,
+    5
+   ],
+   "opening_id": "development-prefix-16-base",
+   "opponent": "negamax3",
+   "prefix_length": 2,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.4540200410410762,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0016324575990438461
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10812754090875387
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.001698499545454979
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.01406204141676426
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0016770828515291214
+    }
+   ],
+   "family": "development-prefix-16",
+   "game_index": 1,
+   "moves": [
+    1,
+    1,
+    3,
+    1,
+    2,
+    0,
+    4
+   ],
+   "opening_id": "development-prefix-16-base",
+   "opponent": "negamax3",
+   "prefix_length": 2,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.12754204217344522,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.1598054589703679
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0015822499990463257
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10799012519419193
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.002294875681400299
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10852150060236454
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0014034593477845192
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10938412509858608
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0017786668613553047
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.04080704227089882
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0012919167056679726
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.014650708064436913
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0008742911741137505
+    }
+   ],
+   "family": "development-prefix-17",
+   "game_index": 0,
+   "moves": [
+    4,
+    3,
+    0,
+    4,
+    4,
+    4,
+    0,
+    0,
+    2,
+    2,
+    5,
+    3,
+    5,
+    1,
+    1,
+    3
+   ],
+   "opening_id": "development-prefix-17-base",
+   "opponent": "negamax3",
+   "prefix_length": 4,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.5512878336012363,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0014295000582933426
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10879687499254942
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0015771249309182167
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10873312503099442
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.002088957466185093
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10112333297729492
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.001408957876265049
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10787512548267841
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0010595843195915222
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.106821708381176
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0010144589468836784
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.09896750003099442
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0015656249597668648
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10184358339756727
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0017579589039087296
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10330550000071526
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0013912497088313103
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.11787445843219757
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0014418745413422585
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.028513415716588497
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.001163499429821968
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0134506244212389
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.00109954085201025
+    }
+   ],
+   "family": "development-prefix-17",
+   "game_index": 1,
+   "moves": [
+    4,
+    3,
+    0,
+    4,
+    4,
+    6,
+    4,
+    5,
+    4,
+    4,
+    3,
+    0,
+    3,
+    6,
+    3,
+    3,
+    5,
+    6,
+    6,
+    6,
+    2,
+    0,
+    2,
+    1,
+    5,
+    2,
+    5
+   ],
+   "opening_id": "development-prefix-17-base",
+   "opponent": "negamax3",
+   "prefix_length": 4,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.0159512097015977,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.1026445422321558
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0010431250557303429
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10130741726607084
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0024358751252293587
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10901995841413736
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0025049997493624687
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10967874992638826
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0024432502686977386
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.09510962478816509
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0020689582452178
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.09982225019484758
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.001941000111401081
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10610341560095549
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0018541254103183746
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0940327076241374
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0016383752226829529
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.03881283290684223
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0008255839347839355
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0072585828602313995
+    }
+   ],
+   "family": "development-prefix-18",
+   "game_index": 0,
+   "moves": [
+    3,
+    1,
+    6,
+    1,
+    3,
+    0,
+    3,
+    3,
+    4,
+    5,
+    3,
+    5,
+    0,
+    5,
+    5,
+    4,
+    2,
+    4,
+    5,
+    1,
+    1,
+    5,
+    4,
+    1,
+    2
+   ],
+   "opening_id": "development-prefix-18-base",
+   "opponent": "negamax3",
+   "prefix_length": 6,
+   "result": "win",
+   "score": 1.0,
+   "seconds": 0.8819798743352294,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0015936670824885368
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.09716833382844925
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.001349249854683876
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10460241697728634
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.00164883304387331
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.11673616711050272
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0023451661691069603
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.11546291690319777
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0024782903492450714
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10185575019568205
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0022825002670288086
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10649112518876791
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0020370837301015854
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.09648399986326694
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0018433332443237305
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.108774708583951
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0017460007220506668
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10093695763498545
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0010558757930994034
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.1362479580566287
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.0006874585524201393
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.08676754124462605
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.0006180414929986
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.02725870907306671
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0002922080457210541
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.014483167789876461
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.00022799987345933914
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.006098791025578976
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 7.641687989234924e-05
+    }
+   ],
+   "family": "development-prefix-18",
+   "game_index": 1,
+   "moves": [
+    3,
+    1,
+    6,
+    1,
+    3,
+    0,
+    5,
+    4,
+    5,
+    1,
+    1,
+    4,
+    4,
+    5,
+    5,
+    2,
+    4,
+    5,
+    4,
+    4,
+    1,
+    6,
+    6,
+    5,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    6,
+    6,
+    6,
+    2,
+    2
+   ],
+   "opening_id": "development-prefix-18-base",
+   "opponent": "negamax3",
+   "prefix_length": 6,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.241888209246099,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.06464716698974371
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0013388758525252342
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.007379207760095596
+    }
+   ],
+   "family": "development-prefix-19",
+   "game_index": 0,
+   "moves": [
+    1,
+    0,
+    4,
+    0,
+    4,
+    1,
+    5,
+    5,
+    3,
+    3,
+    2
+   ],
+   "opening_id": "development-prefix-19-base",
+   "opponent": "negamax3",
+   "prefix_length": 8,
+   "result": "win",
+   "score": 1.0,
+   "seconds": 0.07358766626566648,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0014150412753224373
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.00873937550932169
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0011272914707660675
+    }
+   ],
+   "family": "development-prefix-19",
+   "game_index": 1,
+   "moves": [
+    1,
+    0,
+    4,
+    0,
+    4,
+    1,
+    5,
+    5,
+    3,
+    0,
+    2
+   ],
+   "opening_id": "development-prefix-19-base",
+   "opponent": "negamax3",
+   "prefix_length": 8,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.011495166458189487,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.001691959798336029
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10764854215085506
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0018501253798604012
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10901245754212141
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0014203749597072601
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10835891682654619
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0016836244612932205
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.010821624659001827
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0015402492135763168
+    }
+   ],
+   "family": "development-prefix-20",
+   "game_index": 0,
+   "moves": [
+    2,
+    2,
+    2,
+    2,
+    5,
+    3,
+    4,
+    3,
+    1,
+    4,
+    6,
+    1
+   ],
+   "opening_id": "development-prefix-20-base",
+   "opponent": "negamax3",
+   "prefix_length": 3,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.34465966653078794,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10768387466669083
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0015496667474508286
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10881912522017956
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0018506674095988274
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.012902957387268543
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.002239832654595375
+    }
+   ],
+   "family": "development-prefix-20",
+   "game_index": 1,
+   "moves": [
+    2,
+    2,
+    2,
+    6,
+    3,
+    0,
+    4,
+    1,
+    5
+   ],
+   "opening_id": "development-prefix-20-base",
+   "opponent": "negamax3",
+   "prefix_length": 3,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.23549187555909157,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.002775709144771099
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10866341646760702
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0014290828257799149
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10905533283948898
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0015127500519156456
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10269916616380215
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0014897910878062248
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10564883332699537
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0015781670808792114
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10666483268141747
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0018584579229354858
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.09261262509971857
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0015987502411007881
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10248812474310398
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0015759579837322235
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.03603462502360344
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.001507708802819252
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.014810499735176563
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0009737079963088036
+    }
+   ],
+   "family": "development-prefix-21",
+   "game_index": 0,
+   "moves": [
+    5,
+    1,
+    0,
+    0,
+    0,
+    3,
+    4,
+    1,
+    0,
+    3,
+    0,
+    0,
+    3,
+    4,
+    6,
+    5,
+    6,
+    4,
+    6,
+    6,
+    5,
+    5,
+    6,
+    2
+   ],
+   "opening_id": "development-prefix-21-base",
+   "opponent": "negamax3",
+   "prefix_length": 5,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.7964619155973196,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10812683217227459
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.001786249689757824
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10058862529695034
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0013267500326037407
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10762450005859137
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.001969125121831894
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10802629217505455
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0016632499173283577
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.09871191717684269
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.00146454107016325
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10555133316665888
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0015518749132752419
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.012290500104427338
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.002293958328664303
+    }
+   ],
+   "family": "development-prefix-21",
+   "game_index": 1,
+   "moves": [
+    5,
+    1,
+    0,
+    0,
+    0,
+    3,
+    3,
+    4,
+    2,
+    4,
+    4,
+    4,
+    5,
+    2,
+    3,
+    0,
+    3,
+    3,
+    6
+   ],
+   "opening_id": "development-prefix-21-base",
+   "opponent": "negamax3",
+   "prefix_length": 5,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.6540251253172755,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0018173744902014732
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10885341744869947
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0017497092485427856
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10777687467634678
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0017694169655442238
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.1080111674964428
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.001641792245209217
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.09830529242753983
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0010570408776402473
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10467554070055485
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0013257917016744614
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0972902923822403
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0009979167953133583
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10784849990159273
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0014355843886733055
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.09994683414697647
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0011972496286034584
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.09038108307868242
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0005857916548848152
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.07596591766923666
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0004710843786597252
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.04352633282542229
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0004536667838692665
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.015068374574184418
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.00017025042325258255
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0031079594045877457
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 5.241669714450836e-05
+    }
+   ],
+   "family": "development-prefix-22",
+   "game_index": 0,
+   "moves": [
+    3,
+    5,
+    5,
+    1,
+    1,
+    5,
+    6,
+    1,
+    5,
+    1,
+    0,
+    3,
+    2,
+    1,
+    1,
+    4,
+    4,
+    3,
+    3,
+    4,
+    4,
+    4,
+    3,
+    3,
+    4,
+    5,
+    0,
+    0,
+    0,
+    0,
+    0,
+    5,
+    6,
+    6
+   ],
+   "opening_id": "development-prefix-22-base",
+   "opponent": "negamax3",
+   "prefix_length": 7,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.0774680832400918,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10851191729307175
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0014360006898641586
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.15963975060731173
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0018327506259083748
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.09305191598832607
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0015439577400684357
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10438199993222952
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0016299588605761528
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.014457041397690773
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0014298325404524803
+    }
+   ],
+   "family": "development-prefix-22",
+   "game_index": 1,
+   "moves": [
+    3,
+    5,
+    5,
+    1,
+    1,
+    5,
+    6,
+    4,
+    3,
+    1,
+    4,
+    6,
+    4,
+    0,
+    2,
+    5,
+    2
+   ],
+   "opening_id": "development-prefix-22-base",
+   "opponent": "negamax3",
+   "prefix_length": 7,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.48867945931851864,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0020163748413324356
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10692058317363262
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0015010004863142967
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10929116699844599
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0015210006386041641
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10923454165458679
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.001481042243540287
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10804237518459558
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0013782083988189697
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10700691677629948
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0016613323241472244
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10263341758400202
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0012127924710512161
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.012762834317982197
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0024753743782639503
+    }
+   ],
+   "family": "development-prefix-23",
+   "game_index": 0,
+   "moves": [
+    5,
+    5,
+    1,
+    3,
+    1,
+    1,
+    3,
+    3,
+    0,
+    3,
+    6,
+    5,
+    0,
+    0,
+    2,
+    2,
+    2,
+    0
+   ],
+   "opening_id": "development-prefix-23-base",
+   "opponent": "negamax3",
+   "prefix_length": 3,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.6703143324702978,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10957495961338282
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.002411165274679661
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.11119537428021431
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.002773791551589966
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.11392495781183243
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.00243254192173481
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.11162691656500101
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.002400999888777733
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10732300020754337
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.00199029128998518
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10874816589057446
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0021118754521012306
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10042716562747955
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.001560000702738762
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10551420878618956
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0013799173757433891
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.09679199941456318
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0017865002155303955
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10211154166609049
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0005474584177136421
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.015574249438941479
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.00048170797526836395
+    }
+   ],
+   "family": "development-prefix-23",
+   "game_index": 1,
+   "moves": [
+    5,
+    5,
+    1,
+    2,
+    5,
+    4,
+    5,
+    4,
+    4,
+    5,
+    4,
+    1,
+    2,
+    6,
+    4,
+    4,
+    2,
+    6,
+    2,
+    2,
+    6,
+    3,
+    3,
+    0,
+    3
+   ],
+   "opening_id": "development-prefix-23-base",
+   "opponent": "negamax3",
+   "prefix_length": 3,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.1043064594268799,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0015673749148845673
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10399545822292566
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0014878325164318085
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10813416633754969
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0022589173167943954
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10746845789253712
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.001547541469335556
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.09533720929175615
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.001529499888420105
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.1016387501731515
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0015323348343372345
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.14910675026476383
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0016215834766626358
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10684566665440798
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.001704959198832512
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10585116595029831
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.002036665566265583
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.09768770821392536
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0013675419613718987
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.09888308309018612
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0006586248055100441
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10623512510210276
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0010103341192007065
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0842027086764574
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.000507500022649765
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.012894416227936745
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.00013654213398694992
+    }
+   ],
+   "family": "development-prefix-24",
+   "game_index": 0,
+   "moves": [
+    5,
+    0,
+    0,
+    2,
+    6,
+    3,
+    1,
+    1,
+    4,
+    2,
+    2,
+    3,
+    4,
+    4,
+    3,
+    2,
+    1,
+    0,
+    2,
+    4,
+    1,
+    3,
+    1,
+    1,
+    4,
+    3,
+    2,
+    6,
+    3,
+    5,
+    4,
+    5
+   ],
+   "opening_id": "development-prefix-24-base",
+   "opponent": "negamax3",
+   "prefix_length": 5,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.2993046250194311,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.09919666685163975
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0016811667010188103
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10954779107123613
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.001737833023071289
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10931416694074869
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0016237497329711914
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10253145918250084
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0009759170934557915
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10616091638803482
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0017630001530051231
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.033916499465703964
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0009322082623839378
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.012971416115760803
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0011494159698486328
+    }
+   ],
+   "family": "development-prefix-24",
+   "game_index": 1,
+   "moves": [
+    5,
+    0,
+    0,
+    2,
+    6,
+    3,
+    1,
+    3,
+    3,
+    1,
+    2,
+    2,
+    3,
+    4,
+    3,
+    3,
+    2,
+    4,
+    1
+   ],
+   "opening_id": "development-prefix-24-base",
+   "opponent": "negamax3",
+   "prefix_length": 5,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.5845402497798204,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0023555001243948936
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10829404182732105
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0020700423046946526
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10310900025069714
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.001573292538523674
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10846591740846634
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0022556250914931297
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10130549967288971
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.001922708936035633
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10783020779490471
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.002125917002558708
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.017025666311383247
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0023850006982684135
+    }
+   ],
+   "family": "development-prefix-25",
+   "game_index": 0,
+   "moves": [
+    0,
+    0,
+    2,
+    5,
+    4,
+    0,
+    6,
+    3,
+    6,
+    3,
+    6,
+    6,
+    3,
+    0,
+    0,
+    2,
+    2,
+    4,
+    6,
+    5
+   ],
+   "opening_id": "development-prefix-25-base",
+   "opponent": "negamax3",
+   "prefix_length": 7,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.5616581663489342,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10391625016927719
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.001766958273947239
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10936508234590292
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.001824791543185711
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.1078008757904172
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0018417499959468842
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10675254184752703
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0024697501212358475
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.09563254192471504
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0020896252244710922
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.05895320791751146
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0008298745378851891
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.04605104215443134
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.002312750555574894
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.01618837472051382
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.002122041769325733
+    }
+   ],
+   "family": "development-prefix-25",
+   "game_index": 1,
+   "moves": [
+    0,
+    0,
+    2,
+    5,
+    4,
+    0,
+    6,
+    0,
+    0,
+    3,
+    3,
+    1,
+    4,
+    2,
+    5,
+    6,
+    4,
+    4,
+    3,
+    3,
+    2,
+    4,
+    5
+   ],
+   "opening_id": "development-prefix-25-base",
+   "opponent": "negamax3",
+   "prefix_length": 7,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.6610760409384966,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0013519581407308578
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.1101487074047327
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0016913749277591705
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.158803790807724
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0015367083251476288
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10183808393776417
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.001389041543006897
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10747362487018108
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0014943750575184822
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10350295808166265
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.001244707964360714
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10798220802098513
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0013803746551275253
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10859787464141846
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0014981664717197418
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.09493658319115639
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0013852501288056374
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10484379064291716
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0012693339958786964
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.01637316681444645
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0009320834651589394
+    }
+   ],
+   "family": "development-prefix-26",
+   "game_index": 0,
+   "moves": [
+    2,
+    3,
+    6,
+    2,
+    3,
+    2,
+    0,
+    2,
+    2,
+    3,
+    6,
+    3,
+    6,
+    6,
+    0,
+    0,
+    1,
+    3,
+    3,
+    0,
+    0,
+    1,
+    4,
+    1
+   ],
+   "opening_id": "development-prefix-26-base",
+   "opponent": "negamax3",
+   "prefix_length": 3,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.0312146674841642,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.11407370865345001
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.001828417181968689
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.11367733217775822
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0014039995148777962
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10356425028294325
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0017196256667375565
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10725399944931269
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0018156254664063454
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10837220773100853
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0019334163516759872
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10503529105335474
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.001525750383734703
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.08673491608351469
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0017489157617092133
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.09662362467497587
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0016412092372775078
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0985697926953435
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0016547078266739845
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.096797333098948
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0014636246487498283
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.09039237536489964
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0010678749531507492
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.01434304192662239
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0007091248407959938
+    }
+   ],
+   "family": "development-prefix-26",
+   "game_index": 1,
+   "moves": [
+    2,
+    3,
+    6,
+    6,
+    3,
+    6,
+    2,
+    6,
+    6,
+    1,
+    3,
+    3,
+    1,
+    6,
+    2,
+    2,
+    3,
+    5,
+    5,
+    5,
+    5,
+    5,
+    2,
+    1,
+    1,
+    1,
+    4
+   ],
+   "opening_id": "development-prefix-26-base",
+   "opponent": "negamax3",
+   "prefix_length": 3,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.1557549573481083,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.002310791052877903
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.09708133339881897
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0021955417469143867
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10597766749560833
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.001826583407819271
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10511287488043308
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.002219250425696373
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10383437480777502
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0017094165086746216
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10406749974936247
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.001431458629667759
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10073020774871111
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.001081082969903946
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.09908433444797993
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0010192906484007835
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.14257725048810244
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0008145403116941452
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.0940485829487443
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0007973331958055496
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.09312387462705374
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0008052922785282135
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0866482499986887
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.00047183316200971603
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.08004949986934662
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0005719168111681938
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.045937707647681236
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.00021137483417987823
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.008154207840561867
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 9.720772504806519e-05
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0047532906755805016
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 8.870754390954971e-05
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.002832542173564434
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 4.712492227554321e-05
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0007458748295903206
+    }
+   ],
+   "family": "development-prefix-27",
+   "game_index": 0,
+   "moves": [
+    2,
+    4,
+    5,
+    4,
+    5,
+    4,
+    4,
+    5,
+    0,
+    3,
+    5,
+    4,
+    4,
+    0,
+    2,
+    2,
+    5,
+    2,
+    6,
+    5,
+    2,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    2,
+    1,
+    6,
+    6,
+    6,
+    6,
+    6,
+    3,
+    3
+   ],
+   "opening_id": "development-prefix-27-base",
+   "opponent": "negamax3",
+   "prefix_length": 5,
+   "result": "win",
+   "score": 1.0,
+   "seconds": 1.2949438337236643,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.103258709423244
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0017882082611322403
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10694083385169506
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0026571666821837425
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10666966624557972
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0022686664015054703
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.09606529120355844
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0017929170280694962
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10751949995756149
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0015250416472554207
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.011362874880433083
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0016255825757980347
+    }
+   ],
+   "family": "development-prefix-27",
+   "game_index": 1,
+   "moves": [
+    2,
+    4,
+    5,
+    4,
+    5,
+    4,
+    4,
+    6,
+    2,
+    3,
+    5,
+    5,
+    3,
+    6,
+    3,
+    5,
+    1
+   ],
+   "opening_id": "development-prefix-27-base",
+   "opponent": "negamax3",
+   "prefix_length": 5,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.5444158334285021,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0021462496370077133
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.098042375408113
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0019391244277358055
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10398733429610729
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0007563326507806778
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.09320579282939434
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.002163791097700596
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.09351400006562471
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0014217086136341095
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10652516596019268
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0016826670616865158
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.01786862500011921
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0016067922115325928
+    }
+   ],
+   "family": "development-prefix-28",
+   "game_index": 0,
+   "moves": [
+    2,
+    1,
+    4,
+    2,
+    6,
+    4,
+    6,
+    1,
+    6,
+    6,
+    5,
+    3,
+    3,
+    1,
+    1,
+    2,
+    0,
+    3,
+    2,
+    4
+   ],
+   "opening_id": "development-prefix-28-base",
+   "opponent": "negamax3",
+   "prefix_length": 7,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.525798000395298,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10714916698634624
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.002139665186405182
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.09917058423161507
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0008595418184995651
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10530116688460112
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0023495005443692207
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.09897787496447563
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0015252921730279922
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10397600010037422
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.002027958631515503
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10369670949876308
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0022043753415346146
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10260829236358404
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.002643541432917118
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.01583862490952015
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.001128082163631916
+    }
+   ],
+   "family": "development-prefix-28",
+   "game_index": 1,
+   "moves": [
+    2,
+    1,
+    4,
+    2,
+    6,
+    4,
+    6,
+    1,
+    2,
+    3,
+    3,
+    3,
+    2,
+    4,
+    4,
+    5,
+    3,
+    2,
+    3,
+    4,
+    5,
+    6,
+    5
+   ],
+   "opening_id": "development-prefix-28-base",
+   "opponent": "negamax3",
+   "prefix_length": 7,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.7528197914361954,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0019232910126447678
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10405945777893066
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0023420406505465508
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10213166754692793
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.002221084199845791
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.1076893750578165
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0017677918076515198
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.09932887554168701
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0017696674913167953
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10902075003832579
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.002486417070031166
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10455345828086138
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.001824917271733284
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.15165512543171644
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0016135834157466888
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.09095929097384214
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0014825006946921349
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0975645836442709
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.001449834555387497
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.09871179237961769
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0017540417611598969
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.11133708246052265
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0015695421025156975
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10333470907062292
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0009591672569513321
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.015290707349777222
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0008172085508704185
+    }
+   ],
+   "family": "development-prefix-29",
+   "game_index": 0,
+   "moves": [
+    6,
+    2,
+    1,
+    1,
+    6,
+    1,
+    6,
+    6,
+    3,
+    3,
+    4,
+    5,
+    4,
+    4,
+    5,
+    3,
+    4,
+    1,
+    1,
+    5,
+    5,
+    3,
+    3,
+    4,
+    5,
+    5,
+    0,
+    0,
+    2,
+    2
+   ],
+   "opening_id": "development-prefix-29-base",
+   "opponent": "negamax3",
+   "prefix_length": 3,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.3215781655162573,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10666075069457293
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0018102498725056648
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.09826554264873266
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0016265418380498886
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10924641694873571
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0021508755162358284
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10940341744571924
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0023439163342118263
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10565345827490091
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0017913756892085075
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.09183091670274734
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0012449175119400024
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10485662426799536
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0015529999509453773
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10168225038796663
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0014763344079256058
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.01653979066759348
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0001744171604514122
+    }
+   ],
+   "family": "development-prefix-29",
+   "game_index": 1,
+   "moves": [
+    6,
+    2,
+    1,
+    3,
+    2,
+    5,
+    4,
+    4,
+    4,
+    1,
+    4,
+    0,
+    4,
+    4,
+    2,
+    2,
+    1,
+    5,
+    1,
+    3,
+    3
+   ],
+   "opening_id": "development-prefix-29-base",
+   "opponent": "negamax3",
+   "prefix_length": 3,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.8596163326874375,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.002441165968775749
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10777829121798277
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0015015406534075737
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10714170895516872
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0017812075093388557
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10407449956983328
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.001923583447933197
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10256412532180548
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0017585838213562965
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.09627250023186207
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0015364587306976318
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.09711583331227303
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.001247207634150982
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.08533083274960518
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0014869151636958122
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.038247792050242424
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0007877089083194733
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.006593874655663967
+    }
+   ],
+   "family": "development-prefix-30",
+   "game_index": 0,
+   "moves": [
+    0,
+    1,
+    5,
+    0,
+    5,
+    5,
+    6,
+    3,
+    1,
+    1,
+    4,
+    5,
+    4,
+    4,
+    3,
+    6,
+    2,
+    2,
+    2,
+    1,
+    3,
+    4,
+    2
+   ],
+   "opening_id": "development-prefix-30-base",
+   "opponent": "negamax3",
+   "prefix_length": 5,
+   "result": "win",
+   "score": 1.0,
+   "seconds": 0.7608777917921543,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10361866559833288
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.00248587504029274
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10012245923280716
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0013140002265572548
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10447829123586416
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0015613753348588943
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.13591583352535963
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.002152000553905964
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.08973225019872189
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0016417494043707848
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.08970491774380207
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0008629579097032547
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0962682906538248
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.0012149596586823463
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0998738743364811
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0022015422582626343
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.010451707988977432
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.000886792317032814
+    }
+   ],
+   "family": "development-prefix-30",
+   "game_index": 1,
+   "moves": [
+    0,
+    1,
+    5,
+    0,
+    5,
+    4,
+    4,
+    3,
+    2,
+    1,
+    3,
+    2,
+    4,
+    1,
+    1,
+    4,
+    3,
+    0,
+    0,
+    3,
+    5,
+    1,
+    2
+   ],
+   "opening_id": "development-prefix-30-base",
+   "opponent": "negamax3",
+   "prefix_length": 5,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.8456903742626309,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0024771252647042274
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10566195845603943
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0023819580674171448
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10379679221659899
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0019910847768187523
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10389312449842691
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.001941540278494358
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.008544459007680416
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0005881255492568016
+    }
+   ],
+   "family": "development-prefix-31",
+   "game_index": 0,
+   "moves": [
+    1,
+    0,
+    6,
+    4,
+    5,
+    0,
+    0,
+    1,
+    2,
+    2,
+    4,
+    1,
+    5,
+    3,
+    2,
+    0
+   ],
+   "opening_id": "development-prefix-31-base",
+   "opponent": "negamax3",
+   "prefix_length": 7,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.3319397075101733,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.1065150834619999
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0031060008332133293
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10715475026518106
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.002445874735713005
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.1068447083234787
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.00234970822930336
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10727845877408981
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0023022079840302467
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10375929158180952
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0016511669382452965
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10474416706711054
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0018629999831318855
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.09281416703015566
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0013092076405882835
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.1061136657372117
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0016788747161626816
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.09943745750933886
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0017742076888680458
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10005025006830692
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0007429998368024826
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.012912374921143055
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0007729576900601387
+    }
+   ],
+   "family": "development-prefix-31",
+   "game_index": 1,
+   "moves": [
+    1,
+    0,
+    6,
+    4,
+    5,
+    0,
+    0,
+    5,
+    5,
+    1,
+    4,
+    3,
+    5,
+    1,
+    4,
+    1,
+    1,
+    0,
+    3,
+    2,
+    2,
+    3,
+    4,
+    4,
+    6,
+    2,
+    3,
+    3,
+    2
+   ],
+   "opening_id": "development-prefix-31-base",
+   "opponent": "negamax3",
+   "prefix_length": 7,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.0692606652155519,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0017699161544442177
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10598170757293701
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0014329999685287476
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10658466722816229
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0015839161351323128
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.09134179260581732
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0016623744741082191
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.09427108243107796
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0013721249997615814
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.09927033353596926
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0008090827614068985
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.09115745965391397
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0023642079904675484
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.09422083385288715
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.002088707871735096
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10143620800226927
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.001957499422132969
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.14550524950027466
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0023723337799310684
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.11228387523442507
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.002163499593734741
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10374058317393064
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0012603327631950378
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.09897854179143906
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0009918324649333954
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.014580207876861095
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0012004580348730087
+    }
+   ],
+   "family": "development-prefix-32",
+   "game_index": 0,
+   "moves": [
+    1,
+    1,
+    4,
+    3,
+    2,
+    3,
+    5,
+    2,
+    4,
+    2,
+    4,
+    4,
+    2,
+    3,
+    3,
+    2,
+    5,
+    6,
+    5,
+    5,
+    5,
+    3,
+    4,
+    3,
+    1,
+    1,
+    6,
+    0,
+    0,
+    0
+   ],
+   "opening_id": "development-prefix-32-base",
+   "opponent": "negamax3",
+   "prefix_length": 3,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.284431541338563,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10760766733437777
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.001546666957437992
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10783699993044138
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0016838330775499344
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10493020806461573
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0014885421842336655
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10591024998575449
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0013836249709129333
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10621483251452446
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0012775007635354996
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10565337538719177
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0012304577976465225
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.018480665981769562
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0013329572975635529
+    }
+   ],
+   "family": "development-prefix-32",
+   "game_index": 1,
+   "moves": [
+    1,
+    1,
+    4,
+    6,
+    1,
+    3,
+    3,
+    4,
+    3,
+    1,
+    4,
+    1,
+    4,
+    4,
+    2,
+    2,
+    2
+   ],
+   "opening_id": "development-prefix-32-base",
+   "opponent": "negamax3",
+   "prefix_length": 3,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.6675460422411561,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.001352749764919281
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10645279102027416
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0017027081921696663
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10846812464296818
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.001575833186507225
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10725808329880238
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0016616666689515114
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10759179200977087
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0020482074469327927
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10845154244452715
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0021299999207258224
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.1053724167868495
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0023292917758226395
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0891495831310749
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0014888755977153778
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0977607499808073
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0014142915606498718
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.09339737519621849
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0009709997102618217
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.08537791576236486
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.000525415875017643
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.07553841732442379
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0005721654742956161
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.021603458561003208
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0004553329199552536
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.007838500663638115
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 8.716713637113571e-05
+    }
+   ],
+   "family": "development-prefix-33",
+   "game_index": 0,
+   "moves": [
+    6,
+    6,
+    1,
+    3,
+    5,
+    1,
+    5,
+    5,
+    3,
+    5,
+    3,
+    3,
+    0,
+    3,
+    4,
+    4,
+    1,
+    5,
+    5,
+    1,
+    1,
+    3,
+    2,
+    1,
+    2,
+    2,
+    0,
+    2,
+    2,
+    2,
+    0,
+    0
+   ],
+   "opening_id": "development-prefix-33-base",
+   "opponent": "negamax3",
+   "prefix_length": 5,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.1344861248508096,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10955354105681181
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.001923833042383194
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10224724933505058
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0011092498898506165
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10686833318322897
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0025813747197389603
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10798937547951937
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.002346542663872242
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.11192916706204414
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.052045125514268875
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10568683315068483
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0022568339481949806
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0913289999589324
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0013628331944346428
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.09405162464827299
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.0008215000852942467
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.09751691669225693
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0005387915298342705
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.09463750012218952
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0007998747751116753
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.09035837557166815
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0008387500420212746
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.08479500003159046
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0005965419113636017
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.08448062464594841
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0004170415922999382
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.09504787530750036
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0008239578455686569
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0968288341537118
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0008634580299258232
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.04595112521201372
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.00039187539368867874
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.01022791676223278
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 8.133333176374435e-05
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0013212095946073532
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 4.137493669986725e-05
+    }
+   ],
+   "family": "development-prefix-33",
+   "game_index": 1,
+   "moves": [
+    6,
+    6,
+    1,
+    3,
+    5,
+    3,
+    5,
+    3,
+    3,
+    1,
+    3,
+    4,
+    1,
+    0,
+    1,
+    0,
+    1,
+    1,
+    3,
+    0,
+    0,
+    2,
+    2,
+    0,
+    6,
+    5,
+    5,
+    6,
+    4,
+    4,
+    2,
+    2,
+    2,
+    6,
+    6,
+    5,
+    5,
+    2,
+    0,
+    4,
+    4
+   ],
+   "opening_id": "development-prefix-33-base",
+   "opponent": "negamax3",
+   "prefix_length": 5,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.6034398330375552,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0017699580639600754
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.10954258311539888
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0018397923558950424
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.11179704125970602
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0017261672765016556
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10016054194420576
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.001880500465631485
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10252020880579948
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0016333330422639847
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10615062434226274
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0020313747227191925
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.01283958274871111
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0011668754741549492
+    }
+   ],
+   "family": "development-prefix-34",
+   "game_index": 0,
+   "moves": [
+    3,
+    2,
+    4,
+    6,
+    1,
+    4,
+    0,
+    4,
+    3,
+    3,
+    0,
+    3,
+    0,
+    0,
+    2,
+    1,
+    2,
+    5,
+    2,
+    5
+   ],
+   "opening_id": "development-prefix-34-base",
+   "opponent": "negamax3",
+   "prefix_length": 7,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.5560805844143033,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10837666690349579
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0014536241069436073
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10929774958640337
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0016698744148015976
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10769433341920376
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0018445411697030067
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.1072782501578331
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0023824581876397133
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10581379197537899
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.002695041708648205
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10398312471807003
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.002176082693040371
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10567804146558046
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.0015592500567436218
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.1075905840843916
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.001998833380639553
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10727299936115742
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.001544875092804432
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10683074966073036
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0012698331847786903
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10085379146039486
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.000858125276863575
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0915682502090931
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0007437495514750481
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.07182450033724308
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0003919573500752449
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.03873575013130903
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.00029250048100948334
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.006765292026102543
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 6.129126995801926e-05
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0013894997537136078
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 4.062522202730179e-05
+    }
+   ],
+   "family": "development-prefix-34",
+   "game_index": 1,
+   "moves": [
+    3,
+    2,
+    4,
+    6,
+    1,
+    4,
+    0,
+    4,
+    4,
+    5,
+    2,
+    2,
+    2,
+    0,
+    5,
+    5,
+    5,
+    5,
+    4,
+    4,
+    0,
+    6,
+    6,
+    0,
+    6,
+    0,
+    2,
+    0,
+    1,
+    6,
+    2,
+    1,
+    1,
+    1,
+    6,
+    1,
+    5,
+    3,
+    3
+   ],
+   "opening_id": "development-prefix-34-base",
+   "opponent": "negamax3",
+   "prefix_length": 7,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.404329875484109,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.001691499724984169
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10725695919245481
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.001377291977405548
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.10080029163509607
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0022350428625941277
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10755495727062225
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.001737167127430439
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10017062444239855
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0014325408264994621
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.1075561661273241
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0014849575236439705
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.09671299997717142
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0014467081055045128
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10001837462186813
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0017728330567479134
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.15330258291214705
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0018352502956986427
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.016482500359416008
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0008939588442444801
+    }
+   ],
+   "family": "development-prefix-35",
+   "game_index": 0,
+   "moves": [
+    0,
+    1,
+    3,
+    3,
+    6,
+    1,
+    4,
+    5,
+    5,
+    1,
+    1,
+    3,
+    5,
+    4,
+    3,
+    4,
+    5,
+    5,
+    6,
+    2,
+    3,
+    2
+   ],
+   "opening_id": "development-prefix-35-base",
+   "opponent": "negamax3",
+   "prefix_length": 3,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.9071242911741138,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10932370740920305
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0014907922595739365
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10817116592079401
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0016065826639533043
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10803837515413761
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0014030002057552338
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10948424972593784
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0014979168772697449
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.1073383754119277
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0029229577630758286
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.1077646678313613
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.0023390837013721466
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10686037503182888
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0020126672461628914
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.10589441750198603
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0017553754150867462
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10831912513822317
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.0017713755369186401
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10541445855051279
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.001894165761768818
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.016241250559687614
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0005395831540226936
+    }
+   ],
+   "family": "development-prefix-35",
+   "game_index": 1,
+   "moves": [
+    0,
+    1,
+    3,
+    3,
+    1,
+    1,
+    1,
+    3,
+    3,
+    0,
+    3,
+    5,
+    5,
+    2,
+    0,
+    6,
+    3,
+    5,
+    5,
+    4,
+    0,
+    6,
+    2,
+    4,
+    2
+   ],
+   "opening_id": "development-prefix-35-base",
+   "opponent": "negamax3",
+   "prefix_length": 3,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.1137375002726912,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0019973330199718475
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.10746587533503771
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0018326248973608017
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.1069654580205679
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0019511254504323006
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10776512511074543
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0023993337526917458
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.014726207591593266
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0017073750495910645
+    }
+   ],
+   "family": "development-prefix-36",
+   "game_index": 0,
+   "moves": [
+    4,
+    5,
+    5,
+    1,
+    3,
+    5,
+    2,
+    2,
+    0,
+    3,
+    6,
+    1,
+    0,
+    4
+   ],
+   "opening_id": "development-prefix-36-base",
+   "opponent": "negamax3",
+   "prefix_length": 5,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.3474770002067089,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10750554129481316
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0015610838308930397
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10780941694974899
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0013667093589901924
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10685620829463005
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0015682503581047058
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.10216029267758131
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0022370414808392525
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10693883337080479
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0030009178444743156
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10545662511140108
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0022250423207879066
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.013885082677006721
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0016370834782719612
+    }
+   ],
+   "family": "development-prefix-36",
+   "game_index": 1,
+   "moves": [
+    4,
+    5,
+    5,
+    1,
+    3,
+    0,
+    3,
+    4,
+    4,
+    1,
+    6,
+    1,
+    1,
+    4,
+    5,
+    4,
+    5,
+    2,
+    5
+   ],
+   "opening_id": "development-prefix-36-base",
+   "opponent": "negamax3",
+   "prefix_length": 5,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.6652381252497435,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.002038249745965004
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.09313404187560081
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0007974579930305481
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.09409279190003872
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.001325707882642746
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.09407133422791958
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0010226666927337646
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.1002041669562459
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0012033339589834213
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.09383141621947289
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0009987503290176392
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.09122929070144892
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0012103747576475143
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.09049662575125694
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0006237924098968506
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.09524941630661488
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0010527493432164192
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10163050051778555
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.0009312909096479416
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.09632316697388887
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0005420409142971039
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.08558025024831295
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.00041404087096452713
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.023745709098875523
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0001926664263010025
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.016315124928951263
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.00016916636377573013
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.004715457558631897
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 5.349982529878616e-05
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0013735834509134293
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 3.904104232788086e-05
+    }
+   ],
+   "family": "development-prefix-37",
+   "game_index": 0,
+   "moves": [
+    3,
+    3,
+    4,
+    4,
+    3,
+    2,
+    3,
+    2,
+    3,
+    3,
+    6,
+    5,
+    5,
+    4,
+    4,
+    4,
+    6,
+    5,
+    5,
+    4,
+    2,
+    2,
+    6,
+    6,
+    0,
+    5,
+    5,
+    2,
+    6,
+    2,
+    0,
+    0,
+    0,
+    6,
+    0,
+    0,
+    1,
+    1
+   ],
+   "opening_id": "development-prefix-37-base",
+   "opponent": "negamax3",
+   "prefix_length": 7,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 1.0968708749860525,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10832887515425682
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.002109167166054249
+    },
+    {
+     "color": 1,
+     "move": 5,
+     "seconds": 0.08803833369165659
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.001988791860640049
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.15435770899057388
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.001729832962155342
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10134829115122557
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.0012422502040863037
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.09966058377176523
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0013561248779296875
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.10462237522006035
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.001609625294804573
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.03834870830178261
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.0014331676065921783
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.012870042584836483
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.001259959302842617
+    }
+   ],
+   "family": "development-prefix-37",
+   "game_index": 1,
+   "moves": [
+    3,
+    3,
+    4,
+    4,
+    3,
+    2,
+    3,
+    2,
+    6,
+    5,
+    5,
+    4,
+    4,
+    2,
+    2,
+    1,
+    1,
+    0,
+    3,
+    3,
+    1,
+    1,
+    0
+   ],
+   "opening_id": "development-prefix-37-base",
+   "opponent": "negamax3",
+   "prefix_length": 7,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.7216344578191638,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.002002292312681675
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.11118383426219225
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0020389575511217117
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.1069352924823761
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.001709459349513054
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.10953741706907749
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0021786242723464966
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.1078815832734108
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.0015952922403812408
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10604983381927013
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0012017078697681427
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.0948146665468812
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0017202086746692657
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.1003625001758337
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.0015512919053435326
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.10014795884490013
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0015404578298330307
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.01580024976283312
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0011989157646894455
+    }
+   ],
+   "family": "development-prefix-38",
+   "game_index": 0,
+   "moves": [
+    0,
+    6,
+    4,
+    6,
+    6,
+    4,
+    2,
+    3,
+    6,
+    3,
+    6,
+    6,
+    0,
+    3,
+    3,
+    2,
+    0,
+    0,
+    0,
+    1,
+    3,
+    1
+   ],
+   "opening_id": "development-prefix-38-base",
+   "opponent": "negamax3",
+   "prefix_length": 3,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.8708799164742231,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.1100034574046731
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.002190707251429558
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10951716732233763
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0015643751248717308
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10798941552639008
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.002032333053648472
+    },
+    {
+     "color": 1,
+     "move": 6,
+     "seconds": 0.10309875011444092
+    },
+    {
+     "color": 0,
+     "move": 6,
+     "seconds": 0.0016308333724737167
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.10883824992924929
+    },
+    {
+     "color": 0,
+     "move": 3,
+     "seconds": 0.002005374990403652
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.10518258344382048
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.0017542503774166107
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.01793329231441021
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.001887291669845581
+    }
+   ],
+   "family": "development-prefix-38",
+   "game_index": 1,
+   "moves": [
+    0,
+    6,
+    4,
+    0,
+    3,
+    2,
+    4,
+    6,
+    2,
+    6,
+    6,
+    2,
+    3,
+    4,
+    5,
+    4,
+    5
+   ],
+   "opening_id": "development-prefix-38-base",
+   "opponent": "negamax3",
+   "prefix_length": 3,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.676685250364244,
+   "stratum": "prefix",
+   "winner": 0
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 0,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0013642087578773499
+    },
+    {
+     "color": 0,
+     "move": 5,
+     "seconds": 0.10778649989515543
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.0016486672684550285
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10926649998873472
+    },
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.0020758751779794693
+    },
+    {
+     "color": 0,
+     "move": 1,
+     "seconds": 0.10440762527287006
+    },
+    {
+     "color": 1,
+     "move": 1,
+     "seconds": 0.0015000002458691597
+    },
+    {
+     "color": 0,
+     "move": 0,
+     "seconds": 0.1081537501886487
+    },
+    {
+     "color": 1,
+     "move": 2,
+     "seconds": 0.001691458746790886
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.012690582312643528
+    },
+    {
+     "color": 1,
+     "move": 4,
+     "seconds": 0.0015817498788237572
+    }
+   ],
+   "family": "development-prefix-39",
+   "game_index": 0,
+   "moves": [
+    1,
+    6,
+    3,
+    3,
+    6,
+    2,
+    5,
+    2,
+    1,
+    3,
+    1,
+    1,
+    0,
+    2,
+    2,
+    4
+   ],
+   "opening_id": "development-prefix-39-base",
+   "opponent": "negamax3",
+   "prefix_length": 5,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.45298462454229593,
+   "stratum": "prefix",
+   "winner": 1
+  },
+  {
+   "abandoned": false,
+   "agent": "frozen-diagnostic",
+   "agent_color": 1,
+   "decisions": [
+    {
+     "color": 1,
+     "move": 3,
+     "seconds": 0.10991595964878798
+    },
+    {
+     "color": 0,
+     "move": 2,
+     "seconds": 0.001693708822131157
+    },
+    {
+     "color": 1,
+     "move": 0,
+     "seconds": 0.01506841741502285
+    },
+    {
+     "color": 0,
+     "move": 4,
+     "seconds": 0.0016795005649328232
+    }
+   ],
+   "family": "development-prefix-39",
+   "game_index": 1,
+   "moves": [
+    1,
+    6,
+    3,
+    3,
+    6,
+    3,
+    2,
+    0,
+    4
+   ],
+   "opening_id": "development-prefix-39-base",
+   "opponent": "negamax3",
+   "prefix_length": 5,
+   "result": "loss",
+   "score": 0.0,
+   "seconds": 0.12866987567394972,
+   "stratum": "prefix",
+   "winner": 0
+  }
+ ]
+}

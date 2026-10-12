@@ -1,0 +1,51 @@
+{
+ "absolute_total_deadline": 1791847887.662954,
+ "charged_total_seconds": 1177.16406583786,
+ "finished_epoch": 1791845464.82702,
+ "hard_cap_satisfied": true,
+ "hard_total_seconds": 3600,
+ "phases": [
+  {
+   "ceiling_seconds": 2700,
+   "finished_epoch": 1791845332.04929,
+   "name": "measured",
+   "pid": 57143,
+   "returncode": 0,
+   "seconds": 864.384682893753,
+   "started_epoch": 1791844467.664607
+  },
+  {
+   "ceiling_seconds": 240,
+   "finished_epoch": 1791845351.738563,
+   "name": "analysis",
+   "pid": 63415,
+   "returncode": 0,
+   "seconds": 19.68393898010254,
+   "started_epoch": 1791845332.054625
+  },
+  {
+   "ceiling_seconds": 240,
+   "finished_epoch": 1791845374.4699242,
+   "name": "independent-arithmetic",
+   "pid": 63533,
+   "returncode": 0,
+   "seconds": 22.723037242889404,
+   "started_epoch": 1791845351.746888
+  },
+  {
+   "ceiling_seconds": 240,
+   "finished_epoch": 1791845464.8237062,
+   "name": "independent-model-rerun",
+   "pid": 63645,
+   "returncode": 0,
+   "seconds": 90.34629702568054,
+   "started_epoch": 1791845374.4774091
+  }
+ ],
+ "pid": 57142,
+ "postlaunch_seconds": 997.1640658378601,
+ "prelaunch_charge_seconds": 180,
+ "retries": 0,
+ "started_epoch": 1791844467.662954,
+ "status": "COMPLETE_PENDING_FINAL_REPORT"
+}
