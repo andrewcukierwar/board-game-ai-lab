@@ -6,6 +6,7 @@ strictly sequential and discarded after its move, like historical PUCT.
 """
 from dataclasses import dataclass, field
 import hashlib
+import math
 import random
 import time
 
@@ -50,6 +51,53 @@ def game_ids(indices):
     if any(type(i) is not int or i < 0 for i in ids) or len(set(ids)) != len(ids):
         raise ValueError('Expected distinct nonnegative integer game IDs')
     return ids
+
+
+@dataclass(frozen=True)
+class TemperatureSchedule:
+    """Explicit piecewise-constant execution temperature by zero-based pre-move ply.
+
+    ``segments`` are (first ply, temperature) steps: the first starts at ply 0,
+    starts strictly increase below 42, and adjacent temperatures differ so each
+    schedule has one representation. Only the executed action is affected;
+    policy targets stay normalized raw visits and no extra RNG draw occurs.
+    """
+    name: str
+    segments: tuple
+
+    def __post_init__(self):
+        if type(self.name) is not str or not self.name or not self.name.isascii():
+            raise ValueError('Schedule name must be a nonempty ASCII string')
+        if type(self.segments) not in (tuple, list) or not self.segments:
+            raise ValueError('Schedule needs at least one (first ply, temperature) segment')
+        segments = []
+        for segment in self.segments:
+            if type(segment) not in (tuple, list) or len(segment) != 2:
+                raise ValueError('Segments are (first ply, temperature) pairs')
+            start, temperature = segment
+            if type(start) is not int or not 0 <= start < 42:
+                raise ValueError('Segment starts must be integer plies 0..41')
+            if (isinstance(temperature, bool) or type(temperature) not in (int, float)
+                    or not math.isfinite(temperature) or temperature < 0):
+                raise ValueError('Temperatures must be finite and nonnegative')
+            segments.append((start, float(temperature)))
+        if segments[0][0] != 0 or any(a[0] >= b[0] or a[1] == b[1] for a, b in zip(segments, segments[1:])):
+            raise ValueError('Segments start at ply 0, strictly increase and change temperature')
+        object.__setattr__(self, 'segments', tuple(segments))
+
+    def temperature(self, ply):
+        if type(ply) is not int or not 0 <= ply < 42:
+            raise ValueError('ply must be an integer pre-move occupancy 0..41')
+        return next(t for start, t in reversed(self.segments) if start <= ply)
+
+    def to_dict(self):
+        return dict(name=self.name, segments=[list(s) for s in self.segments])
+
+    @classmethod
+    def from_dict(cls, data):
+        if not isinstance(data, dict) or set(data) != {'name', 'segments'}:
+            raise ValueError('Schedule fields do not match TemperatureSchedule')
+        return cls(data['name'], tuple(tuple(s) if type(s) is list else s for s in data['segments']))
 
 
 @dataclass
@@ -119,14 +167,16 @@ def search_requests(state, simulations, streams, *, check=None):
                           max_depth, depth_sum, terminal_leaves)
 
 
-def _game_requests(config, generation, index, streams, stats, *, check, observer):
+def _game_requests(config, generation, index, streams, stats, *, check, observer, schedule=None):
     game = Connect4()
     state = BitboardState.from_game(game)
     moves, pending = [], []
     while not state.is_game_over():
         started = time.perf_counter()
         result = yield from search_requests(state, config.self_play_simulations, streams, check=check)
-        action = select_action(result.visits, action_temperature(len(moves), config.exploratory_plies), streams.action)
+        temperature = (action_temperature(len(moves), config.exploratory_plies) if schedule is None
+                       else schedule.temperature(len(moves)))
+        action = select_action(result.visits, temperature, streams.action)
         decision = SelfPlayDecision(len(moves), result, action)
         pending.append(capture_example(game, decision))
         state = state.drop(action.move)
@@ -144,8 +194,11 @@ def _game_requests(config, generation, index, streams, stats, *, check, observer
 
 
 def collect_batched(inference, config, generation, indices, *, batch_size,
-                    check=None, observer=None, on_game=None, stats=None):
+                    check=None, observer=None, on_game=None, stats=None, temperature_schedule=None):
     """Return complete games in increasing ID order, refill immediately on finish.
+
+    ``temperature_schedule`` (Phase 4D.4D, experimental) replaces the action
+    temperature by ply; None keeps ``config.exploratory_plies`` exactly.
 
     On ANY exception no dataset is returned; on_game may already have observed
     explicitly complete games. Check before every batch and simulation bounds
@@ -154,6 +207,8 @@ def collect_batched(inference, config, generation, indices, *, batch_size,
     """
     if type(batch_size) is not int or batch_size < 1:
         raise ValueError('batch_size must be a positive integer')
+    if temperature_schedule is not None and not isinstance(temperature_schedule, TemperatureSchedule):
+        raise ValueError('temperature_schedule must be a TemperatureSchedule or None')
     ids = game_ids(indices)
     game_seed(config.seed, generation, 0, 'search')  # validate even an empty collection
     stats = CollectionStats() if stats is None else stats
@@ -167,7 +222,8 @@ def collect_batched(inference, config, generation, indices, *, batch_size,
             if index is None:
                 break
             streams = game_streams(config, generation, index)
-            gen = _game_requests(config, generation, index, streams, stats, check=check, observer=observer)
+            gen = _game_requests(config, generation, index, streams, stats, check=check, observer=observer,
+                                 schedule=temperature_schedule)
             active.append([index, gen, next(gen), streams, time.perf_counter()])
             stats.max_active = max(stats.max_active, len(active))
 
