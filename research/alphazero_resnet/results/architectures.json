@@ -1,0 +1,187 @@
+{
+  "note": "Static specification only. Multiply-accumulates count convolution/linear weights applied per position and exclude batch norm, activations and framework overhead; they are not measured speed.",
+  "torch": "2.10.0",
+  "architectures": [
+    {
+      "architecture": "connect4-conv64-128-128-policy7-scalar-tanh-v2",
+      "specification": null,
+      "output_contract": {
+        "format": "connect4-alphazero-v2-inference",
+        "format_version": 2,
+        "architecture": "connect4-conv64-128-128-policy7-scalar-tanh-v2",
+        "encoding": "connect4-current-player-1x6x7-v1",
+        "input": "cpu float32 (N,1,6,7)",
+        "action_order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "policy_output": "raw-logits-7",
+        "policy_inference": "legal-logit-mask-before-stable-softmax",
+        "value_output": "tanh-scalar-(N,1)",
+        "value_perspective": "current_player",
+        "value_semantics": "expected final actor-relative outcome in [-1,1]"
+      },
+      "parameters": {
+        "trunk": 222080,
+        "policy_head": 13543,
+        "value_head": 90273,
+        "total": 325896
+      },
+      "multiply_accumulates_per_position": {
+        "trunk": 9313920,
+        "policy_head": 181440,
+        "value_head": 258112,
+        "total": 9753472
+      },
+      "layers": {
+        "convolution": 5,
+        "linear": 3,
+        "batch_norm": 0,
+        "sequential_trunk_convolutions": 3
+      },
+      "state": {
+        "tensors": 16,
+        "parameter_tensors": 16,
+        "buffer_tensors": 0,
+        "buffer_elements": 0,
+        "bytes": 1303584
+      },
+      "seed_42_initial_weights_sha256": "6fa87b9b45fe4f9ad87a4d7338d83006ff042559f1f1add209df7d340144890e"
+    },
+    {
+      "architecture": "connect4-resnet3x64-bn-policy32-value32x64-scalar-tanh-v1",
+      "specification": {
+        "blocks": 3,
+        "channels": 64,
+        "policy_channels": 32,
+        "value_channels": 32,
+        "value_hidden": 64
+      },
+      "output_contract": {
+        "format": "connect4-alphazero-v2-inference",
+        "format_version": 2,
+        "architecture": "connect4-resnet3x64-bn-policy32-value32x64-scalar-tanh-v1",
+        "encoding": "connect4-current-player-1x6x7-v1",
+        "input": "cpu float32 (N,1,6,7)",
+        "action_order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "policy_output": "raw-logits-7",
+        "policy_inference": "legal-logit-mask-before-stable-softmax",
+        "value_output": "tanh-scalar-(N,1)",
+        "value_perspective": "current_player",
+        "value_semantics": "expected final actor-relative outcome in [-1,1]",
+        "architecture_spec": {
+          "blocks": 3,
+          "channels": 64,
+          "policy_channels": 32,
+          "value_channels": 32,
+          "value_hidden": 64
+        },
+        "normalization": "batchnorm2d-eps1e-5-momentum0.1-eval-running-statistics"
+      },
+      "parameters": {
+        "trunk": 222656,
+        "policy_head": 11527,
+        "value_head": 88257,
+        "total": 322440
+      },
+      "multiply_accumulates_per_position": {
+        "trunk": 9313920,
+        "policy_head": 95424,
+        "value_head": 172096,
+        "total": 9581440
+      },
+      "layers": {
+        "convolution": 9,
+        "linear": 3,
+        "batch_norm": 9,
+        "sequential_trunk_convolutions": 7
+      },
+      "state": {
+        "tensors": 60,
+        "parameter_tensors": 33,
+        "buffer_tensors": 27,
+        "buffer_elements": 1033,
+        "bytes": 1293928
+      },
+      "seed_42_initial_weights_sha256": "324fbb8a9943832930c094821c9f9d14eb2b524e035e6e9c8a52a844c1ae0b29"
+    },
+    {
+      "architecture": "connect4-resnet5x64-bn-policy32-value32x64-scalar-tanh-v1",
+      "specification": {
+        "blocks": 5,
+        "channels": 64,
+        "policy_channels": 32,
+        "value_channels": 32,
+        "value_hidden": 64
+      },
+      "output_contract": {
+        "format": "connect4-alphazero-v2-inference",
+        "format_version": 2,
+        "architecture": "connect4-resnet5x64-bn-policy32-value32x64-scalar-tanh-v1",
+        "encoding": "connect4-current-player-1x6x7-v1",
+        "input": "cpu float32 (N,1,6,7)",
+        "action_order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "policy_output": "raw-logits-7",
+        "policy_inference": "legal-logit-mask-before-stable-softmax",
+        "value_output": "tanh-scalar-(N,1)",
+        "value_perspective": "current_player",
+        "value_semantics": "expected final actor-relative outcome in [-1,1]",
+        "architecture_spec": {
+          "blocks": 5,
+          "channels": 64,
+          "policy_channels": 32,
+          "value_channels": 32,
+          "value_hidden": 64
+        },
+        "normalization": "batchnorm2d-eps1e-5-momentum0.1-eval-running-statistics"
+      },
+      "parameters": {
+        "trunk": 370624,
+        "policy_head": 11527,
+        "value_head": 88257,
+        "total": 470408
+      },
+      "multiply_accumulates_per_position": {
+        "trunk": 15507072,
+        "policy_head": 95424,
+        "value_head": 172096,
+        "total": 15774592
+      },
+      "layers": {
+        "convolution": 13,
+        "linear": 3,
+        "batch_norm": 13,
+        "sequential_trunk_convolutions": 11
+      },
+      "state": {
+        "tensors": 84,
+        "parameter_tensors": 45,
+        "buffer_tensors": 39,
+        "buffer_elements": 1549,
+        "bytes": 1887880
+      },
+      "seed_42_initial_weights_sha256": "451766cae020f717b76611c676f0b869b083de7e86b045fafc79f39e7ab6037c"
+    }
+  ]
+}

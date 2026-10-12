@@ -1,0 +1,14 @@
+Each defect was applied alone to the implementation, the focused suite was run, and the file was restored.
+KILLED means at least one focused case failed.
+
+no-skip KILLED 1 failed, 72 passed in 6.90s
+inference-no-require KILLED 3 failed, 70 passed in 6.41s
+no-variance-check KILLED 2 failed, 71 passed in 6.28s
+no-poison KILLED 2 failed, 71 passed in 6.26s
+bn-decay KILLED 2 failed, 71 passed in 6.20s
+factory-wrong-arch KILLED 12 failed, 61 passed in 4.76s
+no-counter-binding KILLED 2 failed, 71 passed in 5.85s
+factory-unbound-inference KILLED 1 failed, 72 passed in 6.12s
+no-declared-check KILLED 1 failed, 72 passed in 6.29s
+contract-no-arch KILLED 1 failed, 72 passed in 6.30s
+init-not-arch-separated KILLED 1 failed, 72 passed in 6.20s

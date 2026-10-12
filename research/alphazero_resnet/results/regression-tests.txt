@@ -1,0 +1,14 @@
+........................................................                 [100%]
+56 passed in 31.63s
+============================= test session starts ==============================
+platform darwin -- Python 3.11.17, pytest-8.4.2, pluggy-1.6.0 -- /Users/andrewcukierwar/.venvs/board-game-alphazero-m4/bin/python
+rootdir: /Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-worktree
+collecting ... collected 294 items / 289 deselected / 5 selected
+
+tests/test_alphazero_resnet.py::test_isolated_resnet_suite PASSED        [ 20%]
+tests/test_alphazero_v2.py::test_execution_closure_covers_every_loaded_repository_module PASSED [ 40%]
+tests/test_alphazero_v2_campaign.py::test_source_groups_partition_the_closure PASSED [ 60%]
+tests/test_alphazero_v2_campaign.py::test_training_path_loads_only_training_group_modules PASSED [ 80%]
+tests/test_alphazero_v2_campaign.py::test_fresh_interpreter_refuses_a_one_byte_source_edit PASSED [100%]
+
+====================== 5 passed, 289 deselected in 30.42s ======================

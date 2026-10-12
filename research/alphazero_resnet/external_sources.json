@@ -1,0 +1,91 @@
+{
+  "retrieved_date": "2026-10-12",
+  "note": "Network-definition sources read for Phase 4D.4H-A design decisions. Commits are the Phase 4D.4A audit pins (research/alphazero_baseline/external_review.json); AlphaZero.jl is pinned here for the first time at its master head. Files were read as evidence only: no external code, weights or performance claim was adopted.",
+  "sources": [
+    {
+      "repository": "https://github.com/jonathan-laurent/AlphaZero.jl",
+      "commit": "177a6eb04aedeff7542bbaeeaf2c3c6da221aa96",
+      "files": [
+        {
+          "path": "src/networks/architectures/resnet.jl",
+          "sha256": "24ea7d760a084409edc7ae3214bcec887511017fec906b9dab74075a75a07c9d"
+        },
+        {
+          "path": "games/connect-four/params.jl",
+          "sha256": "71e7d9505422c151cea602e2df40cafe181aebcacac62d83f0c315219693379c"
+        },
+        {
+          "path": "src/networks/flux.jl",
+          "sha256": "82264e6c7b82fa6eda6c572ba7d8e84b8505fe58be4eb4673f9b1c66fddc77da"
+        }
+      ],
+      "architecture": "Stem conv3x3-BN-ReLU; blocks conv-BN-ReLU-conv-BN, skip, ReLU; convolutions keep their default bias. Connect Four: 5 blocks x 128 filters, 32 policy-head and 32 value-head 1x1 filters, value hidden width = num_filters, batch-norm momentum 0.1 (library default 0.6). L2 1e-4 applies to Dense and Conv weights only; Adam lr 2e-3."
+    },
+    {
+      "repository": "https://github.com/eugeneyp/connect4-alphazero",
+      "commit": "a936aadd74a6a6dd9035e576b89aeb5a3ea7ef73",
+      "files": [
+        {
+          "path": "src/neural_net/model.py",
+          "sha256": "0c21821091b76b408108c4ec3352501c45cb14738184c83e299cee86ef605c07"
+        },
+        {
+          "path": "src/training/trainer.py",
+          "sha256": "6dd0f1d85e86fc3f0df92f3ae2f44cdd38be445079da63489a740559c4240c5e"
+        }
+      ],
+      "architecture": "3 input planes; bias-free conv3x3-BN-ReLU stem; 5 x 128 post-activation blocks; 32-filter 1x1 policy and value heads, value hidden 256; raw logits and tanh (N,1) value. Adam with weight decay on every parameter."
+    },
+    {
+      "repository": "https://github.com/suharshkumar/connect4-selfplay-rl",
+      "commit": "ed5c601783610e1df7b7e32758140160449e973e",
+      "files": [
+        {
+          "path": "c4/net.py",
+          "sha256": "9bf70c72c9a197dd2bda2e20bb5fca9e5096dd702c292f05a1d3fe1ccc44d343"
+        }
+      ],
+      "architecture": "2 input planes; bias-free stem; 5 x 64 post-activation blocks; AlphaGo-Zero-style narrow heads (2 policy filters, 1 value filter, value hidden 64). The source comments put the network at about 375k-400k parameters and argue self-play throughput, not capacity, is the laptop bottleneck.",
+      "matches_phase4d4a_pin": true
+    },
+    {
+      "repository": "https://github.com/kuotunyu/alphazero-connect4",
+      "commit": "0ca5789237911127edea8dca3b3786d0c148ee89",
+      "files": [
+        {
+          "path": "src/az/model.py",
+          "sha256": "58b53fbfeed763a898067cd7744b0705e882006e5fe7886fe871573ac44b1acf"
+        },
+        {
+          "path": "src/az/config.py",
+          "sha256": "fc13352a3613ceffb7fa6282883f7b8306ff1d39cc84761b0fc3a88447fe5bea"
+        },
+        {
+          "path": "src/az/train.py",
+          "sha256": "e8484975c65f2c96522a87033244f6f7fe173c7ea35aa9964b15ccf8fba004e3"
+        }
+      ],
+      "architecture": "3 input planes; bias-free stem; default 6 x 96 post-activation blocks with a 3 x 64 smoke preset; 32-filter 1x1 policy and value heads, value hidden 64. AdamW lr 1e-3 with weight decay 1e-4 on every parameter.",
+      "matches_phase4d4a_pin": true
+    },
+    {
+      "repository": "https://github.com/plkmo/AlphaZero_Connect4",
+      "commit": "01ff24aae145ccd23e58f630aa49582cade49847",
+      "files": [
+        {
+          "path": "src/alpha_net_c4.py",
+          "sha256": "e9835331cd5d2b2a194a831d05d172061e86031c7bb5bd6831d5345ab13baf73"
+        }
+      ],
+      "architecture": "3 input planes; biased stem; 19 x 128 post-activation blocks; 32-filter policy head returning probabilities, 3-filter value head with hidden 32."
+    }
+  ],
+  "original_alphazero": {
+    "references": [
+      "Silver et al., Mastering the game of Go without human knowledge, Nature 550 (2017), Methods: Neural network architecture",
+      "Silver et al., A general reinforcement learning algorithm that masters chess, shogi and Go through self-play, Science 362 (2018)"
+    ],
+    "architecture": "Stem conv3x3 (256 filters)-BN-ReLU; 19 or 39 residual blocks (AlphaGo Zero) / 19 (AlphaZero) of conv3x3-BN-ReLU-conv3x3-BN, skip, ReLU; policy head 1x1 conv (2 filters)-BN-ReLU-linear; value head 1x1 conv (1 filter)-BN-ReLU-linear 256-ReLU-linear 1-tanh; L2 1e-4; SGD with momentum.",
+    "status": "Summarized from the published papers, not fetched or hashed in this phase."
+  }
+}
