@@ -1,0 +1,11 @@
+{
+  "ablation_final": {"passed": 6, "seconds": 1.99},
+  "ablation_initial_plus_experimental_wrapper": {"outer_passed": 6, "experimental_child_cases": 56, "seconds": 44.02},
+  "neural_evaluation_bitboard_batching_exploration": {"passed": 341, "seconds": 135.71},
+  "retained_failures": [
+    {"stage": "test_command", "reason": "Incorrect filenames test_alphazero_bitboard.py and test_alphazero_batching.py; zero tests collected; corrected command passed341"},
+    {"stage": "initial_readiness", "reason": "game_record imported from historical generation instead of experimental; no fork directory created; zero games and updates", "log": "readiness-console.txt"}
+  ],
+  "primary_work_in_preparation": {"games": 0, "updates": 0},
+  "readiness_scratch_work": {"batched256_search_roots": 48, "raw512_search_roots": 24, "disposable_optimizer_updates": 8}
+}
