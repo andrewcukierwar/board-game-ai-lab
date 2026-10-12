@@ -139,3 +139,8 @@ def test_impossible_lost_scalar_on_winning_action_is_rejected():
     from games.connect4.alphazero_v2.bitboard import BitboardState
     g=old_decisive_game(); state=BitboardState.from_game(engine_position(g['moves'][:-1]))
     with pytest.raises(ValueError): analyze.adjudicate([g],dict(values={analyze.key(state):-1},queries=[]))
+
+
+def test_literal_full_record_failure_cannot_produce_no_harm():
+    p=dict(uncertainty_interval=[-.01,.04])
+    assert analyze.safety_conclusion(p,[p,p],True,True,False)=='INCONCLUSIVE'

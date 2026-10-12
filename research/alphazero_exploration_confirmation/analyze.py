@@ -199,10 +199,10 @@ def matched_games(games,cells):
         else: excluded.append(dict(block=block,reason='incomplete_or_unmatched_checkpoint_cohort'))
     return [g for g in games if g['id'][:3] in accepted],excluded
 
-def safety_conclusion(pooled,parts,adequate,complete):
+def safety_conclusion(pooled,parts,adequate,complete,full_record_gate=True):
     if not complete: return 'INCONCLUSIVE'
     conclusion=decision_interval(*pooled['uncertainty_interval'])
-    if conclusion.startswith('NO MATERIAL') and (not adequate or any(p['uncertainty_interval'][1]>=.05 for p in parts)):
+    if conclusion.startswith('NO MATERIAL') and (not adequate or not full_record_gate or any(p['uncertainty_interval'][1]>=.05 for p in parts)):
         return 'INCONCLUSIVE'
     return conclusion
 
@@ -214,7 +214,6 @@ def summarize(games,decisions,cells,excluded=None):
     cov=coverage(decisions)
     adequate=all(v['coverage']>=.99 for k,v in cov.items() if k.startswith('cell_stage:'))
     complete=all(c['complete'] for c in cells) and len(cells)==8 and len(games)==512
-    conclusion=safety_conclusion(pooled,list(primary.values()),adequate,complete and not excluded)
     profiles={}; secondary={}; cohorts={}
     for seed,by in sorted(data.items()):
         profiles[str(seed)]={}
@@ -239,28 +238,44 @@ def summarize(games,decisions,cells,excluded=None):
                 continue
             cohorts[str(seed)][str(cohort)]=dict(primary=effect_bounds(groups['original'],groups['extended']),
                 duplicate_fraction={name:a.duplicate_fraction(group,8,42) for name,group in groups.items()})
-    prefix_mismatches=[]
+    prefix_mismatches=[]; diagnostic_mismatches=[]
     for seed,by in data.items():
         for r,c in a.pair(by['original'],by['extended']):
-            if r['moves'][:8]!=c['moves'][:8] or any(x['visits']!=y['visits'] or x['key']!=y['key'] or x['prior']!=y['prior'] or x['value']!=y['value'] or x['distribution']!=y['distribution'] for x,y in zip(r['plies'][:8],c['plies'][:8])):
+            if r['moves'][:8]!=c['moves'][:8] or any(x['visits']!=y['visits'] or x['key']!=y['key'] or x['prior']!=y['prior'] or x['distribution']!=y['distribution'] for x,y in zip(r['plies'][:8],c['plies'][:8])):
                 prefix_mismatches.append(r['id'])
+            for x,y in zip(r['plies'][:8],c['plies'][:8]):
+                if x['value']!=y['value']:
+                    diagnostic_mismatches.append(dict(id=r['id'],ply=x['ply'],original=x['value'],extended=y['value'],absolute_difference=abs(x['value']-y['value'])))
     require(not prefix_mismatches,'Matched pre-ply8 decision mismatch')
+    # The design's literal full-record gate is stricter than action equivalence.
+    # Preserve its failure; it cannot support a no-harm label even for tiny diagnostic drift.
+    conclusion=safety_conclusion(pooled,list(primary.values()),adequate,complete and not excluded,not diagnostic_mismatches)
     sampling=[r for r in decisions if r['sampling_comparison'] is not None]
     sc=Counter(r['sampling_comparison']['kind'] for r in sampling)
     resolved=[r for r in sampling if r['sampling_comparison']['kind']!='unresolved']
     diversity_confirmed=all(secondary[str(seed)]['d1_duplicate_fraction_8_plus']['high']<0 and
         all(secondary[str(seed)][n]['estimate']<0 for n in ('d2_mirror_duplicate_fraction_8_plus','d3_collision_probability_8_plus')) and
         all(v.get('excluded') or v['duplicate_fraction']['extended']<v['duplicate_fraction']['original'] for v in cohorts[str(seed)].values()) for seed in data)
+    secondary_pooled={}
+    for name in next(iter(secondary.values())):
+        parts=[cp[name] for cp in secondary.values()]
+        if all(p['estimate'] is not None and p['se'] is not None for p in parts):
+            estimate=statistics.mean(p['estimate'] for p in parts)
+            se=math.sqrt(sum(p['se']**2 for p in parts))/len(parts)
+            secondary_pooled[name]=dict(estimate=estimate,se=se,low=estimate-1.96*se,high=estimate+1.96*se,units=sum(p['units'] for p in parts))
+        else: secondary_pooled[name]=dict(estimate=None,se=None,low=None,high=None)
+    diversity_confirmed=diversity_confirmed and secondary_pooled['d1_duplicate_fraction_8_plus']['high']<0
     unresolved=[r for r in decisions if r['classification']=='unresolved']
     return clean(dict(primary=dict(by_checkpoint=primary,pooled=pooled,margin=.05,conclusion=conclusion,adequate_coverage=adequate,complete_design=complete),
-        profiles=profiles,secondary_paired=secondary,cohorts=cohorts,coverage=cov,
+        profiles=profiles,secondary_paired=secondary,secondary_pooled=secondary_pooled,cohorts=cohorts,coverage=cov,
         sampling=dict(eligible=len(sampling),nonmax_selected=sum(r['action'] not in r['top'] for r in sampling),comparisons=dict(sc),
             resolved=len(resolved),uniform_top_mean_regret=statistics.mean(r['sampling_comparison']['regret'] for r in resolved) if resolved else None,
             tie_states=sum(len(r['top'])>1 for r in sampling),
             expected_worse_count=sum(r['sampling_comparison']['worse_fraction'] for r in resolved),
             expected_better_count=sum(r['sampling_comparison']['better_fraction'] for r in resolved),
             expected_equal_count=sum(r['sampling_comparison']['equal_fraction'] for r in resolved)),
-        correctness=dict(checked_records=verify_records(games,cells),paired_prefix_mismatches=prefix_mismatches,
+        correctness=dict(checked_records=verify_records(games,cells),paired_prefix_mismatches=prefix_mismatches,root_value_diagnostic_mismatches=diagnostic_mismatches,
+                         literal_full_record_prefix_gate_pass=not diagnostic_mismatches,
                          paired_games=sum(p['n'] for p in primary.values())),
         diversity_confirmed=diversity_confirmed,unresolved_decisions=len(unresolved),excluded_blocks=excluded or []))
 
@@ -278,6 +293,7 @@ def main():
     audit.torch.use_deterministic_algorithms(True)
     output=audit.fresh_output(args.campaign,args.output)
     before=audit.campaign_fingerprint(args.campaign)
+    status=dict(complete=False)
     require(len(before)==150 and before==audit.read('research/alphazero_baseline/results/phase4d4a-20261011/profile/campaign_before.json'),'Campaign inventory mismatch')
     require(audit.sha(args.campaign/'declaration.json')==audit.DECLARATION,'Declaration mismatch')
     try:
@@ -297,9 +313,14 @@ def main():
              design_sha256=audit.sha(ROOT/'DESIGN.md'),sources={str(p):audit.sha(p) for p in ROOT.glob('*.py')},
              collection_provenance_sha256=audit.sha(args.collection/'provenance.json'),runtime=audit.runtime(),elapsed_seconds=time.perf_counter()-started,
              reused_proofs=args.proofs is not None,solver_seconds=proofs['elapsed_seconds'] if not args.proofs else 0))
+        status['complete']=True
+    except BaseException as error:
+        status['error']=f'{type(error).__name__}: {error}'
+        raise
     finally:
         after=audit.campaign_fingerprint(args.campaign)
         audit.write(output/'preservation.json',dict(files=len(after),unchanged=before==after,changed=[k for k in before if before[k]!=after.get(k)],declaration_sha256=audit.sha(args.campaign/'declaration.json')))
         require(before==after,'Campaign modified')
+        audit.write(output/'execution.json',dict(status,elapsed_seconds=time.perf_counter()-started))
     print(json.dumps(dict(elapsed_seconds=time.perf_counter()-started,output=str(output))),flush=True)
 if __name__=='__main__': main()
