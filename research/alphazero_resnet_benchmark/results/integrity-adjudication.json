@@ -1,0 +1,52 @@
+{
+ "adjudication": "ANALYZE",
+ "after": {
+  "clean": true,
+  "files": 151,
+  "head": "01526b813c226e1ab4d6ad6cb5fa453380b9b5c9",
+  "inventory_sha256": "7db4f97fdd4016239317d7b4251b96cf2eaae490f85e8bcbb9a69f85aa5f4aa2"
+ },
+ "before": {
+  "clean": true,
+  "files": 151,
+  "head": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+  "inventory_sha256": "7db4f97fdd4016239317d7b4251b96cf2eaae490f85e8bcbb9a69f85aa5f4aa2"
+ },
+ "changed_paths": 138,
+ "changed_top_level": [
+  "docs",
+  "research",
+  "tests"
+ ],
+ "conditions": {
+  "Phase 4D.4G output inventory is byte-identical before, after and now": true,
+  "all 150 official files are byte-identical now": true,
+  "every stage completed with return code 0": true,
+  "the Phase 4D.4G worktree is clean": true,
+  "the frozen sources, design and dataset of this phase are unchanged": true,
+  "the new Phase 4D.4G commit descends from the frozen one": true,
+  "the new commits change no package source": true,
+  "the only failed check is the Phase 4D.4G comparison": true,
+  "the only field that differs between before and after is the commit": true
+ },
+ "consequence": "The same session was computing on this machine during the inference, training-benchmark, collection and seed-42 learning stages, so those timings were not taken on an otherwise idle machine.",
+ "current": {
+  "clean": true,
+  "files": 151,
+  "head": "01526b813c226e1ab4d6ad6cb5fa453380b9b5c9",
+  "inventory_sha256": "7db4f97fdd4016239317d7b4251b96cf2eaae490f85e8bcbb9a69f85aa5f4aa2"
+ },
+ "finding": "The supervisor reported INTEGRITY_FAILURE because the Phase 4D.4G worktree commit changed during the run. A separate session committed that phase's final analysis there. No Phase 4D.4G checkpoint, boundary or execution evidence file changed, and this phase has no code path that writes to that worktree.",
+ "new_commits": [
+  {
+   "author": "andrewcukierwar",
+   "commit": "01526b813c226e1ab4d6ad6cb5fa453380b9b5c9",
+   "date": "2026-10-12T12:36:27-04:00",
+   "subject": "research: complete Phase 4D.4G exploration ablation results"
+  }
+ ],
+ "run_end_epoch": 1791824152.1642282,
+ "run_start_epoch": 1791821458.586436,
+ "status_file_sha256": "8b87997a1d077e62b81b7b0b8492e08547281efa66a36123c7b76d90f578a685",
+ "supervisor_status": "INTEGRITY_FAILURE"
+}

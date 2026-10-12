@@ -1,0 +1,85 @@
+{
+ "deadline_epoch": 1791825724.7173178,
+ "design_commit": "bc59dc19b6dd678d7dca788224750c3d17f575be",
+ "elapsed_seconds": 2693.5777921676636,
+ "end_epoch": 1791824152.1642282,
+ "official_preservation": "PASS",
+ "phase4d4g_after": {
+  "clean": true,
+  "files": 151,
+  "head": "01526b813c226e1ab4d6ad6cb5fa453380b9b5c9",
+  "inventory_sha256": "7db4f97fdd4016239317d7b4251b96cf2eaae490f85e8bcbb9a69f85aa5f4aa2"
+ },
+ "phase4d4g_before": {
+  "clean": true,
+  "files": 151,
+  "head": "b4b1d9f5a42db0889fb2eed2acea6252da8526c9",
+  "inventory_sha256": "7db4f97fdd4016239317d7b4251b96cf2eaae490f85e8bcbb9a69f85aa5f4aa2"
+ },
+ "phase4d4g_preservation": "FAIL",
+ "pid": 40499,
+ "stages": [
+  {
+   "children_cpu_seconds_so_far": 134.22173999999998,
+   "children_peak_rss_mib_so_far": 285.515625,
+   "end_epoch": 1791821593.984973,
+   "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-b-worktree/experiment-output/phase4d4h-b/run/inference.log",
+   "outcome": "COMPLETE",
+   "pid": 40501,
+   "returncode": 0,
+   "stage": "inference",
+   "start_epoch": 1791821459.232564,
+   "wall_seconds": 134.75240898132324
+  },
+  {
+   "children_cpu_seconds_so_far": 275.52070499999996,
+   "children_peak_rss_mib_so_far": 325.125,
+   "end_epoch": 1791821737.225893,
+   "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-b-worktree/experiment-output/phase4d4h-b/run/training.log",
+   "outcome": "COMPLETE",
+   "pid": 41613,
+   "returncode": 0,
+   "stage": "training",
+   "start_epoch": 1791821593.986002,
+   "wall_seconds": 143.2398910522461
+  },
+  {
+   "children_cpu_seconds_so_far": 408.459167,
+   "children_peak_rss_mib_so_far": 325.125,
+   "end_epoch": 1791821871.312059,
+   "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-b-worktree/experiment-output/phase4d4h-b/run/collection.log",
+   "outcome": "COMPLETE",
+   "pid": 42863,
+   "returncode": 0,
+   "stage": "collection",
+   "start_epoch": 1791821737.226762,
+   "wall_seconds": 134.08529686927795
+  },
+  {
+   "children_cpu_seconds_so_far": 1549.0819589999999,
+   "children_peak_rss_mib_so_far": 403.4375,
+   "end_epoch": 1791823013.952959,
+   "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-b-worktree/experiment-output/phase4d4h-b/run/learning-seed-42.log",
+   "outcome": "COMPLETE",
+   "pid": 43727,
+   "returncode": 0,
+   "stage": "learning-seed-42",
+   "start_epoch": 1791821871.312873,
+   "wall_seconds": 1142.6400861740112
+  },
+  {
+   "children_cpu_seconds_so_far": 2683.909567,
+   "children_peak_rss_mib_so_far": 403.4375,
+   "end_epoch": 1791824152.00746,
+   "log": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-b-worktree/experiment-output/phase4d4h-b/run/learning-seed-314159.log",
+   "outcome": "COMPLETE",
+   "pid": 50022,
+   "returncode": 0,
+   "stage": "learning-seed-314159",
+   "start_epoch": 1791823013.953872,
+   "wall_seconds": 1138.0535881519318
+  }
+ ],
+ "start_epoch": 1791821458.586436,
+ "status": "INTEGRITY_FAILURE"
+}

@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 538" width="880" height="538" font-family="-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif" role="img">
+<title>Raw-network accuracy on the development suites (higher is better)</title>
+<rect width="880" height="538" fill="#fcfcfb"/>
+<text x="14" y="22" font-size="14" font-weight="600" fill="#0b0b0b">Raw-network accuracy on the development suites (higher is better)</text>
+<text x="14" y="39" font-size="11" fill="#52514e">Argmax of the legal-masked policy, no search. Exact labels, independent of the CNN teacher. Labels give the final value.</text>
+<line x1="14" x2="32" y1="55" y2="55" stroke="#2a78d6" stroke-width="2" stroke-linecap="round"/>
+<text x="38" y="58.5" font-size="11" fill="#0b0b0b">CNN</text>
+<line x1="72.6" x2="90.6" y1="55" y2="55" stroke="#eb6834" stroke-width="2" stroke-linecap="round"/>
+<text x="96.6" y="58.5" font-size="11" fill="#0b0b0b">ResNet 3x64</text>
+<line x1="180.8" x2="198.8" y1="55" y2="55" stroke="#1baf7a" stroke-width="2" stroke-linecap="round"/>
+<text x="204.8" y="58.5" font-size="11" fill="#0b0b0b">ResNet 5x64</text>
+<text x="62" y="81" font-size="12" font-weight="600" fill="#0b0b0b">solved300 optimal-action accuracy · seed 42</text>
+<line x1="62" x2="344" y1="255.5" y2="255.5" stroke="#e6e5e0" stroke-width="1"/>
+<text x="56" y="259.0" font-size="10" text-anchor="end" fill="#52514e">0.55</text>
+<line x1="62" x2="344" y1="216.9" y2="216.9" stroke="#e6e5e0" stroke-width="1"/>
+<text x="56" y="220.4" font-size="10" text-anchor="end" fill="#52514e">0.6</text>
+<line x1="62" x2="344" y1="178.3" y2="178.3" stroke="#e6e5e0" stroke-width="1"/>
+<text x="56" y="181.8" font-size="10" text-anchor="end" fill="#52514e">0.65</text>
+<line x1="62" x2="344" y1="139.7" y2="139.7" stroke="#e6e5e0" stroke-width="1"/>
+<text x="56" y="143.2" font-size="10" text-anchor="end" fill="#52514e">0.7</text>
+<line x1="62" x2="344" y1="101.1" y2="101.1" stroke="#e6e5e0" stroke-width="1"/>
+<text x="56" y="104.6" font-size="10" text-anchor="end" fill="#52514e">0.75</text>
+<text x="62.0" y="276" font-size="10" text-anchor="middle" fill="#52514e">0</text>
+<text x="152.3" y="276" font-size="10" text-anchor="middle" fill="#52514e">100</text>
+<text x="242.5" y="276" font-size="10" text-anchor="middle" fill="#52514e">200</text>
+<text x="332.8" y="276" font-size="10" text-anchor="middle" fill="#52514e">300</text>
+<line x1="62" x2="344" y1="262" y2="262" stroke="#52514e" stroke-width="1"/>
+<text x="203.0" y="292" font-size="10" text-anchor="middle" fill="#52514e">measured optimizer seconds</text>
+<polyline points="62.0,240.0 64.1,216.9 66.2,201.4 70.5,219.4 78.7,186.0 95.1,168.0 111.6,152.6 128.2,134.6 144.7,126.8 165.3,137.1 186.1,134.6 207.3,139.7 228.5,126.8 257.5,129.4 286.4,106.3 315.2,106.3 344.0,114.0" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="344.0" cy="114.0" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<polyline points="62.0,211.7 65.0,188.6 68.0,206.6 73.9,180.9 85.8,175.7 109.4,147.4 133.1,137.1 156.9,139.7 180.5,116.5 210.1,124.3 239.7,142.3 269.4,126.8 299.0,129.4 340.5,124.3" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="340.5" cy="124.3" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<polyline points="62.0,252.9 66.7,188.6 71.4,188.6 80.7,170.6 99.2,147.4 136.3,132.0 173.5,121.7 210.6,152.6 248.3,116.5 295.3,126.8 343.4,101.1" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="343.4" cy="101.1" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<line x1="348.4" x2="352" y1="101.1" y2="101.1" stroke="#1baf7a" stroke-width="1"/>
+<text x="354" y="104.6" font-size="10" fill="#0b0b0b">ResNet 5x64 0.750</text>
+<line x1="349.0" x2="352" y1="114.0" y2="114.0" stroke="#2a78d6" stroke-width="1"/>
+<text x="354" y="117.5" font-size="10" fill="#0b0b0b">CNN 0.733</text>
+<line x1="345.5" x2="352" y1="126.0" y2="126.0" stroke="#eb6834" stroke-width="1"/>
+<text x="354" y="129.5" font-size="10" fill="#0b0b0b">ResNet 3x64 0.720</text>
+<text x="492" y="81" font-size="12" font-weight="600" fill="#0b0b0b">solved300 optimal-action accuracy · seed 314159</text>
+<line x1="492" x2="774" y1="255.5" y2="255.5" stroke="#e6e5e0" stroke-width="1"/>
+<text x="486" y="259.0" font-size="10" text-anchor="end" fill="#52514e">0.55</text>
+<line x1="492" x2="774" y1="216.9" y2="216.9" stroke="#e6e5e0" stroke-width="1"/>
+<text x="486" y="220.4" font-size="10" text-anchor="end" fill="#52514e">0.6</text>
+<line x1="492" x2="774" y1="178.3" y2="178.3" stroke="#e6e5e0" stroke-width="1"/>
+<text x="486" y="181.8" font-size="10" text-anchor="end" fill="#52514e">0.65</text>
+<line x1="492" x2="774" y1="139.7" y2="139.7" stroke="#e6e5e0" stroke-width="1"/>
+<text x="486" y="143.2" font-size="10" text-anchor="end" fill="#52514e">0.7</text>
+<line x1="492" x2="774" y1="101.1" y2="101.1" stroke="#e6e5e0" stroke-width="1"/>
+<text x="486" y="104.6" font-size="10" text-anchor="end" fill="#52514e">0.75</text>
+<text x="492.0" y="276" font-size="10" text-anchor="middle" fill="#52514e">0</text>
+<text x="581.9" y="276" font-size="10" text-anchor="middle" fill="#52514e">100</text>
+<text x="671.8" y="276" font-size="10" text-anchor="middle" fill="#52514e">200</text>
+<text x="761.7" y="276" font-size="10" text-anchor="middle" fill="#52514e">300</text>
+<line x1="492" x2="774" y1="262" y2="262" stroke="#52514e" stroke-width="1"/>
+<text x="633.0" y="292" font-size="10" text-anchor="middle" fill="#52514e">measured optimizer seconds</text>
+<polyline points="492.0,224.6 494.1,234.9 496.1,193.7 500.2,173.1 508.5,178.3 524.9,142.3 541.4,139.7 557.8,142.3 574.1,134.6 594.6,150.0 615.1,157.7 635.5,137.1 656.2,150.0 684.9,137.1 713.6,137.1 742.2,129.4 770.8,126.8" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="770.8" cy="126.8" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<polyline points="492.0,216.9 495.0,191.1 498.1,188.6 504.6,160.3 516.5,150.0 540.1,137.1 563.7,150.0 587.2,152.6 610.8,139.7 640.3,139.7 669.8,142.3 699.6,126.8 729.1,147.4 770.4,134.6" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="770.4" cy="134.6" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<polyline points="492.0,219.4 496.9,237.5 501.7,206.6 511.5,175.7 530.1,152.6 567.1,160.3 604.0,150.0 641.2,160.3 678.4,162.9 726.0,173.1 774.0,144.8" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="774.0" cy="144.8" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<line x1="775.8" x2="782" y1="126.8" y2="126.8" stroke="#2a78d6" stroke-width="1"/>
+<text x="784" y="130.3" font-size="10" fill="#0b0b0b">CNN 0.717</text>
+<line x1="775.4" x2="782" y1="138.8" y2="138.8" stroke="#eb6834" stroke-width="1"/>
+<text x="784" y="142.3" font-size="10" fill="#0b0b0b">ResNet 3x64 0.707</text>
+<line x1="779.0" x2="782" y1="150.8" y2="150.8" stroke="#1baf7a" stroke-width="1"/>
+<text x="784" y="154.3" font-size="10" fill="#0b0b0b">ResNet 5x64 0.693</text>
+<text x="62" y="311" font-size="12" font-weight="600" fill="#0b0b0b">tactical200 accuracy · seed 42</text>
+<line x1="62" x2="344" y1="484.9" y2="484.9" stroke="#e6e5e0" stroke-width="1"/>
+<text x="56" y="488.4" font-size="10" text-anchor="end" fill="#52514e">0.2</text>
+<line x1="62" x2="344" y1="444.9" y2="444.9" stroke="#e6e5e0" stroke-width="1"/>
+<text x="56" y="448.4" font-size="10" text-anchor="end" fill="#52514e">0.3</text>
+<line x1="62" x2="344" y1="405.0" y2="405.0" stroke="#e6e5e0" stroke-width="1"/>
+<text x="56" y="408.5" font-size="10" text-anchor="end" fill="#52514e">0.4</text>
+<line x1="62" x2="344" y1="365.1" y2="365.1" stroke="#e6e5e0" stroke-width="1"/>
+<text x="56" y="368.6" font-size="10" text-anchor="end" fill="#52514e">0.5</text>
+<line x1="62" x2="344" y1="325.1" y2="325.1" stroke="#e6e5e0" stroke-width="1"/>
+<text x="56" y="328.6" font-size="10" text-anchor="end" fill="#52514e">0.6</text>
+<text x="62.0" y="506" font-size="10" text-anchor="middle" fill="#52514e">0</text>
+<text x="152.3" y="506" font-size="10" text-anchor="middle" fill="#52514e">100</text>
+<text x="242.5" y="506" font-size="10" text-anchor="middle" fill="#52514e">200</text>
+<text x="332.8" y="506" font-size="10" text-anchor="middle" fill="#52514e">300</text>
+<line x1="62" x2="344" y1="492" y2="492" stroke="#52514e" stroke-width="1"/>
+<text x="203.0" y="522" font-size="10" text-anchor="middle" fill="#52514e">measured optimizer seconds</text>
+<polyline points="62.0,482.9 64.1,472.9 66.2,464.9 70.5,435.0 78.7,444.9 95.1,427.0 111.6,417.0 128.2,411.0 144.7,397.0 165.3,385.0 186.1,377.0 207.3,371.1 228.5,371.1 257.5,357.1 286.4,361.1 315.2,361.1 344.0,337.1" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="344.0" cy="337.1" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<polyline points="62.0,466.9 65.0,437.0 68.0,435.0 73.9,446.9 85.8,413.0 109.4,395.0 133.1,381.0 156.9,385.0 180.5,381.0 210.1,353.1 239.7,353.1 269.4,357.1 299.0,345.1 340.5,341.1" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="340.5" cy="341.1" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<polyline points="62.0,454.9 66.7,417.0 71.4,419.0 80.7,431.0 99.2,411.0 136.3,393.0 173.5,395.0 210.6,389.0 248.3,383.0 295.3,363.1 343.4,345.1" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="343.4" cy="345.1" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<line x1="349.0" x2="352" y1="337.1" y2="337.1" stroke="#2a78d6" stroke-width="1"/>
+<text x="354" y="340.6" font-size="10" fill="#0b0b0b">CNN 0.570</text>
+<line x1="345.5" x2="352" y1="349.1" y2="349.1" stroke="#eb6834" stroke-width="1"/>
+<text x="354" y="352.6" font-size="10" fill="#0b0b0b">ResNet 3x64 0.560</text>
+<line x1="348.4" x2="352" y1="361.1" y2="361.1" stroke="#1baf7a" stroke-width="1"/>
+<text x="354" y="364.6" font-size="10" fill="#0b0b0b">ResNet 5x64 0.550</text>
+<text x="492" y="311" font-size="12" font-weight="600" fill="#0b0b0b">tactical200 accuracy · seed 314159</text>
+<line x1="492" x2="774" y1="484.9" y2="484.9" stroke="#e6e5e0" stroke-width="1"/>
+<text x="486" y="488.4" font-size="10" text-anchor="end" fill="#52514e">0.2</text>
+<line x1="492" x2="774" y1="444.9" y2="444.9" stroke="#e6e5e0" stroke-width="1"/>
+<text x="486" y="448.4" font-size="10" text-anchor="end" fill="#52514e">0.3</text>
+<line x1="492" x2="774" y1="405.0" y2="405.0" stroke="#e6e5e0" stroke-width="1"/>
+<text x="486" y="408.5" font-size="10" text-anchor="end" fill="#52514e">0.4</text>
+<line x1="492" x2="774" y1="365.1" y2="365.1" stroke="#e6e5e0" stroke-width="1"/>
+<text x="486" y="368.6" font-size="10" text-anchor="end" fill="#52514e">0.5</text>
+<line x1="492" x2="774" y1="325.1" y2="325.1" stroke="#e6e5e0" stroke-width="1"/>
+<text x="486" y="328.6" font-size="10" text-anchor="end" fill="#52514e">0.6</text>
+<text x="492.0" y="506" font-size="10" text-anchor="middle" fill="#52514e">0</text>
+<text x="581.9" y="506" font-size="10" text-anchor="middle" fill="#52514e">100</text>
+<text x="671.8" y="506" font-size="10" text-anchor="middle" fill="#52514e">200</text>
+<text x="761.7" y="506" font-size="10" text-anchor="middle" fill="#52514e">300</text>
+<line x1="492" x2="774" y1="492" y2="492" stroke="#52514e" stroke-width="1"/>
+<text x="633.0" y="522" font-size="10" text-anchor="middle" fill="#52514e">measured optimizer seconds</text>
+<polyline points="492.0,480.9 494.1,448.9 496.1,446.9 500.2,381.0 508.5,425.0 524.9,427.0 541.4,393.0 557.8,409.0 574.1,393.0 594.6,387.0 615.1,373.0 635.5,367.1 656.2,353.1 684.9,351.1 713.6,355.1 742.2,341.1 770.8,345.1" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="770.8" cy="345.1" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<polyline points="492.0,450.9 495.0,407.0 498.1,415.0 504.6,421.0 516.5,397.0 540.1,397.0 563.7,361.1 587.2,351.1 610.8,359.1 640.3,357.1 669.8,353.1 699.6,343.1 729.1,343.1 770.4,341.1" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="770.4" cy="341.1" r="4" fill="#eb6834" stroke="#fcfcfb" stroke-width="2"/>
+<polyline points="492.0,472.9 496.9,407.0 501.7,409.0 511.5,415.0 530.1,415.0 567.1,399.0 604.0,377.0 641.2,371.1 678.4,359.1 726.0,359.1 774.0,331.1" fill="none" stroke="#1baf7a" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="774.0" cy="331.1" r="4" fill="#1baf7a" stroke="#fcfcfb" stroke-width="2"/>
+<line x1="779.0" x2="782" y1="331.1" y2="331.1" stroke="#1baf7a" stroke-width="1"/>
+<text x="784" y="334.6" font-size="10" fill="#0b0b0b">ResNet 5x64 0.585</text>
+<line x1="775.4" x2="782" y1="343.1" y2="343.1" stroke="#eb6834" stroke-width="1"/>
+<text x="784" y="346.6" font-size="10" fill="#0b0b0b">ResNet 3x64 0.560</text>
+<line x1="775.8" x2="782" y1="355.1" y2="355.1" stroke="#2a78d6" stroke-width="1"/>
+<text x="784" y="358.6" font-size="10" fill="#0b0b0b">CNN 0.550</text>
+</svg>

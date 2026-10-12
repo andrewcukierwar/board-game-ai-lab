@@ -21,7 +21,9 @@ PY=/Users/andrewcukierwar/.venvs/board-game-alphazero-m4/bin/python
 | Measured run (detached) | `$PY -B -m research.alphazero_resnet_benchmark.manage launch` | `experiment-output/phase4d4h-b/run/` |
 | Progress | `$PY -B -m research.alphazero_resnet_benchmark.manage status` | — |
 | Analysis | `$PY -B -m research.alphazero_resnet_benchmark.analyze` | `results/benchmarks.json`, `results/learning.json`, `results/comparisons.json`, `results/endpoint-detail.json` |
+| Analysis as actually run (see below) | `$PY -B -m research.alphazero_resnet_benchmark.adjudicate` | `results/integrity-adjudication.json`, then the four analysis files |
 | Report tables and figures | `$PY -B -m research.alphazero_resnet_benchmark.report` | `results/tables.md`, `results/*.svg`, `results/resources.json` |
+| Independent recomputation | `$PY -B -m research.alphazero_resnet_benchmark.independent_review` | `results/independent-recomputed.json` |
 
 `manage launch` requires the frozen design to be committed and pushed, refuses a
 second launch, and returns after a handshake. The supervisor runs inference,
@@ -29,6 +31,20 @@ training, collection and the two learning seeds in order under one absolute
 deadline, with no retry. Final status is `COMPLETE_PENDING_ANALYSIS`,
 `STOPPED_INCOMPLETE` or `INTEGRITY_FAILURE`; `analyze` refuses anything but the
 first.
+
+**The one run ended `INTEGRITY_FAILURE`.** All five stages completed, but a
+separate session committed Phase 4D.4G's final analysis in that phase's
+worktree during the run, and the supervisor's check compared the worktree
+commit. `adjudicate.py`, written afterwards, verifies from Git and file hashes
+that no preserved file changed, records the evidence, and calls the unmodified
+`analyze.analyze()`. `status.json` is left as the supervisor wrote it. The
+report explains this under "Run status and the integrity flag".
+
+Written records: [DESIGN.md](DESIGN.md) (frozen protocol),
+[architecture-review.md](architecture-review.md) (review of the Phase 4D.4H-A
+implementation, done before the benchmarks) and
+[independent-results-review.md](independent-results-review.md) (post-execution
+review by a separate reviewer).
 
 | Module | Role |
 |---|---|
@@ -40,7 +56,9 @@ first.
 | `learn.py` | Fixed-data training of the three architectures for one seed |
 | `manage.py` | Detached supervisor |
 | `analyze.py` | Cost summaries, contrasts, bootstrap intervals, verdicts |
-| `report.py` | Tables and figures from the analysis output (presentation only) |
+| `report.py` | Tables and figures from the analysis output (presentation only; written after the run) |
+| `adjudicate.py` | Post-run adjudication of the integrity flag (written after the run) |
+| `independent_review.py` | The independent reviewer's own recomputation |
 | `pilot.py`, `smoke.py`, `plan.py` | Feasibility pilot, pipeline smoke test, design freeze |
 
 Binary outputs (final and 3,000-update model states, per-position scores, full

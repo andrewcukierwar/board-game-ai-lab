@@ -1,0 +1,67 @@
+{
+ "children_cpu_seconds": 2683.909567,
+ "children_peak_rss_mib": 403.4375,
+ "collection_games": 96,
+ "collection_simulations": 618240,
+ "design_commit": "bc59dc19b6dd678d7dca788224750c3d17f575be",
+ "hard_maximum_seconds": 4500,
+ "learning": {
+  "314159": {
+   "cpu_seconds": 1122.9713800000002,
+   "evaluation_seconds": 179.5649006664753,
+   "load_seconds": 22.01331129204482,
+   "optimizer_seconds": 933.3761520171538,
+   "peak_rss_mib": 392.484375,
+   "wall_seconds": 1136.5708977496251
+  },
+  "42": {
+   "cpu_seconds": 1128.4960849999998,
+   "evaluation_seconds": 183.83201696258038,
+   "load_seconds": 23.184060375206172,
+   "optimizer_seconds": 932.6673171203583,
+   "peak_rss_mib": 403.4375,
+   "wall_seconds": 1141.3293759999797
+  }
+ },
+ "official_preservation": "PASS",
+ "optimizer_updates": 29000,
+ "phase4d4g_preservation": "FAIL",
+ "pilot_seconds": 34.63361162506044,
+ "projected_run_seconds": 3048.162404673738,
+ "run_ceiling_seconds": 4266.130881750099,
+ "run_elapsed_seconds": 2693.5777921676636,
+ "run_stage_seconds": 2692.7712712287903,
+ "smoke_seconds": 139.2355066248402,
+ "stages": [
+  {
+   "outcome": "COMPLETE",
+   "stage": "inference",
+   "wall_seconds": 134.75240898132324
+  },
+  {
+   "outcome": "COMPLETE",
+   "stage": "training",
+   "wall_seconds": 143.2398910522461
+  },
+  {
+   "outcome": "COMPLETE",
+   "stage": "collection",
+   "wall_seconds": 134.08529686927795
+  },
+  {
+   "outcome": "COMPLETE",
+   "stage": "learning-seed-42",
+   "wall_seconds": 1142.6400861740112
+  },
+  {
+   "outcome": "COMPLETE",
+   "stage": "learning-seed-314159",
+   "wall_seconds": 1138.0535881519318
+  }
+ ],
+ "status": "INTEGRITY_FAILURE",
+ "target_seconds": 3600,
+ "total_measured_minutes": 47.79078184029274,
+ "total_measured_seconds": 2867.446910417564,
+ "within_hard_maximum": true
+}

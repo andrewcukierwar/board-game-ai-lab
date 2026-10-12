@@ -1,0 +1,86 @@
+{
+ "architectures": {
+  "cnn": {
+   "cpu_seconds": 351.90510100000006,
+   "evaluation_seconds": 41.763115919195116,
+   "final_weights_sha256": "a3bb85a70d6f7e72e703d68c031a26b85bd58611f818ad50081e54aac2c08dd9",
+   "peak_rss_mib": 392.484375,
+   "step_seconds": 306.06468987558037,
+   "train_seconds": 310.1373939793557,
+   "updates": 6800,
+   "wall_seconds": 352.133127999492
+  },
+  "resnet3x64": {
+   "cpu_seconds": 371.011142,
+   "evaluation_seconds": 61.89987437520176,
+   "final_weights_sha256": "3acf4dd4c0067455116e38ced07af4df1b17aa6811e4a3725a0f0c8e6d274e0a",
+   "peak_rss_mib": 392.484375,
+   "step_seconds": 306.7133063040674,
+   "train_seconds": 309.59150424133986,
+   "updates": 4700,
+   "wall_seconds": 371.6587719582021
+  },
+  "resnet5x64": {
+   "cpu_seconds": 388.05689,
+   "evaluation_seconds": 75.90191037207842,
+   "final_weights_sha256": "fcbb8b8085f5536590c9bd91f4436140e202b532bda07b3d0485c7c0619265e1",
+   "peak_rss_mib": 392.484375,
+   "step_seconds": 311.81292197760195,
+   "train_seconds": 313.64725379645824,
+   "updates": 3000,
+   "wall_seconds": 389.66423862520605
+  }
+ },
+ "cpu_seconds": 1122.9713800000002,
+ "dataset": {
+  "first_ply": 8,
+  "held_out_examples_sha256": "f27ab720e1f29816e1569ae0347336a7cddf04dfea283f2a74e7533b440b4fa8",
+  "held_out_games": 318,
+  "held_out_novel_positions": 7018,
+  "held_out_positions": 9266,
+  "membership_sha256": "3ac7e4338d881d28b8625d531b50d8039a1e8e168f1cb31e8b7de4242975a028",
+  "novel_mask_sha256": "e624b638eba80eda56f43a4bbd9ade6bdbb5c28ef28a816274f248abb9f94217",
+  "parent_sha256": "328022e5f4c45c11650b7fd2b76fbafbbe4734f1161a75d91b5d0b4cb274f9d6",
+  "probe_sha256": "4563cf259eadaf6aebf63bfa50e794528ebafe31d73d704b4818c0be339ec2d5",
+  "replay_digest": "e59a240190ccd415eb6ed98ad88a08a448c99ae5b4e278d1593c79b3a6378596",
+  "train_examples_sha256": "3a0b76db1a5a93ee7086e98ff31aec9d5fe84137fb6ed10770f0badc3304970b",
+  "train_games": 1730,
+  "train_positions": 55248
+ },
+ "load_seconds": 22.01331129204482,
+ "official_files": 150,
+ "order": [
+  "resnet5x64",
+  "resnet3x64",
+  "cnn"
+ ],
+ "peak_rss_mib": 392.484375,
+ "preparation_seconds": 0.4864400830119848,
+ "runtime": {
+  "cpu_capability": "DEFAULT",
+  "cpu_model": "Apple M4",
+  "deterministic_algorithms": true,
+  "deterministic_warn_only": false,
+  "float32_matmul_precision": "highest",
+  "inter_op_threads": 1,
+  "intra_op_threads": 1,
+  "machine": "arm64",
+  "mkldnn_enabled": true,
+  "numpy": "1.26.4",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.11.17",
+  "python_implementation": "CPython",
+  "thread_environment": {
+   "MKL_NUM_THREADS": "1",
+   "NUMEXPR_NUM_THREADS": "1",
+   "OMP_NUM_THREADS": "1",
+   "OPENBLAS_NUM_THREADS": "1",
+   "VECLIB_MAXIMUM_THREADS": "1"
+  },
+  "torch": "2.10.0",
+  "torch_build_sha256": "ae49aeb898c01a3cd7bdb6311dce7ccea64c05a02c023ba09c707938191c6fea",
+  "torch_git_version": "449b1768410104d3ed79d3bcfe4ba1d65c7f22c0"
+ },
+ "seed": 314159,
+ "wall_seconds": 1136.5708977496251
+}
