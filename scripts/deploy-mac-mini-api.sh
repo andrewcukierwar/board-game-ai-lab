@@ -8,6 +8,17 @@ cd "$ROOT"
 ENV_FILE="${BGAI_API_ENV_FILE:-$HOME/.config/board-game-ai-lab/api.env}"
 CANDIDATE="bgai-api-candidate"
 ROLLBACK="bgai-api-rollback"
+MODE="${1:-lite}"
+if [[ $# -gt 1 || "$MODE" != lite && "$MODE" != alphazero ]]; then
+  echo "Usage: $0 [lite|alphazero] (default: lite, torch-free and disabled)" >&2
+  exit 1
+fi
+ALPHAZERO_RUNTIME=false
+ALPHAZERO_ENABLED=false
+if [[ "$MODE" == alphazero ]]; then
+  ALPHAZERO_RUNTIME=true
+  ALPHAZERO_ENABLED=true
+fi
 
 if [[ ! -f "$ENV_FILE" ]]; then
   echo "Missing private environment file: $ENV_FILE" >&2
@@ -25,11 +36,15 @@ if ! docker container inspect bgai-api >/dev/null 2>&1; then
   echo "The current bgai-api container is missing; expected an existing deployment." >&2
   exit 1
 fi
+if docker container inspect "$CANDIDATE" >/dev/null 2>&1; then
+  echo "Existing candidate found; refusing to remove a container this run does not own." >&2
+  exit 1
+fi
 docker info >/dev/null
 SHA="$(git rev-parse HEAD)"
-TAG="bgai-api:${SHA:0:12}"
+TAG="bgai-api:${SHA}-${MODE}"
 echo "Building reviewed revision $SHA as $TAG (linux/arm64)"
-docker buildx build --platform linux/arm64 --load -t "$TAG" -f docker/api.Dockerfile .
+docker buildx build --platform linux/arm64 --load --build-arg ALPHAZERO_RUNTIME="$ALPHAZERO_RUNTIME" -t "$TAG" -f docker/api.Dockerfile .
 ARCH="$(docker image inspect "$TAG" --format '{{.Architecture}}')"
 if [[ "$ARCH" != arm64 ]]; then
   echo "Unexpected image architecture: $ARCH" >&2
@@ -37,10 +52,11 @@ if [[ "$ARCH" != arm64 ]]; then
 fi
 
 PROMOTION_STARTED=0
+CANDIDATE_ID=""
 on_exit() {
   local code=$?
   trap - EXIT
-  docker rm -f "$CANDIDATE" >/dev/null 2>&1 || true
+  if [[ -n "$CANDIDATE_ID" ]]; then docker rm -f "$CANDIDATE_ID" >/dev/null 2>&1 || true; fi
   if [[ "$code" -ne 0 && "$PROMOTION_STARTED" -eq 1 ]]; then
     echo "Deployment failed. Restoring previously running container..." >&2
     docker rm -f bgai-api >/dev/null 2>&1 || true
@@ -55,13 +71,15 @@ on_exit() {
 trap on_exit EXIT
 
 # Probe exactly the new image locally; the candidate is NOT public.
-docker run -d --rm \
+CANDIDATE_ID="$(docker create --rm \
   --name "$CANDIDATE" \
   -p 127.0.0.1:8001:8000 \
   --env-file "$ENV_FILE" \
   -e PORT=8000 \
+  -e ALPHAZERO_ENABLED="$ALPHAZERO_ENABLED" \
   -e EVALUATION_SOURCE_COMMIT="$SHA" \
-  "$TAG" >/dev/null
+  "$TAG")"
+docker start "$CANDIDATE_ID" >/dev/null
 
 wait_for_api() {
   local base="$1" attempt
@@ -80,12 +98,9 @@ verify_provenance() {
 }
 wait_for_api http://127.0.0.1:8001
 verify_provenance http://127.0.0.1:8001
-curl -fsS --max-time 10 -X POST \
-  http://127.0.0.1:8001/v1/connect4/start_game \
-  -H 'Content-Type: application/json' \
-  -d '{"player1":{"type":"human"},"player2":{"type":"negamax","depth":2}}' \
-  | python3 -c 'import json,sys; r=json.load(sys.stdin); assert r["revision"]==0 and r["game_id"]'
-docker rm -f "$CANDIDATE" >/dev/null
+python3 scripts/smoke-api-release.py --base http://127.0.0.1:8001 --mode "$MODE" --commit "$SHA"
+docker rm -f "$CANDIDATE_ID" >/dev/null
+CANDIDATE_ID=""
 
 echo "Candidate checks passed. Swapping port 8000 container (active games will reset)."
 docker rename bgai-api "$ROLLBACK"
@@ -97,10 +112,12 @@ docker run -d \
   -p 127.0.0.1:8000:8000 \
   --env-file "$ENV_FILE" \
   -e PORT=8000 \
+  -e ALPHAZERO_ENABLED="$ALPHAZERO_ENABLED" \
   -e EVALUATION_SOURCE_COMMIT="$SHA" \
   "$TAG" >/dev/null
 wait_for_api http://127.0.0.1:8000
 verify_provenance http://127.0.0.1:8000
+python3 scripts/smoke-api-release.py --base http://127.0.0.1:8000 --mode "$MODE" --commit "$SHA"
 PROMOTION_STARTED=0
 echo "DEPLOY PASS: $SHA"
 echo "Previous container remains stopped as $ROLLBACK."

@@ -1,3 +1,5 @@
+import { ALPHAZERO, hasAlphaZero, ALPHAZERO_CAVEAT } from '../connect4/alphazero.js';
+import { useAlphaZero } from '../connect4/useAlphaZero.js';
 import { researchAgentEnabled, researchAgent, VICTOR_RESEARCH, hasResearch, RESEARCH_DISABLED, RESEARCH_CAVEAT } from '../connect4/researchAgent.js';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -17,7 +19,8 @@ function randomSeed() { return globalThis.crypto?.getRandomValues ? globalThis.c
 const modeLabel = { paused: 'Paused', game: 'Autoplay · current game', matchup: 'Running current matchup', round: 'Running current round', tournament: 'Running entire tournament' };
 export default function TournamentLabPage({ http = tournamentHttp, storage }) {
   const enabled = researchAgentEnabled();
-  const presets = enabled ? [...ordinaryPresets, { type: VICTOR_RESEARCH }] : ordinaryPresets;
+  const alphaZero = useAlphaZero(http);
+  const presets = [...ordinaryPresets, ...(enabled ? [{ type: VICTOR_RESEARCH }] : []), ...(alphaZero.available ? [false, true].map(tactical_guard => ({ type: ALPHAZERO, tactical_guard })) : [])];
   const state = useTournament(http, storage), { tournament: t, controller: c } = state;
   const [size, setSize] = useState(8), [field, setField] = useState(() => defaultField(8)), [seed, setSeed] = useState(() => String(randomSeed()));
   const [setup, setSetup] = useState(false), [selected, setSelected] = useState(null), [setupError, setSetupError] = useState(''), [playbackEpoch, setPlaybackEpoch] = useState(0);
@@ -32,7 +35,9 @@ export default function TournamentLabPage({ http = tournamentHttp, storage }) {
   function playHuman() { setSelected(ready.matchupId); c.watch(); }
   const researchField = hasResearch((!t || setup) ? field : t.entrants.map(e => e.config));
   const researchBlocked = researchField && !enabled;
-  const blocked = researchBlocked || state.busy || state.uncertain || Boolean(state.error) || t?.status === 'complete';
+  const alphaZeroField = hasAlphaZero((!t || setup) ? field : t.entrants.map(e => e.config));
+  const alphaZeroBlocked = alphaZeroField && !alphaZero.available;
+  const blocked = alphaZeroBlocked || researchBlocked || state.busy || state.uncertain || Boolean(state.error) || t?.status === 'complete';
   return <main className="connect4-wrapper match-lab tournament-lab site-container">
     <header className="game-page-heading"><Link className="game-home-link" to="/connect4/match-lab">Back to Match Lab</Link>
       <p className="eyebrow">Competition Lab · Connect 4</p><h1>Tournament Lab</h1>
@@ -42,6 +47,9 @@ export default function TournamentLabPage({ http = tournamentHttp, storage }) {
       {t?.status === 'complete' ? 'Tournament complete. Champion crowned.' : state.waiting || state.busy && state.uncertain ? 'Waiting / recovering authoritative history' : state.uncertain ? 'Recovery required' : state.waitingForHuman ? 'Waiting for Human · Play your match' : humanEntrant(t) && state.mode === 'tournament' ? 'Running until your next match or tournament completion' : modeLabel[state.mode]}
     </div>
     {(state.error || setupError) && <p className="tournament-error" role="alert">{setupError || state.error}</p>}
+    <p className="analysis-helper">{alphaZero.reason} <button type="button" className="action-link action-link--secondary" onClick={() => void alphaZero.refresh()}>Refresh agent availability</button></p>
+    {alphaZeroField && <p className="analysis-helper">{ALPHAZERO_CAVEAT}</p>}
+    {alphaZeroBlocked && <p role="status">This saved competition requires its original AlphaZero model. History remains reviewable; refresh availability to check the backend before continuing.</p>}
     {researchField && <p className="analysis-helper">{researchAgent.name}: {researchAgent.description}</p>}
     {researchBlocked && <p className="analysis-helper" role="status">{RESEARCH_DISABLED}</p>}
     {!state.storageAvailable && <p className="analysis-helper">Browser storage is unavailable. This tournament works in memory; keep this page open to retain progress.</p>}
@@ -75,7 +83,7 @@ export default function TournamentLabPage({ http = tournamentHttp, storage }) {
         </div><p className="analysis-helper">{humanEntrant(t) ? 'Run controls stop at your next match. Start it explicitly, then use the board on your turn. ' : ''}One game at a time. Pause lets the current request finish safely. Draws receive up to two rematches, then a seeded tiebreak.</p>
       </section>
       <Bracket tournament={t} selected={shown?.matchupId} select={select} />
-      {shown && <MatchViewer key={`${shown.matchupId}:${playbackEpoch}`} tournament={t} matchup={shown} controller={c} state={state} researchBlocked={researchBlocked} start={() => { setSelected(shown.matchupId); c.watch(); }} />}
+      {shown && <MatchViewer key={`${shown.matchupId}:${playbackEpoch}`} tournament={t} matchup={shown} controller={c} state={state} researchBlocked={researchBlocked || alphaZeroBlocked} executionBlockReason={alphaZeroBlocked ? alphaZero.reason : RESEARCH_DISABLED} start={() => { setSelected(shown.matchupId); c.watch(); }} />}
       <details className="tournament-provenance"><summary>Reproducibility · field and bracket order</summary><p>Size {t.size} · Seed {t.tournamentSeed}</p><ol>{t.bracketOrder.map(id => <li key={id}>{entrantLabel(t, id)}</li>)}</ol></details>
     </>}
     <p className="tournament-method">{RESEARCH_CAVEAT}</p>

@@ -9,7 +9,7 @@ async function start(page, opponent = 'negamax') {
   if (opponent === 'mcts') {
     await expect(page.locator('#mcts-options')).toBeVisible();
     await expect(page.locator('#negamax-options')).toBeHidden();
-    await page.getByLabel('Search simulations:').selectOption('100');
+    await page.locator('#mcts-options summary').click(); await page.locator('#opponent-custom-simulations').fill('100');
   }
   const result = page.waitForResponse(r => r.url().endsWith('/start_game') && r.request().method() === 'POST');
   await page.getByRole('button', { name: 'Start game', exact: true }).click();
@@ -170,7 +170,7 @@ for (const opponent of ['random', 'negamax', 'mcts']) {
     await page.goto('/connect4');
     await page.locator(`input[name="opponent"][value="${opponent}"]`).check();
     if (opponent === 'negamax') await page.getByLabel('Search depth:').selectOption('8');
-    if (opponent === 'mcts') await page.getByLabel('Search simulations:').selectOption('800');
+    if (opponent === 'mcts') { await page.locator('#mcts-options summary').click(); await page.locator('#opponent-custom-simulations').fill('800'); }
     await page.getByRole('radio', { name: 'AI goes first' }).check();
     const moves = [], analyses = [];
     page.on('request', request => {

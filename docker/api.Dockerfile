@@ -11,10 +11,17 @@ RUN python -m venv /opt/venv \
 # Optional AlphaZero inference runtime. Default false keeps the image torch-free;
 # ALPHAZERO_ENABLED must also be set at run time to expose the agent.
 ARG ALPHAZERO_RUNTIME=false
-COPY requirements-alphazero.txt .
+ARG TARGETARCH
+COPY requirements-alphazero.txt requirements-alphazero-arm64.lock ./
 RUN if [ "$ALPHAZERO_RUNTIME" = "true" ]; then \
-      /opt/venv/bin/pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu \
-        -r requirements-alphazero.txt; \
+      if [ "$TARGETARCH" = "arm64" ]; then \
+        /opt/venv/bin/pip install --no-cache-dir --only-binary=:all: --force-reinstall --require-hashes \
+          --index-url https://download.pytorch.org/whl/cpu --extra-index-url https://pypi.org/simple \
+          -r requirements-alphazero-arm64.lock; \
+      else \
+        /opt/venv/bin/pip install --no-cache-dir --index-url https://download.pytorch.org/whl/cpu \
+          -r requirements-alphazero.txt; \
+      fi; \
     elif [ "$ALPHAZERO_RUNTIME" != "false" ]; then \
       echo "ALPHAZERO_RUNTIME must be true or false" >&2; exit 1; \
     fi

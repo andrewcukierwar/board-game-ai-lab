@@ -109,7 +109,7 @@ export default function Home() {
           <div className="action-row"><a className="text-link" href={`${REPOSITORY_URL}/blob/main/docs/victor-nine-rule-implementation.md`}>Nine-rule framework ↗</a><a className="text-link" href={`${REPOSITORY_URL}/blob/main/docs/victor-astra-second-pass.md`}>Proof search and oracle audit ↗</a><a className="text-link" href={`${REPOSITORY_URL}/blob/main/docs/victor-opening-and-app-readiness.md`}>Opening book coverage ↗</a></div>
           <Badge variant="research">{enabled ? 'Experimental · publicly playable' : 'Experimental · public play disabled'}</Badge>
         </article>
-        <p className="research-boundary"><strong>Playable now:</strong> Random, Negamax, and MCTS{enabled ? ', plus Victor Research (Experimental)' : ''}. <strong>Research / experimental:</strong> learned-agent work, including DQN, neural MCTS, and AlphaZero-style self-play, is not available in the public game.</p>
+        <p className="research-boundary"><strong>Playable now:</strong> Random, Negamax, and MCTS{enabled ? ', plus Victor Research (Experimental)' : ''}. <strong>Research / experimental:</strong> DQN and neural MCTS training work is not available in the public game. The experimental AlphaZero CNN appears in game setup and evaluation labs only when the connected backend reports it available.</p>
       </section>
 
       <section className="final-cta site-container" aria-labelledby="cta-title"><div><p className="eyebrow">Your next move</p><h2 id="cta-title">Put an agent to the test.</h2><p>Pick an approach. Play a game. Explore the position.</p></div><div className="action-row"><ActionLink to="/connect4">Start a game</ActionLink><ActionLink href={REPOSITORY_URL} variant="secondary">View the source</ActionLink></div></section>

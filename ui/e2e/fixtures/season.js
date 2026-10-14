@@ -22,6 +22,7 @@ export async function mockSeason(page, sequence = WIN) {
   s.fixture = () => ({ ...matchFixture(s.active.players, s.active.columns, s.active.id), rng_seed: s.active.seed });
   await page.route('**/v1/connect4/**', async route => {
     const url = route.request().url(), mutation = route.request().method() === 'POST';
+    if (url.endsWith('/agents/alphazero')) { await route.fulfill({ status: 404, json: {} }); return; }
     if (mutation) s.maxFlight = Math.max(s.maxFlight, ++s.inFlight);
     try {
       if (url.endsWith('/start_game')) {

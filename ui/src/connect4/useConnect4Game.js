@@ -1,3 +1,7 @@
+import { validateMatchHistory, samePlayers } from './matchRecord.js';
+import { ALPHAZERO, hasAlphaZero, requireAlphaZero, requireSameAlphaZero, alphaZeroDiscovery } from './alphazero.js';
+import { useAlphaZero } from './useAlphaZero.js';
+import { withBusyRetry } from './busyRetry.js';
 import { useEffect, useReducer, useRef } from 'react';
 import { validateSnapshot } from './gameSnapshot.js';
 import { opponentPayload, playerTypes, researchErrorMessage } from './researchAgent.js';
@@ -17,7 +21,7 @@ function reducer(state, action) {
   if (action.type === 'select') return { ...state, selection: { ...state.selection, ...action.value } };
   if (action.type === 'accept') {
     const game = action.game;
-    return { ...state, game, uncertain: false, retryAI: false, notice: null,
+    return { ...state, game, uncertain: false, retryAI: false, notice: null, integrityBlocked: false,
       message: game.gameOver
         ? game.winner === 'Draw' ? "It's a draw! Start a new game to play again."
           : `${winnerLabel(game)}! Start a new game to play again.`
@@ -28,7 +32,9 @@ function reducer(state, action) {
 
 export function useConnect4Game(http, { researchEnabled = false } = {}) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const types = playerTypes(researchEnabled);
+  const alphaZero = useAlphaZero(http);
+  const identity = useRef(null);
+  const types = playerTypes(researchEnabled, true);
   // A synchronous mirror of reducer transitions protects revisions and the busy
   // lock even before React commits a render (including two events in one tick).
   const current = useRef(state);
@@ -49,11 +55,16 @@ export function useConnect4Game(http, { researchEnabled = false } = {}) {
 
   async function recover(error, lifetime, options) {
     if (!lifetime.active) return;
+    if (error.alphaZeroIntegrity) {
+      patch({ uncertain: true, retryAI: false, integrityBlocked: true, notice: 'error', message: error.message + ' Start a new game or restore the original model, then refresh.' }, lifetime);
+      return;
+    }
     // A failed start concerns the selection; a failed move concerns the game's AI.
     const failed = current.current.phase === 'starting' ? current.current.selection
       : current.current.game?.players.find(player => player.type !== 'human');
+    if (['invalid_agent', 'agent_unavailable'].includes(error.response?.data?.code) && failed?.type === ALPHAZERO) alphaZeroDiscovery(http).invalidate();
     const reason = researchErrorMessage(error, failed) ||
-      error.response?.data?.error ||
+      error.response?.data?.error || (failed?.type === ALPHAZERO ? error.message : null) ||
       'The game server could not be reached. It may be waking up; wait a moment and try again.';
     const game = current.current.game;
     if (game) {
@@ -61,7 +72,12 @@ export function useConnect4Game(http, { researchEnabled = false } = {}) {
       // AI retry only if the authoritative snapshot still belongs to the AI.
       patch({ uncertain: true, phase: 'refreshing' }, lifetime);
       try {
-        const response = await http.get(`/v1/connect4/games/${game.game_id}`, options);
+        const response = await http.get(`/v1/connect4/games/${game.game_id}${hasAlphaZero(game.players) ? '/history' : ''}`, options);
+        if (hasAlphaZero(game.players)) {
+          requireSameAlphaZero(identity.current, response.data.alphazero_provenance);
+          const validated = validateMatchHistory(response.data, { game_id: game.game_id, minRevision: game.revision, players: game.players });
+          response.data = validated.game;
+        }
         if (!lifetime.active) return;
         accept(response.data, lifetime, { game_id: game.game_id, minRevision: game.revision });
         const latest = current.current.game;
@@ -73,7 +89,8 @@ export function useConnect4Game(http, { researchEnabled = false } = {}) {
             message: 'This game expired or the server restarted. Start a new game.' }, lifetime);
           return;
         }
-        patch({ retryAI: false }, lifetime);
+        patch({ retryAI: false, ...(refreshError.alphaZeroIntegrity ? { integrityBlocked: true, message: refreshError.message, notice: 'error' } : {}) }, lifetime);
+        if (refreshError.alphaZeroIntegrity) return;
       }
     }
     patch({ notice: 'error', message: reason + (current.current.uncertain
@@ -95,9 +112,8 @@ export function useConnect4Game(http, { researchEnabled = false } = {}) {
     const game = current.current.game;
     if (!lifetime.active || !game || game.gameOver || humanTurn(game)) return;
     patch({ phase: 'ai-move' }, lifetime);
-    const response = await http.post('/v1/connect4/make_move', {
-      game_id: game.game_id, revision: game.revision,
-    }, options);
+    const operation = () => http.post('/v1/connect4/make_move', { game_id: game.game_id, revision: game.revision }, options);
+    const response = hasAlphaZero(game.players) ? await withBusyRetry(operation, options) : await operation();
     if (lifetime.active) accept(response.data, lifetime, { game_id: game.game_id, revision: game.revision + 1 });
   }
 
@@ -105,6 +121,8 @@ export function useConnect4Game(http, { researchEnabled = false } = {}) {
     return run('starting', async (lifetime, options) => {
       const { selection, game } = current.current;
       const opponent = opponentPayload(selection, researchEnabled);
+      const provenance = hasAlphaZero([opponent]) ? await requireAlphaZero(http, [opponent]) : null;
+      if (!lifetime.active) return;
       const human = { type: 'human' };
       const body = selection.first === 'human'
         ? { player1: human, player2: opponent } : { player1: opponent, player2: human };
@@ -112,6 +130,13 @@ export function useConnect4Game(http, { researchEnabled = false } = {}) {
       const response = await http.post('/v1/connect4/start_game', body, options);
       if (!lifetime.active) return;
       accept(response.data, lifetime, { revision: 0 });
+      identity.current = provenance;
+      if (provenance && !samePlayers(response.data.players, [body.player1, body.player2])) throw Object.assign(new Error("AlphaZero game configuration changed."), { alphaZeroIntegrity: true });
+      if (provenance) {
+        const history = await http.get(`/v1/connect4/games/${response.data.game_id}/history`, options);
+        requireSameAlphaZero(provenance, history.data.alphazero_provenance);
+        validateMatchHistory(history.data, { game_id: response.data.game_id, revision: 0, players: [body.player1, body.player2] });
+      }
       // A separate, single revision-0 mutation uses the normal AI recovery path.
       // Keep the same busy lock across start acceptance and the opening request.
       await botMove(lifetime, options);
@@ -134,9 +159,14 @@ export function useConnect4Game(http, { researchEnabled = false } = {}) {
 
   function retry() {
     return run('refreshing', async (lifetime, options) => {
+      if (current.current.game && hasAlphaZero(current.current.game.players)) await requireAlphaZero(http, current.current.game.players, identity.current);
       const game = current.current.game;
       if (!game) return;
-      const response = await http.get(`/v1/connect4/games/${game.game_id}`, options);
+      const response = await http.get(`/v1/connect4/games/${game.game_id}${hasAlphaZero(game.players) ? '/history' : ''}`, options);
+      if (hasAlphaZero(game.players)) {
+        requireSameAlphaZero(identity.current, response.data.alphazero_provenance);
+        response.data = validateMatchHistory(response.data, { game_id: game.game_id, minRevision: game.revision, players: game.players }).game;
+      }
       if (!lifetime.active) return;
       accept(response.data, lifetime, { game_id: game.game_id, minRevision: game.revision });
       await botMove(lifetime, options);
@@ -146,5 +176,5 @@ export function useConnect4Game(http, { researchEnabled = false } = {}) {
   function select(value) {
     if (current.current.phase === 'idle') send({ type: 'select', value });
   }
-  return { ...state, busy: state.phase !== 'idle', start, move, retry, select };
+  return { ...state, alphaZero, busy: state.phase !== 'idle', start, move, retry, select };
 }

@@ -6,7 +6,7 @@ import { replaySnapshot } from '../connect4/matchRecord.js';
 import GameBoard from '../connect4/GameBoard.jsx';
 import MatchControls from '../connect4/MatchControls.jsx';
 import MatchTimeline from '../connect4/MatchTimeline.jsx';
-export default function MatchViewer({ tournament: t, matchup: m, controller: c, state, researchBlocked = false, start = () => c.watch() }) {
+export default function MatchViewer({ tournament: t, matchup: m, controller: c, state, researchBlocked = false, executionBlockReason = RESEARCH_DISABLED, start = () => c.watch() }) {
   const viewerRef = useRef(null), previousActive = useRef(null);
   const [number, setNumber] = useState(1), [viewed, setViewed] = useState(null);
   const a = t.active?.matchupId === m.matchupId ? t.active : null;
@@ -56,7 +56,7 @@ export default function MatchViewer({ tournament: t, matchup: m, controller: c, 
       </div>
       <aside className="match-sidebar" aria-label="Tournament match playback and replay">
         {!completed && next && !a && <button id="tournament-watch" className="action-link action-link--primary" disabled={researchBlocked || state.busy || state.uncertain || Boolean(state.error)} onClick={start}>{human ? m.games.length ? 'Play rematch' : 'Play your match' : 'Start / Watch matchup'}</button>}
-        {isActive && <MatchControls game={game} busy={state.busy} uncertain={state.uncertain} error={state.error || (researchBlocked ? RESEARCH_DISABLED : '')} live={live} humanTurn={yourTurn}
+        {isActive && <MatchControls game={game} busy={state.busy} uncertain={state.uncertain} error={state.error || (researchBlocked ? executionBlockReason : '')} live={live} humanTurn={yourTurn}
           autoplay={state.mode !== 'paused'} nextMove={() => c.nextMove()} enableAutoplay={() => c.run('game')} pause={() => c.pause()}
           speed={state.speed} setSpeed={s => c.setSpeed(s)} refresh={() => c.refresh()} />}
         {!completed && a?.status === 'interrupted' && <button id="tournament-restart" className="action-link action-link--primary" disabled={researchBlocked || state.busy} onClick={() => c.restart()}>{human ? 'Restart this game' : 'Restart interrupted game'}</button>}

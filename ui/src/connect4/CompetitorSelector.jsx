@@ -1,19 +1,21 @@
+import { ALPHAZERO } from './alphazero.js';
+import AlphaZeroSettings from './AlphaZeroSettings.jsx';
 import { competitorTypes, NEGAMAX_DEPTHS, MCTS_SIMULATIONS, TACTICAL_MCTS_SIMULATIONS, validDepth, validSimulations, competitorLabel, playerColor } from './competitorConfig.js';
 
 import { researchAgent, VICTOR_RESEARCH } from './researchAgent.js';
 
-export default function CompetitorSelector({ index, config, select, busy, researchEnabled }) {
+export default function CompetitorSelector({ index, config, select, busy, researchEnabled, alphaZero }) {
   const id = `player-${index + 1}`;
   return <fieldset className={`competitor-selector competitor-selector--${index}`} disabled={busy}>
     <legend><span className={`legend-piece legend-piece--${index ? 'yellow' : 'red'}`} />Player {index + 1} · {playerColor(index)}<small>{index ? 'Moves second' : 'Moves first'}</small></legend>
     <div className="competitor-choices">
-      {competitorTypes(researchEnabled).map(type => <label key={type} className={`turn-option ${type === VICTOR_RESEARCH ? 'turn-option--research' : ''} ${config.type === type ? 'is-selected' : ''}`}>
+      {competitorTypes(researchEnabled, alphaZero?.available).map(type => <label key={type} className={`turn-option ${type === VICTOR_RESEARCH ? 'turn-option--research' : ''} ${config.type === type ? 'is-selected' : ''}`}>
         <input type="radio" name={id} value={type} checked={config.type === type} onChange={() => select(index, { type })} />
         <span>{competitorLabel({ type }).split(' · ')[0]}</span>
       </label>)}
     </div>
     <div className="competitor-budget">
-      {config.type === 'negamax' ? <><label htmlFor={`${id}-depth`}>Search depth</label>
+      {config.type === ALPHAZERO ? <AlphaZeroSettings id={`${id}-guard`} guard={config.tactical_guard} change={tactical_guard => select(index, { tactical_guard })} /> : config.type === 'negamax' ? <><label htmlFor={`${id}-depth`}>Search depth</label>
         <select id={`${id}-depth`} value={config.depth} onChange={e => select(index, { depth: Number(e.target.value) })}>
           {!NEGAMAX_DEPTHS.includes(config.depth) && <option value={config.depth}>Custom depth {config.depth}</option>}
           {NEGAMAX_DEPTHS.map(depth => <option key={depth} value={depth}>Depth {depth}</option>)}

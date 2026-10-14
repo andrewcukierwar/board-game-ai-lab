@@ -1,3 +1,5 @@
+import { ALPHAZERO, hasAlphaZero, requireAlphaZero, requireSameAlphaZero } from './alphazero.js';
+import { useAlphaZero } from './useAlphaZero.js';
 import { researchAgentEnabled, assertResearchExecution, researchErrorMessage, VICTOR_RESEARCH } from './researchAgent.js';
 import { useEffect, useReducer, useRef } from 'react';
 import { DEFAULT_COMPETITOR, matchStartPayload } from './competitorConfig.js';
@@ -12,6 +14,8 @@ const reducer = (state, patch) => ({ ...state, ...patch });
 const isHuman = game => game.players[game.currentPlayer].type === 'human';
 
 export function useConnect4Match(http, researchEnabled = researchAgentEnabled()) {
+  const alphaZero = useAlphaZero(http);
+  const identity = useRef(null), retryEpoch = useRef(0);
   const [state, dispatch] = useReducer(reducer, initial);
   const current = useRef(state), session = useRef(null), timer = useRef(null);
   const clearTimer = () => { clearTimeout(timer.current); timer.current = null; };
@@ -25,11 +29,12 @@ export function useConnect4Match(http, researchEnabled = researchAgentEnabled())
     current.current = reducer(current.current, value);
     dispatch(value);
   }
-  function pause() { clearTimer(); patch({ autoplay: false }); }
+  function pause() { retryEpoch.current++; clearTimer(); patch({ autoplay: false }); }
 
   async function sync(lifetime, options, game) {
     const response = await http.get(`/v1/connect4/games/${game.game_id}/history`, options);
     if (!lifetime.active) return;
+    if (hasAlphaZero(game.players)) requireSameAlphaZero(identity.current, response.data.alphazero_provenance);
     const record = validateMatchHistory(response.data, { game_id: game.game_id, minRevision: game.revision, players: game.players });
     patch({ ...record, uncertain: false, expired: false,
       ...(record.game.gameOver ? { autoplay: false } : {}) }, lifetime);
@@ -37,7 +42,7 @@ export function useConnect4Match(http, researchEnabled = researchAgentEnabled())
   async function recover(error, lifetime, options) {
     if (!lifetime.active) return;
     clearTimer();
-    const reason = researchErrorMessage(error, current.current.game?.players.find(p => p.type === VICTOR_RESEARCH) ?? current.current.selections.find(p => p.type === VICTOR_RESEARCH)) || error.response?.data?.error || 'The request could not be confirmed. The server may be waking up; wait a moment before continuing.';
+    const reason = researchErrorMessage(error, current.current.game?.players.find(p => [VICTOR_RESEARCH, ALPHAZERO].includes(p.type)) ?? current.current.selections.find(p => [VICTOR_RESEARCH, ALPHAZERO].includes(p.type))) || error.response?.data?.error || (error.alphaZeroIntegrity || error.alphaZeroAvailability || hasAlphaZero(current.current.game?.players ?? current.current.selections) ? error.message : null) || 'The request could not be confirmed. The server may be waking up; wait a moment before continuing.';
     patch({ autoplay: false, error: reason }, lifetime);
     const game = current.current.game;
     if (!game) return; // Lost start IDs cannot be recovered; never replay start.
@@ -58,7 +63,7 @@ export function useConnect4Match(http, researchEnabled = researchAgentEnabled())
     patch({ phase, error: '' }, lifetime); // synchronous lock before any await
     const options = { signal: lifetime.abort.signal };
     try { await action(lifetime, options); }
-    catch (error) { await recover(error, lifetime, options); }
+    catch (error) { if (!error.retryCancelled) await recover(error, lifetime, options); }
     finally { patch({ phase: 'idle' }, lifetime); }
   }
   function start() {
@@ -67,12 +72,16 @@ export function useConnect4Match(http, researchEnabled = researchAgentEnabled())
     return run('starting', async (lifetime, options) => {
       const { game, selections } = current.current;
       const body = matchStartPayload(...selections, game?.game_id, researchEnabled);
+      const provenance = hasAlphaZero(selections) ? await requireAlphaZero(http, selections) : null;
+      if (!lifetime.active) return;
       const response = await http.post('/v1/connect4/start_game', body, options);
       if (!lifetime.active) return;
       const data = response.data;
       const { game: fresh } = validateMatchHistory({ game_id: data?.game_id, revision: data?.revision,
         players: data?.players, state: data, moves: [] }, { revision: 0, players: [body.player1, body.player2] });
       patch({ game: fresh, moves: [], viewedRevision: null, uncertain: false, expired: false }, lifetime);
+      identity.current = provenance;
+      if (provenance) await sync(lifetime, options, fresh);
       // Match Lab deliberately remains paused at revision 0, including AI-first.
     });
   }
@@ -86,7 +95,8 @@ export function useConnect4Match(http, researchEnabled = researchAgentEnabled())
     if (isHuman(game) ? !game.legalMoves.includes(column) : column !== undefined) return;
     return run(isHuman(game) ? 'human-move' : 'ai-move', async (lifetime, options) => {
       assertResearchExecution(game.players, researchEnabled);
-      const accepted = await requestMatchPly(http, game, column, options);
+      const epoch = retryEpoch.current;
+      const accepted = await requestMatchPly(http, game, column, { ...options, canRetry: () => lifetime.active && retryEpoch.current === epoch });
       if (!lifetime.active) return;
       // Retain the accepted revision even if the subsequent history read fails.
       patch({ game: accepted, uncertain: true }, lifetime);
@@ -116,7 +126,7 @@ export function useConnect4Match(http, researchEnabled = researchAgentEnabled())
   function returnLive() { pause(); patch({ viewedRevision: null }); }
   function select(index, value) {
     if (current.current.phase !== 'idle') return;
-    patch({ selections: current.current.selections.map((config, i) => i === index ? (value.type === VICTOR_RESEARCH ? { type: VICTOR_RESEARCH } : { ...DEFAULT_COMPETITOR, ...config, ...value,
+    patch({ selections: current.current.selections.map((config, i) => i === index ? (value.type === ALPHAZERO ? { type: ALPHAZERO, tactical_guard: false } : value.type === VICTOR_RESEARCH ? { type: VICTOR_RESEARCH } : { ...(config.type === ALPHAZERO ? {} : DEFAULT_COMPETITOR), ...config, ...value,
           ...(value.type === 'mcts_tactical' ? { simulations: 800 } : value.type === 'mcts' ? { simulations: 2000 } : {}) }) : config) });
   }
   function setSpeed(speed) { if (Object.hasOwn(PLAYBACK_SPEEDS, speed) && current.current.speed !== speed) { clearTimer(); patch({ speed }); } }
@@ -136,7 +146,7 @@ export function useConnect4Match(http, researchEnabled = researchAgentEnabled())
   const live = state.viewedRevision === null;
   // History may be temporarily older while an accepted ply's GET is pending.
   const displayedGame = state.game && !live ? replaySnapshot(state.game, state.moves, state.viewedRevision) : state.game;
-  return { ...state, researchEnabled, live, displayedGame, result: matchResult(state.game), busy: state.phase !== 'idle',
+  return { ...state, alphaZero, researchEnabled, live, displayedGame, result: matchResult(state.game), busy: state.phase !== 'idle',
     humanTurn: Boolean(state.game && isHuman(state.game)),
     interactive: Boolean(live && playable() && isHuman(state.game)),
     start, move: ply, nextMove, autoplay: state.autoplay, enableAutoplay: autoplay, pause, refresh,

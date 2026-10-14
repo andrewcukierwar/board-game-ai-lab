@@ -72,7 +72,20 @@ class AlphaZeroService:
         if not self.available:
             return dict(type=ALPHAZERO, enabled=True, available=False, code='alphazero_unavailable')
         manifest = self.model.manifest
+        provenance = dict(
+            version=1, type=ALPHAZERO, agent_version=ALPHAZERO_AGENT_VERSION,
+            model=dict(id=self.model.model_id, architecture=manifest['architecture']['identity'],
+                       parameters=manifest['architecture']['parameters'],
+                       artifact_sha256=self.model.artifact_sha256,
+                       source_checkpoint_sha256=manifest['source']['checkpoint_sha256']),
+            search=dict(algorithm='puct', simulations=manifest['search']['simulations'],
+                        exploration=manifest['search']['exploration'], root_noise=False,
+                        final_selection='maximum-visit', deterministic=True),
+            tie_break=manifest['search']['tie_break_domain'], rng_seed='ignored',
+            tactical_guard=dict(implementation=manifest['tactical_guard']['contract'],
+                                source_sha256=manifest['tactical_guard']['source_sha256']))
         return dict(
+            provenance=provenance,
             type=ALPHAZERO, enabled=True, available=True, agent_version=ALPHAZERO_AGENT_VERSION,
             model=dict(id=self.model.model_id, description=manifest['source']['description'],
                        architecture=manifest['architecture']['identity'],

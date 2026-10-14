@@ -20,8 +20,9 @@ export default function Connect4Page({ http = gameHttp, researchEnabled = resear
       <Link className="game-home-link" to="/">Home</Link>
       <p className="eyebrow">Play · compare · understand</p>
       <h1>Connect 4</h1>
-      <p>Play against classical game-playing AI. Explore how each approach responds.</p>
+      <p>Play against game-playing AI. Explore how each approach responds.</p>
     </header>
+    <p className="analysis-helper">{gameplay.alphaZero.reason} <button type="button" className="action-link action-link--secondary" onClick={() => void gameplay.alphaZero.refresh()}>Refresh agent availability</button></p>
     <div className="game-workspace">
       <GameStatus {...gameplay} />
       <GameBoard {...gameplay} highlights={analysis.highlights} />

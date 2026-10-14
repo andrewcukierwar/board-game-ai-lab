@@ -1,5 +1,6 @@
 """Bounded, process-local sessions. Deploy with one Gunicorn worker only."""
 from contextlib import contextmanager
+from copy import deepcopy
 from dataclasses import dataclass, field
 from threading import Lock
 from time import monotonic
@@ -22,6 +23,7 @@ class GameSession:
     game: Connect4 = field(default_factory=Connect4)
     revision: int = 0
     history: tuple[MoveRecord, ...] = ()
+    alphazero_provenance: dict | None = None
     explanation_requests: int = 0
     lock: Lock = field(default_factory=Lock)
 
@@ -46,7 +48,7 @@ class GameStore:
                 finally:
                     session.lock.release()
 
-    def create(self, players, replace_id=None, rng_seed=None):
+    def create(self, players, replace_id=None, rng_seed=None, alphazero_provenance=None):
         with self._lock:
             self._expire()
             old = self._games.get(replace_id)
@@ -56,7 +58,8 @@ class GameStore:
                 if old is None and len(self._games) >= self.capacity:
                     raise GameError('session_limit', 'The game server is full. Try again later.', 503)
                 gid = str(uuid4())
-                session = GameSession(players=players, touched=self.clock(), rng_seed=rng_seed)
+                session = GameSession(players=players, touched=self.clock(), rng_seed=rng_seed,
+                                      alphazero_provenance=deepcopy(alphazero_provenance))
                 self._games[gid] = session
                 if old is not None:
                     del self._games[replace_id]

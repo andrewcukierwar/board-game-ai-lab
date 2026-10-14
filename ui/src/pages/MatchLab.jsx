@@ -20,6 +20,7 @@ export default function MatchLabPage({ http = matchHttp, researchEnabled }) {
       <p className="eyebrow">Competition Lab · Connect 4</p><h1>Match Lab</h1>
       <p>Pit any two competitors against each other. Step through each move or watch the match play automatically.</p>
     </header>
+    <p className="analysis-helper">{match.alphaZero.reason} <button type="button" className="action-link action-link--secondary" onClick={() => void match.alphaZero.refresh()}>Refresh agent availability</button></p>
     <MatchStatus {...match} />
     <section className="match-setup" aria-label="Match setup">
       <div className="competitor-grid">{match.selections.map((config, index) => <CompetitorSelector key={index} index={index} config={config} {...match} />)}</div>

@@ -22,6 +22,10 @@ const response = data => ({ data });
 const failure = (status, error = 'Request failed') => Object.assign(new Error(error), { response: { status, data: { error } } });
 const flush = () => act(async () => { await new Promise(resolve => setImmediate(resolve)); });
 function setup(http, props = {}) {
+  const gameplayGet = http.get?.bind(http);
+  http.get = (url, options) => url === '/v1/connect4/agents/alphazero'
+    ? Promise.reject(Object.assign(new Error('Endpoint absent'), { response: { status: 404 } }))
+    : gameplayGet(url, options);
   const dom = new JSDOM('<div id="root"></div>', { url: 'http://localhost/connect4' });
   globalThis.window = dom.window;
   globalThis.document = dom.window.document;

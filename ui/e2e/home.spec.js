@@ -11,6 +11,7 @@ for (const [name, width, height] of [['desktop', 1440, 1000], ['tablet', 820, 11
     page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
     // Shell navigation should never initialize a game or request an explanation.
     await page.route('**/v1/**', route => {
+      if (route.request().url().endsWith('/agents/alphazero')) return route.fulfill({ json: { type: 'alphazero', enabled: false, available: false } });
       apiRequests.push(route.request().url());
       return route.abort();
     });

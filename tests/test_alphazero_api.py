@@ -322,3 +322,48 @@ def test_enabled_service_bounds_openmp_before_torch_import(preset, expected):
     done = subprocess.run([sys.executable, '-c', code], cwd=root, env=env, capture_output=True, text=True)
     assert done.returncode == 0, done.stderr
     assert done.stdout.split() == [expected, '1']
+
+
+def test_versioned_model_provenance_status_and_history(client):
+    status = client.get(BASE + '/agents/alphazero').json
+    p = status['provenance']
+    assert p['version'] == 1 and p['type'] == 'alphazero' and p['agent_version'] == 1
+    assert p['model'] == {k: status['model'][k] for k in p['model']}
+    assert p['search'] == status['search']
+    assert p['tie_break'] == 'connect4-alphazero-production-tie-break-v1'
+    assert p['rng_seed'] == 'ignored'
+    assert p['tactical_guard']['implementation'] == 'connect4-tactical-root-guard-v1'
+    assert p['tactical_guard']['source_sha256'] == 'd2ee54ba1fe9ddbcc4641538e2f5dd89a2435234ff194d6909bed72096632d04'
+    for guard in (False, True):
+        state = start(client, dict(type='alphazero', tactical_guard=guard), dict(type='human'))
+        assert history(client, state)['alphazero_provenance'] == p
+        state = move(client, state).json
+        evidence = history(client, state)
+        assert evidence['alphazero_provenance'] == p
+        assert evidence['moves'][0]['agent']['tactical_guard'] is guard
+    legacy = start(client, dict(type='random'), dict(type='human'))
+    assert 'alphazero_provenance' not in history(client, legacy)
+    assert set(client.get(BASE + '/provenance').json) == PROVENANCE_KEYS
+
+
+def test_pinned_history_survives_unavailable_model_and_blocks_identity_change(app, monkeypatch):
+    client = app.test_client()
+    service = app.extensions['connect4_alphazero']
+    state = start(client, dict(type='alphazero', tactical_guard=True), dict(type='human'))
+    pinned = history(client, state)['alphazero_provenance']
+    model = service.model
+    monkeypatch.setattr(service, 'model', None)
+    assert move(client, state).json['code'] == 'agent_unavailable'
+    assert history(client, state)['alphazero_provenance'] == pinned
+    assert history(client, state)['revision'] == 0
+    monkeypatch.setattr(service, 'model', model)
+    original_status = service.public_status
+    changed = original_status()
+    changed['provenance']['model']['id'] = 'other-model'
+    monkeypatch.setattr(service, 'public_status', lambda: changed)
+    response = move(client, state)
+    assert response.status_code == 503 and response.json['code'] == 'agent_unavailable'
+    assert history(client, state)['alphazero_provenance'] == pinned
+    assert history(client, state)['moves'] == []
+    monkeypatch.setattr(service, 'public_status', original_status)
+    assert move(client, state).status_code == 200

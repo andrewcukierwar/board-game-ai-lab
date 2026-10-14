@@ -6,7 +6,7 @@ import GameBoard from '../connect4/GameBoard.jsx';
 import MatchControls from '../connect4/MatchControls.jsx';
 import MatchTimeline from '../connect4/MatchTimeline.jsx';
 import { resultLabel } from './Schedule.jsx';
-export default function MatchViewer({ season: s, fixture: f, state, controller: c, researchBlocked = false }) {
+export default function MatchViewer({ season: s, fixture: f, state, controller: c, researchBlocked = false, executionBlockReason = RESEARCH_DISABLED }) {
   const [viewed, setViewed] = useState(null);
   const completed = s.completedGames.find(g => g.fixtureId === f.fixtureId), a = s.active?.fixtureId === f.fixtureId ? s.active : null;
   const plan = completed ?? gamePlan(s, f), live = viewed === null;
@@ -24,7 +24,7 @@ export default function MatchViewer({ season: s, fixture: f, state, controller: 
       <p className="game-instructions">Red: {labels[0]}. Yellow: {labels[1]}. Game seed: {f.gameSeed}.</p>
     </div><aside className="match-sidebar" aria-label="Season game playback and replay">
       {!a && !completed && currentFixture(s)?.fixtureId === f.fixtureId && <button id="season-watch" className="action-link action-link--primary" disabled={researchBlocked || state.busy || state.uncertain || Boolean(state.error)} onClick={() => c.watch()}>Start current fixture</button>}
-      {a?.status === 'running' && <MatchControls game={game} busy={state.busy} uncertain={state.uncertain} error={state.error || (researchBlocked ? RESEARCH_DISABLED : '')} live={live} autoplay={state.mode !== 'paused'}
+      {a?.status === 'running' && <MatchControls game={game} busy={state.busy} uncertain={state.uncertain} error={state.error || (researchBlocked ? executionBlockReason : '')} live={live} autoplay={state.mode !== 'paused'}
         nextMove={() => c.nextMove()} enableAutoplay={() => { setViewed(null); c.run('game'); }} pause={() => c.pause()} speed={state.speed} setSpeed={v => c.setSpeed(v)} refresh={() => c.refresh()} />}
       {a?.status === 'interrupted' && <button id="season-restart" disabled={researchBlocked || state.busy} onClick={() => c.restart()}>Restart interrupted fixture</button>}
       {!a && !completed && currentFixture(s)?.fixtureId !== f.fixtureId && <p className="analysis-helper">Upcoming fixture. Execution follows the saved schedule in order.</p>}

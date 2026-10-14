@@ -1,7 +1,8 @@
+import { ALPHAZERO } from './alphazero.js';
 // Public presets; translate the UI model at the API boundary only.
 import { PUBLIC_PLAYER_TYPES, VICTOR_RESEARCH, researchAgent, researchAgentEnabled, assertResearchExecution, validResearchConfig } from './researchCompetitor.js';
 export const COMPETITOR_TYPES = PUBLIC_PLAYER_TYPES;
-export const competitorTypes = (enabled = researchAgentEnabled()) => enabled ? [...COMPETITOR_TYPES, VICTOR_RESEARCH] : COMPETITOR_TYPES;
+export const competitorTypes = (enabled = researchAgentEnabled(), alphaZero = false) => [...COMPETITOR_TYPES, ...(enabled ? [VICTOR_RESEARCH] : []), ...(alphaZero ? [ALPHAZERO] : [])];
 export const NEGAMAX_DEPTHS = [1, 2, 4, 6, 8, 10, 12];
 export const MCTS_SIMULATIONS = [500, 1000, 2000, 5000, 10000, 25000];
 export const TACTICAL_MCTS_SIMULATIONS = [200, 400, 800, 2000, 4000, 10000];
@@ -13,6 +14,7 @@ export const DEFAULT_COMPETITOR = { type: 'negamax', depth: 2, simulations: 2000
 export const playerColor = index => index === 0 ? 'Red' : 'Yellow';
 
 export function competitorLabel(config) {
+  if (config.type === ALPHAZERO) return `AlphaZero (Experimental) · safeguard ${config.tactical_guard === true ? 'On' : 'Off'}`;
   if (config.type === VICTOR_RESEARCH) return researchAgent.name;
   if (config.type === 'negamax') return `Negamax · depth ${config.depth ?? 2}`;
   if (config.type === 'mcts') return `Classic MCTS · ${config.simulations ?? config.simulation_limit ?? 2000} simulations`;
@@ -21,6 +23,12 @@ export function competitorLabel(config) {
 }
 
 export function toPlayerPayload(config, researchEnabled = researchAgentEnabled()) {
+  if (config?.type === ALPHAZERO) {
+    if (Object.keys(config).some(k => !['type', 'tactical_guard'].includes(k))) throw new Error('AlphaZero accepts only its type and tactical safeguard.');
+    const guard = Object.hasOwn(config, 'tactical_guard') ? config.tactical_guard : false;
+    if (typeof guard !== 'boolean') throw new Error('Tactical safeguard must be a boolean.');
+    return { type: ALPHAZERO, tactical_guard: guard };
+  }
   if (config?.type === VICTOR_RESEARCH) {
     if (!validResearchConfig(config)) throw new Error('Victor accepts only its type; no public search settings.');
     assertResearchExecution([config], researchEnabled);

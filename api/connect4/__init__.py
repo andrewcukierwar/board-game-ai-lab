@@ -124,7 +124,8 @@ def start_game():
     players = [player_config(data.get('player1', {'type': 'human'})),
                player_config(data.get('player2', {'type': 'negamax', 'depth': 2}))]
     replace_id = game_id(data['replace_game_id']) if 'replace_game_id' in data else None
-    gid, session = store().create(players, replace_id, seed)
+    identity = alphazero().public_status()['provenance'] if any(p['type'] == ALPHAZERO for p in players) else None
+    gid, session = store().create(players, replace_id, seed, alphazero_provenance=identity)
     return jsonify(snapshot(gid, session)), 201
 
 
@@ -143,6 +144,8 @@ def get_history(gid):
         return jsonify(game_id=gid, revision=session.revision,
                        provenance=public_provenance(current_app.config.get('SOURCE_COMMIT')),
                        **({'rng_seed': session.rng_seed} if session.rng_seed is not None else {}),
+                       **({'alphazero_provenance': deepcopy(session.alphazero_provenance)}
+                          if session.alphazero_provenance is not None else {}),
                        players=state['players'], state=state,
                        moves=[record.to_dict() for record in session.history])
 
@@ -179,6 +182,9 @@ def make_move():
             if config['type'] == VICTOR_RESEARCH and current_app.config.get('VICTOR_RESEARCH_ENABLED') is not True:
                 raise GameError('invalid_agent', 'The Victor research agent is not enabled on this server.', 409)
             model = alphazero().require() if config['type'] == ALPHAZERO else None
+            if model is not None and session.alphazero_provenance != alphazero().public_status().get('provenance'):
+                raise GameError('agent_unavailable', 'AlphaZero model identity changed. Restore the original model '
+                                'or start a new game; history is preserved.', 503)
             reservation = {'mcts': _mcts_reservation, 'mcts_tactical': _mcts_reservation,
                            VICTOR_RESEARCH: _victor_reservation, ALPHAZERO: _alphazero_reservation}.get(config['type'])
             reserved = reservation is not None

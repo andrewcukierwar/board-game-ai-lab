@@ -1,3 +1,5 @@
+import { ALPHAZERO, hasAlphaZero, ALPHAZERO_CAVEAT } from '../connect4/alphazero.js';
+import { useAlphaZero } from '../connect4/useAlphaZero.js';
 import { researchAgentEnabled, researchAgent, VICTOR_RESEARCH, hasResearch, RESEARCH_DISABLED, RESEARCH_CAVEAT } from '../connect4/researchAgent.js';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -22,7 +24,8 @@ const randomSeed = () => globalThis.crypto.getRandomValues(new Uint32Array(1))[0
 const modes = { paused: 'Paused', game: 'Running current game', round: 'Running current round', season: 'Running season' };
 export default function SeasonLabPage({ http = seasonHttp, storage }) {
   const enabled = researchAgentEnabled();
-  const presets = enabled ? [...ordinaryPresets, { type: VICTOR_RESEARCH }] : ordinaryPresets;
+  const alphaZero = useAlphaZero(http);
+  const presets = [...ordinaryPresets, ...(enabled ? [{ type: VICTOR_RESEARCH }] : []), ...(alphaZero.available ? [false, true].map(tactical_guard => ({ type: ALPHAZERO, tactical_guard })) : [])];
   const state = useSeason(http, storage), { season: s, controller: c } = state;
   const [size, setSize] = useState(8), [games, setGames] = useState(2), [field, setField] = useState(() => defaultField(8)), [seed, setSeed] = useState(() => String(randomSeed()));
   const [setup, setSetup] = useState(false), [selected, setSelected] = useState(null), [setupError, setSetupError] = useState(''), [epoch, setEpoch] = useState(0);
@@ -30,7 +33,9 @@ export default function SeasonLabPage({ http = seasonHttp, storage }) {
   const shown = s && (s.schedule.find(f => f.fixtureId === selected) ?? currentFixture(s) ?? s.schedule.at(-1));
   const researchField = hasResearch((!s || setup) ? field : s.entrants.map(e => e.config));
   const researchBlocked = researchField && !enabled;
-  const blocked = researchBlocked || state.busy || state.uncertain || Boolean(state.error) || s?.status === 'complete';
+  const alphaZeroField = hasAlphaZero((!s || setup) ? field : s.entrants.map(e => e.config));
+  const alphaZeroBlocked = alphaZeroField && !alphaZero.available;
+  const blocked = alphaZeroBlocked || researchBlocked || state.busy || state.uncertain || Boolean(state.error) || s?.status === 'complete';
   function create(e) {
     e.preventDefault(); const parsedSeed = /^\d+$/.test(seed) ? Number(seed) : NaN;
     if (!validSeed(parsedSeed)) { setSetupError('Enter a whole number from 0 to 4294967295.'); return; }
@@ -42,6 +47,9 @@ export default function SeasonLabPage({ http = seasonHttp, storage }) {
     <header className="game-page-heading"><Link className="game-home-link" to="/connect4/tournament">Back to Tournament Lab</Link><p className="eyebrow">Comparative evaluation · Connect 4</p><h1>Season Lab</h1><p>Run balanced repeated matchups, track standings, and measure how the agents perform over a full season.</p></header>
     <div className="tournament-status season-status" role="status" aria-live="polite" aria-atomic="true">{s?.status === 'complete' ? 'Season Complete' : state.waiting || state.busy && state.uncertain ? 'Recovering' : state.uncertain ? 'Recovery required · Paused' : modes[state.mode]}</div>
     {(state.error || setupError) && <p className="tournament-error" role="alert">{setupError || state.error}</p>}
+    <p className="analysis-helper">{alphaZero.reason} <button type="button" className="action-link action-link--secondary" onClick={() => void alphaZero.refresh()}>Refresh agent availability</button></p>
+    {alphaZeroField && <p className="analysis-helper">{ALPHAZERO_CAVEAT}</p>}
+    {alphaZeroBlocked && <p role="status">This saved competition requires its original AlphaZero model. History remains reviewable; refresh availability to check the backend before continuing.</p>}
     {researchField && <p className="analysis-helper">{researchAgent.name}: {researchAgent.description}</p>}
     {researchBlocked && <p className="analysis-helper" role="status">{RESEARCH_DISABLED}</p>}
     {researchField && <p className="season-workload">Victor’s native bounded search can be significantly slower on Render’s Free-tier CPU. Large seasons may take considerable time; games run one at a time.</p>}
@@ -63,7 +71,7 @@ export default function SeasonLabPage({ http = seasonHttp, storage }) {
       <ExportPanel season={s} />
       <nav className="season-sections" aria-label="Season dashboard sections"><a href="#schedule-heading">Schedule</a><a href="#standings-heading">Standings</a><a href="#ratings-heading">Ratings</a><a href="#elo-history-heading">Elo history</a><a href="#pairwise-heading">Pairwise</a><a href="#evaluation-export-heading">Export</a></nav>
       <Schedule key={`schedule:${s.seasonId}:${s.fieldSize}:${s.gamesPerPairing}`} season={s} selected={shown?.fixtureId} select={id => { c.pause(); c.returnLive(); setSelected(id); setEpoch(n => n + 1); }} />
-      {shown && <MatchViewer key={`${shown.fixtureId}:${epoch}`} season={s} fixture={shown} state={state} controller={c} />}
+      {shown && <MatchViewer key={`${shown.fixtureId}:${epoch}`} season={s} fixture={shown} state={state} controller={c} researchBlocked={researchBlocked || alphaZeroBlocked} executionBlockReason={alphaZeroBlocked ? alphaZero.reason : RESEARCH_DISABLED} />}
       <Standings season={s} rows={analytics.standings} /><div className="season-rating-group"><Ratings season={s} ratings={analytics.ratings} standings={analytics.standings} intervals={analytics.intervals} />
       <RatingHistory key={`history:${s.seasonId}:${s.fieldSize}:${s.gamesPerPairing}`} season={s} ratings={analytics.ratings} /></div><Pairwise key={`pairwise:${s.seasonId}:${s.fieldSize}`} season={s} matrix={analytics.pairwise} />
       <details className="tournament-provenance"><summary>Reproducibility · season configuration</summary><p>Season seed {s.seasonSeed} · {s.fieldSize} entrants · {s.gamesPerPairing} games per pairing · {s.schedule.length} total games</p><p>K-factor {K_FACTOR} · Initial Elo {INITIAL_ELO} · Bootstrap samples {BOOTSTRAP_SAMPLES} · Schedule version {s.scheduleVersion}</p><ol>{s.entrants.map(e => <li key={e.entrantId}>{entrantLabel(s, e.entrantId)}</li>)}</ol></details>

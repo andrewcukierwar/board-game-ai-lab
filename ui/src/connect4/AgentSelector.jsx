@@ -1,3 +1,5 @@
+import { ALPHAZERO, alphaZeroAgent } from './alphazero.js';
+import AlphaZeroSettings from './AlphaZeroSettings.jsx';
 import { researchAgent } from './researchAgent.js';
 import { NEGAMAX_DEPTHS, MCTS_SIMULATIONS, TACTICAL_MCTS_SIMULATIONS, validDepth, validSimulations } from './competitorConfig.js';
 
@@ -8,21 +10,23 @@ const publicAgents = [
   { type: 'mcts_tactical', name: 'Tactical MCTS', label: 'Solver-enhanced search', description: 'F1: tactical rollouts, proven win/loss propagation and tuned exploration. Search can stop early when a position is solved.' },
 ];
 
-export default function AgentSelector({ selection, select, busy, game, researchEnabled = false }) {
-  const agents = researchEnabled ? [...publicAgents, researchAgent] : publicAgents;
+export default function AgentSelector({ selection, select, busy, game, researchEnabled = false, alphaZero }) {
+  const agents = [...publicAgents, ...(researchEnabled ? [researchAgent] : []), ...(alphaZero?.available ? [alphaZeroAgent] : [])];
   const activeConfig = game?.players.find(player => player.type !== 'human');
-  const activeOpponent = agents.find(agent => agent.type === activeConfig?.type)?.name;
+  const activeOpponent = agents.find(agent => agent.type === activeConfig?.type)?.name ?? (activeConfig?.type === ALPHAZERO ? alphaZeroAgent.name : undefined);
   return <div className="agent-selection">
     <p className="eyebrow">Choose an approach</p><h2>Opponent</h2>
     <fieldset id="opponent-type" disabled={busy}>
       <legend className="visually-hidden">Opponent:</legend>
       {agents.map(agent => <label className={`agent-option ${selection.type === agent.type ? 'is-selected' : ''}`} key={agent.type}>
         <input type="radio" name="opponent" value={agent.type} checked={selection.type === agent.type}
-          onChange={() => select({ type: agent.type, ...(agent.type === 'mcts' ? { simulations: 2000 } : agent.type === 'mcts_tactical' ? { simulations: 800 } : {}) })} />
+          onChange={() => select({ type: agent.type, ...(agent.type === ALPHAZERO ? { tactical_guard: false } : agent.type === 'mcts' ? { simulations: 2000 } : agent.type === 'mcts_tactical' ? { simulations: 800 } : {}) })} />
         <span><strong>{agent.name}</strong><small>{agent.label}</small></span>
       </label>)}
     </fieldset>
-    <p className="agent-description">{agents.find(agent => agent.type === selection.type).description}</p>
+    <p className="agent-description">{(agents.find(agent => agent.type === selection.type) ?? (selection.type === ALPHAZERO ? alphaZeroAgent : {})).description}</p>
+    {selection.type === ALPHAZERO && <AlphaZeroSettings id="opponent-guard" showDescription={false} guard={selection.tactical_guard} disabled={busy} change={tactical_guard => select({ tactical_guard })} />}
+    {selection.type === ALPHAZERO && !alphaZero?.available && <p role="status">{alphaZero?.reason} Refresh availability or choose another opponent for a new game.</p>}
     <fieldset className="turn-order" disabled={busy}>
       <legend>Who moves first?</legend>
       {['human', 'ai'].map(first => <label className={`turn-option ${selection.first === first ? 'is-selected' : ''}`} key={first}>
@@ -60,6 +64,6 @@ export default function AgentSelector({ selection, select, busy, game, researchE
       </details>
       {selection.type === 'mcts_tactical' && <p className="search-warning">F1 may stop before its cap when it proves an outcome.</p>}
     </div>
-    <p className="settings-note">Settings apply when you start a new game.{activeOpponent && <span>Current game: <strong>{activeOpponent}</strong>{activeConfig.depth ? ` · depth ${activeConfig.depth}` : activeConfig.simulation_limit ? ` · ${activeConfig.simulation_limit} max simulations` : ''} · {game.players[0].type === 'human' ? 'You move first' : 'AI moves first'}.</span>}</p>
+    <p className="settings-note">Settings apply when you start a new game.{activeOpponent && <span>Current game: <strong>{activeOpponent}</strong>{activeConfig.type === ALPHAZERO ? ` · safeguard ${activeConfig.tactical_guard ? 'On' : 'Off'}` : activeConfig.depth ? ` · depth ${activeConfig.depth}` : activeConfig.simulation_limit ? ` · ${activeConfig.simulation_limit} max simulations` : ''} · {game.players[0].type === 'human' ? 'You move first' : 'AI moves first'}.</span>}</p>
   </div>;
 }

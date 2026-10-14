@@ -1,8 +1,9 @@
+import { ALPHAZERO, alphaZeroErrorMessage } from './alphazero.js';
 // Authoritative optional competitor definition; no payload/validation imports.
 
 export const VICTOR_RESEARCH = 'victor_research';
 export const PUBLIC_PLAYER_TYPES = ['human', 'random', 'negamax', 'mcts', 'mcts_tactical'];
-export const KNOWN_PLAYER_TYPES = [...PUBLIC_PLAYER_TYPES, VICTOR_RESEARCH];
+export const KNOWN_PLAYER_TYPES = [...PUBLIC_PLAYER_TYPES, VICTOR_RESEARCH, ALPHAZERO];
 export const RESEARCH_DISABLED = 'Victor Research execution is disabled in this UI. Saved evidence remains available; re-enable the research feature flag to continue.';
 export const RESEARCH_CAVEAT = 'Seeds determine schedules, colors and seeded agents’ randomness. Victor uses wall-clock search budgets: CPU contention and hosting performance can change its moves. Recorded moves are historical evidence, not a guarantee of identical future play.';
 export function hasResearch(configs) { return configs.some(c => c?.type === VICTOR_RESEARCH); }
@@ -25,12 +26,14 @@ export function researchAgentEnabled(value = import.meta.env?.VITE_VICTOR_RESEAR
   return value === 'true' || value === '1';
 }
 
-export function playerTypes(enabled) {
-  return enabled ? [...PUBLIC_PLAYER_TYPES, VICTOR_RESEARCH] : PUBLIC_PLAYER_TYPES;
+export function playerTypes(enabled, alphaZero = false) {
+  return [...PUBLIC_PLAYER_TYPES, ...(enabled ? [VICTOR_RESEARCH] : []), ...(alphaZero ? [ALPHAZERO] : [])];
 }
 
 // Explain research failures without altering the recovery state machine.
 export function researchErrorMessage(error, selection, competition = false) {
+  const az = alphaZeroErrorMessage(error, selection);
+  if (az) return az;
   const data = error.response?.data;
   if (selection?.type !== VICTOR_RESEARCH || !data) return null;
   if (data.code === 'invalid_agent') return competition ? 'Victor Research (Experimental) is disabled on this game server. Completed results are safe. Re-enable it on the server, then refresh history and explicitly continue or restart only an unconfirmed game.' : 'Victor Research (Experimental) is not enabled on this game server. Choose another opponent.';

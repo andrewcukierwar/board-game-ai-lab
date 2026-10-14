@@ -94,7 +94,7 @@ for (const width of [1440, 1024, 820, 768, 375, 320]) {
     await settleFocus();
     await expect(page.getByRole('main')).toHaveCount(1);
     await expect(nav.getByRole('link', { name: 'Play', exact: true })).toHaveAttribute('aria-current', 'page');
-    for (const agent of ['Random', 'Negamax', 'MCTS']) {
+    for (const agent of ['Random', 'Negamax', 'Classic MCTS']) {
       await expect(page.getByRole('radio', { name: new RegExp(`^${agent}`) })).toBeVisible();
     }
     const random = page.getByRole('radio', { name: /^Random/ });
