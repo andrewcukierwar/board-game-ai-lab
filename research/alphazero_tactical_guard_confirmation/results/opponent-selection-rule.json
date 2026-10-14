@@ -1,0 +1,16 @@
+{
+ "contract": "phase4d4j-b-opponent-selection-v1",
+ "declared_before_calibration": true,
+ "opponent_a": "reference Negamax depth 3 (continuity with 4D.4J-A)",
+ "candidates_in_preference_order": [5, 4],
+ "calibration_openings": "16 calibration families from results/openings.json (disjoint from all 96 confirmation families and the 100 development rows)",
+ "guard_used_in_calibration": false,
+ "confirmation_openings_used_in_calibration": false,
+ "eligibility": {
+  "i_stronger": "head-to-head match score versus Negamax3 >= 0.55 over 16 families x both colors (32 games)",
+  "ii_not_saturated": "pooled CONTROL CNN (no guard) score versus the candidate over 8 calibration families x both colors x both seeds in [0.10, 0.90]",
+  "iii_cost": "projected primary workload for the full 96-family design, sequential sum over all tasks, <= 1800 CPU-seconds (run as 4 parallel single-thread tasks)"
+ },
+ "choice": "first eligible candidate in preference order; if none meets (i)-(iii), the first meeting (iii) and (i); if still none, depth 4, with the deficiency reported",
+ "workload_reduction": "if the chosen design exceeds (iii), reduce families per stratum uniformly to the largest k in {24,20,16} that fits, keeping the first k accepted families per stratum; decided before any measured match"
+}

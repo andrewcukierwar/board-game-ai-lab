@@ -1,0 +1,12 @@
+{
+ "stage": "prelaunch",
+ "status": "PASS",
+ "passed": 113,
+ "deselected": 2,
+ "selection": "not complete_selfplay and not capture",
+ "tests": [
+  "tests/test_connect4_mcts.py",
+  "tests/test_alphazero_v2_bitboard.py"
+ ],
+ "command": "env <five thread controls=1> <frozen python> -m pytest -q -p no:cacheprovider <tests> -k <selection>"
+}

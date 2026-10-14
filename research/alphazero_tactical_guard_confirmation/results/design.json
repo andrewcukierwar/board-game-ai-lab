@@ -1,0 +1,122 @@
+{
+ "absolute_deadline_epoch": 1791954774,
+ "analysis": {
+  "interval": "percentile 95%",
+  "margin": 0.02,
+  "pooled": "equal-weight mean over all 768 paired game differences (balanced 4 seed x opponent cells)",
+  "replicates": 10000,
+  "seed": 4420004,
+  "strata": "within-stratum family resampling",
+  "unit": "whole opening family; all seeds, opponents, colors and arms kept together"
+ },
+ "architecture": "connect4-conv64-128-128-policy7-scalar-tanh-v2",
+ "base": "1420cc803bdfa882a3b68a7ae93017f1f0081dbd",
+ "branch": "phase4d4j-b-tactical-guard-confirmation",
+ "checkpoints": [
+  {
+   "generation": 6,
+   "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-c-worktree/experiment-output/phase4d4h-c/run/tasks/42-cnn-g6-train/generation-0006.pt",
+   "sha256": "ba2bde2ec71b3ac7486046d1cc26ab591bb59d6b764193ece08c6d6a6f24f58b"
+  },
+  {
+   "generation": 6,
+   "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-c-worktree/experiment-output/phase4d4h-c/run/tasks/314159-cnn-g6-train/generation-0006.pt",
+   "sha256": "2646d7cdee7d7b069412688bf95fd9794bea30402b4952120c904dbcb399401d"
+  }
+ ],
+ "compute_deadline_epoch": 1791953574,
+ "contract": "phase4d4j-b-protocol-v1",
+ "decision_rules": {
+  "CONFIRMED_POSITIVE_EFFECT": "no FAIL condition AND pooled difference > 0 AND pooled 95% lower > 0 AND each seed difference > -0.02 AND no opponent material regression",
+  "FAIL": "any reproducible tactical correctness violation (guarded match decision disagrees with independent reference, tactical200 guarded avoidable/missed win, or first paired decision differs between arms); any solved300/deep128 guarded exact-WDL below control; regression-suite non-reproduction of 4D.4J-A; checkpoint/protocol integrity failure; latency failure; or demonstrated material regression: pooled difference <= -0.02 with 95% upper < 0, or any single opponent difference <= -0.02 with its 95% upper < 0",
+  "INCONCLUSIVE": "otherwise; a positive point estimate whose interval spans zero is never called confirmed",
+  "PRACTICALLY_MEANINGFUL": "reported separately: pooled point estimate >= +0.02 (no +5pp requirement)",
+  "QUALIFIED": "if seed or opponent point estimates differ in sign, the interpretation is qualified",
+  "SMALL_EFFECT": "CONFIRMED_POSITIVE_EFFECT with pooled point estimate < +0.02"
+ },
+ "exploration": 1.41,
+ "families": 96,
+ "final_selection": "deterministic temperature 0 (historical seeded max-visit ties)",
+ "generation": 6,
+ "guard": {
+  "contract": "connect4-tactical-root-guard-v1",
+  "decision_contract": "connect4-guarded-decision-v1",
+  "frozen_in": "ffb8009b014ab6c84b9eb00ccab986fcb6bc4b14",
+  "modified": false,
+  "path": "research/alphazero_tactical_guard/guard.py",
+  "sha256": "d2ee54ba1fe9ddbcc4641538e2f5dd89a2435234ff194d6909bed72096632d04"
+ },
+ "hard_maximum_seconds": 4500,
+ "latency": {
+  "mean_relative_overhead_max": 0.05,
+  "p95_guard_seconds_max": 0.001,
+  "worst_guard_seconds_max": 0.005
+ },
+ "match_namespace": "phase4d4j-b-confirmation:negamax{depth}",
+ "match_seed": 4420003,
+ "matches": 1536,
+ "matches_per_task": 384,
+ "no_retry": true,
+ "no_sealed_access": true,
+ "opening_sha256": "416bfb10917849eb55402a55690d5f3871aa4eee4f36c2c459b0e9fd75059ff5",
+ "openings_file_sha256": "be3404352f711a441766b1ae50bad192e94bddf1d68d639da4bc627cd847d3dc",
+ "opponents": [
+  {
+   "depth": 3,
+   "name": "negamax3",
+   "role": "A continuity"
+  },
+  {
+   "depth": 5,
+   "name": "negamax5",
+   "role": "B stronger, selected by declared calibration rule"
+  }
+ ],
+ "projected_cpu_seconds": 964.1958893901453,
+ "regression_searches": 2512,
+ "regression_suites": "4D.4J-A tactical200/solved300/deep128 with identical 4D.4J-A streams (regression only, not confirmation evidence)",
+ "resnet": "OMITTED",
+ "root_noise": false,
+ "secondary_generation20": "OMITTED before freeze: different official-campaign loader not verified strict-compatible; +768 games (~470 CPU-s) would compete with primary and review budget",
+ "seeds": [
+  42,
+  314159
+ ],
+ "selfplay": false,
+ "simulations": 256,
+ "strata": {
+  "ply04": 24,
+  "ply06": 24,
+  "ply08": 24,
+  "ply10": 24
+ },
+ "task_origin_epoch": 1791950274,
+ "tasks": [
+  {
+   "depth": 3,
+   "seed": 42,
+   "suites": true
+  },
+  {
+   "depth": 5,
+   "seed": 42,
+   "suites": false
+  },
+  {
+   "depth": 3,
+   "seed": 314159,
+   "suites": true
+  },
+  {
+   "depth": 5,
+   "seed": 314159,
+   "suites": false
+  }
+ ],
+ "timing_note": "four single-thread tasks run in parallel on the 10-core M4; guard timing is a CPU-local nanosecond clock separate from inference",
+ "training": false,
+ "variants": [
+  "control",
+  "guarded"
+ ]
+}

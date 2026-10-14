@@ -1,0 +1,108 @@
+{
+ "calibration": {
+  "control_vs_negamax3": {
+   "agent_decisions": 364,
+   "agent_seconds": 15.650677219964564,
+   "games": 32,
+   "opponent_decisions": 366,
+   "opponent_seconds": 0.4349164618179202,
+   "projected_768_games_cpu_seconds": 387.179162979126,
+   "score": 0.46875,
+   "score_sum": 15.0,
+   "seconds": 16.13246512413025,
+   "seconds_per_game": 0.5041395351290703
+  },
+  "control_vs_negamax4": {
+   "agent_decisions": 399,
+   "agent_seconds": 17.286898212507367,
+   "games": 32,
+   "opponent_decisions": 406,
+   "opponent_seconds": 1.7894715843722224,
+   "projected_768_games_cpu_seconds": 459.0504130348563,
+   "score": 0.265625,
+   "score_sum": 8.5,
+   "seconds": 19.127100543119013,
+   "seconds_per_game": 0.5977218919724692
+  },
+  "control_vs_negamax5": {
+   "agent_decisions": 370,
+   "agent_seconds": 15.781427828595042,
+   "games": 32,
+   "opponent_decisions": 378,
+   "opponent_seconds": 3.711973385885358,
+   "projected_768_games_cpu_seconds": 469.0098550468683,
+   "score": 0.265625,
+   "score_sum": 8.5,
+   "seconds": 19.542077293619514,
+   "seconds_per_game": 0.6106899154256098
+  },
+  "negamax4_vs_negamax3": {
+   "games": 32,
+   "mean_plies": 31.09375,
+   "score": 0.703125
+  },
+  "negamax5_vs_negamax3": {
+   "games": 32,
+   "mean_plies": 29.34375,
+   "score": 0.65625
+  }
+ },
+ "confirmation_openings_used": false,
+ "cost_only_pilot": {
+  "negamax3": {
+   "by_occupancy": {
+    "4": 0.0015786872245371342,
+    "10": 0.001399448374286294,
+    "16": 0.001854823436588049,
+    "22": 0.00047784391790628433,
+    "28": 0.0004641974810510874,
+    "34": 0.00016555213369429111
+   },
+   "mean": 0.00099009209467719,
+   "worst": 0.0022300006821751595
+  },
+  "negamax4": {
+   "by_occupancy": {
+    "4": 0.0061645000241696835,
+    "10": 0.005717093590646982,
+    "16": 0.006942354142665863,
+    "22": 0.0010431145783513784,
+    "28": 0.0011600414291024208,
+    "34": 0.0002631358802318573
+   },
+   "mean": 0.0035483732741946974,
+   "worst": 0.008417374454438686
+  },
+  "negamax5": {
+   "by_occupancy": {
+    "4": 0.014161000261083245,
+    "10": 0.015719666378572583,
+    "16": 0.016587791731581092,
+    "22": 0.0020697498694062233,
+    "28": 0.0015590416733175516,
+    "34": 0.0003613019362092018
+   },
+   "mean": 0.008409758641694983,
+   "worst": 0.02479575015604496
+  }
+ },
+ "eligibility": {
+  "4": {
+   "i": true,
+   "ii": true,
+   "iii": true,
+   "projected_total_cpu_seconds": 954.2364473781333
+  },
+  "5": {
+   "i": true,
+   "ii": true,
+   "iii": true,
+   "projected_total_cpu_seconds": 964.1958893901453
+  }
+ },
+ "guard_used": false,
+ "note": "calibration outcomes are opponent-selection evidence only; no guard was run and no confirmation opening was played",
+ "opponent_b_depth": 5,
+ "regression_cpu_seconds": 108.00687136415105,
+ "seconds": 67.9895269870758
+}

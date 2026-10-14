@@ -1,0 +1,28 @@
+{
+ "checks": {
+  "malformed_visits_rejected": 3,
+  "puct_model_rng_preservation": 6,
+  "reason_AVOID_IMMEDIATE_LOSS": 1128,
+  "reason_IMMEDIATE_WIN": 3009,
+  "reason_NO_SAFE_MOVE": 483,
+  "reason_UNCHANGED": 4491,
+  "reference_decisions": 9111,
+  "replacement_original_forced_loss": 1128,
+  "static_import_isolation": 1,
+  "terminal_rejection": 91
+ },
+ "coverage": {
+  "actor_0": 234,
+  "actor_1": 227,
+  "all_unsafe": 27,
+  "full_column": 113,
+  "immediate_win": 157,
+  "multiple_wins": 24,
+  "unsafe_present": 152
+ },
+ "disposition": "PASS",
+ "guard_sha256": "d2ee54ba1fe9ddbcc4641538e2f5dd89a2435234ff194d6909bed72096632d04",
+ "reference": "4D.4J-A independently authored top-first matrix directional scan (no bitboard rules)",
+ "sampled_continuation_positions": 109,
+ "seconds": 17.205804109573364
+}

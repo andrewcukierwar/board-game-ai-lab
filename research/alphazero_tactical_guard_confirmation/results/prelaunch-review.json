@@ -1,0 +1,24 @@
+{
+ "disposition": "PASS",
+ "reviewer": "independent prelaunch subagent (same host; did not author runner)",
+ "blockers": [],
+ "minor": [
+  "M1: DESIGN.md states criterion (ii) uses 64 calibration games; rule file, calibrate.py and calibration.json use 32 (8 families x 2 colours x 2 seeds). Correct DESIGN.md text; selection unaffected.",
+  "M2: 'integrity failure' is a FAIL rule in DESIGN/design.json but analyze.py has no integrity branch; integrity is enforced by enforce()/preservation assert aborting the run. Report must treat an aborted/integrity-failed run as FAIL/not-evaluable, never INCONCLUSIVE."
+ ],
+ "notes": [
+  "Guard SHA256 d2ee54ba...2d04 identical at ffb8009, working tree, common.py, design.json, validation.json; imported not copied; enforce() checks it.",
+  "Checkpoints in design.json identical to 4D.4J-A freeze.json (seeds 42/314159 gen 6).",
+  "openings re-run reproduced 416bfb10...59ff5 and byte-identical file be340435...d3dc (mtime only changed); independent check: 96+16 legal, nonterminal, threat-free, non-self-symmetric, mirror-canonically unique, disjoint from 100 development rows and each other, 24 per stratum; ancestry 22/54 accurate.",
+  "Opponent rule applied faithfully; both depths eligible so declared preference chose depth 5; calibration used Agent(inference, False) and calibration openings only.",
+  "Pairing: both game indices per family, identical namespace/seed/id/game/role streams per arm.",
+  "analyze.py thresholds match DESIGN.md and design.json exactly; shared-index family bootstrap 10,000 reps PCG64 4420004 percentile; synthetic dry run behaved as expected (correctness FAIL only from first-pair difference).",
+  "Compute deadline 1791953574 = origin + 4500 - 1200; hard max 1791954774; projection 964 CPU-s <= 1800.",
+  "qualified_heterogeneity uses np.sign so an exact-zero estimate counts as sign disagreement (conservative).",
+  "No explicit check that control-arm decisions have guard None; structurally guaranteed.",
+  "openings.py overwrite guard checks only confirmation_sha256; freeze.json hashes the whole file.",
+  "Rule-before-calibration ordering evidenced by mtimes only; outcome determined by declared preference since both eligible.",
+  "Exact float reproduction of 4D.4J-A suites is a fail-safe FAIL criterion; runtime drift would show as FAIL.",
+  "Non-regression argument A/B/C verified against guard.py."
+ ]
+}
