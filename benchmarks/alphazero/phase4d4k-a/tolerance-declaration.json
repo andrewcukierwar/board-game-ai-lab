@@ -1,0 +1,25 @@
+{
+ "phase": "4D.4K-A",
+ "declared_before": "any cross-runtime (Docker linux/arm64) AlphaZero measurement",
+ "same_runtime": {
+  "definition": "research venv runtime identity equal to the 4D.4J-A freeze (macOS arm64, Python 3.11.17, torch 2.10.0, numpy 1.26.4, one intra/inter-op thread, deterministic algorithms)",
+  "rule": "exact equality of encoded inputs (bitwise, including signed zeros), raw logits, legal probabilities, values, root visits, original actions, guard diagnostics (excluding timing) and final actions"
+ },
+ "cross_runtime": {
+  "definition": "production Docker image (linux/arm64, CPU-only torch) or any runtime whose identity differs from the 4D.4J-A freeze",
+  "encoded_inputs": "exact bitwise equality, including signed zeros",
+  "logits_max_abs": 0.0001,
+  "value_max_abs": 0.0001,
+  "legal_probability_max_abs": 0.0001,
+  "root_visits": "exact equality",
+  "original_actions": "exact equality",
+  "guarded_actions_and_reasons": "exact equality",
+  "legal_action_sets": "exact equality",
+  "terminal_handling": "exact equality (terminal and malformed roots rejected)",
+  "blocker_rule": "any unexplained root-visit or action difference blocks the integration recommendation; differences are reported, never tolerated silently"
+ },
+ "load_time_self_check": {
+  "rule": "max absolute difference of logits and value on the manifest reference positions <= 0.0001, else the agent is unavailable",
+  "constant": "games/connect4/alphazero_v2/production.py REFERENCE_TOLERANCE"
+ }
+}
