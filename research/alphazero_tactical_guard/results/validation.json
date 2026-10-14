@@ -1,0 +1,28 @@
+{
+ "checks": {
+  "directed_terminal_draw_rejection": 1,
+  "directed_terminal_rejection": 14,
+  "puct_model_rng_preservation": 6,
+  "reference_decisions": 4872,
+  "terminal_rejection": 79
+ },
+ "contracts": [
+  "connect4-tactical-root-guard-v1",
+  "connect4-guarded-decision-v1"
+ ],
+ "coverage": {
+  "all_unsafe": 13,
+  "both_players_0": 185,
+  "both_players_1": 185,
+  "full_column": 69,
+  "immediate_win": 136,
+  "multiple_safe": 292,
+  "multiple_wins": 20,
+  "zero_visit_override": 1020
+ },
+ "disposition": "PASS",
+ "random_attempts": 160,
+ "random_nonterminal": 81,
+ "reference": "independently authored top-first matrix directional scan",
+ "seconds": 14.075400829315186
+}

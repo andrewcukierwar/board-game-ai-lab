@@ -1,0 +1,90 @@
+{
+  "absolute_deadline_epoch": 1791949119.0,
+  "checkpoint_hashes_verified": [
+    "ba2bde2ec71b3ac7486046d1cc26ab591bb59d6b764193ece08c6d6a6f24f58b",
+    "2646d7cdee7d7b069412688bf95fd9794bea30402b4952120c904dbcb399401d"
+  ],
+  "contract": "phase4d4j-a-independent-prelaunch-review-v1",
+  "dataset_hashes_verified": {
+    "fixtures": "80f6851838b18172d6f818ebd306ce0cd36e4796cac1e3a71df29694feb3ca2c",
+    "openings": "3990bc230084bd5c9293c15a44eae05f35749d2a3a18e66566461dae98f82f72"
+  },
+  "disposition": "PASS",
+  "epoch": 1791947141.9669728,
+  "expected_fixture_searches": 2512,
+  "expected_matches": 320,
+  "expected_paired_fixture_records": 1256,
+  "external_replication": false,
+  "fixture_labels_checked": 200,
+  "full_oracle_resolving": false,
+  "launcher_finding": "Missing verifier CLI arguments corrected before freeze; full saved-record audit now required",
+  "official_files": 150,
+  "oracle_vector_internal_consistency_checked": 428,
+  "performance_review": "PASS: cost-only projection and declared p95/worst/relative budgets",
+  "preservation_scope_amendment": {
+    "change": "Add G/H-B/H-C actual docs inventories and all1473 inherited canonical files; hash-only, no evaluation/intervention/statistical change",
+    "disposition": "PASS",
+    "epoch": 1791947201.4325278,
+    "scopes": 22
+  },
+  "protected_scope_counts": {
+    "baseline-current": 168,
+    "canonical-current": 1473,
+    "h-docs": 43,
+    "h-results": 8,
+    "h-source": 84,
+    "hc-output": 450,
+    "hc-results": 307,
+    "historical-games-source": 77,
+    "ia-output": 6,
+    "ia-report": 46,
+    "ia-results": 303,
+    "official": 150,
+    "phase4d4g-docs": 43,
+    "phase4d4g-output": 151,
+    "phase4d4g-results": 132,
+    "phase4d4h-b-docs": 44,
+    "phase4d4h-b-output": 78,
+    "phase4d4h-b-results": 37,
+    "phase4d4h-c-docs": 45,
+    "phase4d4i-b-docs": 47,
+    "phase4d4i-b-output": 155,
+    "phase4d4i-b-research": 103
+  },
+  "reviewer": "/root/independent_review",
+  "reviewer_model_queries": 0,
+  "reviewer_training_updates": 0,
+  "rules": "independent immutable top-first matrix directional scans",
+  "same_host": true,
+  "source_isolation": "PASS: no historical source or checkpoint edits, no sealed fixture content access",
+  "statistical_review": "PASS: paired family clusters retain both colors and both fixed networks; ancestry/reflection fixture groups retained",
+  "unresolved_findings": [],
+  "validation": {
+    "checks": {
+      "directed_terminal_draw_rejection": 1,
+      "directed_terminal_rejection": 14,
+      "puct_model_rng_preservation": 6,
+      "reference_decisions": 4872,
+      "terminal_rejection": 79
+    },
+    "contracts": [
+      "connect4-tactical-root-guard-v1",
+      "connect4-guarded-decision-v1"
+    ],
+    "coverage": {
+      "all_unsafe": 13,
+      "both_players_0": 185,
+      "both_players_1": 185,
+      "full_column": 69,
+      "immediate_win": 136,
+      "multiple_safe": 292,
+      "multiple_wins": 20,
+      "zero_visit_override": 1020
+    },
+    "disposition": "PASS",
+    "random_attempts": 160,
+    "random_nonterminal": 81,
+    "reference": "independently authored top-first matrix directional scan",
+    "seconds": 14.075400829315186
+  }
+}
