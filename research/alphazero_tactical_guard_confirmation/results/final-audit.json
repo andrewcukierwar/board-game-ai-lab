@@ -1,0 +1,60 @@
+{
+ "changed_in_scopes": {},
+ "charged_seconds": 1456.020849943161,
+ "checkpoints": [
+  {
+   "ok": true,
+   "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-c-worktree/experiment-output/phase4d4h-c/run/tasks/42-cnn-g6-train/generation-0006.pt"
+  },
+  {
+   "ok": true,
+   "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-c-worktree/experiment-output/phase4d4h-c/run/tasks/314159-cnn-g6-train/generation-0006.pt"
+  }
+ ],
+ "epoch": 1791951730.02085,
+ "guard_unchanged": true,
+ "inherited_blob_changes": [],
+ "inherited_tracked_files": 1541,
+ "no_deploy": true,
+ "no_merge": true,
+ "no_sealed_contents": true,
+ "no_training": true,
+ "official_files": 150,
+ "outside_allowed_paths": [],
+ "preservation_intact": true,
+ "regression_tests": {
+  "returncode": 0,
+  "tail": [
+   "113 passed, 2 deselected in 3.51s"
+  ]
+ },
+ "scopes": {
+  "base-current": 1527,
+  "baseline-current": 168,
+  "canonical-current": 1473,
+  "h-docs": 43,
+  "h-results": 8,
+  "h-source": 84,
+  "hc-output": 450,
+  "hc-results": 307,
+  "historical-games-source": 77,
+  "ia-output": 6,
+  "ia-report": 46,
+  "ia-results": 303,
+  "official": 150,
+  "phase4d4g-docs": 43,
+  "phase4d4g-output": 151,
+  "phase4d4g-results": 132,
+  "phase4d4h-b-docs": 44,
+  "phase4d4h-b-output": 78,
+  "phase4d4h-b-results": 37,
+  "phase4d4h-c-docs": 45,
+  "phase4d4i-b-docs": 47,
+  "phase4d4i-b-output": 155,
+  "phase4d4i-b-research": 103,
+  "phase4d4j-a-docs": 48,
+  "phase4d4j-a-output": 29,
+  "phase4d4j-a-research": 53
+ },
+ "status": "PASS"
+}

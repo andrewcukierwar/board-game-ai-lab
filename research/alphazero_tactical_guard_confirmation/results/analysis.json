@@ -1,0 +1,2326 @@
+{
+ "activation": {
+  "all": {
+   "AVOID_IMMEDIATE_LOSS": 76,
+   "IMMEDIATE_WIN": 317,
+   "NO_SAFE_MOVE": 394,
+   "UNCHANGED": 8146,
+   "calls": 8933,
+   "changed": 94,
+   "zero_visit_selected": 0
+  },
+  "opponent negamax3": {
+   "AVOID_IMMEDIATE_LOSS": 45,
+   "IMMEDIATE_WIN": 190,
+   "NO_SAFE_MOVE": 172,
+   "UNCHANGED": 3926,
+   "calls": 4333,
+   "changed": 55,
+   "zero_visit_selected": 0
+  },
+  "opponent negamax5": {
+   "AVOID_IMMEDIATE_LOSS": 31,
+   "IMMEDIATE_WIN": 127,
+   "NO_SAFE_MOVE": 222,
+   "UNCHANGED": 4220,
+   "calls": 4600,
+   "changed": 39,
+   "zero_visit_selected": 0
+  },
+  "phase late": {
+   "AVOID_IMMEDIATE_LOSS": 17,
+   "IMMEDIATE_WIN": 215,
+   "NO_SAFE_MOVE": 189,
+   "UNCHANGED": 1652,
+   "calls": 2073,
+   "changed": 30,
+   "zero_visit_selected": 0
+  },
+  "phase middle": {
+   "AVOID_IMMEDIATE_LOSS": 27,
+   "IMMEDIATE_WIN": 90,
+   "NO_SAFE_MOVE": 162,
+   "UNCHANGED": 3966,
+   "calls": 4245,
+   "changed": 32,
+   "zero_visit_selected": 0
+  },
+  "phase opening": {
+   "AVOID_IMMEDIATE_LOSS": 32,
+   "IMMEDIATE_WIN": 12,
+   "NO_SAFE_MOVE": 43,
+   "UNCHANGED": 2528,
+   "calls": 2615,
+   "changed": 32,
+   "zero_visit_selected": 0
+  },
+  "seed 314159": {
+   "AVOID_IMMEDIATE_LOSS": 39,
+   "IMMEDIATE_WIN": 154,
+   "NO_SAFE_MOVE": 201,
+   "UNCHANGED": 4156,
+   "calls": 4550,
+   "changed": 48,
+   "zero_visit_selected": 0
+  },
+  "seed 42": {
+   "AVOID_IMMEDIATE_LOSS": 37,
+   "IMMEDIATE_WIN": 163,
+   "NO_SAFE_MOVE": 193,
+   "UNCHANGED": 3990,
+   "calls": 4383,
+   "changed": 46,
+   "zero_visit_selected": 0
+  },
+  "stratum ply04": {
+   "AVOID_IMMEDIATE_LOSS": 5,
+   "IMMEDIATE_WIN": 100,
+   "NO_SAFE_MOVE": 76,
+   "UNCHANGED": 2367,
+   "calls": 2548,
+   "changed": 9,
+   "zero_visit_selected": 0
+  },
+  "stratum ply06": {
+   "AVOID_IMMEDIATE_LOSS": 13,
+   "IMMEDIATE_WIN": 65,
+   "NO_SAFE_MOVE": 108,
+   "UNCHANGED": 2148,
+   "calls": 2334,
+   "changed": 20,
+   "zero_visit_selected": 0
+  },
+  "stratum ply08": {
+   "AVOID_IMMEDIATE_LOSS": 33,
+   "IMMEDIATE_WIN": 66,
+   "NO_SAFE_MOVE": 112,
+   "UNCHANGED": 1892,
+   "calls": 2103,
+   "changed": 38,
+   "zero_visit_selected": 0
+  },
+  "stratum ply10": {
+   "AVOID_IMMEDIATE_LOSS": 25,
+   "IMMEDIATE_WIN": 86,
+   "NO_SAFE_MOVE": 98,
+   "UNCHANGED": 1739,
+   "calls": 1948,
+   "changed": 27,
+   "zero_visit_selected": 0
+  }
+ },
+ "bootstrap": {
+  "interval": "percentile 95%",
+  "replicates": 10000,
+  "seed": 4420004,
+  "unit": "whole opening family (all seeds, opponents, colors, arms together)"
+ },
+ "cells": {
+  "314159-negamax3": {
+   "ci95": [
+    0.0078125,
+    0.049479166666666664
+   ],
+   "control": {
+    "draw": 7,
+    "loss": 99,
+    "win": 86
+   },
+   "control_score": 0.4661458333333333,
+   "difference": 0.026041666666666668,
+   "families": 96,
+   "guarded": {
+    "draw": 9,
+    "loss": 93,
+    "win": 90
+   },
+   "guarded_score": 0.4921875,
+   "paired_games": 192
+  },
+  "314159-negamax5": {
+   "ci95": [
+    0.0,
+    0.0234375
+   ],
+   "control": {
+    "draw": 18,
+    "loss": 111,
+    "win": 63
+   },
+   "control_score": 0.375,
+   "difference": 0.010416666666666666,
+   "families": 96,
+   "guarded": {
+    "draw": 20,
+    "loss": 108,
+    "win": 64
+   },
+   "guarded_score": 0.3854166666666667,
+   "paired_games": 192
+  },
+  "42-negamax3": {
+   "ci95": [
+    0.0,
+    0.026041666666666668
+   ],
+   "control": {
+    "draw": 13,
+    "loss": 81,
+    "win": 98
+   },
+   "control_score": 0.5442708333333334,
+   "difference": 0.010416666666666666,
+   "families": 96,
+   "guarded": {
+    "draw": 13,
+    "loss": 79,
+    "win": 100
+   },
+   "guarded_score": 0.5546875,
+   "paired_games": 192
+  },
+  "42-negamax5": {
+   "ci95": [
+    0.0,
+    0.015625
+   ],
+   "control": {
+    "draw": 15,
+    "loss": 115,
+    "win": 62
+   },
+   "control_score": 0.3619791666666667,
+   "difference": 0.005208333333333333,
+   "families": 96,
+   "guarded": {
+    "draw": 15,
+    "loss": 114,
+    "win": 63
+   },
+   "guarded_score": 0.3671875,
+   "paired_games": 192
+  }
+ },
+ "changed": {
+  "decisions": 94,
+  "families": 44,
+  "games": 78,
+  "rate": 0.010522780700772416,
+  "records": {
+   "314159-negamax3:confirmation-ply04-21:X": [
+    {
+     "final": 2,
+     "original": 0,
+     "original_visits": [
+      104,
+      0,
+      90,
+      0,
+      0,
+      62,
+      0
+     ],
+     "ply": 36,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 90
+    }
+   ],
+   "314159-negamax3:confirmation-ply04-23:X": [
+    {
+     "final": 1,
+     "original": 0,
+     "original_visits": [
+      121,
+      97,
+      0,
+      38,
+      0,
+      0,
+      0
+     ],
+     "ply": 34,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 97
+    }
+   ],
+   "314159-negamax3:confirmation-ply06-02:O": [
+    {
+     "final": 1,
+     "original": 2,
+     "original_visits": [
+      8,
+      9,
+      72,
+      69,
+      48,
+      29,
+      21
+     ],
+     "ply": 7,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 9
+    }
+   ],
+   "314159-negamax3:confirmation-ply06-16:X": [
+    {
+     "final": 0,
+     "original": 2,
+     "original_visits": [
+      99,
+      0,
+      102,
+      0,
+      0,
+      0,
+      55
+     ],
+     "ply": 36,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 99
+    }
+   ],
+   "314159-negamax3:confirmation-ply06-17:X": [
+    {
+     "final": 3,
+     "original": 5,
+     "original_visits": [
+      0,
+      0,
+      0,
+      64,
+      0,
+      192,
+      0
+     ],
+     "ply": 36,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 64
+    }
+   ],
+   "314159-negamax3:confirmation-ply06-19:O": [
+    {
+     "final": 0,
+     "original": 4,
+     "original_visits": [
+      111,
+      0,
+      0,
+      0,
+      145,
+      0,
+      0
+     ],
+     "ply": 35,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 111
+    }
+   ],
+   "314159-negamax3:confirmation-ply06-21:O": [
+    {
+     "final": 1,
+     "original": 3,
+     "original_visits": [
+      15,
+      11,
+      27,
+      85,
+      64,
+      38,
+      16
+     ],
+     "ply": 7,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 11
+    }
+   ],
+   "314159-negamax3:confirmation-ply08-06:X": [
+    {
+     "final": 6,
+     "original": 5,
+     "original_visits": [
+      32,
+      37,
+      14,
+      42,
+      47,
+      54,
+      30
+     ],
+     "ply": 14,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 30
+    }
+   ],
+   "314159-negamax3:confirmation-ply08-07:X": [
+    {
+     "final": 0,
+     "original": 6,
+     "original_visits": [
+      33,
+      46,
+      28,
+      29,
+      34,
+      36,
+      50
+     ],
+     "ply": 14,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 33
+    }
+   ],
+   "314159-negamax3:confirmation-ply08-09:O": [
+    {
+     "final": 2,
+     "original": 6,
+     "original_visits": [
+      0,
+      0,
+      55,
+      0,
+      0,
+      0,
+      201
+     ],
+     "ply": 35,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 55
+    }
+   ],
+   "314159-negamax3:confirmation-ply08-11:X": [
+    {
+     "final": 1,
+     "original": 6,
+     "original_visits": [
+      0,
+      88,
+      77,
+      0,
+      0,
+      0,
+      91
+     ],
+     "ply": 34,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 88
+    }
+   ],
+   "314159-negamax3:confirmation-ply08-12:O": [
+    {
+     "final": 6,
+     "original": 3,
+     "original_visits": [
+      13,
+      64,
+      17,
+      72,
+      32,
+      29,
+      29
+     ],
+     "ply": 9,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 29
+    },
+    {
+     "final": 4,
+     "original": 3,
+     "original_visits": [
+      13,
+      46,
+      15,
+      65,
+      41,
+      39,
+      37
+     ],
+     "ply": 11,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 41
+    }
+   ],
+   "314159-negamax3:confirmation-ply08-16:O": [
+    {
+     "final": 5,
+     "original": 1,
+     "original_visits": [
+      56,
+      56,
+      20,
+      48,
+      27,
+      46,
+      3
+     ],
+     "ply": 15,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 46
+    }
+   ],
+   "314159-negamax3:confirmation-ply08-18:O": [
+    {
+     "final": 2,
+     "original": 5,
+     "original_visits": [
+      24,
+      38,
+      15,
+      50,
+      42,
+      53,
+      34
+     ],
+     "ply": 9,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 15
+    },
+    {
+     "final": 2,
+     "original": 3,
+     "original_visits": [
+      24,
+      41,
+      20,
+      58,
+      36,
+      52,
+      25
+     ],
+     "ply": 11,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 20
+    }
+   ],
+   "314159-negamax3:confirmation-ply08-21:X": [
+    {
+     "final": 5,
+     "original": 6,
+     "original_visits": [
+      40,
+      0,
+      0,
+      0,
+      0,
+      105,
+      111
+     ],
+     "ply": 36,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 105
+    }
+   ],
+   "314159-negamax3:confirmation-ply08-23:O": [
+    {
+     "final": 1,
+     "original": 0,
+     "original_visits": [
+      82,
+      14,
+      39,
+      54,
+      41,
+      20,
+      6
+     ],
+     "ply": 9,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 14
+    },
+    {
+     "final": 4,
+     "original": 0,
+     "original_visits": [
+      81,
+      69,
+      48,
+      14,
+      28,
+      10,
+      6
+     ],
+     "ply": 15,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 28
+    }
+   ],
+   "314159-negamax3:confirmation-ply10-00:O": [
+    {
+     "final": 1,
+     "original": 2,
+     "original_visits": [
+      62,
+      16,
+      80,
+      42,
+      14,
+      16,
+      26
+     ],
+     "ply": 15,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 16
+    }
+   ],
+   "314159-negamax3:confirmation-ply10-03:X": [
+    {
+     "final": 5,
+     "original": 3,
+     "original_visits": [
+      4,
+      34,
+      52,
+      59,
+      59,
+      10,
+      38
+     ],
+     "ply": 14,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 10
+    },
+    {
+     "final": 0,
+     "original": 5,
+     "original_visits": [
+      13,
+      31,
+      69,
+      20,
+      0,
+      87,
+      36
+     ],
+     "ply": 20,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 13
+    }
+   ],
+   "314159-negamax3:confirmation-ply10-08:X": [
+    {
+     "final": 1,
+     "original": 2,
+     "original_visits": [
+      10,
+      43,
+      68,
+      35,
+      44,
+      8,
+      48
+     ],
+     "ply": 16,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 43
+    }
+   ],
+   "314159-negamax3:confirmation-ply10-09:O": [
+    {
+     "final": 2,
+     "original": 6,
+     "original_visits": [
+      44,
+      7,
+      74,
+      20,
+      11,
+      22,
+      78
+     ],
+     "ply": 21,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 74
+    }
+   ],
+   "314159-negamax3:confirmation-ply10-12:O": [
+    {
+     "final": 5,
+     "original": 0,
+     "original_visits": [
+      65,
+      7,
+      23,
+      56,
+      27,
+      24,
+      54
+     ],
+     "ply": 11,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 24
+    }
+   ],
+   "314159-negamax3:confirmation-ply10-21:O": [
+    {
+     "final": 6,
+     "original": 4,
+     "original_visits": [
+      12,
+      12,
+      25,
+      0,
+      159,
+      13,
+      35
+     ],
+     "ply": 25,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 35
+    }
+   ],
+   "314159-negamax3:confirmation-ply10-23:O": [
+    {
+     "final": 4,
+     "original": 6,
+     "original_visits": [
+      18,
+      55,
+      22,
+      34,
+      31,
+      37,
+      59
+     ],
+     "ply": 11,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 31
+    }
+   ],
+   "314159-negamax5:confirmation-ply04-01:O": [
+    {
+     "final": 1,
+     "original": 5,
+     "original_visits": [
+      0,
+      89,
+      0,
+      0,
+      0,
+      167,
+      0
+     ],
+     "ply": 31,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 89
+    }
+   ],
+   "314159-negamax5:confirmation-ply04-05:X": [
+    {
+     "final": 3,
+     "original": 5,
+     "original_visits": [
+      0,
+      0,
+      0,
+      61,
+      0,
+      195,
+      0
+     ],
+     "ply": 34,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 61
+    }
+   ],
+   "314159-negamax5:confirmation-ply04-13:X": [
+    {
+     "final": 3,
+     "original": 0,
+     "original_visits": [
+      227,
+      0,
+      0,
+      29,
+      0,
+      0,
+      0
+     ],
+     "ply": 34,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 29
+    }
+   ],
+   "314159-negamax5:confirmation-ply06-00:X": [
+    {
+     "final": 6,
+     "original": 1,
+     "original_visits": [
+      0,
+      140,
+      0,
+      0,
+      0,
+      0,
+      116
+     ],
+     "ply": 36,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 116
+    }
+   ],
+   "314159-negamax5:confirmation-ply06-02:O": [
+    {
+     "final": 2,
+     "original": 3,
+     "original_visits": [
+      5,
+      5,
+      72,
+      85,
+      49,
+      15,
+      25
+     ],
+     "ply": 11,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 72
+    },
+    {
+     "final": 5,
+     "original": 3,
+     "original_visits": [
+      17,
+      32,
+      0,
+      97,
+      43,
+      40,
+      27
+     ],
+     "ply": 17,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 40
+    }
+   ],
+   "314159-negamax5:confirmation-ply06-02:X": [
+    {
+     "final": 3,
+     "original": 0,
+     "original_visits": [
+      143,
+      2,
+      0,
+      111,
+      0,
+      0,
+      0
+     ],
+     "ply": 34,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 111
+    }
+   ],
+   "314159-negamax5:confirmation-ply06-19:O": [
+    {
+     "final": 4,
+     "original": 1,
+     "original_visits": [
+      0,
+      172,
+      0,
+      0,
+      84,
+      0,
+      0
+     ],
+     "ply": 35,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 84
+    }
+   ],
+   "314159-negamax5:confirmation-ply06-21:O": [
+    {
+     "final": 1,
+     "original": 3,
+     "original_visits": [
+      15,
+      11,
+      27,
+      85,
+      64,
+      38,
+      16
+     ],
+     "ply": 7,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 11
+    }
+   ],
+   "314159-negamax5:confirmation-ply08-06:X": [
+    {
+     "final": 6,
+     "original": 5,
+     "original_visits": [
+      32,
+      37,
+      14,
+      42,
+      47,
+      54,
+      30
+     ],
+     "ply": 14,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 30
+    }
+   ],
+   "314159-negamax5:confirmation-ply08-07:X": [
+    {
+     "final": 0,
+     "original": 6,
+     "original_visits": [
+      33,
+      46,
+      28,
+      29,
+      34,
+      36,
+      50
+     ],
+     "ply": 14,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 33
+    }
+   ],
+   "314159-negamax5:confirmation-ply08-12:O": [
+    {
+     "final": 6,
+     "original": 3,
+     "original_visits": [
+      11,
+      44,
+      23,
+      102,
+      41,
+      21,
+      14
+     ],
+     "ply": 11,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 14
+    }
+   ],
+   "314159-negamax5:confirmation-ply08-18:O": [
+    {
+     "final": 2,
+     "original": 5,
+     "original_visits": [
+      24,
+      38,
+      15,
+      50,
+      42,
+      53,
+      34
+     ],
+     "ply": 9,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 15
+    },
+    {
+     "final": 2,
+     "original": 3,
+     "original_visits": [
+      24,
+      41,
+      20,
+      58,
+      36,
+      52,
+      25
+     ],
+     "ply": 11,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 20
+    }
+   ],
+   "314159-negamax5:confirmation-ply08-23:O": [
+    {
+     "final": 2,
+     "original": 0,
+     "original_visits": [
+      98,
+      15,
+      17,
+      62,
+      42,
+      17,
+      5
+     ],
+     "ply": 11,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 17
+    },
+    {
+     "final": 2,
+     "original": 0,
+     "original_visits": [
+      70,
+      25,
+      28,
+      57,
+      31,
+      40,
+      5
+     ],
+     "ply": 13,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 28
+    }
+   ],
+   "314159-negamax5:confirmation-ply10-00:O": [
+    {
+     "final": 1,
+     "original": 2,
+     "original_visits": [
+      62,
+      16,
+      80,
+      42,
+      14,
+      16,
+      26
+     ],
+     "ply": 15,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 16
+    }
+   ],
+   "314159-negamax5:confirmation-ply10-08:X": [
+    {
+     "final": 1,
+     "original": 2,
+     "original_visits": [
+      10,
+      43,
+      68,
+      35,
+      44,
+      8,
+      48
+     ],
+     "ply": 16,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 43
+    }
+   ],
+   "314159-negamax5:confirmation-ply10-09:O": [
+    {
+     "final": 2,
+     "original": 6,
+     "original_visits": [
+      29,
+      8,
+      27,
+      18,
+      67,
+      16,
+      91
+     ],
+     "ply": 17,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 27
+    }
+   ],
+   "314159-negamax5:confirmation-ply10-12:O": [
+    {
+     "final": 4,
+     "original": 0,
+     "original_visits": [
+      55,
+      20,
+      22,
+      32,
+      46,
+      34,
+      47
+     ],
+     "ply": 11,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 46
+    }
+   ],
+   "314159-negamax5:confirmation-ply10-23:O": [
+    {
+     "final": 4,
+     "original": 6,
+     "original_visits": [
+      18,
+      55,
+      22,
+      34,
+      31,
+      37,
+      59
+     ],
+     "ply": 11,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 31
+    }
+   ],
+   "42-negamax3:confirmation-ply04-02:O": [
+    {
+     "final": 1,
+     "original": 5,
+     "original_visits": [
+      5,
+      12,
+      52,
+      36,
+      16,
+      111,
+      24
+     ],
+     "ply": 19,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 12
+    }
+   ],
+   "42-negamax3:confirmation-ply04-11:O": [
+    {
+     "final": 1,
+     "original": 0,
+     "original_visits": [
+      57,
+      51,
+      28,
+      33,
+      26,
+      39,
+      22
+     ],
+     "ply": 5,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 51
+    }
+   ],
+   "42-negamax3:confirmation-ply04-19:O": [
+    {
+     "final": 1,
+     "original": 6,
+     "original_visits": [
+      6,
+      92,
+      0,
+      0,
+      5,
+      61,
+      92
+     ],
+     "ply": 23,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 92
+    }
+   ],
+   "42-negamax3:confirmation-ply06-02:O": [
+    {
+     "final": 1,
+     "original": 5,
+     "original_visits": [
+      8,
+      4,
+      69,
+      64,
+      33,
+      75,
+      3
+     ],
+     "ply": 7,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 4
+    }
+   ],
+   "42-negamax3:confirmation-ply06-14:X": [
+    {
+     "final": 4,
+     "original": 6,
+     "original_visits": [
+      41,
+      0,
+      0,
+      0,
+      80,
+      39,
+      96
+     ],
+     "ply": 28,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 80
+    },
+    {
+     "final": 5,
+     "original": 0,
+     "original_visits": [
+      135,
+      0,
+      0,
+      0,
+      0,
+      121,
+      0
+     ],
+     "ply": 36,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 121
+    }
+   ],
+   "42-negamax3:confirmation-ply06-19:X": [
+    {
+     "final": 4,
+     "original": 6,
+     "original_visits": [
+      3,
+      2,
+      0,
+      0,
+      106,
+      2,
+      143
+     ],
+     "ply": 22,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 106
+    }
+   ],
+   "42-negamax3:confirmation-ply06-20:O": [
+    {
+     "final": 1,
+     "original": 0,
+     "original_visits": [
+      156,
+      98,
+      0,
+      0,
+      0,
+      2,
+      0
+     ],
+     "ply": 31,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 98
+    }
+   ],
+   "42-negamax3:confirmation-ply06-21:X": [
+    {
+     "final": 5,
+     "original": 3,
+     "original_visits": [
+      12,
+      36,
+      61,
+      73,
+      20,
+      47,
+      7
+     ],
+     "ply": 18,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 47
+    }
+   ],
+   "42-negamax3:confirmation-ply06-23:O": [
+    {
+     "final": 1,
+     "original": 0,
+     "original_visits": [
+      68,
+      40,
+      35,
+      41,
+      20,
+      42,
+      10
+     ],
+     "ply": 7,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 40
+    }
+   ],
+   "42-negamax3:confirmation-ply08-04:X": [
+    {
+     "final": 2,
+     "original": 6,
+     "original_visits": [
+      0,
+      79,
+      88,
+      0,
+      0,
+      0,
+      89
+     ],
+     "ply": 36,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 88
+    }
+   ],
+   "42-negamax3:confirmation-ply08-05:O": [
+    {
+     "final": 4,
+     "original": 1,
+     "original_visits": [
+      34,
+      43,
+      36,
+      33,
+      31,
+      38,
+      41
+     ],
+     "ply": 15,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 31
+    }
+   ],
+   "42-negamax3:confirmation-ply08-05:X": [
+    {
+     "final": 5,
+     "original": 4,
+     "original_visits": [
+      0,
+      0,
+      0,
+      0,
+      137,
+      119,
+      0
+     ],
+     "ply": 36,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 119
+    }
+   ],
+   "42-negamax3:confirmation-ply08-11:X": [
+    {
+     "final": 6,
+     "original": 4,
+     "original_visits": [
+      28,
+      59,
+      14,
+      20,
+      62,
+      52,
+      21
+     ],
+     "ply": 16,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 21
+    }
+   ],
+   "42-negamax3:confirmation-ply08-12:O": [
+    {
+     "final": 6,
+     "original": 4,
+     "original_visits": [
+      7,
+      86,
+      5,
+      29,
+      89,
+      33,
+      7
+     ],
+     "ply": 9,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 7
+    }
+   ],
+   "42-negamax3:confirmation-ply08-13:X": [
+    {
+     "final": 6,
+     "original": 0,
+     "original_visits": [
+      50,
+      31,
+      31,
+      49,
+      48,
+      33,
+      14
+     ],
+     "ply": 12,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 14
+    }
+   ],
+   "42-negamax3:confirmation-ply08-20:X": [
+    {
+     "final": 4,
+     "original": 0,
+     "original_visits": [
+      164,
+      67,
+      0,
+      0,
+      25,
+      0,
+      0
+     ],
+     "ply": 30,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 25
+    }
+   ],
+   "42-negamax3:confirmation-ply08-23:O": [
+    {
+     "final": 1,
+     "original": 3,
+     "original_visits": [
+      15,
+      4,
+      10,
+      107,
+      93,
+      22,
+      5
+     ],
+     "ply": 9,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 4
+    },
+    {
+     "final": 3,
+     "original": 2,
+     "original_visits": [
+      27,
+      23,
+      103,
+      54,
+      0,
+      29,
+      20
+     ],
+     "ply": 19,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 54
+    },
+    {
+     "final": 0,
+     "original": 2,
+     "original_visits": [
+      43,
+      17,
+      97,
+      0,
+      0,
+      59,
+      40
+     ],
+     "ply": 23,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 43
+    },
+    {
+     "final": 6,
+     "original": 2,
+     "original_visits": [
+      0,
+      22,
+      97,
+      0,
+      0,
+      74,
+      63
+     ],
+     "ply": 25,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 63
+    }
+   ],
+   "42-negamax3:confirmation-ply10-00:O": [
+    {
+     "final": 1,
+     "original": 2,
+     "original_visits": [
+      14,
+      27,
+      151,
+      28,
+      12,
+      8,
+      16
+     ],
+     "ply": 15,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 27
+    },
+    {
+     "final": 0,
+     "original": 5,
+     "original_visits": [
+      73,
+      60,
+      0,
+      0,
+      0,
+      123,
+      0
+     ],
+     "ply": 31,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 73
+    },
+    {
+     "final": 1,
+     "original": 5,
+     "original_visits": [
+      0,
+      123,
+      0,
+      0,
+      0,
+      133,
+      0
+     ],
+     "ply": 35,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 123
+    }
+   ],
+   "42-negamax3:confirmation-ply10-04:O": [
+    {
+     "final": 4,
+     "original": 3,
+     "original_visits": [
+      11,
+      68,
+      11,
+      78,
+      76,
+      6,
+      6
+     ],
+     "ply": 15,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 76
+    }
+   ],
+   "42-negamax3:confirmation-ply10-06:X": [
+    {
+     "final": 3,
+     "original": 0,
+     "original_visits": [
+      185,
+      0,
+      0,
+      62,
+      0,
+      0,
+      9
+     ],
+     "ply": 32,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 62
+    }
+   ],
+   "42-negamax3:confirmation-ply10-16:X": [
+    {
+     "final": 5,
+     "original": 3,
+     "original_visits": [
+      33,
+      9,
+      10,
+      102,
+      42,
+      29,
+      31
+     ],
+     "ply": 18,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 29
+    }
+   ],
+   "42-negamax3:confirmation-ply10-18:O": [
+    {
+     "final": 3,
+     "original": 5,
+     "original_visits": [
+      15,
+      56,
+      51,
+      39,
+      19,
+      65,
+      11
+     ],
+     "ply": 13,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 39
+    }
+   ],
+   "42-negamax5:confirmation-ply04-11:O": [
+    {
+     "final": 1,
+     "original": 5,
+     "original_visits": [
+      41,
+      29,
+      26,
+      45,
+      39,
+      49,
+      27
+     ],
+     "ply": 13,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 29
+    }
+   ],
+   "42-negamax5:confirmation-ply06-17:O": [
+    {
+     "final": 0,
+     "original": 5,
+     "original_visits": [
+      41,
+      22,
+      46,
+      30,
+      32,
+      50,
+      35
+     ],
+     "ply": 15,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 41
+    }
+   ],
+   "42-negamax5:confirmation-ply06-20:X": [
+    {
+     "final": 1,
+     "original": 3,
+     "original_visits": [
+      0,
+      71,
+      0,
+      153,
+      0,
+      32,
+      0
+     ],
+     "ply": 28,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 71
+    }
+   ],
+   "42-negamax5:confirmation-ply08-00:X": [
+    {
+     "final": 6,
+     "original": 4,
+     "original_visits": [
+      15,
+      4,
+      44,
+      25,
+      95,
+      13,
+      60
+     ],
+     "ply": 20,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 60
+    }
+   ],
+   "42-negamax5:confirmation-ply08-02:O": [
+    {
+     "final": 0,
+     "original": 2,
+     "original_visits": [
+      102,
+      0,
+      110,
+      0,
+      0,
+      0,
+      44
+     ],
+     "ply": 31,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 102
+    }
+   ],
+   "42-negamax5:confirmation-ply08-11:X": [
+    {
+     "final": 6,
+     "original": 4,
+     "original_visits": [
+      9,
+      8,
+      45,
+      40,
+      119,
+      25,
+      10
+     ],
+     "ply": 16,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 10
+    }
+   ],
+   "42-negamax5:confirmation-ply08-12:O": [
+    {
+     "final": 6,
+     "original": 3,
+     "original_visits": [
+      9,
+      94,
+      10,
+      96,
+      12,
+      25,
+      10
+     ],
+     "ply": 11,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 10
+    }
+   ],
+   "42-negamax5:confirmation-ply08-13:X": [
+    {
+     "final": 6,
+     "original": 0,
+     "original_visits": [
+      50,
+      31,
+      31,
+      49,
+      48,
+      33,
+      14
+     ],
+     "ply": 12,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 14
+    }
+   ],
+   "42-negamax5:confirmation-ply08-20:X": [
+    {
+     "final": 4,
+     "original": 1,
+     "original_visits": [
+      0,
+      195,
+      0,
+      0,
+      61,
+      0,
+      0
+     ],
+     "ply": 32,
+     "reason": "IMMEDIATE_WIN",
+     "selected_visits": 61
+    }
+   ],
+   "42-negamax5:confirmation-ply08-23:O": [
+    {
+     "final": 2,
+     "original": 4,
+     "original_visits": [
+      72,
+      35,
+      22,
+      10,
+      73,
+      31,
+      13
+     ],
+     "ply": 11,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 22
+    },
+    {
+     "final": 2,
+     "original": 4,
+     "original_visits": [
+      57,
+      37,
+      23,
+      15,
+      65,
+      46,
+      13
+     ],
+     "ply": 13,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 23
+    }
+   ],
+   "42-negamax5:confirmation-ply10-00:O": [
+    {
+     "final": 1,
+     "original": 2,
+     "original_visits": [
+      14,
+      27,
+      151,
+      28,
+      12,
+      8,
+      16
+     ],
+     "ply": 15,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 27
+    },
+    {
+     "final": 4,
+     "original": 1,
+     "original_visits": [
+      58,
+      71,
+      0,
+      0,
+      65,
+      62,
+      0
+     ],
+     "ply": 29,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 65
+    },
+    {
+     "final": 0,
+     "original": 5,
+     "original_visits": [
+      78,
+      69,
+      0,
+      0,
+      0,
+      109,
+      0
+     ],
+     "ply": 31,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 78
+    }
+   ],
+   "42-negamax5:confirmation-ply10-12:O": [
+    {
+     "final": 4,
+     "original": 3,
+     "original_visits": [
+      42,
+      32,
+      40,
+      55,
+      18,
+      26,
+      43
+     ],
+     "ply": 11,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 18
+    }
+   ],
+   "42-negamax5:confirmation-ply10-12:X": [
+    {
+     "final": 0,
+     "original": 2,
+     "original_visits": [
+      96,
+      0,
+      160,
+      0,
+      0,
+      0,
+      0
+     ],
+     "ply": 36,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 96
+    }
+   ],
+   "42-negamax5:confirmation-ply10-14:X": [
+    {
+     "final": 5,
+     "original": 2,
+     "original_visits": [
+      0,
+      0,
+      170,
+      0,
+      0,
+      86,
+      0
+     ],
+     "ply": 36,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 86
+    }
+   ],
+   "42-negamax5:confirmation-ply10-18:O": [
+    {
+     "final": 3,
+     "original": 5,
+     "original_visits": [
+      15,
+      56,
+      51,
+      39,
+      19,
+      65,
+      11
+     ],
+     "ply": 13,
+     "reason": "AVOID_IMMEDIATE_LOSS",
+     "selected_visits": 39
+    }
+   ]
+  }
+ },
+ "changed_games_outcomes": {
+  "control": {
+   "loss": 61,
+   "win": 17
+  },
+  "guarded": {
+   "draw": 4,
+   "loss": 49,
+   "win": 25
+  }
+ },
+ "colors": {
+  "O": {
+   "ci95": [
+    0.0026041666666666665,
+    0.028645833333333332
+   ],
+   "control_score": 0.3606770833333333,
+   "difference": 0.013020833333333334,
+   "families": 96,
+   "guarded_score": 0.3736979166666667,
+   "paired_games": 384
+  },
+  "X": {
+   "ci95": [
+    0.0026041666666666665,
+    0.028645833333333332
+   ],
+   "control_score": 0.5130208333333334,
+   "difference": 0.013020833333333334,
+   "families": 96,
+   "guarded_score": 0.5260416666666666,
+   "paired_games": 384
+  }
+ },
+ "contract": "phase4d4j-b-analysis-v1",
+ "correctness": {
+  "match_decision_mismatches": [],
+  "paired_first_decision_identical": true,
+  "pairs": 768
+ },
+ "families": 96,
+ "families_with_nonzero_pair_difference": 8,
+ "heterogeneity": {
+  "opponent_b_minus_a": {
+   "ci95": [
+    -0.026041666666666668,
+    0.002604166666666667
+   ],
+   "difference": -0.010416666666666668
+  },
+  "seed_314159_minus_42": {
+   "ci95": [
+    -0.005208333333333333,
+    0.028645833333333332
+   ],
+   "difference": 0.010416666666666668
+  },
+  "strata_range": {
+   "max": 0.020833333333333332,
+   "min": 0.005208333333333333,
+   "note": "descriptive; four strata of 24 families each"
+  }
+ },
+ "latency": {
+  "candidate_count": {
+   "mean": 5.464345684540468,
+   "median": 6.0,
+   "n": 8933,
+   "p95": 7.0,
+   "worst": 7.0
+  },
+  "classification_seconds": {
+   "mean": 5.674337725288257e-05,
+   "median": 6.4375e-05,
+   "n": 8933,
+   "p95": 8.872539999999998e-05,
+   "worst": 0.000153708
+  },
+  "guard_seconds": {
+   "mean": 6.476600145527818e-05,
+   "median": 7.2458e-05,
+   "n": 8933,
+   "p95": 9.7125e-05,
+   "worst": 0.000171083
+  },
+  "opponent_replies_inspected": {
+   "mean": 32.40703011306392,
+   "median": 36.0,
+   "n": 8933,
+   "p95": 49.0,
+   "worst": 49.0
+  },
+  "relative_overhead": {
+   "mean": 0.0022853642743437246,
+   "median": 0.0013548446984219262,
+   "n": 8933,
+   "p95": 0.008368941178368505,
+   "worst": 0.1147810503207498
+  },
+  "search_seconds": {
+   "mean": 0.049222212551491305,
+   "median": 0.0594969168305397,
+   "n": 8933,
+   "p95": 0.06860686652362347,
+   "worst": 0.14198049996048212
+  },
+  "total_seconds": {
+   "mean": 0.04928924249530799,
+   "median": 0.0595739996060729,
+   "n": 8933,
+   "p95": 0.06869570892304182,
+   "worst": 0.14206458255648613
+  }
+ },
+ "latency_by_occupancy": {
+  "0-6": {
+   "mean": 8.921582031249998e-05,
+   "median": 8.9e-05,
+   "n": 384,
+   "p95": 9.907055e-05,
+   "worst": 0.000166666
+  },
+  "14-20": {
+   "mean": 7.955536648328397e-05,
+   "median": 8.2291e-05,
+   "n": 2363,
+   "p95": 9.8209e-05,
+   "worst": 0.00015
+  },
+  "21-27": {
+   "mean": 5.5380199256110514e-05,
+   "median": 5.2583e-05,
+   "n": 1882,
+   "p95": 8.949374999999998e-05,
+   "worst": 0.000158542
+  },
+  "28-34": {
+   "mean": 3.124878305785124e-05,
+   "median": 2.8917e-05,
+   "n": 1452,
+   "p95": 5.412135e-05,
+   "worst": 9.7125e-05
+  },
+  "35-41": {
+   "mean": 1.558070853462158e-05,
+   "median": 1.4708e-05,
+   "n": 621,
+   "p95": 2.6416e-05,
+   "worst": 7.5459e-05
+  },
+  "7-13": {
+   "mean": 8.831559704168535e-05,
+   "median": 8.925e-05,
+   "n": 2231,
+   "p95": 9.98125e-05,
+   "worst": 0.000171083
+  }
+ },
+ "latency_pass": true,
+ "opponents": {
+  "negamax3": {
+   "ci95": [
+    0.005208333333333333,
+    0.03515625
+   ],
+   "control_score": 0.5052083333333334,
+   "difference": 0.018229166666666668,
+   "families": 96,
+   "guarded_score": 0.5234375,
+   "paired_games": 384
+  },
+  "negamax5": {
+   "ci95": [
+    0.0013020833333333333,
+    0.015625
+   ],
+   "control_score": 0.3684895833333333,
+   "difference": 0.0078125,
+   "families": 96,
+   "guarded_score": 0.3763020833333333,
+   "paired_games": 384
+  }
+ },
+ "paired_games_changed_outcome": 12,
+ "pooled": {
+  "ci95": [
+   0.005208333333333333,
+   0.0234375
+  ],
+  "control_score": 0.4368489583333333,
+  "difference": 0.013020833333333334,
+  "families": 96,
+  "guarded_score": 0.4498697916666667,
+  "paired_games": 768
+ },
+ "regression_suites": {
+  "reproduction_vs_4d4ja": {
+   "identical": 2512
+  },
+  "summary": {
+   "314159-deep": {
+    "control": {
+     "correct": 96,
+     "mistakes": 32
+    },
+    "guarded": {
+     "correct": 96,
+     "mistakes": 32
+    },
+    "improved": 0,
+    "n": 128
+   },
+   "314159-solved": {
+    "control": {
+     "correct": 233,
+     "mistakes": 67
+    },
+    "guarded": {
+     "correct": 237,
+     "mistakes": 63
+    },
+    "improved": 4,
+    "n": 300
+   },
+   "314159-tactical": {
+    "control": {
+     "avoidable": 13,
+     "correct": 186,
+     "missed_win": 1
+    },
+    "guarded": {
+     "avoidable": 0,
+     "correct": 200,
+     "missed_win": 0
+    },
+    "n": 200
+   },
+   "42-deep": {
+    "control": {
+     "correct": 98,
+     "mistakes": 30
+    },
+    "guarded": {
+     "correct": 98,
+     "mistakes": 30
+    },
+    "improved": 0,
+    "n": 128
+   },
+   "42-solved": {
+    "control": {
+     "correct": 229,
+     "mistakes": 71
+    },
+    "guarded": {
+     "correct": 233,
+     "mistakes": 67
+    },
+    "improved": 4,
+    "n": 300
+   },
+   "42-tactical": {
+    "control": {
+     "avoidable": 10,
+     "correct": 187,
+     "missed_win": 3
+    },
+    "guarded": {
+     "avoidable": 0,
+     "correct": 200,
+     "missed_win": 0
+    },
+    "n": 200
+   }
+  },
+  "tactical_failures": [],
+  "wdl_regressions": []
+ },
+ "seeds": {
+  "314159": {
+   "ci95": [
+    0.005208333333333333,
+    0.033854166666666664
+   ],
+   "control_score": 0.4205729166666667,
+   "difference": 0.018229166666666668,
+   "families": 96,
+   "guarded_score": 0.4388020833333333,
+   "paired_games": 384
+  },
+  "42": {
+   "ci95": [
+    0.0,
+    0.018229166666666668
+   ],
+   "control_score": 0.453125,
+   "difference": 0.0078125,
+   "families": 96,
+   "guarded_score": 0.4609375,
+   "paired_games": 384
+  }
+ },
+ "strata": {
+  "ply04": {
+   "by_opponent": {
+    "negamax3": {
+     "ci95": [
+      0.0,
+      0.03125
+     ],
+     "control_score": 0.6145833333333334,
+     "difference": 0.010416666666666666,
+     "families": 24,
+     "guarded_score": 0.625,
+     "paired_games": 96
+    },
+    "negamax5": {
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "control_score": 0.5,
+     "difference": 0.0,
+     "families": 24,
+     "guarded_score": 0.5,
+     "paired_games": 96
+    }
+   },
+   "ci95": [
+    0.0,
+    0.015625
+   ],
+   "control_score": 0.5572916666666666,
+   "difference": 0.005208333333333333,
+   "families": 24,
+   "guarded_score": 0.5625,
+   "paired_games": 192
+  },
+  "ply06": {
+   "by_opponent": {
+    "negamax3": {
+     "ci95": [
+      0.0,
+      0.08333333333333333
+     ],
+     "control_score": 0.4375,
+     "difference": 0.03125,
+     "families": 24,
+     "guarded_score": 0.46875,
+     "paired_games": 96
+    },
+    "negamax5": {
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "control_score": 0.3072916666666667,
+     "difference": 0.0,
+     "families": 24,
+     "guarded_score": 0.3072916666666667,
+     "paired_games": 96
+    }
+   },
+   "ci95": [
+    0.0,
+    0.041666666666666664
+   ],
+   "control_score": 0.3723958333333333,
+   "difference": 0.015625,
+   "families": 24,
+   "guarded_score": 0.3880208333333333,
+   "paired_games": 192
+  },
+  "ply08": {
+   "by_opponent": {
+    "negamax3": {
+     "ci95": [
+      0.0,
+      0.015625
+     ],
+     "control_score": 0.4010416666666667,
+     "difference": 0.005208333333333333,
+     "families": 24,
+     "guarded_score": 0.40625,
+     "paired_games": 96
+    },
+    "negamax5": {
+     "ci95": [
+      0.0,
+      0.041666666666666664
+     ],
+     "control_score": 0.3385416666666667,
+     "difference": 0.015625,
+     "families": 24,
+     "guarded_score": 0.3541666666666667,
+     "paired_games": 96
+    }
+   },
+   "ci95": [
+    0.0,
+    0.026041666666666668
+   ],
+   "control_score": 0.3697916666666667,
+   "difference": 0.010416666666666666,
+   "families": 24,
+   "guarded_score": 0.3802083333333333,
+   "paired_games": 192
+  },
+  "ply10": {
+   "by_opponent": {
+    "negamax3": {
+     "ci95": [
+      0.0,
+      0.057291666666666664
+     ],
+     "control_score": 0.5677083333333334,
+     "difference": 0.026041666666666668,
+     "families": 24,
+     "guarded_score": 0.59375,
+     "paired_games": 96
+    },
+    "negamax5": {
+     "ci95": [
+      0.0,
+      0.041666666666666664
+     ],
+     "control_score": 0.328125,
+     "difference": 0.015625,
+     "families": 24,
+     "guarded_score": 0.34375,
+     "paired_games": 96
+    }
+   },
+   "ci95": [
+    0.0,
+    0.046875
+   ],
+   "control_score": 0.4479166666666667,
+   "difference": 0.020833333333333332,
+   "families": 24,
+   "guarded_score": 0.46875,
+   "paired_games": 192
+  }
+ },
+ "verdict": {
+  "failures": [],
+  "opponent_material_regressions": [],
+  "practically_meaningful": false,
+  "qualified_heterogeneity": false,
+  "seeds_not_materially_negative": true,
+  "small_effect": true,
+  "strength": "CONFIRMED_POSITIVE_EFFECT"
+ }
+}

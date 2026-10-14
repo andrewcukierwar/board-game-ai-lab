@@ -1,0 +1,835 @@
+{
+ "activation": {
+  "all": {
+   "AVOID_IMMEDIATE_LOSS": 76,
+   "IMMEDIATE_WIN": 317,
+   "NO_SAFE_MOVE": 394,
+   "UNCHANGED": 8146,
+   "calls": 8933,
+   "changed": 94,
+   "zero_visit_selected": 0
+  },
+  "opponent negamax3": {
+   "AVOID_IMMEDIATE_LOSS": 45,
+   "IMMEDIATE_WIN": 190,
+   "NO_SAFE_MOVE": 172,
+   "UNCHANGED": 3926,
+   "calls": 4333,
+   "changed": 55,
+   "zero_visit_selected": 0
+  },
+  "opponent negamax5": {
+   "AVOID_IMMEDIATE_LOSS": 31,
+   "IMMEDIATE_WIN": 127,
+   "NO_SAFE_MOVE": 222,
+   "UNCHANGED": 4220,
+   "calls": 4600,
+   "changed": 39,
+   "zero_visit_selected": 0
+  },
+  "phase late": {
+   "AVOID_IMMEDIATE_LOSS": 17,
+   "IMMEDIATE_WIN": 215,
+   "NO_SAFE_MOVE": 189,
+   "UNCHANGED": 1652,
+   "calls": 2073,
+   "changed": 30,
+   "zero_visit_selected": 0
+  },
+  "phase middle": {
+   "AVOID_IMMEDIATE_LOSS": 27,
+   "IMMEDIATE_WIN": 90,
+   "NO_SAFE_MOVE": 162,
+   "UNCHANGED": 3966,
+   "calls": 4245,
+   "changed": 32,
+   "zero_visit_selected": 0
+  },
+  "phase opening": {
+   "AVOID_IMMEDIATE_LOSS": 32,
+   "IMMEDIATE_WIN": 12,
+   "NO_SAFE_MOVE": 43,
+   "UNCHANGED": 2528,
+   "calls": 2615,
+   "changed": 32,
+   "zero_visit_selected": 0
+  },
+  "seed 314159": {
+   "AVOID_IMMEDIATE_LOSS": 39,
+   "IMMEDIATE_WIN": 154,
+   "NO_SAFE_MOVE": 201,
+   "UNCHANGED": 4156,
+   "calls": 4550,
+   "changed": 48,
+   "zero_visit_selected": 0
+  },
+  "seed 42": {
+   "AVOID_IMMEDIATE_LOSS": 37,
+   "IMMEDIATE_WIN": 163,
+   "NO_SAFE_MOVE": 193,
+   "UNCHANGED": 3990,
+   "calls": 4383,
+   "changed": 46,
+   "zero_visit_selected": 0
+  },
+  "stratum ply04": {
+   "AVOID_IMMEDIATE_LOSS": 5,
+   "IMMEDIATE_WIN": 100,
+   "NO_SAFE_MOVE": 76,
+   "UNCHANGED": 2367,
+   "calls": 2548,
+   "changed": 9,
+   "zero_visit_selected": 0
+  },
+  "stratum ply06": {
+   "AVOID_IMMEDIATE_LOSS": 13,
+   "IMMEDIATE_WIN": 65,
+   "NO_SAFE_MOVE": 108,
+   "UNCHANGED": 2148,
+   "calls": 2334,
+   "changed": 20,
+   "zero_visit_selected": 0
+  },
+  "stratum ply08": {
+   "AVOID_IMMEDIATE_LOSS": 33,
+   "IMMEDIATE_WIN": 66,
+   "NO_SAFE_MOVE": 112,
+   "UNCHANGED": 1892,
+   "calls": 2103,
+   "changed": 38,
+   "zero_visit_selected": 0
+  },
+  "stratum ply10": {
+   "AVOID_IMMEDIATE_LOSS": 25,
+   "IMMEDIATE_WIN": 86,
+   "NO_SAFE_MOVE": 98,
+   "UNCHANGED": 1739,
+   "calls": 1948,
+   "changed": 27,
+   "zero_visit_selected": 0
+  }
+ },
+ "all_checks_pass": true,
+ "bootstrap": {
+  "generator": "numpy PCG64",
+  "replicates": 10000,
+  "seed": 99020001,
+  "unit": "whole opening family, all seeds/opponents/colors/arms together"
+ },
+ "changed": {
+  "by_reason": {
+   "AVOID_IMMEDIATE_LOSS": 76,
+   "IMMEDIATE_WIN": 18
+  },
+  "decisions": 94,
+  "families": 44,
+  "games": 78,
+  "rate": 0.010522780700772416
+ },
+ "contract": "phase4d4j-b-independent-verification-v1",
+ "decisions": {
+  "control_agent_decisions": 8649,
+  "control_violations": 0,
+  "guard_mismatches": 0,
+  "guarded_agent_decisions": 8933,
+  "mismatch_kinds": {},
+  "original_action_not_max_visits": 0,
+  "visit_sum_violations": 0
+ },
+ "execution": {
+  "HEAD": "ae4715ff30d6796b010f115185ad90514e346141",
+  "matches": 1536,
+  "preservation_intact": true,
+  "prospective_commit": "ae4715ff30d6796b010f115185ad90514e346141",
+  "prospective_is_ancestor_of_HEAD": true,
+  "results_tracked_in_git": false,
+  "retries": 0,
+  "status": "COMPLETE_PENDING_RESULTS_REVIEW",
+  "tasks": 4,
+  "tracked_files_changed_since_freeze": [],
+  "within_deadline": true
+ },
+ "hashes": {
+  "checkpoints": {
+   "314159": {
+    "actual": "2646d7cdee7d7b069412688bf95fd9794bea30402b4952120c904dbcb399401d",
+    "ok": true,
+    "recorded": "2646d7cdee7d7b069412688bf95fd9794bea30402b4952120c904dbcb399401d"
+   },
+   "42": {
+    "actual": "ba2bde2ec71b3ac7486046d1cc26ab591bb59d6b764193ece08c6d6a6f24f58b",
+    "ok": true,
+    "recorded": "ba2bde2ec71b3ac7486046d1cc26ab591bb59d6b764193ece08c6d6a6f24f58b"
+   }
+  },
+  "freeze_files_changed": [],
+  "freeze_files_checked": 82,
+  "guard_ok": true,
+  "guard_sha256": "d2ee54ba1fe9ddbcc4641538e2f5dd89a2435234ff194d6909bed72096632d04"
+ },
+ "identity": {
+  "314159-negamax3": {
+   "before_equals_after": true,
+   "checkpoint_sha256": "2646d7cdee7d7b069412688bf95fd9794bea30402b4952120c904dbcb399401d",
+   "ok": true,
+   "weights_sha256": "f1d0032a6dae39715558e082912144c765537775676eaeab8bbe79426c7e53f8"
+  },
+  "314159-negamax5": {
+   "before_equals_after": true,
+   "checkpoint_sha256": "2646d7cdee7d7b069412688bf95fd9794bea30402b4952120c904dbcb399401d",
+   "ok": true,
+   "weights_sha256": "f1d0032a6dae39715558e082912144c765537775676eaeab8bbe79426c7e53f8"
+  },
+  "42-negamax3": {
+   "before_equals_after": true,
+   "checkpoint_sha256": "ba2bde2ec71b3ac7486046d1cc26ab591bb59d6b764193ece08c6d6a6f24f58b",
+   "ok": true,
+   "weights_sha256": "aa008c3c3b166a36a754a45ccb00384826e9b76ca4b0280049b7600a0dadb646"
+  },
+  "42-negamax5": {
+   "before_equals_after": true,
+   "checkpoint_sha256": "ba2bde2ec71b3ac7486046d1cc26ab591bb59d6b764193ece08c6d6a6f24f58b",
+   "ok": true,
+   "weights_sha256": "aa008c3c3b166a36a754a45ccb00384826e9b76ca4b0280049b7600a0dadb646"
+  }
+ },
+ "issues": [],
+ "latency": {
+  "analysis_agrees": true,
+  "guard_seconds": {
+   "mean": 6.476600145527818e-05,
+   "median": 7.2458e-05,
+   "p95": 9.7125e-05,
+   "worst": 0.000171083
+  },
+  "mean_guard_over_search": 0.0022853642743437246,
+  "pass": true
+ },
+ "note": "same-host verification by a separate agent; not external replication",
+ "openings": {
+  "families": 96,
+  "file_sha256": "be3404352f711a441766b1ae50bad192e94bddf1d68d639da4bc627cd847d3dc",
+  "file_sha256_matches_design": true,
+  "invalid": []
+ },
+ "paired_fairness": {
+  "diverged_pairs_equal_changed_games": true,
+  "first_decision_mismatches": 0,
+  "identical_move_sequences": 690,
+  "pairs": 768
+ },
+ "regression_suites": {
+  "314159-deep": {
+   "guarded_above_control": 0,
+   "guarded_below_control": 0,
+   "identical_non_timing": 128,
+   "reference_rows": 128,
+   "rows": 128
+  },
+  "314159-solved": {
+   "guarded_above_control": 4,
+   "guarded_below_control": 0,
+   "identical_non_timing": 300,
+   "reference_rows": 300,
+   "rows": 300
+  },
+  "314159-tactical": {
+   "control_avoidable": 13,
+   "control_missed_win": 1,
+   "guarded_avoidable": 0,
+   "guarded_missed_win": 0,
+   "identical_non_timing": 200,
+   "reference_rows": 200,
+   "rows": 200
+  },
+  "42-deep": {
+   "guarded_above_control": 0,
+   "guarded_below_control": 0,
+   "identical_non_timing": 128,
+   "reference_rows": 128,
+   "rows": 128
+  },
+  "42-solved": {
+   "guarded_above_control": 4,
+   "guarded_below_control": 0,
+   "identical_non_timing": 300,
+   "reference_rows": 300,
+   "rows": 300
+  },
+  "42-tactical": {
+   "control_avoidable": 10,
+   "control_missed_win": 3,
+   "guarded_avoidable": 0,
+   "guarded_missed_win": 0,
+   "identical_non_timing": 200,
+   "reference_rows": 200,
+   "rows": 200
+  }
+ },
+ "replay": {
+  "abandoned": 0,
+  "color_balance_violations": 0,
+  "examples": [],
+  "families": 96,
+  "games": 1536,
+  "invalid_games": 0
+ },
+ "scores": {
+  "arm_scores": {
+   "control": 0.4368489583333333,
+   "guarded": 0.4498697916666667
+  },
+  "estimates": {
+   "cell 314159-negamax3": {
+    "analysis": {
+     "ci95": [
+      0.0078125,
+      0.049479166666666664
+     ],
+     "difference": 0.026041666666666668
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0078125,
+      0.049479166666666664
+     ],
+     "difference": 0.026041666666666668
+    },
+    "point_equal": true
+   },
+   "cell 314159-negamax5": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.0234375
+     ],
+     "difference": 0.010416666666666666
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.0234375
+     ],
+     "difference": 0.010416666666666666
+    },
+    "point_equal": true
+   },
+   "cell 42-negamax3": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.026041666666666668
+     ],
+     "difference": 0.010416666666666666
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.026041666666666668
+     ],
+     "difference": 0.010416666666666666
+    },
+    "point_equal": true
+   },
+   "cell 42-negamax5": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.015625
+     ],
+     "difference": 0.005208333333333333
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.015625
+     ],
+     "difference": 0.005208333333333333
+    },
+    "point_equal": true
+   },
+   "color O": {
+    "analysis": {
+     "ci95": [
+      0.0026041666666666665,
+      0.028645833333333332
+     ],
+     "difference": 0.013020833333333334
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0026041666666666665,
+      0.028645833333333332
+     ],
+     "difference": 0.013020833333333334
+    },
+    "point_equal": true
+   },
+   "color X": {
+    "analysis": {
+     "ci95": [
+      0.0026041666666666665,
+      0.028645833333333332
+     ],
+     "difference": 0.013020833333333334
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0026041666666666665,
+      0.028645833333333332
+     ],
+     "difference": 0.013020833333333334
+    },
+    "point_equal": true
+   },
+   "opponent negamax3": {
+    "analysis": {
+     "ci95": [
+      0.005208333333333333,
+      0.03515625
+     ],
+     "difference": 0.018229166666666668
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.005208333333333333,
+      0.03515625
+     ],
+     "difference": 0.018229166666666668
+    },
+    "point_equal": true
+   },
+   "opponent negamax5": {
+    "analysis": {
+     "ci95": [
+      0.0013020833333333333,
+      0.015625
+     ],
+     "difference": 0.0078125
+    },
+    "max_ci_endpoint_gap": 0.0013020833333333322,
+    "ours": {
+     "ci95": [
+      0.0013020833333333333,
+      0.016927083333333332
+     ],
+     "difference": 0.0078125
+    },
+    "point_equal": true
+   },
+   "opponent_b_minus_a": {
+    "analysis": {
+     "ci95": [
+      -0.026041666666666668,
+      0.002604166666666667
+     ],
+     "difference": -0.010416666666666668
+    },
+    "max_ci_endpoint_gap": 4.336808689942018e-19,
+    "ours": {
+     "ci95": [
+      -0.026041666666666668,
+      0.0026041666666666665
+     ],
+     "difference": -0.010416666666666666
+    },
+    "point_equal": true
+   },
+   "pooled": {
+    "analysis": {
+     "ci95": [
+      0.005208333333333333,
+      0.0234375
+     ],
+     "difference": 0.013020833333333334
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.005208333333333333,
+      0.0234375
+     ],
+     "difference": 0.013020833333333334
+    },
+    "point_equal": true
+   },
+   "seed 314159": {
+    "analysis": {
+     "ci95": [
+      0.005208333333333333,
+      0.033854166666666664
+     ],
+     "difference": 0.018229166666666668
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.005208333333333333,
+      0.033854166666666664
+     ],
+     "difference": 0.018229166666666668
+    },
+    "point_equal": true
+   },
+   "seed 42": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.018229166666666668
+     ],
+     "difference": 0.0078125
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.018229166666666668
+     ],
+     "difference": 0.0078125
+    },
+    "point_equal": true
+   },
+   "seed_314159_minus_42": {
+    "analysis": {
+     "ci95": [
+      -0.005208333333333333,
+      0.028645833333333332
+     ],
+     "difference": 0.010416666666666668
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      -0.005208333333333333,
+      0.028645833333333332
+     ],
+     "difference": 0.010416666666666666
+    },
+    "point_equal": true
+   },
+   "stratum ply04": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.015625
+     ],
+     "difference": 0.005208333333333333
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.015625
+     ],
+     "difference": 0.005208333333333333
+    },
+    "point_equal": true
+   },
+   "stratum ply04 negamax3": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.03125
+     ],
+     "difference": 0.010416666666666666
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.03125
+     ],
+     "difference": 0.010416666666666666
+    },
+    "point_equal": true
+   },
+   "stratum ply04 negamax5": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "difference": 0.0
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "difference": 0.0
+    },
+    "point_equal": true
+   },
+   "stratum ply06": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.041666666666666664
+     ],
+     "difference": 0.015625
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.041666666666666664
+     ],
+     "difference": 0.015625
+    },
+    "point_equal": true
+   },
+   "stratum ply06 negamax3": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.08333333333333333
+     ],
+     "difference": 0.03125
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.08333333333333333
+     ],
+     "difference": 0.03125
+    },
+    "point_equal": true
+   },
+   "stratum ply06 negamax5": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "difference": 0.0
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.0
+     ],
+     "difference": 0.0
+    },
+    "point_equal": true
+   },
+   "stratum ply08": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.026041666666666668
+     ],
+     "difference": 0.010416666666666666
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.026041666666666668
+     ],
+     "difference": 0.010416666666666666
+    },
+    "point_equal": true
+   },
+   "stratum ply08 negamax3": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.015625
+     ],
+     "difference": 0.005208333333333333
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.015625
+     ],
+     "difference": 0.005208333333333333
+    },
+    "point_equal": true
+   },
+   "stratum ply08 negamax5": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.041666666666666664
+     ],
+     "difference": 0.015625
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.041666666666666664
+     ],
+     "difference": 0.015625
+    },
+    "point_equal": true
+   },
+   "stratum ply10": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.046875
+     ],
+     "difference": 0.020833333333333332
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.046875
+     ],
+     "difference": 0.020833333333333332
+    },
+    "point_equal": true
+   },
+   "stratum ply10 negamax3": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.057291666666666664
+     ],
+     "difference": 0.026041666666666668
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.057291666666666664
+     ],
+     "difference": 0.026041666666666668
+    },
+    "point_equal": true
+   },
+   "stratum ply10 negamax5": {
+    "analysis": {
+     "ci95": [
+      0.0,
+      0.041666666666666664
+     ],
+     "difference": 0.015625
+    },
+    "max_ci_endpoint_gap": 0.0,
+    "ours": {
+     "ci95": [
+      0.0,
+      0.041666666666666664
+     ],
+     "difference": 0.015625
+    },
+    "point_equal": true
+   }
+  },
+  "families_with_nonzero_difference": 8,
+  "negative_paired_differences": 0,
+  "nonzero_pairs": [
+   {
+    "color": "O",
+    "difference": 1.0,
+    "family": "confirmation-ply04-11",
+    "opponent": "negamax3",
+    "seed": 42
+   },
+   {
+    "color": "O",
+    "difference": 1.0,
+    "family": "confirmation-ply06-02",
+    "opponent": "negamax3",
+    "seed": 42
+   },
+   {
+    "color": "X",
+    "difference": 1.0,
+    "family": "confirmation-ply08-00",
+    "opponent": "negamax5",
+    "seed": 42
+   },
+   {
+    "color": "O",
+    "difference": 1.0,
+    "family": "confirmation-ply06-02",
+    "opponent": "negamax3",
+    "seed": 314159
+   },
+   {
+    "color": "O",
+    "difference": 1.0,
+    "family": "confirmation-ply06-21",
+    "opponent": "negamax3",
+    "seed": 314159
+   },
+   {
+    "color": "X",
+    "difference": 0.5,
+    "family": "confirmation-ply08-07",
+    "opponent": "negamax3",
+    "seed": 314159
+   },
+   {
+    "color": "X",
+    "difference": 1.0,
+    "family": "confirmation-ply10-03",
+    "opponent": "negamax3",
+    "seed": 314159
+   },
+   {
+    "color": "X",
+    "difference": 1.0,
+    "family": "confirmation-ply10-08",
+    "opponent": "negamax3",
+    "seed": 314159
+   },
+   {
+    "color": "O",
+    "difference": 0.5,
+    "family": "confirmation-ply10-09",
+    "opponent": "negamax3",
+    "seed": 314159
+   },
+   {
+    "color": "X",
+    "difference": 0.5,
+    "family": "confirmation-ply08-07",
+    "opponent": "negamax5",
+    "seed": 314159
+   },
+   {
+    "color": "X",
+    "difference": 1.0,
+    "family": "confirmation-ply10-08",
+    "opponent": "negamax5",
+    "seed": 314159
+   },
+   {
+    "color": "O",
+    "difference": 0.5,
+    "family": "confirmation-ply10-09",
+    "opponent": "negamax5",
+    "seed": 314159
+   }
+  ],
+  "paired_games_changed_outcome": 12,
+  "positive_paired_differences": 12
+ },
+ "verdict": {
+  "failures": [],
+  "matches_analysis": true,
+  "opponent_material_regressions": [],
+  "practically_meaningful": false,
+  "qualified_heterogeneity": false,
+  "seeds_not_materially_negative": true,
+  "small_effect": true,
+  "strength": "CONFIRMED_POSITIVE_EFFECT"
+ }
+}
