@@ -14,7 +14,7 @@ export const DEFAULT_COMPETITOR = { type: 'negamax', depth: 2, simulations: 2000
 export const playerColor = index => index === 0 ? 'Red' : 'Yellow';
 
 export function competitorLabel(config) {
-  if (config.type === ALPHAZERO) return `AlphaZero (Experimental) · safeguard ${config.tactical_guard === true ? 'On' : 'Off'}`;
+  if (config.type === ALPHAZERO) return `AlphaZero (Experimental) · safeguard ${config.tactical_guard === true ? 'on' : 'off'}`;
   if (config.type === VICTOR_RESEARCH) return researchAgent.name;
   if (config.type === 'negamax') return `Negamax · depth ${config.depth ?? 2}`;
   if (config.type === 'mcts') return `Classic MCTS · ${config.simulations ?? config.simulation_limit ?? 2000} simulations`;

@@ -84,7 +84,7 @@ for (const lab of ['tournament', 'season']) test(`real ${lab} guarded/unguarded 
   const entrantPrefix = lab === 'season' ? 'season-entrant' : 'entrant';
   const count = lab === 'season' ? 4 : 8;
   await expect(page.locator(`#${entrantPrefix}-1 option`).filter({ hasText: 'AlphaZero' })).toHaveCount(2);
-  for (let i = 1; i <= count; i++) await page.locator(`#${entrantPrefix}-${i}`).selectOption({ label: `AlphaZero (Experimental) · safeguard ${i % 2 ? 'Off' : 'On'}` });
+  for (let i = 1; i <= count; i++) await page.locator(`#${entrantPrefix}-${i}`).selectOption({ label: `AlphaZero (Experimental) · safeguard ${i % 2 ? 'off' : 'on'}` });
   await page.locator(`#${lab}-create`).click(); await expect(page.locator('.tournament-summary')).toBeVisible();
   await page.locator('#'+(lab === 'season' ? 'season-watch' : 'tournament-watch')).click(); await expect(page.locator('#match-next')).toBeEnabled();
   await page.locator('#match-speed').selectOption('fast'); await page.locator('#match-autoplay').click();
@@ -125,7 +125,7 @@ test('Human first in Match Lab versus guarded AlphaZero', async ({ page }) => {
   await page.locator('#match-start').click(); await expect(page.locator('.board-revision')).toHaveText('Move 0');
   await column(page).click(); await expect(page.locator('.board-revision')).toHaveText('Move 1');
   await page.locator('#match-next').click(); await expect(page.locator('.board-revision')).toHaveText('Move 2');
-  await expect(page.locator('.move-list')).toContainText('safeguard On');
+  await expect(page.locator('.move-list')).toContainText('safeguard on');
 });
 
 test('AlphaZero game uses existing position and last-AI explanation UI without provider calls', async ({ page }) => {

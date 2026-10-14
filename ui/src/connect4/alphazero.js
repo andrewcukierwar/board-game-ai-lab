@@ -3,7 +3,7 @@ import { canonicalJSON } from '../evaluation/canonical.js';
 export const ALPHAZERO = 'alphazero';
 export const alphaZeroAgent = { type: ALPHAZERO, name: 'AlphaZero (Neural MCTS)', label: 'Experimental',
   description: 'Experimental neural-network agent trained through self-play. Uses 256 PUCT simulations per move. It is not an optimal Connect 4 solver.' };
-export const ALPHAZERO_CAVEAT = 'AlphaZero uses the same CNN with safeguard Off or On. Its tie-breaking depends only on the exact position; game seeds do not change its choices and do not reproduce historical research RNG streams.';
+export const ALPHAZERO_CAVEAT = 'AlphaZero uses the same CNN with safeguard off or on. Its tie-breaking depends only on the exact position; game seeds do not change its choices and do not reproduce historical research RNG streams.';
 export const hasAlphaZero = configs => configs.some(c => c?.type === ALPHAZERO);
 export const validAlphaZeroConfig = c => c?.type === ALPHAZERO && typeof c.tactical_guard === 'boolean' &&
   canonicalJSON(Object.keys(c).sort()) === canonicalJSON(['tactical_guard', 'type']);
