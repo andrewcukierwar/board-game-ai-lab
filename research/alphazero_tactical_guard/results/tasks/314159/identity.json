@@ -1,0 +1,45 @@
+{
+ "after": {
+  "augmentation": "d3bbe96547bb822ac366ba89e576623242ce945b1b95b0b47be365eb81d1e406",
+  "counters": {
+   "completed_generations": 6,
+   "total_games": 864,
+   "total_positions": 25019,
+   "trainer_steps": 864
+  },
+  "global_rng": "a38470944554db39a23601e0902f9fc3ffcfa0467635810159639f6271938f5e",
+  "model": "f1d0032a6dae39715558e082912144c765537775676eaeab8bbe79426c7e53f8",
+  "optimizer": "2d9ec7c338e3779d376a413b1665351d399753f2e89d09182012553076b9d1f0",
+  "replay": "6dd1349405f677a71fb5ebd61cdc94b4695e3c0f63572abbee16714184ad7b97",
+  "sampling": "7bfcf578941a38e5f7618865263ced654662f6e70cbbab58ae4b5a0b94333f8c"
+ },
+ "architecture": "connect4-conv64-128-128-policy7-scalar-tanh-v2",
+ "before": {
+  "augmentation": "d3bbe96547bb822ac366ba89e576623242ce945b1b95b0b47be365eb81d1e406",
+  "counters": {
+   "completed_generations": 6,
+   "total_games": 864,
+   "total_positions": 25019,
+   "trainer_steps": 864
+  },
+  "global_rng": "a38470944554db39a23601e0902f9fc3ffcfa0467635810159639f6271938f5e",
+  "model": "f1d0032a6dae39715558e082912144c765537775676eaeab8bbe79426c7e53f8",
+  "optimizer": "2d9ec7c338e3779d376a413b1665351d399753f2e89d09182012553076b9d1f0",
+  "replay": "6dd1349405f677a71fb5ebd61cdc94b4695e3c0f63572abbee16714184ad7b97",
+  "sampling": "7bfcf578941a38e5f7618865263ced654662f6e70cbbab58ae4b5a0b94333f8c"
+ },
+ "checkpoint": {
+  "generation": 6,
+  "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-c-worktree/experiment-output/phase4d4h-c/run/tasks/314159-cnn-g6-train/generation-0006.pt",
+  "sha256": "2646d7cdee7d7b069412688bf95fd9794bea30402b4952120c904dbcb399401d"
+ },
+ "complete": true,
+ "cpu_seconds": 138.023406,
+ "fixture_searches": 1256,
+ "generation": 6,
+ "matches": 160,
+ "rss_mib": 319.453125,
+ "seconds": 138.21040296554565,
+ "seed": 314159,
+ "weights_sha256": "f1d0032a6dae39715558e082912144c765537775676eaeab8bbe79426c7e53f8"
+}

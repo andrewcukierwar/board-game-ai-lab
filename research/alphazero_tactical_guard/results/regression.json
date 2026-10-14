@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "stage": "prelaunch",
+  "passed": 113,
+  "deselected": 2,
+  "seconds": 3.55,
+  "tests": [
+    "tests/test_connect4_mcts.py",
+    "tests/test_alphazero_v2_bitboard.py"
+  ],
+  "selection": "not complete_selfplay and not capture",
+  "selfplay_test_generation_excluded": true,
+  "command": "env <five thread controls=1> <frozen python> -m pytest -q <tests> -k <selection>",
+  "log": "........................................................................ [ 63%]\n.........................................                                [100%]\n113 passed, 2 deselected in 3.55s\n"
+}

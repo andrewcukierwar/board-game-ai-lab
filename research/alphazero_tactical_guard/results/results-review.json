@@ -1,0 +1,162 @@
+{
+  "absolute_deadline_epoch": 1791949119.0,
+  "audited_changed_actions": 56,
+  "audited_decisions": 6287,
+  "completed_fixture_pairs": 1256,
+  "completed_fixture_searches": 2512,
+  "completed_matches": 320,
+  "contract": "phase4d4j-a-independent-results-review-v1",
+  "deeper_verdict": "PASS_NO_OBSERVED_WDL_REGRESSION",
+  "direct_rehash": {
+    "canonical_inherited_files": 1473,
+    "frozen_files": 61,
+    "mismatches": 0,
+    "official_campaign_files": 150,
+    "original_checkpoints": 2
+  },
+  "disposition": "PASS",
+  "epoch": 1791947829.5066721,
+  "execution_status": "COMPLETE_PENDING_RESULTS_REVIEW",
+  "external_replication": false,
+  "frozen_bootstrap_seed": 4410903,
+  "historical_preservation": "PASS",
+  "historical_scopes": 22,
+  "independent_arithmetic_comparisons": 279,
+  "interpretation": "Small positive conditional pooled match endpoint effect below frozen +5pp practical threshold; no broad stronger-gameplay or integration claim",
+  "latency": {
+    "classification_seconds": {
+      "mean": 4.3794957026348755e-05,
+      "median": 4.7875e-05,
+      "n": 3188,
+      "p95": 6.525e-05,
+      "worst": 9.5958e-05
+    },
+    "guard_seconds": {
+      "mean": 5.02287587829361e-05,
+      "median": 5.4292e-05,
+      "n": 3188,
+      "p95": 7.223529999999998e-05,
+      "worst": 0.000102667
+    },
+    "relative_overhead": {
+      "mean": 0.0024015089861149277,
+      "median": 0.001213468484827502,
+      "n": 3188,
+      "p95": 0.011686616389182792,
+      "worst": 0.03006306749222719
+    },
+    "search_seconds": {
+      "mean": 0.04259487404400387,
+      "median": 0.05131031246855855,
+      "n": 3188,
+      "p95": 0.05798766636289655,
+      "worst": 0.13610120862722397
+    },
+    "total_seconds": {
+      "mean": 0.04264675693030246,
+      "median": 0.05136202089488506,
+      "n": 3188,
+      "p95": 0.05806101029738783,
+      "worst": 0.13617641665041447
+    }
+  },
+  "latency_verdict": "PASS",
+  "match_differences": {
+    "314159": {
+      "ci95": [
+        0.0,
+        0.05
+      ],
+      "clusters": 40,
+      "difference": 0.01875,
+      "replicates": 10000,
+      "rows": 80,
+      "seed": 20261013
+    },
+    "42": {
+      "ci95": [
+        0.0,
+        0.05625
+      ],
+      "clusters": 40,
+      "difference": 0.025,
+      "replicates": 10000,
+      "rows": 80,
+      "seed": 20261013
+    },
+    "pooled": {
+      "ci95": [
+        0.00625,
+        0.04375
+      ],
+      "clusters": 40,
+      "difference": 0.021875,
+      "replicates": 10000,
+      "rows": 160,
+      "seed": 20261013
+    }
+  },
+  "model_queries": 0,
+  "new_search_experiments": 0,
+  "prospective_commit": "ffb8009b014ab6c84b9eb00ccab986fcb6bc4b14",
+  "publication_already_complete": false,
+  "recommendation": "Keep public baseline unchanged; separate preregistered larger opening/opponent evaluation",
+  "report_editorial_checks": {
+    "changed_solved_positions_still_lost": 6,
+    "deeper_no_change_statement": true,
+    "disposition": "PASS",
+    "distinct_changed_score_families": 5,
+    "qualified_strength_and_future_hypotheses": true,
+    "zero_visit_fixture_selections": 1
+  },
+  "resource_charge_at_review_seconds": 1410.5066721439362,
+  "reviewer": "/root/independent_review",
+  "reviewer_bootstrap_seed": 20261013,
+  "same_host": true,
+  "strength_verdict": "INCONCLUSIVE",
+  "supplemental_tactical_category_interval_checks": [
+    {
+      "category": "unique_win",
+      "ci95": [
+        0.0,
+        0.07608695652173914
+      ],
+      "difference": 0.03,
+      "seed": 42,
+      "status": "PASS"
+    },
+    {
+      "category": "unique_safe",
+      "ci95": [
+        0.0392156862745098,
+        0.17593954248365995
+      ],
+      "difference": 0.1,
+      "seed": 42,
+      "status": "PASS"
+    },
+    {
+      "category": "unique_win",
+      "ci95": [
+        0.0,
+        0.03409090909090909
+      ],
+      "difference": 0.01,
+      "seed": 314159,
+      "status": "PASS"
+    },
+    {
+      "category": "unique_safe",
+      "ci95": [
+        0.046296296296296294,
+        0.23529411764705882
+      ],
+      "difference": 0.13,
+      "seed": 314159,
+      "status": "PASS"
+    }
+  ],
+  "tactical_verdict": "PASS",
+  "training_updates": 0,
+  "unresolved_findings": []
+}

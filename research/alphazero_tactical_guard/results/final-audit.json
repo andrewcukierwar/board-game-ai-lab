@@ -1,0 +1,33 @@
+{
+ "absolute_deadline_epoch": 1791949119.0,
+ "checkpoint_files_verified": 2,
+ "elapsed_from_task_origin_seconds": 1632.1314911842346,
+ "execution_status": "COMPLETE",
+ "hard_maximum_seconds": 2700,
+ "historical_control_history_comparisons": 1280,
+ "inherited_git_files_unchanged": 1487,
+ "no_additional_experiment": true,
+ "no_deploy": true,
+ "no_merge": true,
+ "no_sealed_contents": true,
+ "no_training": true,
+ "official_files": 150,
+ "regression": {
+  "command": "env <five thread controls=1> <frozen python> -m pytest -q <tests> -k <selection>",
+  "deselected": 2,
+  "log": "........................................................................ [ 63%]\n.........................................                                [100%]\n113 passed, 2 deselected in 3.55s\n",
+  "passed": 113,
+  "seconds": 3.55,
+  "selection": "not complete_selfplay and not capture",
+  "selfplay_test_generation_excluded": true,
+  "stage": "prelaunch",
+  "status": "PASS",
+  "tests": [
+   "tests/test_connect4_mcts.py",
+   "tests/test_alphazero_v2_bitboard.py"
+  ]
+ },
+ "review": "PASS",
+ "source_files_verified": 61,
+ "status": "PASS"
+}

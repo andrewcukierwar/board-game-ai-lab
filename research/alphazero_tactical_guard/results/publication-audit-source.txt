@@ -1,0 +1,44 @@
+"""Saved-evidence/publication audit; no training or model queries."""
+import json,time,subprocess,hashlib
+from pathlib import Path
+from research.alphazero_tactical_guard.common import RESULTS,REPO,enforce,preservation,read,write,sha,runtime,BASE,hc
+runtime();freeze=enforce();p=preservation()
+assert p['intact'] and p['official_files']==150
+execution=read(RESULTS/'execution.json');review=read(RESULTS/'results-review.json')
+assert execution['status']=='COMPLETE_PENDING_RESULTS_REVIEW' and review['disposition']=='PASS'
+assert read(RESULTS/'independent-verification.json')['status']=='PASS'
+# Git path metadata/blob equality only; no sealed payload text is opened.
+old={}
+for entry in hc.git(REPO,'ls-tree','-r',BASE).splitlines():
+    metadata,name=entry.split('\t',1);kind,blob=metadata.split()[1:]
+    assert kind=='blob'
+    path=REPO/name
+    digest=hashlib.sha1(('blob '+str(path.stat().st_size)+'\0').encode())
+    with path.open('rb') as f:
+        for chunk in iter(lambda:f.read(1024*1024),b''):digest.update(chunk)
+    assert digest.hexdigest()==blob,name
+    old[name]=blob
+# Audit all measured control histories against already frozen H-C baseline evidence.
+comparisons=0
+for seed in (42,314159):
+    now=read(RESULTS/'tasks'/str(seed)/'control-matches.json')['records']
+    previous=read(REPO/'research/alphazero_resnet_selfplay/results/run-evidence/tasks'/f'{seed}-cnn-g6-matches/matches.json')['records']
+    assert len(now)==len(previous)==80
+    for a,b in zip(now,previous):
+        for field in ('opening_id','family','game_index','agent_color','moves','winner','result','score'):
+            assert a[field]==b[field],(seed,field)
+            comparisons+=1
+now=time.time();origin=read(RESULTS/'design.json')['task_origin_epoch'];deadline=read(RESULTS/'design.json')['absolute_deadline_epoch']
+assert now<deadline
+write(RESULTS/'final-preservation.json',p)
+write(RESULTS/'final-audit.json',dict(status='PASS',execution_status='COMPLETE',review='PASS',
+    source_files_verified=len(freeze['files']),checkpoint_files_verified=len(freeze['checkpoints']),
+    official_files=150,inherited_git_files_unchanged=len(old),historical_control_history_comparisons=comparisons,
+    elapsed_from_task_origin_seconds=now-origin,absolute_deadline_epoch=deadline,hard_maximum_seconds=2700,
+    no_training=True,no_additional_experiment=True,no_sealed_contents=True,no_merge=True,no_deploy=True,
+    regression=read(RESULTS/'regression.json')))
+files={str(path.relative_to(REPO)):sha(path) for path in sorted((REPO/'research/alphazero_tactical_guard').rglob('*'))
+    if path.is_file() and '__pycache__' not in path.parts and path.name!='evidence-manifest.json'}
+files['docs/phase4d4j-a-alphazero-tactical-guard.md']=sha(REPO/'docs/phase4d4j-a-alphazero-tactical-guard.md')
+write(RESULTS/'evidence-manifest.json',dict(contract='phase4d4j-a-evidence-manifest-v1',files=files))
+print(json.dumps(dict(status='PASS',official=150,inherited=len(old),elapsed_seconds=now-origin)))
