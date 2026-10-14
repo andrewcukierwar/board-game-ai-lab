@@ -2,9 +2,10 @@
 
 ## 1. Executive summary
 
-Release candidate implemented on `phase4d4k-b-alphazero-frontend`, with independent
-review and bounded local ARM64 staging. Final browser/remote CI results are being
-recorded below before the branch is declared complete. **Not merged or deployed;
+Release candidate completed on `phase4d4k-b-alphazero-frontend`, with independent
+review, green bounded local ARM64 staging, full local browser regressions and
+green remote native ARM64 CI. Ready for final review and separately approved
+merge/deployment. **Not merged or deployed;
 AlphaZero has not been enabled publicly.**
 
 The experimental generation-6 CNN can be selected in Play, Match, Tournament and
@@ -34,7 +35,7 @@ The live Mac mini container stayed at its original image, container ID, start
 time and restart count. It remained on localhost port 8000 and was never used for
 testing. No Services checkout, Render configuration, Funnel setting, credential,
 production container or research job was changed. No active training was found
- before bounded cached Docker builds. No training or research experiment ran.
+before bounded cached Docker builds. No training or research experiment ran.
 
 ## 3. Frontend architecture and discovery
 
@@ -147,15 +148,15 @@ and the immutable 112-game benchmark still verify with their original digest.
 
 History validation accepts optional AlphaZero model/guard/original-action/visit
 evidence without changing move ordering, actor, revision or legal reconstruction.
-It checks guard identity, integer256 visits, model agreement and valid guard
+It checks guard identity, integer 256 visits, model agreement and valid guard
 reasons when that evidence is present. Compact competition storage keeps columns
 and a small versioned provenance block, not duplicate boards and root vectors.
 Full server history retains the move evidence; local replay remains column based.
 
 ## 11. Busy, unavailable and reconciliation
 
-Only explicit503 `agent_busy`/`game_busy` responses enter AlphaZero bounded busy
-retry: at most two retries,250/750 ms minimum delays, honoring Retry-After up to
+Only explicit 503 `agent_busy`/`game_busy` responses enter AlphaZero bounded busy
+retry: at most two retries, 250/750 ms minimum delays, honoring Retry-After up to
 five seconds. Invalid/long Retry-After requires explicit continuation. No uncertain
 network failure, stale revision, rate limit or failed-agent response is blindly
 resubmitted. Established controllers reconcile authoritative revision/history.
@@ -176,7 +177,7 @@ tags, native ARM64 validation, existing private env handling and one-worker/four
 thread Gunicorn are retained. No shared search limit or Funnel topology changed.
 
 Candidate creation records an immutable owned container ID; cleanup never removes
-a foreign named candidate and handles start/port-binding failure. Localhost8001
+a foreign named candidate and handles start/port-binding failure. Localhost 8001
 candidate checks include health, exact core/source provenance, mode-specific
 status, real legacy-agent moves, optional Victor and both AlphaZero guard moves.
 An unavailable model fails before cutover. Checks repeat after cutover; failure
@@ -217,9 +218,18 @@ Owned identities/ports only:
 
 Explanations disabled; explanation browser tests mock responses. No live port 8000,
 production Services checkout, research fixture or public backend request was used.
-Staging source-commit env used the baseSHA as a declared local marker while the
+Staging source-commit env used the base SHA as a declared local marker while the
 working tree was under construction; image identities and final Git changes
 identify actual candidate content. Production/CI use their exact committed SHA.
+Cleanup completed after final verification: all three phase-owned staging
+containers and both phase-owned Vite servers were removed/stopped. The temporary
+lite venv, own dependency symlink (historical target left intact) and phase-specific
+browser downloads were removed. Only the final `bgai-k-b-staging:lite-final` and
+`:alphazero-final` images are retained for review; three obsolete K-B image tags
+were removed. K-A and production images were preserved. Local logs/screenshots
+remain under phase-prefixed `/tmp` paths as inspection evidence. Before/after
+live container ID/image/start time/restart count still match exactly.
+
 Only one real game per small Tournament/Season smoke was needed; large fields in
 legacy browser tests use existing synthetic HTTP fixtures, not neural evaluation.
 
@@ -236,32 +246,43 @@ legacy browser tests use existing synthetic HTTP fixtures, not neural evaluation
 | Deployment mock suite |13 passed,0 failed |
 | AlphaZero Chromium matrix before added reverse-Human/explanation cases |22 passed,0 failed |
 | Corrected14 legacy browser failures targeted rerun |14 passed,0 failed |
-| Final full Chromium |183 passed,0 failed,1 skipped (disabled-Victor UI case run separately) |
+| Full Chromium before final harness rerun |183 passed,0 failed,1 skipped (disabled-Victor UI case run separately) |
+| Final configured full Chromium |183 passed,0 failed,1 skipped; all Victor test flags matched frontend/API |
 | Firefox |57 passed,0 failed,0 skipped |
-| WebKit |pending final recorded results |
+| WebKit |57 passed,0 failed,0 skipped |
 | Disabled-Victor UI, separate localhost UI |3 passed,0 failed |
 | Final isolated lite/enabled/unavailable builds and release smoke |PASS; no torch in lite; missing runtime refuses AlphaZero |
-| Remote native ARM64 workflow |pending branch publication/check |
+| Remote native ARM64 workflow |SUCCESS:463 frontend;122 native inference;24 Chromium; build/smoke/cleanup passed |
 
-The17 torch-free skips cover optional torch-dependent tests and existing platform-specific tests. No training,
+Remote [run 38599224110](https://github.com/andrewcukierwar/board-game-ai-lab/actions/runs/38599224110)
+tested exact implementation commit `0dda537cf373d32daabeee7a5564701f95b93b1a`.
+Both jobs concluded success on 2026-10-14; the native ARM64 job took 7m29s.
+There were zero failed/skipped tests in its 463/122/24 suites. Core/source smoke,
+CPU-only import/thread configuration and final container cleanup passed. Startup
+health briefly returned connection reset during the bounded readiness loop,
+then passed normally. GitHub emitted a non-blocking Node20 action-runtime
+deprecation annotation and ran those actions with Node24; application tests/build
+used configured Node22. These annotations did not prevent either job from passing.
+
+The 17 torch-free skips cover optional torch-dependent tests and existing platform-specific tests. No training,
 self-play campaign, optimizer experiment, paid provider traffic or sealed input
-was run to eliminate skips. Bounded v2 tests deliberately deselect14 training,
+was run to eliminate skips. Bounded v2 tests deliberately deselect 14 training,
 generation and resume cases. Existing optional native-platform skips remain.
 
 Test iteration failures are retained rather than omitted: initial frontend
-integration16 failures were discovery-unaware mocks/lifetime timing/status-role
-issues, fixed with440/440 legacy units preserved; first new focused suite3 failed
-on boolean-null handling and test move-config fixtures, fixed. Docker11 failures
+integration 16 failures were discovery-unaware mocks/lifetime timing/status-role
+issues, fixed with 440/440 legacy units preserved; first new focused suite 3 failed
+on boolean-null handling and test move-config fixtures, fixed. Docker 11 failures
 were inherited service flags contaminating pytest, corrected by sanitizing the
-subprocess env (also inCI). Initial22 browser launches failed before execution
-because Chromium was absent, then5/2 native-test interaction/replay assertions
-were corrected, ending22/22. Initial broad legacy browser run77 failed/82 passed/
+subprocess env (also in CI). Initial 22 browser launches failed before execution
+because Chromium was absent, then 5/2 native-test interaction/replay assertions
+were corrected, ending 22/22. Initial broad legacy browser run 77 failed/82 passed/
 1 skipped due catch-all mocks treating discovery as history plus obsolete labels/
-presets. Subsequent full run14 failed/169 passed/1 skipped isolated remaining
-stale selectors and one legacyMatch error-message regression; all14 passed after
-specific corrections. Backend mock tests initially5 failed because a Python path
-with spaces broke generated shebangs;13 now pass with a portable temp interpreter
-symlink. One concurrent staging release probe saw503 search contention; serial
+presets. Subsequent full run 14 failed/169 passed/1 skipped isolated remaining
+stale selectors and one legacy Match error-message regression; all 14 passed after
+specific corrections. Backend mock tests initially 5 failed because a Python path
+with spaces broke generated shebangs; 13 now pass with a portable temp interpreter
+symlink. One concurrent staging release probe saw 503 search contention; serial
 ready-server probes pass. These are resolved iterations, not excluded failures.
 
 The first combined Firefox/WebKit attempt reused sessions left by earlier runs
@@ -270,14 +291,33 @@ and exhausted the unchanged 128-session staging capacity: 54 passed, 6 failed,
 pointer scheduling ambiguity in the test; the explicit busy response is now held
 until Pause completes. No application concurrency/session limit was raised.
 Resetting only the phase-owned staging container between browser projects gives
-each suite a clean session store. Firefox then passed all 57 cases; the final
-WebKit result is recorded above. Separate output directories prevent concurrent
+each suite a clean session store. Firefox then passed all 57 cases; WebKit also passed all 57 cases. Separate output directories prevent concurrent
 test artifact cleanup. This initial failed attempt is retained as test evidence.
+
+A later final Chromium rerun accidentally omitted `VICTOR_LABS_UI=true` and
+`VICTOR_RELEASE_UI=true` from its test process while Vite had Victor enabled. It
+finished with 149 passed, 5 failed and 30 skipped: two preset-count assertions and
+three Victor availability assertions expected the disabled UI, while the enabled
+Victor cases were skipped. The final full rerun with all test flags matching frontend/API is
+recorded above; the separate disabled UI run uses its own port and flags. This
+was a test invocation correction, with no implementation/assertion relaxation.
+The first correction also omitted `VICTOR_RELEASE_API=true`; it was stopped
+early after 77 passed, 1 interrupted and 106 not run, before the known-mismatched
+API expectation. The final invocation explicitly sets all three flags:
+
+```sh
+VICTOR_LABS_UI=true VICTOR_RELEASE_UI=true VICTOR_RELEASE_API=true \
+PLAYWRIGHT_BROWSERS_PATH=/tmp/bgai-k-b-browsers \
+PLAYWRIGHT_BASE_URL=http://127.0.0.1:18115 \
+PLAYWRIGHT_API_URL=http://127.0.0.1:18114 \
+npm --prefix ui run test:e2e -- --project=chromium \
+  --output=/tmp/bgai-k-b-chromium-all-flags-results
+```
 
 Existing gameplay, sequence/revision, schedule, draw, seed, compact-history and
 winner assertions were retained. Browser mock backends now explicitly answer
 optional discovery. Legacy browser selectors were updated to the backend branch's
-existing ClassicMCTS names/custom budgets/preset counts, preserving exact request
+existing Classic MCTS names/custom budgets/preset counts, preserving exact request
 budgets and duplicate-configuration/bracket assertions. Frozen export fixtures were
 not edited. Full browser suites are rerun, not replaced by focused success alone.
 
@@ -285,11 +325,11 @@ not edited. Full browser suites are rerun, not replaced by focused success alone
 
 The AlphaZero matrix covers available/disabled/unavailable/404/malformed/network
 discovery; Human in both colors with each guard; restart/fixed active config;
-AlphaZero versusHuman/Negamax/ClassicalMCTS/TacticalMCTS/Victor/AlphaZero; guarded
+AlphaZero versus Human/Negamax/Classic MCTS/Tactical MCTS/Victor/AlphaZero; guarded
 versus unguarded; step/autoplay/pause/busy cancellation; timeline/replay; uncertain
 committed response reconciliation; active unavailability/discovery refresh; small
 Tournament and Season with both variants; persisted reload/local replay; v3 JSON
-export+self-verification; mobile320/375px and native keyboard typeahead. Added
+export+self-verification; mobile 320/375px and native keyboard typeahead. Added
 reverse-Human Match and position/last-AI mocked explanation cases complete the
 matrix. Legacy canonical, seeded comparisons, ratings and larger synthetic fields
 remain covered by their existing unit/browser suites.
@@ -299,15 +339,17 @@ remain covered by their existing unit/browser suites.
 [Independent report](phase4d4k-b-independent-review.md) was written by a reviewer
 who wrote none of implementation/tests. Three initial findings were fixed and
 re-reviewed: major Play provenance recovery unlock; major AlphaZero-to-Victor
-Play switching; minor Match mismatch messaging. A later minor lock-onlyCI path
+Play switching; minor Match mismatch messaging. A later minor lock-only CI path
 filter omission was fixed/re-reviewed. Candidate-ID cleanup, all nine upstream
 hashes/dependency closure, CI lifecycle, and per-session backend pinning received
 additional targeted review. The reviewer independently reproduced v1/v2 byte
 compatibility, v3 tamper/rehash rejection, real both-color AlphaZero moves, busy
-pause/unmount, unavailable/mismatched session pinning,86 final frontend tests and13
+pause/unmount, unavailable/mismatched session pinning, 86 final frontend tests and 13
 mocked deployment tests. No unresolved material finding was identified. The
-reviewer's documented limits (including remoteCI/full browser evidence) are
-retained. Final controller recovery, legacy Match error wording, homepage/guard
+reviewer's documented limits (including remote CI/full browser evidence) are
+retained. The reviewer independently inspected the final local browser logs and
+remote run status/logs; this is evidence verification, not a claim that the
+reviewer reran every full suite. Final controller recovery, legacy Match error wording, homepage/guard
 copy and busy/pause browser harness corrections received targeted re-review.
 For both controllers, the reviewer independently preserved completed-game bytes
 and two validated unfinished plies through a model mismatch, blocked restart
@@ -316,16 +358,16 @@ after restoring the original model and seed. No unresolved major issue remains.
 
 ## 18. Historical preservation
 
-No research/campaign/checkpoint/benchmark path was written. All17 other worktrees
-(including the original historical checkout) were observed with0 tracked changes.
-Selected artifactSHA remains `4c3cf26aa58495f43094436f231486969658d70b94b246a912a5bb54756dc528`;
-manifestSHA `004e76c685ad011d0bcb4d67aeedee10372069d7621600c717ac27aa6f3449cc`;
-guardSHA `d2ee54ba1fe9ddbcc4641538e2f5dd89a2435234ff194d6909bed72096632d04`.
+No research/campaign/checkpoint/benchmark path was written. All 17 other worktrees
+(including the original historical checkout) were observed with 0 tracked changes.
+Selected artifact SHA remains `4c3cf26aa58495f43094436f231486969658d70b94b246a912a5bb54756dc528`;
+manifest SHA `004e76c685ad011d0bcb4d67aeedee10372069d7621600c717ac27aa6f3449cc`;
+guard SHA `d2ee54ba1fe9ddbcc4641538e2f5dd89a2435234ff194d6909bed72096632d04`.
 The canonical 112-game benchmark, old export fixtures, all K-A evidence and
 production model paths are absent from the branch diff. Original H-C generation-6
-checkpoint hashes were checked read-only: seed42
+checkpoint hashes were checked read-only: seed 42
 `ba2bde2ec71b3ac7486046d1cc26ab591bb59d6b764193ece08c6d6a6f24f58b`;
-seed314159 `2646d7cdee7d7b069412688bf95fd9794bea30402b4952120c904dbcb399401d`.
+seed 314159 `2646d7cdee7d7b069412688bf95fd9794bea30402b4952120c904dbcb399401d`.
 Live container read-only
 before/after identity observations match. Original campaign/checkpoints remain
 in their untouched historical worktrees. Sealed fixtures were never opened or
@@ -334,28 +376,35 @@ sealed payloads. No claim is made to a new per-file sealed audit.
 
 ## 19. Remaining limitations and launch recommendation
 
-Final remoteCI/browser evidence must be green before declaring release readiness.
+All required final regression, staging and remote CI evidence is green. No
+unresolved material correctness, provenance, deployment or review issue remains.
+Recommendation: approve this branch for final merge review and a separately
+approved controlled public deployment using section 20. No public launch occurred.
 There is one AlphaZero search per process; UI busy handling bounds demand but does
 not establish per-user fairness. Neural floating-point runtime differences may
-change future decisions; game seeds ignoreAlphaZero and do not reproduce research
+change future decisions; game seeds ignore AlphaZero and do not reproduce research
 streams. Compact replay keeps columns/model identity rather than full diagnostics.
-OptionalAMD64 and base OS/API supply-chain limitations are explicitly documented.
+Optional AMD64 and base OS/API supply-chain limitations are explicitly documented.
 No public latency/availability claim can be made before separately approved
 production verification. No unresolved review finding is bypassed to finish.
 
 ## 20. Future production release and rollback (approval required)
 
-1. Review this branch, final test evidence and native ARM64CI. Separately approve
+1. Review this branch, final test evidence and native ARM64 CI. Separately approve
    merging and separately approve public deployment; neither occurred here.
 2. In the **approved Services release checkout**, fetch and select the exact
-   approved releaseSHA; confirm clean status and available resource headroom.
+   approved release SHA; confirm clean status and available resource headroom.
    Preserve the private env file, CORS/Funnel/explanation settings and search limits.
 3. Run the reviewed `bash scripts/deploy-mac-mini-api.sh alphazero`. Omission or
    `lite` remains torch-free/disabled. Candidate localhost port 8001 must pass all
    probes before replacing the live container. Keep the stopped rollback container.
-4. Release the frontend from the approvedSHA with the existing Render static-site
-   procedure/API origin; optionally set its evaluation source commit. Do not use
-   a VITE availability flag. Verify public discovery, both Play colors/guards,
+4. After approval, release that same reviewed SHA through the existing Render
+   Static Site: root directory `ui`, build command `npm ci && npm run build:render`,
+   publish directory `dist`, existing `/*` to `/index.html` Rewrite. Preserve
+   `VITE_API_BASE` as the current approved HTTPS Funnel **origin**, without `/v1`,
+   and the existing Victor flag. Optionally set `VITE_EVALUATION_SOURCE_COMMIT`
+   to the exact approved SHA. No AlphaZero VITE availability flag exists. Verify
+   public discovery, both Play colors/guards,
    small Labs/export, mobile/CORS/health and resource use without paid explanations.
 5. Keep rollback until public behavior is verified. On failure, the script restores
    the old container automatically; manual approved rollback is:
@@ -367,8 +416,83 @@ production verification. No unresolved review finding is bypassed to finish.
    curl -fsS http://127.0.0.1:8000/v1/connect4/health
    ```
 
-   Funnel still points at8000. Sessions reset on cutover/rollback. If frontend
-   rollback is needed, release the previous staticUI revision; it tolerates an
-   absentAlphaZero endpoint. Inspect public core/source provenance and existing
+   Funnel still points at 8000. Sessions reset on cutover/rollback. If frontend
+   rollback is needed, release the previous static UI revision; it tolerates an
+   absent AlphaZero endpoint. Inspect public core/source provenance and existing
    agents before declaring recovery. Remove rollback deliberately only after
    stable verification. These commands are future operator instructions only.
+
+## 21. Publication and changed-file inventory
+
+Implementation commit: `0dda537cf373d32daabeee7a5564701f95b93b1a`, pushed to
+`origin/phase4d4k-b-alphazero-frontend`. Final evidence/documentation updates are
+published as a subsequent documentation-only commit; no implementation changes
+are concealed by that update. Remote CI evidence is recorded in section 15.
+
+### Added (15 files)
+
+- `.github/workflows/alphazero-inference.yml`
+- `docs/alphazero-runtime-dependencies.md`
+- `docs/phase4d4k-b-alphazero-frontend.md`
+- `docs/phase4d4k-b-independent-review.md`
+- `requirements-alphazero-arm64.lock`
+- `scripts/smoke-api-release.py`
+- `tests/test_deploy_mac_mini.py`
+- `ui/e2e/alphazero.spec.js`
+- `ui/src/connect4/AlphaZeroSettings.jsx`
+- `ui/src/connect4/alphazero.js`
+- `ui/src/connect4/busyRetry.js`
+- `ui/src/connect4/useAlphaZero.js`
+- `ui/tests/alphazero.test.js`
+- `ui/tests/alphazeroPlay.test.js`
+- `ui/tests/fixtures/alphazero.js`
+
+### Changed (47 files)
+
+- `README.md`
+- `api/connect4/__init__.py`
+- `api/connect4/alphazero.py`
+- `api/connect4/state.py`
+- `docker/api.Dockerfile`
+- `docs/evaluation-provenance.md`
+- `docs/mac-mini-deployment.md`
+- `scripts/deploy-mac-mini-api.sh`
+- `tests/test_alphazero_api.py`
+- `ui/e2e/connect4.spec.js`
+- `ui/e2e/fixtures/season.js`
+- `ui/e2e/fixtures/tournament.js`
+- `ui/e2e/home.spec.js`
+- `ui/e2e/match-lab.spec.js`
+- `ui/e2e/polish.spec.js`
+- `ui/e2e/season.spec.js`
+- `ui/e2e/tournament.spec.js`
+- `ui/playwright.config.js`
+- `ui/src/connect4/AgentSelector.jsx`
+- `ui/src/connect4/CompetitorSelector.jsx`
+- `ui/src/connect4/competitorConfig.js`
+- `ui/src/connect4/gameSnapshot.js`
+- `ui/src/connect4/matchRecord.js`
+- `ui/src/connect4/matchTransport.js`
+- `ui/src/connect4/researchAgent.js`
+- `ui/src/connect4/researchCompetitor.js`
+- `ui/src/connect4/useConnect4Game.js`
+- `ui/src/connect4/useConnect4Match.js`
+- `ui/src/evaluation/ExportPanel.jsx`
+- `ui/src/evaluation/csv.js`
+- `ui/src/evaluation/export.js`
+- `ui/src/evaluation/provenance.js`
+- `ui/src/evaluation/verify.js`
+- `ui/src/pages/Connect4.jsx`
+- `ui/src/pages/Home.jsx`
+- `ui/src/pages/MatchLab.jsx`
+- `ui/src/pages/SeasonLab.jsx`
+- `ui/src/pages/TournamentLab.jsx`
+- `ui/src/season/MatchViewer.jsx`
+- `ui/src/season/controller.js`
+- `ui/src/season/model.js`
+- `ui/src/tournament/MatchViewer.jsx`
+- `ui/src/tournament/controller.js`
+- `ui/src/tournament/model.js`
+- `ui/tests/connect4.test.js`
+- `ui/tests/matchLab.test.js`
+- `ui/vite.config.js`
