@@ -1,8 +1,8 @@
 import { ALPHAZERO } from './alphazero.js';
 // Public presets; translate the UI model at the API boundary only.
-import { PUBLIC_PLAYER_TYPES, VICTOR_RESEARCH, researchAgent, researchAgentEnabled, assertResearchExecution, validResearchConfig } from './researchCompetitor.js';
+import { PUBLIC_PLAYER_TYPES, VICTOR_RESEARCH, researchAgent, researchAgentEnabled, assertResearchExecution, validResearchConfig, playerTypes } from './researchCompetitor.js';
 export const COMPETITOR_TYPES = PUBLIC_PLAYER_TYPES;
-export const competitorTypes = (enabled = researchAgentEnabled(), alphaZero = false) => [...COMPETITOR_TYPES, ...(enabled ? [VICTOR_RESEARCH] : []), ...(alphaZero ? [ALPHAZERO] : [])];
+export const competitorTypes = (enabled = researchAgentEnabled(), alphaZero = false) => playerTypes(enabled, alphaZero);
 export const NEGAMAX_DEPTHS = [1, 2, 4, 6, 8, 10, 12];
 export const MCTS_SIMULATIONS = [500, 1000, 2000, 5000, 10000, 25000];
 export const TACTICAL_MCTS_SIMULATIONS = [200, 400, 800, 2000, 4000, 10000];

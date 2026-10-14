@@ -4,6 +4,11 @@ import { ALPHAZERO, alphaZeroErrorMessage } from './alphazero.js';
 export const VICTOR_RESEARCH = 'victor_research';
 export const PUBLIC_PLAYER_TYPES = ['human', 'random', 'negamax', 'mcts', 'mcts_tactical'];
 export const KNOWN_PLAYER_TYPES = [...PUBLIC_PLAYER_TYPES, VICTOR_RESEARCH, ALPHAZERO];
+// Canonical display order for every AI agent menu; each surface places Human itself.
+export const AI_AGENT_ORDER = ['random', 'negamax', 'mcts', 'mcts_tactical', ALPHAZERO, VICTOR_RESEARCH];
+export function aiAgentTypes(enabled, alphaZero = false) {
+  return AI_AGENT_ORDER.filter(type => type === VICTOR_RESEARCH ? enabled : type === ALPHAZERO ? alphaZero : true);
+}
 export const RESEARCH_DISABLED = 'Victor Research execution is disabled in this UI. Saved evidence remains available; re-enable the research feature flag to continue.';
 export const RESEARCH_CAVEAT = 'Seeds determine schedules, colors and seeded agents’ randomness. Victor uses wall-clock search budgets: CPU contention and hosting performance can change its moves. Recorded moves are historical evidence, not a guarantee of identical future play.';
 export function hasResearch(configs) { return configs.some(c => c?.type === VICTOR_RESEARCH); }
@@ -27,7 +32,7 @@ export function researchAgentEnabled(value = import.meta.env?.VITE_VICTOR_RESEAR
 }
 
 export function playerTypes(enabled, alphaZero = false) {
-  return [...PUBLIC_PLAYER_TYPES, ...(enabled ? [VICTOR_RESEARCH] : []), ...(alphaZero ? [ALPHAZERO] : [])];
+  return ['human', ...aiAgentTypes(enabled, alphaZero)];
 }
 
 // Explain research failures without altering the recovery state machine.

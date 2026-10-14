@@ -1,143 +1,88 @@
 # Board Game AI Lab
 
-An interactive **Connect 4 AI evaluation lab** for playing, comparing, explaining, and benchmarking game-playing agents. It combines deterministic Negamax, stochastic Monte Carlo Tree Search (MCTS), grounded post-hoc LLM analysis, and reproducible competition with verifiable evidence.
-
-The engineering problem: keep gameplay, recovery, replay, and evaluation consistent across an asynchronous web application. The empirical result: all four Negamax depths finished above all MCTS variants in a verified, balanced **112-game benchmark**.
+A full-stack laboratory for building, comparing and explaining game-playing AI. Play Connect 4 against six kinds of agent, from classical search to a PyTorch policy/value network trained through self-play. Run reproducible competitions between them and inspect grounded analysis of any position.
 
 **[Open the live application](https://board-game-ai-lab-ui.onrender.com/)** · [Play](https://board-game-ai-lab-ui.onrender.com/connect4) · [Match Lab](https://board-game-ai-lab-ui.onrender.com/connect4/match-lab) · [Tournament Lab](https://board-game-ai-lab-ui.onrender.com/connect4/tournament) · [Season Lab](https://board-game-ai-lab-ui.onrender.com/connect4/season)
 
-## What it demonstrates
+![Board Game AI Lab homepage](docs/assets/home.png)
 
-- Classical adversarial search and bounded stochastic search behind one game/API contract.
-- Reliable web orchestration: revision checks, sequential mutations, uncertain-response reconciliation, and compact local replay.
-- Reproducible experiment design: seeded schedules, exact color balance, relative ratings, descriptive bootstrap intervals, and replayable exports.
-- LLM grounding: explanations tied to verified board facts and references.
+## Overview
 
-## Explore the lab
+Board Game AI Lab puts several game-playing approaches behind one game engine and one API, so they can be played, compared and evaluated on equal terms. A React interface drives a Flask service that runs each agent one move at a time. Competitions run in the browser with seeded, replayable schedules, and their results export as verifiable evidence. An optional LLM layer explains positions using only facts the engine has verified.
 
-| Interface | What a visitor can do |
+## What you can do
+
+| Interface | What it does |
 | --- | --- |
-| **Play** | Choose an agent and who moves first, play a game, and inspect grounded analysis. |
-| **Match Lab** | Configure both competitors, step or autoplay, and review the timeline. Supports Human/Human, Human/AI, and AI/AI, including opt-in Victor on either color. |
-| **Tournament Lab** | Build a single-elimination bracket, watch AI matches, or enter as a human competitor. Optional duplicate Victor entrants are supported. |
-| **Season Lab** | Run balanced AI round robins; inspect standings, ratings, color splits, pairwise results, and exports, including optional Victor entrants. |
+| **Play** | Choose an opponent and its settings, pick who moves first, and play a game. |
+| **Match Lab** | Pit any two competitors (Human or AI) against each other, step through moves or autoplay, and review the timeline. |
+| **Tournament Lab** | Run a seeded single-elimination bracket of 8–64 entrants, and optionally enter it yourself. |
+| **Season Lab** | Run a balanced AI round robin with exact Red/Yellow balance, standings, Elo ratings, pairwise results and verifiable exports. |
+| **Position analysis** | Ask about the last move, the current position, or a hypothetical move, and get an explanation grounded in verified board facts. |
 
-<details>
-<summary>Application screenshots: Play and Match Lab replay</summary>
+## AI agents
 
-![Connect 4 gameplay and the grounded analysis panel](docs/assets/connect4-play.png)
+| Agent | Approach | Status |
+| --- | --- | --- |
+| **Random** | Uniform choice among legal moves; the baseline. | Playable |
+| **Negamax** | Depth-limited adversarial search with alpha-beta pruning, a transposition table and a heuristic evaluation. Depths 1–12. | Playable |
+| **Classic MCTS** | UCT Monte Carlo Tree Search with random rollouts and root tactical checks. Presets 500–25,000 simulations. | Playable |
+| **Tactical MCTS** | MCTS with tactical rollouts and MCTS-Solver proof propagation. Stops early once a position is proven. Presets 200–10,000 simulations. | Playable |
+| **AlphaZero** | A 325,896-parameter policy/value CNN trained through self-play, guiding 256 PUCT simulations per move, with an optional tactical safeguard. | Playable · Experimental |
+| **Victor Research** | Strategy inspired by Victor Allis's Connect 4 rules, an exact opening book, and bounded optimal-move proof search with a heuristic fallback. | Playable · Experimental |
 
-![Match Lab reviewing a recorded move without changing the live match](docs/assets/match-lab-replay.png)
+None of the agents plays perfectly. AlphaZero and Victor Research are research agents: they can lose, and the interface labels them as experimental. Earlier DQN and neural-MCTS experiments remain in the repository as research code and are not playable.
 
-Real local application captures; [capture context](docs/assets/README.md). These are interface examples, not canonical benchmark results.
+## Technical highlights
 
-</details>
+- **AlphaZero-style self-play training in PyTorch.** The agent generates its own games, training a convolutional network with a policy head (which columns look promising) and a value head (who is winning). The public model is the [Phase 4D.4H-C generation-6 CNN, seed 42](docs/phase4d4k-a-alphazero-backend.md#4-selected-checkpoint-and-justification).
+- **Neural inference with PUCT search.** The network's policy and value guide Monte Carlo Tree Search over a bitboard game state. Before release, the production inference path matched 12,485 recorded research decisions with zero mismatches. Every AlphaZero game records the model hash and search settings.
+- **Search optimizations.** Bitboard MCTS and an optimized Negamax compute the same decisions as before, but MCTS runs 54–72× faster at equal simulation budgets. A solver-enhanced Tactical MCTS variant came out of a [controlled search study](docs/search-mcts-v3/REPORT.md).
+- **Optional tactical safeguard.** A conventional one-ply check after AlphaZero's search takes immediate wins and avoids handing one over. It is offered as a separate configuration, not presented as a stronger model.
+- **Session-safe Flask API.** The server commits one legal move at an exact revision under a per-game lock, keeps immutable move history, and enforces bounded sessions, rate limits and search concurrency. Clients reconcile with the server rather than blindly retrying ambiguous requests.
+- **React game and evaluation workflows.** Play, Match, Tournament and Season Labs share one competitor model. AlphaZero appears only when the backend reports it available; Victor Research sits behind matching frontend and server flags. Competitions survive reloads through validated local persistence.
+- **Reproducible, verifiable evaluation.** Seeds determine brackets, schedules, colors and game seeds. Season exports carry versioned provenance and a SHA-256 evidence digest, and a standalone verifier legally replays every game.
+- **Grounded LLM explanations.** The engine computes tactical facts deterministically. The LLM only selects among verified fact IDs and curated strategy references, and it never chooses moves.
+- **ARM64 deployment and CI.** GitHub Actions runs backend and frontend tests, builds and smoke-tests native ARM64 Docker images, and runs AlphaZero inference checks on a native ARM64 runner. Commit-pinned API images are published to GHCR; deployment remains a manual, documented step.
 
-## Canonical benchmark
-
-**`canonical-season-v1`: 8 agents, 112 completed games, seed `20261008`.** Each of the 28 pairs plays four games from the standard empty board, twice as Red and twice as Yellow. Every entrant plays 28 games with exact 14/14 color balance. The backend source is frozen at `c7d0ce65e0a2a23dc6f398164429bd1f2162228f`, captured in all 112 game manifests.
-
-| Agent | W–D–L | Observed score rate | Final Elo |
-| --- | ---: | ---: | ---: |
-| Negamax depth 6 | 17–6–5 | 71.4% | 1586 |
-| Negamax depth 8 | 18–4–6 | 71.4% | 1593 |
-| Negamax depth 4 | 18–2–8 | 67.9% | 1575 |
-| Negamax depth 2 | 18–0–10 | 64.3% | 1564 |
-| MCTS 400 | 15–0–13 | 53.6% | 1531 |
-| MCTS 800 | 13–0–15 | 46.4% | 1471 |
-| MCTS 100 | 7–0–21 | 25.0% | 1395 |
-| Random | 0–0–28 | 0.0% | 1285 |
-
-Score rate is `(wins + 0.5 × draws) / games`; Elo is rounded here.
-
-- **Negamax was the strongest family in this field.** Depths 6 and 8 tied on score rate and drew all four direct games. Depth 6 leads standings under the slot-seed tiebreak; depth 8 has the highest final Elo. Increasing depth did not produce a simple monotonic improvement.
-- Increasing MCTS from 100 to 400 simulations substantially improved observed performance, while 800 simulations did not improve results further in this benchmark. MCTS 400 and 800 split their direct matchup 2–2; this does not establish intrinsic superiority of 400.
-- Red won 59 games, Yellow 47, with 6 draws: **55.4% Red score rate**. This supports enforcing exact color balance; it does not precisely estimate a universal Connect 4 first-player advantage.
-
-**Sampling limitation:** this is a reproducible balanced evaluation from the standard starting position, **not 112 independent statistical trials**. Deterministic Negamax opponents repeat the same trajectory for the same color assignment. Four games per pair are modest; Elo is relative to this pool and completion order. Deterministic bootstrap intervals describe **observed score rate**, not Elo uncertainty or formal agent strength.
-
-The run took **293.6 seconds** on a local Apple M5 host. [Full results, intervals, pairwise findings, and runtime context](benchmarks/connect4/results/canonical-season-v1/README.md) · [evaluation JSON](benchmarks/connect4/results/canonical-season-v1/evaluation.json) · [games CSV](benchmarks/connect4/results/canonical-season-v1/games.csv) · [summary CSV](benchmarks/connect4/results/canonical-season-v1/summary.csv) · [run metadata](benchmarks/connect4/results/canonical-season-v1/run-metadata.json).
-
-## System architecture
+## Architecture
 
 ```mermaid
-flowchart TD
-    UI[React / Vite browser UI] --> Labs[Play / Match / Tournament / Season]
-    Labs --> API[Flask / Gunicorn one-ply API]
-    API --> Session[Bounded game sessions / revision lock]
-    Session --> Agents[Random / Negamax / bounded UCT MCTS / optional Victor Research]
-    Agents --> Evidence[Immutable move evidence]
-    Evidence --> Replay[Browser compact replay / validated persistence]
-    Evidence --> Grounding[Verified board facts / curated references]
-    Grounding --> LLM[Grounded post-hoc LLM analysis]
-    Replay --> Evaluation[Seeded schedule / Elo / bootstrap]
-    Evaluation --> Export[JSON / CSV export / SHA-256 verifier]
+flowchart LR
+    UI["React + Vite UI<br/>Play · Match · Tournament · Season"] -->|"one move per request"| API["Flask / Gunicorn API<br/>sessions · revision locks · rate limits"]
+    API --> Agents["Agents<br/>Random · Negamax · MCTS · Tactical MCTS · Victor"]
+    API --> AZ["AlphaZero inference<br/>PyTorch CNN + PUCT"]
+    API --> Facts["Verified board facts"] --> LLM["Grounded LLM explanations"]
+    UI --> Eval["Browser replay & evaluation<br/>seeded schedules · Elo · exports"]
 ```
 
-The browser owns scheduling and local replay/evaluation state. The API commits one legal ply at an exact revision under a per-game lock and records immutable history. Tournaments and seasons retain **one live server game**, replacing it between fixtures and keeping completed replay locally.
+The browser owns competition scheduling, replay and analytics; the API owns game state and move execution. The public UI is a static Render site. The API runs in Docker on an ARM64 Mac mini behind a Tailscale Funnel HTTPS endpoint, as one Gunicorn worker so session state stays consistent. PyTorch is needed only when AlphaZero is enabled; the default API image is torch-free.
 
-Bounded in-memory sessions, global public API token-bucket budgets, and nonblocking shared/MCTS/Victor search reservations require one Gunicorn worker and one API instance. Docker Compose serves the UI through Nginx with a `/v1` proxy; Render hosts the static UI and containerized API separately with an exact CORS allowlist. [Render deployment history](docs/deployment.md) · [Mac Mini hosting, hardening, and rollback](docs/mac-mini-deployment.md) · [API health](https://board-game-ai-lab.onrender.com/v1/connect4/health) · [provenance endpoint](https://board-game-ai-lab.onrender.com/v1/connect4/provenance).
+## Evaluation and results
 
-## Agents
-
-| Public agent | Implementation |
-| --- | --- |
-| **Random** | Uniform choice among legal columns; a baseline with no lookahead. |
-| **Negamax** | Depth-limited adversarial search, terminal dominance, zero draws, deterministic center-first ordering, and corrected transposition-table bound semantics. Public depths reach 8; depth 8 is not optimal Connect 4. |
-| **MCTS** | UCT, stochastic rollouts, alternating-player rewards, and final visit-count selection, with immediate-win and immediate-loss-avoidance root guards. Public UI budgets: 100/400/800 simulations; these do not establish theoretical convergence. |
-| **Victor Research (Experimental)** | Allis-inspired strategy, an exact selected-position opening book, native bounded optimal-move proof search, and heuristic fallback. Publicly playable when enabled; it can lose. |
-
-[Classical search optimization](docs/classical-search-optimization.md) made both search agents faster without changing their moves: MCTS runs 53.6–72.3× faster at equal simulation budgets, and Negamax gained win-first ordering, an incremental evaluator (1.83× on broad trees) and packed transposition entries (56.0% less retained table memory for 4.83% more time). Public depths, simulation budgets and the canonical benchmark above are unchanged; that benchmark was run on the earlier implementation, and the public deployment may still run an older backend until it is updated separately.
-
-Random and MCTS use seeded local RNGs in competitions. Public agents need neither PyTorch nor neural checkpoints. **Experimental research**—DQN, neural MCTS, AlphaZero-style self-play, the historical VictorAgent, and historical Mancala work—is separate from the public API and benchmark. Frozen AlphaZero campaign artifacts remain research records.
-
-The [functional Victor research solver](docs/victor-functional-solver.md) adds bounded exact endgame solving, executable conditional nine-rule Black responses, restricted White threat contexts and complete CLI games. It labels exact results, established bounds and exploratory moves separately; it does not claim perfect play or establish a complete executable non-loss theorem for arbitrary nine-rule combinations.
-
-[Victor benchmarking and integration](docs/victor-performance-and-integration.md) evaluates it against an independent C oracle on 371 decisive positions and 1,120 adjudicated games. Exact search now reaches 24 empty cells; optimal-move accuracy rose from 70.4% to 79.0% and the game score from 0.790 to 0.844. Ablations show that exact search, CL/BI/VE and the composite rules each add measurable strength. An opt-in `victor_research` API agent (experimental, not perfect play) exists behind `VICTOR_RESEARCH_ENABLED`, which defaults off in an unconfigured environment. Victor Research is now publicly enabled on Play; this integration adds the same optional agent to the competition labs.
-
-[Victor opening strength and app readiness](docs/victor-opening-and-app-readiness.md) adds an exact opening book: 1,722 positions solved offline by the independent C oracle in 13.5 minutes. It covers every position with at most two stones and every position Victor can face through eight stones from the empty board, as either colour, against any reply. It is verified, mirror-aware and pure Python at runtime, but **not a complete opening book**. In that finite sampled campaign, Victor made no errors inside the book and half as many errors overall in empty-board games, and the measured agent's p95 move time fell from 1.01 s to 0.32 s on that test machine. Game scores did not measurably change, and the frozen-suite accuracy gain (79.0% → 84.1%) is in-sample; held-out openings are unchanged. The frontend exposes Victor only with `VITE_VICTOR_RESEARCH_ENABLED=true` (or `1`); the server also requires `VICTOR_RESEARCH_ENABLED=true`. Both are already enabled in production. This change preserves those settings and adds Victor to Match, Tournament and Season Labs without adding it to default fields. See [lab integration and compatibility](docs/victor-labs-integration.md).
+**Historical canonical benchmark (frozen).** [`canonical-season-v1`](benchmarks/connect4/results/canonical-season-v1/README.md) is a balanced 8-agent, 112-game round robin with exact color balance (seed `20261008`). Its field is Random, Negamax depths 2/4/6/8 and the original Classic MCTS at 100/400/800 simulations. Negamax was the strongest family: depths 6 and 8 each scored 71.4%, and the best MCTS entrant scored 53.6%. Red scored 55.4% overall. The benchmark predates Tactical MCTS, AlphaZero and the current search presets, so it does not rank those agents. Its results are preserved unchanged and verify with:
 
 ```sh
-.venv/bin/python -m games.connect4.victor.cli --white victor --black negamax:4
-.venv/bin/python -m games.connect4.victor.cli --white human --black victor
+node ui/scripts/verify-evaluation-export.mjs benchmarks/connect4/results/canonical-season-v1/evaluation.json
+# Verification PASS
+# COMPLETE: 112/112 games
 ```
 
-[Native bounded optimal-move proof search and the second-pass audit](docs/victor-astra-second-pass.md) distinguish completed exact proofs from incomplete bounds and heuristic choices. Independent exact-oracle results cover finite sampled positions, not all Connect 4 states. Seeds determine brackets, schedules, colors and seeded agents’ randomness; Victor uses wall-clock budgets, so CPU contention and hosting performance can change future moves. Stored move records are historical evidence rather than a promise of identical re-execution. On Render’s Free-tier CPU, large Victor seasons may take considerable time. All labs serialize moves and pause for explicit recovery after busy or uncertain requests.
+**AlphaZero research results.** In a controlled study from varied openings (Phase 4D.4J-B, safeguard Off), the public model scored about 54% against Negamax depth 3 and about 36% against Negamax depth 5. It is a working self-play agent, not a strong or perfect player. In a [confirmation study](https://github.com/andrewcukierwar/board-game-ai-lab/blob/phase4d4j-b-tactical-guard-confirmation/docs/phase4d4j-b-alphazero-tactical-guard-confirmation.md), the optional safeguard improved match score by +1.30 percentage points (95% interval +0.52 to +2.34), pooled across the two trained CNNs studied. That is a real but small effect, below the +2-point practical threshold declared in advance.
 
-## Reproducibility & evaluation
+**Tactical MCTS research results.** On 256 held-out openings, the solver-enhanced variant scored 74.2% against Classic MCTS at equal simulations and 70.8% at equal search time. This is a head-to-head research comparison, not a measurement of the current public presets.
 
-Season/game/per-ply seeds and implementation versions make experiments inspectable. Standings use points (win/draw/loss = 1/0.5/0), then score rate and slot seed. Elo starts at 1500, K=24. Deterministic bootstrap intervals use 1,000 resamples of each entrant's observed score vector; IID resampling does not account for deterministic repetitions or opponent dependence.
+**Interpreting results.** All of these are bounded, seeded evaluations against specific opponents. Season Lab ratings describe one field and schedule; they are not universal Connect 4 ratings. The [evaluation provenance contract](docs/evaluation-provenance.md) explains what exports do and do not prove.
 
-The verifier reconstructs schedules, checks exact color balance, legally replays games, checks provenance, and recomputes analytics and the evidence hash:
+## Tech stack
 
-```sh
-node ui/scripts/verify-evaluation-export.mjs \
-  benchmarks/connect4/results/canonical-season-v1/evaluation.json
-```
+- **Machine learning and search:** Python 3.11, PyTorch (CPU inference), NumPy, custom Negamax, MCTS, PUCT and bitboard implementations
+- **Backend:** Flask, Gunicorn, OpenAI Responses API (optional explanations, standard-library HTTPS client)
+- **Frontend:** React 19, Vite, React Router, Axios
+- **Testing:** pytest, Node test runner with jsdom, Playwright (Chromium, Firefox, WebKit)
+- **Infrastructure:** Docker (ARM64), Nginx, GitHub Actions, GitHub Container Registry, Render static hosting, Tailscale Funnel
 
-Expected: **Verification PASS, 112/112 games**, evidence SHA-256:
-
-```text
-e5845905b29c158cebed8579cd0a858b3a873a289d2b2e754c29601b7c9e407d
-```
-
-This evidence digest is not a whole-file hash or signature. It covers provenance, methodology, and evidence; export timestamp, derived analytics, and runtime metadata are excluded. The CLI generator commit is null; every game manifest and run metadata name the frozen backend source. Declarations and legal replay do not authenticate agent execution. [Provenance contract](docs/evaluation-provenance.md) · [methodology](benchmarks/connect4/canonical-season-v1.md).
-
-## Grounded AI analysis
-
-The LLM does not control gameplay. It produces post-hoc explanations from verified board state, legal moves, immutable move records, and curated strategic references. Visitors can analyze a recorded move, the current position, or a legal hypothetical move.
-
-The system does not expose or invent hidden chain of thought, MCTS traces, UCB values, or agent intent. Tactical evidence is distinct from strategic references; formal Allis rule proofs are not implemented. Credentials stay server-side, with bounded requests, timeouts, concurrency, and caching. [Grounding design](docs/allis-grounding.md) · [explanation configuration](docs/llm-explanations.md).
-
-## Engineering highlights
-
-- **Mutation recovery:** no blind POST retry; reconcile with authoritative GET before explicit continuation.
-- **Resource bounds:** 128 sessions, 30-minute idle expiry, one MCTS search per process, one live competition game.
-- **Reproducible randomness:** local seeded RNGs preserve global randomness; schedules record colors, seeds, and completion order.
-- **Portable evidence:** compact moves reconstruct boards, persistence is validated, and exports carry versioned provenance and SHA-256 evidence.
-- **Browser verification:** replay, accessibility, responsive layout, stale responses, persistence, and downloads across three engines.
-
-## Run locally
+## Running locally
 
 With Docker running, from the repository root:
 
@@ -145,94 +90,41 @@ With Docker running, from the repository root:
 docker compose up --build
 ```
 
-Open **http://localhost:3000**. Gameplay needs no API key or `.env`. Stop with `Ctrl+C`, then `docker compose down`.
+Open http://localhost:3000. Gameplay needs no API keys. The default Compose setup is torch-free, so AlphaZero is hidden; enabling it needs an API image built with `ALPHAZERO_RUNTIME=true` and `ALPHAZERO_ENABLED=true` at runtime, as described in the [runtime dependencies](docs/alphazero-runtime-dependencies.md).
 
-For development, use Python **3.11** and Node **22.12+**:
+For development, with Python 3.11 and Node 22.12+:
 
 ```sh
-python3.11 -m venv .venv
-source .venv/bin/activate
+python3.11 -m venv .venv && source .venv/bin/activate
 pip install -r requirements-dev.txt
-EXPLANATIONS_ENABLED=false OPENAI_API_KEY='' \
-  gunicorn api.app:app --bind 127.0.0.1:8000 --workers 1 --threads 4
+EXPLANATIONS_ENABLED=false gunicorn api.app:app --bind 127.0.0.1:8000 --workers 1 --threads 4
+
+# in another terminal
+cd ui && npm ci && npm run dev
 ```
 
-In another terminal:
+Run tests with `EXPLANATIONS_ENABLED=false python -m pytest tests -q` and `cd ui && npm test && npm run build`. See the [quickstart](docs/quickstart.md) for explanation-provider settings, and the [verification record](docs/final-portfolio-packaging.md) for Playwright browser-suite commands against an isolated local API.
 
-```sh
-cd ui
-npm ci
-npm run dev
-```
+## Further documentation
 
-Open the Vite URL. Optional explanations need backend configuration; see [quickstart](docs/quickstart.md) and [provider settings](docs/llm-explanations.md).
+- [AlphaZero backend integration and model selection](docs/phase4d4k-a-alphazero-backend.md) and [frontend release](docs/phase4d4k-b-alphazero-frontend.md)
+- [AlphaZero v2 design review](docs/phase4d3-alphazero-v2-review.md) and [core implementation](docs/phase4d3a-alphazero-v2-core.md)
+- [Classical search optimization](docs/classical-search-optimization.md) and [MCTS v3 research report](docs/search-mcts-v3/REPORT.md)
+- [Canonical benchmark methodology](benchmarks/connect4/canonical-season-v1.md) and [evaluation provenance](docs/evaluation-provenance.md)
+- [Victor Research: performance and integration](docs/victor-performance-and-integration.md), [opening book](docs/victor-opening-and-app-readiness.md) and [proof search audit](docs/victor-astra-second-pass.md)
+- [Grounded explanations](docs/allis-grounding.md) and [LLM configuration](docs/llm-explanations.md)
+- [Mac mini deployment, hardening and rollback](docs/mac-mini-deployment.md)
+- [Project and research history](project_plan.md)
 
-## Tests / verification
+<details>
+<summary>More screenshots</summary>
 
-```sh
-EXPLANATIONS_ENABLED=false OPENAI_API_KEY='' .venv/bin/python -m pytest tests -q
-cd ui
-npm test
-npm run build
-VITE_API_BASE=https://board-game-ai-lab.onrender.com npm run build:render
-```
+![Playing against AlphaZero, which moved first, with the tactical safeguard on](docs/assets/connect4-play.png)
 
-The proposed GitHub Actions workflow runs backend pytest, frontend unit
-tests/build, and a native ARM64 Docker smoke test on pull requests; `main`
-also publishes an immutable ARM64 image without deploying it. Public Mac Mini
-rollouts remain manual, as described in [Mac Mini deployment and rollback](docs/mac-mini-deployment.md).
-Set up independent [external uptime monitoring](docs/external-monitoring.md)
-for both the Funnel API and Render frontend.
+![Match Lab reviewing AlphaZero against Tactical MCTS](docs/assets/match-lab-replay.png)
 
-Packaging verification: **501 backend passed**, with 14 existing optional PyTorch skips; **398 frontend passed**; **122 Chromium**, **33 Firefox**, **33 WebKit** passed. The final export smoke covers 12 executions across three browsers. Automated provider responses are mocked. [Verification record and local browser commands](docs/final-portfolio-packaging.md).
+![Tournament setup with the default eight-entrant field](docs/assets/tournament-setup.png)
 
-## Repository guide / deeper docs
+Captured from the real application against a local staging backend; see [capture notes](docs/assets/README.md). Interface examples, not benchmark evidence.
 
-| Path | Purpose |
-| --- | --- |
-| `games/connect4/`, `games/connect4/agents/` | Game rules, search agents, grounding |
-| `api/` | Sessions, one-ply API, evidence, explanations |
-| `ui/src/` | Interfaces, controllers, replay, competitions, analytics, exports |
-| `benchmarks/connect4/results/canonical-season-v1/` | Canonical evidence and report |
-| `tests/`, `ui/tests/`, `ui/e2e/` | Backend, frontend, browser checks |
-| `docs/`, `project_plan.md` | Deployment, technical reports, research history |
-
-**Development history / technical reports:** [Match](docs/phase5a-match-lab.md), [Tournament](docs/phase5b-tournament-lab.md), [human participation](docs/phase5c-human-tournament-participation.md), [Season analytics](docs/phase5d-season-ratings-lab.md), [exports](docs/phase5e-evaluation-provenance-export.md), [search corrections](docs/public-agent-strength-and-turn-order.md), [classical search optimization](docs/classical-search-optimization.md), and [project/research history](project_plan.md).
-
-## Limitations / research status
-
-The public Connect 4 and competition/evaluation system is feature-complete. Sessions and limits are process-local: restarts lose live games, horizontal scaling is unsupported, and simulation budgets are not deadlines. Replay persistence is browser-local. Canonical timing is machine-specific; the benchmark neither solves Connect 4 nor establishes definitive rankings.
-
-AlphaZero and other learned-agent work remains experimental and separate. Broader opening coverage and independent repetitions could address future research questions, outside this completed scope. Check public deployment freshness separately when releasing these packaging changes.
-
-## Tactical MCTS and adjustable search (integration preview)
-
-A separately versioned **Tactical MCTS (F1)** agent is available in the
-integration branch for review. It combines tactical rollouts and MCTS-Solver
-proof propagation with exploration constant 0.5, using the methods examined
-in the [MCTS v3 research report](docs/search-mcts-v3/REPORT.md). The older
-Classic MCTS remains available for direct comparisons.
-
-Play and Match Lab expose preset and custom search budgets. Negamax accepts
-depths **1–12** (presets 1/2/4/6/8/10/12), Classic MCTS supports **1–25,000**
-simulations, and F1 **1–10,000**. The Tournament and Season setup menus offer
-lower-cost selections; historical seeded fields/exports remain valid. Depths
-9–12 are capped at 20 seconds per decision with atomic timeout recovery, and
-F1 stores its actually executed simulation count in immutable game history.
-
-**Deployment status:** this work is pending CI and independent Mac Mini
-capacity/latency checks. The current live app must not be assumed to expose
-these new settings until the integration PR is reviewed and deployed.
-
-### Optional AlphaZero frontend integration (staged)
-
-The Phase 4D.4K-B branch supports the experimental generation-6 CNN in Play,
-Match, Tournament and Season Labs when the backend reports it available at
-`GET /v1/connect4/agents/alphazero`. Older/disabled backends keep all existing
-agents usable. Tactical safeguard defaults Off; On adds one-ply blunder
-protection to the same trained model. AlphaZero is not an optimal solver.
-
-This branch does not enable AlphaZero on the public service. See the
-[frontend phase report](docs/phase4d4k-b-alphazero-frontend.md),
-[evaluation provenance](docs/evaluation-provenance.md), and
-[future approved deployment procedure](docs/mac-mini-deployment.md).
+</details>

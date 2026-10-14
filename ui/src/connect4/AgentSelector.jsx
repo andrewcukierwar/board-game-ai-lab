@@ -1,6 +1,6 @@
 import { ALPHAZERO, alphaZeroAgent } from './alphazero.js';
 import AlphaZeroSettings from './AlphaZeroSettings.jsx';
-import { researchAgent } from './researchAgent.js';
+import { researchAgent, aiAgentTypes } from './researchAgent.js';
 import { NEGAMAX_DEPTHS, MCTS_SIMULATIONS, TACTICAL_MCTS_SIMULATIONS, validDepth, validSimulations } from './competitorConfig.js';
 
 const publicAgents = [
@@ -11,7 +11,7 @@ const publicAgents = [
 ];
 
 export default function AgentSelector({ selection, select, busy, game, researchEnabled = false, alphaZero }) {
-  const agents = [...publicAgents, ...(researchEnabled ? [researchAgent] : []), ...(alphaZero?.available ? [alphaZeroAgent] : [])];
+  const agents = aiAgentTypes(researchEnabled, alphaZero?.available).map(type => [...publicAgents, alphaZeroAgent, researchAgent].find(agent => agent.type === type));
   const activeConfig = game?.players.find(player => player.type !== 'human');
   const activeOpponent = agents.find(agent => agent.type === activeConfig?.type)?.name ?? (activeConfig?.type === ALPHAZERO ? alphaZeroAgent.name : undefined);
   return <div className="agent-selection">

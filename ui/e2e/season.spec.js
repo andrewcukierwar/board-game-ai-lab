@@ -7,8 +7,8 @@ test('homepage/navigation, representative 8-player setup, strict seed, workload,
   const mock = await mockSeason(page); await page.goto('/'); await page.getByRole('link', { name: 'Open Season Lab' }).click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Season Lab'); await expect(page.locator('.entrant-row')).toHaveCount(8); await expect(page.locator('#season-entrant-1 option')).toHaveCount(16 + Number((process.env.VICTOR_LABS_UI ?? process.env.VICTOR_RELEASE_UI) === 'true'));
   await expect(page.locator('#season-entrant-1')).not.toContainText('Human');
-  for (const [games, count] of [[2, 56], [4, 112], [8, 224]]) { await page.locator('#season-games').selectOption(String(games)); await expect(page.locator('.season-workload')).toContainText(`${count} scheduled games`); }
-  await page.locator('#season-size').selectOption('12'); await expect(page.locator('.season-workload')).toContainText('528 scheduled games');
+  for (const [games, count] of [[2, 56], [4, 112], [8, 224]]) { await page.locator('#season-games').selectOption(String(games)); await expect(page.locator('.season-workload[role="status"]')).toContainText(`${count} scheduled games`); }
+  await page.locator('#season-size').selectOption('12'); await expect(page.locator('.season-workload[role="status"]')).toContainText('528 scheduled games');
   for (const size of [4, 6, 8, 10, 12]) { await page.locator('#season-size').selectOption(String(size)); await expect(page.locator('.entrant-row')).toHaveCount(size); }
   await page.locator('#season-seed').fill('4294967296'); await page.locator('#season-create').click(); await expect(page.getByRole('alert')).toContainText('whole number');
   await page.locator('#season-size').selectOption('8'); await page.locator('#season-games').selectOption('4'); await page.locator('#season-seed').fill('1234'); await page.locator('#season-create').click();
@@ -62,8 +62,10 @@ test('route departure while a move is in flight keeps one mutation owner on retu
 test('polished seeded season screenshots', async ({ page }) => {
   const folder = resolve('playwright-report/phase5d'); await mkdir(folder, { recursive: true });
   const capture = async (name, locator) => { await page.evaluate(() => { document.activeElement?.blur(); window.scrollTo(0, 0); }); await (locator ?? page).screenshot({ path: `${folder}/${name}.png`, fullPage: locator ? undefined : true, style: '.skip-link { visibility: hidden; }' }); };
+  // Mock first: discovery runs on load, and an untouched default field follows it.
+  const mock = await mockSeason(page);
   await page.setViewportSize({ width: 1440, height: 1040 }); await page.goto('/connect4/season'); await page.locator('#season-games').selectOption('4'); await page.locator('#season-seed').fill('1234'); await capture('01-setup-8x4');
-  const mock = await mockSeason(page); await page.locator('#season-create').click(); await page.locator('#season-watch').click(); await expect(page.locator('#match-next')).toBeEnabled();
+  await page.locator('#season-create').click(); await page.locator('#season-watch').click(); await expect(page.locator('#match-next')).toBeEnabled();
   for (let i = 1; i <= 6; i++) { await page.locator('#match-next').click(); await expect(page.locator('.board-revision')).toHaveText(`Move ${i}`); await expect(page.locator('#match-next')).toBeEnabled(); }
   await capture('02-active-schedule', page.locator('.season-schedule')); await capture('03-live-viewer', page.locator('.season-viewer'));
   await seedSeason(page, seasonFixture(8, 4, 48)); await page.reload(); await capture('04-standings', page.locator('.season-standings'));

@@ -89,9 +89,11 @@ test('invalid saved topology rejects whole record and allows new tournament', as
 });
 test('representative polished Tournament Lab screenshots', async ({ page }) => {
   const folder = resolve('playwright-report/phase5b'); await mkdir(folder, { recursive: true });
+  // Mock first: discovery runs on load, and an untouched default field follows it.
+  const s = await mockTournament(page);
   await page.setViewportSize({ width: 1440, height: 1040 }); await page.goto('/connect4/tournament'); await page.locator('#tournament-seed').fill('1234');
   await page.evaluate(() => { document.activeElement?.blur(); window.scrollTo(0, 0); }); await page.screenshot({ style: '.skip-link { visibility: hidden; }', path: `${folder}/01-desktop-setup.png`, fullPage: true });
-  const s = await mockTournament(page); await page.locator('#tournament-create').click(); await start(page);
+  await page.locator('#tournament-create').click(); await start(page);
   for (let i = 1; i <= 6; i++) { await page.locator('#match-next').click(); await expect(page.locator('.board-revision')).toHaveText(`Move ${i}`); await expect(page.locator('#match-next')).toBeEnabled(); }
   await page.evaluate(() => { document.activeElement?.blur(); window.scrollTo(0, 0); }); await page.screenshot({ style: '.skip-link { visibility: hidden; }', path: `${folder}/02-desktop-active-bracket.png`, fullPage: true });
   await page.locator('.tournament-viewer').screenshot({ style: '.skip-link { visibility: hidden; }', path: `${folder}/03-desktop-live-viewer.png` });

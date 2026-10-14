@@ -6,6 +6,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { competitorTypes, competitorLabel, toPlayerPayload, matchStartPayload } from '../src/connect4/competitorConfig.js';
+import { recommendedField } from '../src/connect4/competitionFields.js';
 import { opponentPayload, RESEARCH_DISABLED } from '../src/connect4/researchAgent.js';
 import { validateMatchHistory } from '../src/connect4/matchRecord.js';
 import * as tournament from '../src/tournament/model.js';
@@ -52,12 +53,16 @@ function harness(kind, enabled = true, storage) {
   c.attach(); return { h, c, timers, tick, finish, storage };
 }
 
-test('Victor config is exact, feature gated, and remains opt-in in every default field', () => {
+test('Victor config is exact, feature gated, and joins default fields only when enabled', () => {
   assert.equal(competitorTypes(false).includes(victor.type), false); assert.ok(competitorTypes(true).includes(victor.type));
   assert.equal(competitorLabel(victor), 'Victor Research (Experimental)');
   assert.deepEqual(toPlayerPayload(victor, true), victor); assert.throws(() => opponentPayload({ ...victor, node_budget: 3 }, true)); assert.throws(() => toPlayerPayload(victor, false));
   for (const config of [{ ...victor, depth: 1 }, { ...victor, simulations: 100 }, { ...victor, node_budget: 100 }, { type: 'future_agent' }]) assert.throws(() => toPlayerPayload(config, true));
-  for (const size of [...tournament.SIZES, ...season.FIELD_SIZES]) assert.ok(!tournament.defaultField(size).some(c => c.type === victor.type));
+  for (const size of [...tournament.SIZES, ...season.FIELD_SIZES]) {
+    assert.ok(!tournament.defaultField(size).some(c => c.type === victor.type));
+    assert.ok(!recommendedField(size).some(c => c.type === victor.type));
+    assert.equal(recommendedField(size, { victor: true }).filter(c => c.type === victor.type).length, Number(size >= 6));
+  }
   assert.throws(() => tournament.createTournament(field(8), 1)); assert.throws(() => season.createSeason(field(4), 1));
   assert.throws(() => season.createSeason([{ type: 'human' }, ...field(4).slice(1)], 1, 2, undefined, true));
   assert.throws(() => tournament.createTournament([{ type: 'human' }, { type: 'human' }, ...field(8).slice(2)], 1, undefined, true));
