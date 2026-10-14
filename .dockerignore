@@ -3,6 +3,8 @@
 **/*.py[cod]
 **/*.pt
 **/*.pth
+# The single approved inference-only AlphaZero artifact (no training state).
+!models/alphazero/az2-hc-g6-cnn-s42-v1.pt
 .env
 **/.env
 **/.env.local

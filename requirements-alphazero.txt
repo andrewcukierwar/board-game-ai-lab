@@ -1,0 +1,5 @@
+# Optional AlphaZero inference runtime (Phase 4D.4K-A). Installed ONLY by
+#   docker build --build-arg ALPHAZERO_RUNTIME=true
+# from the official CPU-only PyTorch index; the default image stays torch-free.
+# Same torch release as the research/export runtime (2.10.0).
+torch==2.10.0

@@ -1,0 +1,192 @@
+{
+ "artifact_sha256": "4c3cf26aa58495f43094436f231486969658d70b94b246a912a5bb54756dc528",
+ "decisions": 12485,
+ "export_runtime_sha256": "eb0cf9bc51b4655293b31b9c3988e211612e30e469de715ec55d65a300ed3bec",
+ "format": "connect4-alphazero-equivalence-result",
+ "format_version": 1,
+ "guard_changed": 89,
+ "max_abs": {
+  "logits": 0.0,
+  "prior": 0.0,
+  "value": 0.0
+ },
+ "model_id": "az2-hc-g6-cnn-s42-v1",
+ "rule": "integers/sets/guard exact always; floats exact in the research runtime, <=1e-4 otherwise",
+ "runtime": {
+  "cpu_capability": "DEFAULT",
+  "intra_op_threads": 1,
+  "machine": "arm64",
+  "numpy": "1.26.4",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "python": "3.11.17",
+  "torch": "2.10.0"
+ },
+ "same_runtime_as_export": true,
+ "seconds": 180.90947091765702,
+ "units": [
+  {
+   "decisions": 664,
+   "encodings": {
+    "bitboard_exact": 332,
+    "compared": 332,
+    "engine_exact": 332
+   },
+   "float_exact": true,
+   "guard_changed": 15,
+   "integer_and_set_mismatches": 0,
+   "label": "research reference (mirrors, both actors, full columns, terminal)",
+   "max_abs": {
+    "logits": 0.0,
+    "prior": 0.0,
+    "value": 0.0
+   },
+   "mismatches": [],
+   "rows": 336,
+   "seconds": 25.12969129253179,
+   "terminal_rejected": 4,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 400,
+   "float_exact": true,
+   "guard_changed": 13,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-A seed-42 tactical records",
+   "max_abs": {
+    "logits": 0.0,
+    "prior": 0.0,
+    "value": 0.0
+   },
+   "mismatches": [],
+   "seconds": 11.333079624921083,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 600,
+   "float_exact": true,
+   "guard_changed": 7,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-A seed-42 solved records",
+   "max_abs": {
+    "logits": 0.0,
+    "prior": 0.0,
+    "value": 0.0
+   },
+   "mismatches": [],
+   "seconds": 34.79172645881772,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 256,
+   "float_exact": true,
+   "guard_changed": 0,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-A seed-42 deep records",
+   "max_abs": {
+    "logits": 0.0,
+    "prior": 0.0,
+    "value": 0.0
+   },
+   "mismatches": [],
+   "seconds": 16.441015833988786,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 940,
+   "float_exact": true,
+   "games": 80,
+   "guard_changed": 0,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-A control matches",
+   "max_abs": {
+    "logits": 0.0,
+    "prior": 0.0,
+    "value": 0.0
+   },
+   "mismatches": [],
+   "seconds": 49.65473941527307,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 994,
+   "float_exact": true,
+   "games": 80,
+   "guard_changed": 8,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-A guarded matches",
+   "max_abs": {
+    "logits": 0.0,
+    "prior": 0.0,
+    "value": 0.0
+   },
+   "mismatches": [],
+   "seconds": 53.113074500113726,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 2001,
+   "float_exact": true,
+   "games": 192,
+   "guard_changed": 0,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-B control matches vs negamax3",
+   "max_abs": {
+    "logits": 0.0,
+    "prior": 0.0,
+    "value": 0.0
+   },
+   "mismatches": [],
+   "seconds": 104.96401270851493,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 2096,
+   "float_exact": true,
+   "games": 192,
+   "guard_changed": 28,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-B guarded matches vs negamax3",
+   "max_abs": {
+    "logits": 0.0,
+    "prior": 0.0,
+    "value": 0.0
+   },
+   "mismatches": [],
+   "seconds": 108.47236754186451,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 2247,
+   "float_exact": true,
+   "games": 192,
+   "guard_changed": 0,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-B control matches vs negamax5",
+   "max_abs": {
+    "logits": 0.0,
+    "prior": 0.0,
+    "value": 0.0
+   },
+   "mismatches": [],
+   "seconds": 110.5053290836513,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 2287,
+   "float_exact": true,
+   "games": 192,
+   "guard_changed": 18,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-B guarded matches vs negamax5",
+   "max_abs": {
+    "logits": 0.0,
+    "prior": 0.0,
+    "value": 0.0
+   },
+   "mismatches": [],
+   "seconds": 110.50115820765495,
+   "within_tolerance": true
+  }
+ ],
+ "verdict": "PASS_EXACT"
+}

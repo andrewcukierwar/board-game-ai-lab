@@ -11,6 +11,7 @@ from api.connect4.state import GameStore
 from api.connect4.explanations import ExplanationService, environment_config
 from api.cors import configure_cors
 from api.public_limits import PublicApiLimiter, environment_config as public_limit_config
+from api.connect4.alphazero import AlphaZeroService, environment_config as alphazero_config
 
 
 def victor_research_enabled():
@@ -31,6 +32,7 @@ def create_app(config=None):
                             VICTOR_RESEARCH_ENABLED=victor_research_enabled())
     app.config.update(environment_config())
     app.config.update(public_limit_config())
+    app.config.update(alphazero_config())
     if config:
         app.config.update(config)
     app.extensions['public_api_limiter'] = PublicApiLimiter(app.config)
@@ -39,6 +41,8 @@ def create_app(config=None):
     app.extensions['connect4_games'] = GameStore(
         capacity=app.config['GAME_SESSION_CAPACITY'], ttl=app.config['GAME_SESSION_TTL'])
     app.extensions['connect4_explanations'] = ExplanationService(app.config)
+    # Disabled by default; when enabled, the model is validated and loaded once here.
+    app.extensions['connect4_alphazero'] = AlphaZeroService(app.config, app.logger)
     app.register_blueprint(connect4_bp, url_prefix='/v1/connect4')
     configure_cors(app)
 

@@ -47,7 +47,7 @@ REFERENCE_TOLERANCE = 1e-4
 
 # Changing the served model requires a reviewed code change, never a file swap.
 APPROVED_ARTIFACTS = {
-    "az2-hc-g6-cnn-s42-v1": "0000000000000000000000000000000000000000000000000000000000000000",
+    "az2-hc-g6-cnn-s42-v1": "4c3cf26aa58495f43094436f231486969658d70b94b246a912a5bb54756dc528",
 }
 
 MANIFEST_KEYS = {"format", "format_version", "model_id", "artifact", "inference_contract", "architecture",
