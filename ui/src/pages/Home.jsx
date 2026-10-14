@@ -36,7 +36,7 @@ const alphaZeroSteps = [
   ['Self-play', 'The agent plays complete games against itself. Each position is saved with the moves its search preferred and the eventual result.'],
   ['Learning', 'A convolutional network with 325,896 parameters, trained in PyTorch, learns a policy (which columns look promising) and a value (who is likely to win).'],
   ['Search', 'Each move runs 256 PUCT simulations: the network’s predictions steer Monte Carlo Tree Search toward promising lines instead of random rollouts.'],
-  ['Optional safeguard', 'A conventional one-ply check after search takes an immediate win and avoids handing one over. Measured effect: +1.30 points of match score, below the +2‑point threshold declared before the study.'],
+  ['Optional safeguard', 'A conventional one-ply check after search takes an immediate win and avoids handing one over. Measured effect across two trained networks: +1.30 points of match score, below the +2‑point threshold declared before the study.'],
 ];
 
 function ApproachGlyph({ type }) {
@@ -62,7 +62,7 @@ function ApproachGlyph({ type }) {
 
 function alphaZeroBadge(alphaZero) {
   if (alphaZero.available) return <Badge>Playable · Experimental</Badge>;
-  return <Badge variant="research">{alphaZero.reason.startsWith('Checking') ? 'Checking availability…' : 'Not available on this server'}</Badge>;
+  return <Badge variant="research">{alphaZero.checking ? 'Checking availability…' : 'Not available on this server'}</Badge>;
 }
 
 export default function Home({ http = homeHttp }) {
@@ -78,7 +78,7 @@ export default function Home({ http = homeHttp }) {
           <p className="eyebrow"><span className="accent-dash" />Play · compare · understand</p>
           <h1 id="hero-title">Board Game<br /><span>AI Lab</span><span className="title-period">.</span></h1>
           <p className="hero-statement">Explore how game-playing AI chooses moves.</p>
-          <p className="hero-description">Play Connect 4 against classical search, Monte Carlo and self-play neural agents. Compare how they choose moves and inspect grounded analysis of the board.</p>
+          <p className="hero-description">Play Connect 4 against classical search and Monte Carlo agents{alphaZero.available ? ', and a neural network trained through self-play' : ''}. Compare how they choose moves and inspect grounded analysis of the board.</p>
           <div className="action-row"><ActionLink to="/connect4">Play Connect 4</ActionLink><ActionLink to="/#agents" variant="secondary">Explore the agents</ActionLink></div>
           <p className="hero-note"><span className="piece-dot piece-dot--red" /><span className="piece-dot piece-dot--yellow" />Choose whether you or the AI moves first.</p>
         </div>

@@ -46,20 +46,21 @@ export function requireSameAlphaZero(expected, actual) {
 
 // Shared discovery per HTTP client. No polling; mount, focus (60s cache), explicit
 // refresh, and AlphaZero starts. A newer refresh supersedes older responses.
+// `settled` keeps the last confirmed availability through a recheck, for display only.
 const discoveries = new WeakMap();
 export function alphaZeroDiscovery(http) {
   if (discoveries.has(http)) return discoveries.get(http);
-  let state = { available: false, provenance: null, reason: 'Checking AlphaZero availability…', checkedAt: 0 }, sequence = 0, pending = null;
+  let state = { available: false, checking: true, settled: false, provenance: null, reason: 'Checking AlphaZero availability…', checkedAt: 0 }, sequence = 0, pending = null;
   const listeners = new Set();
   const publish = next => { state = next; for (const fn of listeners) fn(); };
   const store = { snapshot: () => state, subscribe: fn => { listeners.add(fn); return () => listeners.delete(fn); },
-    invalidate: () => { sequence++; pending = null; publish({ available: false, provenance: null, reason: 'AlphaZero availability must be checked again.', checkedAt: 0 }); },
+    invalidate: () => { sequence++; pending = null; publish({ available: false, checking: false, settled: false, provenance: null, reason: 'AlphaZero availability must be checked again.', checkedAt: 0 }); },
     async refresh(force = false) {
       if (!force && pending) return pending;
       if (!force && Date.now() - state.checkedAt < 60000) return state;
       const id = ++sequence;
       // Fail closed while rechecking, retaining no selectable stale model.
-      publish({ ...state, available: false, reason: 'Checking AlphaZero availability…' });
+      publish({ ...state, available: false, checking: true, reason: 'Checking AlphaZero availability…' });
       const task = (async () => {
         let next;
         try {
@@ -67,7 +68,7 @@ export function alphaZeroDiscovery(http) {
           const provenance = validateAlphaZeroStatus(data);
           next = { available: Boolean(provenance), provenance, reason: provenance ? '' : data.enabled ? 'AlphaZero is unavailable on this backend.' : 'AlphaZero is disabled on this backend.' };
         } catch (error) { next = { available: false, provenance: null, reason: error.response?.status === 404 ? 'AlphaZero is not supported by this backend.' : 'AlphaZero availability could not be confirmed.' }; }
-        if (id === sequence) { publish({ ...next, checkedAt: Date.now() }); pending = null; }
+        if (id === sequence) { publish({ ...next, checking: false, settled: next.available, checkedAt: Date.now() }); pending = null; }
         return state;
       })();
       pending = task; return task;

@@ -137,7 +137,7 @@ test('I/J/K: every Tournament default is valid, selectable, Human-free, ordered 
     const ranks = field.map(c => AI_AGENT_ORDER.indexOf(c.type));
     assert.deepEqual(ranks, [...ranks].sort((a, b) => a - b));
     // Large brackets repeat configurations evenly rather than piling onto one.
-    const counts = Object.values(Object.groupBy(field, c => JSON.stringify(c))).map(group => group.length);
+    const counts = [...field.reduce((m, c) => m.set(JSON.stringify(c), (m.get(JSON.stringify(c)) ?? 0) + 1), new Map()).values()];
     assert.ok(Math.max(...counts) - Math.min(...counts) <= Math.ceil(size / 9));
     assert.ok(tournament.createTournament(field, 1234, 'defaults', victor, alphaZero ? provenance : undefined));
   }
@@ -290,4 +290,35 @@ test('V/W: homepage shows AlphaZero before Victor and only calls it playable whe
   const checking = render(React.createElement(Home, { http: client('deferred').http }));
   assert.equal([...checking.doc.querySelectorAll('#agents .badge')].at(-1).textContent, 'Checking availability…');
   checking.cleanup();
+});
+
+test('M: an availability recheck keeps an untouched field stable; a confirmed loss removes AlphaZero', async () => {
+  const responses = [];
+  const http = { get: () => new Promise((resolve, reject) => responses.push({ resolve, reject })), post: async () => { throw new Error('No game may start.'); } };
+  const ui = render(React.createElement(TournamentLabPage, { http, storage: memoryStorage() }), 'http://localhost/connect4/tournament');
+  responses.shift().resolve({ data: status }); await flush();
+  const withAlphaZero = recommendedField(8, { alphaZero: true }).map(competitorLabel);
+  assert.deepEqual(fieldLabels(ui, 'entrant', 8), withAlphaZero);
+  const refresh = () => ui.click([...ui.doc.querySelectorAll('button')].find(b => b.textContent === 'Refresh agent availability'));
+
+  refresh(); await flush();
+  // Checking: menus fail closed, but the untouched field neither reshuffles nor drops AlphaZero.
+  assert.equal(ui.options('entrant-2').some(o => o.text === 'AlphaZero (Experimental) · safeguard Off'), false);
+  assert.deepEqual(fieldLabels(ui, 'entrant', 8), withAlphaZero.map(l => l.startsWith('AlphaZero') ? `${l} · checking availability` : l));
+  responses.shift().resolve({ data: status }); await flush();
+  assert.deepEqual(fieldLabels(ui, 'entrant', 8), withAlphaZero);
+
+  refresh(); await flush();
+  responses.shift().reject(Object.assign(new Error('absent'), { response: { status: 404 } })); await flush();
+  assert.deepEqual(fieldLabels(ui, 'entrant', 8), recommendedField(8).map(competitorLabel));
+  ui.cleanup();
+});
+
+test('V/W: the hero names the neural agent only when the backend reports it available', async () => {
+  for (const [discovery, neural] of [['available', true], ['absent', false]]) {
+    const ui = render(React.createElement(Home, { http: client(discovery).http }));
+    await flush();
+    assert.equal(ui.doc.querySelector('.hero-description').textContent.includes('neural network'), neural);
+    ui.cleanup();
+  }
 });

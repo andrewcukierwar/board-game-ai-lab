@@ -1,4 +1,4 @@
-import { hasAlphaZero, ALPHAZERO_CAVEAT } from '../connect4/alphazero.js';
+import { ALPHAZERO, hasAlphaZero, ALPHAZERO_CAVEAT } from '../connect4/alphazero.js';
 import { useAlphaZero } from '../connect4/useAlphaZero.js';
 import { researchAgentEnabled, researchAgent, VICTOR_RESEARCH, hasResearch, RESEARCH_DISABLED, RESEARCH_CAVEAT } from '../connect4/researchAgent.js';
 import { useMemo, useState } from 'react';
@@ -28,8 +28,9 @@ export default function SeasonLabPage({ http = seasonHttp, storage }) {
   const presets = entrantPresets(available);
   const state = useSeason(http, storage), { season: s, controller: c } = state;
   const [size, setSize] = useState(8), [games, setGames] = useState(2), [customField, setField] = useState(null), [seed, setSeed] = useState(() => String(randomSeed()));
-  // Until edited, the field follows availability, so late AlphaZero discovery joins it without replacing choices.
-  const field = customField ?? recommendedField(size, available);
+  // Until edited, the field follows settled availability: late AlphaZero discovery joins it without
+  // replacing choices, and a recheck does not reshuffle it. Menus and creation still fail closed.
+  const field = customField ?? recommendedField(size, { ...available, alphaZero: alphaZero.settled });
   const [setup, setSetup] = useState(false), [selected, setSelected] = useState(null), [setupError, setSetupError] = useState(''), [epoch, setEpoch] = useState(0);
   const analytics = useMemo(() => s ? seasonAnalytics(s) : null, [s?.completedGames, s?.entrants, s?.seasonSeed]);
   const shown = s && (s.schedule.find(f => f.fixtureId === selected) ?? currentFixture(s) ?? s.schedule.at(-1));
@@ -65,7 +66,7 @@ export default function SeasonLabPage({ http = seasonHttp, storage }) {
       <p id="season-seed-help" className="analysis-helper">Whole number 0–4294967295. The same field, slot order, seed and season length reproduce the schedule, colors and game seeds.</p>
       <p className="season-workload" role="status">{size * (size - 1) / 2} pairings × {games} = <strong>{totalGames(size, games)} scheduled games,</strong> played one at a time on the shared game server. Runtime depends on the entrants as well as the game count: Random and shallow Negamax reply almost instantly, while deeper Negamax, larger MCTS budgets and Victor Research spend more time per move. The default field avoids the slowest settings; a full season can still take several minutes or longer.</p>
       <div className="field-heading"><h3>Entrants</h3><button type="button" onClick={() => setField(null)}>Reset default field</button></div>
-      <div className="entrant-field">{field.map((config, i) => <div className="entrant-row" key={i}><label htmlFor={`season-entrant-${i + 1}`}>#{i + 1}</label><select id={`season-entrant-${i + 1}`} aria-label={`Entrant ${i + 1} configuration`} value={presets.findIndex(p => JSON.stringify(p) === JSON.stringify(config))} onChange={e => setField(field.map((p, j) => j === i ? { ...presets[Number(e.target.value)] } : p))}>{presets.findIndex(p => JSON.stringify(p) === JSON.stringify(config)) === -1 && <option value={-1} disabled>{config.type === VICTOR_RESEARCH ? `${researchAgent.name} · unavailable` : `${competitorLabel(config)} · saved setting`}</option>}{presets.map((p, j) => <option value={j} key={j}>{competitorLabel(p)}</option>)}</select></div>)}</div>
+      <div className="entrant-field">{field.map((config, i) => <div className="entrant-row" key={i}><label htmlFor={`season-entrant-${i + 1}`}>#{i + 1}</label><select id={`season-entrant-${i + 1}`} aria-label={`Entrant ${i + 1} configuration`} value={presets.findIndex(p => JSON.stringify(p) === JSON.stringify(config))} onChange={e => setField(field.map((p, j) => j === i ? { ...presets[Number(e.target.value)] } : p))}>{presets.findIndex(p => JSON.stringify(p) === JSON.stringify(config)) === -1 && <option value={-1} disabled>{config.type === VICTOR_RESEARCH ? `${researchAgent.name} · unavailable` : config.type === ALPHAZERO && alphaZero.checking ? `${competitorLabel(config)} · checking availability` : `${competitorLabel(config)} · saved setting`}</option>}{presets.map((p, j) => <option value={j} key={j}>{competitorLabel(p)}</option>)}</select></div>)}</div>
       <div className="setup-submit"><button id="season-create" className="action-link action-link--primary" disabled={state.busy}>Create season</button>{s && <button type="button" onClick={() => setSetup(false)}>Cancel new season</button>}</div>
     </form> : <>
       <section className="tournament-summary" aria-label="Season summary"><div><span className="eyebrow">Exact Red / Yellow balance</span><h2>{s.fieldSize} entrants <span>·</span> {s.gamesPerPairing} games per pairing</h2><p>Seed {s.seasonSeed} · {s.currentGameIndex} of {s.schedule.length} games complete · {s.schedule.at(-1).round} rounds</p></div><button disabled={state.busy} onClick={() => { c.pause(); setSize(s.fieldSize); setGames(s.gamesPerPairing); setField(s.entrants.map(e => ({ ...e.config }))); setSeed(String(randomSeed())); setSetup(true); }}>New season</button></section>

@@ -43,7 +43,7 @@ None of the agents plays perfectly. AlphaZero and Victor Research are research a
 - **React game and evaluation workflows.** Play, Match, Tournament and Season Labs share one competitor model. AlphaZero appears only when the backend reports it available; Victor Research sits behind matching frontend and server flags. Competitions survive reloads through validated local persistence.
 - **Reproducible, verifiable evaluation.** Seeds determine brackets, schedules, colors and game seeds. Season exports carry versioned provenance and a SHA-256 evidence digest, and a standalone verifier legally replays every game.
 - **Grounded LLM explanations.** The engine computes tactical facts deterministically. The LLM only selects among verified fact IDs and curated strategy references, and it never chooses moves.
-- **ARM64 deployment and CI.** GitHub Actions runs backend and frontend tests, builds and smoke-tests native ARM64 Docker images, and runs AlphaZero inference checks. Images are published, but deployment is a manual, documented step.
+- **ARM64 deployment and CI.** GitHub Actions runs backend and frontend tests, builds and smoke-tests native ARM64 Docker images, and runs AlphaZero inference checks on a native ARM64 runner. Commit-pinned API images are published to GHCR; deployment remains a manual, documented step.
 
 ## Architecture
 
@@ -64,10 +64,11 @@ The browser owns competition scheduling, replay and analytics; the API owns game
 
 ```sh
 node ui/scripts/verify-evaluation-export.mjs benchmarks/connect4/results/canonical-season-v1/evaluation.json
-# Verification PASS · COMPLETE: 112/112 games
+# Verification PASS
+# COMPLETE: 112/112 games
 ```
 
-**AlphaZero research results.** In controlled studies from varied openings, the public model scored about 54% against Negamax depth 3 and about 36% against Negamax depth 5. It is a working self-play agent, not a strong or perfect player. In a [confirmation study](https://github.com/andrewcukierwar/board-game-ai-lab/blob/phase4d4j-b-tactical-guard-confirmation/docs/phase4d4j-b-alphazero-tactical-guard-confirmation.md), the optional safeguard improved match score by +1.30 percentage points (95% interval +0.52 to +2.34), pooled across the two trained CNNs studied. That is a real but small effect, below the +2-point practical threshold declared in advance.
+**AlphaZero research results.** In a controlled study from varied openings (Phase 4D.4J-B, safeguard Off), the public model scored about 54% against Negamax depth 3 and about 36% against Negamax depth 5. It is a working self-play agent, not a strong or perfect player. In a [confirmation study](https://github.com/andrewcukierwar/board-game-ai-lab/blob/phase4d4j-b-tactical-guard-confirmation/docs/phase4d4j-b-alphazero-tactical-guard-confirmation.md), the optional safeguard improved match score by +1.30 percentage points (95% interval +0.52 to +2.34), pooled across the two trained CNNs studied. That is a real but small effect, below the +2-point practical threshold declared in advance.
 
 **Tactical MCTS research results.** On 256 held-out openings, the solver-enhanced variant scored 74.2% against Classic MCTS at equal simulations and 70.8% at equal search time. This is a head-to-head research comparison, not a measurement of the current public presets.
 
@@ -89,7 +90,7 @@ With Docker running, from the repository root:
 docker compose up --build
 ```
 
-Open http://localhost:3000. Gameplay needs no API keys. AlphaZero is opt-in: it requires the `ALPHAZERO_RUNTIME=true` image build and `ALPHAZERO_ENABLED=true` at runtime ([runtime dependencies](docs/alphazero-runtime-dependencies.md)).
+Open http://localhost:3000. Gameplay needs no API keys. The default Compose setup is torch-free, so AlphaZero is hidden; enabling it needs an API image built with `ALPHAZERO_RUNTIME=true` and `ALPHAZERO_ENABLED=true` at runtime, as described in the [runtime dependencies](docs/alphazero-runtime-dependencies.md).
 
 For development, with Python 3.11 and Node 22.12+:
 
@@ -118,7 +119,7 @@ Run tests with `EXPLANATIONS_ENABLED=false python -m pytest tests -q` and `cd ui
 <details>
 <summary>More screenshots</summary>
 
-![Playing against AlphaZero with the tactical safeguard on](docs/assets/connect4-play.png)
+![Playing against AlphaZero, which moved first, with the tactical safeguard on](docs/assets/connect4-play.png)
 
 ![Match Lab reviewing AlphaZero against Tactical MCTS](docs/assets/match-lab-replay.png)
 
