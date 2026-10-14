@@ -1,0 +1,105 @@
+{
+ "charged_seconds": 1789.2660748958588,
+ "complete": false,
+ "computation_complete": true,
+ "evaluation_tasks": 10,
+ "hard_maximum_seconds": 2700,
+ "matches": 800,
+ "measured_optimizer_updates": 8192,
+ "no_new_selfplay": true,
+ "no_retry": true,
+ "phases": [
+  {
+   "name": "42-both-0-initialize",
+   "wall_seconds": 17.146313905715942
+  },
+  {
+   "name": "42-control-0-evaluate",
+   "wall_seconds": 101.27075815200806
+  },
+  {
+   "name": "42-control-1024-train",
+   "wall_seconds": 58.37281608581543
+  },
+  {
+   "name": "42-control-1024-evaluate",
+   "wall_seconds": 104.53808999061584
+  },
+  {
+   "name": "42-treatment-1024-train",
+   "wall_seconds": 58.520920753479004
+  },
+  {
+   "name": "42-treatment-1024-evaluate",
+   "wall_seconds": 105.50357389450073
+  },
+  {
+   "name": "42-control-2048-train",
+   "wall_seconds": 58.568665981292725
+  },
+  {
+   "name": "42-control-2048-evaluate",
+   "wall_seconds": 107.87077975273132
+  },
+  {
+   "name": "42-treatment-2048-train",
+   "wall_seconds": 58.55061101913452
+  },
+  {
+   "name": "42-treatment-2048-evaluate",
+   "wall_seconds": 106.66254329681396
+  },
+  {
+   "name": "314159-both-0-initialize",
+   "wall_seconds": 17.87557578086853
+  },
+  {
+   "name": "314159-control-0-evaluate",
+   "wall_seconds": 100.73973512649536
+  },
+  {
+   "name": "314159-control-1024-train",
+   "wall_seconds": 58.71788191795349
+  },
+  {
+   "name": "314159-control-1024-evaluate",
+   "wall_seconds": 102.24754500389099
+  },
+  {
+   "name": "314159-treatment-1024-train",
+   "wall_seconds": 58.8847439289093
+  },
+  {
+   "name": "314159-treatment-1024-evaluate",
+   "wall_seconds": 103.97573900222778
+  },
+  {
+   "name": "314159-control-2048-train",
+   "wall_seconds": 58.719746112823486
+  },
+  {
+   "name": "314159-control-2048-evaluate",
+   "wall_seconds": 101.99242401123047
+  },
+  {
+   "name": "314159-treatment-2048-train",
+   "wall_seconds": 58.71303987503052
+  },
+  {
+   "name": "314159-treatment-2048-evaluate",
+   "wall_seconds": 104.16502809524536
+  },
+  {
+   "name": "analyze",
+   "wall_seconds": 2.131753921508789
+  },
+  {
+   "name": "independent_verify",
+   "wall_seconds": 2.355154037475586
+  }
+ ],
+ "prelaunch_charge_seconds": 240,
+ "prospective_commit": "3bf0bf5ce70cab994618ed1f046168eb3bcaf1e4",
+ "search_roots": 6280,
+ "wall_seconds": 1549.2660748958588
+}

@@ -1,0 +1,33 @@
+{
+ "finding": "Historical I-A report reversed seen/novel labels in its displayed MSE narrative/table; saved raw evidence agrees exactly with the prospective I-B membership and initial values. Historical files remain unchanged.",
+ "historical_artifacts_modified": false,
+ "model_queries": 0,
+ "seeds": {
+  "314159": {
+   "all_raw_predictions_targets_actors_keys_memberships_identical": true,
+   "correct_strata": {
+    "novel": {
+     "mse": 0.5442663735125551,
+     "positions": 2740
+    },
+    "seen": {
+     "mse": 0.860078614847227,
+     "positions": 1774
+    }
+   }
+  },
+  "42": {
+   "all_raw_predictions_targets_actors_keys_memberships_identical": true,
+   "correct_strata": {
+    "novel": {
+     "mse": 0.6840804407959487,
+     "positions": 2939
+    },
+    "seen": {
+     "mse": 0.7428708023267429,
+     "positions": 1210
+    }
+   }
+  }
+ }
+}
