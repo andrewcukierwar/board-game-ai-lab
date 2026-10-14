@@ -15,6 +15,7 @@ ALPHAZERO = 'alphazero'
 ALPHAZERO_AGENT_VERSION = 1
 DEFAULT_MANIFEST = Path(__file__).resolve().parents[2] / 'models/alphazero/az2-hc-g6-cnn-s42-v1.json'
 SETTINGS = ('type', 'tactical_guard')
+THREAD_ENVIRONMENT = ('OMP_NUM_THREADS', 'MKL_NUM_THREADS')
 FAILURE_CODES = ('runtime_unavailable', 'artifact_missing', 'artifact_integrity', 'artifact_contract',
                  'unsupported_architecture', 'self_check_failed', 'initialization_failed')
 
@@ -35,6 +36,11 @@ class AlphaZeroService:
         self.enabled, self.model, self.failure = enabled, None, None
         if not enabled:
             return
+        # OpenMP sizes its pool from OMP_NUM_THREADS when torch is first imported. Without
+        # this, linux/arm64 kept ~one spinning worker per core: 3x CPU and 2.6x latency per
+        # search despite torch.set_num_threads(1). Operators may still override it.
+        for name in THREAD_ENVIRONMENT:
+            os.environ.setdefault(name, '1')
         try:
             from games.connect4.alphazero_v2.production import ArtifactError, load_once
         except ImportError:

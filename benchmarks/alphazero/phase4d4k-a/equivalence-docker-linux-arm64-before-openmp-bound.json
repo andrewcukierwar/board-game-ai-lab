@@ -1,0 +1,192 @@
+{
+ "artifact_sha256": "4c3cf26aa58495f43094436f231486969658d70b94b246a912a5bb54756dc528",
+ "decisions": 12485,
+ "export_runtime_sha256": "eb0cf9bc51b4655293b31b9c3988e211612e30e469de715ec55d65a300ed3bec",
+ "format": "connect4-alphazero-equivalence-result",
+ "format_version": 1,
+ "guard_changed": 89,
+ "max_abs": {
+  "logits": 9.059906005859375e-06,
+  "prior": 8.563782705195422e-07,
+  "value": 9.834766387939453e-07
+ },
+ "model_id": "az2-hc-g6-cnn-s42-v1",
+ "rule": "integers/sets/guard exact always; floats exact in the research runtime, <=1e-4 otherwise",
+ "runtime": {
+  "cpu_capability": "DEFAULT",
+  "intra_op_threads": 1,
+  "machine": "aarch64",
+  "numpy": "1.26.4",
+  "platform": "Linux-6.12.76-linuxkit-aarch64-with-glibc2.41",
+  "python": "3.11.17",
+  "torch": "2.10.0+cpu"
+ },
+ "same_runtime_as_export": false,
+ "seconds": 1551.4697977899923,
+ "units": [
+  {
+   "decisions": 664,
+   "encodings": {
+    "bitboard_exact": 332,
+    "compared": 332,
+    "engine_exact": 332
+   },
+   "float_exact": false,
+   "guard_changed": 15,
+   "integer_and_set_mismatches": 0,
+   "label": "research reference (mirrors, both actors, full columns, terminal)",
+   "max_abs": {
+    "logits": 9.059906005859375e-06,
+    "prior": 8.563782705195422e-07,
+    "value": 7.152557373046875e-07
+   },
+   "mismatches": [],
+   "rows": 336,
+   "seconds": 221.98041160195135,
+   "terminal_rejected": 4,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 400,
+   "float_exact": false,
+   "guard_changed": 13,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-A seed-42 tactical records",
+   "max_abs": {
+    "logits": 7.152557373046875e-06,
+    "prior": 8.563782705195422e-07,
+    "value": 5.811452865600586e-07
+   },
+   "mismatches": [],
+   "seconds": 93.45699025102658,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 600,
+   "float_exact": false,
+   "guard_changed": 7,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-A seed-42 solved records",
+   "max_abs": {
+    "logits": 9.059906005859375e-06,
+    "prior": 4.863793376941317e-07,
+    "value": 5.736947059631348e-07
+   },
+   "mismatches": [],
+   "seconds": 322.27425556402886,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 256,
+   "float_exact": false,
+   "guard_changed": 0,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-A seed-42 deep records",
+   "max_abs": {
+    "logits": 6.67572021484375e-06,
+    "prior": 6.496725566407235e-07,
+    "value": 6.258487701416016e-07
+   },
+   "mismatches": [],
+   "seconds": 140.80550643900642,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 940,
+   "float_exact": false,
+   "games": 80,
+   "guard_changed": 0,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-A control matches",
+   "max_abs": {
+    "logits": 7.62939453125e-06,
+    "prior": 7.681971474493565e-07,
+    "value": 8.493661880493164e-07
+   },
+   "mismatches": [],
+   "seconds": 449.65263324801344,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 994,
+   "float_exact": false,
+   "games": 80,
+   "guard_changed": 8,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-A guarded matches",
+   "max_abs": {
+    "logits": 7.62939453125e-06,
+    "prior": 7.681971474493565e-07,
+    "value": 8.493661880493164e-07
+   },
+   "mismatches": [],
+   "seconds": 472.64137454901356,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 2001,
+   "float_exact": false,
+   "games": 192,
+   "guard_changed": 0,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-B control matches vs negamax3",
+   "max_abs": {
+    "logits": 7.62939453125e-06,
+    "prior": 7.316101319210233e-07,
+    "value": 8.344650268554688e-07
+   },
+   "mismatches": [],
+   "seconds": 983.248289946001,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 2096,
+   "float_exact": false,
+   "games": 192,
+   "guard_changed": 28,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-B guarded matches vs negamax3",
+   "max_abs": {
+    "logits": 7.62939453125e-06,
+    "prior": 7.316101319210233e-07,
+    "value": 8.344650268554688e-07
+   },
+   "mismatches": [],
+   "seconds": 1029.4801333840005,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 2247,
+   "float_exact": false,
+   "games": 192,
+   "guard_changed": 0,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-B control matches vs negamax5",
+   "max_abs": {
+    "logits": 8.106231689453125e-06,
+    "prior": 6.874409815837978e-07,
+    "value": 9.834766387939453e-07
+   },
+   "mismatches": [],
+   "seconds": 965.6421849799808,
+   "within_tolerance": true
+  },
+  {
+   "decisions": 2287,
+   "float_exact": false,
+   "games": 192,
+   "guard_changed": 18,
+   "integer_and_set_mismatches": 0,
+   "label": "4D.4J-B guarded matches vs negamax5",
+   "max_abs": {
+    "logits": 8.58306884765625e-06,
+    "prior": 6.874409815837978e-07,
+    "value": 9.834766387939453e-07
+   },
+   "mismatches": [],
+   "seconds": 936.7842394249747,
+   "within_tolerance": true
+  }
+ ],
+ "verdict": "PASS_WITHIN_TOLERANCE"
+}

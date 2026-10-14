@@ -304,3 +304,21 @@ def test_repeated_games_reuse_one_model(app):
     for _ in range(3):
         play_out(client, start(client, {'type': 'alphazero', 'tactical_guard': True}, {'type': 'random'}))
     assert create_app({'TESTING': True, 'ALPHAZERO_ENABLED': True}).extensions['connect4_alphazero'].model is model
+
+
+@pytest.mark.parametrize('preset,expected', [(None, '1'), ('2', '2')])
+def test_enabled_service_bounds_openmp_before_torch_import(preset, expected):
+    import os
+    import subprocess
+    import sys
+    code = ('import os, sys; from api.app import create_app; '
+            'assert "torch" not in sys.modules; '
+            'app = create_app({"TESTING": True, "ALPHAZERO_ENABLED": True}); '
+            'assert app.extensions["connect4_alphazero"].available; '
+            'print(os.environ["OMP_NUM_THREADS"], os.environ["MKL_NUM_THREADS"])')
+    env = {k: v for k, v in os.environ.items() if k not in ('OMP_NUM_THREADS', 'MKL_NUM_THREADS')}
+    env.update(PYTHONDONTWRITEBYTECODE='1', **({'OMP_NUM_THREADS': preset} if preset else {}))
+    root = __import__('pathlib').Path(__file__).resolve().parents[1]
+    done = subprocess.run([sys.executable, '-c', code], cwd=root, env=env, capture_output=True, text=True)
+    assert done.returncode == 0, done.stderr
+    assert done.stdout.split() == [expected, '1']

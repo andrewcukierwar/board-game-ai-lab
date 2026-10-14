@@ -15,6 +15,8 @@ MANIFEST = ROOT / 'models/alphazero/az2-hc-g6-cnn-s42-v1.json'
 ARTIFACT = ROOT / 'models/alphazero/az2-hc-g6-cnn-s42-v1.pt'
 REFERENCE = ROOT / 'benchmarks/alphazero/phase4d4k-a/research-reference.json'
 ARTIFACT_SHA256 = '4c3cf26aa58495f43094436f231486969658d70b94b246a912a5bb54756dc528'
+MANIFEST_SHA256 = '004e76c685ad011d0bcb4d67aeedee10372069d7621600c717ac27aa6f3449cc'
+MODEL_ID = 'az2-hc-g6-cnn-s42-v1'
 
 
 def sha256(path):
@@ -63,8 +65,38 @@ def copy_artifact(tmp_path, edit=None, artifact_bytes=None):
     return tmp_path / MANIFEST.name
 
 
-def test_approved_hash_is_pinned_in_code():
-    assert production.APPROVED_ARTIFACTS == {'az2-hc-g6-cnn-s42-v1': ARTIFACT_SHA256}
+def approval(manifest_path, artifact_sha256=ARTIFACT_SHA256):
+    return {MODEL_ID: {'manifest_sha256': sha256(manifest_path), 'artifact_sha256': artifact_sha256}}
+
+
+def test_approved_hashes_are_pinned_in_code():
+    assert production.APPROVED_ARTIFACTS == {MODEL_ID: {'manifest_sha256': MANIFEST_SHA256,
+                                                        'artifact_sha256': ARTIFACT_SHA256}}
+    assert sha256(MANIFEST) == MANIFEST_SHA256
+
+
+@pytest.mark.parametrize('edit', [
+    lambda m: m['source'].update(description='A stronger model'),
+    lambda m: m['source'].update(checkpoint_sha256='3' * 64),
+    lambda m: m['reference_predictions'].pop(),
+])
+def test_any_manifest_edit_is_rejected_under_the_pinned_approval(tmp_path, edit):
+    with pytest.raises(ArtifactError) as error:
+        load_production_model(copy_artifact(tmp_path, edit))
+    assert error.value.code == 'artifact_integrity'
+
+
+def test_symlinked_manifest_or_artifact_is_rejected(tmp_path):
+    (tmp_path / 'a').mkdir()
+    (tmp_path / 'a' / MANIFEST.name).symlink_to(MANIFEST)
+    (tmp_path / 'a' / ARTIFACT.name).symlink_to(ARTIFACT)
+    (tmp_path / 'b').mkdir()
+    shutil.copy(MANIFEST, tmp_path / 'b' / MANIFEST.name)
+    (tmp_path / 'b' / ARTIFACT.name).symlink_to(ARTIFACT)
+    for directory in ('a', 'b'):
+        with pytest.raises(ArtifactError) as error:
+            load_production_model(tmp_path / directory / MANIFEST.name)
+        assert error.value.code == 'artifact_missing'
 
 
 def test_model_loads_once_in_eval_inference_mode(model):
@@ -89,6 +121,7 @@ def test_reference_predictions_pass_self_check(model):
     ('traversal', 'artifact_contract'), ('search_settings', 'artifact_contract'), ('extra_field', 'artifact_contract'),
     ('format_version', 'artifact_contract'), ('weights_hash', 'artifact_integrity'),
     ('reference_drift', 'self_check_failed'), ('reference_illegal', 'artifact_contract'),
+    ('missing_source_description', 'artifact_contract'), ('source_not_object', 'artifact_contract'),
     ('not_json', 'artifact_contract'), ('no_manifest', 'artifact_missing'),
 ])
 def test_invalid_artifacts_fail_with_safe_codes(tmp_path, case, code):
@@ -105,6 +138,8 @@ def test_invalid_artifacts_fail_with_safe_codes(tmp_path, case, code):
         'weights_hash': lambda m: m['architecture'].update(weights_sha256='2' * 64),
         'reference_drift': lambda m: m['reference_predictions'][3].update(value=m['reference_predictions'][3]['value'] + 0.01),
         'reference_illegal': lambda m: m['reference_predictions'][0].update(moves=[0] * 7),
+        'missing_source_description': lambda m: m['source'].pop('description'),
+        'source_not_object': lambda m: m.update(source=[]),
     }
     if case == 'missing':
         path = copy_artifact(tmp_path)
@@ -120,8 +155,11 @@ def test_invalid_artifacts_fail_with_safe_codes(tmp_path, case, code):
         path = tmp_path / 'absent.json'
     else:
         path = copy_artifact(tmp_path, edits[case])
+    # Approve this exact (tampered) manifest so each contract check itself is exercised.
+    approved = (approval(path, '1' * 64 if case == 'unapproved_hash' else ARTIFACT_SHA256)
+                if path.exists() else production.APPROVED_ARTIFACTS)
     with pytest.raises(ArtifactError) as error:
-        load_production_model(path)
+        load_production_model(path, approved=approved)
     assert error.value.code == code
     assert str(tmp_path) not in str(error.value)
 
@@ -140,7 +178,7 @@ def test_strict_loader_rejects_arbitrary_pickles_and_wrong_tensors(tmp_path):
                              lambda m: m['artifact'].update(sha256=digest, size_bytes=target.stat().st_size),
                              artifact_bytes=target.read_bytes())
         with pytest.raises(ArtifactError) as error:
-            load_production_model(path, approved={'az2-hc-g6-cnn-s42-v1': digest})
+            load_production_model(path, approved=approval(path, digest))
         assert error.value.code == 'unsupported_architecture'
 
 
@@ -293,6 +331,6 @@ def test_agent_requires_loaded_model_and_boolean_guard(model):
 def test_artifact_copy_is_independent_of_original_location(tmp_path, model):
     for name in (MANIFEST.name, ARTIFACT.name):
         shutil.copy(ROOT / 'models/alphazero' / name, tmp_path / name)
-    copied = load_production_model(tmp_path / MANIFEST.name)
+    copied = load_production_model(tmp_path / MANIFEST.name)  # pinned approval still applies
     game = engine(POSITIONS['early'])
     assert copied.decide(game, tactical_guard=False).visits == model.decide(game, tactical_guard=False).visits

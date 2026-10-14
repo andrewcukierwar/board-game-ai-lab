@@ -26,6 +26,9 @@ import urllib.request
 
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
+# One OpenMP thread, as in the API (api/connect4/alphazero.py); read when torch first loads.
+for _name in ("OMP_NUM_THREADS", "MKL_NUM_THREADS"):
+    os.environ.setdefault(_name, "1")
 PHASES = (("opening", 0, 6), ("early_middle", 7, 13), ("midgame", 14, 24), ("late", 25, 34),
           ("near_terminal", 35, 41))
 

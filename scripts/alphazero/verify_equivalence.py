@@ -25,6 +25,7 @@ from concurrent.futures import ProcessPoolExecutor
 import hashlib
 import json
 import math
+import multiprocessing
 import os
 from pathlib import Path
 import platform
@@ -33,6 +34,9 @@ import time
 
 REPO = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(REPO))
+# One OpenMP thread, as in the API (api/connect4/alphazero.py); read when torch first loads.
+for _name in ("OMP_NUM_THREADS", "MKL_NUM_THREADS"):
+    os.environ.setdefault(_name, "1")
 
 MANIFEST = REPO / "models/alphazero/az2-hc-g6-cnn-s42-v1.json"
 TOLERANCE = 1e-4
@@ -247,7 +251,8 @@ def main():
         raise SystemExit("Nothing to verify")
     started = time.perf_counter()
     m = model()
-    with ProcessPoolExecutor(max_workers=args.workers) as pool:
+    # spawn, not fork: forking after torch has started its thread pools can deadlock (Linux default).
+    with ProcessPoolExecutor(max_workers=args.workers, mp_context=multiprocessing.get_context("spawn")) as pool:
         results = list(pool.map(run, units))
     manifest = m.manifest
     current = runtime()

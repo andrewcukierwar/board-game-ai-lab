@@ -20,6 +20,7 @@ import json
 import math
 import os
 from pathlib import Path
+import stat
 import threading
 import time
 
@@ -45,9 +46,12 @@ TORCH_THREADS = 1
 # any cross-runtime measurement. Visits and actions must still match exactly.
 REFERENCE_TOLERANCE = 1e-4
 
-# Changing the served model requires a reviewed code change, never a file swap.
+# Changing the served model or any manifest field requires a reviewed code change, never a file swap.
 APPROVED_ARTIFACTS = {
-    "az2-hc-g6-cnn-s42-v1": "4c3cf26aa58495f43094436f231486969658d70b94b246a912a5bb54756dc528",
+    "az2-hc-g6-cnn-s42-v1": {
+        "manifest_sha256": "004e76c685ad011d0bcb4d67aeedee10372069d7621600c717ac27aa6f3449cc",
+        "artifact_sha256": "4c3cf26aa58495f43094436f231486969658d70b94b246a912a5bb54756dc528",
+    },
 }
 
 MANIFEST_KEYS = {"format", "format_version", "model_id", "artifact", "inference_contract", "architecture",
@@ -65,29 +69,32 @@ class ArtifactError(Exception):
         self.code = code
 
 
-def _sha256(path):
-    digest = hashlib.sha256()
-    with open(path, "rb") as stream:
-        for block in iter(lambda: stream.read(1 << 20), b""):
-            digest.update(block)
-    return digest.hexdigest()
+def read_bounded(path, limit, size_code):
+    """One no-follow open of a regular file; size checked on the open file and the read capped."""
+    try:
+        descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+    except OSError as error:
+        raise ArtifactError("artifact_missing", "AlphaZero file is missing, unreadable or a symlink") from error
+    with os.fdopen(descriptor, "rb") as stream:
+        info = os.fstat(stream.fileno())
+        if not stat.S_ISREG(info.st_mode):
+            raise ArtifactError("artifact_missing", "AlphaZero file is not a regular file")
+        if not 0 < info.st_size <= limit:
+            raise ArtifactError(size_code, "AlphaZero file size is outside its bound")
+        data = stream.read(limit + 1)
+    if len(data) != info.st_size:
+        raise ArtifactError(size_code, "AlphaZero file changed while it was read")
+    return data
 
 
 def _sha_text(value):
     return isinstance(value, str) and len(value) == 64 and all(c in "0123456789abcdef" for c in value)
 
 
-def read_manifest(path):
-    """Bounded, strictly shaped manifest; the artifact must be a plain sibling file name."""
-    path = Path(path)
+def parse_manifest(payload):
+    """Strictly shaped manifest bytes; the artifact must be a plain sibling file name."""
     try:
-        size = path.stat().st_size
-    except OSError as error:
-        raise ArtifactError("artifact_missing", "AlphaZero manifest is not readable") from error
-    if not 0 < size <= MAX_MANIFEST_BYTES:
-        raise ArtifactError("artifact_contract", "AlphaZero manifest size is outside its bound")
-    try:
-        manifest = json.loads(path.read_bytes().decode("utf-8"),
+        manifest = json.loads(payload.decode("utf-8"),
                               parse_constant=lambda name: (_ for _ in ()).throw(ValueError(name)))
     except (UnicodeDecodeError, ValueError) as error:
         raise ArtifactError("artifact_contract", "AlphaZero manifest is not strict JSON") from error
@@ -112,6 +119,10 @@ def read_manifest(path):
     guard_entry = manifest["tactical_guard"]
     if not isinstance(guard_entry, dict) or guard_entry.get("contract") != GUARD_CONTRACT:
         raise ArtifactError("artifact_contract", "AlphaZero tactical guard contract is not supported")
+    source = manifest["source"]
+    if (not isinstance(source, dict) or not isinstance(source.get("description"), str)
+            or not source["description"] or not _sha_text(source.get("checkpoint_sha256"))):
+        raise ArtifactError("artifact_contract", "AlphaZero manifest source identity is malformed")
     references = manifest["reference_predictions"]
     if not isinstance(references, list) or not references:
         raise ArtifactError("artifact_contract", "AlphaZero manifest lacks reference predictions")
@@ -215,23 +226,17 @@ def check_reference_predictions(inference, references, tolerance=REFERENCE_TOLER
 def load_production_model(manifest_path, *, approved=APPROVED_ARTIFACTS):
     """Strict offline load; raises ArtifactError with a safe code on any defect."""
     manifest_path = Path(manifest_path)
-    manifest = read_manifest(manifest_path)
+    manifest_bytes = read_bounded(manifest_path, MAX_MANIFEST_BYTES, "artifact_contract")
+    manifest = parse_manifest(manifest_bytes)
     expected = approved.get(manifest["model_id"])
     entry = manifest["artifact"]
-    if expected is None or entry["sha256"] != expected:
-        raise ArtifactError("artifact_integrity", "AlphaZero model is not an approved artifact")
-    artifact = manifest_path.parent / entry["file"]
-    try:
-        if not artifact.is_file() or artifact.is_symlink():
-            raise ArtifactError("artifact_missing", "AlphaZero artifact file is missing")
-        if artifact.stat().st_size != entry["size_bytes"]:
-            raise ArtifactError("artifact_integrity", "AlphaZero artifact size differs from its manifest")
-        # Hash and load one in-memory copy, so the verified bytes are the loaded bytes.
-        payload = artifact.read_bytes()
-    except OSError as error:
-        raise ArtifactError("artifact_missing", "AlphaZero artifact file is not readable") from error
-    if len(payload) != entry["size_bytes"] or hashlib.sha256(payload).hexdigest() != expected:
-        raise ArtifactError("artifact_integrity", "AlphaZero artifact SHA-256 differs from the approved hash")
+    if (not isinstance(expected, dict) or hashlib.sha256(manifest_bytes).hexdigest() != expected.get("manifest_sha256")
+            or entry["sha256"] != expected.get("artifact_sha256")):
+        raise ArtifactError("artifact_integrity", "AlphaZero manifest or model is not an approved artifact")
+    # Hash and load one in-memory copy, so the verified bytes are the loaded bytes.
+    payload = read_bounded(manifest_path.parent / entry["file"], MAX_ARTIFACT_BYTES, "artifact_integrity")
+    if len(payload) != entry["size_bytes"] or hashlib.sha256(payload).hexdigest() != entry["sha256"]:
+        raise ArtifactError("artifact_integrity", "AlphaZero artifact size or SHA-256 differs from the approved hash")
     configure_inference_threads()
     try:
         inference = load_inference_checkpoint(io.BytesIO(payload))  # torch.load(weights_only=True), strict keys
@@ -250,7 +255,7 @@ def load_production_model(manifest_path, *, approved=APPROVED_ARTIFACTS):
         raise
     except Exception as error:  # e.g. a malformed reference that the engine rejects
         raise ArtifactError("self_check_failed", "AlphaZero reference predictions could not be evaluated") from error
-    return ProductionModel(manifest, inference, expected)
+    return ProductionModel(manifest, inference, entry["sha256"])
 
 
 _cache = {}
@@ -259,7 +264,8 @@ _cache_lock = threading.Lock()
 
 def load_once(manifest_path, *, approved=APPROVED_ARTIFACTS):
     """Process-wide single load per (manifest, approved hash); failures are not cached."""
-    key = (os.path.realpath(manifest_path), tuple(sorted(approved.items())))
+    key = (os.path.realpath(manifest_path),
+           tuple(sorted((k, tuple(sorted(v.items()))) for k, v in approved.items())))
     with _cache_lock:
         model = _cache.get(key)
         if model is None:
