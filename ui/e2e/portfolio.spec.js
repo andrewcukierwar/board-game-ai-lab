@@ -31,6 +31,7 @@ test('Tournament: modern default field, Human last in every slot, one-Human rule
   for (let i = 1; i <= 8; i++) {
     const labels = await page.locator(`#entrant-${i} option`).allTextContents();
     expect(labels.at(-1)).toBe('You · Human');
+    expect(labels).toContain('AlphaZero (Experimental) · safeguard off'); expect(labels).toContain('AlphaZero (Experimental) · safeguard on');
     expect(labels.indexOf('AlphaZero (Experimental) · safeguard on')).toBeLessThan(labels.length - 1);
     if (victor) expect(labels.indexOf('AlphaZero (Experimental) · safeguard on')).toBeLessThan(labels.indexOf('Victor Research (Experimental)'));
   }

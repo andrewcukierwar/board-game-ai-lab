@@ -15,7 +15,7 @@ const measure = page => page.locator('.competitor-choices').evaluateAll(grids =>
   }) };
 }));
 
-for (const alphaZero of [true, false]) for (const width of [1440, 820, 375, 320]) {
+for (const alphaZero of [true, false]) for (const width of [1440, 1181, 1180, 820, 375, 320]) {
   test(`Match Lab competitor grid at ${width}px, AlphaZero ${alphaZero ? 'available' : 'absent'}, Victor ${victor ? 'on' : 'off'}`, async ({ page }) => {
     await page.setViewportSize({ width, height: 1000 });
     page.on('pageerror', error => { throw error; });
@@ -32,7 +32,7 @@ for (const alphaZero of [true, false]) for (const width of [1440, 820, 375, 320]
     for (const grid of grids) {
       const { options, columns } = grid, cell = (grid.width - (columns - 1) * grid.gap) / columns;
       expect(options.map(o => o.type)).toEqual(order);
-      expect(columns).toBe(width > 1100 ? 4 : 2);
+      expect(columns).toBe(width > 1180 ? 4 : 2);
       // Equal row heights, no clipped or overflowing labels, no awkward three-line wrapping.
       for (const o of options) {
         expect(near(o.height, options[0].height)).toBe(true);
