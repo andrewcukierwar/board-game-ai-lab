@@ -1,0 +1,120 @@
+# Build/test only. No deployment credentials, registry push or Mac mini access.
+name: AlphaZero ARM64 inference release checks
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'api/**'
+      - 'games/connect4/**'
+      - 'models/alphazero/**'
+      - 'tests/**'
+      - 'ui/**'
+      - 'docker/api.Dockerfile'
+      - 'requirements*.txt'
+      - 'requirements-alphazero-arm64.lock'
+      - 'scripts/deploy-mac-mini-api.sh'
+      - 'scripts/smoke-api-release.py'
+      - '.github/workflows/alphazero-inference.yml'
+  push:
+    branches: [main, phase4d4k-b-alphazero-frontend]
+    paths:
+      - 'api/**'
+      - 'games/connect4/**'
+      - 'models/alphazero/**'
+      - 'tests/**'
+      - 'ui/**'
+      - 'docker/api.Dockerfile'
+      - 'requirements*.txt'
+      - 'requirements-alphazero-arm64.lock'
+      - 'scripts/deploy-mac-mini-api.sh'
+      - 'scripts/smoke-api-release.py'
+      - '.github/workflows/alphazero-inference.yml'
+permissions:
+  contents: read
+concurrency:
+  group: az-inference-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  frontend:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: ui/package-lock.json
+      - run: npm ci && npm test && npm run build
+        working-directory: ui
+  inference:
+    needs: frontend
+    runs-on: ubuntu-24.04-arm
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: docker/api.Dockerfile
+          platforms: linux/arm64
+          build-args: ALPHAZERO_RUNTIME=true
+          load: true
+          push: false
+          tags: bgai-az:ci
+          cache-from: type=gha,scope=alphazero-arm64
+          cache-to: type=gha,mode=max,scope=alphazero-arm64
+      - name: Native image inference tests and real HTTP release probe
+        env:
+          SOURCE_COMMIT: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          test "$(docker image inspect bgai-az:ci --format '{{.Architecture}}')" = arm64
+          docker run -d --name bgai-az-ci -p 127.0.0.1:18104:8000 \
+            -e ALPHAZERO_ENABLED=true -e EXPLANATIONS_ENABLED=false \
+            -e VICTOR_RESEARCH_ENABLED=true -e EVALUATION_SOURCE_COMMIT="$SOURCE_COMMIT" bgai-az:ci
+          trap 'if [ $? -ne 0 ]; then docker logs --tail 50 bgai-az-ci; docker rm -f bgai-az-ci; fi' EXIT
+          for attempt in $(seq 1 30); do
+            if curl -fsS --max-time 2 http://127.0.0.1:18104/v1/connect4/health; then break; fi
+            sleep 1
+          done
+          python3 scripts/smoke-api-release.py --base http://127.0.0.1:18104 --mode alphazero --commit "$SOURCE_COMMIT"
+          docker cp tests bgai-az-ci:/app/tests
+          docker cp benchmarks bgai-az-ci:/app/benchmarks
+          docker cp scripts bgai-az-ci:/app/scripts
+          docker exec bgai-az-ci python -m pip install 'pytest>=8,<9'
+          docker exec -e OMP_NUM_THREADS=1 -e MKL_NUM_THREADS=1 bgai-az-ci python -c \
+            'import torch; from games.connect4.alphazero_v2.production import load_once; load_once("models/alphazero/az2-hc-g6-cnn-s42-v1.json"); assert not torch.cuda.is_available(); assert torch.get_num_threads()==torch.get_num_interop_threads()==1'
+          docker exec bgai-az-ci env -u ALPHAZERO_ENABLED -u EVALUATION_SOURCE_COMMIT -u VICTOR_RESEARCH_ENABLED python -m pytest -q \
+            tests/test_alphazero_production.py tests/test_alphazero_api.py \
+            tests/test_alphazero_api_disabled.py tests/test_alphazero_provenance.py \
+            tests/test_deploy_mac_mini.py
+          # Full torch-free regression remains in docker-lite.yml. No training.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: ui/package-lock.json
+      - name: Chromium integration against isolated ARM64 inference
+        working-directory: ui
+        env:
+          BGAI_DEV_API_TARGET: http://127.0.0.1:18104
+          VITE_VICTOR_RESEARCH_ENABLED: 'true'
+          PLAYWRIGHT_API_URL: http://127.0.0.1:18104
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:18115
+        run: |
+          set -euo pipefail
+          npm ci
+          npx playwright install --with-deps chromium
+          npm run dev -- --host 127.0.0.1 --port 18115 --strictPort >/tmp/vite.log 2>&1 &
+          ui_pid=$!
+          trap 'kill "$ui_pid"; docker rm -f bgai-az-ci || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:18115 >/dev/null; then break; fi
+            sleep 1
+          done
+          npm run test:e2e -- --project=chromium e2e/alphazero.spec.js
+      - name: Cleanup test container
+        if: always()
+        run: docker rm -f bgai-az-ci || true

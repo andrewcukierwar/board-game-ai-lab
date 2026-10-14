@@ -1,3 +1,5 @@
+import { hasAlphaZero, alphaZeroDiscovery } from './alphazero.js';
+import { withBusyRetry } from './busyRetry.js';
 import { KNOWN_PLAYER_TYPES } from './researchAgent.js';
 import { validateSnapshot } from './gameSnapshot.js';
 import { samePlayers } from './matchRecord.js';
@@ -9,9 +11,12 @@ export async function requestMatchPly(http, game, column, options) {
   if (game.gameOver || (human ? !game.legalMoves.includes(column) : column !== undefined)) {
     throw new Error('This move is unavailable in the live position.');
   }
-  const response = await http.post('/v1/connect4/make_move', {
+  const operation = () => http.post('/v1/connect4/make_move', {
     game_id: game.game_id, revision: game.revision, ...(human ? { column } : {}),
   }, options);
+  let response;
+  try { response = hasAlphaZero(game.players) ? await withBusyRetry(operation, options) : await operation(); }
+  catch (error) { if (['invalid_agent', 'agent_unavailable'].includes(error.response?.data?.code)) alphaZeroDiscovery(http).invalidate(); throw error; }
   const accepted = validateSnapshot(response.data, { game_id: game.game_id, revision: game.revision + 1 }, KNOWN_PLAYER_TYPES);
   if (!samePlayers(accepted.players, game.players)) throw new Error('The match players changed.');
   return accepted;

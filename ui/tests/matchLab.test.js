@@ -23,6 +23,10 @@ function server(sequence = DRAW) {
   return s;
 }
 function setup(http) {
+  const gameplayGet = http.get?.bind(http);
+  http.get = (url, options) => url === '/v1/connect4/agents/alphazero'
+    ? Promise.reject(Object.assign(new Error('Endpoint absent'), { response: { status: 404 } }))
+    : gameplayGet(url, options);
   const dom = new JSDOM('<div id="root"></div>');
   globalThis.window = dom.window; globalThis.document = dom.window.document;
   const doc = dom.window.document, root = createRoot(doc.getElementById('root'));

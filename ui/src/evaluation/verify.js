@@ -1,5 +1,5 @@
 import { canonicalJSON, evidenceDigest } from './canonical.js';
-import { FORMAT, SCHEMA_VERSION, RESEARCH_SCHEMA_VERSION, sourceCommit } from './provenance.js';
+import { FORMAT, ALPHAZERO_SCHEMA_VERSION, SCHEMA_VERSION, RESEARCH_SCHEMA_VERSION, sourceCommit } from './provenance.js';
 import { evaluationSchema, evaluationMethodology, evidenceHasResearch, canonicalPayload, reconstructEvidence, derivedAnalytics, evaluationProvenance } from './export.js';
 
 function compareDerived(actual, expected, path = 'derived') {
@@ -15,7 +15,7 @@ export async function verifyEvaluationExport(artifact, { digest } = {}) {
   let stage = 'schema';
   try {
     canonicalJSON(artifact); // Reject non-JSON values even outside the hashed payload.
-    if (artifact?.format !== FORMAT || ![SCHEMA_VERSION, RESEARCH_SCHEMA_VERSION].includes(artifact.schema_version)) throw new Error('Unsupported evaluation format/schema version.');
+    if (artifact?.format !== FORMAT || ![SCHEMA_VERSION, RESEARCH_SCHEMA_VERSION, ALPHAZERO_SCHEMA_VERSION].includes(artifact.schema_version)) throw new Error('Unsupported evaluation format/schema version.');
     const keys = ['format', 'schema_version', 'exported_at', 'provenance', 'methodology', 'evidence', 'derived', 'integrity'].sort();
     if (canonicalJSON(Object.keys(artifact).sort()) !== canonicalJSON(keys)) throw new Error('Evaluation envelope has missing or unknown fields.');
     if (typeof artifact.exported_at !== 'string' || !/^\d{4}-\d{2}-\d{2}T.*Z$/.test(artifact.exported_at) || !Number.isFinite(Date.parse(artifact.exported_at))) throw new Error('Invalid ISO-8601 UTC exported_at.');
@@ -23,7 +23,7 @@ export async function verifyEvaluationExport(artifact, { digest } = {}) {
     if (canonicalJSON(artifact.methodology) !== canonicalJSON(evaluationMethodology(artifact.evidence))) throw new Error('Unsupported or modified evaluation methodology.');
     stage = 'evidence';
     const s = reconstructEvidence(artifact.evidence);
-    if (artifact.schema_version !== evaluationSchema(artifact.evidence)) throw new Error('Victor evidence requires evaluation schema v2; ordinary evidence uses frozen v1.');
+    if (artifact.schema_version !== evaluationSchema(artifact.evidence)) throw new Error('AlphaZero evidence requires v3, Victor v2, and ordinary evidence frozen v1.');
     stage = 'provenance';
     const p = artifact.provenance;
     if (!p || !(p.source_commit === null || sourceCommit(p.source_commit) === p.source_commit) || canonicalJSON(p) !== canonicalJSON(evaluationProvenance(artifact.evidence, p.source_commit))) throw new Error('Malformed, unsupported or inconsistent implementation provenance.');

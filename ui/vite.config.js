@@ -12,7 +12,7 @@ export default defineConfig(({ command, mode }) => ({
   },
   server: {
     proxy: {
-      "/v1": "http://localhost:8000",   // dev-time API proxy
+      "/v1": apiBase(process.env.BGAI_DEV_API_TARGET || 'http://localhost:8000'), // isolated staging override
     },
   },
 }));

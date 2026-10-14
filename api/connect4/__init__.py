@@ -11,9 +11,10 @@ from games.connect4.agents.mcts_agent import MCTSAgent
 from games.connect4.agents.tactical_mcts_agent import TacticalMCTSAgent
 from games.connect4.agents.negamax_agent import SearchDeadlineExceeded
 from games.connect4.connect4 import Connect4
-from games.connect4.grounding.history import record_move
+from games.connect4.grounding.history import AlphaZeroMoveEvidence, record_move
 from .state import GameError
 from .provenance import public_provenance
+from .alphazero import ALPHAZERO, validate_player as alphazero_player
 
 bp = Blueprint('connect4', __name__)
 MAX_DEPTH = 12
@@ -25,6 +26,8 @@ ADVANCED_NEGAMAX_MAX_SECONDS = 20
 _mcts_reservation = BoundedSemaphore(1)
 # The opt-in research agent gets its own reservation, so it never blocks MCTS.
 _victor_reservation = BoundedSemaphore(1)
+# One AlphaZero search per process, in addition to the shared search gate.
+_alphazero_reservation = BoundedSemaphore(1)
 VICTOR_RESEARCH = 'victor_research'
 
 
@@ -38,6 +41,10 @@ def ply_seed(seed, revision, player):
 
 def store():
     return current_app.extensions['connect4_games']
+
+
+def alphazero():
+    return current_app.extensions['connect4_alphazero']
 
 
 def json_object():
@@ -57,6 +64,9 @@ def player_config(value):
     if not isinstance(value, dict):
         raise GameError('invalid_agent', 'Each player configuration must be an object.')
     kind = value.get('type')
+    if kind == ALPHAZERO:
+        alphazero().require()  # explicit disabled/unavailable error; never a fallback agent
+        return alphazero_player(value)
     research = kind == VICTOR_RESEARCH and current_app.config.get('VICTOR_RESEARCH_ENABLED') is True
     if kind not in ('human', 'random', 'negamax', 'mcts', 'mcts_tactical') and not research:
         raise GameError('invalid_agent', 'Supported player types are human, random, negamax, mcts, and mcts_tactical.')
@@ -114,7 +124,8 @@ def start_game():
     players = [player_config(data.get('player1', {'type': 'human'})),
                player_config(data.get('player2', {'type': 'negamax', 'depth': 2}))]
     replace_id = game_id(data['replace_game_id']) if 'replace_game_id' in data else None
-    gid, session = store().create(players, replace_id, seed)
+    identity = alphazero().public_status()['provenance'] if any(p['type'] == ALPHAZERO for p in players) else None
+    gid, session = store().create(players, replace_id, seed, alphazero_provenance=identity)
     return jsonify(snapshot(gid, session)), 201
 
 
@@ -133,6 +144,8 @@ def get_history(gid):
         return jsonify(game_id=gid, revision=session.revision,
                        provenance=public_provenance(current_app.config.get('SOURCE_COMMIT')),
                        **({'rng_seed': session.rng_seed} if session.rng_seed is not None else {}),
+                       **({'alphazero_provenance': deepcopy(session.alphazero_provenance)}
+                          if session.alphazero_provenance is not None else {}),
                        players=state['players'], state=state,
                        moves=[record.to_dict() for record in session.history])
 
@@ -155,6 +168,7 @@ def make_move():
             raise GameError('game_over', 'This game is finished. Start a new game.', 409)
         config = session.players[session.game.current_player]
         search_stats = None
+        alphazero_evidence = None
         candidate = Connect4(session.game.board, session.game.current_player)
         if config['type'] == 'human':
             if 'column' not in data:
@@ -167,11 +181,15 @@ def make_move():
                 raise GameError('invalid_move', 'It is the AI turn. Request its move without a column.')
             if config['type'] == VICTOR_RESEARCH and current_app.config.get('VICTOR_RESEARCH_ENABLED') is not True:
                 raise GameError('invalid_agent', 'The Victor research agent is not enabled on this server.', 409)
+            model = alphazero().require() if config['type'] == ALPHAZERO else None
+            if model is not None and session.alphazero_provenance != alphazero().public_status().get('provenance'):
+                raise GameError('agent_unavailable', 'AlphaZero model identity changed. Restore the original model '
+                                'or start a new game; history is preserved.', 503)
             reservation = {'mcts': _mcts_reservation, 'mcts_tactical': _mcts_reservation,
-                           VICTOR_RESEARCH: _victor_reservation}.get(config['type'])
+                           VICTOR_RESEARCH: _victor_reservation, ALPHAZERO: _alphazero_reservation}.get(config['type'])
             reserved = reservation is not None
             if reserved and not reservation.acquire(blocking=False):
-                name = 'MCTS' if config['type'] in ('mcts', 'mcts_tactical') else 'Victor research'
+                name = {'mcts': 'MCTS', 'mcts_tactical': 'MCTS', ALPHAZERO: 'AlphaZero'}.get(config['type'], 'Victor research')
                 raise GameError('agent_busy', f'Another {name} search is running. Retry the AI move shortly.', 503)
             search_gate = current_app.extensions['connect4_search_gate'] if config['type'] != 'random' else None
             search_acquired = False
@@ -196,6 +214,10 @@ def make_move():
                     # under node budgets, deadline-bounded; always a legal move.
                     from games.connect4.agents.victor_research_agent import VictorResearchAgent
                     agent = VictorResearchAgent()
+                elif config['type'] == ALPHAZERO:
+                    # Imported only when enabled; the shared model was validated at startup.
+                    from games.connect4.agents.alphazero_agent import AlphaZeroAgent
+                    agent = AlphaZeroAgent(model, tactical_guard=config['tactical_guard'])
                 else:
                     agent = NegamaxAgent(config['depth'], max_seconds=(
                         ADVANCED_NEGAMAX_MAX_SECONDS if config['depth'] >= 9 else None))
@@ -203,6 +225,8 @@ def make_move():
                 column = agent.choose_move(Connect4(candidate.board, candidate.current_player))
                 if config['type'] == 'mcts_tactical':
                     search_stats = (config['simulation_limit'], agent.last_stats['simulations'])
+                elif config['type'] == ALPHAZERO:
+                    alphazero_evidence = AlphaZeroMoveEvidence.from_decision(model.model_id, agent.last_decision)
                 if type(column) is not int or not candidate.is_valid_move(column):
                     raise ValueError('Agent returned an illegal move')
             except GameError:
@@ -221,7 +245,8 @@ def make_move():
             raise GameError('invalid_move', 'That move could not be played. Refresh the game.', 409)
         # Prepare the immutable evidence before committing; failed requests add nothing.
         record = record_move(session.game.board, candidate.board,
-                             session.game.current_player, config, column, session.revision, search_stats=search_stats)
+                             session.game.current_player, config, column, session.revision, search_stats=search_stats,
+                             alphazero=alphazero_evidence)
         history = session.history + (record,)
         session.game, session.revision, session.history = candidate, record.revision, history
         return jsonify(snapshot(gid, session))
@@ -230,6 +255,12 @@ def make_move():
 @bp.route('/health')
 def health():
     return 'OK', 200
+
+
+@bp.route('/agents/alphazero', methods=['GET'])
+def alphazero_status():
+    # Separate from /provenance, whose manifest the evaluation verifier matches exactly.
+    return jsonify(alphazero().public_status())
 
 
 @bp.route('/provenance', methods=['GET'])

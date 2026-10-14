@@ -1,3 +1,4 @@
+import { ALPHAZERO, hasAlphaZero, validateAlphaZeroProvenance, requireSameAlphaZero } from '../connect4/alphazero.js';
 import { assertResearchExecution, researchAgentEnabled } from '../connect4/researchAgent.js';
 import { toPlayerPayload, competitorLabel } from '../connect4/competitorConfig.js';
 import { validateMatchHistory } from '../connect4/matchRecord.js';
@@ -14,7 +15,7 @@ export const totalGames = (size, games) => size * (size - 1) / 2 * games;
 export const entrant = (s, id) => s.entrants.find(e => e.entrantId === id);
 export const entrantLabel = (s, id) => { const e = entrant(s, id); return e ? `#${e.seedNumber} ${competitorLabel(e.config)}` : 'Unknown entrant'; };
 export const currentFixture = s => s?.schedule[s.currentGameIndex] ?? null;
-export function createSeason(configs, seed, gamesPerPairing = 2, seasonId = `season-${seed}`, researchEnabled = researchAgentEnabled()) {
+export function createSeason(configs, seed, gamesPerPairing = 2, seasonId = `season-${seed}`, researchEnabled = researchAgentEnabled(), alphazeroProvenance) {
   check(Array.isArray(configs) && FIELD_SIZES.includes(configs.length), 'Choose 4, 6, 8, 10 or 12 entrants.');
   check(GAMES_PER_PAIRING.includes(gamesPerPairing), 'Choose 2, 4 or 8 games per pairing.');
   check(validSeed(seed), 'Season seed must be a whole number from 0 to 4294967295.');
@@ -41,7 +42,7 @@ export function createSeason(configs, seed, gamesPerPairing = 2, seasonId = `sea
         cycle, redEntrantId, yellowEntrantId, gameSeed: deriveSeed(seed, `season:game:v1:${fixtureId}`), status: 'pending', result: null });
     }
   }
-  return { version: VERSION, scheduleVersion: SCHEDULE_VERSION, seasonId, seasonSeed: seed, fieldSize: entrants.length,
+  return { version: hasAlphaZero(configs) ? 2 : VERSION, ...(hasAlphaZero(configs) ? { alphazeroProvenance: validateAlphaZeroProvenance(alphazeroProvenance) } : {}), scheduleVersion: SCHEDULE_VERSION, seasonId, seasonSeed: seed, fieldSize: entrants.length,
     gamesPerPairing, entrants, schedule, currentGameIndex: 0, status: 'paused', completedGames: [], active: null, retainedGameId: null };
 }
 export function gamePlan(s, fixture = currentFixture(s)) {
@@ -55,13 +56,15 @@ export function compactHistory(s, history) {
   check(record.game.gameOver, 'Only confirmed terminal games count in a season.');
   const columns = record.moves.map(m => m.column), { result } = replayColumns(columns, plan.playerConfigs);
   return { ...plan, columns, result, moveCount: columns.length, completedIndex: s.currentGameIndex,
+    ...(hasAlphaZero(plan.playerConfigs) ? { alphazeroProvenance: validateAlphaZeroProvenance(history.alphazero_provenance) } : {}),
     ...(history.provenance ? { backendProvenance: validateBackendProvenance(history.provenance) } : {}) };
 }
 function validateGame(s, game, index) {
   const plan = gamePlan(s, s.schedule[index]);
   check(game && equal(Object.keys(game).sort(), [...Object.keys(plan), 'columns', 'result', 'moveCount', 'completedIndex',
-    ...(Object.hasOwn(game, 'backendProvenance') ? ['backendProvenance'] : [])].sort()));
+    ...(Object.hasOwn(game, 'backendProvenance') ? ['backendProvenance'] : []), ...(hasAlphaZero(plan.playerConfigs) ? ['alphazeroProvenance'] : [])].sort()));
   if (Object.hasOwn(game, 'backendProvenance')) validateBackendProvenance(game.backendProvenance);
+  if (hasAlphaZero(plan.playerConfigs)) requireSameAlphaZero(s.alphazeroProvenance, game.alphazeroProvenance);
   for (const key of Object.keys(plan)) check(equal(game[key], plan[key]), 'Game seed, colors or configuration do not match the schedule.');
   const { result } = replayColumns(game.columns, plan.playerConfigs);
   check(result.status !== 'ongoing' && equal(result, game.result) && game.moveCount === game.columns.length && game.completedIndex === index, 'Malformed completed result.');
@@ -77,9 +80,10 @@ export function recordGame(s, game) {
 }
 const validId = id => id === null || typeof id === 'string' && id.length > 0 && id.length <= 64;
 export function validateSeason(value) {
-  check(value && value.version === VERSION && value.scheduleVersion === SCHEDULE_VERSION, 'Unsupported season schema.');
+  check(value && [VERSION, 2].includes(value.version) && value.scheduleVersion === SCHEDULE_VERSION, 'Unsupported season schema.');
   check(Array.isArray(value.entrants) && value.entrants.length === value.fieldSize);
-  const rebuilt = createSeason(value.entrants.map(e => e.config), value.seasonSeed, value.gamesPerPairing, value.seasonId, true);
+  const rebuilt = createSeason(value.entrants.map(e => e.config), value.seasonSeed, value.gamesPerPairing, value.seasonId, true, value.alphazeroProvenance);
+  check(value.version === rebuilt.version && (rebuilt.version === 2 || !Object.hasOwn(value, 'alphazeroProvenance')));
   check(equal(rebuilt.entrants, value.entrants), 'Invalid entrant identities.');
   check(Array.isArray(value.completedGames) && value.completedGames.length <= rebuilt.schedule.length);
   for (const [i, game] of value.completedGames.entries()) { validateGame(rebuilt, game, i); appendGame(rebuilt, game); }

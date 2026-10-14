@@ -1,3 +1,4 @@
+import { ALPHAZERO, hasAlphaZero, capturedAlphaZero, requireAlphaZero, requireSameAlphaZero, alphaZeroDiscovery } from '../connect4/alphazero.js';
 import { assertResearchExecution, researchAgentEnabled, researchErrorMessage, VICTOR_RESEARCH } from '../connect4/researchAgent.js';
 import { requestMatchPly } from '../connect4/matchTransport.js';
 import { validateMatchHistory } from '../connect4/matchRecord.js';
@@ -14,7 +15,7 @@ export class SeasonController {
     const saved = loadSeason(storage);
     this.state = { season: saved.season, error: saved.error, storageAvailable: saved.available, busy: false,
       uncertain: Boolean(saved.season?.active), mode: 'paused', speed: 'normal', waiting: false, reviewing: false };
-    this.listeners = new Set(); this.timer = null; this.attached = false; this.minRevision = 0;
+    this.listeners = new Set(); this.timer = null; this.attached = false; this.minRevision = 0; this.retryEpoch = 0;
     this.snapshot = () => this.state;
     this.subscribe = listener => { this.listeners.add(listener); return () => this.listeners.delete(listener); };
   }
@@ -23,12 +24,12 @@ export class SeasonController {
   attach() { this.attached = true; if (!this.state.busy && this.state.season?.active && this.state.season.active.status !== 'interrupted') void this.refresh(); }
   detach() { this.attached = false; this.pause(); }
   clearTimer() { if (this.timer !== null) this.cancel(this.timer); this.timer = null; }
-  pause() { this.clearTimer(); this.patch({ mode: 'paused' }); }
+  pause() { this.retryEpoch++; this.clearTimer(); this.patch({ mode: 'paused' }); }
   review() { this.pause(); this.patch({ reviewing: true }); }
   returnLive() { this.patch({ reviewing: false }); }
   create(configs, seed, games) {
     if (this.state.busy) return;
-    const fresh = createSeason(configs, seed, games, undefined, this.researchEnabled);
+    const fresh = createSeason(configs, seed, games, undefined, this.researchEnabled, capturedAlphaZero(this.http, configs));
     fresh.retainedGameId = this.state.season?.active?.gameId ?? this.state.season?.retainedGameId ?? null;
     this.pause(); this.minRevision = 0; this.persist(fresh);
     this.patch({ error: '', uncertain: false, waiting: false, reviewing: false });
@@ -37,7 +38,7 @@ export class SeasonController {
   async locked(action) {
     if (this.state.busy) return;
     this.clearTimer(); this.patch({ busy: true, error: '' });
-    try { await action(); } catch (error) { await this.recover(error); }
+    try { await action(); } catch (error) { if (!error.retryCancelled) await this.recover(error); }
     finally { this.patch({ busy: false, waiting: false }); this.queue(); }
   }
   interrupted(message) {
@@ -49,8 +50,13 @@ export class SeasonController {
     this.pause();
     const a = this.state.season?.active;
     const configs = a ? gamePlan(this.state.season).playerConfigs : [];
-    const selection = a?.gameId ? configs[a.columns.length % 2] : configs.find(p => p.type === VICTOR_RESEARCH);
+    const selection = a?.gameId ? configs[a.columns.length % 2] : configs.find(p => [VICTOR_RESEARCH, ALPHAZERO].includes(p.type));
+    if (selection?.type === ALPHAZERO && ['invalid_agent', 'agent_unavailable'].includes(error.response?.data?.code)) alphaZeroDiscovery(this.http).invalidate();
     const reason = researchErrorMessage(error, selection, true) || error.response?.data?.error || error.message || 'Request could not be confirmed.';
+    if (error.alphaZeroIntegrity && a) {
+      this.interrupted(reason + ' Restore the original model, then explicitly restart this unfinished game. Completed results are safe.');
+      return;
+    }
     this.patch({ error: reason, uncertain: true, waiting: true });
     if (!a) { this.patch({ uncertain: false, waiting: false }); return; }
     if (!a?.gameId || a.status === 'starting') {
@@ -66,6 +72,7 @@ export class SeasonController {
     const s = this.state.season, a = s.active;
     if (!a?.gameId) throw new Error('This fixture needs an explicit seeded restart.');
     const plan = gamePlan(s), response = await this.http.get(`/v1/connect4/games/${a.gameId}/history`);
+    if (hasAlphaZero(plan.playerConfigs)) requireSameAlphaZero(s.alphazeroProvenance, response.data.alphazero_provenance);
     const validated = validateMatchHistory(response.data, { game_id: a.gameId, minRevision: Math.max(a.columns.length, this.minRevision), players: plan.playerConfigs, rng_seed: plan.gameSeed });
     if (!a.columns.every((col, i) => validated.moves[i]?.column === col)) throw new Error('Previously validated moves changed.');
     const copy = activeCopy(this.state.season);
@@ -81,6 +88,11 @@ export class SeasonController {
     const s = this.state.season, f = currentFixture(s);
     if (!f || s.active && !restart) return;
     const plan = gamePlan(s), replaceId = s.active?.gameId ?? s.retainedGameId, copy = activeCopy(s);
+    const operationEpoch = this.retryEpoch;
+    if (hasAlphaZero(s.entrants.map(e => e.config))) {
+      await requireAlphaZero(this.http, s.entrants.map(e => e.config), s.alphazeroProvenance);
+      if (!this.attached || this.retryEpoch !== operationEpoch) throw Object.assign(new Error("Start cancelled before submission."), { retryCancelled: true });
+    }
     assertResearchExecution(plan.playerConfigs, this.researchEnabled);
     copy.active = { fixtureId: f.fixtureId, gameId: null, status: 'starting', columns: [] }; currentFixture(copy).status = 'active';
     this.persist(copy); this.minRevision = 0;
@@ -116,8 +128,9 @@ export class SeasonController {
   async ply() {
     const s = this.state.season, a = s?.active;
     if (!a || a.status !== 'running' || this.state.uncertain || this.state.error) return;
+    const epoch = this.retryEpoch;
     const { game } = replayColumns(a.columns, gamePlan(s).playerConfigs, a.gameId);
-    if (!game.gameOver) { assertResearchExecution(game.players, this.researchEnabled); const accepted = await requestMatchPly(this.http, game); this.minRevision = accepted.revision; this.patch({ uncertain: true }); }
+    if (!game.gameOver) { assertResearchExecution(game.players, this.researchEnabled); const accepted = await requestMatchPly(this.http, game, undefined, { canRetry: () => this.attached && this.retryEpoch === epoch }); this.minRevision = accepted.revision; this.patch({ uncertain: true }); }
     await this.sync();
   }
   nextMove() {

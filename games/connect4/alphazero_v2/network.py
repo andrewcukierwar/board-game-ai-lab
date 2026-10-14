@@ -15,6 +15,20 @@ from torch.nn import functional as F
 
 from ..neural_mcts import encode_current_player, validate_input
 from .config import ARCHITECTURE, INFERENCE_CONTRACT
+from .bitboard import BitboardState, INPUT_MASKS, BOARD_MASK, COLUMN, has_four
+
+
+def encode_bitboard_current_player(state):
+    """Direct CPU float32 (1,1,6,7) input, without an array board view.
+
+    Preserve even the engine encoder's negative zero on empty O-to-move
+    cells, by multiplying absolute floating values by the actor sign.
+    """
+    x, o = state.pieces
+    sign = 1.0 if state.current_player == 0 else -1.0
+    cells = [(1.0 if x & mask else -1.0 if o & mask else 0.0) * sign
+             for mask in INPUT_MASKS]
+    return torch.tensor(cells, dtype=torch.float32, device='cpu').reshape(1, 1, 6, 7)
 
 
 class AlphaZeroV2Net(nn.Module):
@@ -110,11 +124,65 @@ class V2Inference:
             raise ValueError("Cannot predict actions for a terminal position or without legal moves")
         self._check_eval()
         with torch.inference_mode():
-            policy, value = self.model(encode_current_player(game))
+            states = (encode_bitboard_current_player(game) if isinstance(game, BitboardState)
+                      else encode_current_player(game))
+            policy, value = self.model(states)
         validate_outputs(policy, value, 1)
         logits = tuple(float(x) for x in policy[0])
         return V2Prediction(logits, tuple(float(p) for p in legal_policy_from_logits(logits, game.get_valid_moves())),
                             float(value[0, 0]))
+
+    def predict_batch(self, states):
+        """One CPU float32 forward over ordered nonterminal bitboards.
+
+        Empty batches are a no-op. Singleton uses predict verbatim, preserving
+        its floating-point execution and signed zeros. No input repair occurs.
+        """
+        if not isinstance(states, (tuple, list)):
+            raise ValueError("Batch must be a list or tuple of BitboardState")
+        for state in states:
+            validate_batch_state(state)
+        if not states:
+            self._check_eval()
+            return ()
+        if len(states) == 1:
+            return (self.predict(states[0]),)
+        self._check_eval()
+        cells = []
+        for state in states:
+            x, o = state.pieces
+            sign = 1.0 if state.current_player == 0 else -1.0
+            cells.append([(1.0 if x & mask else -1.0 if o & mask else 0.0) * sign
+                          for mask in INPUT_MASKS])
+        with torch.inference_mode():
+            inputs = torch.tensor(cells, dtype=torch.float32, device='cpu').reshape(-1, 1, 6, 7)
+            policy, value = self.model(inputs)
+        validate_outputs(policy, value, len(states))
+        # One tensor-to-Python conversion per output, retaining float64 legal softmax.
+        logits_rows, values = policy.tolist(), value.tolist()
+        return tuple(V2Prediction(tuple(logits), tuple(float(p) for p in
+                         legal_policy_from_logits(logits, state.get_valid_moves())), row[0])
+                     for state, logits, row in zip(states, logits_rows, values))
+
+
+def validate_batch_state(state):
+    """Validate public batch inputs, including malformed trusted-constructor states."""
+    if not isinstance(state, BitboardState):
+        raise ValueError("Batch inputs must be BitboardState")
+    if (type(state.pieces) is not tuple or len(state.pieces) != 2
+            or any(type(b) is not int or b < 0 or b & ~BOARD_MASK for b in state.pieces)
+            or type(state.occupied) is not int or type(state.current_player) is not int
+            or state.current_player not in (0, 1) or type(state.winner) is not int):
+        raise ValueError("Invalid bitboard fields")
+    x, o = state.pieces
+    if x & o or state.occupied != x | o or x.bit_count() - o.bit_count() != state.current_player:
+        raise ValueError("Invalid bitboard occupancy or turn counts")
+    for col, mask in enumerate(COLUMN):
+        stack = (state.occupied & mask) >> (7 * col)
+        if stack & (stack + 1):
+            raise ValueError("Bitboard must respect gravity")
+    if has_four(x) or has_four(o) or state.winner != -1 or state.is_game_over():
+        raise ValueError("Cannot predict a terminal or inconsistent position")
 
 
 def weights_sha256(model):

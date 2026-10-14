@@ -1,8 +1,9 @@
+import { ALPHAZERO, hasAlphaZero, validateAlphaZeroProvenance } from '../connect4/alphazero.js';
 import { hasResearch } from '../connect4/researchAgent.js';
 import { createSeason, validateSeason, SCHEDULE_VERSION, totalGames } from '../season/model.js';
 import { seasonAnalytics, INITIAL_ELO, K_FACTOR, BOOTSTRAP_SAMPLES, MIN_INTERVAL_GAMES } from '../season/analytics.js';
 import { canonicalJSON, evidenceDigest } from './canonical.js';
-import { FORMAT, SCHEMA_VERSION, METHODOLOGY_VERSION, BACKEND_VERSIONS, CURRENT_BACKEND_VERSIONS, RESEARCH_SCHEMA_VERSION, RESEARCH_METHODOLOGY_VERSION, VICTOR_REFERENCE_VERSION, sourceCommit, validateBackendProvenance } from './provenance.js';
+import { FORMAT, ALPHAZERO_SCHEMA_VERSION, SCHEMA_VERSION, METHODOLOGY_VERSION, BACKEND_VERSIONS, CURRENT_BACKEND_VERSIONS, RESEARCH_SCHEMA_VERSION, RESEARCH_METHODOLOGY_VERSION, VICTOR_REFERENCE_VERSION, sourceCommit, validateBackendProvenance } from './provenance.js';
 
 export const METHODOLOGY = Object.freeze({
   version: METHODOLOGY_VERSION, schedule_version: SCHEDULE_VERSION,
@@ -26,8 +27,12 @@ export const RESEARCH_METHODOLOGY = Object.freeze({ ...METHODOLOGY, version: RES
     captured_backend_scope: 'core-engine-and-classical-agents-not-victor-algorithm' }),
 });
 export const evidenceHasResearch = e => hasResearch(e.entrants.map(row => row.config));
-export const evaluationSchema = e => evidenceHasResearch(e) ? RESEARCH_SCHEMA_VERSION : SCHEMA_VERSION;
-export const evaluationMethodology = e => evidenceHasResearch(e) ? RESEARCH_METHODOLOGY : METHODOLOGY;
+export const evidenceHasAlphaZero = e => hasAlphaZero(e.entrants.map(row => row.config));
+export const evaluationSchema = e => evidenceHasAlphaZero(e) ? ALPHAZERO_SCHEMA_VERSION : evidenceHasResearch(e) ? RESEARCH_SCHEMA_VERSION : SCHEMA_VERSION;
+export const evaluationMethodology = e => evidenceHasAlphaZero(e) ? { ...(evidenceHasResearch(e) ? RESEARCH_METHODOLOGY : METHODOLOGY), version: 3,
+  alphazero_execution: { provenance_version: 1, tie_break: 'exact-position-derived-v1', rng_seed: 'ignored',
+    guard: 'same-model-post-search-one-ply-selection', replay: 'historical-columns',
+    runtime: 'floating-point-runtime-may-affect-search', captured_scope: 'status-and-per-game-history-model-search-contract' } } : evidenceHasResearch(e) ? RESEARCH_METHODOLOGY : METHODOLOGY;
 const equal = (a, b) => canonicalJSON(a) === canonicalJSON(b);
 const requireEqual = (a, b, message) => { if (!equal(a, b)) throw new Error(message); };
 
@@ -36,11 +41,12 @@ function exportGame(g) {
     red_entrant_id: g.redEntrantId, yellow_entrant_id: g.yellowEntrantId, game_seed: g.gameSeed,
     player_configs: g.playerConfigs.map(p => ({ ...p })), move_columns: [...g.columns], move_count: g.moveCount,
     terminal_result: { status: g.result.status, winner_index: g.result.winnerIndex },
+    ...(hasAlphaZero(g.playerConfigs) ? { alphazero_provenance: validateAlphaZeroProvenance(g.alphazeroProvenance) } : {}),
     backend_provenance: g.backendProvenance ? validateBackendProvenance(g.backendProvenance) : null };
 }
 export function seasonEvidence(season) {
   const s = validateSeason(season); // Includes unfinished live evidence validation, before dropping it.
-  return { season_seed: s.seasonSeed, field_size: s.fieldSize, games_per_pairing: s.gamesPerPairing,
+  return { ...(s.version === 2 ? { alphazero_provenance: validateAlphaZeroProvenance(s.alphazeroProvenance) } : {}), season_seed: s.seasonSeed, field_size: s.fieldSize, games_per_pairing: s.gamesPerPairing,
     state: { status: s.status === 'complete' ? 'complete' : 'partial', scheduled_games: s.schedule.length, completed_games: s.completedGames.length },
     entrants: s.entrants.map(e => ({ entrant_id: e.entrantId, seed_number: e.seedNumber, config: { ...e.config } })),
     schedule: s.schedule.map(f => ({ fixture_id: f.fixtureId, round: f.round, cycle: f.cycle,
@@ -49,24 +55,25 @@ export function seasonEvidence(season) {
 }
 function internalConfig(p) {
   if (!p || typeof p !== 'object') throw new Error('Malformed entrant configuration.');
-  const ordered = p.type === 'negamax' ? { type: p.type, depth: p.depth } : ['mcts', 'mcts_tactical'].includes(p.type) ? { type: p.type, simulations: p.simulations } : { type: p.type };
+  const ordered = p.type === ALPHAZERO ? { type: ALPHAZERO, tactical_guard: p.tactical_guard } : p.type === 'negamax' ? { type: p.type, depth: p.depth } : ['mcts', 'mcts_tactical'].includes(p.type) ? { type: p.type, simulations: p.simulations } : { type: p.type };
   requireEqual(p, ordered, 'Unknown or missing entrant configuration fields.');
   return ordered;
 }
 function apiConfig(p) {
-  const ordered = p?.type === 'negamax' ? { type: p.type, depth: p.depth } : ['mcts', 'mcts_tactical'].includes(p?.type) ? { type: p.type, simulation_limit: p.simulation_limit } : { type: p?.type };
+  const ordered = p?.type === ALPHAZERO ? { type: ALPHAZERO, tactical_guard: p.tactical_guard } : p?.type === 'negamax' ? { type: p.type, depth: p.depth } : ['mcts', 'mcts_tactical'].includes(p?.type) ? { type: p.type, simulation_limit: p.simulation_limit } : { type: p?.type };
   requireEqual(p, ordered, 'Unknown or missing player configuration fields.'); return ordered;
 }
 export function reconstructEvidence(e) {
   if (!e || !Array.isArray(e.entrants) || !Array.isArray(e.schedule) || !Array.isArray(e.completed_games)) throw new Error('Missing canonical Season evidence arrays.');
   if (e.entrants.length > 12 || e.schedule.length > 528 || e.completed_games.length > 528) throw new Error('Season evidence exceeds supported schedule bounds.');
-  let s = createSeason(e.entrants.map(row => internalConfig(row.config)), e.season_seed, e.games_per_pairing, undefined, true);
+  let s = createSeason(e.entrants.map(row => internalConfig(row.config)), e.season_seed, e.games_per_pairing, undefined, true, e.alphazero_provenance);
   for (const [index, g] of e.completed_games.entries()) {
     try {
       s.completedGames.push({ fixtureId: g.fixture_id, completedIndex: g.completion_index,
         redEntrantId: g.red_entrant_id, yellowEntrantId: g.yellow_entrant_id, gameSeed: g.game_seed,
         playerConfigs: g.player_configs.map(apiConfig), columns: g.move_columns, moveCount: g.move_count,
         result: { status: g.terminal_result.status, winnerIndex: g.terminal_result.winner_index },
+        ...(hasAlphaZero(g.player_configs) ? { alphazeroProvenance: validateAlphaZeroProvenance(g.alphazero_provenance) } : {}),
         ...(g.backend_provenance === null ? {} : { backendProvenance: validateBackendProvenance(g.backend_provenance) }) });
       if (!s.schedule[index]) throw new Error('More completed games than scheduled games.');
       s.schedule[index].status = 'complete'; s.schedule[index].result = { ...s.completedGames[index].result };
@@ -100,7 +107,7 @@ export function evaluationProvenance(evidence, commit = null) {
   const modern = evidence.entrants.some(e => e.config.type === 'mcts_tactical') ||
     evidence.completed_games.some(g => g.backend_provenance?.api_contract_version === 3);
   const versions = modern ? CURRENT_BACKEND_VERSIONS : BACKEND_VERSIONS;
-  return { ...versions, agents: { ...versions.agents, ...(evidenceHasResearch(evidence) ? { victor_research: VICTOR_REFERENCE_VERSION } : {}) }, season_schedule_version: SCHEDULE_VERSION,
+  return { ...(evidenceHasAlphaZero(evidence) ? { alphazero: validateAlphaZeroProvenance(evidence.alphazero_provenance) } : {}), ...versions, agents: { ...versions.agents, ...(evidenceHasResearch(evidence) ? { victor_research: VICTOR_REFERENCE_VERSION } : {}) }, season_schedule_version: SCHEDULE_VERSION,
     evaluation_methodology_version: evaluationMethodology(evidence).version, export_schema_version: evaluationSchema(evidence),
     source_commit: sourceCommit(commit), execution_capture: { recorded_games: captured,
       unrecorded_games: evidence.completed_games.length - captured, scope: 'per-game-history-response',

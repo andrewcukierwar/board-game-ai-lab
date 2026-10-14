@@ -21,6 +21,7 @@ export async function mockTournament(page, sequence = WIN) {
   s.fixture = () => ({ ...matchFixture(s.active.players, s.active.columns, s.active.id), rng_seed: s.active.seed });
   await page.route('**/v1/connect4/**', async route => {
     const url = route.request().url();
+    if (url.endsWith('/agents/alphazero')) { await route.fulfill({ status: 404, json: {} }); return; }
     if (url.endsWith('/start_game')) {
       const body = route.request().postDataJSON(); s.starts.push(body);
       s.active = { id: `game-${s.starts.length}`, seed: body.rng_seed, players: [body.player1, body.player2], columns: [] };

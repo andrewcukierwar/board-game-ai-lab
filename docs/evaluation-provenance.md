@@ -198,3 +198,42 @@ Season v1 and older standalone exports keep their original manifest and
 canonical digest. New Season evidence uses v3 declared identifiers when
 F1 is an entrant or a recorded game captures a v3 backend. Provenance IDs
 identify implementations, not proof that a specific algorithm executed.
+
+## AlphaZero schema v3 (Phase 4D.4K-B)
+
+An evaluation containing AlphaZero uses `connect4-season-evaluation` schema 3
+and methodology 3. Ordinary exports still use frozen v1; Victor exports without
+AlphaZero still use v2. Existing exports are not upgraded. Their canonical JSON,
+CSV columns and SHA-256 contract are unchanged.
+
+Backend `/provenance` remains exact and unchanged. Available AlphaZero status
+adds `provenance.version=1`, also returned as `alphazero_provenance` in histories
+for games containing AlphaZero. It captures type/implementation version, model
+ID/architecture/parameter count, artifact and source-checkpoint SHA-256, fixed
+PUCT algorithm/256 simulations/1.41 exploration/no root noise/maximum visits,
+exact-position tie-breaking domain, ignored `rng_seed`, guard contract and
+source hash. Player/entrant configs separately capture the real boolean
+`tactical_guard`; guarded and unguarded configurations use the same CNN.
+
+Schema v3 captures this identity at Season level and in each completed
+AlphaZero game's evidence. Missing, malformed or mixed identities fail
+verification, including when an attacker recomputes the digest. The verifier
+reconstructs exact schedules, player configs, terminal columns and analytics
+before accepting the evidence. v3 games and summary CSVs add explicitly named
+model-provenance and guard columns; v1/v2 CSVs are frozen.
+
+AlphaZero Seasons/Tournaments use local persistence version 2, under the
+existing storage keys so the loader can validate both legacy and new records.
+They pin one model/search/guard implementation and check authoritative status
+before fixture starts and history before committing results. A mismatch blocks
+continuation: restore the original backend model or create a new competition.
+Completed histories remain reviewable when the model is unavailable. Replay
+uses immutable columns; compact persistence omits duplicate boards and root
+visit vectors. Available server histories retain optional full move evidence.
+
+The game seed determines schedules/colors and seeded opponents, but AlphaZero
+ignores it. Its tie-breaking is deterministic per exact position and does not
+reproduce historical research RNG streams. Floating-point/runtime differences
+can affect future neural search even with identified weights. Evidence digests
+verify internal consistency and captured bytes, not authenticate a server or
+promise identical future play on every runtime.

@@ -171,3 +171,47 @@ secrets must not be stored in this repository.
 
 Do not automatically pull/rebuild/restart the Mac Mini on each main push
 while it also runs long experiments.
+
+## AlphaZero release mode (staged; separate approval required)
+
+Phase 4D.4K-B adds two explicit modes. The commands below are the **future
+operator procedure after separate merge and deployment approval**, not a record
+of deployment. The implementation/testing worktree must never run them against
+production. Public AlphaZero is not enabled by this phase.
+
+```sh
+# From the separately approved, clean Services release checkout only:
+bash scripts/deploy-mac-mini-api.sh lite       # default: no torch, disabled
+bash scripts/deploy-mac-mini-api.sh alphazero  # explicit CPU runtime + enablement
+```
+
+The full commit SHA plus mode identifies each image, preventing lite/AlphaZero
+mode collisions. Both modes override `ALPHAZERO_ENABLED` after the private
+environment file, so a stale enabled value cannot enable lite accidentally.
+ARM64 AlphaZero dependencies use the verified nine-wheel hash lock described in
+[alphazero-runtime-dependencies.md](alphazero-runtime-dependencies.md).
+
+Before cutover, a private candidate on localhost8001 must pass health, exact
+source-commit/core provenance, mode-specific AlphaZero availability, and real
+moves for Random/Negamax/Classical MCTS/Tactical MCTS, optional Victor, and both
+AlphaZero guard variants. `scripts/smoke-api-release.py` makes no paid provider
+requests. Failure to load the model blocks cutover. The script refuses existing
+candidate/rollback names; it records the candidate's immutable container ID so
+cleanup affects only the container this invocation created, including a failed
+start/port bind. Health/provenance/move checks repeat after cutover; a failure
+restores the previous container, image and environment automatically.
+
+Keep Gunicorn at one worker/four threads, search concurrency unchanged, and
+Tailscale Funnel on the existing public port8000. Preserve the stopped rollback
+container until public Play/Labs/status/CORS checks pass. Active sessions reset
+on cutover or rollback. Manual rollback commands remain in the Rollback section.
+
+A test-only native ARM64 workflow builds the optional runtime, runs inference,
+guard/API/deployment mocks and Chromium integration. It has no deployment or
+registry-publish step and never contacts the Mac mini. The existing main-only
+immutable lite-image publish workflow is unchanged.
+
+See [phase4d4k-b-alphazero-frontend.md](phase4d4k-b-alphazero-frontend.md) for final
+branch evidence, review, release gates and exact staging architecture. The older
+hardening-branch/PR references above describe that earlier rollout, not the
+AlphaZero release branch.

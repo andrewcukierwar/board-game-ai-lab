@@ -1,3 +1,4 @@
+import { ALPHAZERO, hasAlphaZero, validateAlphaZeroProvenance, requireSameAlphaZero } from '../connect4/alphazero.js';
 import { KNOWN_PLAYER_TYPES, VICTOR_RESEARCH, assertResearchExecution, researchAgentEnabled } from '../connect4/researchAgent.js';
 import { toPlayerPayload, competitorLabel, validDepth, validSimulations } from '../connect4/competitorConfig.js';
 import { emptyBoard, validateMatchHistory } from '../connect4/matchRecord.js';
@@ -14,7 +15,7 @@ export function entrantConfig(config) {
   check(config && KNOWN_PLAYER_TYPES.includes(config.type), 'Choose a public entrant.');
   check(config.type !== 'negamax' || validDepth(config.depth));
   check(!['mcts', 'mcts_tactical'].includes(config.type) || validSimulations(config.simulations, config.type));
-  check(equal(Object.keys(config).sort(), (['human', 'random', VICTOR_RESEARCH].includes(config.type) ? ['type'] : config.type === 'negamax' ? ['depth', 'type'] : ['simulations', 'type'])));
+  check(equal(Object.keys(config).sort(), (['human', 'random', VICTOR_RESEARCH].includes(config.type) ? ['type'] : config.type === 'negamax' ? ['depth', 'type'] : config.type === ALPHAZERO ? ['tactical_guard', 'type'] : ['simulations', 'type'])));
   toPlayerPayload(config, true);
   return { ...config };
 }
@@ -43,7 +44,7 @@ export function roundLabel(size, round) {
   const remaining = size / 2 ** round;
   return ({ 2: 'Final', 4: 'Semifinals', 8: 'Quarterfinals' })[remaining] ?? `Round of ${remaining}`;
 }
-export function createTournament(configs, seed, tournamentId = `tournament-${seed}`, researchEnabled = researchAgentEnabled()) {
+export function createTournament(configs, seed, tournamentId = `tournament-${seed}`, researchEnabled = researchAgentEnabled(), alphazeroProvenance) {
   check(Array.isArray(configs) && SIZES.includes(configs.length), 'Choose 8, 16, 32 or 64 entrants.');
   check(validSeed(seed), 'Tournament seed must be an unsigned 32-bit integer.');
   check(typeof tournamentId === 'string' && tournamentId.length > 0 && tournamentId.length <= 100);
@@ -55,7 +56,7 @@ export function createTournament(configs, seed, tournamentId = `tournament-${see
     Array.from({ length: size / 2 ** (round + 1) }, (_, index) => ({ matchupId: `r${round + 1}-m${index + 1}`, round, index,
       entrantAId: round ? null : order[index * 2], entrantBId: round ? null : order[index * 2 + 1],
       status: 'pending', games: [], winnerEntrantId: null, resolution: null })));
-  return { version: VERSION, tournamentId, size, tournamentSeed: seed, status: 'paused', entrants, bracketOrder: order,
+  return { version: hasAlphaZero(configs) ? 2 : VERSION, ...(hasAlphaZero(configs) ? { alphazeroProvenance: validateAlphaZeroProvenance(alphazeroProvenance) } : {}), tournamentId, size, tournamentSeed: seed, status: 'paused', entrants, bracketOrder: order,
     rounds, active: null, retainedGameId: null, championEntrantId: null };
 }
 export const allMatchups = t => t.rounds.flat();
@@ -126,7 +127,7 @@ export function compactHistory(t, matchup, history) {
   check(record.game.gameOver, 'Only confirmed completed games may be compacted.');
   const columns = record.moves.map(m => m.column);
   const { result } = replayColumns(columns, plan.playerConfigs);
-  return { ...plan, columns, result, moveCount: columns.length };
+  return { ...plan, columns, result, moveCount: columns.length, ...(hasAlphaZero(plan.playerConfigs) ? { alphazeroProvenance: validateAlphaZeroProvenance(history.alphazero_provenance) } : {}) };
 }
 export function recordGame(t, matchupId, game) {
   const copy = structuredClone(t), m = findMatchup(copy, matchupId);
@@ -151,15 +152,17 @@ export function recordGame(t, matchupId, game) {
 }
 function validateCompletedGame(t, m, game, number) {
   const plan = gamePlan(t, m, number);
-  check(game && equal(Object.keys(game).sort(), ['columns', 'gameNumber', 'gameSeed', 'moveCount', 'playerConfigs', 'playerEntrantIds', 'result'].sort()));
+  check(game && equal(Object.keys(game).sort(), ['columns', 'gameNumber', 'gameSeed', 'moveCount', 'playerConfigs', 'playerEntrantIds', 'result', ...(hasAlphaZero(plan.playerConfigs) ? ['alphazeroProvenance'] : [])].sort()));
+  if (hasAlphaZero(plan.playerConfigs)) requireSameAlphaZero(t.alphazeroProvenance, game.alphazeroProvenance);
   for (const key of Object.keys(plan)) check(equal(game[key], plan[key]), 'Game provenance does not match the bracket.');
   const { result } = replayColumns(game.columns, plan.playerConfigs);
   check(result.status !== 'ongoing' && equal(result, game.result) && game.moveCount === game.columns.length, 'Invalid completed result.');
 }
 export function validateTournament(value) {
-  check(value && value.version === VERSION, 'Unsupported or malformed tournament storage.');
+  check(value && [VERSION, 2].includes(value.version), 'Unsupported or malformed tournament storage.');
   check(SIZES.includes(value.size) && Array.isArray(value.entrants) && value.entrants.length === value.size);
-  const rebuilt = createTournament(value.entrants.map(e => e.config), value.tournamentSeed, value.tournamentId, true);
+  const rebuilt = createTournament(value.entrants.map(e => e.config), value.tournamentSeed, value.tournamentId, true, value.alphazeroProvenance);
+  check(value.version === rebuilt.version && (rebuilt.version === 2 || !Object.hasOwn(value, 'alphazeroProvenance')));
   check(equal(rebuilt.entrants, value.entrants) && equal(rebuilt.bracketOrder, value.bracketOrder), 'Invalid entrant field or bracket order.');
   check(Array.isArray(value.rounds) && value.rounds.length === rebuilt.rounds.length);
   let gap = false;

@@ -1,3 +1,4 @@
+import { canonicalJSON } from './canonical.js';
 import { competitorLabel } from '../connect4/competitorConfig.js';
 import { reconstructEvidence, derivedAnalytics } from './export.js';
 
@@ -16,16 +17,20 @@ export function gamesCSV(artifact) {
   const headers = ['completion_index', 'fixture_id', 'round', 'cycle', 'red_entrant_id', 'red_label', 'red_type', 'red_depth', 'red_simulations',
     'yellow_entrant_id', 'yellow_label', 'yellow_type', 'yellow_depth', 'yellow_simulations', 'game_seed', 'result', 'winner_entrant_id', 'move_count', 'move_columns'];
   const player = id => { const e = byId.get(id); return [id, competitorLabel(e.config), e.config.type, e.config.depth ?? '', e.config.simulations ?? '']; };
+  const modern = artifact.schema_version === 3;
+  if (modern) headers.push('alphazero_provenance_v1', 'red_tactical_guard', 'yellow_tactical_guard');
   return csvRows(headers, s.completedGames.map(g => { const f = s.schedule[g.completedIndex];
     return [g.completedIndex, g.fixtureId, f.round, f.cycle, ...player(g.redEntrantId), ...player(g.yellowEntrantId), g.gameSeed, g.result.status,
-      g.result.winnerIndex === null ? '' : g.result.winnerIndex === 0 ? g.redEntrantId : g.yellowEntrantId, g.moveCount, g.columns.join('|')]; }));
+      g.result.winnerIndex === null ? '' : g.result.winnerIndex === 0 ? g.redEntrantId : g.yellowEntrantId, g.moveCount, g.columns.join('|'), ...(modern ? [g.alphazeroProvenance ? canonicalJSON(g.alphazeroProvenance) : '', g.playerConfigs[0].tactical_guard ?? '', g.playerConfigs[1].tactical_guard ?? ''] : [])]; }));
 }
 export function summaryCSV(artifact) {
   const s = reconstructEvidence(artifact.evidence), a = derivedAnalytics(s), ratings = new Map(a.ratings.map(r => [r.entrant_id, r]));
   const metrics = ['played', 'wins', 'draws', 'losses', 'points', 'score_rate'], sides = ['played', 'wins', 'draws', 'losses', 'score_rate'];
   const headers = ['entrant_id', 'seed_number', 'agent_config_label', 'evaluation_status', 'completed_games', 'scheduled_games', ...metrics, ...sides.map(k => `red_${k}`), ...sides.map(k => `yellow_${k}`),
     'final_elo', 'elo_change', 'peak_elo', 'low_elo', 'bootstrap_lower', 'bootstrap_upper', 'bootstrap_games'];
+  const modern = artifact.schema_version === 3;
+  if (modern) headers.push('alphazero_provenance_v1', 'tactical_guard');
   return csvRows(headers, a.standings.map(r => { const e = s.entrants.find(e => e.entrantId === r.entrant_id), elo = ratings.get(r.entrant_id), interval = a.bootstrap_intervals[r.entrant_id];
     return [r.entrant_id, r.seed_number, competitorLabel(e.config), artifact.evidence.state.status, s.completedGames.length, s.schedule.length, ...metrics.map(k => r[k]), ...sides.map(k => r.red[k]), ...sides.map(k => r.yellow[k]),
-      elo.final_elo, elo.elo_change, elo.peak_elo, elo.low_elo, interval?.lower ?? '', interval?.upper ?? '', r.played]; }));
+      elo.final_elo, elo.elo_change, elo.peak_elo, elo.low_elo, interval?.lower ?? '', interval?.upper ?? '', r.played, ...(modern ? [e.config.type === 'alphazero' ? canonicalJSON(s.alphazeroProvenance) : '', e.config.tactical_guard ?? ''] : [])]; }));
 }

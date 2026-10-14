@@ -223,3 +223,16 @@ F1 stores its actually executed simulation count in immutable game history.
 **Deployment status:** this work is pending CI and independent Mac Mini
 capacity/latency checks. The current live app must not be assumed to expose
 these new settings until the integration PR is reviewed and deployed.
+
+### Optional AlphaZero frontend integration (staged)
+
+The Phase 4D.4K-B branch supports the experimental generation-6 CNN in Play,
+Match, Tournament and Season Labs when the backend reports it available at
+`GET /v1/connect4/agents/alphazero`. Older/disabled backends keep all existing
+agents usable. Tactical safeguard defaults Off; On adds one-ply blunder
+protection to the same trained model. AlphaZero is not an optimal solver.
+
+This branch does not enable AlphaZero on the public service. See the
+[frontend phase report](docs/phase4d4k-b-alphazero-frontend.md),
+[evaluation provenance](docs/evaluation-provenance.md), and
+[future approved deployment procedure](docs/mac-mini-deployment.md).

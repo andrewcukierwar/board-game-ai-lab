@@ -1,3 +1,4 @@
+import { ALPHAZERO, validAlphaZeroConfig, validateAlphaZeroProvenance } from './alphazero.js';
 import { KNOWN_PLAYER_TYPES, VICTOR_RESEARCH, validResearchConfig } from './researchAgent.js';
 import { validateSnapshot } from './gameSnapshot.js';
 import { competitorLabel, playerColor, validDepth, validSimulations } from './competitorConfig.js';
@@ -6,6 +7,7 @@ export const emptyBoard = () => Array.from({ length: 6 }, () => Array(7).fill(' 
 const equal = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 export const samePlayers = (a, b) => a?.length === 2 && b?.length === 2 && a.every((p, i) =>
   (p.type !== VICTOR_RESEARCH || validResearchConfig(p) && validResearchConfig(b[i])) &&
+  (p.type !== ALPHAZERO || validAlphaZeroConfig(p) && validAlphaZeroConfig(b[i]) && p.tactical_guard === b[i].tactical_guard) &&
   p.type === b[i].type && p.depth === b[i].depth && p.simulation_limit === b[i].simulation_limit);
 
 function outcome(board) {
@@ -35,6 +37,16 @@ export function validateMatchHistory(data, expected = {}) {
       (!['mcts', 'mcts_tactical'].includes(p.type) || validSimulations(p.simulation_limit, p.type)))) invalid();
   let board = emptyBoard(), result = outcome(board);
   for (const [i, record] of data.moves.entries()) {
+    const az = record?.alphazero;
+    if (record?.agent?.type === ALPHAZERO && (!validAlphaZeroConfig(record.agent) ||
+        record.agent.tactical_guard !== game.players[i % 2].tactical_guard)) invalid();
+    if (az !== undefined && (record?.agent?.type !== ALPHAZERO || !az ||
+        typeof az.model_id !== 'string' || az.simulations !== 256 || az.tactical_guard !== record.agent.tactical_guard ||
+        !Number.isInteger(az.original_column) || az.original_column < 0 || az.original_column > 6 ||
+        !Array.isArray(az.root_visits) || az.root_visits.length !== 7 ||
+        !az.root_visits.every(n => Number.isInteger(n) && n >= 0) || az.root_visits.reduce((a, b) => a + b, 0) !== 256 ||
+        (az.tactical_guard ? !['IMMEDIATE_WIN', 'AVOID_IMMEDIATE_LOSS', 'UNCHANGED', 'NO_SAFE_MOVE'].includes(az.guard_reason) : az.guard_reason !== null) ||
+        (data.alphazero_provenance && az.model_id !== validateAlphaZeroProvenance(data.alphazero_provenance).model.id))) invalid();
     const search = record?.search;
     if (search !== undefined && (record?.agent?.type !== 'mcts_tactical' || !search ||
         !equal(Object.keys(search).sort(), ['executed_simulations', 'requested_simulations']) ||

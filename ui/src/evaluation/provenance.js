@@ -29,3 +29,6 @@ export function validateBackendProvenance(value) {
   }
   return { ...versions, agents: { ...versions.agents }, source_commit: value.source_commit };
 }
+
+// v3 adds captured AlphaZero identity; frozen v1/v2 remain unchanged.
+export const ALPHAZERO_SCHEMA_VERSION = 3;

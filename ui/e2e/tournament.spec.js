@@ -19,15 +19,16 @@ async function finish(page, limit = 700) {
   }
 }
 test('discoverable sibling route, strict seed form, independent field and deterministic bracket on reset', async ({ page }) => {
+  await page.route('**/agents/alphazero', route => route.fulfill({ status: 404, json: {} }));
   await page.goto('/'); await page.getByRole('link', { name: 'Open Tournament Lab' }).click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Tournament Lab');
-  await expect(page.locator('#entrant-1 option')).toHaveCount(10 + Number((process.env.VICTOR_LABS_UI ?? process.env.VICTOR_RELEASE_UI) === 'true'));
+  await expect(page.locator('#entrant-1 option')).toHaveCount(17 + Number((process.env.VICTOR_LABS_UI ?? process.env.VICTOR_RELEASE_UI) === 'true'));
   await page.locator('#tournament-seed').fill('1.2'); await page.locator('#tournament-create').click(); await expect(page.getByRole('alert')).toContainText('whole number');
-  await page.locator('#entrant-1').selectOption('8'); await page.locator('#entrant-2').selectOption('8');
+  await page.locator('#entrant-1').selectOption({ label: 'Classic MCTS · 500 simulations' }); await page.locator('#entrant-2').selectOption({ label: 'Classic MCTS · 500 simulations' });
   await page.locator('#tournament-seed').fill('1234'); await page.locator('#tournament-create').click();
   const before = await page.locator('.desktop-bracket .bracket-card').allTextContents();
   const data = await page.evaluate(key => JSON.parse(localStorage.getItem(key)), KEY);
-  expect(data.entrants[0].config).toEqual({ type: 'mcts', simulations: 800 }); expect(data.entrants[1].config).toEqual(data.entrants[0].config);
+  expect(data.entrants[0].config).toEqual({ type: 'mcts', simulations: 500 }); expect(data.entrants[1].config).toEqual(data.entrants[0].config);
   await page.getByRole('button', { name: 'New tournament', exact: true }).click();
   await page.locator('#tournament-seed').fill('1234'); await page.locator('#tournament-create').click();
   expect(await page.locator('.desktop-bracket .bracket-card').allTextContents()).toEqual(before);

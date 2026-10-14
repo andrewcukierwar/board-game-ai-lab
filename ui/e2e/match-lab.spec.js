@@ -16,7 +16,7 @@ const step = async (page, revision) => { await page.locator('#match-next').click
 const fits = page => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth);
 
 test('homepage and navigation discover a separate Match Lab without starting a session', async ({ page }) => {
-  let requests = 0; page.on('request', r => { if (r.url().includes('/v1/')) requests++; });
+  let requests = 0; page.on('request', r => { if (r.url().includes('/v1/') && !r.url().endsWith('/agents/alphazero')) requests++; });
   await page.goto('/'); await page.getByRole('link', { name: 'Open Match Lab' }).click();
   await expect(page).toHaveURL(/\/connect4\/match-lab$/);
   await expect(page.getByRole('heading', { level: 1 })).toHaveText('Match Lab');
@@ -27,7 +27,7 @@ test('homepage and navigation discover a separate Match Lab without starting a s
 
 test('real Negamax vs MCTS starts paused, steps exactly once and reviews without network', async ({ page }) => {
   await configure(page, ['negamax', 'mcts']);
-  await page.locator('#player-1-depth').selectOption('1'); await page.locator('#player-2-simulations').selectOption('100');
+  await page.locator('#player-1-depth').selectOption('1'); await page.locator('fieldset.competitor-selector--1 summary').click(); await page.locator('#player-2-custom-simulations').fill('100');
   const moves = []; page.on('request', r => { if (r.url().endsWith('/make_move')) moves.push(r.postDataJSON()); });
   const started = page.waitForResponse(r => r.url().endsWith('/start_game'));
   await page.locator('#match-start').click(); const game = await (await started).json();
@@ -37,7 +37,7 @@ test('real Negamax vs MCTS starts paused, steps exactly once and reviews without
   expect(moves).toEqual([{ game_id: game.game_id, revision: 0 }, { game_id: game.game_id, revision: 1 }]);
   await expect(page.locator('.move-list li')).toHaveCount(3);
   await expect(page.locator('.move-list')).toContainText('Red · Negamax · depth 1');
-  await expect(page.locator('.move-list')).toContainText('Yellow · MCTS · 100 simulations');
+  await expect(page.locator('.move-list')).toContainText('Yellow · Classic MCTS · 100 simulations');
   await page.locator('#match-previous').click(); await expect(page.locator('.board-revision')).toHaveText('Move 1');
   await expect(page.locator('#match-view-mode')).toHaveText('REVIEWING MOVE 1 OF 2Return to live');
   await expect(page.locator('#match-next')).toBeDisabled(); await expect(page.locator('#match-autoplay')).toBeDisabled();
@@ -161,7 +161,7 @@ test('representative Match Lab screenshots: desktop setup, autoplay, replay and 
   const capture = async name => { await page.evaluate(() => { document.activeElement?.blur(); scrollTo(0, 0); }); await page.mouse.move(0, 0); await page.screenshot({ path: `${dir}/${name}`, fullPage: true }); };
   await mockMatch(page, [3, 2, 4, 3, 2, 4, 3, 4, 5, 1]);
   await page.setViewportSize({ width: 1440, height: 1120 }); await configure(page, ['negamax', 'mcts']);
-  await page.locator('#player-1-depth').selectOption('6'); await page.locator('#player-2-simulations').selectOption('400');
+  await page.locator('#player-1-depth').selectOption('6'); await page.locator('fieldset.competitor-selector--1 summary').click(); await page.locator('#player-2-custom-simulations').fill('400');
   await capture('01-desktop-configured.png');
   await page.locator('#match-start').click(); await expect(page.locator('#match-start')).toBeEnabled();
   for (let i = 1; i <= 8; i++) await step(page, i);

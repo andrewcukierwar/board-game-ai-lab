@@ -1,0 +1,119 @@
+{
+ "base": "isolated local staging",
+ "burst_summary": {
+  "partial_commits": 0,
+  "refused_503": 15,
+  "requests": 20,
+  "succeeded": 5
+ },
+ "bursts": [
+  {
+   "busy_codes": [
+    "agent_busy"
+   ],
+   "consistent": true,
+   "revisions": [
+    0,
+    0,
+    1,
+    0
+   ],
+   "statuses": [
+    503,
+    503,
+    200,
+    503
+   ]
+  },
+  {
+   "busy_codes": [
+    "agent_busy"
+   ],
+   "consistent": true,
+   "revisions": [
+    0,
+    0,
+    1,
+    0
+   ],
+   "statuses": [
+    503,
+    503,
+    200,
+    503
+   ]
+  },
+  {
+   "busy_codes": [
+    "agent_busy"
+   ],
+   "consistent": true,
+   "revisions": [
+    0,
+    1,
+    0,
+    0
+   ],
+   "statuses": [
+    503,
+    200,
+    503,
+    503
+   ]
+  },
+  {
+   "busy_codes": [
+    "agent_busy"
+   ],
+   "consistent": true,
+   "revisions": [
+    1,
+    0,
+    0,
+    0
+   ],
+   "statuses": [
+    200,
+    503,
+    503,
+    503
+   ]
+  },
+  {
+   "busy_codes": [
+    "agent_busy"
+   ],
+   "consistent": true,
+   "revisions": [
+    0,
+    1,
+    0,
+    0
+   ],
+   "statuses": [
+    503,
+    200,
+    503,
+    503
+   ]
+  }
+ ],
+ "games_per_variant": 3,
+ "mode": "http",
+ "move_latency_ms": {
+  "guarded": {
+   "mean": 105.81072819020066,
+   "median": 132.95683404430747,
+   "n": 126,
+   "p95": 149.33816716074944,
+   "worst": 163.7469995766878
+  },
+  "unguarded": {
+   "mean": 105.4421071303151,
+   "median": 132.9159582965076,
+   "n": 126,
+   "p95": 138.46929091960192,
+   "worst": 171.17762472480536
+  }
+ }
+}
