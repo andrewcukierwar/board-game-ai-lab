@@ -305,6 +305,7 @@ test('M: an availability recheck keeps an untouched field stable; a confirmed lo
   // Checking: menus fail closed, but the untouched field neither reshuffles nor drops AlphaZero.
   assert.equal(ui.options('entrant-2').some(o => o.text === 'AlphaZero (Experimental) · safeguard Off'), false);
   assert.deepEqual(fieldLabels(ui, 'entrant', 8), withAlphaZero.map(l => l.startsWith('AlphaZero') ? `${l} · checking availability` : l));
+  assert.doesNotMatch(ui.doc.body.textContent, /saved competition requires its original AlphaZero model/);
   responses.shift().resolve({ data: status }); await flush();
   assert.deepEqual(fieldLabels(ui, 'entrant', 8), withAlphaZero);
 

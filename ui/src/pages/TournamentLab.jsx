@@ -52,7 +52,7 @@ export default function TournamentLabPage({ http = tournamentHttp, storage }) {
     {(state.error || setupError) && <p className="tournament-error" role="alert">{setupError || state.error}</p>}
     <p className="analysis-helper">{alphaZero.reason} <button type="button" className="action-link action-link--secondary" onClick={() => void alphaZero.refresh()}>Refresh agent availability</button></p>
     {alphaZeroField && <p className="analysis-helper">{ALPHAZERO_CAVEAT}</p>}
-    {alphaZeroBlocked && <p role="status">This saved competition requires its original AlphaZero model. History remains reviewable; refresh availability to check the backend before continuing.</p>}
+    {alphaZeroBlocked && !(alphaZero.checking && (!t || setup)) && <p role="status">This saved competition requires its original AlphaZero model. History remains reviewable; refresh availability to check the backend before continuing.</p>}
     {researchField && <p className="analysis-helper">{researchAgent.name}: {researchAgent.description}</p>}
     {researchBlocked && <p className="analysis-helper" role="status">{RESEARCH_DISABLED}</p>}
     {!state.storageAvailable && <p className="analysis-helper">Browser storage is unavailable. This tournament works in memory; keep this page open to retain progress.</p>}

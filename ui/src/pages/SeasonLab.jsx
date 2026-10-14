@@ -52,7 +52,7 @@ export default function SeasonLabPage({ http = seasonHttp, storage }) {
     {(state.error || setupError) && <p className="tournament-error" role="alert">{setupError || state.error}</p>}
     <p className="analysis-helper">{alphaZero.reason} <button type="button" className="action-link action-link--secondary" onClick={() => void alphaZero.refresh()}>Refresh agent availability</button></p>
     {alphaZeroField && <p className="analysis-helper">{ALPHAZERO_CAVEAT}</p>}
-    {alphaZeroBlocked && <p role="status">This saved competition requires its original AlphaZero model. History remains reviewable; refresh availability to check the backend before continuing.</p>}
+    {alphaZeroBlocked && !(alphaZero.checking && (!s || setup)) && <p role="status">This saved competition requires its original AlphaZero model. History remains reviewable; refresh availability to check the backend before continuing.</p>}
     {researchField && <p className="analysis-helper">{researchAgent.name}: {researchAgent.description}</p>}
     {researchBlocked && <p className="analysis-helper" role="status">{RESEARCH_DISABLED}</p>}
     {researchField && <p className="season-workload">Victor’s native bounded search spends a wall-clock time budget on each move. Large seasons may take considerable time; games run one at a time.</p>}
