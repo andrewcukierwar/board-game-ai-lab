@@ -1,11 +1,12 @@
-import { ALPHAZERO, hasAlphaZero, ALPHAZERO_CAVEAT } from '../connect4/alphazero.js';
+import { hasAlphaZero, ALPHAZERO_CAVEAT } from '../connect4/alphazero.js';
 import { useAlphaZero } from '../connect4/useAlphaZero.js';
 import { researchAgentEnabled, researchAgent, VICTOR_RESEARCH, hasResearch, RESEARCH_DISABLED, RESEARCH_CAVEAT } from '../connect4/researchAgent.js';
 import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { competitorLabel, NEGAMAX_DEPTHS, MCTS_SIMULATIONS, TACTICAL_MCTS_SIMULATIONS } from '../connect4/competitorConfig.js';
-import { FIELD_SIZES, GAMES_PER_PAIRING, defaultField, validSeed, currentFixture, totalGames, entrantLabel } from '../season/model.js';
+import { competitorLabel } from '../connect4/competitorConfig.js';
+import { entrantPresets, recommendedField } from '../connect4/competitionFields.js';
+import { FIELD_SIZES, GAMES_PER_PAIRING, validSeed, currentFixture, totalGames, entrantLabel } from '../season/model.js';
 import { useSeason } from '../season/useSeason.js';
 import { seasonAnalytics, K_FACTOR, INITIAL_ELO, BOOTSTRAP_SAMPLES } from '../season/analytics.js';
 import Schedule from '../season/Schedule.jsx';
@@ -18,16 +19,17 @@ import './match-lab.css';
 import './tournament-lab.css';
 import './season-lab.css';
 const seasonHttp = axios.create({ baseURL: import.meta.env?.VITE_API_BASE, timeout: 90000 });
-const ordinaryPresets = [{ type: 'random' }, ...NEGAMAX_DEPTHS.map(depth => ({ type: 'negamax', depth })), ...MCTS_SIMULATIONS.filter(n => n <= 5000).map(simulations => ({ type: 'mcts', simulations })),
-  ...TACTICAL_MCTS_SIMULATIONS.filter(n => n <= 2000).map(simulations => ({ type: 'mcts_tactical', simulations }))];
 const randomSeed = () => globalThis.crypto.getRandomValues(new Uint32Array(1))[0];
 const modes = { paused: 'Paused', game: 'Running current game', round: 'Running current round', season: 'Running season' };
 export default function SeasonLabPage({ http = seasonHttp, storage }) {
   const enabled = researchAgentEnabled();
   const alphaZero = useAlphaZero(http);
-  const presets = [...ordinaryPresets, ...(enabled ? [{ type: VICTOR_RESEARCH }] : []), ...(alphaZero.available ? [false, true].map(tactical_guard => ({ type: ALPHAZERO, tactical_guard })) : [])];
+  const available = { victor: enabled, alphaZero: alphaZero.available };
+  const presets = entrantPresets(available);
   const state = useSeason(http, storage), { season: s, controller: c } = state;
-  const [size, setSize] = useState(8), [games, setGames] = useState(2), [field, setField] = useState(() => defaultField(8)), [seed, setSeed] = useState(() => String(randomSeed()));
+  const [size, setSize] = useState(8), [games, setGames] = useState(2), [customField, setField] = useState(null), [seed, setSeed] = useState(() => String(randomSeed()));
+  // Until edited, the field follows availability, so late AlphaZero discovery joins it without replacing choices.
+  const field = customField ?? recommendedField(size, available);
   const [setup, setSetup] = useState(false), [selected, setSelected] = useState(null), [setupError, setSetupError] = useState(''), [epoch, setEpoch] = useState(0);
   const analytics = useMemo(() => s ? seasonAnalytics(s) : null, [s?.completedGames, s?.entrants, s?.seasonSeed]);
   const shown = s && (s.schedule.find(f => f.fixtureId === selected) ?? currentFixture(s) ?? s.schedule.at(-1));
@@ -52,16 +54,17 @@ export default function SeasonLabPage({ http = seasonHttp, storage }) {
     {alphaZeroBlocked && <p role="status">This saved competition requires its original AlphaZero model. History remains reviewable; refresh availability to check the backend before continuing.</p>}
     {researchField && <p className="analysis-helper">{researchAgent.name}: {researchAgent.description}</p>}
     {researchBlocked && <p className="analysis-helper" role="status">{RESEARCH_DISABLED}</p>}
-    {researchField && <p className="season-workload">Victor’s native bounded search can be significantly slower on Render’s Free-tier CPU. Large seasons may take considerable time; games run one at a time.</p>}
+    {researchField && <p className="season-workload">Victor’s native bounded search spends a wall-clock time budget on each move. Large seasons may take considerable time; games run one at a time.</p>}
     {!state.storageAvailable && <p className="analysis-helper">Browser storage is unavailable. Keep this page open to retain season progress.</p>}
     {!s || setup ? <form className="tournament-setup" aria-label="Season setup" onSubmit={create}>
       <div className="tournament-section-heading"><div><p className="eyebrow">Repeated comparisons</p><h2>Season setup</h2></div><span>AI-only · duplicate configurations allowed</span></div>
-      <div className="setup-fields season-setup-fields"><div><label htmlFor="season-size">Field size</label><select id="season-size" value={size} onChange={e => { const n = Number(e.target.value); setSize(n); setField(defaultField(n)); }}>{FIELD_SIZES.map(n => <option value={n} key={n}>{n} entrants</option>)}</select></div>
+      <p className="analysis-helper">Season Lab evaluates AI agents only. To compete against them yourself, enter a field in <Link to="/connect4/tournament">Tournament Lab</Link>.</p>
+      <div className="setup-fields season-setup-fields"><div><label htmlFor="season-size">Field size</label><select id="season-size" value={size} onChange={e => { setSize(Number(e.target.value)); setField(null); }}>{FIELD_SIZES.map(n => <option value={n} key={n}>{n} entrants</option>)}</select></div>
         <div><label htmlFor="season-games">Games per pairing</label><select id="season-games" value={games} onChange={e => setGames(Number(e.target.value))}>{GAMES_PER_PAIRING.map(n => <option value={n} key={n}>{n} games · {n / 2} per color</option>)}</select></div>
         <div><label htmlFor="season-seed">Season seed</label><input id="season-seed" type="text" inputMode="numeric" value={seed} onChange={e => setSeed(e.target.value)} aria-describedby="season-seed-help" /></div></div>
       <p id="season-seed-help" className="analysis-helper">Whole number 0–4294967295. The same field, slot order, seed and season length reproduce the schedule, colors and game seeds.</p>
-      <p className="season-workload" role="status">{size * (size - 1) / 2} pairings × {games} = <strong>{totalGames(size, games)} scheduled games.</strong> Higher-depth Negamax and MCTS entrants may make a full season take several minutes or longer.</p>
-      <div className="field-heading"><h3>Entrants</h3><button type="button" onClick={() => setField(defaultField(size))}>Reset default field</button></div>
+      <p className="season-workload" role="status">{size * (size - 1) / 2} pairings × {games} = <strong>{totalGames(size, games)} scheduled games,</strong> played one at a time on the shared game server. Runtime depends on the entrants as well as the game count: Random and shallow Negamax reply almost instantly, while deeper Negamax, larger MCTS budgets and Victor Research spend more time per move. The default field avoids the slowest settings; a full season can still take several minutes or longer.</p>
+      <div className="field-heading"><h3>Entrants</h3><button type="button" onClick={() => setField(null)}>Reset default field</button></div>
       <div className="entrant-field">{field.map((config, i) => <div className="entrant-row" key={i}><label htmlFor={`season-entrant-${i + 1}`}>#{i + 1}</label><select id={`season-entrant-${i + 1}`} aria-label={`Entrant ${i + 1} configuration`} value={presets.findIndex(p => JSON.stringify(p) === JSON.stringify(config))} onChange={e => setField(field.map((p, j) => j === i ? { ...presets[Number(e.target.value)] } : p))}>{presets.findIndex(p => JSON.stringify(p) === JSON.stringify(config)) === -1 && <option value={-1} disabled>{config.type === VICTOR_RESEARCH ? `${researchAgent.name} · unavailable` : `${competitorLabel(config)} · saved setting`}</option>}{presets.map((p, j) => <option value={j} key={j}>{competitorLabel(p)}</option>)}</select></div>)}</div>
       <div className="setup-submit"><button id="season-create" className="action-link action-link--primary" disabled={state.busy}>Create season</button>{s && <button type="button" onClick={() => setSetup(false)}>Cancel new season</button>}</div>
     </form> : <>

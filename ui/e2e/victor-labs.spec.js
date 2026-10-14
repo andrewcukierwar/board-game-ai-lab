@@ -27,8 +27,9 @@ for (const width of [1440, 820, 375, 320]) test(`Victor homepage and lab layouts
 });
 
 test('availability follows flag on homepage and all competition selectors', async ({ page }) => {
-  await page.goto('/'); await expect(page.locator('.lab-strip')).toContainText(`${enabled ? 4 : 3} playable agents`);
-  await expect(page.locator('#agents').getByRole('heading', { name: label, exact: true })).toHaveCount(enabled ? 1 : 0);
+  await page.goto('/'); const boundary = page.locator('.research-boundary');
+  if (enabled) await expect(boundary).toContainText(', Victor Research.'); else await expect(boundary).not.toContainText('Victor Research');
+  await expect(page.locator('#agents').getByRole('heading', { name: 'Victor Research', exact: true })).toHaveCount(enabled ? 1 : 0);
   await expect(page.locator('#research')).toContainText('1,722 selected positions');
   for (const path of ['match-lab', 'tournament', 'season']) {
     await page.goto(`/connect4/${path}`);
@@ -83,7 +84,7 @@ test.describe('enabled Victor competition', () => {
     await page.goto(`/connect4/${kind}`);
     if (kind === 'season') await page.locator('#season-size').selectOption('4');
     for (let i = 1; i <= (kind === 'season' ? 4 : 8); i++) await page.locator(`#${kind === 'season' ? 'season-' : ''}entrant-${i}`).selectOption({ label });
-    if (kind === 'season') await expect(page.locator('.season-workload').filter({ hasText: 'Free-tier CPU' })).toContainText('Free-tier CPU');
+    if (kind === 'season') await expect(page.locator('.season-workload').filter({ hasText: 'wall-clock time budget' })).toContainText('wall-clock time budget');
     await page.locator(`#${kind}-seed`).fill('1234'); await page.locator(`#${kind}-create`).click(); await accelerate(page);
     await page.locator(kind === 'season' ? '#season-run-game' : '#run-matchup').click();
     if (kind === 'season') await finish(page); else for (let i = 0; i < 9; i++) { await page.clock.runFor(851); await page.waitForFunction(() => document.querySelector('[aria-label="Tournament execution"]')?.getAttribute('aria-busy') === 'false'); }

@@ -1,10 +1,12 @@
 # Application screenshots
 
-Two curated PNGs copied from existing ignored Playwright capture paths. They show the real application UI, with no generated imagery, retouching, or invented visual elements. The current source was checked by rerunning the capture tests and Chromium regression, plus Firefox/WebKit product smoke checks; see [verification](../final-portfolio-packaging.md).
+Real captures of the application UI, with no generated imagery, retouching, or invented visual elements. They were taken on October 14, 2026 from the `polish/portfolio-home-readme-default-fields` frontend (Vite dev server, WebKit, 1440 px viewport). The frontend used an isolated local staging API (`127.0.0.1`, never the public service) with `ALPHAZERO_ENABLED=true`, `VICTOR_RESEARCH_ENABLED=true` and explanations disabled. AlphaZero availability and every AI move shown came from that real backend; no response was mocked.
 
-| Stable image | Capture source | Context |
-| --- | --- | --- |
-| [connect4-play.png](connect4-play.png) | `ui/playwright-report/portfolio/chromium/connect4-active-1440.png` | `polish.spec.js`: real local Random gameplay at 1440 px, before requesting analysis. The panel shows available analysis controls, not a live provider response. |
-| [match-lab-replay.png](match-lab-replay.png) | `ui/playwright-report/phase5a/03-desktop-replay.png` | `match-lab.spec.js`: actual rendered Match Lab at 1440 px, inspecting move 4 using controlled legal mock API responses. Agent labels demonstrate configuration, not an independently executed Negamax/MCTS result. |
+| Image | Context |
+| --- | --- |
+| [home.png](home.png) | Homepage first viewport. |
+| [connect4-play.png](connect4-play.png) | Play against AlphaZero with the tactical safeguard On; the human moved first in columns 4, 3 and 5, and AlphaZero replied. Before requesting analysis. |
+| [match-lab-replay.png](match-lab-replay.png) | Match Lab: AlphaZero (safeguard On, Red) against Tactical MCTS at 400 maximum simulations, stepped nine moves and reviewing move 7. |
+| [tournament-setup.png](tournament-setup.png) | Tournament setup showing the recommended eight-entrant default field with both optional agents available. |
 
-Both images are interface examples, **not canonical benchmark evidence**. The canonical results are in the [verified report](../../benchmarks/connect4/results/canonical-season-v1/README.md). Season export screenshots with test-fixture rankings/digests were deliberately excluded to avoid confusing them with that run. Full-page images are behind an expandable section in the root README to keep the landing page concise.
+All images are interface examples, **not benchmark evidence**. A single game says nothing about relative strength. The canonical results are in the [verified report](../../benchmarks/connect4/results/canonical-season-v1/README.md).

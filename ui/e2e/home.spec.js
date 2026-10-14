@@ -19,10 +19,13 @@ for (const [name, width, height] of [['desktop', 1440, 1000], ['tablet', 820, 11
     await expect(page).toHaveTitle('Board Game AI Lab');
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Board GameAI Lab.');
     await expect(page.getByText('Explore how game-playing AI chooses moves.')).toBeVisible();
-    for (const agent of ['Random', 'Negamax', 'MCTS']) {
+    for (const agent of ['Random', 'Negamax', 'Classic MCTS', 'Tactical MCTS', 'AlphaZero']) {
       await expect(page.locator('#agents').getByRole('heading', { name: agent, exact: true })).toBeVisible();
     }
-    await expect(page.locator('#research')).toContainText('is not available in the public game');
+    // This backend reports AlphaZero disabled, so the homepage describes it without offering play.
+    await expect(page.locator('#agents article').filter({ hasText: 'Self-play neural network' })).toContainText('Not available on this server');
+    await expect(page.getByRole('link', { name: /Play against AlphaZero/ })).toHaveCount(0);
+    await expect(page.locator('#research')).toContainText('are not available in the public game');
     const navigation = page.getByRole('navigation', { name: 'Main navigation' });
     for (const link of ['Play', 'Agents', 'Research', 'GitHub']) {
       await expect(navigation.getByRole('link', { name: link })).toBeVisible();

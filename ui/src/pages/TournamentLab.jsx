@@ -1,11 +1,12 @@
-import { ALPHAZERO, hasAlphaZero, ALPHAZERO_CAVEAT } from '../connect4/alphazero.js';
+import { hasAlphaZero, ALPHAZERO_CAVEAT } from '../connect4/alphazero.js';
 import { useAlphaZero } from '../connect4/useAlphaZero.js';
 import { researchAgentEnabled, researchAgent, VICTOR_RESEARCH, hasResearch, RESEARCH_DISABLED, RESEARCH_CAVEAT } from '../connect4/researchAgent.js';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { competitorLabel, NEGAMAX_DEPTHS, MCTS_SIMULATIONS, TACTICAL_MCTS_SIMULATIONS } from '../connect4/competitorConfig.js';
-import { SIZES, defaultField, validSeed, findMatchup, nextMatchup, allMatchups, humanTournamentStatus, humanEntrant } from '../tournament/model.js';
+import { competitorLabel } from '../connect4/competitorConfig.js';
+import { entrantPresets, recommendedField } from '../connect4/competitionFields.js';
+import { SIZES, validSeed, findMatchup, nextMatchup, allMatchups, humanTournamentStatus, humanEntrant } from '../tournament/model.js';
 import { useTournament } from '../tournament/useTournament.js';
 import Bracket, { entrantLabel } from '../tournament/Bracket.jsx';
 import MatchViewer from '../tournament/MatchViewer.jsx';
@@ -13,16 +14,17 @@ import '../../connect4/connect4.css';
 import './match-lab.css';
 import './tournament-lab.css';
 const tournamentHttp = axios.create({ baseURL: import.meta.env?.VITE_API_BASE, timeout: 90000 });
-const ordinaryPresets = [{ type: 'random' }, ...NEGAMAX_DEPTHS.map(depth => ({ type: 'negamax', depth })), ...MCTS_SIMULATIONS.filter(n => n <= 5000).map(simulations => ({ type: 'mcts', simulations })),
-  ...TACTICAL_MCTS_SIMULATIONS.filter(n => n <= 2000).map(simulations => ({ type: 'mcts_tactical', simulations })), { type: 'human' }];
 function randomSeed() { return globalThis.crypto?.getRandomValues ? globalThis.crypto.getRandomValues(new Uint32Array(1))[0] : Math.floor(Math.random() * 0x100000000); }
 const modeLabel = { paused: 'Paused', game: 'Autoplay · current game', matchup: 'Running current matchup', round: 'Running current round', tournament: 'Running entire tournament' };
 export default function TournamentLabPage({ http = tournamentHttp, storage }) {
   const enabled = researchAgentEnabled();
   const alphaZero = useAlphaZero(http);
-  const presets = [...ordinaryPresets, ...(enabled ? [{ type: VICTOR_RESEARCH }] : []), ...(alphaZero.available ? [false, true].map(tactical_guard => ({ type: ALPHAZERO, tactical_guard })) : [])];
+  const available = { victor: enabled, alphaZero: alphaZero.available };
+  const presets = entrantPresets({ ...available, human: true });
   const state = useTournament(http, storage), { tournament: t, controller: c } = state;
-  const [size, setSize] = useState(8), [field, setField] = useState(() => defaultField(8)), [seed, setSeed] = useState(() => String(randomSeed()));
+  const [size, setSize] = useState(8), [customField, setField] = useState(null), [seed, setSeed] = useState(() => String(randomSeed()));
+  // Until edited, the field follows availability, so late AlphaZero discovery joins it without replacing choices.
+  const field = customField ?? recommendedField(size, available);
   const [setup, setSetup] = useState(false), [selected, setSelected] = useState(null), [setupError, setSetupError] = useState(''), [playbackEpoch, setPlaybackEpoch] = useState(0);
   const parsedSeed = /^\d+$/.test(seed) ? Number(seed) : NaN;
   const shown = t && (findMatchup(t, selected) ?? findMatchup(t, t.active?.matchupId) ?? nextMatchup(t) ?? t.rounds.at(-1)[0]);
@@ -55,12 +57,12 @@ export default function TournamentLabPage({ http = tournamentHttp, storage }) {
     {!state.storageAvailable && <p className="analysis-helper">Browser storage is unavailable. This tournament works in memory; keep this page open to retain progress.</p>}
     {(!t || setup) ? <form className="tournament-setup" onSubmit={create} aria-label="Tournament setup">
       <div className="tournament-section-heading"><div><p className="eyebrow">Configure the field</p><h2>Tournament setup</h2></div><span>AI field · one optional Human</span></div>
-      <div className="setup-fields"><div><label htmlFor="tournament-size">Tournament size</label><select id="tournament-size" value={size} onChange={e => { const n = Number(e.target.value); setSize(n); setField(defaultField(n)); }}>
+      <div className="setup-fields"><div><label htmlFor="tournament-size">Tournament size</label><select id="tournament-size" value={size} onChange={e => { setSize(Number(e.target.value)); setField(null); }}>
         {SIZES.map(n => <option key={n} value={n}>{n} entrants</option>)}</select></div>
         <div><label htmlFor="tournament-seed">Tournament seed</label><input id="tournament-seed" type="text" inputMode="numeric" value={seed} onChange={e => setSeed(e.target.value)} aria-describedby="seed-help" /></div>
       </div><p id="seed-help" className="analysis-helper">Whole number 0–4294967295. The same field and seed reproduce the bracket, colors and game seeds.</p>
-      <div className="field-heading"><h3>Entrants</h3><button type="button" onClick={() => setField(defaultField(size))}>Reset default field</button></div>
-      <p className="analysis-helper">Add yourself to one slot, then play your matches when they appear in the bracket. Duplicate AI configurations are valid.</p>
+      <div className="field-heading"><h3>Entrants</h3><button type="button" onClick={() => setField(null)}>Reset default field</button></div>
+      <p className="analysis-helper">The default field samples each available agent family at practical search settings; deeper settings remain selectable. Add yourself to one slot with the last option, You · Human, then play your matches when they appear in the bracket. Duplicate AI configurations are valid.</p>
       <div className="entrant-field">{field.map((config, i) => <div className="entrant-row" key={i}><label htmlFor={`entrant-${i + 1}`}>#{i + 1}</label>
         <select id={`entrant-${i + 1}`} aria-label={`Entrant ${i + 1} configuration`} value={presets.findIndex(p => JSON.stringify(p) === JSON.stringify(config))}
           onChange={e => setField(field.map((p, j) => j === i ? { ...presets[Number(e.target.value)] } : p))}>
