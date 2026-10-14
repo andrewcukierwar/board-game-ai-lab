@@ -1,0 +1,154 @@
+{
+ "arms": {
+  "control": 0.0,
+  "treatment": 0.2
+ },
+ "base_commit": "9b3e171b239ba6f25272f1cc5abc47907ad66249",
+ "batch_size": 128,
+ "evaluation": {
+  "deep": 128,
+  "match_namespace": "phase4d4h-c-strength",
+  "match_seed": 4404902,
+  "matches_per_task": 80,
+  "openings": [
+   "development-prefix-00-base",
+   "development-prefix-01-base",
+   "development-prefix-02-base",
+   "development-prefix-03-base",
+   "development-prefix-04-base",
+   "development-prefix-05-base",
+   "development-prefix-06-base",
+   "development-prefix-07-base",
+   "development-prefix-08-base",
+   "development-prefix-09-base",
+   "development-prefix-10-base",
+   "development-prefix-11-base",
+   "development-prefix-12-base",
+   "development-prefix-13-base",
+   "development-prefix-14-base",
+   "development-prefix-15-base",
+   "development-prefix-16-base",
+   "development-prefix-17-base",
+   "development-prefix-18-base",
+   "development-prefix-19-base",
+   "development-prefix-20-base",
+   "development-prefix-21-base",
+   "development-prefix-22-base",
+   "development-prefix-23-base",
+   "development-prefix-24-base",
+   "development-prefix-25-base",
+   "development-prefix-26-base",
+   "development-prefix-27-base",
+   "development-prefix-28-base",
+   "development-prefix-29-base",
+   "development-prefix-30-base",
+   "development-prefix-31-base",
+   "development-prefix-32-base",
+   "development-prefix-33-base",
+   "development-prefix-34-base",
+   "development-prefix-35-base",
+   "development-prefix-36-base",
+   "development-prefix-37-base",
+   "development-prefix-38-base",
+   "development-prefix-39-base"
+  ],
+  "opponent_depth": 3,
+  "policy_namespace": "phase4d4h-c-policy",
+  "raw_output_scale": 1.0,
+  "search_namespace": "phase4d4h-c-evaluation",
+  "search_seed": 4404901,
+  "simulations": 256,
+  "solved": 300,
+  "tactical": 200
+ },
+ "heldout": "all new generation6 complete games from own-seed frozen CNN checkpoint, excluded from training",
+ "learning_rate": 0.0003,
+ "lineage": "phase4d4i-b-fixed-g5-value-output-v1",
+ "max_grad_norm": 5.0,
+ "membership_sha256": "e086cd5ed8c5153519afb70c2b16a3236be1afafbe176b73571b38c66b1c5d1b",
+ "milestones": [
+  0,
+  1024,
+  2048
+ ],
+ "parents": [
+  {
+   "generation": 5,
+   "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-c-worktree/experiment-output/phase4d4h-c/run/tasks/42-cnn-g5-train/generation-0005.pt",
+   "sha256": "4418c2b4fa1ec26bccaae098fc86e7ce42b5847b51967de1011a651798d371be"
+  },
+  {
+   "generation": 6,
+   "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-c-worktree/experiment-output/phase4d4h-c/run/tasks/42-cnn-g6-train/generation-0006.pt",
+   "sha256": "ba2bde2ec71b3ac7486046d1cc26ab591bb59d6b764193ece08c6d6a6f24f58b"
+  },
+  {
+   "generation": 5,
+   "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-c-worktree/experiment-output/phase4d4h-c/run/tasks/314159-cnn-g5-train/generation-0005.pt",
+   "sha256": "15d3afe28c28a48987a55d8dfcedd9de34bb10d6708a79f26b1d8cccb99b6b64"
+  },
+  {
+   "generation": 6,
+   "path": "/Volumes/Mini SSD/code/board-game-ai-lab-m4/experiment-output/phase4d4h-c-worktree/experiment-output/phase4d4h-c/run/tasks/314159-cnn-g6-train/generation-0006.pt",
+   "sha256": "2646d7cdee7d7b069412688bf95fd9794bea30402b4952120c904dbcb399401d"
+  }
+ ],
+ "pilot_sha256": "f33bed0575a7442082c3358bc6ee6b2c626183ca620d630e4706d620362057c5",
+ "primary": {
+  "endpoint": "treatment-minus-control novel heldout realized-outcome MSE at final milestone",
+  "practical_margin": 0.02,
+  "success": "both seed differences <= -0.02 and both seed 95% CI upper bounds < 0; pooled descriptive only"
+ },
+ "resource": {
+  "hard_maximum_seconds": 2700,
+  "no_additional_arms": true,
+  "no_extension": true,
+  "no_retry": true,
+  "postprocessing_reserve_seconds": 100,
+  "prelaunch_charge_seconds": 240,
+  "run_ceiling_seconds": 2360,
+  "target_minutes": [
+   20,
+   30
+  ],
+  "workers": 1
+ },
+ "safeguards": {
+  "deep": {
+   "endpoint": "deep128 exact mistakes final treatment-minus-control and treatment-minus-initial",
+   "fail_lower": 0.0,
+   "fail_point": 0.05
+  },
+  "strength": {
+   "endpoint": "paired negamax3 score final treatment-minus-control and treatment-minus-initial",
+   "fail_point": -0.05,
+   "fail_upper": 0.0,
+   "interpretation": "40 paired opening families is underpowered for small differences; cannot establish noninferiority",
+   "pass_lower": -0.15,
+   "pass_point": -0.05,
+   "supporting": true
+  },
+  "tactical": {
+   "endpoint": "each immediate-win/safe-response raw-PUCT category at final milestone vs control and initial",
+   "fail_point": -0.05,
+   "fail_upper": 0.0,
+   "pass_lower": -0.1,
+   "pass_point": -0.03
+  }
+ },
+ "schema": 1,
+ "seeds": [
+  42,
+  314159
+ ],
+ "training": "retained g5 replay (generations1..5), no data collection",
+ "uncertainty": {
+  "interpretation": "conditional on frozen seeds/data, no training-seed population inference",
+  "method": "paired percentile bootstrap whole opening-family clusters; all complete-game rows within family retained; position-weighted MSE",
+  "multiplicity": "none; final primary endpoint only",
+  "replicates": 10000,
+  "seed": 4411403
+ },
+ "updates_per_arm": 2048,
+ "weight_decay": 0.0001
+}

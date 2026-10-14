@@ -1,0 +1,60 @@
+{
+ "candidate_updates": [
+  512,
+  1024,
+  2048,
+  3072,
+  4096,
+  5120
+ ],
+ "cost_only": true,
+ "costs": {
+  "control_update_seconds": 0.05227298607739309,
+  "full_training_value_seconds": 3.535019999369979,
+  "match_seconds_per_game": 0.8094585626386106,
+  "positions": 20049,
+  "search_seconds_per_root": 0.04284596528547505,
+  "treatment_update_seconds": 0.04737286455929279
+ },
+ "projections": {
+  "512": {
+   "contingency_seconds": 1472.457487618116,
+   "evaluation_seconds": 969.6648120942214,
+   "expected_seconds": 1191.7021631461878,
+   "training_seconds": 102.03735105196634
+  },
+  "1024": {
+   "contingency_seconds": 1589.800441327877,
+   "evaluation_seconds": 969.6648120942214,
+   "expected_seconds": 1293.739514198154,
+   "training_seconds": 204.07470210393268
+  },
+  "2048": {
+   "contingency_seconds": 1824.4863487473995,
+   "evaluation_seconds": 969.6648120942214,
+   "expected_seconds": 1497.8142163020866,
+   "training_seconds": 408.14940420786536
+  },
+  "3072": {
+   "contingency_seconds": 2059.172256166922,
+   "evaluation_seconds": 969.6648120942214,
+   "expected_seconds": 1701.8889184060195,
+   "training_seconds": 612.2241063117981
+  },
+  "4096": {
+   "contingency_seconds": 2293.858163586445,
+   "evaluation_seconds": 969.6648120942214,
+   "expected_seconds": 1905.963620509952,
+   "training_seconds": 816.2988084157307
+  },
+  "5120": {
+   "contingency_seconds": 2528.5440710059675,
+   "evaluation_seconds": 969.6648120942214,
+   "expected_seconds": 2110.0383226138847,
+   "training_seconds": 1020.3735105196633
+  }
+ },
+ "quality_retained": false,
+ "selected_updates": 2048,
+ "wall_seconds": 14.547986541874707
+}

@@ -1,0 +1,119 @@
+#!/usr/bin/env python3
+"""Frozen outer watchdog: compute first, fresh final reviewer second, publish on PASS."""
+import hashlib
+import json
+import os
+from pathlib import Path
+import signal
+import subprocess
+import sys
+import time
+
+ROOT=Path(__file__).resolve().parent
+REPO=ROOT.parents[1]
+RESULTS=ROOT/'results'
+OUTPUT=REPO/'experiment-output/phase4d4i-b'
+PYTHON='/Users/andrewcukierwar/.venvs/board-game-alphazero-m4/bin/python'
+CODEX='/Users/andrewcukierwar/.vscode/extensions/openai.chatgpt-26.1002.51308-darwin-arm64/bin/macos-aarch64/codex'
+
+
+def sha(path):return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+def read(path):return json.loads(Path(path).read_text())
+def write(path,value):
+    path.parent.mkdir(parents=True,exist_ok=True)
+    with path.open('x') as f:
+        json.dump(value,f,indent=1,sort_keys=True,allow_nan=False);f.write('\n');f.flush();os.fsync(f.fileno())
+
+
+def owned_processes(child):
+    # Record only PID/PPID/PGID, never command arguments, then signal owned descendants.
+    try:
+        table=subprocess.run(['ps','-axo','pid=,ppid=,pgid='],capture_output=True,text=True,timeout=1,check=True).stdout
+        rows=[tuple(map(int,line.split())) for line in table.splitlines() if len(line.split())==3]
+    except (OSError,subprocess.SubprocessError,ValueError):
+        return {child.pid}, {child.pid}
+    pids={child.pid}
+    while True:
+        expanded=pids|{pid for pid,ppid,pgid in rows if ppid in pids}
+        if expanded==pids:break
+        pids=expanded
+    groups={pgid for pid,ppid,pgid in rows if pid in pids and pgid!=os.getpgrp()}
+    return pids,groups|{child.pid}
+
+
+def launch(cmd,deadline,log,stdin=None):
+    with log.open('x') as f:
+        child=subprocess.Popen(cmd,cwd=REPO,env=dict(os.environ,PYTHONDONTWRITEBYTECODE='1',OMP_NUM_THREADS='1',MKL_NUM_THREADS='1',OPENBLAS_NUM_THREADS='1',VECLIB_MAXIMUM_THREADS='1',NUMEXPR_NUM_THREADS='1'),
+            stdout=f,stderr=subprocess.STDOUT,start_new_session=True,stdin=subprocess.PIPE if stdin else subprocess.DEVNULL,text=True)
+        try:
+            child.communicate(stdin,timeout=max(.01,deadline-time.time()))
+            if child.returncode:raise RuntimeError(f'{log.name} returned{child.returncode}')
+        except BaseException:
+            pids,groups=owned_processes(child)
+            for group in groups:
+                try:os.killpg(group,signal.SIGTERM)
+                except ProcessLookupError:pass
+            for pid in pids:
+                try:os.kill(pid,signal.SIGTERM)
+                except ProcessLookupError:pass
+            try:child.wait(timeout=2)
+            except subprocess.TimeoutExpired:
+                for group in groups:
+                    try:os.killpg(group,signal.SIGKILL)
+                    except ProcessLookupError:pass
+                for pid in pids:
+                    try:os.kill(pid,signal.SIGKILL)
+                    except ProcessLookupError:pass
+                child.wait(timeout=2)
+            raise
+
+
+def main():
+    start=time.time();deadline=start+2454
+    freeze=read(RESULTS/'freeze.json')
+    if sha(__file__)!=freeze['supplemental_launcher_sha256'] or sha(ROOT/'FINALIZATION.md')!=freeze['finalization_prompt_sha256']:
+        raise ValueError('Prospective outer launcher/final-review instructions differ')
+    out=OUTPUT/'outer';out.mkdir(parents=True,exist_ok=True)
+    write(out/'attempt.json',dict(started_epoch=start,deadline_epoch=deadline,prelaunch_charge_seconds=240,no_retry=True,
+        launcher_sha256=sha(__file__),freeze_sha256=sha(RESULTS/'freeze.json')))
+    try:
+        launch([PYTHON,'-m','research.alphazero_value_regularization.manage'],deadline,out/'manager.log')
+        completed=read(RESULTS/'resource-final.json')
+        if not completed['complete'] or not read(RESULTS/'independent-verification.json')['passed']:
+            raise ValueError('Full measured computation/independent verification incomplete')
+        review_start=time.time()
+        launch([CODEX,'exec','--ephemeral','--approve-for-me','--sandbox','workspace-write','-C',str(REPO),
+                '--output-last-message',str(out/'review-final-message.txt'),'-'],deadline,out/'fresh-final-review.log',
+               stdin=(ROOT/'FINALIZATION.md').read_text())
+        review=read(RESULTS/'final-review.json')
+        if review['disposition']!='PASS':raise ValueError('Final independent review does not PASS')
+        # Enforce scientific source/runtime/checkpoint identity again, and preservation after reviewer.
+        audit_code="from research.alphazero_value_regularization.common import runtime,enforce,preservation;runtime();enforce();assert preservation()['intact']"
+        launch([PYTHON,'-c',audit_code],deadline,out/'post-review-integrity.log')
+        if sha(__file__)!=freeze['supplemental_launcher_sha256'] or sha(ROOT/'FINALIZATION.md')!=freeze['finalization_prompt_sha256']:
+            raise ValueError('Outer launcher changed')
+        elapsed=time.time()-start
+        audit=dict(complete=True,computation_complete=True,final_review='PASS',prospective_commit=completed['prospective_commit'],
+            outer_wall_seconds=elapsed,prelaunch_charge_seconds=240,charged_seconds=elapsed+240,
+            hard_maximum_seconds=2700,review_and_postaudit_seconds=time.time()-review_start,
+            final_report_sha256=sha(REPO/'docs/phase4d4i-b-value-regularization.md'),
+            final_review_sha256=sha(ROOT/'independent-results-review.md'),new_training_or_model_queries_after_main=0)
+        if audit['charged_seconds']>2700:raise TimeoutError('Outer total exceeded ceiling')
+        write(RESULTS/'final-publication-audit.json',audit)
+        # Only user-requested new research package/report are staged; no other branch operation.
+        launch(['git','add','--','docs/phase4d4i-b-value-regularization.md','research/alphazero_value_regularization'],deadline,out/'git-add.log')
+        diff=subprocess.run(['git','diff','--cached','--name-only'],cwd=REPO,capture_output=True,text=True,check=True,timeout=max(.01,deadline-time.time())).stdout.splitlines()
+        if any(p!='docs/phase4d4i-b-value-regularization.md' and not p.startswith('research/alphazero_value_regularization/') for p in diff):raise ValueError('Unexpected staged historical path')
+        launch(['git','commit','-m','research: complete Phase 4D.4I-B fixed-replay value regularization'],deadline,out/'git-commit.log')
+        launch(['git','push','origin','phase4d4i-b-value-regularization'],deadline,out/'git-push.log')
+        head=subprocess.run(['git','rev-parse','HEAD'],cwd=REPO,capture_output=True,text=True,check=True,timeout=max(.01,deadline-time.time())).stdout.strip()
+        remote=subprocess.run(['git','ls-remote','origin','refs/heads/phase4d4i-b-value-regularization'],cwd=REPO,capture_output=True,text=True,check=True,timeout=max(.01,deadline-time.time())).stdout.split()[0]
+        if head!=remote:raise ValueError('Final push identity differs')
+        if time.time()-start+240>2700:raise TimeoutError('Publication exceeded total ceiling')
+        write(out/'complete.json',dict(complete=True,final_commit=head,pushed=True,wall_seconds=time.time()-start,
+            charged_seconds=time.time()-start+240,hard_maximum_seconds=2700))
+    except BaseException as e:
+        write(out/'failure.json',dict(error=repr(e),wall_seconds=time.time()-start,charged_seconds=time.time()-start+240))
+        raise
+
+if __name__=='__main__':main()
