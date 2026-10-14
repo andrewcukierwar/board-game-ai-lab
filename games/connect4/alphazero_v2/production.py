@@ -70,18 +70,30 @@ class ArtifactError(Exception):
 
 
 def read_bounded(path, limit, size_code):
-    """One no-follow open of a regular file; size checked on the open file and the read capped."""
+    """One nonblocking no-follow open; regular-file and size checks on the descriptor; capped read."""
+    flags = os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0) | getattr(os, "O_NONBLOCK", 0) | getattr(os, "O_CLOEXEC", 0)
     try:
-        descriptor = os.open(path, os.O_RDONLY | getattr(os, "O_NOFOLLOW", 0))
+        descriptor = os.open(path, flags)  # nonblocking: a FIFO cannot stall startup
     except OSError as error:
         raise ArtifactError("artifact_missing", "AlphaZero file is missing, unreadable or a symlink") from error
-    with os.fdopen(descriptor, "rb") as stream:
-        info = os.fstat(stream.fileno())
+    try:
+        info = os.fstat(descriptor)
         if not stat.S_ISREG(info.st_mode):
             raise ArtifactError("artifact_missing", "AlphaZero file is not a regular file")
         if not 0 < info.st_size <= limit:
             raise ArtifactError(size_code, "AlphaZero file size is outside its bound")
-        data = stream.read(limit + 1)
+        chunks, remaining = [], limit + 1
+        while remaining > 0:
+            chunk = os.read(descriptor, min(remaining, 1 << 20))
+            if not chunk:
+                break
+            chunks.append(chunk)
+            remaining -= len(chunk)
+    except OSError as error:
+        raise ArtifactError("artifact_missing", "AlphaZero file could not be read") from error
+    finally:
+        os.close(descriptor)
+    data = b"".join(chunks)
     if len(data) != info.st_size:
         raise ArtifactError(size_code, "AlphaZero file changed while it was read")
     return data

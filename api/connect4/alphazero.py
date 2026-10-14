@@ -8,6 +8,7 @@ Public responses carry stable codes, never paths, exceptions or model data.
 """
 import os
 from pathlib import Path
+import sys
 
 from .state import GameError
 
@@ -39,6 +40,8 @@ class AlphaZeroService:
         # OpenMP sizes its pool from OMP_NUM_THREADS when torch is first imported. Without
         # this, linux/arm64 kept ~one spinning worker per core: 3x CPU and 2.6x latency per
         # search despite torch.set_num_threads(1). Operators may still override it.
+        if 'torch' in sys.modules:
+            logger.warning('torch was imported before AlphaZero started; OpenMP threads may be unbounded')
         for name in THREAD_ENVIRONMENT:
             os.environ.setdefault(name, '1')
         try:

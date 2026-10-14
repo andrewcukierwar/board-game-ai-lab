@@ -225,7 +225,8 @@ def runtime():
     return dict(python=platform.python_version(), torch=str(torch.__version__), numpy=str(numpy.__version__),
                 platform=platform.platform(), machine=platform.machine(),
                 cpu_capability=str(torch.backends.cpu.get_cpu_capability()),
-                intra_op_threads=torch.get_num_threads())
+                intra_op_threads=torch.get_num_threads(),
+                thread_environment={k: os.environ.get(k) for k in ("OMP_NUM_THREADS", "MKL_NUM_THREADS")})
 
 
 def main():

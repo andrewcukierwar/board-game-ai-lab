@@ -182,6 +182,23 @@ def test_strict_loader_rejects_arbitrary_pickles_and_wrong_tensors(tmp_path):
         assert error.value.code == 'unsupported_architecture'
 
 
+@pytest.mark.parametrize('kind', ['directory', 'fifo'])
+@pytest.mark.parametrize('target', ['manifest', 'artifact'])
+def test_non_regular_files_fail_fast_without_leaking_descriptors(tmp_path, kind, target):
+    import os
+    path = copy_artifact(tmp_path)
+    victim = path if target == 'manifest' else tmp_path / ARTIFACT.name
+    victim.unlink()
+    os.mkdir(victim) if kind == 'directory' else os.mkfifo(victim)
+    approved = production.APPROVED_ARTIFACTS if target == 'manifest' else approval(path)
+    descriptors = len(os.listdir('/dev/fd'))
+    for _ in range(5):
+        with pytest.raises(ArtifactError) as error:  # a FIFO must not block
+            load_production_model(path, approved=approved)
+        assert error.value.code == 'artifact_missing'
+    assert len(os.listdir('/dev/fd')) == descriptors
+
+
 def test_failed_loads_are_not_cached(tmp_path):
     bad = copy_artifact(tmp_path, artifact_bytes=b'x' * ARTIFACT.stat().st_size)
     for _ in range(2):
