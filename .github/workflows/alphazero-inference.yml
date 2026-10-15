@@ -96,25 +96,66 @@ jobs:
           node-version: '22'
           cache: npm
           cache-dependency-path: ui/package-lock.json
-      - name: Chromium integration against isolated ARM64 inference
+      - name: Install Chromium integration dependencies
+        working-directory: ui
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Chromium AlphaZero integration — Victor enabled
         working-directory: ui
         env:
           BGAI_DEV_API_TARGET: http://127.0.0.1:18104
           VITE_VICTOR_RESEARCH_ENABLED: 'true'
+          VICTOR_LABS_UI: 'true'
           PLAYWRIGHT_API_URL: http://127.0.0.1:18104
           PLAYWRIGHT_BASE_URL: http://127.0.0.1:18115
         run: |
           set -euo pipefail
-          npm ci
-          npx playwright install --with-deps chromium
-          npm run dev -- --host 127.0.0.1 --port 18115 --strictPort >/tmp/vite.log 2>&1 &
+          npm run dev -- --host 127.0.0.1 --port 18115 --strictPort >/tmp/vite-enabled.log 2>&1 &
           ui_pid=$!
-          trap 'kill "$ui_pid"; docker rm -f bgai-az-ci || true' EXIT
+          trap 'kill "$ui_pid"; wait "$ui_pid" || true' EXIT
           for attempt in $(seq 1 30); do
             if curl -fsS http://127.0.0.1:18115 >/dev/null; then break; fi
             sleep 1
           done
-          npm run test:e2e -- --project=chromium e2e/alphazero.spec.js
+          PLAYWRIGHT_JSON_OUTPUT_NAME=test-results/enabled.json npm run test:e2e -- \
+            --project=chromium e2e/alphazero.spec.js --reporter=list,json --output=test-results/enabled
+          node scripts/verify-alphazero-playwright.mjs test-results/enabled.json true
+          # 30 executions across three controlled response/pause schedules.
+          PLAYWRIGHT_JSON_OUTPUT_NAME=test-results/stress.json npm run test:e2e -- \
+            --project=chromium e2e/alphazero.spec.js --grep 'Match autoplay busy bounded retries' \
+            --repeat-each=10 --reporter=list,json --output=test-results/stress
+      - name: Chromium AlphaZero integration — Victor disabled
+        working-directory: ui
+        env:
+          BGAI_DEV_API_TARGET: http://127.0.0.1:18104
+          VITE_VICTOR_RESEARCH_ENABLED: 'false'
+          VICTOR_LABS_UI: 'false'
+          PLAYWRIGHT_API_URL: http://127.0.0.1:18104
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:18116
+        run: |
+          set -euo pipefail
+          # Reuse the inference container; only the frontend process changes.
+          npm run dev -- --host 127.0.0.1 --port 18116 --strictPort >/tmp/vite-disabled.log 2>&1 &
+          ui_pid=$!
+          trap 'kill "$ui_pid"; wait "$ui_pid" || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:18116 >/dev/null; then break; fi
+            sleep 1
+          done
+          PLAYWRIGHT_JSON_OUTPUT_NAME=test-results/disabled.json npm run test:e2e -- \
+            --project=chromium e2e/alphazero.spec.js --reporter=list,json --output=test-results/disabled
+          node scripts/verify-alphazero-playwright.mjs test-results/disabled.json false
+      - name: Preserve browser reports and failure traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: alphazero-browser-results
+          path: |
+            ui/test-results/
+            /tmp/vite-enabled.log
+            /tmp/vite-disabled.log
+          retention-days: 14
       - name: Cleanup test container
         if: always()
         run: docker rm -f bgai-az-ci || true
