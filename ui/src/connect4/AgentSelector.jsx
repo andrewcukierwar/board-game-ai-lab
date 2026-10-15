@@ -64,6 +64,6 @@ export default function AgentSelector({ selection, select, busy, game, researchE
       </details>
       {selection.type === 'mcts_tactical' && <p className="search-warning">F1 may stop before its cap when it proves an outcome.</p>}
     </div>
-    <p className="settings-note">Settings apply when you start a new game.{activeOpponent && <span>Current game: <strong>{activeOpponent}</strong>{activeConfig.type === ALPHAZERO ? ` · safeguard ${activeConfig.tactical_guard ? 'On' : 'Off'}` : activeConfig.depth ? ` · depth ${activeConfig.depth}` : activeConfig.simulation_limit ? ` · ${activeConfig.simulation_limit} max simulations` : ''} · {game.players[0].type === 'human' ? 'You move first' : 'AI moves first'}.</span>}</p>
+    <p className="settings-note">Settings apply when you start a new game.{activeOpponent && <span>Current game: <strong>{activeOpponent}</strong>{activeConfig.type === ALPHAZERO ? ` · safeguard ${activeConfig.tactical_guard ? 'on' : 'off'}` : activeConfig.depth ? ` · depth ${activeConfig.depth}` : activeConfig.simulation_limit ? ` · ${activeConfig.simulation_limit} max simulations` : ''} · {game.players[0].type === 'human' ? 'You move first' : 'AI moves first'}.</span>}</p>
   </div>;
 }

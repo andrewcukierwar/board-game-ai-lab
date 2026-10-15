@@ -31,8 +31,9 @@ test('Tournament: modern default field, Human last in every slot, one-Human rule
   for (let i = 1; i <= 8; i++) {
     const labels = await page.locator(`#entrant-${i} option`).allTextContents();
     expect(labels.at(-1)).toBe('You · Human');
-    expect(labels.indexOf('AlphaZero (Experimental) · safeguard On')).toBeLessThan(labels.length - 1);
-    if (victor) expect(labels.indexOf('AlphaZero (Experimental) · safeguard On')).toBeLessThan(labels.indexOf('Victor Research (Experimental)'));
+    expect(labels).toContain('AlphaZero (Experimental) · safeguard off'); expect(labels).toContain('AlphaZero (Experimental) · safeguard on');
+    expect(labels.indexOf('AlphaZero (Experimental) · safeguard on')).toBeLessThan(labels.length - 1);
+    if (victor) expect(labels.indexOf('AlphaZero (Experimental) · safeguard on')).toBeLessThan(labels.indexOf('Victor Research (Experimental)'));
   }
   await page.locator('#entrant-8').selectOption({ label: 'You · Human' });
   await expect(page.locator('#entrant-1').getByRole('option', { name: 'You · Human', exact: true })).toBeDisabled();
@@ -47,7 +48,7 @@ test('Season: AI-only menus in canonical order and modern defaults at every size
   await page.goto('/connect4/season'); await expect(page.locator('#season-entrant-1 option', { hasText: 'AlphaZero' })).toHaveCount(2);
   const labels = await page.locator('#season-entrant-1 option').allTextContents();
   expect(labels.some(l => l.includes('Human'))).toBe(false);
-  expect(labels.at(-1)).toBe(victor ? 'Victor Research (Experimental)' : 'AlphaZero (Experimental) · safeguard On');
+  expect(labels.at(-1)).toBe(victor ? 'Victor Research (Experimental)' : 'AlphaZero (Experimental) · safeguard on');
   await expect(page.locator('.tournament-setup').getByRole('link', { name: 'Tournament Lab' })).toHaveAttribute('href', '/connect4/tournament');
   for (const size of [4, 6, 8, 10, 12]) {
     await page.locator('#season-size').selectOption(String(size));

@@ -11,12 +11,13 @@ import AgentSelector from '../src/connect4/AgentSelector.jsx';
 import CompetitorSelector from '../src/connect4/CompetitorSelector.jsx';
 import { entrantPresets, recommendedField } from '../src/connect4/competitionFields.js';
 import { AI_AGENT_ORDER, aiAgentTypes, playerTypes } from '../src/connect4/researchCompetitor.js';
-import { competitorLabel, NEGAMAX_DEPTHS, MCTS_SIMULATIONS, TACTICAL_MCTS_SIMULATIONS } from '../src/connect4/competitorConfig.js';
+import { competitorLabel, toPlayerPayload, NEGAMAX_DEPTHS, MCTS_SIMULATIONS, TACTICAL_MCTS_SIMULATIONS } from '../src/connect4/competitorConfig.js';
 import * as tournament from '../src/tournament/model.js';
 import * as season from '../src/season/model.js';
 import { STORAGE_KEY as TOURNAMENT_KEY } from '../src/tournament/storage.js';
 import { STORAGE_KEY as SEASON_KEY } from '../src/season/storage.js';
 import { status, provenance } from './fixtures/alphazero.js';
+import { ALPHAZERO_CAVEAT } from '../src/connect4/alphazero.js';
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 const flush = () => act(async () => { for (let i = 0; i < 4; i++) await new Promise(resolve => setImmediate(resolve)); });
@@ -159,7 +160,7 @@ test('N/O/P: Season defaults at sizes 4–12 are AI-only, valid, distinct and us
     assert.ok(season.createSeason(field, 1234, 2, 'defaults', victor, alphaZero ? provenance : undefined));
   }
   assert.deepEqual(recommendedField(4, { alphaZero: true, victor: true }).map(competitorLabel),
-    ['Negamax · depth 2', 'Classic MCTS · 500 simulations', 'Tactical MCTS · 400 max simulations', 'AlphaZero (Experimental) · safeguard Off']);
+    ['Negamax · depth 2', 'Classic MCTS · 500 simulations', 'Tactical MCTS · 400 max simulations', 'AlphaZero (Experimental) · safeguard off']);
   assert.deepEqual(recommendedField(8, { alphaZero: true, victor: true }), recommendedField(8, { alphaZero: true, victor: true }));
 });
 
@@ -170,12 +171,12 @@ test('E/F/G: Tournament page puts Human last in every slot and keeps the one-Hum
     const options = ui.options(`entrant-${i}`).filter(o => o.text !== '');
     assert.equal(options.at(-1).text, 'You · Human');
     const labels = options.map(o => o.text);
-    assert.ok(labels.indexOf('AlphaZero (Experimental) · safeguard Off') < labels.indexOf('AlphaZero (Experimental) · safeguard On'));
-    assert.ok(labels.indexOf('AlphaZero (Experimental) · safeguard On') < labels.indexOf('You · Human'));
-    assert.ok(labels.indexOf('Tactical MCTS · 2000 max simulations') < labels.indexOf('AlphaZero (Experimental) · safeguard Off'));
+    assert.ok(labels.indexOf('AlphaZero (Experimental) · safeguard off') < labels.indexOf('AlphaZero (Experimental) · safeguard on'));
+    assert.ok(labels.indexOf('AlphaZero (Experimental) · safeguard on') < labels.indexOf('You · Human'));
+    assert.ok(labels.indexOf('Tactical MCTS · 2000 max simulations') < labels.indexOf('AlphaZero (Experimental) · safeguard off'));
   }
   // G: the available backend's AlphaZero joins the untouched default field.
-  assert.deepEqual(fieldLabels(ui, 'entrant', 8).filter(l => l.startsWith('AlphaZero')), ['AlphaZero (Experimental) · safeguard Off', 'AlphaZero (Experimental) · safeguard On']);
+  assert.deepEqual(fieldLabels(ui, 'entrant', 8).filter(l => l.startsWith('AlphaZero')), ['AlphaZero (Experimental) · safeguard off', 'AlphaZero (Experimental) · safeguard on']);
   ui.setLabel('entrant-3', 'You · Human');
   assert.equal(ui.selected('entrant-3'), 'You · Human');
   for (const i of [1, 2, 4, 8]) assert.equal(ui.options(`entrant-${i}`).at(-1).disabled, true);
@@ -223,7 +224,7 @@ test('D/M/N/O: Season page is AI-only, orders AlphaZero after search agents and 
   assert.deepEqual(fieldLabels(ui, 'season-entrant', 8), edited);
   const labels = ui.options('season-entrant-1').map(o => o.text);
   assert.equal(labels.some(l => l.includes('Human')), false);
-  assert.equal(labels.at(-1), 'AlphaZero (Experimental) · safeguard On');
+  assert.equal(labels.at(-1), 'AlphaZero (Experimental) · safeguard on');
   for (const size of season.FIELD_SIZES) {
     ui.set('season-size', size);
     assert.deepEqual(fieldLabels(ui, 'season-entrant', size), recommendedField(size, { alphaZero: true }).map(competitorLabel));
@@ -303,7 +304,7 @@ test('M: an availability recheck keeps an untouched field stable; a confirmed lo
 
   refresh(); await flush();
   // Checking: menus fail closed, but the untouched field neither reshuffles nor drops AlphaZero.
-  assert.equal(ui.options('entrant-2').some(o => o.text === 'AlphaZero (Experimental) · safeguard Off'), false);
+  assert.equal(ui.options('entrant-2').some(o => o.text === 'AlphaZero (Experimental) · safeguard off'), false);
   assert.deepEqual(fieldLabels(ui, 'entrant', 8), withAlphaZero.map(l => l.startsWith('AlphaZero') ? `${l} · checking availability` : l));
   assert.doesNotMatch(ui.doc.body.textContent, /saved competition requires its original AlphaZero model/);
   responses.shift().resolve({ data: status }); await flush();
@@ -320,6 +321,43 @@ test('V/W: the hero names the neural agent only when the backend reports it avai
     const ui = render(React.createElement(Home, { http: client(discovery).http }));
     await flush();
     assert.equal(ui.doc.querySelector('.hero-description').textContent.includes('neural network'), neural);
+    ui.cleanup();
+  }
+});
+
+test('Final UI H/J: AlphaZero safeguard labels are lowercase; the boolean config and API payload are unchanged', () => {
+  for (const guard of [false, true]) {
+    const config = { type: AZ, tactical_guard: guard }, before = JSON.stringify(config);
+    assert.equal(competitorLabel(config), `AlphaZero (Experimental) · safeguard ${guard ? 'on' : 'off'}`);
+    assert.deepEqual(toPlayerPayload(config), { type: AZ, tactical_guard: guard });
+    assert.equal(JSON.stringify(config), before);
+  }
+  assert.deepEqual(entrantPresets({ alphaZero: true }).filter(c => c.type === AZ), [{ type: AZ, tactical_guard: false }, { type: AZ, tactical_guard: true }]);
+  assert.match(ALPHAZERO_CAVEAT, /safeguard off or on/);
+  for (const guard of [false, true]) {
+    const ui = render(React.createElement(AgentSelector, { selection: { type: 'negamax', depth: 2, simulations: 2000, first: 'human' }, select: () => {}, busy: false,
+      game: { players: [{ type: 'human' }, { type: AZ, tactical_guard: guard }] }, alphaZero: { available: true } }));
+    assert.match(ui.doc.querySelector('.settings-note').textContent, new RegExp(`Current game: AlphaZero \\(Neural MCTS\\) · safeguard ${guard ? 'on' : 'off'} ·`));
+    ui.cleanup();
+  }
+});
+
+test('Final UI I: saved Tournaments and Seasons with AlphaZero entrants load unchanged and show lowercase safeguard labels', async () => {
+  const field = recommendedField(8, { alphaZero: true });
+  for (const [Page, key, saved, path, prefix] of [
+    [TournamentLabPage, TOURNAMENT_KEY, tournament.createTournament(field, 77, undefined, false, provenance), 'tournament', 'entrant'],
+    [SeasonLabPage, SEASON_KEY, season.createSeason(field, 77, 2, undefined, false, provenance), 'season', 'season-entrant']]) {
+    const storage = memoryStorage({ [key]: JSON.stringify(saved) });
+    const ui = render(React.createElement(Page, { http: client('available').http, storage }), `http://localhost/connect4/${path}`);
+    await flush();
+    const text = ui.doc.body.textContent;
+    assert.match(text, /AlphaZero \(Experimental\) · safeguard off/);
+    assert.match(text, /AlphaZero \(Experimental\) · safeguard on/);
+    assert.doesNotMatch(text, /safeguard O(n|ff)/);
+    assert.equal(storage.values.get(key), JSON.stringify(saved), 'loading does not rewrite the saved record');
+    assert.deepEqual(saved.entrants.filter(e => e.config.type === AZ).map(e => e.config), [{ type: AZ, tactical_guard: false }, { type: AZ, tactical_guard: true }]);
+    ui.click([...ui.doc.querySelectorAll('button')].find(b => /^New (tournament|season)$/.test(b.textContent)));
+    assert.deepEqual(fieldLabels(ui, prefix, 8), field.map(competitorLabel));
     ui.cleanup();
   }
 });
